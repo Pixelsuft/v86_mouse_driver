@@ -1011,7 +1011,7 @@ V86Starter.prototype.screen_go_fullscreen = function()
     }
 
     //this.lock_mouse(elem);
-    this.lock_mouse();
+    //this.lock_mouse();
 };
 
 /**
