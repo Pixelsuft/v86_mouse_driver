@@ -1,0 +1,89 @@
+#runtime_infos {
+  float: left;
+  width: 250px;
+  margin-bottom: 7px;
+  margin-right: 7px;
+  padding-bottom: 7px;
+}
+
+#loading {
+  color: rgb(0, 255, 0);
+}
+
+#vga {
+  -webkit-transform-origin: top left;
+  -moz-transform-origin: top left;
+  transform-origin: top left;
+  background-color: #000;
+  cursor: none;
+}
+
+body {
+  background-color: #111;
+  color: #fff;
+  line-height: 1.5;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+a {
+  color: wheat;
+  text-decoration: none;
+}
+
+.phone_keyboard {
+  width: 0;
+  height: 0;
+  resize: none;
+  position: absolute;
+  opacity: 0;
+  left: -9999em;
+  top: 0;
+  z-index: -10;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+h4 {
+  margin: 0 0 9px 0;
+}
+
+#screen_container {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  outline: 1px solid #555;
+}
+
+#boot_options a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#boot_options td {
+  padding: 1px 7px;
+}
+
+#oses small {
+  font-size: 80%;
+  color: #ccc;
+  padding-left: 5px;
+}
+
+#oses tr {
+  cursor: pointer;
+}
+
+#oses {
+  border-spacing: 0;
+}
+
+#oses tr:hover {
+  background-color: #311;
+}
+
+#oses td:nth-child(1) {
+  white-space: pre;
+  vertical-align: top;
+}
