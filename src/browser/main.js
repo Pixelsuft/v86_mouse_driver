@@ -517,7 +517,6 @@ var index_path = -1;
         $("vga").onmousemove = function(e) {
           if(index_path !== -1)
           {
-            console.log(e);
             const full_string = (e.offsetX + "x" + e.offsetY + "      ").slice(0, 7);
             var utf8 = unescape(encodeURIComponent(full_string));
             var arr = [];
