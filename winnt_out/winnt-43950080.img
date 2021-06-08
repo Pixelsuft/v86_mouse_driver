@@ -1,0 +1,92 @@
+ LEDs, 19k2
+AddReg=All, MfgAddReg, Modem3.AddReg, Opt_Cellular, Opt_FaxClass1
+
+[Modem2]	; U-1496S     external with non back-light LCD, 16k8
+AddReg=All, MfgAddReg, Modem2.AddReg, Opt_Cellular, Opt_FaxClass1
+
+[Modem1]	; U-1496S+    external with back-light LCD, 19k2
+AddReg=All, MfgAddReg, Modem1.AddReg, Opt_Cellular, Opt_FaxClass1
+
+[Modem0]        ; U-1496 external (E,E+,S,S+), V32b and Fax Class 2 only
+AddReg=All, MfgAddReg, Modem0.AddReg, Opt_FaxClass2
+
+
+; AddReg sections
+
+[Modem10.AddReg] ; U-1496EA    external with LEDs, 16k8, Austrian PTT approved
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, 3c,00,00,00, 3c,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,e1,00,00, a0,41,00,00
+HKR,, FClass, 1, 5f,00,00,00
+
+[Modem9.AddReg]	; U-1496EA+   external with LEDs, 19k2, Austrian PTT approved
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, 3c,00,00,00, 3c,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,e1,00,00, 00,4b,00,00
+HKR,, FClass, 1, 5f,00,00,00
+
+[Modem8.AddReg]	; U-1496A     external with LCD, 19k2, Austrian PTT approved
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, 3c,00,00,00, 3c,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,e1,00,00, 00,4b,00,00
+HKR,, FClass, 1, 5f,00,00,00
+
+[Modem7.AddReg]	; U-1496P   external pocket modem, 16k8
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, a0,41,00,00
+HKR,, FClass, 1, 5f,00,00,00
+HKR, Init,      4,, "AT S49.7=1<cr>"
+HKR, Settings, InactivityTimeout,, "S50=<#>"
+
+[Modem6.AddReg]	; U-1496B   internal PC-Card, 16k8
+HKR,, DeviceType, 1, 02      ; Internal
+HKR,, PortDriver,, "serial.vxd"
+HKR,, Contention,, *vcd
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, a0,41,00,00
+HKR,, FClass, 1, 5f,00,00,00
+HKR, Settings, InactivityTimeout,, ""
+
+[Modem5.AddReg]	; U-1496B+  internal PC-Card, 16k8
+HKR,, DeviceType, 1, 02      ; Internal
+HKR,, PortDriver,, "serial.vxd"
+HKR,, Contention,, *vcd
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 00,4b,00,00
+HKR,, FClass, 1, 5f,00,00,00
+HKR, Settings, InactivityTimeout,, ""
+
+[Modem4.AddReg]	; U-1496E     external with LEDs, 16k8
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, a0,41,00,00
+HKR,, FClass, 1, 5f,00,00,00
+HKR, Settings, InactivityTimeout,, "S50=<#>"
+
+[Modem3.AddReg]	; U-1496E+    external with LEDs, 19k2
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 00,4b,00,00
+HKR,, FClass, 1, 5f,00,00,00
+HKR, Settings, InactivityTimeout,, "S50=<#>"
+
+[Modem2.AddReg]	; U-1496S    external with non back-light LCD, 16k8
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, a0,41,00,00
+HKR,, FClass, 1, 5f,00,00,00
+HKR, Settings, InactivityTimeout,, "S50=<#>"
+
+[Modem1.AddReg]	; U-1496S+   external with back-light LCD, 19k2
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 00,4b,00,00
+HKR,, FClass, 1, 5f,00,00,00
+HKR, Settings, InactivityTimeout,, "S50=<#>"
+
+[Modem0.AddReg] ; U-1496 external (E,E+,S,S+), V32b and Fax Class 2
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 49,00,00,00
+HKR, Settings, InactivityTimeout,, ""
+
+; User visible strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "ZyXEL Comm. Corp."
+
+; Model strings
+Modem17="U-1496SN  external LCD, 16k8, NMS-Version, Fax + Voice"
+Modem16="U-1496RN+ Rack-mounted Card, 19

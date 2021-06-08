@@ -1,0 +1,55 @@
+,, "\N0"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Responses, "1<cr>",  1, 02, 00, 00,00,00,00, 2C,01,00,00 ; CONNECT 300 (DTE) - Connection at 300 bps
+HKR, Responses, "5<cr>",  1, 02, 00, 00,00,00,00, B0,04,00,00 ; CONNECT 1200 (DTE) - Connection at 1200 bps
+HKR, Responses, "10<cr>", 1, 02, 00, 00,00,00,00, 60,09,00,00 ; CONNECT 2400 (DTE) - Connection at 2400 bps
+HKR, Responses, "11<cr>", 1, 02, 00, 00,00,00,00, C0,12,00,00 ; CONNECT 4800 (DTE) - Connection at 4800 bps
+HKR, Responses, "12<cr>", 1, 02, 00, 00,00,00,00, 80,25,00,00 ; CONNECT 9600 (DTE) - Connection at 9600 bps
+HKR, Responses, "14<cr>", 1, 02, 00, 00,00,00,00, 00,4B,00,00 ; CONNECT 19200 (DTE) - Connection at 19200 bps
+HKR, Responses, "15<cr>", 1, 02, 00, 00,00,00,00, 00,96,00,00 ; CONNECT 38400 (DTE) - Connection at 38400 bps
+HKR, Responses, "16<cr>", 1, 02, 00, 00,00,00,00, B0,04,00,00 ; CONNECT 1200/75 (DTE) - Connection at 1200/75 bps
+HKR, Responses, "17<cr>", 1, 02, 00, 00,00,00,00, B0,04,00,00 ; CONNECT 75/1200 (DTE) - Connection at 75/1200 bps
+HKR, Responses, "34<cr>", 1, 02, 00, 00,00,00,00, 20,1C,00,00 ; CONNECT 7200 (DTE) - Connection at 7200 bps
+HKR, Responses, "35<cr>", 1, 02, 00, 00,00,00,00, E0,2E,00,00 ; CONNECT 12000 (DTE) - Connection at 12000 bps
+HKR, Responses, "36<cr>", 1, 02, 00, 00,00,00,00, 40,38,00,00 ; CONNECT 14400 (DTE) - Connection at 14400 bps
+
+[M2105Reg] ; Megahertz C696FM, C596FM, T396FM, Z596FM, Z396FM
+HKR, Init, 2,, "AT&F0E0V0W1&C1&D2\G0\J0\Q3\N7<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Responses, "1<cr>",  1, 02, 00, 00,00,00,00, 2C,01,00,00 ; CONNECT 300 (DTE) - Connection at 300 bps
+HKR, Responses, "5<cr>",  1, 02, 00, 00,00,00,00, B0,04,00,00 ; CONNECT 1200 (DTE) - Connection at 1200 bps
+HKR, Responses, "10<cr>", 1, 02, 00, 00,00,00,00, 60,09,00,00 ; CONNECT 2400 (DTE) - Connection at 2400 bps
+HKR, Responses, "11<cr>", 1, 02, 00, 00,00,00,00, C0,12,00,00 ; CONNECT 4800 (DTE) - Connection at 4800 bps
+HKR, Responses, "12<cr>", 1, 02, 00, 00,00,00,00, 80,25,00,00 ; CONNECT 9600 (DTE) - Connection at 9600 bps
+HKR, Responses, "14<cr>", 1, 02, 00, 00,00,00,00, 00,4B,00,00 ; CONNECT 19200 (DTE) - Connection at 19200 bps
+HKR, Responses, "15<cr>", 1, 02, 00, 00,00,00,00, 00,96,00,00 ; CONNECT 38400 (DTE) - Connection at 38400 bps
+HKR, Responses, "16<cr>", 1, 02, 00, 00,00,00,00, B0,04,00,00 ; CONNECT 1200/75 (DTE) - Connection at 1200/75 bps
+HKR, Responses, "17<cr>", 1, 02, 00, 00,00,00,00, B0,04,00,00 ; CONNECT 75/1200 (DTE) - Connection at 75/1200 bps
+HKR, Responses, "34<cr>", 1, 02, 00, 00,00,00,00, 20,1C,00,00 ; CONNECT 7200 (DTE) - Connection at 7200 bps
+HKR, Responses, "35<cr>", 1, 02, 00, 00,00,00,00, E0,2E,00,00 ; CONNECT 12000 (DTE) - Connection at 12000 bps
+HKR, Responses, "36<cr>", 1, 02, 00, 00,00,00,00, 40,38,00,00 ; CONNECT 14400 (DTE) - Connection at 14400 bps
+
+[M2112Reg] ; Megahertz P2144, TX3144
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,E1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Off,, "&Q6S36=3S48=128"
+HKR, Settings, ErrorControl_On,, "&Q5S36=7S48=7"
+HKR, Settings, ErrorControl_Forced,, "&Q5S36=4S48=7"
+HKR, Settings, Compression_Off,, "%%C0S46=136"
+HKR, Settings, Compression_On,, "%%C3S46=138"
+
+[M2116Reg] ; Megahertz P296FMV
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Settings, ErrorControl_Off,,

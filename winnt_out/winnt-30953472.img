@@ -1,0 +1,68 @@
+                  = AGSL5SF1.PPD
+"AGFA-SelectSet 5000SF v2013.108"                      = AGSL5SF2.PPD
+"AGFA-SelectSet 7000"                                  = AGSS7000.PPD
+"AGFA-SelectSet 7000 v52.3"                            = AGSELS71.PPD
+"AGFA-SelectSet 7000SF v52.3"                          = AGSL7SF1.PPD
+"AGFA-SelectSet 7000SF v2013.108"                      = AGSL7SF2.PPD
+"AGFA-SelectSet Avantra 20"                            = AGSSAV20.PPD
+"AGFA-SelectSet Avantra 25"                            = AGSSAV25.PPD
+"AGFA-SelectSet Avantra 36"                            = AGSSAV36.PPD
+"AGFA-SelectSet Avantra 44"                            = AGSSAV44.PPD
+"AGFA-StudioSet 2000 v49.3 v52.3"                      = AGSTDS21.PPD
+"AGFA-StudioSet 2000SF v52.3"                          = AGST2SF1.PPD
+
+[Apple]
+"Apple Color LaserWriter 12/600"                       = APLWCOB1.PPD
+"Apple LaserWriter 12/640 PS"                          = APLWMGS1.PPD
+"Apple LaserWriter 16/600 PS"                          = APLWGRI2.PPD
+"Apple LaserWriter II NT v47.0"                        = LWNT_470.PPD
+"Apple LaserWriter II NTX v47.0"                       = LWNTX470.PPD
+"Apple LaserWriter II NTX v51.8"                       = LWNTX518.PPD
+"Apple LaserWriter II NTX-J v50.5"                     = AP_NTXJ1.PPD
+"Apple LaserWriter IIf v2010.113"                      = APLWIIF1.PPD
+"Apple LaserWriter IIg v2010.113"                      = APLWIIG1.PPD
+"Apple LaserWriter Plus v38.0"                         = APPLE380.PPD
+"Apple LaserWriter Plus v42.2"                         = APPLE422.PPD
+"Apple LaserWriter Pro 600"                            = APTOLLD1.PPD
+"Apple LaserWriter Pro 630"                            = APTOLLW1.PPD
+"Apple LaserWriter Pro 810"                            = APLW8101.PPD
+"Apple LaserWriter Select 360"                         = APLWSEL.PPD
+"Apple LaserWriter v23.0"                              = APPLE230.PPD
+"Apple Personal LaserWriter NTR v2010.129"             = APLWNTR1.PPD
+"LaserWriter Personal NT v51.8"                        = A_PNT518.PPD
+
+[APS-PS]
+"APS-PS PIP with APS-6-108 v49.3 or 52.2"              = APS08522.PPD
+"APS-PS PIP with APS-6-80 v49.3 or 52.2"               = APS80522.PPD
+"APS-PS PIP with LZR 1200 v49.3 or 52.2"               = APS12522.PPD
+"APS-PS PIP with LZR 2600 v49.3 or 52.2"               = APS26522.PPD
+
+[AST]
+"AST TurboLaser-PS v47.0"                              = AST__470.PPD
+
+[AT&T]
+"AT&T 470/475"                                         = CITOH.DLL
+"AT&T 473/478"                                         = OKI9IBM.DLL
+
+[Brother]
+"Brother HJ-100"                                       = CANON330.DLL
+"Brother HJ-100i"                                      = CANON330.DLL
+"Brother HJ-770"                                       = BRHJ770.DLL
+"Brother HL-10DV"                                      = PCL5MS.DLL
+"Brother HL-10h"                                       = PCL5EMS.DLL
+"Brother HL-10V"                                       = PCL5MS.DLL
+"Brother HL-1260"                                      = PCL5EMS.DLL
+"Brother HL-4"                                         = HPPCL.DLL
+"Brother HL-4V"                                        = PCL5MS.DLL
+"Brother HL-4Ve"                                       = PCL5MS.DLL
+"Brother HL-630"                                       = HPPCL.DLL
+"Brother HL-660"                                       = PCL5EMS.DLL
+"Brother HL-6V"                                        = PCL5MS.DLL
+"Brother HL-8"                                         = HPPCL.DLL
+"Brother HL-8D"                                        = HPPCL.DLL
+"Brother HL-8e"                                        = HPPCL.DLL
+"Brother HL-8V"                                        = PCL5MS.DLL
+"Brother M-1309"                                       = BROTHER9.DLL
+"Brother M-1324"                                       = BROTHR24.DLL
+"Brother M-1809"                                       = BROTHER9.DLL
+"Brother M-1818"                                       = BROTHER9.D

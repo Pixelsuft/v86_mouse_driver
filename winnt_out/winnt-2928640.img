@@ -1,0 +1,125 @@
+ns.
+Do you want to display them as files(Y/N)? ?
+I%1 does not exist.
+P
+%1 lost clusters found in %2 chains.
+These clusters and chains will be erased unless you convert
+them to files. Do you want to convert them to files(Y/N)? ?
+I%1 bytes disk space freed.
+W%1 bytes disk space would be freed.
+WNo recovered files can be added to
+the root directory.
+I
+%1 bytes total disk space.
+I%1 bytes in bad sectors.
+I%1 bytes in %2 hidden files.
+I%1 bytes in %2 directories.
+I%1 bytes in %2 user files.
+I%1 bytes in %2 recovered files.
+I%1 bytes would be in %2 recovered files.
+I%1 bytes available on disk.
+?
+?
+?
+?
+IProcessing cannot continue.
+EFile Allocation Table is bad on
+drive %1
+IThe volume label is %1.
+WA disk error occurred while
+writing to directory entry %1
+EThe system is unable to write to the
+root directory on drive %1
+?
+PThe system has detected a probable non-DOS disk.
+Do you want to continue? (Y/N)  WA disk error occurred while reading
+directory entry %1. The tree past this point
+will not be processed.
+IThe storage dump is being performed...
+IThe diskette is full.
+Insert another formatted diskette in drive A.
+EAn attempt to use the diskette in
+drive A for a storage dump failed.
+IInsert storage dump diskette number 1
+to complete the dump.
+IThe operating system dump diskette
+is being created.
+EThe CREATEDD utility cannot continue.
+EThe CREATEDD utility cannot find the diskette
+drive specified.
+IDump data exists on the diskette. Insert another
+CREATEDD diskette. Press Enter to continue.
+PAre you using a %1 megabyte diskette in drive %2 (Y/N)? IThe program ended prior to completion.
+IThe storage dump has completed.  Remove
+the dump diskette and restart the system.
+EThis diskette cannot be used with
+the CREATEDD utility.
+IThe storage address ranges on this diskette are:
+IThe OS/2 Remote Storage Dump Facility is being initiated.
+A storage dump will be performed.
+PInsert the dump diskette created by
+the CREATEDD utility into drive A and press
+any key to continue.
+PDiskette error. Insert another CREATEDD
+dump diskette and press any key to continue.
+ESystem trace information was not
+specified in your CONFIG.SYS file.
+IThe OS/2 Storage Dump Facility is not available for
+your system. Restart the system.
+EThe TRACE utility has detected an incorrect
+ON/OFF parameter.  The command is ignored.
+IThe TRACE utility detected an error in the major
+code %1, or its corresponding minor code. The event code is
+ignored.
+EThe TRACE utility cannot accept any of
+the major event codes that were entered. System trace
+points were not updated.
+IThe trace utility cannot accept any of the Trace Definition
+File(s) that were entered. Trace status for the DLL libraries was not updated.
+?
+EThe command is ignored because the Trace Utility
+detected a syntax error.
+EThe Trace Utility has detected an over-size error in %1.
+This file is ignored.
+PPress Enter to continue.
+EThe Trace Utility has detected an error in %1.
+This Trace Definition File is ignored.
+EThe Trace Utility was unable to locate %1, or the
+corresponding Dynamic Link Library module was not loaded.
+EThe trace utility detected an incorrect opcode(s) in %1.
+This trace definition file is ignored.
+EThis trace definition file is ignored because the trace
+utility detected an incorrect segment number in %1.
+?
+?
+?
+?
+?
+?
+EThe resources for this application are not available.
+?
+?
+?
+?
+?
+?
+?
+IA write error occurred when
+creating a spool file. The file has been
+truncated where the write error occurred.
+IAn error occurred when
+attempting to open the spool file for
+printing.
+ESpool failed to disable Ctrl+Break or Ctrl+C.
+EThe system cannot accept the SPOOL
+command in DOS mode.
+ISPOOL is running. Print data will be
+redirected from device %1 to device %2.
+ISPOOL is running. Data will be printed on device %1.
+ESPOOL cannot open the asynchronous device, SPOOL has ended.
+?
+EThe system cannot find the input
+device specified.
+EThe system cannot find the
+output device specified.
+EThe spool directory canno

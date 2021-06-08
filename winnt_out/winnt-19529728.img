@@ -1,0 +1,156 @@
+:*vnetbios,x:*dosnet
+
+[dlr13csd]
+warning=3
+driver=2:lanman.drv
+vxd=x:*vnetbios,x:*dosnet
+sysdir=2:netapi20.dll,2:pmspl20.dll
+update=3:lanman.hlp,3:winpopup.hlp,2:winpopup.exe
+
+[dlr20]
+system.ini=boot,network.drv,lansrv.drv
+vxd=x:*vnetbios,x:*dosnet
+update=3:winpopup.hlp,2:winpopup.exe
+
+[pclp]
+warning=2
+driver=1:msnet.drv
+vxd=x:*vnetbios,x:*dosnet
+system.ini=386Enh,INDOSPolling,TRUE
+
+[lmbasic]
+warning=2
+driver=1:msnet.drv
+vxd=x:*dosnet,x:*vnetbios,2:lanman10.386
+
+[lmbasic21]
+driver=1:msnet.drv
+vxd=x:*dosnet,x:*vnetbios,2:lanman10.386
+
+[lmenh20]
+warning=2
+driver=2:lanman.drv
+vxd=x:*vnetbios,x:*dosnet
+sysdir=2:netapi20.dll,2:pmspl20.dll
+update=3:lanman.hlp,2:winpopup.exe,3:winpopup.hlp
+
+[lmenh21nodrv]
+warning=3
+driver=1:msnet.drv
+vxd=x:*dosnet,x:*vnetbios
+
+[lmenh21]
+warning=2
+system.ini=boot,network.drv,lanman21.drv
+vxd=x:*vnetbios,x:*dosnet
+update=2:winpopup.exe,3:winpopup.hlp
+
+[novell301]
+warning=2
+driver=2:netware.drv
+vxd=x:*vnetbios,2:vnetware.386,2:vipx.386
+sysdir=3:netware.hlp,3:nwpopup.exe
+sysdir=2:ipx.obj,3:netx.com
+sysdir=3:ipxodi.com,2:lsl.com
+sysdir=3:tbmi2.com
+win.ini=windows,load,nwpopup.exe
+system.ini=386Enh,OverlappedIO=off
+
+[novell321]
+warning=2
+driver=2:netware.drv
+vxd=x:*vnetbios,2:vnetware.386,2:vipx.386
+sysdir=3:netware.hlp,3:nwpopup.exe
+sysdir=2:ipx.obj,3:netx.com
+sysdir=3:ipxodi.com,2:lsl.com
+sysdir=3:tbmi2.com
+win.ini=windows,load,nwpopup.exe
+system.ini=386Enh,OverlappedIO=off
+
+[novell326]
+driver=2:netware.drv
+vxd=x:*vnetbios,2:vnetware.386,2:vipx.386
+sysdir=3:netware.hlp,3:nwpopup.exe
+sysdir=2:ipx.obj,3:netx.com
+sysdir=3:ipxodi.com,2:lsl.com
+sysdir=3:tbmi2.com
+win.ini=windows,load,nwpopup.exe
+system.ini=386Enh,OverlappedIO=off
+
+[10net41]
+warning=2
+driver=1:msnet.drv
+vxd=x:*vnetbios,x:*dosnet
+system.ini=386Enh,TimerCriticalSection,10000
+
+[10net41a]
+warning=2
+driver=1:msnet.drv
+vxd=x:*vnetbios,x:*dosnet
+system.ini=386Enh,TimerCriticalSection,10000
+system.ini=386Enh,UniqueDOSPSP,TRUE
+system.ini=386Enh,PSPIncrement,5
+system.ini=386Enh,INDOSPolling,TRUE
+
+[10net42]
+system.ini=boot,network.drv,wtnet.drv
+vxd=x:*vnetbios,x:*dosnet
+system.ini=386Enh,TimerCriticalSection,10000
+windir=10net.ini
+
+[10net42def]
+warning=3
+driver=1:msnet.drv
+vxd=x:*dosnet,x:*vnetbios
+system.ini=386Enh,TimerCriticalSection,2000
+
+[10net50]
+warning=3
+system.ini=boot,network.drv,wtnet.drv
+vxd=x:*dosnet,x:*vnetbios
+system.ini=386Enh,TimerCriticalSection,2000
+windir=10net.ini
+
+[sysfonts]
+2:egasys.fon,"EGA (640x350) resolution System Font", "133,96,72"
+2:vgasys.fon,"VGA (640x480) resolution System Font", "100,96,96"
+2:8514sys.fon,"8514/a (1024x768) resolution System Font", "100,120,120"
+2:egasys.fon,"AT&T (640x400) resolution System Font", "120,96,80"
+
+[fixedfonts]
+1:egafix.fon,"EGA (640x350) resolution Fixed System Font", "133,96,72"
+2:vgafix.fon,"VGA (640x480) resolution Fixed System Font", "100,96,96"
+2:8514fix.fon,"8514/a (1024x768) resolution Fixed System Font",  "100,120,120"
+1:egafix.fon,"AT&T (640x400) resolution Fixed System Font", "120,96,80"
+
+[oemfonts]
+2:egaoem.fon,"EGA (640x350) resolution Terminal Font (USA/Europe)", "133,96,72",1
+2:vgaoem.fon,"VGA (640x480) resolution Terminal Font (USA/Europe)", "100,96,96",1
+2:8514oem.fon,"8514/a (1024x768) resolution Terminal Font (USA/Europe)", "100,120,120",1
+2:egaoem.fon,"AT&T (640x400) resolution Terminal Font (USA/Europe)","120,96,80",1
+
+;   The win.copy section is a list of files or sections to copy to the WINDOWS
+;   directoy.
+;
+;   FORMAT      from,to
+;
+;   IE
+;       1:foo.txt,  0:        copy foo.txt from disk 1 to the windows directory
+;       #386,       0:system  copy all files in the 386 SECTION to the
+;
+;
+[win.copy]
+; copy this section for setup on 286 machines
+   #net,       0:
+   #win.shell, 0:
+   #win.other, 0:system
+
+[win.copy.net]
+; copy this section for network setup on 286 machines
+   #net,              0:
+
+[win.copy.net.win386]
+; copy this section for network setup on 386 machines
+   #net,       0:
+
+[win.copy.win38

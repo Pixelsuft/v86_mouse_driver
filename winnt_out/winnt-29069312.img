@@ -1,0 +1,82 @@
+               goto configureTcp
+                endif
+checkBootp =+
+                OpenRegKey $(!REG_H_LOCAL) "" "System\Setup\DHCPRelay" $(MAXIMUM_ALLOWED) KeyRelay
+                set DHCP_UNATTENDED = ""
+                set DHCP_Temp = "NO"
+                ifstr(i) $(KeyRelay) != ""
+                    GetRegValue $(KeyTcpip) "GuiUnattended" DHCP_Temp
+                    set DHCP_UNATTENDED = *($(DHCP_Temp),4)
+                    CloseRegKey $(KeyRelay)
+                    OpenRegKey $(!REG_H_LOCAL) "" "System\Setup" $(MAXIMUM_ALLOWED) KeySetup
+                    DeleteRegTree $(KeySetup) "DHCPRelay"
+                    CloseRegKey $(KeySetup)
+                endif
+                Debug-Output "DHCP_UNATTENDED="$(DHCP_UNATTENDED)
+                Ifstr(i) $(DHCP_UNATTENDED) != YES
+                    set FLibraryErrCtl = 1
+                    LibraryProcedure ResultList, $(!TCPCFG_HANDLE), TcpBootRelayCfgCheck
+                    set FLibraryErrCtl = 0
+                    Set Result = *($(ResultList),1)
+                    ifint $(Result) == 0
+                        Debug-Output "OEMNXPTC.INF:  bootp configuration not required"
+                        set CommonStatus = STATUS_USERCANCEL
+                        goto end
+                    endif
+                endif
+            endif
+configureTcp =+
+            set FLibraryErrCtl = 1
+            OpenRegKey $(!REG_H_LOCAL) "" "System\Setup\Tcpip" $(MAXIMUM_ALLOWED) KeyTcpip
+            set Tcpip_GUI_UNATTENDED = "NO"
+            set Tcpip_UNATTENDED = ""
+            set Tcpip_UNATTENDED_SECTION = ""
+            set Tcpip_Temp = ""
+            ifstr(i) $(KeyTcpip) != ""
+                GetRegValue $(KeyTcpip) "GuiUnattended" Tcpip_Temp
+                set Tcpip_GUI_UNATTENDED = *($(Tcpip_Temp),4)
+                GetRegValue $(KeyTcpip) "Unattended" Tcpip_Temp
+                set Tcpip_UNATTENDED = *($(Tcpip_Temp),4)                 
+                GetRegValue $(KeyTcpip) "UnattendedSection" Tcpip_Temp
+                set Tcpip_UNATTENDED_SECTION = *($(Tcpip_Temp), 4)
+                CloseRegKey $(KeyTcpip)
+                OpenRegKey $(!REG_H_LOCAL) "" "System\Setup" $(MAXIMUM_ALLOWED) KeySetup
+                DeleteRegTree $(KeySetup) "Tcpip"
+                CloseRegKey $(KeySetup)
+            endif
+            Debug-Output "Tcpip_GUI_UNATTENDED="$(Tcpip_GUI_UNATTENDED)"Tcpip_UNATTENDED="$(Tcpip_UNATTENDED)"Tcpip_UNATTENDED_SECTION="$(Tcpip_UNATTENDED_SECTION)
+            LibraryProcedure ResultList, $(!TCPCFG_HANDLE), CPlTcpip, $(!STF_HWND), $(CardList), $(!STF_COMPUTERNAME), "", $(!STF_PRODUCT), $(Tcpip_GUI_UNATTENDED), $(Tcpip_UNATTENDED), $(Tcpip_UNATTENDED_SECTION)
+            set FLibraryErrCtl = 0
+            Set Result = *($(ResultList),1)
+            ifint $(Result) == 2
+                set CommonStatus = STATUS_REBOOT
+            else
+                set CommonStatus = STATUS_USERCANCEL
+            endif
+        else
+            set CommonStatus = STATUS_USERCANCEL
+        endif
+    else
+        Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+        set from = end
+        set to = end
+        goto nonfatalinfo
+    endif
+        goto end
+bindingadapter =+
+    ifstr(i) $(Option) == "TC"
+        ForListDo {"Browser","NetLogon"}
+            OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$($) $(MAXIMUM_ALLOWED) ServicesKey
+            ifstr(i) $(ServicesKey) != ""
+                GetRegValue $(ServicesKey) "DependOnService" ServicesList
+                debug-output "DependOnService:"$(ServicesList)
+                set ServiceValues = *($(ServicesList),4)
+                debug-output "DependOnService:"$(ServiceValues)
+                ifstr(i) $(ServiceValues) == {}
+                    Set ServiceValues = {"LmHosts"}
+                    Libr

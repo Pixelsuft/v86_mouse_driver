@@ -1,0 +1,119 @@
+
+          goto I_S_Return
+       endif
+    endif
+    set RegistryErrorIndex = NO_ERROR
+    CreateRegKey $(IS_KeyVersion) {NetRules,$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" IS_KeyNetRules
+    Ifstr $(IS_KeyNetRules) == $(KeyNull)
+       OpenRegKey $(IS_KeyVersion) "" NetRules $(MAXIMUM_ALLOWED) IS_KeyNetRules
+       Ifstr $(IS_KeyNetRules) == $(KeyNull)
+          set RegistryErrorIndex = UNABLE_CREATE_NETRULES_KEY
+          goto I_S_Return
+       endif
+    endif
+    Ifstr $(IS_Infname) != ""
+       Shell "", ReduceInfPath, $(IS_Infname)
+       SetRegValue $(IS_KeyNetRules) {InfName,$(NoTitle),$(!REG_VT_SZ),$($R0)}
+    endif
+I_S_Return = +
+    Ifstr $(IS_KeyProduct) != ""
+        Ifint $(IS_ProductCreated) == 1
+           Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+              Debug-Output "UTILITY.INF: DeleteRegTree Product Key"
+              set IS_KeyProduct = ""
+           endif
+        endif
+        Ifstr $(IS_KeyProduct) != ""
+           CloseRegKey $(IS_KeyProduct)
+        endif
+    endif
+    Ifstr $(IS_KeyMfg) != ""
+        Ifint $(IS_MfgCreated) == 1
+           Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+              Debug-Output "UTILITY.INF: DeleteRegTree Manufacturer Key"
+              set IS_KeyMfg = ""
+           endif
+        endif
+        Ifstr $(IS_KeyMfg) != ""
+           CloseRegKey $(IS_KeyMfg)
+        endif
+    endif
+    Ifstr $(IS_KeySoftware) != ""
+        CloseRegKey $(IS_KeySoftware)
+    endif
+    return $(RegistryErrorIndex), $(IS_KeyVersion), $(IS_KeyNetRules)
+[AddValueList]
+   set RegistryErrorIndex = NO_ERROR
+   ForListDo $($1)
+       SetRegValue $($0) $($)
+       ifint $(RegLastError) != 0
+          Debug-Output "UTILITY.INF: Value write fail data: "$($)
+          Debug-Output "UTILITY.INF: Value write fail key: "$($0)
+          return UNABLE_WRITE_REGISTRY
+       endif
+   EndForListDo
+   return $(RegistryErrorIndex)
+[DeleteSoftwareProduct]
+   set RegistryErrorIndex = NO_ERROR
+   Debug-Output "UTILITY.INF: DeleteRegTree Software Product"
+   DeleteRegTree $($0) ""
+   return $(RegistryErrorIndex)
+[VerExistedDlg]
+   set RegistryErrorIndex = NO_ERROR
+   set-subst LF = "\n"
+   read-syms VerExisted$(!STF_LANGUAGE)
+   set DlgText = $($0)+
+             $(ver)+
+             $($1)+
+             $(Text)
+   Shell "Subroutn.Inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(DlgText)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        set RegistryErrorIndex = ERROR
+   endif
+   return $(RegistryErrorIndex), $($R1)
+[CardExistedDlg]
+   set RegistryErrorIndex = NO_ERROR
+   set ButtonReturn = "OK"
+   ifstr(i) $(!STF_GUI_UNATTENDED) != "YES"
+       set-subst LF = "\n"
+       read-syms CardExisted$(!STF_LANGUAGE)
+       set DlgText = $(Text)
+       Shell "Subroutn.Inf" SetupMessage $(!STF_LANGUAGE) "WARNING" $(DlgText)
+       ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            set RegistryErrorIndex = ERROR
+       endif
+       set ButtonReturn = $($R1)
+   endif
+   return $(RegistryErrorIndex), $(ButtonReturn)
+[CreateService]
+    read-syms InitBaseVars
+    set CS_NameOfService = $($0)
+    set CS_DisplayName   = $($1)
+    set CS_ImagePath     = $($2)
+    set CS_TypeOfService = $($3)
+    set CS_Group         = $($4)
+    set CS_Dependencies  = $($5)
+    set CS_ObjectName    = $($6)
+    set CS_EventFile     = $($7)
+    set CS_TypeSupported = $($8)
+    ifstr(i) $(CS_TypeSupported) == ""
+        set CS_TypeSupported = 7
+    endif
+    set CS_EventLogLocation = $($9)
+    ifstr(i) $(CS_EventLogLocation) == ""
+        set CS_EventLogLocation = "System"
+    endif
+    set CS_ErrorControl = $($10)
+    ifstr(i) $(CS_ErrorControl) == ""
+        set CS_ErrorControl = 1
+    endif
+    set CS_EventSourceName = $($11)
+    ifstr(i) $(CS_EventSourceName) == ""
+        set CS_EventSourceName = $(CS_NameOfService)
+    endif
+    set CS_ParameterMessageFile = $($12)
+    set CS_KeyServices   = $($13)
+    set CS_KeyTempSvc    = ""
+    set CS_KeySvcManager = ""
+    set CS_KeyParameters = ""
+    set CS_KeyLinkage    = "

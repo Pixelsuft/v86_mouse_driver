@@ -1,0 +1,76 @@
+
+                     $(!STF_WINDOWSSYSPATH)
+        AddSectionFilesToCopyList Files-Ras-Drivers $(SourceDir) +
+                     $(!STF_WINDOWSSYSPATH)\drivers
+    else
+        ifstr(i) $(ServerInstalled) == FALSE
+            ifstr(i) $(ClientInstalled) == FALSE
+                AddSectionFilesToCopyList Files-Ras-Common $(SourceDir) +
+                             $(!STF_WINDOWSSYSPATH)
+                AddSectionFilesToCopyList Files-Ras-Drivers $(SourceDir) +
+                             $(!STF_WINDOWSSYSPATH)\drivers
+            endif
+        endif
+    endif
+InstallRasFiles1 = +
+    ifstr(i) $(!NTN_InstallMode) == "Update"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    else
+       ifstr(i) $(DoCopy) == "YES"
+          set !STF_NCPA_FLUSH_COPYLIST = TRUE
+          CopyFilesInCopyList
+       endif
+    endif
+    Debug-Output  "Done Copying Files"
+    exit
+[RemoveRasFiles]
+    ifstr(i) $(!NTN_InstallMode) == install
+        ifstr(i) $(DoCopy) == "NO"
+           Exit
+        endif
+    endif
+    set RemoveList = {}
+    set RenameList = {}
+    set fCommonRemoved = FALSE
+    ifstr(i) $(DoServer) == TRUE
+       set fCommonRemoved = TRUE
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASGTWYDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASGPRXYDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSPRXYEXE, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSRVEXE, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCTRSDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCTRSINI, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCTRNMH, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSAUTHDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASADMINDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMANDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMANEXE, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMSGDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMXSDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSERDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASIPXCPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASPPPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASPPPENDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASPAPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCHAPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSPAPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASIPCPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASIPHLPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASNBFCPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCCPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCBCPDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASNBIPCDLL, 1))
+       set RenameList = >($(RenameList), #(Files-RemoveList, ASYNCMACSYS, 1))
+       set RenameList = >($(RenameList), #(Files-RemoveList, NDISWANSYS, 1))
+    endif
+    ifstr(i) $(DoClient) == TRUE
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASDIALEXE, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASPHONEHLP, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCAUTHDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASAPI32DLL, 1))
+       ifstr(i) $(fCommonRemoved) == FALSE
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMANDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMANEXE, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMSGDLL, 1))
+           set RemoveList = >($(RemoveList), #(File

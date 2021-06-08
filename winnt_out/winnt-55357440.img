@@ -1,0 +1,175 @@
+tekp9
+; xga
+;
+; The below list are not autodetected
+;
+; 8514a
+; vga
+; trident
+;
+
+
+
+
+; detection section
+
+
+[detect]
+CopyFiles=detect.Miniport, detect.Display
+
+[detect.Services]
+ati         = ATI_COMPAT
+cirrus      = CIRRUS_COMPAT
+dell_dgx    = DELL_DGX_COMPAT
+et4000      = ET4000_COMPAT
+mga         = MGA_COMPAT
+mga_mil     = MGA_MIL_COMPAT
+ncr77c22    = NCR77C22_COMPAT
+qv          = QV_COMPAT
+s3          = S3_COMPAT
+v7vram      = V7VRAM_COMPAT
+wdvga       = WDVGA_COMPAT
+weitekp9    = WEITEKP9_COMPAT
+xga         = XGA_COMPAT
+
+; 8514a       don't detect since we generally want to use ATI
+; trident     we don't detect trident because old driver crashes on new chips.
+; vga         we never need to detect vga because of vga save.
+
+
+
+; 8514a Driver Section
+
+
+[8514a]
+CopyFiles=8514a.Miniport, 8514a.Display
+
+; Software Installation
+
+[8514a.SoftwareSettings]
+AddReg = 8514a_SoftwareDeviceSettings
+
+; Service Installation
+
+[8514a.Services]
+AddService = 8514a, 0x00000002, 8514a_Generic_Service_Inst, 8514a_EventLog_Inst
+
+[8514a_EventLog_Inst]
+AddReg = 8514a_EventLog_AddReg
+
+[8514a_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\8514a.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[8514a_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\8514a.sys
+
+
+
+; ati Driver Section
+
+
+[ati]
+CopyFiles=ati.Miniport, ati.Display
+
+; Software Installation
+
+[ati.SoftwareSettings]
+AddReg = ati_SoftwareDeviceSettings
+
+; Service Installation
+
+[ati.Services]
+AddService = ati, 0x00000002, ati_Generic_Service_Inst, ati_EventLog_Inst
+
+[ati_EventLog_Inst]
+AddReg = ati_EventLog_AddReg
+
+[ati_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\ati.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[ati_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\ati.sys
+
+
+
+
+; cirrus Driver Section
+
+
+[cirrus]
+CopyFiles=cirrus.Miniport, cirrus.Display
+
+; Software Installation
+
+[cirrus.SoftwareSettings]
+AddReg = cirrus_SoftwareDeviceSettings
+
+; Service Installation
+
+[cirrus.Services]
+AddService = cirrus, 0x00000002, cirrus_Generic_Service_Inst, cirrus_EventLog_Inst
+
+[cirrus_EventLog_Inst]
+AddReg = cirrus_EventLog_AddReg
+
+[cirrus_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\cirrus.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[cirrus_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\cirrus.sys
+
+
+
+; dell_dgx Driver Section
+
+
+[dell_dgx]
+CopyFiles=dell_dgx.Miniport, dell_dgx.Display
+
+; Software Installation
+
+[dell_dgx.SoftwareSettings]
+AddReg = dell_dgx_SoftwareDeviceSettings
+
+; Service Installation
+
+[dell_dgx.Services]
+AddService = dell_dgx, 0x00000002, dell_dgx_Generic_Service_Inst, dell_dgx_EventLog_Inst
+
+[dell_dgx_EventLog_Inst]
+AddReg = dell_dgx_EventLog_AddReg
+
+[dell_dgx_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\dell_dgx.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[dell_dgx_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\dell_dgx.sys
+
+
+
+
+; et4000 Driver Section
+
+
+[et4000]
+CopyFiles=et4000.Miniport, e

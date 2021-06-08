@@ -1,0 +1,94 @@
+ternal Cache Option   
+IDE Devices in Control Panel SCSI Devices    
+Intel EtherExpress 16 LAN Adapter
+Interrupt Conflicts   
+Installing Mwave Drivers for the IBM Thinkpad
+Installing IBM Thinkpad Utilities for Windows NT
+PCMCIA Cards   
+PCMCIA Notes   
+PCI Notebook Computers and PCMCIA Hard Disks    
+Plug and Play ISA Device Installation and PNPISA.SYS    
+PnP ISA SCSI    
+ROM Shadowing on Multiprocessor Systems    
+Running Windows NT version 4.0 on PCI Bus Systems   
+Windows NT SCSI Driver Changes   
+SCSI Device Interrogation Tool (SCSItool)   
+Video Notes   
+Cirrus Logic   
+Direct Draw
+S3   
+S15    
+Matrox    
+VDM (Virtual DOS Machine)   
+Weitek   
+Multimedia Hardware Notes    
+Installing Joystick Drivers   
+Plug and Play Sound Blaster Support
+Sound Blaster/ATAPI Problems
+Sound Blaster/SCSI Problems
+Distorted Sound Using Toshiba Laptop with Integrated Sound Card  
+Sound Blaster Pro 2 CT1600 Using Motorola Powerstack PPC   
+Determining if your system is capable of utilizing ESS audio support in Windows NT version 4.0    Application Notes   
+Long Printer Names    
+Screen Appearance   
+Windows 95 Applications and Microsoft Foundation Class Libraries   
+Opening Files Created in Windows NT by Using Windows version 3.x   
+Connecting to the Internet by Using MSN   
+Running Serial Communications Applications   
+Multimedia Applications   
+Disk Compression Programs  
+MS-DOS Issues   
+Running Applications that Attempt to Directly Access the Hardware   
+Specific Applications   
+
+
+This document contains information not available in the Microsoft® Windows NT® documentation set or in Help, as well as information on changes that occurred after publication.
+
+Additional information is available in the Setup.txt, Printer.wri, and Network.wri files. Setup.txt contains important pre-installation information. Printer.wri contains information related to printing, including information on specific printers. Network.wri contains information related to networks, including information on network adapter cards, network services, and interoperability.
+
+Using WordPad to View This Document
+If you enlarge the WordPad window to its maximum size, this document will be easier to read. To do so, click the Maximize button in the upper-right corner of the window. Or open the Control menu in the upper-left corner of the WordPad window (press ALT+SPACEBAR), and then click Maximize.
+
+To move through the document, press PAGE UP or PAGE DOWN. Or click the arrows at the top and bottom of the scroll bar along the right side of the WordPad window.
+
+To have the words wrap to the screen size or the ruler
+1. On the View menu, click Options.
+2. Click either Wrap to window or Wrap to ruler and then click OK.
+
+To print the document
+1. On the File menu, click Print.
+2. Select the printer, and then click OK.
+
+
+Before you call for support on a domain issue
+First, gather the following information: 
+• Version of Windows NT on affected machines 
+• Service Packs and hotfixes applied 
+• Exact error messages displayed on screen and in Event Viewer 
+• Protocols used on affected machines (in order of lana# preferred) 
+• What troubleshooting has already been done 
+• Is the problem intermittent? 
+
+If the issue is specific to an area below, make sure you have available  the following information: 
+WAN specific 
+• Intermediate devices (bridges, routers, switches) 
+• If TCP/IP, NetBIOS name resolution specifics (WINS, LMHOST (#PRE, #DOM)) 
+
+Trusts 
+• SID for Administrator account on ALL domain controllers (GETSID) 
+• Protocol order on PDCs for worstation and server bindings 
+
+Browsing 
+• Has it ever worked? 
+• What protocols are in use? 
+• Intermediate devices (bridges, routers, switches) 
+• Be prepared to use ResKit utils (browstat, browmon) 
+
+Clients / Security / User Profiles / Logon Scripts 
+• Does the problem occur on all clients? 
+• Does the problem occur for all user accounts? 
+
+License Manager 
+• Have licenses been added for the offending server? 
+• Has the PDC changed? 
+•Does the probl

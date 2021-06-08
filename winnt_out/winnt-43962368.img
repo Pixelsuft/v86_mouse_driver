@@ -1,0 +1,51 @@
+,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/MNP5<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V42b<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>", 1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/MNP4<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V42 <cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/MNP5<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V42b<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>", 1, 02, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ/MNP4<cr><lf>", 1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ/V42 <cr><lf>", 1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ/MNP5<cr><lf>", 1, 02, 03, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ/V42b<cr><lf>", 1, 02, 03, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, c0,12,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>", 1, 02, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ/MNP4<cr><lf>", 1, 02, 02, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ/V42 <cr><lf>", 1, 02, 02, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ/MNP5<cr><lf>", 1, 02, 03, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ/V42b<cr><lf>", 1, 02, 03, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, 20,1c,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>", 1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ/MNP4<cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ/V42 <cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ/MNP5<cr><lf>", 1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ/V42b<cr><lf>", 1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, 80,25,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>", 1, 02, 00, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ/MNP4<cr><lf>", 1, 02, 02, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ/V42 <cr><lf>", 1, 02, 02, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ/MNP5<cr><lf>", 1, 02, 03, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ/V42b<cr><lf>", 1, 02, 03, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, e0,2e,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ/MNP4<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ/V42 <cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR

@@ -1,0 +1,93 @@
+($(ValueItem),4)
+         Ifstr(i) $(ValueName) == "AdapterType"
+            set AdapterTypeValue  = $(ValueData)
+         else-Ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumberValue  = $(ValueData)
+         else-Ifstr(i) $(ValueName) == "BusType"
+            set BusTypeValue  = $(ValueData)
+         else-Ifstr(i) $(ValueName) == "Interrupt"
+            set InterruptValue  = $(ValueData)
+         else-Ifstr(i) $(ValueName) == "IoBase"
+            set IoBaseValue  = $(ValueData)
+         else-Ifstr(i) $(ValueName) == "MediaType"
+            set MediaTypeValue = $(ValueData)
+         else-Ifstr(i) $(ValueName) == "MemoryBase"
+            set MemoryBaseValue  = $(ValueData)
+         else-Ifstr(i) $(ValueName) == "PacketSize"
+            set PacketSizeValue  = $(ValueData)
+         else-Ifstr(i) $(ValueName) == "SlotNumber"
+            set SlotNumberValue = $(ValueData)
+         endif
+         Debug-Output "$(STF_CONTEXTINFNAME): $(ValueName) == .$(ValueData)."
+      EndForListDo
+   Endif
+GetAdapterConfigFromUser = +
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering GetAdapterConfigFromUser"
+   set from = GetAdapterConfigFromUser
+   set InterruptTextDlgDefault      = *($(InterruptTextList),+
+                                      ~($(InterruptValueList), +
+                                       $(InterruptValue)))
+   set MemoryBaseTextDlgDefault     = *($(MemoryBaseTextList),+
+                                      ~($(MemoryBaseValueList), +
+                                       $(MemoryBaseValue)))
+   set IoBaseTextDlgDefault         = *($(IoBaseTextList),+
+                                      ~($(IoBaseValueList), +
+                                       $(IoBaseValue)))
+   set SlotTextDlgDefault           = ~($(SlotSupportValueList), +
+                                       $(SlotSupportValue))
+   ifstr(i) $(TccOption) == "tc$arcnet"
+      read-syms TcarcIsaDlg
+   else-ifstr(i) $(TccOption) == "tc$tcns"
+      read-syms TcnsIsaDlg
+   else-ifstr(i) $(TccOption) == "tc$3147"
+      read-syms TcnsEisaDlg
+   else
+      read-syms TcarcIsaDlg
+   endif
+   ui start "InputDlg"
+   ifstr(i) $(DLGEVENT) == "CONTINUE"
+      ifstr(i) $(TccOption) == "tc$3147e"
+         set SlotNumberValue  = *($(SlotValueList),+
+                                ~($(SlotTextList),+
+                                $(Combo1Out)))
+      else
+         set InterruptValue   = *($(InterruptValueList),+
+                                ~($(InterruptTextList),+
+                                  $(Combo1Out)))
+         set IoBaseValue      = *($(IoBaseValueList),+
+                                ~($(IoBaseTextList),+
+                                 $(Combo2Out)))
+         set MemoryBaseValue  = *($(MemoryBaseValueList),+
+                                ~($(MemoryBaseTextList),+
+                                 $(Combo3Out)))
+      endif
+      ui pop 1
+      Debug-Output "$(STF_CONTEXTINFNAME): After Dialog..."
+      Debug-Output "$(STF_CONTEXTINFNAME): InterruptValue  == .$(InterruptValue)."
+      Debug-Output "$(STF_CONTEXTINFNAME): IoBaseValue     == .$(IoBaseValue)."
+      Debug-Output "$(STF_CONTEXTINFNAME): MemoryBaseValue == .$(MemoryBaseValue)."
+      Debug-Output "$(STF_CONTEXTINFNAME): SlotValue       == .$(SlotValue)."
+   else-ifstr(i) $(DLGEVENT) == "CANCEL"
+      set CommonStatus = STATUS_USERCANCEL
+      Debug-Output "$(STF_CONTEXTINFNAME): Dialog Action Exit. Bye."
+      ui pop 1
+      goto InstallOptionExit
+   else
+      set CommonStatus = STATUS_USERCANCEL
+      ui pop 1
+      Debug-Output "$(STF_CONTEXTINFNAME): Dialog Action Unknown.  Bye."
+      goto InstallOptionExit
+   endif
+AddAdapterSoftwareToRegistry = +
+   Ifstr(i) $(!NTN_InstallMode) == configure
+      goto AddAdapterConfigurationToRegistry
+   Endif
+   ifint $(OldVersionExisted) == $(TRUE)
+      goto AddAdapterHardwareToRegistry
+   Endif
+   Shell $(UtilityInf), +
+         AddSoftwareComponent, +
+         $(Manufacturer), +
+         $(TccBaseName), +
+         $(TccBaseName), +
+         $(

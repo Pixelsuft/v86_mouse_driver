@@ -1,0 +1,103 @@
+== STATUS_FAILED
+        Debug-Output "RemoveNwlnkRipService: error removing service dependency"
+    endif
+    set Status = STATUS_SUCCESSFUL
+RemoveNwlnkRipServiceEnd =+
+    Debug-Output "RemoveNwlnkRipService exit"
+    return $(Status)
+[InstallIsnSapService]
+    Debug-Output "InstallIsnSapService entry"
+    set Status  = STATUS_FAILED
+    set KeyNull = ""
+    Set SrcDir  = $(!STF_SRCDIR)
+    ifstr(i) $(!NTN_InstallMode) == "install"
+       set !STF_SRCDIR_OVERRIDE = $(SrcDir)
+    endif
+    set AddCopy  = YES
+    set DoCopy   = YES
+    set DoConfig = YES
+    set SaveNTN_InstallMode = $(!NTN_InstallMode)
+    set !NTN_InstallMode = install
+    Shell "oemnsvsa.inf" InstallOption $(!STF_LANGUAGE) "SAP"  +
+          $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) "RAS"
+    set !NTN_InstallMode = $(SaveNTN_InstallMode)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Error installing SAP agent"
+        Goto InstallIsnSapServiceEnd
+    Endif
+    Set InstallStatus = $($R0)
+    Ifstr(i) $(InstallStatus) != STATUS_SUCCESSFUL
+        Ifstr(i) $(InstallStatus) != STATUS_USERCANCEL
+            Debug-Output "InstallSapService returned "$(InstallStatus)
+            Goto InstallIsnSapServiceEnd
+        Endif
+    Endif
+    Shell "" AddServiceDependency "RemoteAccess" $(!ProductRASISNSAPName)
+    ifstr(i) $($R0) == STATUS_FAILED
+        Debug-Output "InstallIsnSapService: error adding service dependency"
+    endif
+    set Status = STATUS_SUCCESSFUL
+InstallIsnSapServiceEnd =+
+    Debug-Output "InstallIsnSapService exit"
+    return $(Status)
+[RemoveIsnSapService]
+    Debug-Output "RemoveIsnSapService entry"
+    set Status = STATUS_FAILED
+    set KeyNull = ""
+    Set SrcDir  = $(!STF_SRCDIR)
+    set AddCopy  = YES
+    set DoCopy   = YES
+    set DoConfig = YES
+    set SaveNTN_InstallMode = $(!NTN_InstallMode)
+    set !NTN_InstallMode = deinstall
+    Shell "oemnsvsa.inf" InstallOption $(!STF_LANGUAGE) "SAP"  +
+          $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) "RAS"
+    set !NTN_InstallMode = $(SaveNTN_InstallMode)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Error removing SAP agent"
+        Goto RemoveIsnSapServiceEnd
+    Endif
+    Set RemoveStatus = $($R0)
+    Ifstr(i) $(RemoveStatus) != STATUS_SUCCESSFUL
+        Ifstr(i) $(RemoveStatus) != STATUS_USERCANCEL
+            Debug-Output "RemoveIsnSapService returned "$(RemoveStatus)
+            Goto RemoveIsnSapServiceEnd
+        Endif
+    Endif
+    Shell "" RemoveServiceDependency "RemoteAccess" $(!ProductRASISNSAPName)
+    ifstr(i) $($R0) == STATUS_FAILED
+        Debug-Output "RemoveIsnSapService: error removing service dependency"
+    endif
+    set Status = STATUS_SUCCESSFUL
+RemoveIsnSapServiceEnd =+
+    Debug-Output "RemoveIsnSapService exit"
+    return $(Status)
+[WritePPPParameters]
+    Debug-Output "WritePPPParameters: entry"
+    Set Status = STATUS_FAILED
+    set KeyNull = ""
+    set RasManKeyName =  $(!NTN_ServiceBase)"\RasMan"
+    set RasManPPPKeyName =  $(!NTN_ServiceBase)"\RasMan\PPP"
+    set RasProtocolsKeyName = $(!NTN_SoftwareBase)"\Microsoft\RAS\PROTOCOLS"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasManKeyName) $(!MAXIMUM_ALLOWED) KeyRasMan
+    ifstr $(KeyRasMan) != $(KeyNull)
+       OpenRegKey $(KeyRasMan) "" "PPP" $(!MAXIMUM_ALLOWED) KeyRasManPPP
+       set NewValueList = {}
+       ifstr $(KeyRasManPPP) != $(KeyNull)
+           EnumRegValue $(KeyRasManPPP) NewValueList
+       else
+           CreateRegKey $(KeyRasMan) +
+                   {"PPP",0,GenericClass} "" $(!MAXIMUM_ALLOWED) "" KeyRasManPPP
+           CloseRegKey $(KeyRasMan)
+           ifstr $(KeyRasManPPP) == $(KeyNull)
+               Debug-Output "WritePPPParameters: error creating RasMan\ppp key"
+               goto WritePPPParametersEnd
+           endif
+       endif
+    else
+       Debug-Output "WritePPPParameters: error opening RasMan key"
+       goto UpdateCPListEnd
+    endif
+    ifstr(i) $(NewValueList) == {}
+        set NewValueList = {{MaxConfigure, 0, $(!REG_VT_DWORD), 10}, +
+ 

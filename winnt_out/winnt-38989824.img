@@ -1,0 +1,151 @@
+CurrCol)
+            CASE CHR$(0) + "M", CHR$(9)                     'Right or Tab
+                CurrCol = (CurrCol) MOD 3 + 1
+                PrintHelpLine help$(CurrCol)
+            CASE CHR$(0) + "<"                              'F2
+                finished = TRUE
+                Save = TRUE
+            CASE CHR$(27)                                   'Esc
+                finished = TRUE
+                Save = FALSE
+            CASE CHR$(13)                                   'Return
+            CASE ELSE
+                BEEP
+        END SELECT
+    LOOP UNTIL finished
+
+    IF Save THEN
+        GOSUB EditAccountsSaveData
+    END IF
+
+    EXIT SUB
+
+EditAccountsShowCursor:
+    COLOR colors(8, ColorPref), colors(9, ColorPref)
+    LOCATE CurrRow + 4, col(CurrCol)
+    PRINT LEFT$(edit$(CurrRow, CurrCol), Vis(CurrCol));
+    RETURN
+
+EditAccountsEditItem:
+    COLOR colors(8, ColorPref), colors(9, ColorPref)
+    ok = FALSE
+    start$ = Kbd$
+    DO
+        Kbd$ = GetString$(CurrRow + 4, col(CurrCol), start$, end$, Vis(CurrCol), Max(CurrCol))
+        edit$(CurrRow, CurrCol) = LEFT$(end$ + SPACE$(Max(CurrCol)), Max(CurrCol))
+        start$ = ""
+
+        IF CurrCol = 3 THEN
+            X$ = UCASE$(end$)
+            IF X$ = "A" OR X$ = "L" OR X$ = "" OR X$ = " " THEN
+                ok = TRUE
+                IF X$ = "" THEN X$ = " "
+                edit$(CurrRow, CurrCol) = X$
+            ELSE
+                BEEP
+            END IF
+        ELSE
+            ok = TRUE
+        END IF
+        
+    LOOP UNTIL ok
+    RETURN
+
+EditAccountsHideCursor:
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    LOCATE CurrRow + 4, col(CurrCol)
+    PRINT LEFT$(edit$(CurrRow, CurrCol), Vis(CurrCol));
+    RETURN
+
+
+EditAccountsSaveData:
+    FOR a = 1 TO 19
+        account(a).Title = edit$(a, 1)
+        account(a).Desc = edit$(a, 2)
+        account(a).AType = edit$(a, 3)
+    NEXT a
+    SaveState
+    RETURN
+
+END SUB
+
+'EditTrans:
+'  This is the full-screen editor which allows you to enter and change
+'  transactions
+SUB EditTrans (item)
+
+    'Stores info about each column
+    REDIM help$(6), col(6), Vis(6), Max(6), CurrString$(3), CurrFig#(5)
+    'Array to keep the current balance at all the transactions
+    REDIM Balance#(1000)
+
+    'Open random access file
+    file$ = "money." + Cvit$(item)
+    OPEN file$ FOR RANDOM AS #1 LEN = 84
+    FIELD #1, 8 AS IoDate$, 10 AS IoRef$, 50 AS IoDesc$, 8 AS IoFig1$, 8 AS IoFig2$
+    FIELD #1, 11 AS valid$, 5 AS IoMaxRecord$, 8 AS IoBalance$
+
+    'Initialize variables
+    CurrString$(1) = ""
+    CurrString$(2) = ""
+    CurrString$(3) = ""
+    CurrFig#(4) = 0
+    CurrFig#(5) = 0
+
+    GET #1, 1
+    IF valid$ <> "THISISVALID" THEN
+        LSET IoDate$ = ""
+        LSET IoRef$ = ""
+        LSET IoDesc$ = ""
+        LSET IoFig1$ = MKD$(0)
+        LSET IoFig2$ = MKD$(0)
+        PUT #1, 2
+        LSET valid$ = "THISISVALID"
+        LSET IoMaxRecord$ = "1"
+        LSET IoBalance$ = MKD$(0)
+        PUT #1, 1
+    END IF
+
+    MaxRecord = VAL(IoMaxRecord$)
+
+    Balance#(0) = 0
+    a = 1
+    WHILE a <= MaxRecord
+        GET #1, a + 1
+        Balance#(a) = Balance#(a - 1) + CVD(IoFig1$) - CVD(IoFig2$)
+        a = a + 1
+    WEND
+    GOSUB EditTransWriteBalance
+
+    help$(1) = "Date of transaction (mm/dd/yy) "
+    help$(2) = "Transaction reference number   "
+    help$(3) = "Transaction description        "
+    help$(4) = "Increase asset or debt value   "
+    help$(5) = "Decrease asset or debt value   "
+
+    col(1) = 2
+    col(2) = 11
+    col(3) = 18
+    col(4) = 44
+    col(5) = 55
+
+    Vis(1) = 8
+    Vis(2) = 6
+    Vis(3) = 25
+    Vis(4) = 10
+    Vis(5) = 10
+
+    Max(1) = 8
+    Max(2) = 6
+    Max(3) = 25
+    Max(4) = 10
+    Max(5) = 10
+
+
+    'Draw Screen
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    Box 2, 1, 24, 80
+
+    COLOR colors(5, ColorPref), colors(4, ColorPref)
+    LOCATE 1, 1: PRINT SPACE$(80);
+    LOCATE 1, 4: PRINT "Transaction Editor: " + Trim$(account(item).Title

@@ -1,0 +1,53 @@
+\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasysg.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga869.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafixg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasysg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga869.fon
+
+[Font.CP437.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,8514fix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,8514sys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,8514oem.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,8514fix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,8514sys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,8514oem.fon
+
+[Font.CP737.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,8514fixg.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,8514sysg.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,8514oemg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,8514fixg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,8514sysg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,8514oemg.fon
+
+[Font.CP775.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,85f1257.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,85s1257.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,85775.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,85f1257.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,85s1257.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,85775.fon
+
+[Font.CP850.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,8514fix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,8514sys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,8514oem.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,8514fix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,8514sys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,8514oem.fon
+
+[Font.CP852.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,8514fixe.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,8514syse.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,8514oeme.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,8514fixe.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,8514syse.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,8514oeme.fon
+
+[Font.CP855.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,8514fixr.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,8514sysr.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,8514oemr.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,8514fixr.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,8514sysr.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Sof

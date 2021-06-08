@@ -1,0 +1,186 @@
+ = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0810
+
+[0000080a]
+;
+; Mexican Spanish
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.010
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.080a
+
+[0000040a]
+;
+; Spanish (traditional sort)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.010
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.040a
+
+[00000c0a]
+;
+; Spanish (modern sort)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.010
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0c0a
+
+[00000816]
+;
+; Portuguese
+;
+CopyFiles = NLS.Western,@c_860.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Registry.CP860
+AddReg = NLS.Setlang.0816
+
+[00000416]
+;
+; Brazilian Portuguese
+;
+CopyFiles = NLS.Western,@c_860.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Registry.CP860
+AddReg = NLS.Setlang.0416
+
+[00001009]
+;
+; Canadaian English
+;
+CopyFiles = NLS.Western,@c_863.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Registry.CP863
+AddReg = NLS.Setlang.1009
+
+[00000c0c]
+;
+; Canadian French
+;
+CopyFiles = NLS.Western,@c_863.nls
+CopyFiles=oso001.012
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Registry.CP863
+AddReg = NLS.Setlang.0c0c
+
+[00000406]
+;
+;Danish
+;
+CopyFiles = NLS.Western,@c_865.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Registry.CP865
+AddReg = NLS.Setlang.0406
+
+[00000414]
+;
+; Norwegian (Bokmal)
+;
+CopyFiles = NLS.Western,@c_865.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Registry.CP865
+AddReg = NLS.Setlang.0414
+
+[00000814]
+;
+; Norwegian (Nynorsk)
+;
+CopyFiles = NLS.Western,@c_865.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Registry.CP865
+AddReg = NLS.Setlang.0814
+
+[0000041d]
+;
+; Swedish
+;
+CopyFiles = NLS.Western,@c_865.nls
+CopyFiles=oso001.029
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Registry.CP865
+AddReg = NLS.Setlang.041d
+
+[00000402]
+;
+;Bulgarian
+;
+CopyFiles = NLS.Cyrillic
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Cyrillic,NLS.Registry.OEMCP866
+AddReg = NLS.Setlang.0402,Font.NonCP1252.Substitutes
+
+[00000419]
+;
+; Russian
+;
+CopyFiles = NLS.Cyrillic
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Cyrillic,NLS.Registry.OEMCP866
+AddReg = NLS.Setlang.0419,Font.NonCP1252.Substitutes
+
+[0000041a]
+;
+;Croatian
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @c_852.nls,@c_1250.nls,@c_10029.nls,@c_10082.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Croatia,NLS.Registry.OEMCP852
+AddReg = NLS.Setlang.041a,Font.NonCP1252.Substitutes
+
+[00000405]
+;
+;Czech
+;
+CopyFiles = NLS.EasternEurope
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.EasternEurope,NLS.Registry.OEMCP852
+AddReg = NLS.Setlang.0405,Font.NonCP1252.Substitutes
+
+[0000040e]
+;
+; Hungarian
+;
+CopyFiles = NLS.EasternEurope
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.EasternEurope,NLS.Registry.OEMCP852
+AddReg = NLS.Setlang.040e,Font.NonCP1252.Substitutes
+
+[00000415]
+;
+; Polish
+;
+CopyFiles = NLS.EasternEurope
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.EasternEurope,NLS.Registry.OEMCP852
+AddReg = NLS.Setlang.0415,Font.NonCP1252.Substitutes
+
+[00000418]
+;
+; Romanian

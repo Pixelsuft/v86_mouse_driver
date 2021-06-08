@@ -1,0 +1,54 @@
+ng DIP switch settings are required for all Epson 9-pin and 24-pin printers: 
+Auto LineFeed: OFF Skip Over Perf: OFF
+
+Fujitsu 9-Pin and 24-Pin Printers Supported by Windows NT
+The following DIP switch settings are required for all Fujitsu 9-pin and 24-pin printers: 
+Color: AUTOSEL LF Code: LF Only CR Code: CR Only Emulate: DPL24/DPL24C
+
+Mannesmann Tally 9-Pin and 24-Pin Printers Supported by Windows NT 
+The emulation on the MT 130/9, MT 131/9, MT 230/9, MT 230/18, and MT 340 models should be set to ANSI + IBM ProPrinter. See your printer manual for details on how to make this change. 
+
+The emulation on the MT 130/24, MT 131/24, MT 230/24, and MT 330 models should be set to ANSI + Epson LQ2500 emulation. See your printer manual for details on how to make this change.
+
+Olivetti 9-Pin and 24-Pin Printers Supported by Windows NT 
+These printers should be set to Epson mode. See your printer manual for details on how to set the emulation.
+
+Seikosha LT-20
+The following DIP switch setting is required: 
+AGM mode: ON Code page: 850
+
+Hewlett-Packard, Canon, and PCL Printers 
+This section contains information specific to printing on Hewlett-Packard, Canon, and PCL printers.
+
+PCL Printers: Setting Printer Memory
+When you create a PCL printer, make sure that the memory specified in the printer’s Properties Device Settings tab matches the memory your printer contains. Specifying an incorrect amount of memory can cause the printer to print incorrectly. 
+
+HP LaserJet IIIsi Language Switching
+System language switching must be set to ON (SYS SWITCH=ON*) when printing to LaserJet IIIsi printers. If language switching is set to OFF, the printer may not print. 
+
+HP LaserJet IIIsi in PostScript Mode
+If you are using a LaserJet IIIsi printer in PostScript mode, unless you are writing PostScript programs and need error information for debugging, make sure the PRT PS ERRS option on your printer panel menu is turned off (the factory-default setting). If this option is on, your print jobs pause, and a message appears on your printer panel each time a PostScript error is encountered. In most cases, your documents still print, but the printing process is interrupted.
+
+HP LaserJet Series III:  Upgrading Printer Drivers
+The HP LaserJet III printer driver included with Windows NT is named HPPCL5MS.DRV. In earlier versions of Windows, this driver was named HPPCL5A.DRV. If you upgrade to Windows NT, the Setup program updates the printer driver for the HP LaserJet III printer. However, some applications store the information about the printer driver file with the document, and if you try to print a document that you created before you upgraded to Windows NT, you may receive a message notifying you that the printer driver cannot be found. If this problem occurs, choose the Printer Setup command in your application to update the driver information stored in the document. 
+
+Hewlett-Packard 5L
+When you print to your HP LaserJet 5L the following error message might appear:
+Error writing to <port name> for <document name>. The system cannot find the file specified.
+
+This error might indicate that your HP LaserJet 5L failed to power-on (or "wake up") after entering Sleep Mode.
+
+If your HP LaserJet 5L fails to power-on (or "wake up") after entering Sleep Mode, contact Hewlett-Packard at (208) 323-2551.
+
+HP PaintJet XL Margins
+You should set all margins to at least 0.5-inch for the PaintJet XL. If clipping occurs, increase the margin on the clipped side. 
+
+Additional Printers and Font Packages
+This section contains information specific to font packages and printing on miscellaneous printers.
+
+Digital PrintServer Printers
+Digital Equipment Corporation PrintServer printers are smart devices that can be soft loaded from your Windows NT Workstation or Server by using bootp and tftp.
+
+If your printer is configured but will not soft load, and if ?54 appears on the front panel of the PrintServer, try the following:
+
+· Configure the proper hardware address for the PrintServer printer in Printers folder. Select the PrintS

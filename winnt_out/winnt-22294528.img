@@ -1,0 +1,62 @@
+k the Program tab.
+4. In the cmd line box, type COMMAND.COM. 
+5. Click Windows NT.
+6. In Windows NT PIF Settings box, specify the names of the custom startup files you created. Click OK.
+7. Click the Misc. tab. Under Other, ensure that the Fast Pasting box is checked.
+
+Running Applications that Attempt to Directly Access the Hardware 
+Any MS-DOS based or 16-bit Windows based application that attempts to directly access the hardware fails under Windows NT. Windows NT does not allow applications to directly access hardware. Consequently, applications that attempt to directly access the hardware fail.
+
+Specific Applications
+
+Software Applications by Edmark
+The auto start for Windows95 Edmark applications does not work in Windows NT. Click OK to close the error message dialog box.
+
+The following applications have exhibited this problem:    
+Bailey's Book House
+Millie's Math House
+Sammy's Science House
+Thinkin' Things Collection 1
+Strategy Games of the World.
+
+To install the software
+1. Click Start, and then click Run.
+2. Type the drive letter of your CD-ROM drive.
+3. Double-click the Edinst directory.
+4. Double-click the Stub31.exe file.
+The installation program should begin.
+
+4DOS for Windows NT
+In older versions of 4DOS the dir and free commands may give inaccurate low values for drives over 2GB. Contact J.P. Software at 617.646.3975 or http://www.drff.com/~drff/jpsoft.htm for upgrade information.
+
+7th Guest
+This application does not run under Windows NT.
+
+ABC FlowCharter
+FlowCharter cannot save charts. The application misinterprets the operating system version information and fails to display the Save dialog box. Contact Micrografx at (214) 234-2694 or online at http://www.micrografx.com for upgrade information.
+
+ABC Graphics Suite
+Customers might experience difficulties running ABC Graphics Suite under Windows NT, versions 3.51 and 4.0. Some problems with early versions of the Graphics Suite applications have been corrected with later releases. Contact Micrografx support at (214) 234-2694 or online at http://www.micrografx.com for more information. See also the separate entries for ABC FlowCharter, Instant 3D, Micrografx Designer and Micrografx Picture Publisher later in these release notes.
+
+Adobe File Utilities 1.0
+Adobe File Utilities version 1.0 does not automatically create a group in the Programs menu when installed under Windows NT version 4.0. Access the program by using the Windows NT Explorer or modify the Start menu.
+A new nested folder cannot be created by Adobe File Utilities Setup program. You must create the destination folder if it does not already exist before running Setup.
+
+Adobe PageMaker 6.0
+Error boxes appear occasionally, but they rarely prevent the application from functioning. Adobe will release a fix for Windows NT version 4.0.
+
+If font smoothing is enabled, you cannot skew text. To disable font smoothing, from Display in Control Panel, click the Plus! tab and clear the Smooth edges of screen fonts check box.
+
+Adobe Photoshop 2.5
+When using Adobe Photoshop version 2.5, image windows may not repaint properly if you are using 256 colors and open grayscale files. Also, loading pattern files (*.AI) in Photoshop 2.5 may fail. You will receive a message such as:
+“Could not open C:\PHOTOSHOP\PATTERNS\[FILENAME].AI because Photoshop was unable to parse the PostScript.”
+
+If you choose OK in the dialog box, you can continue working in Photoshop, but you can't access the specified pattern file.
+
+Other windows may not repaint properly when you are running Adobe Photoshop using 256 colors and an operation, such as restoring a file, changes the color palette.
+
+After Dark
+When CTRL+ESC is pressed to display the Start menu, After Dark will not recognize keyboard or mouse activity, and the screen saver will start even when the computer is in use. If you press CTRL+ESC, close and restart After Dark.
+
+Aladdin Dongle Driver
+If problems occur when you use the Aladdin professional software protection system device driver (HASP), upgrade to the latest versio

@@ -1,0 +1,77 @@
+ty.
+
+Dashboard 95
+Several Dashboard 95 features available under Windows 95 are missing under Windows NT version 4.0. For more information, contact Starfish Technical Support. (On the Microsoft Network and other online services, GO Starfish.)
+
+DeLorme Map'n'Go 1.0
+When you install DeLorme Map'n'Go 1.0 under Windows NT, the following error message appears:
+
+Could not open the file named 'C:\WINDOWS\MPLAYER.INI'.
+
+If you click Ignore to continue installing DeLorme Map'n'Go 1.0, later during installation, a fault occurs, and the following message appears:
+
+An error has occurred in your application.
+
+These errors are harmless. In each case, choose Ignore to continue installing DeLorme Map'n'Go 1.0.
+
+Delrina CommSuite
+Setup misinterprets the Windows NT 4.0 version information. Applications will not install.
+
+Delrina WinFax Pro 4.0
+Delrina WinFax Pro 4.0 does not add a folder to the Start/Programs menu.
+
+Delrina WinFax Pro 7.0
+The application is not supported because device drivers are not yet available.
+
+DeScribe
+DeScribe cannot view network printers.
+
+DeskScan II, version 2.3
+Hewlett-Packard DeskScan II version 2.3 runs only on Windows 95 and does not run on Windows NT.
+
+Obtain version 2.2 from Hewlett-Packard from one of the following electronic locations:
+
+CompuServe
+GO HPPERIn the ScanJet Library, download the following file:DS22EN.EXE.  Description: HP DeskScan for Windows 3.1 v2.2Size: 1203301Date: 9/19/95
+
+On the Internet
+Connect to http://www.hp.com/cposupport/indexes/swin_dos.html.  Download the file DS22EN.EXE (DS22xx.EXE)
+
+Director 4.04
+Director may cause an error while importing a 1MB or larger graphics file across a network.
+
+Director 5.0
+· When using the ANIMWIZ dialog box, the cursor flashes from a pointer to an I-bar when placed over the text edit area.
+
+· Director, Photoshop, and other 3rd party filters are not accessable when selecting Filter Bitmap from the Xtras menu in either Windows NT version 4.0 or Windows NT version 3.51.
+
+· If you notice that your Windows NT desktop changes colors after exiting Director, use the Display icon in Control Panel to reset the desktop screen colors.
+
+· Several Director dialog boxes offer a shortcut key combination such as ALT+C to open the color palette. The shortcut key combinations do not work on Windows NT version 4.0, Windows NT version 3.51, or Windows 95.
+
+Ecco Personal Information Manager version 3.0
+The 16-bit version of Ecco Personal Information Manager does not work with Windows Messaging or other 32-bit applications. Contact Ecco Technical support at (206) 885-0559.
+
+eXalt 
+eXalt will fail during certain cut-and-paste operations. Contact Intergraph Corporation for more information.
+
+eXceed 4.0 (x86 Compatible & RISC)
+Install eXceed on a FAT or uncompressed NTFS drive, or create an uncompressed installation directory on the compressed NTFS drive before installing eXceed 4.0. 
+RISC versions of eXceed 4.0 do not work correctly with long file names or NTFS compression. An error box “Cannot create directory…” appears when installing on a compressed NTFS drive.
+
+Various problems are corrected in eXceed version 5.0. Contact Hummingbird at (416) 496-2000 for upgrade information.
+
+eXceed 5.0 (x86 Compatible)
+Error messages relating to the HCL (Hummingbird Communications Ltd.) Inetd service may appear when upgrading, if Inetd is installed as a Windows NT service. An error box may appear when launching the Inetd service for configuration, but configuration proceeds as expected. An Access Violation may occur when stopping the Inetd service. 
+
+F-19 Stealth Fighter
+This application is not supported.
+
+FastTrack Schedule
+This application must be manually deleted from the Windows NT Explorer because the application cannot be removed by using the Add/Remove Programs icon in Control Panel. 
+
+Fastback 6.0 for DOS
+If you experience display and/or mouse problems, try to disable the 3-D by changing, in Fastback, the Screen Mode to Flat Color and changing Show Mouse to Block.
+
+FileMaker Pro 3.0
+Due to a bug in F

@@ -1,0 +1,39 @@
+0,2E,00,00, 00,00,00,00 ; CONNECT 12000 - Connection at 12000 bps
+HKR, Responses, "15<cr>", 1, 02, 00, 40,38,00,00, 00,00,00,00 ; CONNECT 14400 - Connection at 14400 bps
+HKR, Responses, "16<cr>", 1, 02, 00, 00,4B,00,00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps
+HKR, Responses, "17<cr>", 1, 02, 00, 00,96,00,00, 00,00,00,00 ; CONNECT 38400 - Connection at 38400 bps
+HKR, Responses, "18<cr>", 1, 02, 00, 00,E1,00,00, 00,00,00,00 ; CONNECT 57600 - Connection at 57600 bps
+HKR, Responses, "19<cr>", 1, 02, 00, 00,C2,01,00, 00,00,00,00 ; CONNECT 115200 - Connection at 115200 bps
+HKR, Responses, "22<cr>", 1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 1200/75 - Connection at 1200/75 bps
+HKR, Responses, "23<cr>", 1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 75/1200 - Connection at 75/1200 bps
+HKR, Responses, "24<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; DELAYED
+HKR, Responses, "32<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; BLACKLISTED
+HKR, Responses, "33<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; FAX - FAX connection
+HKR, Responses, "35<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; DATA - DATA connection
+HKR, Responses, "40<cr>", 1, 01, 00, 2C,01,00,00, 00,00,00,00 ; CARRIER 300 - Carrier detected at 300 bps
+HKR, Responses, "44<cr>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 1200/75 - Carrier detected at 1200/75 bps
+HKR, Responses, "45<cr>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 75/1200 - Carrier detected at 75/1200 bps
+HKR, Responses, "46<cr>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 1200 - Carrier detected at 1200 bps
+HKR, Responses, "47<cr>", 1, 01, 00, 60,09,00,00, 00,00,00,00 ; CARRIER 2400 - Carrier detected at 2400 bps
+HKR, Responses, "48<cr>", 1, 01, 00, C0,12,00,00, 00,00,00,00 ; CARRIER 4800 - Carrier detected at 4800 bps
+HKR, Responses, "49<cr>", 1, 01, 00, 20,1C,00,00, 00,00,00,00 ; CARRIER 7200 - Carrier detected at 7200 bps
+HKR, Responses, "50<cr>", 1, 01, 00, 80,25,00,00, 00,00,00,00 ; CARRIER 9600 - Carrier detected at 9600 bps
+HKR, Responses, "51<cr>", 1, 01, 00, E0,2E,00,00, 00,00,00,00 ; CARRIER 12000 - Carrier detected at 12000 bps
+HKR, Responses, "52<cr>", 1, 01, 00, 40,38,00,00, 00,00,00,00 ; CARRIER 14400 - Carrier detected at 14400 bps
+HKR, Responses, "53<cr>", 1, 01, 00, A0,41,00,00, 00,00,00,00 ; CARRIER 16800 - Carrier detected at 16800 bps
+HKR, Responses, "54<cr>", 1, 01, 00, 00,4B,00,00, 00,00,00,00 ; CARRIER 19200 - Carrier detected at 19200 bps
+HKR, Responses, "55<cr>", 1, 01, 00, 60,54,00,00, 00,00,00,00 ; CARRIER 21600 - Carrier detected at 21600 bps
+HKR, Responses, "56<cr>", 1, 01, 00, C0,5D,00,00, 00,00,00,00 ; CARRIER 24000 - Carrier detected at 24000 bps
+HKR, Responses, "57<cr>", 1, 01, 00, 20,67,00,00, 00,00,00,00 ; CARRIER 26400 - Carrier detected at 26400 bps
+HKR, Responses, "58<cr>", 1, 01, 00, 80,70,00,00, 00,00,00,00 ; CARRIER 28800 - Carrier detected at 28800 bps
+HKR, Responses, "59<cr>", 1, 02, 00, A0,41,00,00, 00,00,00,00 ; CONNECT 16800 - Connection at 16800 bps
+HKR, Responses, "61<cr>", 1, 02, 00, 60,54,00,00, 00,00,00,00 ; CONNECT 21600 - Connection at 21600 bps
+HKR, Responses, "62<cr>", 1, 02, 00, C0,5D,00,00, 00,00,00,00 ; CONNECT 24000 - Connection at 24000 bps
+HKR, Responses, "63<cr>", 1, 02, 00, 20,67,00,00, 00,00,00,00 ; CONNECT 26400 - Connection at 26400 bps
+HKR, Responses, "64<cr>", 1, 02, 00, 80,70,00,00, 00,00,00,00 ; CONNECT 28800 - Connection at 28800 bps
+HKR, Responses, "66<cr>", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: CLASS 5 - MNP5 compression negotiated
+HKR, Responses, "67<cr>", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS - V.42bis compression negotiated
+HKR, Responses, "69<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; COMPRESSION: NONE - No compression negotiated
+HKR, Responses, "70<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; PROTOCOL: NONE - Asynchronous mode (found by experimentation)
+HKR, Responses, "76<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; PROTOCOL: NONE - Asynchronous mode (documented)
+HKR, Responses, "77<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM 

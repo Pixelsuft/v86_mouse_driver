@@ -1,0 +1,110 @@
+m2% = Modem2, UNIMODEM7F47DF7A ;E2864IG 1TR6: v1.0x
+%Modem2% = Modem2, UNIMODEM4473081F ;E2864IG 1TR6:v1.01
+%Modem2% = Modem2, UNIMODEM5C0B54D9 ;E2864IE Taiwan: v1.10
+%Modem2% = Modem2, UNIMODEM9833A635 ;E2864IE Japan:  v1.10
+%Modem2% = Modem2, UNIMODEM062609DE ;E2864IE DSS1: v1.10
+%Modem2% = Modem2, UNIMODEM49C12BCE ;E2864IE DSS1: v1.0x
+%Modem2% = Modem2, UNIMODEM72F5FCAB ;E2864IE DSS1:v1.01
+%Modem1% = Modem1, UNIMODEM950A0C7F ;E2864Ix xxxx:v1.10
+%Modem1% = Modem1, UNIMODEME8BECDAC ;E2864Ix xxxx:v1.0x
+
+; User visible strings
+[Strings]
+ClassName = "Modem"
+Mfg = "ZyXEL Comm. Corp."
+Modem114="ZyXEL FAX to PRINTER (HP DJ-500), Elite 2864I ISDN v2.x"
+Modem113="ZyXEL ISDN V.120 64k0, Elite 2864I ISDN v2.x"
+Modem112="ZyXEL ISDN V.110 57k6 (for Japan only), Elite 2864I ISDN v2.x"
+Modem111="ZyXEL ISDN V.110 38k4, Elite 2864I ISDN v2.x"
+Modem110="ZyXEL ISDN V.110 19k2, Elite 2864I ISDN v2.x"
+Modem109="ZyXEL ISDN X.75  64k0, Elite 2864I ISDN v2.x"
+Modem108="ZyXEL MODEM V.34 28k8, Elite 2864I ISDN v2.x"
+Modem107="ZyXEL SPEECH v2.x connection (over ab-Adapter), Elite 2864I ISDN v2.x"
+Modem106="ZyXEL async SLIP to sync HDLC - 64k0, Elite 2864I ISDN v2.x"
+Modem105="ZyXEL async PPP  to sync HDLC - 64k0, Elite 2864I ISDN v2.x"
+Modem104="ZyXEL ISDN X.75 CCB 128k0, Elite 2864I ISDN v2.x"
+Modem103="ZyXEL ISDN X.75 MLP 128k0, Elite 2864I ISDN v2.x"
+Modem102="ZyXEL T-Online Service (for Germany only), Elite 2864I ISDN"
+Modem101="ZyXEL FAX into DRAM, Elite 2864I ISDN v2.x"
+Modem100="ZyXEL FAX into DRAM, Elite 2864  POTS v1.x"
+Modem09PNP="ZyXEL ISDN Omni TA128, Plug and Play"
+Modem04PNP="ZyXEL MODEM Omni 288S, Plug and Play"
+Modem02PNP="ZyXEL ISDN Elite 2864I, Plug and Play"
+Modem01PNP="ZyXEL MODEM Elite 2864, Plug and Play"
+Modem09="ZyXEL ISDN Omni TA128"
+Modem04="ZyXEL MODEM Omni 288S"
+Modem02="ZyXEL ISDN Elite 2864I"
+Modem01="ZyXEL MODEM Elite 2864"
+Modem3="ZyXEL ISDN V.120 64k0, Elite 2864I ISDN v1.x"
+Modem2="ZyXEL ISDN X.75  64k0, Elite 2864I ISDN v1.x"
+Modem1="ZyXEL MODEM V.34 28k8, Elite 2864I ISDN v1.x"
+
+; Installation sections
+[Modem114]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE0, ISDN.Fax.DJ500
+[Modem113]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, V.120
+[Modem112]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, V.110.57
+[Modem111]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, V.110.38
+[Modem110]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, V.110.19
+[Modem109]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, X.75
+[Modem108]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE0, V.34
+[Modem107]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE3, AB.v2
+[Modem106]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, SLIP
+[Modem105]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, PPP
+[Modem104]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, X.75, CCB
+[Modem103]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, X.75, MLP
+[Modem102]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, DTXJ
+[Modem101]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE0, ISDN.Fax.DRAM
+[Modem100]
+AddReg=All, Mfg.AddReg, POTS.AddReg, POTS.Fax.DRAM
+
+[Modem09]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, X.75
+[Modem04]
+AddReg=All, Mfg.AddReg, POTS.AddReg
+[Modem02]
+AddReg=All, Mfg.AddReg, ISDN.DTE0, ISDN.AddReg, V.34
+[Modem01]
+AddReg=All, Mfg.AddReg, POTS.AddReg
+
+[Modem3]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, V.120, ISDN.v1
+[Modem2]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE2, X.75, ISDN.v1
+[Modem1]
+AddReg=All, Mfg.AddReg, ISDN.AddReg, ISDN.DTE0, V.34, ISDN.v1
+
+; AddReg sections
+[ISDN.v1]
+HKR, Init,  5,, "ATS110.4=1<cr>"
+HKR, Settings, Compression_On,, "&K4"
+
+[ISDN.DTE0]
+HKR, Init,        2,, "AT&O0<cr>"
+[ISDN.DTE1]
+HKR, Init,        2,, "AT&O1<cr>"
+[ISDN.DTE2]
+HKR, Init,        2,, "AT&O2<cr>"
+[ISDN.DTE3]
+HKR, Init,        2,, "AT&O3<cr>"
+
+[V.34]
+HKR, Init,        3,, "ATB0<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,01,00,00, 00,C2,01,00, 40,83,00,00
+HKR,, FClass,     1, 5f,00,00,00
+
+[V.110.19]
+HKR, Init

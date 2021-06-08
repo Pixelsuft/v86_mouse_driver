@@ -1,0 +1,91 @@
+ering fatal******************"
+    Debug-Output "OEMNADDS.INF: ---- fatal called"
+    Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "fatal: shell to SetupMessage failed."
+        goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    Debug-Output "******************Entering ShellCodeError******************"
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = "Error: "$(FunctionTitle)
+    set STF_MB_TEXT  = "Shell Code Error"
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    Debug-Output "******************Entering setfailed******************"
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(fRemoveDigi) == TRUE
+        set fRemoveDigi = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    Debug-Output "******************Entering end******************"
+    goto term
+term = +
+    ifstr(i) $(DGCONFIG_HANDLE) != $(HandleNull)
+      FreeLibrary $(DGCONFIG_HANDLE)
+    endif
+    Debug-Output "******************Entering term -- GoodBye!!!******************"
+    Return $(CommonStatus)
+[RemoveFiles]
+   Debug-Output "******************Entering [RemoveFiles]******************"
+   set RemoveList = {}
+   set RenameList = {}
+   OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyNameHdwDriver) +
+              $(MAXIMUM_ALLOWED) KeyProductHdwDriver
+   ifstr $(KeyProductHdwDriver) == $(KeyNull)
+      CloseRegKey $(KeyProductHdwDriver)
+      set RenameList = >($(RenameList), $(!STF_WINDOWSSYSPATH)"\drivers\"$(AdapterHardwareDriver)".sys")
+      set RenameList = >($(RenameList), $(!STF_WINDOWSSYSPATH)"\drivers\"$(AdapterFepImage))
+      set RenameList = >($(RenameList), $(!STF_WINDOWSSYSPATH)"\drivers\"$(AdapterBiosImage))
+   endif
+   OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) +
+              $(MAXIMUM_ALLOWED) KeyProduct
+   ifstr $(KeyProduct) == $(KeyNull)
+      CloseRegKey $(KeyProduct)
+      set RenameList = >($(RenameList), $(!STF_WINDOWSSYSPATH)"\drivers\"$(ProductSoftwareName)".sys")
+      set RenameList = >($(RenameList), $(!STF_WINDOWSSYSPATH)"\dgconfig.dll")
+      set RemoveList = >($(RemoveList), $(!STF_WINDOWSSYSPATH)"\dgconfig.hlp")
+   endif
+   Debug-Output "RemoveList = "$(RemoveList)
+   Debug-Output "RenameList = "$(RenameList)
+   ForListDo $(RemoveList)
+       Debug-Output "Removing "$($)
+       LibraryProcedure Status , $(!LIBHANDLE), DelFile $($)
+       Debug-Output "Status is "$(Status)
+   EndForListDo
+   ForListDo $(RenameList)
+       Debug-Output "RenameList entry = "$($)
+       Split-String $($) "\" FilePath
+       QueryListSize PathLen $(FilePath)
+       Split-String *($(FilePath),$(PathLen)) "." FullFileName
+       Set FileName = *($(FullFileName),1)
+       Debug-Output "FileName is "$(FileName)
+       LibraryProcedure STATUS, $(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+       Debug-Output "CheckFile Status = "$(STATUS)
+       ifstr(i) $(STATUS) == YES
+           LibraryProcedure STATUS, $(!LIBHANDLE), DelFile $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+           Debug-Output "Delfile Status = "$(STATUS)
+           LibraryProcedure STATUS, $(!LIBHANDLE), DelFile $($)
+           Debug-Output "Delfile Status = "$(STATUS)
+       endif
+       ifstr(i) $(fRemoveDigi) == TRUE
+         Debug-Output "Renaming from "$($)
+         Debug-Output "Renaming to "$(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+         LibraryProcedure Status1 , $(!LIBHANDLE), RenFile $($), $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+         Debug-Output "Status is "$(Status1)
+         AddFileToDeleteList $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+       endif
+   EndForListDo
+   exit
+[ExCreateRegKey]
+    Debug-Output "******************Entering [ExCreateRegKey]******************"
+    set ECR_Result          = NO_ERROR
+    set ECR_BaseKeyHandle   = $($0)
+    set ECR_NewPath       

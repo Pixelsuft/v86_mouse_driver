@@ -1,0 +1,64 @@
+all feature of SP6, during the initial installation, you must select the <b>Backup files necessary to uninstall this Service Pack</b> check box.</li>
+<li>If a Web page doesn't automatically open when you insert the CD, open the command prompt window, and change the folder to the drive letter associated with the CD-ROM drive.</li>
+<blockquote>
+<p><b>To open the command prompt</b></p>
+<ul>
+<li>Click <b>Start</b>, point to <b>Programs</b>, and then click <b>Command Prompt</b>.</li>
+</ul>
+</blockquote>
+<li>Change the folder by typing <b><I>systemroot</I>\i386\Update</b> or <b>\Alpha\Update</b> (depending upon whether you have an Intel-based or an Alpha-based computer), and then type <b>update</b>.</li>
+<li>Follow the instructions that appear.<br>
+</ol></blockquote>
+<p>
+
+<p><blockquote>
+<b>To install SP6 from a network drive</b></p>
+<ol>
+<li>Connect to the network drive that has the SP6 files.</li>
+<li>Change the drive letter to that of the network drive.</li>
+<li>Change the folder to \i386\Update or \Alpha\Update (depending upon whether you have an Intel-based or an Alpha-based computer), and then type <b>update</b>.</li>
+<li>Follow the instructions that appear.</li>
+</ol></blockquote>
+<p>
+<b>Note:</b> You should allow Setup to create an Uninstall folder the first time you install SP6.</p>
+<p>
+To enable the uninstall option, run Update.exe. A subfolder named Uninstall is created in your Windows&nbsp;NT folder. This requires at least 120 megabytes (MB) of free space on the disk on which Windows&nbsp;NT&nbsp;4.0 is installed, 60 MB for the uninstall folder, and 60 MB for the Service Pack-updated system files.</p>
+<p><blockquote>
+<b>To install SP6 from the Internet</b><p>
+<ol>
+<li>Using your browser, visit the Microsoft Windows&nbsp;NT Server Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=ServicePacks">http://www.microsoft.com/windows/servicepacks</a></li>
+<li>Click <b>Install Service Pack&nbsp;6</b> to install SP6 on your computer.</li>
+</ol></blockquote>
+<p>
+This Web page automatically detects which files need to be updated and then copies the appropriate files to a temporary folder on your computer. It then installs only those files that are needed to update your computer.</p>
+<p>
+<b>Note:</b> If you use a Web browser other than Internet Explorer&nbsp;3.02 or later, you may be unable to install SP6 by using this update method. You can still install SP6 by downloading the entire Service Pack from the Internet onto your computer and running Update.exe locally.</p>
+<p>
+You can use installation switches with Update.exe. The following syntax help is available by typing <b>update /?:</b> at the command prompt.</p>
+<p>
+UPDATE [-u] [-f] [-n] [-o] [-z] [-q]</p>
+<p>
+   <b>-u</b> Unattended Setup mode<br>
+   <b>-f</b> Force other programs to close at shutdown<br>
+   <b>-n</b> Do not back up files for uninstall<br>
+   <b>-o</b> Overwrite OEM files without prompting<br>
+   <b>-z</b> Do not restart when installation is complete<br>
+   <b>-q</b> Quiet mode - no user interaction</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="2.4.1">2.4.1</a> Running Update.exe in Unattended Setup Mode (-u)</b></p>
+<p>
+To run Update.exe in unattended Setup mode by using the <b>-u </b> flag, you must also use the <b>-o</b> flag to ensure that OEM-supplied files are updated. If you don't use the <b>-o</b> flag, files such as the hardware abstraction layer (HAL) and disk miniport drivers are not updated.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="2.5">2.5</a> Service Pack Uninstall</b></p>
+<p>
+This Service Pack contains an uninstall feature that you can use to restore your computer to its previous state.<p>
+<p>
+<p>
+To enable the uninstall option, run Update.exe. A subfolder named Uninstall is created in your Windows&nbsp;NT folder. This requires at least 120 megabytes (MB) of free space on the disk on which Windows&nbsp;

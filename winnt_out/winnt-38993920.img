@@ -1,0 +1,113 @@
+);
+
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    LOCATE 3, 2: PRINT "  Date  ³ Ref# ³ Description             ³ Increase ³ Decrease ³   Balance    "
+    LOCATE 4, 2: PRINT "ÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+
+     u$ = "\      \³\    \³\                       \³"
+    u1$ = "        ³      ³                         ³          ³          ³              "
+    u1x$ = "ßßßßßßßß³ßßßßßß³ßßßßßßßßßßßßßßßßßßßßßßßßß³ßßßßßßßßßß³ßßßßßßßßßß³ßßßßßßßßßßßßßß"
+    u2$ = "###,###.##"
+    u3$ = "###,###,###.##"
+    u4$ = "          "
+
+    CurrTopline = 1
+    GOSUB EditTransPrintWholeScreen
+
+    CurrRow = 1
+    CurrCol = 1
+    PrintHelpLine help$(CurrCol) + "|  <F2=Save and Exit> <F9=Insert> <F10=Delete>"
+
+    GOSUB EditTransGetLine
+
+    finished = FALSE
+
+
+    'Loop until <F2> is pressed
+    DO
+        GOSUB EditTransShowCursor                   'Show Cursor, Wait for key
+        DO: Kbd$ = INKEY$: LOOP UNTIL Kbd$ <> ""
+        GOSUB EditTransHideCursor
+
+        IF Kbd$ >= " " AND Kbd$ < "~" OR Kbd$ = CHR$(8) THEN        'If legal key, edit item
+            GOSUB EditTransEditItem
+        END IF
+
+        SELECT CASE Kbd$                            'Handle Special keys
+            CASE CHR$(0) + "H"                      'up arrow
+                GOSUB EditTransMoveUp
+            CASE CHR$(0) + "P"                      'Down arrow
+                GOSUB EditTransMoveDown
+            CASE CHR$(0) + "K", CHR$(0) + CHR$(15)  'Left Arrow,BackTab
+                CurrCol = (CurrCol + 3) MOD 5 + 1
+                PrintHelpLine help$(CurrCol) + "|  <F2=Save and Exit> <F9=Insert> <F10=Delete>"
+            CASE CHR$(0) + "M", CHR$(9)             'Right Arrow,Tab
+                CurrCol = (CurrCol) MOD 5 + 1
+                PrintHelpLine help$(CurrCol) + "|  <F2=Save and Exit> <F9=Insert> <F10=Delete>"
+            CASE CHR$(0) + "G"                      'Home
+                CurrCol = 1
+            CASE CHR$(0) + "O"                      'End
+                CurrCol = 5
+            CASE CHR$(0) + "I"                      'Page Up
+                CurrRow = 1
+                CurrTopline = CurrTopline - 19
+                IF CurrTopline < 1 THEN
+                    CurrTopline = 1
+                END IF
+                GOSUB EditTransPrintWholeScreen
+                GOSUB EditTransGetLine
+            CASE CHR$(0) + "Q"                      'Page Down
+                CurrRow = 1
+                CurrTopline = CurrTopline + 19
+                IF CurrTopline > MaxRecord THEN
+                    CurrTopline = MaxRecord
+                END IF
+                GOSUB EditTransPrintWholeScreen
+                GOSUB EditTransGetLine
+            CASE CHR$(0) + "<"                      'F2
+                finished = TRUE
+            CASE CHR$(0) + "C"                      'F9
+                GOSUB EditTransAddRecord
+            CASE CHR$(0) + "D"                      'F10
+                GOSUB EditTransDeleteRecord
+            CASE CHR$(13)                           'Enter
+            CASE ELSE
+               BEEP
+        END SELECT
+    LOOP UNTIL finished
+
+    CLOSE
+
+    EXIT SUB
+
+
+EditTransShowCursor:
+    COLOR colors(8, ColorPref), colors(9, ColorPref)
+    LOCATE CurrRow + 4, col(CurrCol)
+    SELECT CASE CurrCol
+        CASE 1, 2, 3
+            PRINT LEFT$(CurrString$(CurrCol), Vis(CurrCol));
+        CASE 4
+            IF CurrFig#(4) <> 0 THEN
+                PRINT USING u2$; CurrFig#(4);
+            ELSE
+                PRINT SPACE$(Vis(CurrCol));
+            END IF
+        CASE 5
+            IF CurrFig#(5) <> 0 THEN
+                PRINT USING u2$; CurrFig#(5);
+            ELSE
+                PRINT SPACE$(Vis(CurrCol));
+            END IF
+    END SELECT
+    RETURN
+
+
+EditTransHideCursor:
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    LOCATE CurrRow + 4, col(CurrCol)
+    SELECT CASE CurrCol
+        CASE 1, 2, 3
+            PRINT LEFT$(CurrString$(CurrCol), Vis(CurrCol));
+        CASE 4
+     

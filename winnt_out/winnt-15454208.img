@@ -1,0 +1,132 @@
+[SetupMessage]
+    set Status     = STATUS_FAILED
+    set UserAction = "CANCEL"
+    set LanguageList = ^(LanguageID, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto displaymessage
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_SetupMessage
+    endif
+displaymessage = +
+    set DlgText = $($2)
+    ifstr(i) $($1) == "WARNING"
+        read-syms WarningDlg$($0)
+    else-ifstr(i) $($1) == "FATAL"
+        read-syms FatalDlg$($0)
+    else-ifstr(i) $($1) == "NONFATAL"
+        read-syms NonfatalDlg$($0)
+    else-ifstr(i) $($1) == "STATUS"
+        read-syms StatusDlg$($0)
+    else
+        goto finish_SetupMessage
+    endif
+    ui start "SetupMessage"
+    ifstr(i) $(DLGEVENT) == "OK"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = $(DLGEVENT)
+    else-ifstr(i) $(DLGEVENT) == "CANCEL"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = $(DLGEVENT)
+    else
+    endif
+finish_SetupMessage = +
+    Return $(Status) $(UserAction)
+    end
+[QueryUserQuit]
+    set Status     = STATUS_FAILED
+    set UserAction = CANCEL
+    set LanguageList = ^(LanguageID, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto fin_QueryUserQuit
+    endif
+    read-syms ExitWarningDlg$($0)
+    ui start "ExitWarning"
+    ifstr(i) $(DLGEVENT) == "YES"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "OK"
+    else-ifstr(i) $(DLGEVENT) == "NO"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "CANCEL"
+    else
+    endif
+fin_QueryUserQuit = +
+    Return $(Status) $(UserAction)
+[PushBillboard]
+    ifstr(i) $(!NTN_NOTIFY_HWND) == ""
+        read-syms BillboardDlg$(!STF_LANGUAGE)
+        ui start "Billboard"
+    endif
+    Return
+[PopBillboard]
+    ifstr(i) $(!NTN_NOTIFY_HWND) == ""
+        ui pop 1
+    endif
+    Return
+[AllocateUnusedDrive]
+    set Status = STATUS_FAILED
+    set Drive  = ""
+    ifstr(i) $(!STF_UNUSEDDRIVES) == {}
+        goto finish_allocate
+    else-ifstr(i) $(!STF_UNUSEDDRIVES) == ""
+        goto finish_allocate
+    else
+        set NewDriveList = {}
+        ForListDo $(!STF_UNUSEDDRIVES)
+            ifstr(i) $(#) != 1
+                set NewDriveList = >($(NewDriveList), $($))
+            else
+                set Drive  = $($)
+                set Status = STATUS_SUCCESSFUL
+            endif
+        EndForListDo
+        set !STF_UNUSEDDRIVES = $(NewDriveList)
+    endif
+finish_allocate = +
+    Return $(Status) $(Drive)
+[FreeUnusedDrive]
+    set !STF_UNUSEDDRIVES = >($(!STF_UNUSEDDRIVES), $($0))
+    Return
+[DriversExist]
+    set Status = STATUS_FAILED
+    set LanguageList = ^(LanguageID, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_DriversExist
+    endif
+    read-syms DriversExistDlg$($0)
+    ui start "DriversExist"
+    ifstr(i) $(DLGEVENT) == "DLGBUTTON0"
+        set Status = STATUS_CURRENT
+    else-ifstr(i) $(DLGEVENT) == "DLGBUTTON1"
+        set Status = STATUS_NEW
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        set Status = STATUS_USERCANCEL
+    endif
+    ui pop 1
+finish_DriversExist = +
+    Return $(Status)
+[DoAskSource]
+    read-syms DoAskSourceDlgText$(!STF_LANGUAGE)
+    shell "" DoAskSourceEx $($0) $(DlgText)
+    Return $($R0) $($R1) $($R2) $($R3)
+[DoAskSourceEx]
+    set Status      = STATUS_FAILED
+    set Src         = $($0)
+    set DriveToFree = ""
+    read-syms  AskSourceStrings$(!STF_LANGUAGE)
+asksource = +
+    read-syms DisketteDlg$(!STF_LANGUAGE)
+    ui start "Diskette"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        LibraryProcedure IsFullPath, $(!LIBHANDLE), CheckPathFullPathSpec $(EditTextOut)
+        ifstr(i) $(IsFullPath) == "NO"
+            StartWait
+            LibraryProcedure STATUS, $(!LIBHANDLE), ProcessForUNC $(EditTextOut)
+            EndWait
+            ifstr(i) $(STATUS) == "ERROR"
+                shell "" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String1)
+                got

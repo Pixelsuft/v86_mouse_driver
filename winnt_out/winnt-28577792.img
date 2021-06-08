@@ -1,0 +1,112 @@
+[Identification]
+    OptionType = NetService
+[Options]
+    WKSTA
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+subroutineinf   = "SUBROUTN.INF"
+SoftwareType    = "service"
+Exit_Code       = 0
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+NetMsgDLL       = "%SystemRoot%\System32\NetMsg.dll"
+Kernel32DLL     = "%SystemRoot%\System32\Kernel32.dll"
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductOpSupportSERVER     = 134 
+ProductOpSupportWKSTA     = 132 
+ProductWKSTAName        = "LanmanWorkstation"
+ProductWKSTAImagePath   = "%SystemRoot%\System32\services.exe"
+NetRuleWKSTAType        = "wksta lmNetService lanmanWorkstation"
+NetRuleWKSTAClass       = {"lanmanWorkstation lmNetService"}
+NetRuleWKSTAUse         = $(SoftwareType)" yes yes"
+NetRuleWKSTABindForm    = """LanmanWorkstation"" yes yes container"
+ProductNETLOGONName     = "NetLogon"
+ProductNETLOGONImagePath = "%SystemRoot%\System32\lsass.exe"
+ProductALERTERName      = "Alerter"
+ProductALERTERImagePath = "%SystemRoot%\System32\services.exe"
+ProductBROWSERName      = "Browser"
+ProductBROWSERImagePath = "%SystemRoot%\System32\services.exe"
+ProductMESSENGERName    = "Messenger"
+ProductMESSENGERImagePath = "%SystemRoot%\System32\services.exe"
+ProductRDRName          = "Rdr"
+ProductRDRImagePath     = "\SystemRoot\System32\drivers\rdr.sys"
+ProductProviderImagePath = "%SystemRoot%\System32\ntlanman.dll"
+ProductREPLName         = "Replicator"
+ProductREPLImagePath    = "%SystemRoot%\System32\lmrepl.exe"
+ProviderName            = $(ProductWKSTAName)
+ProviderDeviceName      = "LanmanRedirector"
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(Product$(Option)Name)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)"\"$(Product$(Option)Name)"\Parameters"
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+SERVICE_NO_CHANGE = 4294967295
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[DetectSystemMemory]
+    SystemMemory    = "" ? $(!LIBHANDLE) GetMemorySize
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    Debug-Output "OEMNSVWK.INF: STF_CWDDIR is: "$(!STF_CWDDIR)
+    Debug-Output "OEMNSVWK.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_Origination) == "NCPA"
+        set Continue = $(OK)
+    endif
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    detect DetectSystemMemory
+    set-title  $(FunctionTitle)
+    set to   = Begin
+ 

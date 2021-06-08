@@ -1,0 +1,109 @@
+(Result) == 1
+        set CommonStatus = STATUS_REBOOT
+    else
+        set RegistryErrorIndex = $(Result)
+        goto fatalregistry
+    endif
+    Shell $(UtilityInf) SetMasterComponent Microsoft Tcpip $(STF_CONTEXTINFNAME) SNMP
+    Goto successful
+configureadapter = +
+    set FLibraryErrCtl = 1
+    LibraryProcedure Result, $(!TCPCFG_HANDLE), CPlSnmp, $(!STF_HWND), "NO", "", ""
+    ifint $(Result) == 0
+        set CommonStatus = STATUS_NO_EFFECT
+    else-ifint $(Result) == 1
+        set CommonStatus = STATUS_NO_EFFECT
+    else
+        set RegistryErrorIndex = $(Result)
+        goto fatalregistry
+    endif
+    goto successful
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+        $(ProductSoftwareName)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto fatalregistry
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft" $(MAXIMUM_ALLOWED) MicrosoftKey
+    DeleteRegTree $(MicrosoftKey) "RFC1156Agent"
+    DeleteRegTree $(MicrosoftKey) "LANManagerMIB2Agent"
+    CloseRegKey $(MicrosoftKey)
+    Shell "" RemoveSnmpTrapService
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto fatalregistry
+    endif
+    goto end
+UpgradeSoftware = +
+    Set SNMPKeyName     = "Software\Microsoft\SNMP\CurrentVersion\NetRules"
+    Set MaskAllAccess  = 33554432
+    Set ValueName = "InfName"
+    Set NewInfName = "oemnsvsn.inf"
+    OpenRegKey $(!REG_H_LOCAL) "" $(SNMPKeyName) $(MaskAllAccess) SNMPKey
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        SetRegValue $(SNMPKey) {$(ValueName),0,$(!REG_VT_SZ),$(NewInfName)}
+        CloseRegKey $(SNMPKey)
+        Set CacheKey   = "SOFTWARE\Microsoft\Ncpa\InfOptions" 
+        Set CacheValue = "oemnxpsn.inf"
+        OpenRegKey $(!REG_H_LOCAL) "" $(CacheKey) $(MaskAllAccess) Cache
+        Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            DeleteRegTree $(Cache) $(CacheValue)
+            CloseRegKey $(Cache)
+        endif
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        SetRegValue $(KeyProduct) {SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)}
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescription)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyProduct)
+        Shell "" AddSnmpTrapService
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+        endif
+    else
+        goto fatalregistry
+    endif
+    goto end
+successful = +
+    goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifst

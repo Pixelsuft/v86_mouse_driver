@@ -1,0 +1,103 @@
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set StartLabel = configureadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               Set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    goto nextstep
+configureadapter = +
+    Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+        Debug-Output "Cannot configure the ne2000 driver software."
+        Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+    else
+        goto configureadapter2
+    endif
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error: cannot get an error string."
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    set from = end
+    set to = end
+    goto nonfatalinfo
+configureadapter2 = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) NetCardKey
+    ifstr(i) $(NetCardKey) == ""
+        set CommonStatus = STATUS_USERCANCEL
+        goto successful
+    endif
+    GetRegValue $(NetCardKey) "ServiceName" ServiceInfo
+    set ServiceName = *($(ServiceInfo),4)
+    CloseRegKey $(NetCardKey)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ServiceName)"\Parameters" $(MAXIMUM_ALLOWED) ParamKey
+    ifstr(i) $(ParamKey) != ""
+        GetRegValue $(ParamKey),"McaPosId", McaPosIdInfo
+        ifint *($(McaPosIdInfo),4) != 24863
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_HARDWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+        GetRegValue $(ParamKey),"InterruptNumber", InterruptNumberInfo
+        set IRQValue = *($(IRQList),~($(IRQList), *($(InterruptNumberInfo),4)))
+        GetRegValue $(ParamKey),"IOBaseAddress", IOBaseInfo
+        set IOBaseAddress = *($(IOBaseAddrHexList),~($(IOBaseAddrDecList), *($(IOBaseInfo),4)))
+        read-syms FileDependentDlg$(!STF_LANGUAGE)
+        ui start "Config"
+        ifstr(i) $(DLGEVENT) == "CONTINUE"
+            set IRQValue = $(Combo1Out)
+            set IOBaseAddress = $(Combo2Out)
+            set IOBaseAddrValue = *($(IOBaseAddrDecList), ~($(IOBaseAddrHexList),+
+                $(IOBaseAddress)))
+            SetRegValue $(ParamKey) {InterruptNumber,$(NoTitle),$(!REG_VT_DWORD),$(IRQValue)}
+            SetRegValue $(ParamKey) {IOBaseAddress,$(NoTitle),$(!REG_VT_DWORD),$(IOBaseAddrValue)}
+            ui pop 1
+        else
+            set CommonStatus = STATUS_USERCANCEL
+            ui pop 1
+        endif
+        CloseRegKey $(ParamKey)
+    endif
+    goto successful
+nextstep = +
+    StartWait
+installproduct = +
+    set cardlist = {}
+    Shell $(UtilityInf), MCAFindBus, *($(NE2000MCA_1

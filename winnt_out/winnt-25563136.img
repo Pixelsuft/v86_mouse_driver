@@ -1,0 +1,122 @@
+= $($R1)
+    set OptionChosenText = $($R2)
+    set Duplicate = FALSE
+    ForListDo $($1)
+        ifstr(i) *($($), 2) == $(OemList)
+            set OemFileName = *($($), 1)
+            set Duplicate = TRUE
+            FlushInf $(OemFileName)
+            goto m_copyinf
+        endif
+    EndForListDo
+    set Num = 0
+    Set Abb = *($(TypeAbbs),~($(TypeNames),$(OptionType)))
+m_nextinf = +
+    ifint $(Num) < 99
+        set OemFileName = "oem"$(Abb)$(Num)".inf"
+        Debug-Output "OTHER.INF: Checking winsyspath for "$(OemFileName)
+        set FileToCheck = $(!STF_WINDOWSSYSPATH)"\"$(OemFileName)
+        install Install-SeeIfFileIsPresent
+        ifstr(i) $(STATUS) == "YES"
+            set-add Num = $(Num) 1
+            goto m_nextinf
+        else
+            goto m_copyinf
+        endif
+    endif
+    goto m_finish_GetOEMOption
+m_copyinf = +
+    set OemSrc = $(OemSetupFilePath)
+    set OemDst = $(!STF_WINDOWSSYSPATH)"\"$(OemFileName)
+    install Install-OemINF
+    ifstr(i) $(Duplicate) == TRUE
+    else
+        set NewOemOptionList = >($(NewOemOptionList), {$(OemFileName), $(OemList), $(OemTextList)})
+    endif
+    set Status = STATUS_SUCCESSFUL
+m_finish_GetOEMOption = +
+    FlushInf $(InfName)
+    Return $(Status) $(NewOemOptionList) $(OptionChosen) $(OptionChosenText) $(OptDisketteSrc)
+[DoDiskette]
+    set Status         = STATUS_FAILED
+    set OemDiskette    = $($1)
+    set OemDisketteSrc = $($2)
+    Debug-Output $(STF_CONTEXTINFNAME)": DoDiskette called"
+    read-syms DisketteDlg$($0)
+    ui start "Diskette"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set OemDisketteSrc = $(EditTextOut)
+        ui pop 1
+        set Status = STATUS_SUCCESSFUL
+        goto finish_dodiskette
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        ui pop 1
+        set Status = STATUS_USERCANCEL
+        goto finish_dodiskette
+    else
+        ui pop 1
+        goto finish_dodiskette
+    endif
+finish_dodiskette = +
+    Return $(Status) $(OemDisketteSrc)
+[DoSingleOption]
+    set Status              = STATUS_FAILED
+    set OemOptionChosen     = ""
+    set OemOptionChosenText = ""
+    set OemOptionList       = $($0)
+    set OemOptionTextList   = $($1)
+    set OemOptionTypeText   = $($2)
+    read-syms OemSingleOptionDlg$(!STF_LANGUAGE)
+    ifstr(i) $($3) != ""
+        set DlgText = $($3)
+    endif
+    ui start "Diskette"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        ui pop 1
+        ifstr(i) $(ListItemsOut) == ""
+            set Status = STATUS_USERCANCEL
+        else
+            set OemOptionChosenText = $(ListItemsOut)
+            set OemOptionChosen = *($($0), ~($(ListItemsIn), $(ListItemsOut)))
+            set Status = STATUS_SUCCESSFUL
+        endif
+        goto finish_dosingleoption
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        ui pop 1
+        set Status = STATUS_USERCANCEL
+        goto finish_dosingleoption
+    else
+        ui pop 1
+        set Status = STATUS_FAILED
+        goto finish_dosingleoption
+    endif
+finish_dosingleoption = +
+    Return $(Status) $(OemOptionChosen) $(OemOptionChosenText)
+[GetOptionsFromRegistry]
+   Set InfType        = $($0)
+   Set InfFullName    = $($1)
+   Set Status         = STATUS_FAILED
+   Set OptionList     = {}
+   Set OptionTextList = {}
+   Set KeyInf         = ""
+   Set KeyType        = ""
+   Set RegLastError   = $(!REG_ERROR_SUCCESS)
+   Ifstr(i) $(!STF_BUSTYPE) == ""
+       goto finish_getregoptions
+   Endif
+   Split-String $(InfFullName) "\" NameInfo
+   QueryListSize NameInfoListSize $(NameInfo)
+   Set InfName = *($(NameInfo),$(NameInfoListSize))
+   Set KeyName = "Software\Microsoft\Ncpa\InfOptions\"$(InfName)
+   OpenRegKey $(!REG_H_LOCAL) "" $(KeyName) $(!REG_KEY_READ) KeyInf
+   Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+      goto finish_getregoptions
+   Endif
+   Set FileDateTimeName = $(InfName)
+   Detect DetectFileTime
+   Set TimeLow = *($(FileDateTime),1)
+   Ifint $(TimeLow) == 0
+       goto finish_getregoptions
+   Endif
+   GetRegValue $(KeyInf) DateLow  ValueRegTimeLow
+   Ifint 

@@ -1,0 +1,100 @@
+er key."
+    endif
+    return
+[CheckRasInstalled]
+    set MAXIMUM_ALLOWED   = 33554432
+    set ProductKeyName = $(!NTN_SoftwareBase)"\Microsoft\RAS\CurrentVersion"
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != ""
+        CloseRegKey $(KeyProduct)
+        return "TRUE"
+    else
+        return "FALSE"
+[QueryComponentsInstalled]
+    Set Status            =    STATUS_FAILED
+    Set ValueName         =    ""
+    Set InstalledList     =    {}
+    Set InstalledFlags    =    {}
+    Set TmpList           =    {}
+    Set KeyNull           =    ""
+    Set NumberOfComps     =    0
+    Set RasKeyName        =    $($0)
+    Debug-Output "QueryComponentsInstalled: "$(RasKeyName)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        GetRegValue    $(KeyProduct) "RasComponents" TmpList
+        Debug-Output "QueryComponentsInstalled: "$(TmpList)
+        ForListDo *($(TmpList),4)
+            set InstalledList = >($(InstalledList), $($))
+        EndForListDo
+        CloseRegKey $(KeyProduct)
+        Ifcontains(i) "Server" in $(InstalledList)
+            Set InstalledFlags = >($(InstalledFlags), TRUE)
+        else
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+        endif
+        Ifcontains(i) "Client" in $(InstalledList)
+            Set InstalledFlags = >($(InstalledFlags), TRUE)
+        else
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+        endif
+        Ifcontains(i) "Admin" in $(InstalledList)
+            Set InstalledFlags = >($(InstalledFlags), TRUE)
+        else
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+        endif
+        QueryListSize NumberOfComps $(InstalledList)
+        ifint $(NumberOfComps) == 1
+            Ifcontains(i) "Server" in $(InstalledList)
+                Set InstalledFlags = >($(InstalledFlags), TRUE)
+            else
+                Set InstalledFlags = >($(InstalledFlags), FALSE)
+            endif
+            Ifcontains(i) "Client" in $(InstalledList)
+                Set InstalledFlags = >($(InstalledFlags), TRUE)
+            else
+                Set InstalledFlags = >($(InstalledFlags), FALSE)
+            endif
+            Ifcontains(i) "Admin" in $(InstalledList)
+                Set InstalledFlags = >($(InstalledFlags), TRUE)
+            else
+                Set InstalledFlags = >($(InstalledFlags), FALSE)
+            endif
+        else
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+        endif
+        Set Status = STATUS_SUCCESSFUL
+    Else
+       Set Status = STATUS_NOT_FOUND
+    EndIf
+    Debug-Output "QueryComponentsInstalled: "$(InstalledList)
+    Return $(Status) $(InstalledList) $(InstalledFlags)
+[UpdateComponentsInstalled]
+    Set Status          =    STATUS_FAILED
+    Set InstalledList   =    $($0)
+    Set RasKeyName      =    $($1)
+    Set KeyNull         =    ""
+    Debug-Output "UpdateComponentsInstalled: "$(RasKeyName)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        SetRegValue $(KeyProduct) {RasComponents, 0,$(!REG_VT_MULTI_SZ),$(InstalledList)}
+        CloseRegKey $(KeyProduct)
+        Set Status = STATUS_SUCCESSFUL
+    else
+        Set Status = STATUS_FAILED
+    endif
+    return $(Status)
+[GetNetworkAccess]
+    set Status          = STATUS_SUCCESSFUL
+    Set KeyNull         = ""
+    set NbfNetAccess   = 0
+    set TcpIpNetAccess = 0
+    set IpxNetAccess   = 0
+    set RasProtocolsKeyName = $(!NTN_SoftwareBase)"\Microsoft\RAS\PROTOCOLS"
+    Debug-Output "GetNetworkAccess entry"
+    set ProtocolKeyName = $(RasProtocolsKeyName)"\NBF"
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProtocolKeyName) $(!MAXIMUM_ALLOWED) KeyProtocol
+    Ifstr(i) $(KeyProtocol) != $(KeyNull)
+       GetRegValue $(KeyProtocol), "NetBiosGa

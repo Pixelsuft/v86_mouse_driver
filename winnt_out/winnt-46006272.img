@@ -1,0 +1,105 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Motorola
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEME6D36D73   ; Moto 3260, V.34R, 3260 Fast
+ExcludeFromSelect=UNIMODEM3634778C   ; Moto 3260, V.34R, 3260 Fast
+ExcludeFromSelect=UNIMODEMEB014F96   ; Moto 3220, 3220 Plus
+ExcludeFromSelect=UNIMODEM08EE69F7   ; Moto 3225, 3229
+ExcludeFromSelect=SERENUM\MOT1501    ; Modem1
+ExcludeFromSelect=SERENUM\MOT1502    ; Modem20
+ExcludeFromSelect=SERENUM\MOT1505    ; Modem19
+ExcludeFromSelect=SERENUM\MOT1111    ; Modem17
+ExcludeFromSelect=SERENUM\MOT1105    ; Modem27
+ExcludeFromSelect=SERENUM\MOT1115    ; Modem27
+ExcludeFromSelect=SERENUM\MOT1114    ; Modem13
+ExcludeFromSelect=ISAPNP\MOT1190     ; Modem28
+ExcludeFromSelect=*MOT1509
+ExcludeFromSelect=*MOT1560
+ExcludeFromSelect=SERENUM\MOT150A
+ExcludeFromSelect=ISAPNP\MOT1580
+ExcludeFromSelect=ISAPNP\MOT15B0
+ExcludeFromSelect=ISAPNP\MOT15A0
+ExcludeFromSelect=UNIMODEM3B65849A   ; combo, VoiceSURFR and OnlineSURFR
+
+[Modem1.NoResDup]
+UNIMODEM5982EBD2,UNIMODEMF00E811C
+
+[Modem13.NoResDup]
+MDMGEN
+
+[Modem17.NoResDup]
+MDMGEN
+
+[Modem19.NoResDup]
+UNIMODEMDC74D163,UNIMODEM38F16DBB
+
+[Modem27.NoResDup]
+UNIMODEMED7E70D4,UNIMODEM39277F3D
+
+[Modem28.PosDup]
+*PNP0500
+
+[Modem29.NoResDup]
+UNIMODEME2E38517
+
+[Modem30.PosDup]
+*PNP0500
+
+[Modem31.NoResDup]
+UNIMODEMFC1BFB5B
+
+[Modem32.PosDup]
+*PNP0500
+
+[Modem33.PosDup]
+*PNP0500
+
+[Manufacturer]
+%Mfg% = Models
+
+[Models]
+
+%Modem35% = Modem33, UNIMODEM3B65849A                ;combo, voicesurfr or onlinesurfr
+%Modem34% = Modem33, ISAPNP\MOT15A0_DEV0000          ;MOTOROLA VOICESURFR 288 INT
+%Modem34% = Modem33, Moto_Modem34, UNIMODEM3B65849A  ;MOTOROLA VOICESURFR 288 INT
+%Modem33% = Modem33, ISAPNP\MOT15B0                  ;MOTOROLA OnlineSURFR 28.8 Internal
+%Modem33% = Modem33, Moto_Modem33, UNIMODEM3B65849A  ;MOTOROLA OnlineSURFR 28.8 Internal
+
+%Modem32% = Modem32, ISAPNP\MOT1580      ; MOTOROLA Premier 33.6 Internal
+%Modem32% = Modem32, UNIMODEM0C9696A4    ; MOTOROLA Premier 33.6 Internal
+%Modem31PNP% = Modem31, SERENUM\MOT150A  ; MOTOROLA Premier 33.6 Desktop
+%Modem31% = Modem31, UNIMODEMFC1BFB5B    ; MOTOROLA Premier 33.6 Desktop
+%Modem30% = Modem30, *MOT1560            ; Motorola ModemSURFR Internal 28.8
+%Modem30% = Modem30, UNIMODEMEFAA5854    ; Motorola ModemSURFR Internal 28.8
+%Modem29PNP% = Modem29, *MOT1509         ; Motorola ModemSURFR External 28.8
+%Modem29% = Modem29, UNIMODEME2E38517    ; Motorola ModemSURFR External 28.8
+%Modem29% = Modem29, UNIMODEMC32CFDA3    ; Motorola ModemSURFR External 28.8
+%Modem28% = Modem28, ISAPNP\MOT1190      ; Motorola Lifestyle 28.8 Internal
+%Modem28% = Modem28, UNIMODEM1DC890FB    ; Motorola Lifestyle 28.8 Internal
+%Modem27PNP% = Modem27, SERENUM\MOT1115  ; Motorola BitSURFR EXTERNAL
+%Modem27% = Modem27, UNIMODEMED7E70D4    ; Motorola BitSURFR EXTERNAL
+%Modem27PNP% = Modem27, SERENUM\MOT1105  ; Motorola BitSURFR EXTERNAL
+%Modem27% = Modem27, UNIMODEM39277F3D    ; Motorola BitSURFR EXTERNAL
+%Modem26% = Modem26, UNIMODEM08EE69F7    ; V3229, V3225
+%Modem25% = Modem23, UNIMODEMEB014F96    ; 3220, 3220 Plus
+%Modem24% = Modem24, MOTO_Modem24, UNIMODEMEB014F96    ; 3220 Plus
+%Modem23% = Modem23, MOTO_Modem23, UNIMODEMEB014F96    ; 3220
+%Modem22% = Modem21, UNIMODEME6D36D73    ; Moto 3260, V.34R, 3260 Fast
+%Modem22% = Modem21, UNIMODEM3634778C    ; Moto 3260, V.34R, 3260 Fast 
+%Modem21% = Modem21, MOTO_Modem21, UNIMODEME6D36D73    ; 3260
+%Modem21% = Modem21, MOTO_Modem21, UNIMODEM3634778C    ; 3260
+%Modem21% = Modem21, UNIMODEM467ABBD7    ; 3260
+%Modem20PNP% = Modem19, SERENUM\MOT1502  ; Lifestyle 288
+%Modem20% = Modem19, UNIMODEMDC74D163    ; Lifestyle 288
+%Modem19PNP% = Modem19, SERENUM\MOT1505  ; Power 288
+%Modem19% = Modem19, UNIMODEM38F16DBB    ; Power 288
+%Modem18% = Modem18, MOTO_Modem18, UNIMODEME6D36D73    ; V.34R primary detection
+%Modem18% = Modem18, MOTO_Modem18, UNIMODEM

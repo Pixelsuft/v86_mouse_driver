@@ -1,0 +1,83 @@
+NoTitle),$(!REG_VT_DWORD),$(StartValue)},+
+                               {ErrorControl,$(NoTitle),$(!REG_VT_DWORD),$(CS_ErrorControl)}+
+                               }
+            Ifint $(TypeValue) > 4
+                Set NewValueList = >($(NewValueList), +
+                        {ObjectName,$(NoTitle),$(!REG_VT_SZ),$(CS_ObjectName)})
+            Endif
+            ifstr(i) $(CS_Group) != ""
+                set NewValueList = >($(NewValueList), +
+                        {Group,$(NoTitle),$(!REG_VT_SZ),$(CS_Group)})
+            endif
+            ifstr(i) $(CS_ImagePath) != ""
+                set NewValueList = >($(NewValueList), +
+                        {ImagePath,$(NoTitle),$(!REG_VT_EXPAND_SZ),$(CS_ImagePath)})
+            endif
+            ifstr(i) $(CS_Dependencies) != ""
+                ifstr(i) $(CS_Dependencies) != {}
+                    set NewValueList = >($(NewValueList), +
+                        {Dependencies,$(NoTitle),$(!REG_VT_MULTI_SZ),$(CS_Dependencies)})
+                endif
+            endif
+            Shell "", AddValueList, $(CS_KeyTempSvc), $(NewValueList)
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                    Debug-Output "Registry error: Add value list"
+            endif
+        endif
+    else
+        Debug-Output "UTILITY.INF: [CreateService] "$(CS_NameOfService)" using CreateService() wrapper"
+        Set FLibraryErrCtl = 1
+        LibraryProcedure CS_CreateResult $(!NCPA_HANDLE), CPlSetup, $(!STF_HWND), CREATESVC,+
+            $(CS_NameOfService), $(CS_DisplayName), $(StartValue), $(TypeValue), $(CS_ErrorControl),+
+            $(CS_ImagePath), $(CS_Group),$(CS_Dependencies),$(CS_ObjectName)
+        Set FLibraryErrCtl = 0
+        Set CS_CreateError = *($(CS_CreateResult),1)
+        Ifint $(CS_CreateError) != 0
+             Debug-Output "UTILITY.INF: CreateService wrapper failed, error: "$(CS_CreateResult)
+             Ifint $(CS_CreateError) == 1073
+                 Set RegistryErrorIndex = SERVICE_ALREADY_EXISTS
+             Else-ifint $(CS_CreateError) == 1072
+                 Set RegistryErrorIndex = SERVICE_MARKED_FOR_DELETE
+             Else
+                 Set RegistryErrorIndex = UNABLE_CREATE_CONFIGURE_SERVICE
+             Endif
+             CloseRegKey $(CS_KeyTempSvc)
+             Goto C_S_Return
+        Endif
+        OpenRegKey $(CS_KeyServices) "" $(CS_NameOfService) $(MAXIMUM_ALLOWED) CS_KeyTempSvc
+        ifstr $(CS_KeyTempSvc) == $(KeyNull)
+             Debug-Output "UTILITY.INF: unable to open new service key"
+             set RegistryErrorIndex = UNABLE_CREATE_CONFIGURE_SERVICE
+             CloseRegKey $(CS_KeyTempSvc)
+             Goto C_S_Return
+        endif
+    endif
+    CreateRegKey $(CS_KeyTempSvc) {"Parameters",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CS_KeyParameters
+    ifstr $(CS_KeyParameters) == $(KeyNull)
+        OpenRegKey $(CS_KeyTempSvc) "" "Parameters" $(MAXIMUM_ALLOWED) +
+            CS_KeyParameters
+    endif
+    Ifstr $(CS_KeyParameters) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_CREATE_SERVICE_SUBKEY
+       CloseRegKey $(CS_KeyTempSvc)
+       goto C_S_Return
+    endif
+    set RegistryErrorIndex = NO_ERROR
+    CreateRegKey $(CS_KeyTempSvc) {"Linkage",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CS_KeyLinkage
+    Ifstr $(CS_KeyLinkage) == $(KeyNull)
+        OpenRegKey $(CS_KeyTempSvc) "" "Linkage" $(MAXIMUM_ALLOWED) CS_KeyLinkage
+    Endif
+    Ifstr $(CS_KeyLinkage) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_CREATE_SERVICE_SUBKEY
+       CloseRegKey $(CS_KeyTempSvc)
+       goto C_S_Return
+    endif
+    CreateRegKey $(CS_KeyLinkage) {"Disabled",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CS_KeyDisabled
+    Ifstr $(CS_KeyDisabled) == $(KeyNull)
+        OpenRegKey $(CS_KeyLinkage) "" "Disabled" $(MAXIMUM_ALLOWED) CS_KeyDisabled
+    Endif
+    Ifstr $(CS_KeyDisabled) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_CREATE_SERVICE_SUBKEY
+       CloseRegKey $(CS_KeyTempSvc)
+ 

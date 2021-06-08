@@ -1,0 +1,177 @@
+----------------------
+[ZyXEL U-1496SN Plus]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496SN V<?><?><?><?><?><?><?>P
+
+;----------------------------------------
+; ZyXEL Modems (Germany)
+;----------------------------------------
+
+[ZyXEL U-1496G Plus - GER]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496G
+
+;----------------------------------------
+[ZyXEL U-1496EG Plus - GER]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496EG V<?><?><?><?><?><?><?>P
+
+;----------------------------------------
+[ZyXEL U-1496EG - GER]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496EG V<?><?><?><?><?><?><?>M
+
+
+;====================================
+;SWISSE-Modems
+;====================================
+
+;------------------------------------
+; Martignoni Electronics AG - Modems
+;------------------------------------
+
+[M. Bullet ModemMan - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=P1496MX
+
+COMMAND_INIT=AT&F&C1&D2 $X1 V1 S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[M. Bullet E1414MX - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=E1414MX
+
+COMMAND_INIT=AT&F&C1&D2 $X1 V1 S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[M. Bullet PCMCIA 1414M - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=C1414AX
+
+COMMAND_INIT=AT&F&C1&D2 $X1 V1 S0=0 X3<cr><cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[M. Bullet PC1414MX - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=PC1414MX
+
+COMMAND_INIT=AT&F&C1&D2 $X1 V1 S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[M. Bullet ModemMan V.terbo - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=P192MX
+
+COMMAND_INIT=AT&F&C1&D2 $X1 V1 S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[M. Bullet PC192MX V.terbo - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_o

@@ -1,0 +1,74 @@
+"$(!Manufacturer)
+    ProductKeyName           = $(!NTN_SoftwareBase)"\"$(!Manufacturer)"\"$(ProductRASName)"\CurrentVersion"
+    !NetworkCardKeyName      = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+    RasSvrKeyName            = $(!NTN_ServiceBase)"\"$(ProductRASSVRName)
+    RasSvrParamKeyName       = $(!NTN_ServiceBase)"\"$(ProductRASSVRName)"\Parameters"
+    !RasManSvcKeyName        = $(!NTN_ServiceBase)"\"$(ProductRASMANName)
+    !RasAcdKeyName           = $(!NTN_ServiceBase)"\"$(!ProductRASACDName)
+    !RasArpKeyName           = $(!NTN_ServiceBase)"\"$(!ProductRASARPName)
+    !RasIsnRipKeyName        = $(!NTN_ServiceBase)"\"$(!ProductRASISNRIPName)
+    !RasIsnSapKeyName        = $(!NTN_ServiceBase)"\"$(!ProductRASISNSAPName)
+    !NdisTapiKeyName         = $(!NTN_ServiceBase)"\"$(!ProductNDISTAPIName)
+    !RasManKeyName           = $(!NTN_SoftwareBase)"\"$(!Manufacturer)"\"$(ProductRASMANName)"\CurrentVersion"
+    !RasAutodialKeyName       = $(!NTN_ServiceBase)"\"$(!ProductRASAUTODIALName)
+    RasManParamKeyName       = $(!NTN_ServiceBase)"\"$(ProductRASMANName)"\Parameters"
+    RasManLinkageKeyName     = $(!NTN_ServiceBase)"\"$(ProductRASMANName)"\Linkage"
+    NdisWanParamKeyName      = $(!NTN_ServiceBase)"\"$(!ProductNDISWANName)"\Parameters"
+    NdisWanLinkageKeyName    = $(!NTN_ServiceBase)"\"$(!ProductNDISWANName)"\Linkage"
+    RasAsyMacKeyName         = $(!NTN_ServiceBase)"\"$(ProductRASASYMACName)
+    RasAsyMacParamKeyName    = $(!NTN_ServiceBase)"\"$(ProductRASASYMACName)"\Parameters"
+    RasMacLinkageKeyName     = $(!NTN_ServiceBase)"\"$(ProductRASASYMACName)"\Linkage"
+    RasTapiDevicesKeyName    = $(!NTN_SoftwareBase)"\"$(!Manufacturer)"\"$(ProductRASName)"\TAPI DEVICES"
+    LinkageKeyName           = $(!NTN_ServiceBase)"\"$(Product$(Option)Name)"\Linkage"
+    !ProductNDISWANKeyName   = $(!NTN_SoftwareBase)"\"$(!Manufacturer)"\"$(!ProductNDISWANName)"\CurrentVersion"
+    ProductRASASYMACKeyName  = $(!NTN_SoftwareBase)"\"$(!Manufacturer)"\"$(ProductRASASYMACName)"\CurrentVersion"
+    RasProtocolsKeyName      = $(!NTN_SoftwareBase)"\"$(!Manufacturer)"\"$(ProductRASName)"\PROTOCOLS"
+    !UtilityInf     = "UTILITY.INF"
+    subroutninf    = "SUBROUTN.INF"
+    RascfgDll      = "RASCFG.DLL"
+    Exit_Code      = 0
+    ShellCode      = 0
+    from      = ""
+    to        = ""
+    ExitCodeOk     = 0
+    ExitCodeCancel = 1
+    ExitCodeFatal  = 2
+    KeyNull         = ""
+    !MAXIMUM_ALLOWED   = 33554432
+    !SERVICE_NO_CHANGE = 4294967295
+    RegistryErrorIndex = NO_ERROR
+    ServerSize  = 820116
+    ClientSize  = 634260
+    AdminSize   = 513962
+    FInstallServer = $(Chosen)
+    FInstallClient = $(Chosen)
+    FInstallAdmin  = $(Chosen)
+[UiVars]
+    VolumeList      = {} ? $(!LIBHANDLE) GetHardDriveLetters
+    VolumeFreeList  = {} ? $(!LIBHANDLE) GetHardDriveFreeSpace
+    VolumeFSList    = {} ? $(!LIBHANDLE) GetHardDriveFileSystems
+    DestVolume      = ""
+    MinHelpID   = 25000
+    MaxHelpID   = 25999
+[SystemVars]
+    !STF_PROCESSOR      = "" ? $(!LIBHANDLE) GetProcessor
+    !STF_PLATFORM       = "" ? $(!LIBHANDLE) GetPlatform
+    !STF_WINDOWSPATH    = "" ? $(!LIBHANDLE) GetWindowsNtDir
+    !STF_NTPATH         = $(!STF_WINDOWSPATH)
+    !STF_WINDOWSSYSPATH = "" ? $(!LIBHANDLE) GetWindowsNtSysDir
+    !STF_COMPUTERNAME   = "" ? $(!LIBHANDLE) GetMyComputerName
+    !STF_USERNAME       = "" ? $(!LIBHANDLE) GetMyUserName
+    !STF_FLOPPYLIST     = {} ? $(!LIBHANDLE) GetFloppyDriveLetters
+    !STF_UNUSEDDRIVES   = {} ? $(!LIBHANDLE) GetUnusedDrives
+    !STF_LANGUAGE       = "" ? $(!LIBHANDLE) GetLanguage
+    !STF_BUSTYPE        = "" ? $(!LIBHANDLE) GetMyBusType
+    !STF_BUSTYPELIST    = "" ? $(!LIBHANDLE) GetMyBusTypeList
+    !NTN_SoftwareBase   = "Software"
+    !NTN_ServiceBase    = "System\CurrentControlSet\Services"
+    !NTN_ScUseRegistry  = "NO"
+[AvailableSystemMemory]
+    SystemMemory    = "" ? $(!LIBHANDLE) GetMemorySize
+    MinSystemMemory = 2048
+[date]
+    !CurrentDate = {} ? $(!LIBHANDLE) GetSystemDate
+[HelpContextI

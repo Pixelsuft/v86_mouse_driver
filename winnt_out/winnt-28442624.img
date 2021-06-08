@@ -1,0 +1,93 @@
+endif
+        set Error = $($R0)
+        set from = end
+        set to = end
+        goto nonfatalinfo
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = bindingadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_SOFTWARE = {}
+        set OEM_ABANDON_OPTIONS = {}
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(STREAMS_PATH) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        set Error = $(StreamsAlreadyInstalled)
+        set from = end
+        set to = end
+        goto nonfatalinfo
+    endif
+    set OEM_ABANDON_ON  = TRUE
+    read-syms Billboard1$(!STF_LANGUAGE)
+    Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+    Set BillboardVisible = 1
+    Set DoStreams   = FALSE
+    Ifstr(i) $(Option) == STREAMS
+        Set DoStreams = TRUE
+    Else
+        Debug-Output "STREAMS.INF: Unrecognized option"
+    Endif
+    StartWait
+    Ifstr(i) $(DoStreams) == TRUE
+        Set ThisOption = STREAMS
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPST.INF: installing STREAMS..."
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName), $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType), "", {}, "",+
+            $(NetEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPST.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPST.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set STREAMSProductKey   = $($R1)
+        Set STREAMSNetRuleKey   = $($R2)
+        Set STREAMSServiceKey   = $($R3)
+        Set STREAMSParameterKey = $($R4)
+        Set STREAMSLinkageKey   = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(STREAMSProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPST.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPST.INF: Registry error: add value list."
+            CloseRegKey $(STREAMSProductKey)
+            CloseRegKey $(STREAMSNetRuleKey)
+            CloseRegKey $(STREAMSServiceKey)
+            CloseRegKey $(STREAMSParameterKey)
+            CloseRegKey $(STREAMSLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)ClassList)},+
+                         

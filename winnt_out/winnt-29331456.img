@@ -1,0 +1,157 @@
+ Blue+ Token Ring Adapter"
+NI6510      = "Racal InterLan XLerator/EB/NI6510 Adapters"
+OCTK16      = "Olicom Token Ring 16/4 Adapter"
+OCE2XM      = "Olicom Ethernet ISA/IV Adapter"
+TKXP16      = "Intel TokenExpress(tm) 16/4 Adapter"
+WAVELAN_ISA = "WaveLAN ISA Bus Adapter"
+XCSPE2      = "Xircom Pocket Ethernet II"
+XCSPE3      = "Xircom Pocket Ethernet III"
+HP27245     = "HP 27245A PC LAN Adapter/8 TP"
+HP27250     = "HP 27250 PC LAN Adapter/8 TL"
+HP27247A    = "HP 27247A PC LAN Adapter/16 TP"
+HP27247B    = "HP 27247B PC LAN Adapter/16 TP Plus"
+HP27252A    = "HP 27252A PC LAN Adapter/16 TL Plus"
+ANDTOK      = "Andrew ISA IIA Token Ring Adapter"
+ETH16I      = "ICL EtherTeam16i Adapter"
+NCRTOK      = "NCR StarLAN 16/4 Token-Ring Adapter"
+AT1700      = "Allied Telesyn AT1700 Ethernet Adapter"
+SKFINT      = "SysKonnect SK-NET ISA FDDI Adapter"
+SKETHNT     = "SysKonnect SK-NET G16 Ethernet Adapters"
+SKTOKNT     = "SysKonnect SK-NET 4/16+ Token Ring Adapter"
+NPAT2       = "Network Peripherals FDDI, AT2"
+NPAT3       = "Network Peripherals FDDI, AT3"
+$enet       = "Compex ENET16 P/PNP Ethernet Adapter"
+EPRONT      = "Intel EtherExpress PRO/10+ ISA Adapter"
+TC508       = "3Com 3C508 ISA 16-bit Ethernet Adapter"
+IBMTOK4     = "IBM Auto 16/4 Token-Ring ISA Adapter"
+SMC8416     = "SMC 8416 EtherEZ"
+SMC8216     = "SMC 8216 EtherCard Elite16 Ultra"
+TLNK3ISA    = "3Com TokenLink III ISA Adapter (3C619B)"
+IBMISAETHER = "IBM ISA Ethernet Adapter"
+DLINKDE220  = "D-Link DE-220 ISA Ethernet Adapter"
+LINKSYSE16  = "LinkSys Ether16 LAN Card"
+aclser      = "Star Gate ACL/Avanstar Family Adapter"
+[EISAOptions]
+NiwRAS
+DigiSyncX25
+DigiSyncFR
+Diehl_DIVA
+Diehl_DIVAPRO
+Diehl_S2M
+Diehl_QUADRO
+Diehl_SCOM
+Diehl_WAN
+ECCARDS
+MGSL
+USRBRI
+ALT1
+AL56
+ACCNT
+J2577A
+J2573A
+TC$4045e
+TC$4046e
+E21XX
+E22XX
+F70XX
+T20XX
+IRMAtrac
+BLUTOK
+NI6510
+OCTK16
+OCTK32
+OCE2XM
+SMC8232
+TKXP16
+TKXP32
+WAVELAN_ISA
+XCSPE2
+XCSPE3
+HP27245
+HP27250
+HP27247A
+HP27247B
+HP27252A
+ANDTOK
+FLNK
+FL32
+ETH16I
+ETH32
+NCRTOK
+AT1700
+SKFINT
+SKFENT
+SKETHNT
+SKTOKNT
+NPAT2
+NPAT3
+$enet
+TLNK3EISA
+EPRONT
+TC508
+3C592
+3C597
+NetFlex3
+IBMTOK4
+SMC8416
+SMC8216
+IBMISAETHER
+DLINKDE220
+LINKSYSE16
+ES3210
+aclser
+[EISAFilename]
+drvlib\netcard\x86\NiwRAS\oemsetup.inf
+drvlib\netcard\x86\DIGIX25\oemsetup.inf
+drvlib\netcard\x86\DIGIFR\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\EICON\oemsetup.inf
+drvlib\netcard\x86\wan\MGSL\oemsetup.inf
+drvlib\netcard\x86\USRBRI\oemsetup.inf
+drvlib\netcard\x86\wan\ALT1\oemsetup.inf
+drvlib\netcard\x86\wan\AL56\oemsetup.inf
+drvlib.nic\ACCNT\OEMSETUP.INF
+drvlib.nic\HPVGE\OEMSETUP.INF
+drvlib.nic\HPVGI\OEMSETUP.INF
+drvlib.nic\TCTOK\OEMSETUP.INF
+drvlib.nic\TCTOK\OEMSETUP.INF
+drvlib.nic\CTE21\OEMSETUP.INF
+drvlib.nic\CTE22\OEMSETUP.INF
+drvlib.nic\CTF70\OEMSETUP.INF
+drvlib.nic\CTT20\OEMSETUP.INF
+drvlib.nic\IRMANT\OEMSETUP.INF
+drvlib.nic\BLUTOK\OEMSETUP.INF
+drvlib.nic\NI6510\OEMSETUP.INF
+drvlib.nic\OCTK16\OEMSETUP.INF
+drvlib.nic\OCTK32\OEMSETUP.INF
+drvlib.nic\OCE2XM\OEMSETUP.INF
+drvlib.nic\SMC32\OEMSETUP.INF
+drvlib.nic\TKXP16\OEMSETUP.INF
+drvlib.nic\TKXP32\OEMSETUP.INF
+drvlib.nic\WAVLAN\OEMSETUP.INF
+drvlib.nic\XPE2\OEMSETUP.INF
+drvlib.nic\XPE3\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\ANDTOK\OEMSETUP.INF
+drvlib.nic\3c770\OEMSETUP.INF
+drvlib.nic\FL32\OEMSETUP.INF
+drvlib.nic\ICL16\OEMSETUP.INF
+drvlib.nic\ICL16\OEMSETUP.INF
+drvlib.nic\NCRTOK\OEMSETUP.INF
+drvlib.nic\AT1700\OEMSETUP.INF
+drvlib.nic\SKFINT\OEMSETUP.INF
+drvlib.nic\SKFENT\OEMSETUP.INF
+drvlib.nic\SKETHNT\OEMSETUP.INF
+drvlib.nic\SKTOKNT\OEMSETUP.INF
+drvlib.nic\NPAT\OEMSETUP.INF
+drvlib.nic\NPAT\OEMSETUP.INF
+drvlib.nic\ENET\OEMSETUP

@@ -1,0 +1,116 @@
+erTypeFlag)}}
+    endif
+    ifstr(i) $(ID$(Option)) != ""
+    	set NewValueList = >($(NewValueList),+
+			     {$(IDV$(Option)), $(NoTitle), $(!REG_VT_DWORD), $(ID$(Option))})
+    endif
+    ifstr $(LAA) != ""
+    	set NewValueList = >($(NewValueList),+
+			     {NetworkAddress, $(NoTitle), $(!REG_VT_SZ), $(LAA)})
+    endif
+    ifstr $(StatsFlag) == "1"
+    	set NewValueList = >($(NewValueList),+
+			     {PromiscuousModeX, $(NoTitle), $(!REG_VT_DWORD), $(StatsFlag)})
+    endif
+    ifstr $(SpeedFlag) == "1"
+    	set NewValueList = >($(NewValueList),+
+			     {Force4, $(NoTitle), $(!REG_VT_DWORD), 1})
+    endif
+    ifstr $(SpeedFlag) == "2"
+    	set NewValueList = >($(NewValueList),+
+			     {Force16, $(NoTitle), $(!REG_VT_DWORD), 1})
+    endif
+    ifstr(i) $(Option) == "MSMDGMPPCMCIA"
+    	set NewValueList = >($(NewValueList),+
+			     {Pcmcia, $(NoTitle), $(!REG_VT_DWORD), 1})
+    endif
+    Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    	goto Shell_Code_Error
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	    CloseRegKey $(KeyParameters)
+	    goto Fatal_Registry
+    endif
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        Shell $(UtilityInf),AddDefaultNetCardParameters,$(KeyParameters)
+    endif
+    ifstr $(OldLAA) != ""
+	    ifstr $(LAA) == ""
+	        DeleteRegValue $(KeyParameters) NetworkAddress
+	    endif
+    endif
+    ifstr $(OldSpeedFlag) == "1"
+	    ifstr $(SpeedFlag) != "1"
+	        DeleteRegValue $(KeyParameters) Force4
+	    endif
+    endif
+    ifstr $(OldSpeedFlag) == "2"
+	    ifstr $(SpeedFlag) != "2"
+	        DeleteRegValue $(KeyParameters) Force16
+	    endif
+    endif
+    ifstr $(OldStatsFlag) != "0"
+	    ifstr $(StatsFlag) == "0"
+	        DeleteRegValue $(KeyParameters) PromiscuousModeX
+	    endif
+    endif
+    CloseRegKey $(KeyParameters)
+    EndWait
+    goto Successful
+Binding_Adapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto Fatal
+Remove_Adapter = +
+    StartWait
+    ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+	    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+	        $(ProductSoftwareName)
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        goto Shell_Code_Error
+	    endif
+	    set RegistryErrorIndex = $($R0)
+	    ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	        goto Fatal_Registry
+	    endif
+    else
+	    Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+	        $(ProductSoftwareName), $(!NTN_RegBase)     
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        goto Shell_Code_Error
+	    endif
+	    set RegistryErrorIndex = $($R0)
+	    ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	        goto Fatal_Registry
+	    endif
+    endif
+    EndWait
+    goto End
+Upgrade_Software = +
+    StartWait
+    ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+	    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+	    ifstr $(KeyProduct) != $(KeyNull)
+	        GetRegValue $(KeyProduct),"MajorVersion", VersionInfo
+	        set Version = *($(VersionInfo), 4)
+	        shell $(UtilityInf) GetInfFileNameFromRegistry $(KeyProduct)
+	        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    		    goto Shell_Code_Error
+            endif
+	        set !UG_Filename = $($R0)
+	        ifstr(i) $(!UG_Filename) != ""
+        	    install "Install-Update"
+		        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                    goto Fatal
+                endif
+	        endif
+	        CloseRegKey $(KeyProduct)
+	        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+	        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+	        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+	        ifint $(Version) != $(ProductMajorVersion)
+            endif
+	        CloseRegKey $(KeyProduct)
+	    else
+	        goto Fatal_Reg

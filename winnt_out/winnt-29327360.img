@@ -1,0 +1,145 @@
+n F30XX FDDI Adapter"
+IRMAtrac    = "DCA IRMAtrac Token-Ring Adapter"
+OCTK16      = "Olicom Token Ring 16/4 Adapter"
+TKXP16      = "Intel TokenExpress(tm) 16/4 Adapter"
+WAVELAN_MCA = "WaveLAN MCA Bus Adapter"
+XCSPE2      = "Xircom Pocket Ethernet II"
+XCSPE3      = "Xircom Pocket Ethernet III"
+HPMCA       = "HP 27246A MC LAN Adapter/16 TP"
+STREAMER    = "IBM Streamer Family Adapters"
+NCRTOK      = "NCR StarLAN 16/4 Token-Ring Adapter"
+AT1700      = "Allied Telesyn AT1720 Ethernet Adapter"
+ELINK527    = "3Com 3C527 Etherlink/MC 32 Adapter"
+QUADENET    = "IBM PeerMaster Server Adapter"
+IBMENIIN    = "IBM LAN Adapter/A for Ethernet"
+TC$4046e    = "Thomas-Conrad TC4046 Token Ring Adapter"
+[ISAOptions]
+NiwRAS
+DigiSyncX25
+DigiSyncFR
+Diehl_DIVA
+Diehl_DIVAPRO
+Diehl_S2M
+Diehl_QUADRO
+Diehl_SCOM
+Diehl_WAN
+ECCARDS
+MGSL
+USRBRI
+ALT1
+AL56
+ACCNT
+J2573A
+E21XX
+E22XX
+T20XX
+IRMAtrac
+BLUTOK
+NI6510
+OCTK16
+OCE2XM
+TKXP16
+WAVELAN_ISA
+XCSPE2
+XCSPE3
+HP27245
+HP27250
+HP27247A
+HP27247B
+HP27252A
+ANDTOK
+ETH16I
+NCRTOK
+AT1700
+SKFINT
+SKETHNT
+SKTOKNT
+NPAT2
+NPAT3
+$enet
+EPRONT
+TC508
+IBMTOK4
+SMC8416
+SMC8216
+TLNK3ISA
+IBMISAETHER
+DLINKDE220
+LINKSYSE16
+aclser
+[ISAFilename]
+drvlib\netcard\x86\NiwRAS\oemsetup.inf
+drvlib\netcard\x86\DIGIX25\oemsetup.inf
+drvlib\netcard\x86\DIGIFR\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\DIWAN\oemsetup.inf
+drvlib\netcard\x86\wan\EICON\oemsetup.inf
+drvlib\netcard\x86\wan\MGSL\oemsetup.inf
+drvlib\netcard\x86\USRBRI\oemsetup.inf
+drvlib\netcard\x86\wan\ALT1\oemsetup.inf
+drvlib\netcard\x86\wan\AL56\oemsetup.inf
+drvlib.nic\ACCNT\oemsetup.inf
+drvlib.nic\HPVGI\oemsetup.inf
+drvlib.nic\CTE21\oemsetup.inf
+drvlib.nic\CTE22\oemsetup.inf
+drvlib.nic\CTT20\OEMSETUP.INF
+drvlib.nic\IRMANT\oemsetup.inf
+drvlib.nic\BLUTOK\OEMSETUP.INF
+drvlib.nic\NI6510\OEMSETUP.INF
+drvlib.nic\OCTK16\oemsetup.inf
+drvlib.nic\OCE2XM\oemsetup.inf
+drvlib.nic\TKXP16\oemsetup.inf
+drvlib.nic\WAVLAN\oemsetup.inf
+drvlib.nic\XPE2\OEMSETUP.INF
+drvlib.nic\XPE3\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\HPISA\OEMSETUP.INF
+drvlib.nic\ANDTOK\OEMSETUP.INF
+drvlib.nic\ICL16\OEMSETUP.INF
+drvlib.nic\NCRTOK\OEMSETUP.INF
+drvlib.nic\AT1700\OEMSETUP.INF
+drvlib.nic\SKFINT\OEMSETUP.INF
+drvlib.nic\SKETHNT\OEMSETUP.INF
+drvlib.nic\SKTOKNT\OEMSETUP.INF
+drvlib.nic\NPAT\OEMSETUP.INF
+drvlib.nic\NPAT\OEMSETUP.INF
+drvlib.nic\ENET\OEMSETUP.INF
+drvlib.nic\EPRONT\OEMSETUP.INF
+drvlib.nic\3C508\OEMSETUP.INF
+drvlib.nic\ibmtok4\OEMSETUP.INF
+drvlib.nic\SMC16\OEMSETUP.INF
+drvlib.nic\SMC16\OEMSETUP.INF
+drvlib.nic\TLNK3\OEMSETUP.INF
+drvlib.nic\NE2K.ISA\OEMSETUP.INF
+drvlib.nic\NE2K.ISA\OEMSETUP.INF
+drvlib.nic\NE2K.ISA\OEMSETUP.INF
+drvlib.nic\SGATE\oemsetup.inf
+[ISAOptionsTextENG]
+NiwRAS      = "Niwot Networks NiwRAS Adapter"
+DigiSyncX25 = "Digi SyncPort X.25 Adapter"
+DigiSyncFR  = "Digi SyncPort Frame Relay Adapter"
+Diehl_DIVA  = "Eicon DIVA ISDN ISA Adapter"
+Diehl_DIVAPRO = "Eicon DIVA PRO ISDN Adapter with Advanced DSP"
+Diehl_S2M   = "Eicon Primary Rate ISDN Adapter"
+Diehl_QUADRO = "Eicon QUADRO ISDN Adapter"
+Diehl_SCOM  = "Eicon SCOM ISDN Adapter"
+Diehl_WAN   = "Eicon Virtual WAN-Miniport ISDN Interface"
+ECCARDS	    = "Eicon WAN Adapters"
+MGSL        = "MicroGate SyncLink Internet Adapter"
+USRBRI      = "U.S. Robotics Sportster ISDN Adapter"
+ALT1        = "U.S. Robotics Allegra T1 Frame Relay"
+AL56        = "U.S. Robotics Allegra 56 Frame Relay"
+ACCNT       = "Accton EN166x MPX2 PnP Ethernet Adapter"
+J2573A      = "HP DeskDirect (J2573A) 10/100 ISA LAN Adapter"
+E21XX       = "Cabletron E21XX Ethernet Adapter"
+E22XX       = "Cabletron E22XX Ethernet Adapter"
+T20XX       = "Cabletron T20XX Token-Ring Adapter"
+IRMAtrac    = "DCA IRMAtrac Token-Ring Adapter"
+BLUTOK      = "Madge

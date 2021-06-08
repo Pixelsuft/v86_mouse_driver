@@ -1,0 +1,69 @@
+hell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        CloseRegKey $(SoftNetRuleKey)
+        CloseRegKey $(SoftServiceKey)
+        CloseRegKey $(SoftParameterKey)
+        CloseRegKey $(SoftLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            goto fatalregistry
+        endif
+    endif
+    ForListDo $(AdapterList)
+        set BusNum = *($($),1)
+        set DeviceNum = *($($),2)
+        set FunctionNum = *($($),3)
+        ifstr(i) $(Option) == "DE425"
+                Shell $(UtilityInf), IsNetCardAlreadyInstalled, $(BusNum), +
+                    $(DeviceNum), $(ProductHardware$(Option)Description), $(ProductHardwareName) "YES"
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+                endif
+                ifstr $($R0) != "NO_ERROR"
+                    set Error = $($R0)
+                    goto fatal
+                endif
+                ifstr(i) $($R1) != "YES"
+                        Shell $(UtilityInf), AddHardwareComponent, $(ProductHardwareName),$(STF_CONTEXTINFNAME),$(ProductKeyName)
+                        ifint $($R4) != -1
+                            Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), +
+                                $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards\"$($R4))
+                        endif
+                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                            goto ShellCodeError
+                        endif
+                        set RegistryErrorIndex = $($R0)
+                        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+                            EndWait
+                            CloseRegKey $($R1)
+                            CloseRegKey $($R2)
+                            CloseRegKey $($R3)
+                            goto fatalregistry
+                        endif
+                        Set HardNetCardKey      = $($R1)
+                        Set HardNetRuleKey      = $($R2)
+                        Set HardParameterKey    = $($R3)
+                        set AdapterNumber = $($R4)
+                        set NewValueList = {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(Manufacturer)},+
+                                           {Title,$(NoTitle),$(!REG_VT_SZ),"["$($R4)"] "$(ProductHardware$(Option)Title)},+
+                                           {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductHardware$(Option)Description)},+
+                                           {ProductName,$(NoTitle),$(!REG_VT_SZ),$(ProductHardwareName)},+
+                                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+                                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductDE425OpSupport)},+
+                                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+                        Shell  $(UtilityInf), AddValueList, $(HardNetCardKey), $(NewValueList)
+                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                            goto ShellCodeError
+                        endif
+                        set BusTypeNum = 2
+                        set NewValueList = {{AdapterType,$(NoTitle),$(!REG_VT_DWORD),$(Adapter$(Option)Type)},+
+                                        {BusType,$(NoTitle),$(!REG_VT_DWORD),$(BusTypeNum)},+
+                                        {MediaType,$(NoTitle),$(!REG_VT_DWORD),1},+
+                                        {BusNumber,$(NoTitle),$(!REG_VT_DWORD),$(BusNum)},+
+                                        {SlotNumber,$(NoTitle),$(!REG_VT_DWORD),$(DeviceNum)},+
+                                        {AdapterCFID,$(NoTitle),$(!REG_VT_DWORD),$($(Option)CFID)}}
+                        Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)

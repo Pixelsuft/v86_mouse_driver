@@ -1,0 +1,108 @@
+ider_return = +
+    return $(RegistryErrorIndex)
+[RemoveServiceProvider]
+    read-syms InitBaseVars
+    set RegistryErrorIndex = NO_ERROR
+    OpenRegKey $(!REG_H_LOCAL) "" $(CurrentControlSet)"\control\ServiceProvider\order" $(MAXIMUM_ALLOWED) OrderKey
+    ifstr(i) $(OrderKey) == $(KeyNull)
+        set RegistryErrorIndex = PROVIDER_ORDER_DOES_NOT_EXIST
+        goto RemoveProvider_return
+    endif
+    GetRegValue $(OrderKey) "ProviderOrder" OrderValue
+    set Order = *($(OrderValue), 4 )
+    set NewOrderList = {}
+    set FirstTime = TRUE
+    set Found = FALSE
+    ForListDo $(Order)
+        ifstr(i) $($) != $($0)
+            ifstr(i) $(FirstTime) == TRUE
+                set FirstTime = FALSE
+                set NewOrderList = {$($)}
+            else
+                set NewOrderList = >($(NewOrderList),$($))
+            endif
+        else
+            set Found = TRUE
+        endif
+    EndForListDo
+    ifstr(i) $(Found) == FALSE
+    else
+        ifstr(i) $(NewOrderList) == {}
+            set NewOrderList = ""
+        endif
+        SetRegValue $(OrderKey) {ProviderOrder,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NewOrderList)}
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName)\$($0) $(MAXIMUM_ALLOWED) ProviderKey
+    ifstr $(ProviderKey) != $(KeyNull)
+        DeleteRegTree $(ProviderKey) "ServiceProvider"
+    endif
+RemoveProvider_return = +
+    return $(RegistryErrorIndex)
+[RemoveNetworkProvider]
+    read-syms InitBaseVars
+    set RegistryErrorIndex = NO_ERROR
+    OpenRegKey $(!REG_H_LOCAL) "" $(CurrentControlSet)"\control\NetworkProvider\order" $(MAXIMUM_ALLOWED) OrderKey
+    ifstr(i) $(OrderKey) == $(KeyNull)
+        set RegistryErrorIndex = PROVIDER_ORDER_DOES_NOT_EXIST
+        goto RemoveNetworkProvider_return
+    endif
+    GetRegValue $(OrderKey) "ProviderOrder" OrderValue
+    set Order = *($(OrderValue), 4 )
+    Split-String $(Order) "," OrderList
+    set NewOrderList = {}
+    set FirstTime = TRUE
+    set Found = FALSE
+    ForListDo $(OrderList)
+        ifstr(i) $($) != ","
+            ifstr(i) $($) != $($0)
+                ifstr(i) $(FirstTime) == TRUE
+                    set FirstTime = FALSE
+                    set NewOrderList = $($)
+                else
+                    set NewOrderList = $(NewOrderList)","$($)
+                endif
+            else
+                set Found = TRUE
+            endif
+        endif
+    EndForListDo
+    ifstr(i) $(Found) == FALSE
+    else
+        ifstr(i) $(NewOrderList) == {}
+            set NewOrderList = ""
+        endif
+        SetRegValue $(OrderKey) {ProviderOrder,$(NoTitle),$(!REG_VT_SZ),$(NewOrderList)}
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName)\$($0) $(MAXIMUM_ALLOWED) ProviderKey
+    ifstr $(ProviderKey) != $(KeyNull)
+        DeleteRegTree $(ProviderKey) "NetworkProvider"
+    endif
+RemoveNetworkProvider_return = +
+    return $(RegistryErrorIndex)
+[AddNameSpaceProvider]
+    read-syms InitBaseVars
+    set RegistryErrorIndex = NO_ERROR
+    Set FLibraryErrCtl = 1
+    LibraryProcedure Result, $(!NCPA_HANDLE), AddNameSpaceProvider, $($0), $($1), $($2), $($3), $($4)
+    Set FLibraryErrCtl = 0
+    Set ResultError = *($(Result),1)
+    Ifint $(ResultError) != 0
+         Debug-Output "UTILITY.INF: AddNameSpaceProvider wrapper failed, error: "$(Result)
+         Set RegistryErrorIndex = UNABLE_ADD_NAMESPACE_PROVIDER
+         Goto AddNameSpaceProvider_return
+    Endif
+AddNameSpaceProvider_return = +
+    return $(RegistryErrorIndex)
+[RemoveNameSpaceProvider]
+    read-syms InitBaseVars
+    set RegistryErrorIndex = NO_ERROR
+    Set FLibraryErrCtl = 1
+    LibraryProcedure Result, $(!NCPA_HANDLE), RemoveNameSpaceProvider, $($0)
+    Set FLibraryErrCtl = 0
+    Set ResultError = *($(Result),1)
+    Ifint $(ResultError) != 0
+         Debug-Output "UTILITY.INF: RemoveNameSpaceProvider wrapper failed, error: "$(Result)
+         Set RegistryErrorIndex = UNABLE_REMOVE_NAMESPACE_PROVIDER
+         Goto RemoveNameSpaceProvider_return
+    Endif
+RemoveNameSpaceProvider_return

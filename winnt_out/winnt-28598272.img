@@ -1,0 +1,94 @@
+rorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: registry error: add value list."
+            goto fatalregistry
+        endif
+    endif
+    ifstr(i) $(DoMESSENGER) == TRUE
+        Debug-Output "OEMNSVWK.INF: Install Messenger registry"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductMESSENGERName))
+        Set MessengerServiceType = "serviceshare"
+        Ifint $(SystemMemory) > 12287
+            Set MessengerServiceType = "autoserviceshare"
+        Endif
+        Shell $(UtilityInf), CreateService, $(ProductMESSENGERName), +
+            $(ProductMESSENGERDisplayName), $(ProductMESSENGERImagePath), +
+            $(MessengerServiceType), "", {"LanmanWorkstation"}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+    endif
+    ifstr(i) $(DoRDR) == TRUE
+        Debug-Output "OEMNSVWK.INF: Install Rdr registry"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductRDRName))
+        Shell $(UtilityInf), CreateService, $(ProductRDRName), +
+            $(ProductRDRDisplayName), $(ProductRDRImagePath), +
+            "system", "Network", {}, "", +
+            $(NetEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        Debug-Output "OEMNSVWK.INF: Add NetworkProvider"
+        Shell $(UtilityInf), AddNetworkProvider, $(ProviderName), +
+            $(ProductProviderImagePath), $(ProductProviderName), +
+            $(ProviderDeviceName)
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+    endif
+    Ifstr(i) $(DoREPL) == TRUE
+        Debug-Output "OEMNSVWK.INF: Install Replicator registry"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductREPLName))
+        Shell $(UtilityInf), CreateService, $(ProductREPLName), +
+            $(ProductREPLDisplayName), $(ProductREPLImagePath), +
+            "service", "",+
+            {"LanmanWorkstation","LanmanServer"}, "", $(NetMsgDLL), +
+            "", "Application"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error; Replicator"
+            Goto ShellCodeError
+        Endif
+        set RegistryErrorIndex = $($R0)
+        Set RP_SrvKey = $($R1)
+        Set RP_ParmKey = $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add software components"
+            CloseRegKey $(RP_SrvKey)
+            CloseRegKey $(RP_ParmKey)
+            goto fatalregistry
+        endif
+        Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+            Set ReplImportControl = 3
+            Set ReplSecurity = 6
+        Else
+            Set ReplImportControl = 2
+            Set ReplSecurity = 2
+        Endif
+        LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), SECUREKEY, $(RP_ParmKey), $(ReplSecurity)
+        Set NewValueList = {{Replicate,$(NoTitle),$(!REG_VT_DWORD),$(ReplImportControl)},+
+                            {ImportPath,$(NoTitle),$(!REG

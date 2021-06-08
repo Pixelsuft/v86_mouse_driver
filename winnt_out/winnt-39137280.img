@@ -1,0 +1,78 @@
+<lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+; ZyXEL (german and austrian versions)
+; ZyXEL CELLULAR MODES
+;
+; ATTENTION: 1 OR 2 spaces before <carrierbps> required
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL  <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL  <carrierbps>/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL  <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL  <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL  <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL  <carrierbps>/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/CELL  <carrierbps>/NONE<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>/NONE<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>T/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>T/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>T/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>T/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>T/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>T/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>T/NONE<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>C/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>C/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>C/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>C/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>C/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>C/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/CELL <carrierbps>C/NONE<cr><lf>
+
+; Centraleurope ZyXEL PROPRIETARY MODES
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/NONE<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX <carrierbps>/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX <carrierbps>/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/ZyX <carrierbps>/NONE<cr><lf>
+
+; ZYXEL - STANDARD MODES (additional responses to US versions)
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/V42 /SREJ<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b  <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b  <carrierbps>/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connec

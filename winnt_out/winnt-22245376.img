@@ -1,0 +1,42 @@
+ableExtentionsType: REG_DWORDSetting: 1
+
+Once this key and value exists, the behavior of a command session can be changed with "cmd /x" to enable the extensions, and "cmd /y" to disable the extensions.
+
+For a complete description of Command Extensions and the commands that are affected or changed by enabling the extensions, run "cmd /x /?" 
+
+Hardware Notes
+
+Note
+Be sure to check that all equipment—including video cards, networking cards, monitors, CPUs, hard drives, and CD-ROM drives—is listed on the Windows NT version 4.0 Hardware Compatibility List, included with this product.
+
+If you are using a system or equipment that is not included on the hardware compatibility list, and experience problems, please file a report by using the <platform>\Probrep.txt  file on the Windows NT version 4.0 compact disc.  <Platform> is either X86, MIPS, ALPHA, or PPC, depending on your computer’s platform. The Probrep.txt file is also installed in the %systemroot%\system32 folder.
+
+
+ATAPI and PCI
+ATAPI.SYS now controls all IDE devices in a PCI machine. If you have a computer that uses IDE hard disks, has a PCI bus, and are upgrading from Windows NT version 3.51 to Windows NT version 4.0,  you may receive a message when the system is booting stating that a driver has failed to start. In Event Viewer, you will see that the ATDISK driver failed to start. To disable the driver and associated box, double-click the Devices icon in Control Panel, and then disable the ATDISK driver.
+
+
+Caching Disk Controllers and Drives
+Windows NT supports caching disk controllers and drives only if one of the following is true:
+
+· The controller has a driver that specifically supports caching. (Several of these exist: DPT and IBM SCSI Caching Adapter.)
+· Write-through is active (i.e., write caching is disabled) by setting it either manually or by default when the computer starts.
+· The entire cache option is off, by setting it either manually or by default when the computer starts.
+
+Using a caching controller or drive in other situations risks loss of data if the computer is rebooted or if a power failure occurs before the cache has flushed itself. You can minimize risk by waiting at least one minute (less if you know the maximum time the cache waits before flushing itself) after all system activity stops before rebooting. The disk activity light is a good indicator of how write caching is being done on your system. This applies to the initial Windows NT installation as well as to shutdown. Note that unexpected power failure at any time can potentially corrupt data on the disk, possibly to the extent that the disk becomes unreadable. Making the delay time that write data is cached before being flushed to disk as small as possible reduces this risk.
+
+Certain applications are data-sensitive and require that write-through be active. Examples of this are SQL Server-based applications and NTFS partitions.
+
+CD-ROM Changers 
+· Some IDE/ATAPI CD-ROM Changers may take an excessive amount of time to read all of their compact discs.  This may be especially apparent while using Windows NT Explorer, or using an Open dialog box (accessed from the File menu) from certain applications.  Some ATAPI CD-ROM changers cannot report their media change status properly so the system software must read the discs directly to verify media changes.
+
+· While attempting to access a compact disc in an IDE/ATAPI CD-ROM Changer, the system may indicate the device is not ready.  If this occurs, press the Retry button several times.  The compact disc should become available after several retries.
+
+· Accessing multiple compact discs simultaneously in a CD-Changer device is not recommended. The application may hang or you may experience performance loss accessing data.
+
+· Attaching CD-Changers, CD-ROMs, and Removable Media  SCSI devices requires system reboot for these devices to be detected by system.
+
+Removable Media
+IDE removable media cannot be ejected by using some external utilities. Re-inserting or swapping  the media can cause system to crash.
+
+Eject

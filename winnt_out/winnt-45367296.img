@@ -1,0 +1,116 @@
+rnal 28.8) - Best Data and zoom combo
+AddReg=All, MfgAddReg, Rockwell6.AddReg, EXTERNAL
+
+[Rockwell9] ; (external 14400) - Best Data 1442FX (FTX, RPI model)
+AddReg=All, MfgAddReg, Rockwell9.AddReg, EXTERNAL
+
+[Rockwell10] ; (internal 14400) - Best Data 1442FX (FT, RPI model)
+AddReg=All, MfgAddReg, Rockwell10.AddReg, INTERNAL
+
+[Rockwell11] ; (internal 2400) - Best Data 9624FQ 
+AddReg=All, MfgAddReg, Rockwell11.AddReg, INTERNAL
+
+[Rockwell12] ; (external 2400) - Best Data 9648Fx, 2400B, 2400X and other modems
+AddReg=All, MfgAddReg, Rockwell12.AddReg, EXTERNAL  
+
+[Rockwell13] ; Smart V.34 PCMCIA
+AddReg=All, MfgAddReg, Rockwell13.AddReg, PCMCIA 
+
+[Rockwell14] ; SMART ST1414 PCMCIA with cell
+AddReg=All, MfgAddReg, Rockwell14.AddReg, PCMCIA 
+
+[Rockwell15] ; Apex V.34 PCMCIA and Tosh combo. 
+AddReg=All, MfgAddReg, Rockwell15.AddReg, PCMCIA 
+
+[Rockwell16] ; PCMCIA 2400 bps, 19.2 max dte, no cell
+AddReg=All, MfgAddReg, Rockwell16.AddReg, PCMCIA 
+
+[Rockwell17] ; Com1 by AT&T-KeepinTouch PCMCIA
+AddReg=All, MfgAddReg, Rockwell17.AddReg, PCMCIA
+
+[Rockwell18] ; (internal 14400) - no speed negotiation, inactivity timer is \Tn with max 90 minutes
+AddReg=All, MfgAddReg, Rockwell18.AddReg, INTERNAL
+
+[Rockwell19] ; V.34 external with cell
+AddReg=All, MfgAddReg, Rockwell13.AddReg, EXTERNAL
+
+[Rockwell20] ; V.34 internal with cell
+AddReg=All, MfgAddReg, Rockwell13.AddReg, INTERNAL
+
+[Rockwell21] ; (internal 14400) - with cell
+AddReg=All, MfgAddReg, Rockwell21.AddReg, INTERNAL
+
+[Rockwell22] ; (external 14400) - Logicode data-fax-voice with cell
+AddReg=All, MfgAddReg, Rockwell22.AddReg, EXTERNAL
+
+[Rockwell23] ; (external 14400)  Logicode and Microcom combo
+AddReg=All, MfgAddReg, Rockwell23.AddReg, EXTERNAL
+
+[Rockwell24] ; (internal 14400) - cirrus chipset found in Logicode, no cell
+AddReg=All, MfgAddReg, Rockwell24.AddReg, INTERNAL
+
+[Rockwell25] ; (internal 2400) - Logicode 9426
+AddReg=All, MfgAddReg, Rockwell25.AddReg, INTERNAL
+
+[Rockwell26] ; (external 2400) - Logicode 9426
+AddReg=All, MfgAddReg, Rockwell25.AddReg, EXTERNAL
+
+[Rockwell28] ; (internal 1200)  - no compr, ec, speed neg, hard flow, cell
+AddReg=All, MfgAddReg, Rockwell28.AddReg, INTERNAL
+
+[Rockwell29] ; Piiceon Dispatcher 14.4 with cell
+AddReg=All, MfgAddReg, Rockwell29.AddReg, PCMCIA 
+
+[Rockwell30] ; Piiceon Dispatcher V.34
+AddReg=All, MfgAddReg, Rockwell30.AddReg, INTERNAL
+
+[Rockwell31] ; Winbook 14.4 Internal
+AddReg=All, MfgAddReg, Rockwell31.AddReg, INTERNAL
+
+[Rockwell33] ; internal 14.4 Dispatcher *OR* combo, Piiceon PCMCIA 14.4 and 14.4 for Contura+LTE (ISA)
+AddReg=All, MfgAddReg, Rockwell29.AddReg, INTERNAL
+
+[Rockwell34] ; Piiceon 14.4 for toshiba
+AddReg=All, MfgAddReg, Rockwell34.AddReg, INTERNAL
+
+[Rockwell35] ; Cardinal+CPI (Viva) V.34
+AddReg=All, MfgAddReg, Rockwell35.AddReg, EXTERNAL
+
+[Rockwell36] ; Cardinal 14.4 mvp144xf
+AddReg=All, MfgAddReg, Rockwell10.AddReg, EXTERNAL
+
+[Rockwell37] ; Cardinal 14.4 data fax mvp144e
+AddReg=All, MfgAddReg, Rockwell37.AddReg, EXTERNAL
+
+[Rockwell38] ; Cardinal 28.8 V.34-VFC internal
+AddReg=All, MfgAddReg, Rockwell35.AddReg, INTERNAL
+
+[Rockwell39] ; Cardinal 14.4 Data FAX MVP144IF
+AddReg=All, MfgAddReg, Rockwell37.AddReg, INTERNAL
+
+[Rockwell40] ; Piiceon V.34 PCMCIA
+AddReg=All, MfgAddReg, Rockwell40.AddReg, PCMCIA
+
+[Rockwell41] ; Piiceon, Smart, other PCMCIA (disable inactivity timer)
+AddReg=All, MfgAddReg, Rockwell41.AddReg, PCMCIA
+
+[Rockwell42] ; Cardinal 19.2 data fax MVP192I
+AddReg=All, MfgAddReg, Rockwell42.AddReg, INTERNAL
+
+[Rockwell43] ; Winbook internal modem
+AddReg=All, MfgAddReg, Rockwell27.AddReg, INTERNAL
+
+[Rockwell44] ; Reveal 14.4 Modem Soundcard
+AddReg=All, MfgAddReg, Rockwell44.AddReg, INTERNAL
+
+[Rockwell45] ; Apex 14.4 data fax cell PCMCIA
+AddReg=All, MfgAddReg, Rockwell45.AddReg, PCMCIA
+
+
+; AddReg sections
+
+[Rockwell1.AddReg] ; (internal 14400)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Rockwell2.AddReg] ; (internal 14400)
+HKR,, Pr

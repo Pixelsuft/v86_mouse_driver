@@ -1,0 +1,126 @@
+NECT <carrierbps>/ARQ/V32<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/LAPM<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/LAPM/V42BIS<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/LAPM<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/LAPM/V42BIS<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/MNP<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/MNP/MNP5<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/MNP<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/MNP/MNP5<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/NONE<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/V32/NONE<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/LAPM<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/LAPM/V42BIS<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/LAPM<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/LAPM/V42BIS<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/MNP<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/MNP/MNP5<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/MNP<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/MNP/MNP5<cr><lf>
+
+
+;----------------------------------------
+; SWEDISH MODEMS
+;----------------------------------------
+
+;----------------------------------------
+[GVC SM2400 - SWE]
+ALIAS=Hayes Compatible 2400
+;----------------------------------------
+[GVC SM96 - SWE]
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2Q0V1E1S0=0S2=128S7=60<speaker><cr>
+COMMAND_INIT=AT<compression><hwflowcontrol><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT=<cr><lf><cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT=<cr><lf><cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+
+;----------------------------------------
+[GVC FM14400 - SWE]
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2Q0V1E1S0=0S2=128 S7=60 S95=44<cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_DIAL=<

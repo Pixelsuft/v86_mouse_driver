@@ -1,0 +1,100 @@
+r)", "CONTINUOUSSCALING"
+   6:MODERN.FON, "Modern (Plotter)", "CONTINUOUSSCALING"
+
+[ttfonts]
+;
+;Font Header file, Description string,       Font file,     FontFamily/Flags
+;
+; Flags:  0000 = Normal weighted font.
+;         0100 = Bolded font.
+;         1000 = Italic font.
+; NOTE: Flags not currently used.
+;
+; NOTE: The first letter of each word in the font desctiption string needs
+;       to be capitalized.
+;
+6:ARIAL.FOT,   "Arial (TrueType)",                       6:arial.ttf,   ""
+6:ARIALBD.FOT, "Arial Bold (TrueType)",                  6:arialbd.ttf,  "Arial0100"
+6:ARIALBI.FOT, "Arial Bold Italic (TrueType)",           6:arialbi.ttf, "Arial1100"
+6:ARIALI.FOT,  "Arial Italic (TrueType)",                6:ariali.ttf,  "Arial1000"
+6:COUR.FOT,    "Courier New (TrueType)",                 6:cour.ttf,    ""
+6:COURBD.FOT,  "Courier New Bold (TrueType)",            6:courbd.ttf,  "Courier0100"
+6:COURBI.FOT,  "Courier New Bold Italic (TrueType)",     6:courbi.ttf,  "Courier1100"
+6:COURI.FOT,   "Courier New Italic (TrueType)",          6:couri.ttf,   "Courier1000"
+6:TIMES.FOT,   "Times New Roman (TrueType)",             6:times.ttf,   ""
+6:TIMESBD.FOT, "Times New Roman Bold (TrueType)",        6:timesbd.ttf, "Times New Roman0100"
+6:TIMESBI.FOT, "Times New Roman Bold Italic (TrueType)", 6:timesbi.ttf, "Times New Roman1100"
+6:TIMESI.FOT,  "Times New Roman Italic (TrueType)",      6:timesi.ttf,  "Times New Roman1000"
+6:SYMBOL.FOT,  "Symbol (TrueType)",                      6:symbol.ttf,  ""
+6:WINGDING.FOT,"WingDings (TrueType)",                   6:wingding.ttf,""
+
+; If any of these drivers are found in the config.sys file, Setup removes them.
+[compatibility]
+icache.sys   
+ibmcache.sys 
+cache.sys    
+cache.exe    
+mcache.sys   
+fast512.sys
+
+; Known TSRs and drivers which may result in a hang or crash
+; during execution of Setup or Windows.
+;
+; filename = description string
+[incompTSR1]
+ep.exe      = "Norton Desktop/Windows Erase Protect TSR"
+qmaps.sys   = "QMAPS Memory Manager"
+qcache.exe  = "386 Max Disk Cache Utility"
+cache.exe   = "Disk Cache Utility"
+flash.exe   = "Flash Disk Cache Utility"
+hyper386.exe= "Hyper Disk Cache Utility"
+hyperdkx.exe= "Hyper Disk Cache Utility"
+hyper286.exe= "Hyper Disk Cache Utility"
+hyperdke.exe= "Hyper Disk Cache Utility"
+hyperdkc.exe= "Hyper Disk Cache Utility"
+ncache.exe  = "Norton Disk Cache Utility"
+pc-kwik.exe = "PC-Kwik Disk Cache Utility"
+pc-cache.com= "PC Tools Disk Cache Utility"
+superpck.exe= "Super PC-Kwik Disk Cache Utility"
+vdisk.sys   = "IBM RAM Disk Utility" 
+allemm4.sys="All Charge 386"
+anarkey.com="Anarkey"
+vsafe.sys = "Central Point Anti-Virus"
+vsafe.com = "Central Point Anti-Virus TSR"
+vdefend.sys="PC Tools VDefend"
+vdefend.com="PC Tools VDefend"
+kbflow.exe="KBFlow TSR by Artisoft"
+s-ice.exe="SoftIce"
+desktop.exe="PC Tools Desktop TSR"
+sk2.exe="Sidekick Version 2.0"
+sk.com="Sidekick Version 1.0"
+skplus.exe="Sidekick Plus"
+print.exe="MS-DOS PRINT Utility"
+pyro.exe="Pyro! Screen Saver"
+xgaaidos.sys="8514 emulation driver "
+asplogin.exe="ASP Integrity Toolkit"
+lsallow.exe="Lansight Network Utilities TSR"
+lansel.exe="Lansight Network Utilities TSR"
+vaccine.exe="Vaccine Antivirus Program"
+newspace.exe="Newspace Disk Compression Utility"
+newres.exe="Newspace Disk Compression Utility"
+tscsi.sys="Trantor T100  SCSI driver"
+pcpanel.exe="Lasertools Printer Control Panel"
+hpemm386.sys = "HP Expanded Memory Manager"
+hpemm486.sys = "HP Expanded Memory Manager"
+ramtype.sys  = "Ramtype Utility"
+iemm.sys     = "Memory Manager"
+ilim386.sys  = "Intel Expanded Memory Emulator"
+cmdedit.com  = "Command Line Editor"
+hpmm.sys     = "HP Memory Manager"
+ced.exe      = "PCED Command Line Editor"
+ced.com      = "CED Command Line Editor"
+umbpro.sys   = "UMB Pro Memory Manager"
+rm386.sys    = "NetRoom Memory Manager"
+
+; Known TSRs and device drivers which can(!) potentially cause problems
+; if running during Setup or Windows
+;
+; filename = description string
+[incompTSR2]
+ndosedit.com  = "Command Line Editor"

@@ -1,0 +1,155 @@
+3.9"                         = XDP350H.PPD
+"Xerox DocuPrint 390 v1.3.9"                           = XDP390.PPD
+"Xerox DocuPrint 390HC v1.3.9"                         = XDP390H.PPD
+"Xerox DocuPrint 4635 v1.3.9"                          = XDP4635.PPD
+"Xerox DocuTech 90 PS2"                                = XRDT0904.PPD
+"Xerox DocuTech 135 PS2"                               = XRDT1354.PPD
+"Xerox DocuTech 6135 (01.02.00)"                       = XRD61351.PPD
+"Xerox DCS20 v3.0ER2.26"                               = XDCS20.PPD
+"Xerox DCS35 v3.0ER2.26"                               = XDCS35.PPD
+"Xerox 4215/MRP2 v2013.109"                            = XR_42152.PPD
+"Xerox 4219/MRP2 v2013.109"                            = XR_42192.PPD
+"Xerox 4220/MRP v2015.108"                             = XR_42204.PPD
+"Xerox 4230/MRP v2015.108"                             = XR_42302.PPD
+"Xerox MajestiK with Cyclone RIP"                      = CBMAJ__1.PPD
+"Xerox MajestiK with DocuPress RIP"                    = CQDP__10.PPD
+"Xerox MajestiK with Fiery XJ RIP"                     = EFXJX203.PPD
+"Xerox MajestiK with Splash RIP"                       = SPMAJE40.PPD
+"Xerox Regal with Cyclone RIP"                         = CBMAJ__1.PPD
+"Xerox Regal with DocuPress RIP"                       = CQDP__10.PPD
+"Xerox Regal with Fiery XJ RIP"                        = EFXJX303.PPD
+"Xerox Regal with Splash RIP"                          = SPREGA40.PPD
+
+;
+; Installer Sections
+;
+; These sections control file installation, and reference all files that
+; need to be copied. The section name will be assumed to be the driver
+; file, unless there is an explicit DriverFile section listed.
+;
+
+[40291730.PPD]
+CopyFiles=@40291730.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[40293930.PPD]
+CopyFiles=@40293930.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGA20SF2.PPD]
+CopyFiles=@AGA20SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGA25SF2.PPD]
+CopyFiles=@AGA25SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGA36SF2.PPD]
+CopyFiles=@AGA36SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGA44SF2.PPD]
+CopyFiles=@AGA44SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAC0800.PPD]
+CopyFiles=@AGAC0800.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAC1000.PPD]
+CopyFiles=@AGAC1000.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAC1500.PPD]
+CopyFiles=@AGAC1500.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAC1SF1.PPD]
+CopyFiles=@AGAC1SF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAC1SF2.PPD]
+CopyFiles=@AGAC1SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAC5SF2.PPD]
+CopyFiles=@AGAC5SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAC8SF1.PPD]
+CopyFiles=@AGAC8SF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAC8SF2.PPD]
+CopyFiles=@AGAC8SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGACCSF1.PPD]
+CopyFiles=@AGACCSF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGACCST1.PPD]
+CopyFiles=@AGACCST1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAVA202.PPD]
+CopyFiles=@AGAVA202.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAVA252.PPD]
+CopyFiles=@AGAVA252.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGAVA442.PPD]
+CopyFiles=@AGAVA442.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGEL5SF2.PPD]
+CopyFiles=@AGEL5SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGELAN50.PPD]
+CopyFiles=@AGELAN50.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP36SF1.PPD]
+CopyFiles=@AGP36SF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP36SF2.PPD]
+CopyFiles=@AGP36SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP94SF1.PPD]
+CopyFiles=@AGP94SF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP94SF2.PPD]
+CopyFiles=@AGP94SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP95SF1.PPD]
+CopyFiles=@AGP95SF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP95SF2.PPD]
+CopyFiles=@AGP95SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP96SF1.PPD]
+CopyFiles=@AGP96SF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP97SF1.PPD]
+CopyFiles=@AGP97SF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP98SF1.PPD]
+CopyFiles=@AGP98SF1.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGP98SF2.PPD]
+CopyFiles=@AGP98SF2.PPD,PSCRIPT
+DataSection=PSCRIPT_DATA
+
+[AGPR940

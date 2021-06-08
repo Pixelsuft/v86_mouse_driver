@@ -1,0 +1,91 @@
+)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareName)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(SoftParameterKey)
+            CloseRegKey $(SoftLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareType)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareUse)}, +
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareBindForm)}, +
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareClass)}, +
+                            {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareBindable)}, +
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)} }
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        CloseRegKey $(SoftNetRuleKey)
+        CloseRegKey $(SoftServiceKey)
+        CloseRegKey $(SoftParameterKey)
+        CloseRegKey $(SoftLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            goto fatalregistry
+        endif
+    endif
+    ForListDo $(AdapterList)
+        set BusNum = *($($),1)
+        set SlotNum = *($($),2)
+        Debug-Output $(BusNum)
+        Debug-Output $(SlotNum)
+        Shell $(UtilityInf), IsNetCardAlreadyInstalled, $(BusNum), +
+            $(SlotNum), $(ProductHardware$(Option)Description), $(ProductHardwareName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        ifstr $($R0) != "NO_ERROR"
+            set Error = $($R0)
+            goto fatal
+        endif
+        set tempvar = $($R1)
+        ifstr(i) $(DualPort) == TRUE
+            set AdpList = { {1},{2} }
+        else
+            set AdpList = { {1} }
+        endif
+        set AddAdpCount = 0
+        ifstr(i) $(tempvar) != "YES"
+          ForListDo $(AdpList)
+            Shell $(UtilityInf), AddHardwareComponent, $(ProductHardwareName),$(STF_CONTEXTINFNAME),$(ProductKeyName)
+            ifint $($R4) != -1
+                Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards\"$($R4))
+            endif
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+                EndWait
+                CloseRegKey $($R1)
+                CloseRegKey $($R2)
+                CloseRegKey $($R3)
+                goto fatalregistry
+            endif
+            Set HardNetCardKey      = $($R1)
+            Set HardNetRuleKey      = $($R2)
+            Set HardParameterKey    = $($R3)
+            set AdapterNumber       = $($R4)
+            ifstr $(Option) == "NETFLX"
+                LoadLibrary "x" $(!STF_CWDDIR)netflx.dll !NETFLEX_HANDLE
+                set Option_1Byte = $(NETFLX_1BYTE)
+                LibraryProcedure Result $(!NETFLEX_HANDLE), GetNetFlexMediaType, "EISAAdapter\"$(BusNum), $(SlotNum)
+                set MediaType = *($(Result),1)
+                FreeLibrary $(!NETFLEX_HANDLE)
+            else-ifstr $(Option) == "MAPLE"
+                set Option_1Byte = $(MAPLE_1BYTE)
+                set MediaType = 2
+            else-ifstr $(Option) == "DURANGO"
+            

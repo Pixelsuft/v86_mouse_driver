@@ -1,0 +1,104 @@
+p)
+            endif
+        CloseRegKey $(KeySetup)
+        endif
+    else-ifstr(i) $(InstallFromRas) == "YES"
+    else
+        read-syms DHCPDialog
+        ui start "Warning"
+        ifstr(i) $(DLGEVENT) == "YES"
+          set EnableDHCPFlag = "1"    
+        else
+          set EnableDHCPFlag = "0"    
+        endif
+    endif
+    Ifcontains(i) "1" in $(InstallList)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+            Ifstr(i) $(DoCopy) == "YES"
+               Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+               Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   Goto ShellCodeError
+               Else-Ifstr(i) $($R0) == STATUS_FAILED
+                   Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                       goto ShellCodeError
+                   endif
+                   set Error = $($R0)
+                   Goto fatal
+               Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                   Goto successful
+               Endif
+               Set SrcDir = $($R1)
+            Endif
+        EndIf
+    Endif
+    Shell "oemnsvcu.inf" "InstallOption" +
+                    $(!STF_LANGUAGE) "TCPIPCU" +
+                    $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig)
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        Debug-Output "OEMNXPTC.INF: installadapter: installing [Install-Option]"
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+    endif
+    set OEM_ABANDON_ON  = TRUE
+    read-syms Billboard1$(!STF_LANGUAGE)
+    Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+    Set BillboardVisible = 1
+    set DoTC        = FALSE
+    Set DoLMHOSTS   = FALSE
+    Set DoNbt       = FALSE
+    Set DoAFD       = FALSE
+    Set DoDHCP      = FALSE
+    Ifstr(i) $(Option) == TC
+        set DoTC       = TRUE
+        Set DoLMHOSTS  = TRUE
+        Set DoNbt      = TRUE
+        Set DoAFD      = TRUE
+        Set DoDHCP      = TRUE
+    Else
+        Debug-Output "OEMNXPTC.INF: Unrecognized option"
+    Endif
+    StartWait
+    Ifstr(i) $(DoLMHOSTS) == TRUE
+        Debug-Output "OEMNXPTC.INF: Install LmHosts registry"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductLMHOSTSName))
+        Shell $(UtilityInf), CreateService, $(ProductLMHOSTSName), +
+            $(ProductLMHOSTSDisplayName), $(ProductLMHOSTSImagePath), +
+            "autoserviceshare", "", {"+NetworkProvider"}, "LocalSystem",+
+            $(NetEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+    endif
+    ifstr(i) $(DoDHCP) == TRUE
+        Set ThisOption = DHCP
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing DHCP..."
+        ifint $(EnableDHCPFlag) == 0
+            set ProductDHCPSvcType = serviceshare
+        endif
+        Shell $(UtilityInf), CreateService, $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType), "TDI", {"Tcpip","Afd","NetBT"}, "",+
+            "%SystemRoot%\System32\dhcpcsvc.dll", 7, "", "", "",+
+            "%SystemRoot%\System32\kernel32.dll"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "O

@@ -1,0 +1,105 @@
+    set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+       goto F_S_Return
+    endif
+    OpenRegKey $(FS_KeyThisService) "" "Parameters" $(MAXIMUM_ALLOWED) FS_KeyParameters
+    Ifstr $(FS_KeyParameters) == $(KeyNull)
+       set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+       goto F_S_Return
+    endif
+F_S_Return = +
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Ifstr $(FS_KeyParameters) != $(KeyNull)
+            CloseRegKey $(FS_KeyParameters)
+        endif
+        Ifstr $(FS_KeyThisService) != $(KeyNull)
+           CloseRegKey $(FS_KeyThisService)
+        endif
+    endif
+    return $(RegistryErrorIndex), $(FS_KeyThisService) $(FS_KeyParameters)
+[GetServiceParameters]
+    read-syms InitBaseVars
+    set GP_KeyComponent = $($0)
+    set GP_KeyService = ""
+    set GP_KeyParameters = ""
+    set GP_ValueList  = {}
+    FindService $(GP_KeyComponent) $($1)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto G_P_Return
+    endif
+    set GP_KeyService = $($R1)
+    set GP_KeyParameters = $($R2)
+    EnumRegValue $(GP_KeyParameters) GP_ValueList
+G_P_Return = +
+    return $(RegistryErrorIndex) $(GP_KeyService) $(GP_KeyParameters) $(GP_ValueList)
+[AddSoftwareComponent]
+    read-syms InitBaseVars
+    set AS_MfgName       = $($0)
+    set AS_ProdName      = $($1)
+    set AS_SvcName       = $($2)
+    set AS_DisplayName   = $($3)
+    set AS_Infname       = $($4)
+    set AS_ImagePath     = $($5)
+    set AS_ServiceType   = $($6)
+    set AS_Group         = $($7)
+    set AS_Dependencies  = $($8)
+    set AS_ObjectName    = $($9)
+    set AS_EventFile     = $($10)
+    set AS_TypeSupported = $($11)
+    set AS_EventLocation = $($12)
+    set AS_ErrorCtlValue = $($13)
+    set AS_EventSource   = $($14)
+    set AS_ParameterMessageFile = $($15)
+    set AS_KeyServicesArea = $($16)
+    set AS_KeyVersion    = ""
+    set AS_KeyNetRules   = ""
+    set AS_KeyService    = ""
+    set AS_KeyParameters = ""
+    set AS_KeyLinkage    = ""
+    Shell "", CreateService,$(AS_SvcName),$(AS_DisplayName),$(AS_ImagePath),+
+          $(AS_ServiceType),$(AS_Group),$(AS_Dependencies),$(AS_ObjectName),+
+          $(AS_EventFile),$(AS_TypeSupported),$(AS_EventLocation),+
+          $(AS_ErrorCtlValue),$(AS_EventSource),$(AS_ParameterMessageFile),+
+          $(AS_KeyServicesArea)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       goto A_S_Return
+    endif
+    set AS_KeyService    = $($R1)
+    set AS_KeyParameters = $($R2)
+    set AS_KeyLinkage    = $($R3)
+    Shell "", InstallSoftwareProduct, $(AS_MfgName), $(AS_ProdName), $(AS_Infname)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) == NO_ERROR
+        set AS_KeyVersion  = $($R1)
+        set AS_KeyNetRules = $($R2)
+        Shell "", LinkToService, $(AS_KeyVersion), $(AS_SvcName), service
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto A_S_Return
+        endif
+        GetRegValue $(AS_KeyVersion),"RefCount", RefCountInfo
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            SetRegValue $(AS_KeyVersion) {RefCount,$(NoTitle),$(!REG_VT_DWORD),0}
+        endif
+    endif
+A_S_Return = +
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       Ifstr $(AS_KeyNetRules) != $(KeyNull)
+          CloseRegKey $(AS_KeyNetRules)
+       endif
+       Ifstr $(AS_KeyParameters) != $(KeyNull)
+          CloseRegKey $(AS_KeyParameters)
+       endif
+       Ifstr $(AS_KeyLinkage) != $(KeyNull)
+          CloseRegKey $(AS_KeyLinkage)
+       endif
+       Ifstr $(AS_KeyVersion) != $(KeyNull)
+          CloseRegKey $(AS_KeyVersion)
+          Set AS_ProdKeyName = $(!NTN_SoftwareBase)"\"$(AS_MfgName)"\"$(AS_ProdName)
+          OpenRegKey $(!REG_H_LOCAL) "" $(AS_ProdKeyName) $(MAXIMUM_ALLOWED) AS_KeyProduct
+          Ifstr(i) $(AS_KeyProduct) != $(KeyNull)
+              DeleteRegKey $(AS_KeyProduct) "CurrentVersion"
+              CloseRegKey $(AS_KeyProduct)
+          Endif
+       Endif
+       Ifstr 

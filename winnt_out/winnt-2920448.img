@@ -1,0 +1,130 @@
+h Performance File System) is in use, but you
+have less than 2.5 megabytes of system memory.  Therefore, the system
+parameters were adjusted as follows:  THREADS=96, BUFFERS=2,
+DISKCACHE ignored, HPFS cache ignored.
+These adjustments will enable OS/2 to run.  However, adding more memory
+will not require parameter adjustment, and performance will increase.
+EThe system cannot create DOS mode. The error
+code is %1.
+EThe device driver "%3" specified in the %2 command
+on line %1 of the CONFIG.SYS file was not installed. Line %1
+is ignored.
+IThe device driver "%1" that is needed to start
+the system failed to install.
+
+Install the correct device driver in the root directory of
+the startup device and restart the system.
+EAn Input/Output privilege level is required
+for the program or device driver %3 specified in the
+%2 command on line %1. Line %1 is not used.
+EAn Input/Output privilege level is required
+for the program or device driver %1.
+IThe device driver "%3" specified in the %2
+command on line %1 of the CONFIG.SYS file has modified DOS
+mode system storage.
+
+Correct the problem in the device driver, or edit the
+CONFIG.SYS file to remove the DEVICE command.
+Then restart the system.
+EThere is not enough storage to load the program
+or device driver "%3" specified in the %2 command on
+line %1 of the CONFIG.SYS file.  Line %1 is ignored.
+?
+P
+Enter the new date: (yy%1mm%1dd) P
+Enter the new date: (dd%1mm%1yy) EThe process cannot be completed. You are using an
+incorrect version of the operating system.
+PAbort, Retry, or Ignore? PPress any key to continue.
+?
+?
+?
+I%1 file(s) unpacked.
+EThe file cannot be decompressed with this version
+of the OS/2 UNPACK command.
+I
+              Installing %1
+
+
+
+
+
+
+
+            Remove the diskette from drive A.
+
+            Insert the %1
+            Installation Diskette into drive A.  Then, press Enter.
+?
+I
+              Installing %1
+
+
+
+
+
+
+
+                 Remove the diskette from drive A.
+
+                 Insert the %1
+                 Diskette %2 into drive A.  Then, press Enter.
+?
+ITransferring files, please wait...
+EThe group code was not found in the group code table.
+EThe group code exceeds the maximum value.
+?
+?
+?
+?
+?
+?
+EThe system cannot accept the drive specified
+or a fixed disk.
+PInsert the source diskette in drive %1
+
+PInsert the target diskette in drive %1
+
+EThe source diskette is bad or incompatible
+with the drive type.
+ETarget diskette is bad or incompatible
+with the drive type.
+IThese diskettes can be compared only in OS2 mode.
+I%1 percent of the disk has been compared.
+PCompare another diskette (Y/N)? IComparing %1 tracks
+%2 sectors per track, %3 side(s).
+EDrive types or diskette types are
+incompatible.
+IA comparison difference was detected at offset %1.
+IComparison error on side %1 track %2.
+I The Volume Serial Number is %1
+ICompare has ended.
+IThe compared diskettes are identical.
+PEnter the source drive letter. PEnter the target drive letter. EA subdirectory or file %1 already exists.
+IError occurred while processing: %1.
+?
+?
+IFormatting while copying...
+?
+I%1 percent of the disk has been copied.
+IThe target diskette may be unusable.
+IThis diskette can be copied only in OS2 mode.
+PYou must copy to a formatted diskette.
+Do you want to try another diskette (Y/N)? PThis function might require many disk swaps.
+Do you want to proceed (Y/N)? PCopy another diskette (Y/N)?  ICopying %1 tracks
+%2 sectors per track, %3 side(s).
+EAn error occurred while reading from the source diskette.
+WAn error occurred while writing to the target diskette.
+Information on the target diskette might be distorted.
+EAn error occurred while reading from the target diskette.
+IUnrecoverable error occurred while
+reading side %1, track %2 of the source diskette.
+IUnrecoverable error occurred while
+reading side %1, track %2 of the target diskette.
+ICopy has ended.
+?
+?
+?
+PInsert a new diskette in drive %1
+and press Enter when ready. PWarning! All data on fixed disk %1
+will be lost!
+Procee

@@ -1,0 +1,85 @@
+Output "NBINFO.INF: Adding NetBIOS route value: "$($)
+        Set RouteInformationList = >($(RouteInformationList),$($))
+    EndForListDo
+    OpenRegKey $(NbKey) "" "Disabled" $(MAXIMUM_ALLOWED) NbDisKey
+    Ifstr(i) $(NbDisKey) != $(KeyNull)
+        Set RouteList = {}
+        GetRegValue $(NbDisKey) Route RouteListValue
+        Ifint $(RegLastError) == 0
+            Set RouteList = *($(RouteListValue),4)
+        Endif
+        ForListDo $(RouteList)
+            Debug-Output "NBINFO.INF: Adding DISABLED NetBIOS route value: "$($)
+            Set RouteInformationList = >($(RouteInformationList),$($))
+        EndForListDo
+        CloseRegKey $(NbDisKey)
+    Endif
+    CloseRegKey $(NbKey)
+    Debug-Output "NBINFO.INF: open N/B info service"
+    OpenRegKey $(ServiceKey) "" "NetBIOSInformation" $(MAXIMUM_ALLOWED) NetBIOSKey
+    Ifstr(i) $(NetBIOSKey) == ""
+        Shell $(UtilityInf), CreateService, "NetBIOSInformation", "NetBIOSInformation", "", "adapter", "", {}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NBINFO.INF: Shell error creating service"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Set ParameterKey = $($R2)
+        CloseRegKey $($R1)
+        CloseRegKey $($R3)
+    Else
+        OpenRegKey $(NetBIOSKey) "" "Linkage" $(MAXIMUM_ALLOWED) LinkageKey
+        Ifstr(i) $(LinkageKey) == $(KeyNull)
+            CreateRegKey $(NetBIOSKey) { "Linkage", $(NoTitle), GenericClass } "" $(MAXIMUM_ALLOWED) "" LinkageKey
+        Endif
+        CloseRegKey $(LinkageKey)
+        OpenRegKey $(NetBIOSKey) "" "Parameters" $(MAXIMUM_ALLOWED) ParameterKey
+        Ifstr(i) $(ParameterKey) == $(KeyNull)
+            CreateRegKey $(NetBIOSKey) { "Parameters", $(NoTitle), GenericClass } "" $(MAXIMUM_ALLOWED) "" ParameterKey
+        Endif
+        CloseRegKey $(NetBIOSKey)
+    Endif
+    Ifstr(i) $(ParameterKey) == $(KeyNull)
+        read-syms FatalError1$(!STF_LANGUAGE)
+        goto fatal
+    Endif
+    GetRegValue $(ParameterKey) "Route" OrigRouteValue
+    Ifint $(RegLastError) == 0
+        Set OrigRouteList = *($(OrigRouteValue), 4)
+        ifstr(i) $(OrigRouteList) == ""
+            set OrigRouteList = {}
+        Endif
+        Set OrigIndex = 0
+        Set NewIndex = 0
+        Set AnyChanges = 0
+        Set CurrentRouteList = {}
+        Set NewValueList = {}
+        ForListDo $(OrigRouteList)
+            Set-add OrigIndex = $(OrigIndex),1
+            Set ThisOrigRoute = $($)
+            ifContains(i) $(ThisOrigRoute) NOT-IN $(RouteInformationList)
+                Debug-Output "NBINFO.INF: Removing info for old route: "$(ThisOrigRoute)", index "$(OrigIndex)
+                DeleteRegValue $(ParameterKey) LanaNum$(OrigIndex)
+                DeleteRegValue $(ParameterKey) EnumExport$(OrigIndex)
+                Set AnyChanges = 1
+            Else
+                Set CurrentRouteList = >($(CurrentRouteList),$(ThisOrigRoute))
+                Set-add NewIndex = $(NewIndex),1
+                GetRegValue $(ParameterKey) LanaNum$(OrigIndex) OrigLanaValue
+                Set OrigLanaNum = *($(OrigLanaValue),4)
+                GetRegValue $(ParameterKey) EnumExport$(OrigIndex) OrigExportValue
+                Set OrigExport = *($(OrigExportValue),4)
+                set NewValueList = >($(NewValueList),{LanaNum$(NewIndex), $(NoTitle), $(!REG_VT_DWORD), $(OrigLanaNum) })
+                set NewValueList = >($(NewValueList),{EnumExport$(NewIndex), $(NoTitle), $(!REG_VT_DWORD), $(OrigExport)})
+            Endif
+        EndForListDo
+        Ifint $(AnyChanges) != 0
+DeleteNextOldLana = +
+            Ifint $(NewIndex) <= $(OrigIndex)
+                Debug-Output "NBINFO.INF: pruning old lana info for index = "$(NewIndex)
+                DeleteRegValue $(ParameterKey) LanaNum$(NewIndex)
+                DeleteRegValue $(ParameterKey) EnumExport$(NewIndex)
+                Set-add NewIndex = $(NewIndex),1
+                Goto DeleteNextOldLana
+            Endif
+            Debug-Output "NBINFO.INF: updating R

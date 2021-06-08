@@ -1,0 +1,119 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   OPTION INTERNATIONAL
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem1% = Modem1, UNIMODEM2C93D970
+%Modem2% = Modem2, UNIMODEMB2C6B69A
+%Modem3% = Modem3, OPTION_Modem3, UNIMODEMA68300DE
+%Modem3% = Modem3, OPTION_Modem3, PCMCIA\OPTION-FAX_14400-81D9
+%Modem4% = Modem4, PCMCIA\OPTION-FAX_9600-460F
+%Modem5% = Modem5, OPTION_Modem5
+%Modem7% = Modem7, UNIMODEM46F1397A
+
+; Installation sections
+
+[Modem1]
+AddReg=All, Common, Modem1.AddReg, Internal
+
+[Modem2]
+AddReg=All, Common, Modem2.AddReg, Internal
+
+[Modem3]
+AddReg=All, Common, Modem3.AddReg, PCMCIA
+
+[Modem4]
+AddReg=All, Common, Modem4.AddReg, PCMCIA
+
+[Modem5]
+AddReg=All, Common, Modem5.AddReg, External
+
+
+[Modem7]
+AddReg=All, Common, Modem7.AddReg, Internal
+
+; AddReg sections
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 0a,00,00,00
+HKR, Init,      2,, "AT &F E0<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N1"
+HKR, Settings, SpeedNegotiation_On,, "N0"
+HKR, Settings, Cellular_On,, ")M1"
+HKR, Settings, Cellular_Off,, ")M0"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR,, InactivityScale, 0a,00,00,00
+HKR, Init,      2,, "AT &FE0&D2&C1<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N1"
+HKR, Settings, SpeedNegotiation_On,, "N0"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 0a,00,00,00
+HKR, Init,      2,, "AT &F E0<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N1"
+HKR, Settings, SpeedNegotiation_On,, "N0"
+HKR, Settings, Cellular_On,, ")M1"
+HKR, Settings, Cellular_Off,, ")M0"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR,, InactivityScale, 0a,00,00,00
+HKR, Init,      2,, "AT E0 &F&D2&C1<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N1"
+HKR, Settings, SpeedNegotiation_On,, "N0"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 0a,00,00,00
+HKR, Init,      2,, "AT &F <cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N1"
+HKR, Settings, SpeedNeg

@@ -1,0 +1,136 @@
+doscue.com="DOSCUE Command Line Editor"
+datamon.exe="PC Tools Datamon"
+subst.exe="MS-DOS SUBST Utility"
+join.exe="MS-DOS JOIN Utility"
+viralert.sys="Data Physician Plus TSR"
+graphics.com="MS-DOS GRAPHICS Utility"
+le.com="Le Menu Menuing Package"
+assign.com="MS-DOS ASSIGN Utility"
+append.com="MS-DOS APPEND Utility"
+diskmon.exe="Norton Disk Monitoring TSR"
+dubldisk.sys="Double Disk Data Compression Utility"
+pa.exe = "Printer Assist"
+speedfxr.com = "Speedfxr"
+pcsxmaem.sys = "pcsxmaem Utility"
+xmaem.sys    = "xmaem Utility"
+cubitr.exe   = "Cubit"
+
+[block_devices]
+tscsi.sys
+tcscsi.sys
+atdosxl.sys
+dmdrvr.bin
+drdrive.sys
+
+[Installable.Drivers]
+; key         = filename,       type(s),     description, VxD(s), Default Params
+msadlib       = 3:msadlib.drv,  "MIDI",      "Ad Lib", 3:vadlibd.386,
+lapc1         = 4:mpu401.drv,   "MIDI",      "Roland LAPC1",,
+midimapper    = 4:midimap.drv,  "MidiMapper", "MIDI Mapper",,
+mpu401        = 4:mpu401.drv,   "MIDI",      "Roland MPU-401",,
+sequencer     = 5:mciseq.drv,   "Sequencer", "[MCI] MIDI Sequencer",,
+soundblaster  = 3:sndblst.drv,  "Wave,MIDI", "Creative Labs Sound Blaster 1.0", 3:vsbd.386,, msadlib
+soundblaster2 = 3:sndblst2.drv, "Wave,MIDI", "Creative Labs Sound Blaster 1.5", 3:vsbd.386,, msadlib
+timer         = 3:timer.drv,    "Timer",     "Timer", 3:vtdapi.386,
+thunder       = 3:sndblst2.drv, "Wave", "Media Vision Thunder Board", 3:vsbd.386,, msadlib
+wave          = 6:mciwave.drv,  "WaveAudio", "[MCI] Sound",, "4"
+cdaudio       = 5:mcicda.drv,   "CDAudio",   "[MCI] CD Audio",,
+
+; This section translates Windows 3.0 OEMSETUP.INF entries to their 3.1
+; equivalents. The disk names should be the first entries in the list.
+
+[translate]
+WinDiskName=26,"Microsoft Windows 3.0 Disk"
+WinDiskName=14,"Windows Disk #"
+*vddvga=1:vddvga30.386
+cti.lgo=2:herclogo.lgo
+herclogo.rle=2:herclogo.rle
+vddega=2:vddega.386
+vgacolor.gr2=1:vgacolor.2gr
+vgalogo.lgo=2:vgalogo.lgo
+vgalogo.rle=3:vgalogo.rle
+rgdi.lgo=2:vgalogo.lgo
+rgdi.rle=3:vgalogo.rle
+vga.gr3=3:vga30.3gr
+v7vga.gr3=2:v7vga.3gr
+cga40woa.fon=2:cga40woa.fon
+cga40850.fon=2:cga40850.fon
+cga80woa.fon=2:cga80woa.fon
+cga80850.fon=2:cga80850.fon
+ega40woa.fon=2:ega40woa.fon
+ega40850.fon=2:ega40850.fon
+ega80woa.fon=2:ega80woa.fon
+ega80850.fon=2:ega80850.fon
+vgasys.fon=2:vgasys.fon
+vgafix.fon=2:vgafix.fon
+vgaoem.fon=2:vgaoem.fon
+8514sys.fon=2:8514sys.fon
+8514fix.fon=2:8514fix.fon
+8514oem.fon=2:8514oem.fon
+helvb.fon=6:sserifb.fon
+helve.fon=5:sserife.fon
+helvf.fon=5:sseriff.fon
+courb.fon=6:courb.fon
+coure.fon=6:coure.fon
+courf.fon=6:courf.fon
+tmsrb.fon=6:serifb.fon
+tmsre.fon=6:serife.fon
+tmsrf.fon=5:seriff.fon
+symbolb.fon=6:symbolb.fon
+symbole.fon=6:symbole.fon
+symbolf.fon=3:symbolf.fon
+roman.fon=6:roman.fon
+script.fon=6:script.fon
+modern.fon=6:modern.fon
+kbdbe.dll=2:kbdbe.dll
+kbduk.dll=2:kbduk.dll
+kbdda.dll=2:kbdda.dll
+kbdne.dll=2:kbdne.dll
+kbdfi.dll=2:kbdfi.dll
+kbdfr.dll=2:kbdfr.dll
+kbdca.dll=2:kbdca.dll
+kbdgr.dll=2:kbdgr.dll
+kbdic.dll=2:kbdic.dll
+kbdit.dll=2:kbdit.dll
+kbdla.dll=2:kbdla.dll
+kbdno.dll=2:kbdno.dll
+kbdpo.dll=2:kbdpo.dll
+kbdsp.dll=3:kbdsp.dll
+kbdsw.dll=3:kbdsw.dll
+kbdsf.dll=2:kbdsf.dll
+kbdsg.dll=2:kbdsg.dll
+kbdus.dll=3:kbdus.dll
+kbddv.dll=3:kbddv.dll
+kbdusx.dll=2:kbdusx.dll
+xlat863.bin=1:xlat863.bin
+xlat861.bin=2:xlat861.bin
+xlat865.bin=3:xlat865.bin
+xlat850.bin=1:xlat850.bin
+xlat860.bin=2:xlat860.bin
+vga863.fon=3:vga863.fon
+vga861.fon=2:vga861.fon
+vga865.fon=3:vga865.fon
+vga850.fon=2:vga850.fon
+vga860.fon=2:vga860.fon
+win.cnf=2:win.cnf
+
+; Used to update files that already exist on the disk
+;
+[Update.Files]
+0:system,3:sndblst.drv
+0:system,3:sndblst2.drv
+0:system,4:mpu401.drv
+0:system,3:msadlib.drv
+0:system,3:vtdapi.386
+0:system,3:vsbd.386
+0:system,3:vadlibd.386
+0:system,5:mcicda.drv
+
+; Used to update dependents of files in the [Update.Files] section.
+;
+[Update.Dependents]
+msadlib.drv = 3:vadlibd.386
+sndblst.drv = 3:vsbd.386
+sndblst2.drv = 3:vsbd.386
+
+; This section is processed by both the DOS and WINDOWS porti

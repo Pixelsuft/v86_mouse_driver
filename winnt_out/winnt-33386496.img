@@ -1,0 +1,46 @@
+s displayed on screen and in Event Viewer for Dial-Up Networking client and RAS server 
+• Protocols in use for Dial-Up Networking 
+• If TCP/IP protocol, get the relevant IP, DNS, WINS, DHCP information 
+• Dialin client operating system/software 
+• Server operating system/software 
+• If using a multiserial adapter, does the problem exist using a standard serial port?
+
+
+Before you call for support on a Services for Macintosh issue
+First gather the following information: 
+• Version of Windows NT 
+• Service Packs and hotfixes applied 
+• Version of Macintosh client 
+• How is the Macintosh client connected to the network? 
+• Are any devices seeding the network? 
+• Windows NT authentication package in use? 
+• Size of Windows NT volume being mounted 
+• If printing related problem, is target printer PostScript or other?
+
+TCP/IP
+
+Removing TCP/IP
+If you remove the TCP/IP protocol, the Internet Information Server component (or Peer Web Services component on Windows NT Workstation) cannot be removed using Add/Remove Programs in Control Panel.  To work around the problem and remove IIS (or Peer Web Services), reinstall the TCP/IP protocol, then remove IIS (or Peer Web Services).
+
+
+DHCP
+Previously the DHCP server ignored the broadcast flag in the discovers/requests and answered always broadcasting. This remained the default behavior. However by setting the (new) IgnoreBroadcastFlag registry variable, this behavior can be changed. If IgnoreBroadcastFlag is non-existent or if it is set to > 0, we will broadcast. If set to 0, we will unicast if the broadcast bit in the discover packet is 0.
+
+Text changes
+
+The following sections are from the "Managing DHCP Servers" chapter in the Networking Guide for Windows NT Server version 4.0 Resource Kit.  
+
+
+DHCP Offer
+Once a DHCP server has received the Discover packet, and determined that it can accommodate the client's request, it responds with a DHCP Offer message. The DHCP Offer frame is 342 bytes total. The first 14 bytes constitute the Ethernet header portion of the packet. The first distinguishing characteristic is the destination address, which is the Ethernet broadcast address of 255.255.255.255. The server responds to the client with a broadcast which is an Ethernet Type 0800 frame (IP).
+
+Note: By default, Microsoft DHCP server broadcasts the initial (not renewal) DHCP Offer packet to the DHCP client. This default behavior can be changed for Microsoft DHCP server running under Windows NT Server version 4.0. To change this default behavior, you must add the IgnoreBroadcastFlag parameter with DWORD Value=0 to the Registry and restart the Microsoft DHCP server service. This parameter should be added under the following key:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\DhcpServer\Parameters\
+
+Changing the default behavior reduces broadcast traffic. However, this can be done only when the Microsoft DHCP server and DHCP client are on a homogeneous Ethernet network or the same subnet of a Token Ring network. You should not change the default broadcast behavior of a Microsoft DHCP server when the server and client are on different Token Ring subnets or are separated by a router or bridge that does MAC level address translation for example, Ethernet to-or-from Token Ring.
+
+
+DHCP ACK
+Once a DHCP server has received the Request packet, it responds with a DHCP ACK message. The DHCP ACK frame is 342 bytes total. The first 14 bytes constitute the Ethernet header portion of the packet. The first distinguishing characteristic is the destination address, which is the Ethernet broadcast address of 255.255.255.255. The server responds to the client with a broadcast. It is a Ethernet Type 0800 frame (IP).
+
+Note: By default, Microsoft DHCP server broadcasts the initial (not renewal) DHCP ACK packet to the DHCP client. This default behavior can be changed for Microsoft DHCP server running under Windows NT Server version 4.0. To change this default behavior, you must add the IgnoreBroadcastFlag parameter with DWORD Value=0 to the Registry and restart the Micro

@@ -1,0 +1,62 @@
+gs, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_Off,, "&Q6S36=3S48=128"
+HKR, Settings, ErrorControl_On,, "&Q5S36=7S48=7"
+HKR, Settings, ErrorControl_Forced,, "&Q5S36=4S48=7"
+HKR, Settings, Compression_Off,, "S46=136"
+HKR, Settings, Compression_On,, "S46=138"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+
+; These are the Hayes responses.
+; Differences for non-Hayes modems should be addressed in the specific modem/manufacturer sections
+;                             | State
+;                                 | Options (Compression, Error-Correction, Cellular)
+;                                     | DCE Rate
+;                                                  | DTE Rate
+; Command Response and Call Progress Monitoring   
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR
+HKR, Responses, "0<cr>",  1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK
+HKR, Responses, "1<cr>",  1, 02, 00, 2C,01,00,00, 00,00,00,00 ; CONNECT - Connection at 300 bps
+HKR, Responses, "2<cr>",  1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING
+HKR, Responses, "3<cr>",  1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER
+HKR, Responses, "4<cr>",  1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR
+HKR, Responses, "5<cr>",  1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 1200
+HKR, Responses, "6<cr>",  1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE
+HKR, Responses, "7<cr>",  1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY
+HKR, Responses, "8<cr>",  1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+HKR, Responses, "10<cr>", 1, 02, 00, 60,09,00,00, 00,00,00,00 ; CONNECT 2400
+HKR, Responses, "11<cr>", 1, 02, 00, C0,12,00,00, 00,00,00,00 ; CONNECT 4800
+HKR, Responses, "12<cr>", 1, 02, 00, 80,25,00,00, 00,00,00,00 ; CONNECT 9600
+HKR, Responses, "13<cr>", 1, 02, 00, 40,38,00,00, 00,00,00,00 ; CONNECT 14400
+HKR, Responses, "14<cr>", 1, 02, 00, 00,4B,00,00, 00,00,00,00 ; CONNECT 19200
+HKR, Responses, "15<cr>", 1, 02, 00, 80,70,00,00, 00,00,00,00 ; CONNECT 28800
+HKR, Responses, "16<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; TIMEOUT
+HKR, Responses, "17<cr>", 1, 02, 00, C0,DA,00,00, 00,00,00,00 ; CONNECT 56000
+HKR, Responses, "18<cr>", 1, 02, 00, 00,E1,00,00, 00,00,00,00 ; CONNECT 57600
+HKR, Responses, "19<cr>", 1, 02, 00, 00,FA,00,00, 00,00,00,00 ; CONNECT 64000
+HKR, Responses, "20<cr>", 1, 02, 00, 58,02,00,00, 00,00,00,00 ; CONNECT 600/75
+HKR, Responses, "21<cr>", 1, 02, 00, 58,02,00,00, 00,00,00,00 ; CONNECT 75/600
+HKR, Responses, "22<cr>", 1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 1200/75
+HKR, Responses, "23<cr>", 1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 75/1200
+HKR, Responses, "24<cr>", 1, 02, 00, 20,1C,00,00, 00,00,00,00 ; CONNECT 7200
+HKR, Responses, "25<cr>", 1, 02, 00, E0,2E,00,00, 00,00,00,00 ; CONNECT 12000
+HKR, Responses, "26<cr>", 1, 02, 00, A0,41,00,00, 00,00,00,00 ; CONNECT 16800
+HKR, Responses, "27<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; CALL WAITING
+HKR, Responses, "28<cr>", 1, 02, 00, 00,96,00,00, 00,00,00,00 ; CONNECT 38400
+HKR, Responses, "29<cr>", 1, 02, 00, C0,5D,00,00, 00,00,00,00 ; CONNECT 24000
+HKR, Responses, "30<cr>", 1, 02, 00, 40,83,00,00, 00,00,00,00 ; CONNECT 33600
+HKR, Responses, "31<cr>", 1, 02, 00, 00,C2,01,00, 00,00,00,00 ; CONNECT 115200
+HKR, Responses, "32<cr>", 1, 02, 00, 80,BB,00,00, 00,00,00,00 ; CONNECT 48000
+HKR, Responses, "33<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; FAX - FAX call detected
+HKR, Responses, "34<cr>", 1, 02, 00, 20,67,00,00, 00,00,00,00 ; CONNECT 26400
+HKR, Responses, "35<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; DATA - Data call detected
+HKR, Responses, "36<cr>", 1, 01, 00, 20,67,00,00, 00,00,00,00 ; CARRIER 26400
+HKR, Responses, "37<cr>", 1, 01, 00, C0,5D,00,00, 00,00,00,00 ; CARRIER 24000
+HKR, Responses, "38<cr>", 1, 01

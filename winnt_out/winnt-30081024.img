@@ -1,0 +1,99 @@
+        Debug-Output " DIGIHANDLE = "$(DIGIHANDLE)
+	    	           LibraryProcedure Result, $(DIGIHANDLE), +
+	    	           DoesControllerExist, $(AdapterHardwareName), +
+	    	           		     $(TmpBusNumber),        +
+	    	           		     $(SlotNumber)
+	    	           Debug-Output "DoesControllerExist return: "$(Result)
+	    	           ifstr(i) $(Result) == "FALSE"
+	    	          set AlternateIO = {Slot$(SlotNumber)}
+	    	          Debug-Output "Setting AlternateIO: "$(AlternateIO)
+	    	          set AlternateMemory = {Slot$(SlotNumber)}
+	    	          Debug-Output "Setting AlternateMemory: "$(AlternateMemory)
+	    	          set AlternateIRQ = {Slot$(SlotNumber)}
+	    	          Debug-Output "Setting AlternateIRQ: "$(AlternateIRQ)
+	    	          set BusTypeNum = 3
+	    	          goto continueSetup1
+	    	           endif
+	    	        EndForListDo
+	            endif
+	        EndForListDo
+	        goto cancel
+	    endif
+    endif
+continueSetup1 = +
+    LibraryProcedure Result, $(DIGIHANDLE), +
+	DigiEntry, $(!STF_HWND), +
+		   $(Option), +
+		   $(!NTN_InstallMode), +
+		   $(!NTN_RegBase), +
+		   $(BusTypeNum), +
+		   $(AlternateMemory), +
+		   $(AlternateIO), +
+		   $(AlternateIRQ)
+    Debug-Output "OEMNADDI.INF: Dialog Result is "$(Result)
+    Ifstr(i) $(Result) == Success
+	    read-syms InvokeRasDlg$(!STF_LANGUAGE)
+        Ifstr(i) $(!NTN_InstallMode) == configure
+            goto skipRAS
+        else-ifstr(i) $(!NTN_InstallPhase) == primary
+            Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS", +
+              $(InvokeUserInstallRasMsg)
+            goto skipRAS
+        endif
+	    Shell "oemnsvra.inf" CheckRasInstalled
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        Debug-Output "OEMNADDI.INF: Error Shelling the RAS INF file oemnsvra.inf"
+	        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE),  +
+	    	  "STATUS", $(InvokeRasError)
+	        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    	goto ShellCodeError
+	        endif
+	        goto successful
+	    endif
+	    set RasInstalled = $($R0)
+	    Debug-Output "OEMNADDI.INF: Is RAS Installed? "$(RasInstalled)
+	    ifstr(i) $(RasInstalled) == FALSE
+	        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS", +
+	    	  $(InvokeRasSetupMsg)
+	        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    	goto successful
+	        endif
+	    else
+	        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS", +
+	    	  $(InvokeRasConfigMsg)
+	        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    	goto successful
+	        endif
+	    endif
+	    Ifstr(i) $(!STF_IDW) == TRUE
+	        set AddCopy  = NO
+	        set DoCopy   = NO
+	        set DoConfig = NO
+	    else
+	        set AddCopy  = YES
+	        set DoCopy   = YES
+	        set DoConfig = YES
+	    endif
+	    Debug-Output "OEMNADDI.INF: before - NTN_InstallMode = "$(!NTN_InstallMode)
+	    set SaveNTN_InstallMode = $(!NTN_InstallMode)
+	    ifstr(i) $(RasInstalled) == TRUE
+	         set !NTN_InstallMode = configure
+	    else
+	        set !NTN_InstallMode = install
+	    endif
+	    Debug-Output "OEMNADDI.INF: after - NTN_InstallMode = "$(!NTN_InstallMode)
+	    set SaveSTF_SRCDIR_OVERRIDE = $(!STF_SRCDIR_OVERRIDE)
+	    set !STF_SRCDIR_OVERRIDE = ""
+	    Debug-Output "OEMNADDI.INF: Shelling to oemnsvra.inf InstallOption with parameters:"
+	    Debug-Output "                  STF_LANGUAGE = "$(!STF_LANGUAGE)
+	    Debug-Output "                  SrcDir = "$(SrcDir)
+	    Debug-Output "                  AddCopy = "$(AddCopy)
+	    Debug-Output "                  DoCopy = "$(DoCopy)
+	    Debug-Output "                  DoConfig = "$(DoConfig)
+	    Shell "oemnsvra.inf" InstallOption $(!STF_LANGUAGE) "RAS" $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig)
+	    set !NTN_InstallMode = $(SaveNTN_InstallMode)
+	    set !STF_SRCDIR_OVERRIDE = $(SaveSTF_SRCDIR_OVERRIDE)
+	    ifstr(i) $(!NTN_InstallMode) == "install"
+            set iSearch = 1
+        nextnci = +
+            Shell $(UtilityInf), FindNextNe

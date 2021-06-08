@@ -1,0 +1,90 @@
+
+            CloseRegKey $(SoftNetRuleKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareType)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareUse)}, +
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareBindForm)}, +
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            goto fatalregistry
+        endif
+        LibraryProcedure DontCare $(!NCPA_HANDLE), CPlSetup $(!STF_HWND),+
+              SECURESVC, $(ProductSoftwareName), 3
+       Shell $(UtilityInf), RemoveService, "NetBIOSInformation", NO
+       Shell $(UtilityInf), CreateService, "NetBIOSInformation", "NetBIOSInformation", +
+             "", "adapter", "", {}, ""
+       Set RegistryErrorIndex = $($R0)
+       Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+           Debug-Output "OEMNSVNB.INF: ERROR creating NetBIOSInformation keys"
+           EndWait
+           goto fatalregistry
+       Endif
+       CloseRegKey $($R1)
+       CloseRegKey $($R2)
+       CloseRegKey $($R3)
+       OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\Messenger" $(MAXIMUM_ALLOWED) KeyMessenger
+       ifstr(i) $(KeyMessenger) != ""
+           GetRegValue $(KeyMessenger) "DependOnService" DependInfo
+           set Dependencies = *($(DependInfo),4)
+           ifcontains(i) "netbios" not-in $(Dependencies)
+     	       ifstr(i) $(Dependencies) == {}
+		           set Dependencies = "NetBios"
+	           else
+		           set Dependencies = >($(Dependencies),"NetBios")
+	           endif
+	           SetRegValue $(KeyMessenger) {"DependOnService",$(NoTitle),$(!REG_VT_MULTI_SZ),$(Dependencies)}
+	       endif
+       endif
+       Shell $(UtilityInf) AddMixRpcProtocol "Netbios" "nbf" "ncacn_nb_nb" "rpcltccm.dll" "RpcLtScm.Dll"
+       Shell $(UtilityInf) AddMixRpcProtocol "Netbios" "nwlnkipx" "ncacn_nb_ipx" "rpcltccm.dll" "RpcLtScm.Dll"
+       Shell $(UtilityInf) AddMixRpcProtocol "Netbios" "tcpip" "ncacn_nb_tcp" "rpcltccm.dll" "RpcLtScm.Dll"
+       Shell $(UtilityInf), AddWinsockInfo, +
+            "NetBIOS", +
+            "%SystemRoot%\system32\wshnetbs.dll", +
+            20,20
+       set RegistryErrorIndex = $($R0)
+       Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+           Debug-Output "OEMNSVNB.INF: Registry error: Add Winsock Info."
+       Endif
+    endif
+    goto writeparameters
+writeparameters = +
+    EndWait
+    goto successful
+bindingadapter =+
+   Debug-Output "OEMNSVNB.INF: for bindings review"
+   Goto successful
+removeadapter = +
+    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+        $(ProductSoftwareName)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto fatalregistry
+    endif
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_nb"
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_ipx"
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_tcp"
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_xns"
+    Shell $(UtilityInf), RemoveService, "NetBIOSInformation", NO
+    Shell $(UtilityInf), RemoveWinsockInfo, "NetBIOS"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\Messenger" $(MAXIMUM_ALLOWED) KeyMessenger
+    ifstr(i) $(KeyMessenger) != ""
+        GetRegValue $(KeyMessenger) "DependOnService" DependInfo
+        set Dependencies = *($(DependInfo),4)
+        ifcontains(i) "netbios" in $(Dependencies)
+            set newDependencies = {}
+	    ForListDo $(Dependencies)
+                ifstr(i) $($) != "netbios"
+                    

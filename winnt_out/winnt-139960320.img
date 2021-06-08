@@ -1,0 +1,80 @@
+ame)}
+       SetRegValue $(Card) {Title, 0, $(!REG_VT_SZ),+
+                            "["$(KeyName)"] "$(!ProductNDISWANTitle)}
+       OpenRegKey $(Card) "" "NetRules" $(!MAXIMUM_ALLOWED) NetRules
+       ifstr $(NetRules) == $(KeyNull)
+           CloseRegKey $(KeyNetCards)
+           CloseRegKey $(Card)
+           Debug-Output "RenameRasHubToNdisWan: could not open "$(KeyName)"\NetRules key"
+           goto RenameRasHubToNdisWanEnd
+       Endif
+       SetRegValue $(NetRules) {InfOption, 0, +
+                            $(!REG_VT_SZ), "NDISWAN"}
+       SetRegValue $(NetRules) {block, 0, +
+                            $(!REG_VT_MULTI_SZ),$(!NetRuleHardware$(ThisOption)Block)}
+       SetRegValue $(NetRules) {class, 0, +
+                            $(!REG_VT_MULTI_SZ),$(!NetRuleHardware$(ThisOption)Class)}
+       SetRegValue $(NetRules) {type, 0, +
+                            $(!REG_VT_SZ),$(!NetRuleHardware$(ThisOption)Type)}
+       Set TempProdName = """"$(!ProductNDISWANName)$(KeyName)""""
+       Set TempBindForm = $(TempProdName)$(!NetRuleHardwareNDISWANBindForm)
+       SetRegValue $(NetRules) {bindform, 0, $(!REG_VT_SZ),$(TempBindForm)}
+       CloseRegKey $(NetRules)
+endloop=+
+       CloseRegKey $(Card)
+    EndForListDo
+    CloseRegKey $(KeyNetcards)
+    set Status = STATUS_SUCCESSFUL
+RenameRasHubToNdisWanEnd =+
+    Debug-Output "RenameRasHubToNdisWan: Exit"
+    return $(Status)
+[UpgradeIpxInfo]
+    Debug-Output "UpgradeIpxInfo: entry"
+    set PORTSDLGHANDLE = $($0)
+    set RasProtocolsName = $(!NTN_SoftwareBase)"\Microsoft\Ras\Protocols"
+    set SapAgentName     = $(!NTN_SoftwareBase)"\Microsoft\NWSAPAGENT"
+    set NwlnkRipName     = $(!NTN_SoftwareBase)"\Microsoft\NWLNKRIP"
+    set IpxRouterName    = $(!NTN_ServiceBase)"\IpxRouter"
+    OpenRegKey $(!REG_H_LOCAL) "" +
+                      $(RasProtocolsName) $(!MAXIMUM_ALLOWED) KeyProtocols
+    ifstr $(KeyProtocols) != ""
+        set fIpxAllowed = 0
+        GetRegValue $(KeyProtocols) "fIpxAllowed" IpxList
+        ifint $(RegLastError) == 0
+            set fIpxAllowed = *($(IpxList), 4)
+        endif
+        ifint $(fIpxAllowed) != 0
+            Debug-Output "UpgradeIpxInfo: RAS is configured for IPX dialin"
+            set KeyRouter = ""
+            OpenRegKey $(!REG_H_LOCAL) "" +
+                      $(IpxRouterName) $(!MAXIMUM_ALLOWED) KeyRouter
+            ifstr $(KeyRouter) !=  ""
+                CloseRegKey $(KeyRouter)
+                Debug-Output "Renaming IpxRouter to NwlnkRip..."
+	            LibraryProcedure Result $(PORTSDLGHANDLE) RenameIpxRouterToNwlnkRip
+                Shell "" RemoveServiceDependency "RemoteAccess" "IpxRouter"
+                Shell "" AddServiceDependency "RemoteAccess" "NwlnkRip"
+                Debug-Output "Renaming IpxRouter to NwlnkRip done..."
+            endif
+            OpenRegKey $(!REG_H_LOCAL) "" $(!RasIsnRipKeyName) +
+                                          $(!MAXIMUM_ALLOWED) KeyService
+            ifstr $(KeyService) != ""
+                OpenRegKey $(KeyService) "" "Parameters" +
+                                        $(!MAXIMUM_ALLOWED) KeyParams
+                ifstr(i) $(KeyParams) != ""
+                   GetRegValue $(KeyParams) "NetbiosRouting" NetbiosRoutingInfo
+                   Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                      set NetbiosRouting = *($(NetbiosRoutingInfo), 4)
+                   else
+                      set NetbiosRouting = 2
+                   endif
+                   set NetbiosRouting = *($(NetbiosRoutingInfo), 4)
+                   ifint $(NetbiosRouting) == 0
+                      set NetbiosRouting = 2
+                   else-ifint $(NetbiosRouting) == 1
+                      set NetbiosRouting = 3
+                   endif
+                   SetRegValue $(KeyParams) {"NetbiosRouting" , 0, $(!REG_VT_DWORD), $(NetbiosRouting)}
+                endif
+                OpenRegKey $(KeyService) "" "Parameters\UseRef" +
+                                            $(!MAXIMUM_ALLOWED) KeyUseRef

@@ -1,0 +1,101 @@
+ $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVRA.INF: RemoveRasArpService : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNSVRA.INF: RemoveRasArpService: Registry error: "
+            return STATUS_FAILED
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    Debug-Output "RemoveRasArpService exit"
+    return $(Status)
+[InstallRasAcdService]
+    set Status = STATUS_SUCCESSFUL
+    set KeyNull = ""
+    Debug-Output "InstallRasAcdService entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!RasAcdKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) == $(KeyNull)
+        Shell "utility.inf", CreateService, $(!ProductRASACDName), +
+            $(!ProductRASACDDisplayName), +
+            $(!ProductRASACDImagePath), +
+            "kernelautostart", "Streams Drivers", {}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVRA.INF: InstallRasArpService : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) == SERVICE_ALREADY_EXISTS
+           return $(Status)
+        EndIf
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNSVRA.INF: InstallRasAcdService: Registry error create service"
+            return STATUS_FAILED
+        endif
+    endif
+    Debug-Output "InstallRasArpService exit"
+    return $(Status)
+[RemoveRasAcdService]
+    set Status = STATUS_SUCCESSFUL
+    set KeyNull = ""
+    Debug-Output "RemoveRasAcdService entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!RasAcdKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        Shell "utility.inf", RemoveService $(!ProductRASACDName) "YES"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVRA.INF: RemoveRasAcdService : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNSVRA.INF: RemoveRasAcdService: Registry error: "
+            return STATUS_FAILED
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    Debug-Output "RemoveRasAcdService exit"
+    return $(Status)
+[InstallNdisTapiService]
+    set Status = STATUS_SUCCESSFUL
+    set KeyNull = ""
+    Debug-Output "InstallNdisTapiService entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NdisTapiKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) == $(KeyNull)
+        Shell "utility.inf", CreateService, $(!ProductNDISTAPIName), +
+            $(!ProductNDISTAPIDisplayName), +
+            $(!ProductNDISTAPIImagePath), +
+            "kernelauto", "NDIS", {}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVRA.INF: InstallNdisTapiService : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        set ParamKey = $($R2)
+        CloseRegKey $($R1)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) == SERVICE_ALREADY_EXISTS
+           return $(Status)
+        EndIf
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNSVRA.INF: InstallNdisTapiService: Registry error create service"
+            return STATUS_FAILED
+        endif
+        ifstr(i) $(!STF_PRODUCT) != "WINNT"
+            SetRegValue $(ParamKey) {AsyncEventQueueSize, 0, $(!REG_VT_DWORD), 3072}
+        else
+            SetRegValue $(ParamKey) {AsyncEventQueueSize, 0, $(!REG_VT_DWORD), 768}
+        endif
+        CloseRegKey $(ParamKey)
+    endif
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        CloseRegKey $(KeyService)
+    endif
+    Debug-Output "InstallNdisTapiService exit"
+    return $(Status)
+[RemoveNdisTapiService]
+    set Status = STATUS_SUCCESSFUL
+    set KeyNull = ""

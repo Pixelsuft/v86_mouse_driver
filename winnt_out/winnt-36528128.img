@@ -1,0 +1,93 @@
+      CloseRegKey $(SrvParmKey)
+        Else
+            Debug-Output "NBINFO.INF: open of key "$(ThisService)"\Parameters FAILED; no provider info"
+        Endif
+        Debug-Output "NBINFO.INF: RPC string for route "$(ThisRoute)" is "$(ThisProto)" = "$(ThisLana)
+    EndForListDo
+    Ifint $(AnyChanges) != 0
+        Debug-Output "NBINFO.INF: Update Parameters..."
+        Set NewValueList = >($(NewValueList),{Route, $(NoTitle), $(!REG_VT_MULTI_SZ), $(OldRouteList)})
+        Shell $(UtilityInf), AddValueList, $(ParameterKey), $(NewValueList)
+    Endif
+    set ExportNum = 1
+    ForListDo $(OldRouteList)
+        Set ThisRoute = *($($),1)
+        Set ThisProto = *($($),2)
+        LibraryProcedure "" $(!NCPA_HANDLE) SetEnumExport $(ExportNum) $(ThisRoute)
+        set-add ExportNum = $(ExportNum), 1
+    EndForListDo
+    ifstr(i) $(LanaXnsNum) != ""
+        GetRegValue $(ParameterKey) $(LanaXnsNum) LanaXnsInfo
+        GetRegValue $(ParameterKey) $(LanaZeroNum) LanaZeroInfo
+        set XnsNum = *($(LanaXnsInfo), 4)
+        set ZeroNum = *($(LanaZeroInfo), 4)
+        SetRegValue $(ParameterKey) {$(LanaXnsNum),$(NoTitle),$(!REG_VT_DWORD),$(ZeroNum)}
+        SetRegValue $(ParameterKey) {$(LanaZeroNum),$(NoTitle),$(!REG_VT_DWORD),$(XnsNum)}
+    Endif
+    CloseRegKey $(ParameterKey)
+    set FLibraryErrCtl = 1
+    LibraryProcedure "" $(!NCPA_HANDLE), CPlSetupLanaMap
+    EndWait
+    OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft\Rpc" $(MAXIMUM_ALLOWED) KeyRpc
+    Ifstr(i) $(KeyRpc) == ""
+        Debug-Output "NBINFO.INF: Unable to open RPC software key"
+        goto successful
+    Endif
+    Set RpcValueList = {}
+    Set NextLana = 0
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\NetBIOS\Linkage" $(MAXIMUM_ALLOWED) NetBiosLinkage
+    ifstr(i) $(NetBiosLinkage) != ""
+        GetRegValue $(NetBiosLinkage) "LanaMap" LanaMapInfo
+        set BindedLana = {}
+        set Odd = 1
+        ForListDo *($(LanaMapInfo),4)
+            ifint $(Odd) == 1
+                set Odd = 0
+            else
+                set Odd = 1
+                ifstr $(BindedLana) == {}
+                    set BindedLana = $($)
+                else
+                    set BindedLana = >($(BindedLana),$($))
+                endif
+            endif
+        EndForListDo
+        CloseRegKey $(NetBiosLinkage)
+    endif
+trynextlana = +
+    Debug-Output "Binded Lana:"$(BindedLana)
+    Debug-Output "NBINFO.INF: HighLana = "$(HighLana)", LanaXnsNum = "$(LanaXnsNum)", XnsNum = "$(XnsNum)", ZeroNum = "$(ZeroNum)
+    Ifint $(NextLana) > $(HighLana)
+        goto updaterpc
+    Endif
+    Ifcontains(i) $(NextLana) in $(RpcLanaList)
+        Set Index = ~($(RpcLanaList),$(NextLana))
+        Set ThisProto = *($(RpcProtoList),$(Index))
+        Set NextSuffix = $(RpcSuffixCount$(ThisProto))
+        Set-add RpcSuffixCount$(ThisProto) = $(NextSuffix),1
+        Set ThisString = "ncacn_nb"$(ThisProto)$(NextSuffix)
+        Set UseLana = $(NextLana)
+        Ifstr(i) $(LanaXnsNum) != ""
+            Ifint $(NextLana) == $(XnsNum)
+                Set UseLana = $(ZeroNum)
+            Else-ifint $(NextLana) == $(ZeroNum)
+                Set UseLana = $(XnsNum)
+            Endif
+        Endif
+        Debug-Output "NBINFO.INF: RPC string = "$(ThisString)", lana = "$(UseLana)
+        ifcontains(i) $(UseLana) in $(BindedLana)
+            Set RpcValueList = >($(RpcValueList),{$(ThisString),$(NoTitle),$(!REG_VT_DWORD),$(UseLana)})
+        endif
+    Endif
+    Set-add NextLana = $(NextLana),1
+    Goto trynextlana
+updaterpc = +
+    Set KeyNameNetBios = "NetBios"
+    DeleteRegKey $(KeyRpc) $(KeyNameNetBios)
+    CreateRegKey $(KeyRpc) { $(KeyNameNetBios), $(NoTitle), GenericClass } "" $(MAXIMUM_ALLOWED) "" KeyNetBios
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Debug-Output "NBINFO.INF: RpcValueList = "$(RpcValueList)
+        Shell $(UtilityInf), AddValueList, $(KeyNetBios), $(RpcValueList)
+        CloseRegKey $(KeyNetBios)
+    Else
+        Debug-Output "NBINFO.INF:  Rpc\Netbios key re

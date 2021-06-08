@@ -1,0 +1,111 @@
+:error returned by UpdatePerfmonInfo."
+                goto end
+            endif
+            Shell "" UpdateCPList
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling UpdateCPList."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "OEMNSVRA.INF:error returned by UpdateCPList."
+                goto end
+            endif
+            ifstr(i) $(!STF_PRODUCT) != "WINNT"
+                OpenRegKey $(!REG_H_LOCAL) "" $(!NdisTapiKeyName)"\Parameters" $(!MAXIMUM_ALLOWED) ParamKey
+                Ifstr(i) $(ParamKey) != $(KeyNull)
+                    SetRegValue $(ParamKey) {AsyncEventQueueSize, 0, $(!REG_VT_DWORD), 3072}
+                    CloseRegKey $(ParamKey)
+                EndIf
+            EndIf
+            Install RemoveRasGroup
+            EndWait
+            Ifint $(BillboardVisible) != 0
+                Shell "subroutn.inf" PopBillboard
+                Set BillboardVisible = 0
+            Endif
+        endif
+        Shell "" UpdateSoftwareType
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVRA.INF:error shelling UpdateSoftwareType."
+            goto ShellCodeError
+        endif
+        Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            Debug-Output "OEMNSVRA.INF:error returned by UpdateSoftwareType."
+            goto end
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMinorVersion)}
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductRASDescription)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyProduct)
+    else
+        Set RegistryErrorIndex = $($R0)
+        goto fatalregistry
+    endif
+    goto end
+successful = +
+    Ifstr(i) $(!NTN_InstallPhase) == primary
+        goto installstep1
+    else-ifstr(i) $(!NTN_InstallMode) == configure
+        goto installstep1
+    endif
+    ifint $(NewNumDialin) != 0
+       ifstr(i) $(!STF_GUI_UNATTENDED) != YES
+            read-syms SuccessfulInstall$(!STF_LANGUAGE)
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "STATUS" $(Success)
+       endif
+    endif
+installstep1 = +
+    goto end
+warning = +
+    Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+       goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+       goto $(from)
+    else
+       Debug-Msg "Error Error Bad DLGEVENT"
+       goto "end"
+    endif
+nonfatal = +
+    Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(!UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "fatalregistry: shell to find RegistryErrorString failed."
+       goto ShellCodeError
+    endif
+    ifstr(i) $(RasSpecificString) != ""
+        set Error = $($R0)" - service "$(RasSpecificString)"."
+    else
+        set Error = $($R0)
+    endif
+    read-syms AbortMessage$(!STF_LANGUAGE)
+    set Error = $(Error)$(!LF)$(!LF)$(AbortText)
+    goto fatal
+fatal =    +
+    Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "fatal: shell to SetupMessage failed."
+    goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    read-syms ShellCodeErrorMsg$(!STF_LANGUAGE)
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(fRemoveRas) == TRUE
+        set fR

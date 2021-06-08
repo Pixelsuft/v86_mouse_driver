@@ -1,0 +1,124 @@
+i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the elink II driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        else
+            Debug-Output "Cannot configure the elink II adapter card."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_HARDWARE
+        endif
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+        set from = end
+        set to = end
+        goto nonfatalinfo
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               Set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    goto nextstep
+configureadapter = +
+    set Error = "Configure: Not Implmemented yet"
+    goto fatal
+nextstep = +
+    StartWait
+installproduct = +
+    set cardlist = {}
+    Shell $(UtilityInf), MCAFindBus, *($(ELNK3MCA_1BYTE),1), *($(ELNK3MCA_2BYTE),1)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) != {}
+        set cardlist = $($R1)
+    endif
+    Shell $(UtilityInf), MCAFindBus, *($(ELNK3MCA_1BYTE),2), *($(ELNK3MCA_2BYTE),2)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) != {}
+        ifstr(i) $(cardlist) != {}
+            set cardlist = >($(cardlist),$($R1))
+        else
+            set cardlist = $($R1)
+        endif
+    endif
+    Shell $(UtilityInf), MCAFindBus, *($(ELNK3MCA_1BYTE),3), *($(ELNK3MCA_2BYTE),3)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) != {}
+        ifstr(i) $(cardlist) != {}
+            set cardlist = >($(cardlist),$($R1))
+        else
+            set cardlist = $($R1)
+        endif
+    endif
+    Shell $(UtilityInf), MCAFindBus, *($(ELNK3MCA_1BYTE),4), *($(ELNK3MCA_2BYTE),4)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) != {}
+        ifstr(i) $(cardlist) != {}
+            set cardlist = >($(cardlist),$($R1))
+        else
+            set cardlist = $($R1)
+        endif
+    endif
+    Shell $(UtilityInf), MCAFindBus, *($(ELNK3MCA_1BYTE),5), *($(ELNK3MCA_2BYTE),5)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) != {}
+        ifstr(i) $(cardlist) != {}
+            set cardlist

@@ -1,0 +1,110 @@
+ings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,,"\N3-J1"          
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4-J1"
+
+[Rockwell4.AddReg] ; Logicode ISA and Viva 14.4 PCMCIA 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f3,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V2 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,,"\N3"          
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Rockwell5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+HKR, Init, 2,, "AT &F2 E V Q0 W1 &C1 &D2 S95=47 S0=0<cr>"
+HKR, Settings, ErrorControl_Off,, "&Q6\N"
+HKR, Settings, ErrorControl_On,, "&Q5\N3"
+HKR, Settings, ErrorControl_Forced,, "&Q5\N4"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+
+[Rockwell6.AddReg] 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V2 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, ErrorControl_On,,"\N3"          
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+; String section
+
+[Strings]
+
+3X      = "3X"
+3X1     = "3X 14.4 Data Fax Modem Voice"
+
+Aztech      = "Aztech Systems"
+Aztech1     = "Aztech 14.4 Data Fax Voice Soundcard" 
+
+Reveal      = "Reveal"
+Reveal3     = "Reveal 14.4, Data Fax PC-Card CM144"
+
+Logicode  = "Logicode"
+Logicode10= "Logicode 14.4 Data-Fax-Voice PCMCIA"      ; Logicode 14.4 Data-Fax-Voice PCMCIA (cirrus chipset)
+Logicode11= "14.4 Data-Fax Modem Voice"                ; combo for Logicode 14.4 Data-Fax-Voice PCMCIA (cirrus chipset) and clones in exp and dsi infs
+Logicode12= "14.4 Data Fax Modem Voice"                ; combo for Logicode and Viva 14.4 PCMCIA
+
+Supra = "Supra Corporation"
+Supra1="SupraExpress 288i PnP Voice"
+
+Infotel = "Infotel"
+Infotel1="Infotel FM 144C Data Fax Voice"
+
+Cirrus  = "Cirrus Logic"
+Cirrus2 = "Cirrus Data Fax Voice MDK1414EC2"
+Cirrus3 = "14.4 Data Fax Modem"
+
+; VoiceView 
+
+APPS_DESC        = "Accessories"     ; Name of Accessories menu
+StartUp_DESC     = "StartUp"
+SendTo_DESC      = "SendTo"          ; Name of SendTo folder in the Windows dir
+FileXfer_DESC    = "File Transfer"   ; Name of file tranfer app in Accessories menu
+SendToPhone_DESC = "Person On Phone" ; Name for file transfer app in SendTo menu
+StartXfer_DESC   = "VoiceView Auto Detection"   ; Name for auto start feature
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[ROCK_VOICE_ALL]   ; Rockwell baseline voice settings, includes VoiceView init
+HKR,,Enumerator,,serwave.vxd
+HKR,, VoiceManufacturerID,  1, 01,00
+HKR,, VoiceProductIDWaveIn, 1, 80,00
+HKR,, VoiceProductIDWaveOut,1, 81,00
+HKR,, VoiceProductIDHandsetWaveOut,1, 82,00
+HKR,, VoiceProductIDHandsetWaveOut,1, 83,00
+HKR,, VoiceMixerMid,1,02,00
+HKR,, VoiceMixerPid,1,99,01
+HKR,, VoiceMixerLineID,1,00,00,05,00
+HKR,, SpeakerPhoneSpecs,     

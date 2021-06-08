@@ -1,0 +1,110 @@
+Rules
+    Ifstr $(IN_KeyNetRules) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_CREATE_NETRULES_KEY
+       goto I_N_Return
+    endif
+    Ifstr $(IN_Infname) != ""
+       Shell "", ReduceInfPath, $(IN_Infname)
+       SetRegValue $(IN_KeyNetRules) {InfName,$(NoTitle),$(!REG_VT_SZ),$($R0)}
+    endif
+    set RegistryErrorIndex = NO_ERROR
+I_N_Return = +
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "UTILITY.INF: [InstallNetcard]: "$(RegistryErrorIndex)
+        Ifstr $(IN_KeyNetRules) != $(KeyNull)
+            CloseRegKey $(IN_KeyNetRules)
+            set IN_KeyNetrules = ''
+        endif
+        set IN_KeyNetcard = ""
+    endif
+    return $(RegistryErrorIndex), $(IN_KeyNetcard), $(IN_CardNumber), $(IN_KeyNetRules)
+[LinkToService]
+    read-syms InitBaseVars
+    SetRegValue $($0) {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($1)}
+L_S_Return = +
+    return $(RegistryErrorIndex)
+[IncrementRefCount]
+    read-syms InitBaseVars
+    OpenRegKey $(!REG_H_LOCAL) "" $($0) $(MAXIMUM_ALLOWED) SoftwareKey
+    Ifstr $(SoftwareKey) == $(KeyNull)
+       Debug-Output "UTILITY.INF: could not open Software base key"
+       set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       goto IncrementRefCount_Return
+    endif
+    GetRegValue $(SoftwareKey),"RefCount", RefCountInfo
+    set RefCount = *($(RefCountInfo), 4)
+    Set-add RefCount = $(RefCount),1
+    SetRegValue $(SoftwareKey) {RefCount,$(NoTitle),$(!REG_VT_DWORD),$(RefCount)}
+    CloseRegKey $(SoftwareKey)
+IncrementRefCount_Return = +
+    return $(RegistryErrorIndex)
+[DecrementRefCount]
+    read-syms InitBaseVars
+    OpenRegKey $(!REG_H_LOCAL) "" $($0) $(MAXIMUM_ALLOWED) SoftwareKey
+    Ifstr $(SoftwareKey) == $(KeyNull)
+       Debug-Output "UTILITY.INF: could not open Software base key"
+       set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       goto DecrementRefCount_Return
+    endif
+    GetRegValue $(SoftwareKey),"RefCount", RefCountInfo
+    set RefCount = *($(RefCountInfo), 4)
+    ifint $(RefCount) == 0
+        goto DecrementRefCount_Return
+    endif
+    Set-sub RefCount = $(RefCount),1
+    SetRegValue $(SoftwareKey) {RefCount,$(NoTitle),$(!REG_VT_DWORD),$(RefCount)}
+    CloseRegKey $(SoftwareKey)
+DecrementRefCount_Return = +
+    return $(RegistryErrorIndex)
+[IsRefCountEqualZero]
+    read-syms InitBaseVars
+    OpenRegKey $(!REG_H_LOCAL) "" $($0) $(MAXIMUM_ALLOWED) SoftwareKey
+    Ifstr $(SoftwareKey) == $(KeyNull)
+       Debug-Output "UTILITY.INF: could not open Software base key"
+       set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       set RefCountEqualZero = 1
+       goto IsRefCountEqualZero_Return
+    endif
+    GetRegValue $(SoftwareKey),"RefCount", RefCountInfo
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        set RefCount = 0
+    else
+        set RefCount = *($(RefCountInfo), 4)
+    endif
+    Ifint $(RefCount) == 0
+        set RefCountEqualZero = 1
+    else
+        set RefCountEqualZero = 0
+    endif
+    CloseRegKey $(SoftwareKey)
+IsRefCountEqualZero_Return = +
+    return $(RegistryErrorIndex) $(RefCountEqualZero)
+[FindService]
+    read-syms InitBaseVars
+    set FS_KeyThisService = ""
+    set FS_KeyParameters  = ""
+    set FS_KeyComponent   = $($0)
+    set FS_TypeComponent  = $($1)
+    Shell "", BaseServiceKey
+    set FS_KeyServices = $($R1)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       goto F_S_Return
+    endif
+    EnumRegValue $(FS_KeyComponent) FS_ValueList
+    set FS_SvcName = ""
+    ForListDo $(FS_ValueList)
+        set FS_ValueName = *($($),1)
+        Ifstr(i) $(FS_ValueName) == ServiceName
+            set FS_SvcName = *($($),4)
+            goto F_S_Break1
+        endif
+    EndForListDo
+F_S_Break1 = +
+    Ifstr $(FS_SvcName) == $(KeyNull)
+       set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+       goto F_S_Return
+    endif
+    OpenRegKey $(FS_KeyServices) "" $(FS_SvcName) $(MAXIMUM_ALLOWED) FS_KeyThisService
+    Ifstr $(FS_KeyThisService) == $(KeyNull)
+   

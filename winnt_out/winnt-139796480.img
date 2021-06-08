@@ -1,0 +1,85 @@
+        QueryListSize IpNetCards $(RemoveDialinIpList)
+        ifint $(IpNetCards) != 0
+            ForListDo  $(RemoveDialinIpList)
+                ifint $(NumRemoveDialinIP) == 0
+                    goto RemoveDialinIPX
+                endif
+                set-sub NumRemoveDialinIP = $(NumRemoveDialinIP), 1
+                shell $(subroutninf) PushBillBoard NETSTATUSDLG +
+                                      $(WritingRasParamsRemove)" "$(NumRemoveTotal)
+                set-sub NumRemoveTotal = $(NumRemoveTotal), 1
+                debug-output "Removing hardware component: "$($)
+                Shell $(!UtilityInf), RemoveHardwareComponent, +
+                                     $(!Manufacturer), *($($),1), *($($),2)
+            EndForListDo
+        endif
+RemoveDialinIPX =+
+        QueryListSize IpxNetCards $(RemoveDialinoutIpxList)
+        ifint $(IpxNetCards) != 0
+            ForListDo  $(RemoveDialinoutIpxList)
+                ifint $(NumRemoveDialinoutIPX) == 0
+                    goto RemoveDialinNBF
+                endif
+                set-sub NumRemoveDialinoutIPX = $(NumRemoveDialinoutIPX), 1
+                debug-output "Removing hardware component: "$($)
+                shell $(subroutninf) PushBillBoard NETSTATUSDLG +
+                                      $(WritingRasParamsRemove)" "$(NumRemoveTotal)
+                set-sub NumRemoveTotal = $(NumRemoveTotal), 1
+                Shell $(!UtilityInf), RemoveHardwareComponent, +
+                                     $(!Manufacturer), *($($),1), *($($),2)
+            EndForListDo
+        endif
+RemoveDialinNBF =+
+        ForListDo  $(RemoveDialinList)
+            ifint $(NumRemoveDialinNBF) == 0
+                goto RemoveDialout
+            endif
+            set-sub NumRemoveDialinNBF = $(NumRemoveDialinNBF), 1
+            shell $(subroutninf) PushBillBoard NETSTATUSDLG +
+                                  $(WritingRasParamsRemove)" "$(NumRemoveTotal)
+            set-sub NumRemoveTotal = $(NumRemoveTotal), 1
+            debug-output "Removing hardware component: "$($)
+            Shell $(!UtilityInf), RemoveHardwareComponent, $(!Manufacturer),+
+                  *($($),1), *($($),2)
+        EndForListDo
+RemoveDialout = +
+        QueryListSize IpNetCards $(RemoveDialoutIpList)
+        ifint $(IpNetCards) != 0
+            ForListDo  $(RemoveDialoutIpList)
+                ifint $(NumRemoveDialoutIP) == 0
+                    goto RemoveDialoutNBF
+                endif
+                set-sub NumRemoveDialoutIP = $(NumRemoveDialoutIP), 1
+                shell $(subroutninf) PushBillBoard NETSTATUSDLG +
+                                      $(WritingRasParamsRemove)" "$(NumRemoveTotal)
+                set-sub NumRemoveTotal = $(NumRemoveTotal), 1
+                debug-output "Removing hardware component: "$($)
+                Shell $(!UtilityInf), RemoveHardwareComponent, +
+                                     $(!Manufacturer), *($($),1), *($($),2)
+            EndForListDo
+        endif
+RemoveDialoutNBF =+
+        ForListDo  $(RemoveDialoutList)
+            ifint $(NumRemoveDialoutNBF) == 0
+		goto WriteRasAsyMac
+            endif
+            set-sub NumRemoveDialoutNBF = $(NumRemoveDialoutNBF), 1
+            shell $(subroutninf) PushBillBoard NETSTATUSDLG +
+                                  $(WritingRasParamsRemove)" "$(NumRemoveTotal)
+            set-sub NumRemoveTotal = $(NumRemoveTotal), 1
+            debug-output "Removing hardware component: "$($)
+            Shell $(!UtilityInf), RemoveHardwareComponent, $(!Manufacturer),+
+                  *($($),1), *($($),2)
+        EndForListDo
+WriteRasAsyMac = +
+    ifstr(i) $(fSerialInstalled) == TRUE
+        set AsyStartValue = 2
+    else-ifstr(i) $(fOtherInstalled) == TRUE
+        set AsyStartValue = 2
+    else-ifstr(i) $(fUnimodemInstalled) == TRUE
+        set AsyStartValue = 2
+    else
+        set AsyStartValue = 4
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacKeyName) $(!MAXIMUM_ALLOWED) KeyMac
+    ifstr $(KeyMac) == $(KeyNull)

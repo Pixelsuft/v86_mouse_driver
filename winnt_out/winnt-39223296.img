@@ -1,0 +1,162 @@
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=S58=2
+<hwflowcontrol_off>=S58=0
+<compression_on>=S190=1
+<compression_off>=S190=0
+<protocol_on>=S180=2
+<protocol_off>=S180=0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=T1600
+
+COMMAND_INIT=AT&F &C1 &D2 S0=0 S2=128 S7=55 S59=11 X11 S58=0 S180=0 S181=0<cr>
+COMMAND_INIT=AT<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit T2000]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=9600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Version BC4.01
+
+COMMAND_INIT=AT &F S52=1 S2=255 S0=0 S54=3 S7=55 S58=0 S180=0 S181=0<cr>
+COMMAND_INIT=AT<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit T2500]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=S58=2 S68=255
+<hwflowcontrol_off>=S58=0 S68=255
+<compression_on>=S96=1 S98=3
+<compression_off>=S96=0 S98=0
+<protocol_on>=S66=2 S95=2 S97=1 S106=1
+<protocol_off>=S66=0 S95=0 S97=0 S106=0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=T2500
+
+COMMAND_INIT=AT~&F <cr>
+COMMAND_INIT=ATX14 S131=1 S52=1 S55=3 S55=3 S7=55 S50=6 S92=1<cr>
+COMMAND_INIT=AT<compression><protocol><hwflowcontrol><speaker> S50=6 <cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit T3000]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=S58=2 S68=255
+<hwflowcontrol_off>=S58=0 S68=255
+<compression_on>=S190=1 S180=2
+<compression_off>=S190=0
+<protocol_on>=S180=2
+<protocol_off>=S180=0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=T3000
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 X11 S0=0 S2=128 S7=55 S50=7 S59=9<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit TrailBlazer Plus]
+;PEP disabled with S50=3 S92=1. To re-enable PEP for 9600 baud
+;connection with another Telebit, delete the string S50=3 S92=1.
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=S58=2 S68=255
+<hwflowcontrol_off>=S58=0 S68=255
+<compression_off>=S98=0 S110=0
+<compression_on>=S98=3
+<protocol_on>=S97=1 S106=1 S95=2
+<protocol_off>=S97=0 S106=0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=GF7.03-TBSA
+
+COMMAND_INIT=AT~&F S52=4 S131=3<cr>
+COMMAND_INIT=ATS51=255 S2=255 S0=0 S7=55 X3<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><speaker>S50=3 S92=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit WorldBlazer]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=S58=2 S68=255
+<hwflowcontrol_off>=S58=0 S68=255
+<compression_on>=S180=2 S190=1
+<compression_off>=S190=0
+<protocol_on>=S180=2 S190=0
+<protocol_off>=S180=0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=WorldBlazer
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 X11 S0=0 S2=128 S94=1 S92=1 S50=7<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit WorldBlazer-Rackmount]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=S58=2 S68=255
+<hwflowcontrol_off>=S58=0 S68=255
+<compression_on>=S1

@@ -1,0 +1,122 @@
+        set Error = $($R0)
+           goto fatal
+        endif
+    endif
+    set OEM_ABANDON_ON  = TRUE
+    StartWait
+    Shell $(UtilityInf) InstallSoftwareProduct $(Manufacturer) $(ProductTCPIPCUName) $(STF_CONTEXTINFNAME)
+    set VerKey = $($R1)
+    set NetRuleKey = $($R2)
+    Shell  $(UtilityInf), AddValueList, $(VerKey), {{Hidden,0,$(!REG_VT_DWORD),1}}
+    Shell  $(UtilityInf), AddValueList, $(VerKey), {{SoftwareType,0,$(!REG_VT_SZ),$(SoftwareType)}}
+    Shell  $(UtilityInf), AddValueList, $(VerKey), {{Title,0,$(!REG_VT_SZ),$(ProductTCPIPCUTitle)}}
+    Shell  $(UtilityInf), AddValueList, $(NetRuleKey), {{InfOption,0,$(!REG_VT_SZ),"TCPIPCU"}}
+    CloseRegKey $(VerKey)
+    CloseRegKey $(NetRuleKey)
+    ifstr(i) $(!STF_INSTALL_TYPE) != "SETUPBOOTED"
+        Shell "" AddTelnet
+    endif
+    EndWait
+    goto successful
+configureadapter = +
+    goto end
+bindingadapter =+
+    goto end
+removeadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\"$(Manufacturer) $(MAXIMUM_ALLOWED) ProductKey
+    ifstr(i) $(ProductKey) != ""
+        DeleteRegTree $(ProductKey) $(ProductTCPIPCUName)
+    endif
+    goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)}
+        SetRegValue $(KeyProduct) {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductTCPIPCUTitle)}
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        CloseRegKey $(KeyProduct)
+    else
+        goto fatalregistry
+    endif
+    goto end
+successful = +
+    goto end
+infomsg =+
+   read-syms InfoDlg
+   ui start "Warning"
+   set CommonStatus = STATUS_USERCANCEL
+   goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatalinfo = +
+    Set CommonStatus = STATUS_USERCANCEL
+    Set Severity = STATUS
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+   goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error

@@ -1,0 +1,105 @@
+goto End
+	           endif
+           endif
+	       set OldVersionExisted = $(TRUE)
+	    endif
+    endif
+Install_Files = +
+    Debug-Output "OEMNADMA.INF: Install Files"
+    ifint $(OldVersionExisted) == $(FALSE)
+    	ifstr(i) $(!NTN_InstallMode) == "install"
+	        Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(!STF_SRCDIR), "YES"
+	        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                goto Shell_Code_Error
+	        else-ifstr(i) $($R0) == STATUS_FAILED
+        		shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+	            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    	        goto Shell_Code_Error
+	            endif
+	            set Error = $($R0)
+	            goto Fatal
+    	    else-ifstr(i) $($R0) == STATUS_USERCANCEL
+                goto Successful
+            endif
+	        set SrcDir = $($R1)   
+	        install "Install-Option"
+	        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+    		    shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+	    	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto Shell_Code_Error
+                endif
+		        set Error = $($R0)
+		        goto Fatal
+	        endif
+	    endif
+    endif
+    ifstr(i) $(!STF_NCDETECT) == YES
+        ifstr(i) $(!STF_NCOPTION) == $(Option)
+            set AdapterDetected = TRUE
+            set DetectOption    = $(!STF_NCOPTION)
+            set DetectIndex     = $(!STF_NCDETCARD)
+            goto Set_Installation_Defaults
+        endif
+    endif
+Set_Installation_Defaults = +
+    Debug-Output "OEMNADMA.INF: Set Install Defaults"
+    StartWait
+    set MaxFrameSize  = 4096
+    set LAA           = ""
+    set RxTxSlots     = *($(RxTxRawList),3)
+    set StatsFlag     = *($(StatsRawList),1)
+    set SpeedFlag     = 0
+    set OldIrqNumber  = $(VALUE_UNKNOWN)
+    set OldDmaChannel = $(VALUE_UNKNOWN)
+    set OldIoLocation = $(VALUE_UNKNOWN)
+    set OldSlotNumber = $(VALUE_UNKNOWN)
+    set OldMpFlag     = $(VALUE_UNKNOWN)
+    ifcontains(i) $(Option) in $(SlotNumberAdapters)
+        set TypeList = {{SLOTNUMBER,SlotList,SlotNumber},+
+                        {DMACHANNEL,DmaList,DmaChannel},+
+                        {MULTIPROCESSOR,MpList,MpFlag}}
+    else
+        set TypeList = {{IOLOCATION,IoList,IoLocation},+
+                        {DMACHANNEL,DmaList,DmaChannel},+
+                        {INTERRUPTNUMBER,IrqList,IrqNumber},+
+                        {MULTIPROCESSOR,MpList,MpFlag}}
+    endif
+    Shell $(ParamInf) Param_BuildTypeLists $(Option) $(TypeList)
+    set Status = $($R0)
+    ifstr(i) $(Status) != STATUS_SUCCESSFUL
+        Debug-Output "OEMNADMA.INF: Param_BuildTypeLists returned "$(Status)
+        goto Fatal
+    endif
+    ifstr(i) $(AdapterDetected) == TRUE
+        Debug-Output "OEMNADMA.INF: Calling Param_QueryCard"
+        Shell $(ParamInf) Param_QueryCard $(DetectIndex)
+        set Status    = $($R0)
+        set ParamList = $($R1)
+        ifstr(i) $(Status) != STATUS_SUCCESSFUL
+            goto Fatal
+        endif
+    endif
+    Debug-Output "OEMNADMA.INF: Calling Param_SetDefaults"
+    Shell $(ParamInf) Param_SetDefaults $(ParamList)
+    Debug-Output "MADGE: SlotNumber = "$(SlotNumber)
+    Debug-Output "MADGE: IoLocation = "$(IoLocation)
+    Debug-Output "MADGE: IrqNumber  = "$(IrqNumber)
+    Debug-Output "MADGE: DmaChannel = "$(DmaChannel)
+    Debug-Output "MADGE: MpFlag     = "$(MpFlag)
+    Debug-Output "MADGE: SlotList   = "$(SlotList)
+    Debug-Output "MADGE: IoList     = "$(IoList)
+    Debug-Output "MADGE: IrqList    = "$(IrqList)
+    Debug-Output "MADGE: DmaList    = "$(DmaList)
+    Debug-Output "MADGE: MpList     = "$(MpList)
+    ifstr(i) $(AdapterDetected) == TRUE
+        set OldSlotNumber = $(SlotNumber)
+        set OldIoLocation = $(IoLocation)
+        set OldIrqNumber  = $(IrqNumber)
+        set OldDmaChannel = $(DmaChannel)
+        set OldMpFlag     = $(MpFlag)
+    endif
+    set OldValueTitle = $(OldValueTitleInstall)
+    EndWait
+    goto Get_Adapter_Options
+Configure_Adapter = +
+    

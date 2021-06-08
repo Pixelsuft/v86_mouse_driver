@@ -1,0 +1,69 @@
+                           = ESCP2MS.DLL
+"Epson Stylus 800 ESC/P 2"                             = ESCP2MS.DLL
+"Epson Stylus 800+ ESC/P 2"                            = ESCP2MS.DLL
+"Epson Stylus COLOR ESC/P 2"                           = ESCP2MS.DLL
+"Epson Stylus Pro ESC/P 2"                             = ESCP2MS.DLL
+"Epson Stylus Pro XL ESC/P 2"                          = ESCP2MS.DLL
+"Epson T-1000"                                         = EPSON9.DLL
+"Epson T-750"                                          = EPSON9.DLL
+
+[Fujitsu]
+"Fujitsu Breeze 100"                                   = JP350.DLL
+"Fujitsu Breeze 200"                                   = JP350.DLL
+"Fujitsu DL 900"                                       = FUJI24.DLL
+"Fujitsu DL 1100 Colour"                               = FUJI24.DLL
+"Fujitsu DL 1100"                                      = FUJI24.DLL
+"Fujitsu DL 1150"                                      = FUJI24.DLL
+"Fujitsu DL 1200"                                      = FUJI24.DLL
+"Fujitsu DL 1250"                                      = FUJI24.DLL
+"Fujitsu DL 2400"                                      = FUJI24.DLL
+"Fujitsu DL 2600"                                      = FUJI24.DLL
+"Fujitsu DL 3300"                                      = FUJI24.DLL
+"Fujitsu DL 3350"                                      = FUJI24.DLL
+"Fujitsu DL 3400"                                      = FUJI24.DLL
+"Fujitsu DL 3450"                                      = FUJI24.DLL
+"Fujitsu DL 3600"                                      = FUJI24.DLL
+"Fujitsu DL 4400"                                      = FUJI24.DLL
+"Fujitsu DL 4600"                                      = FUJI24.DLL
+"Fujitsu DL 5600"                                      = FUJI24.DLL
+"Fujitsu DX 2100"                                      = FUJI9.DLL
+"Fujitsu DX 2200"                                      = FUJI9.DLL
+"Fujitsu DX 2300"                                      = FUJI9.DLL
+"Fujitsu DX 2400"                                      = FUJI9.DLL
+"Fujitsu RX7100PS v50.3"                               = F71RX503.PPD
+
+[GCC]
+"GCC BLP Elite v52.3"                                  = GCBLPEL1.PPD
+"GCC BLP II v52.3"                                     = GCBLP2_1.PPD
+"GCC BLP IIS v52.3"                                    = GCBLP2S1.PPD
+"GCC Business LaserPrinter v49.2"                      = GCBL4921.PPD
+"GCC Business LaserPrinter v51.4"                      = GCBL5141.PPD
+"GCC ColorTone v2.1"                                   = GCCTONE2.PPD
+"GCC Elite 600 v1.1"                                   = GCELT6_2.PPD
+"GCC SelectPress 600 v2.3"                             = GCSP6_3.PPD
+"GCC SelectPress 1200 v2.3"                            = GCSP12_3.PPD
+
+[Generic]
+"Generic / Text Only"                                  = TXTONLY.DLL
+"Generic IBM Graphics 9pin"                            = OKI9IBM.DLL
+"Generic IBM Graphics 9pin wide"                       = OKI9IBM.DLL
+
+[Gestetner]
+"Gestetner GLP800-Scout v52.3"                         = GDGL8001.PPD
+
+[HP]
+"Hewlett-Packard HP-GL/2 Plotter"                      = HPGL2PEN.PCD
+"HP 7550 Plus"                                         = HP7550PL.PCD
+"HP Color LaserJet"                                    = PCL5EMS.DLL.BIDI
+"HP Color LaserJet PS"                                 = HP__CLJ1.PPD
+"HP Color LaserJet 5"                                  = PCL5EMS.DLL.BIDI
+"HP Color LaserJet 5M"                                 = PCL5EMS.DLL.BIDI	
+"HP Color LaserJet 5/5M PS"                            = HPCLJ5V2.PPD
+"HP CopyJet"                                           = PCL5EMS.DLL
+"HP CopyJet M/PS"                                      = HPCOPYJ1.PPD
+"HP DesignJet 200 (C3180A)"                            = HP20022.PCD
+"HP DesignJet 200 (C3181A)"                            = HP20036.PCD
+"HP DesignJet 220 (D/A1)"                              = HP22024.PCD
+"HP DesignJet 220 (E/A0)"                              = HP22036.PCD
+"HP DesignJet 230 (D/A1)"                              = HP23024.PCD
+"HP D

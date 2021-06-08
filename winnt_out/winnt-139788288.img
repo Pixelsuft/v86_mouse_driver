@@ -1,0 +1,67 @@
+le),$(!REG_VT_SZ),+
+                                    $(!Product$(ThisOption)DIALINName)})
+            set ServiceParamList = +
+                        {{EnumExportPref,$(NoTitle),$(!REG_VT_DWORD),0},+
+                        {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+            set AdapterType = $(!NetRuleHardwareDIALINType)
+            set AdapterClass = $(!NetRuleHardwareDIALINClass)
+            set AdapterBlock = $(!NetRuleHardwareDIALINBlock)
+        else-ifint $(NumAddDialoutNBF) > 0
+            set-sub NumAddDialoutNBF = $(NumAddDialoutNBF), 1
+            set NetcardInfoList = >($(NetcardInfoList), +
+                                 {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+                                  $(!Product$(ThisOption)DIALOUTName)})
+            set ServiceParamList = +
+                         {{EnumExportPref,$(NoTitle),$(!REG_VT_DWORD),1},+
+                         {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+            set AdapterType = $(!NetRuleHardwareDIALOUTType)
+            set AdapterClass = $(!NetRuleHardwareDIALOUTClass)
+            set AdapterBlock = $(!NetRuleHardwareDIALOUTBlock)
+        else-ifint $(NumAddDialinIP) > 0
+            set-sub NumAddDialinIP = $(NumAddDialinIP), 1
+            set NetcardInfoList = >($(NetcardInfoList), +
+                                 {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+                                  $(!Product$(ThisOption)DIALINIPName)})
+            set ServiceParamList = +
+                         {{EnumExportPref,$(NoTitle),$(!REG_VT_DWORD),0},+
+                         {AutoIPAddress,$(NoTitle),$(!REG_VT_DWORD),1},+
+                         {ServerAdapter,$(NoTitle),$(!REG_VT_DWORD),1},+
+                         {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+            set AdapterType = $(!NetRuleHardwareDIALINIPType)
+            set AdapterClass = $(!NetRuleHardwareDIALINIPClass)
+            set AdapterBlock = $(!NetRuleHardwareDIALINIPBlock)
+        else-ifint $(NumAddDialoutIP) > 0
+            set-sub NumAddDialoutIP = $(NumAddDialoutIP), 1
+            set NetcardInfoList = >($(NetcardInfoList), +
+                                 {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+                                  $(!Product$(ThisOption)DIALOUTIPName)})
+            set ServiceParamList = +
+                       {{EnumExportPref,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {AutoIPAddress,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {ServerAdapter,$(NoTitle),$(!REG_VT_DWORD),0},+
+                       {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+            set AdapterType = $(!NetRuleHardwareDIALOUTIPType)
+            set AdapterClass = $(!NetRuleHardwareDIALOUTIPClass)
+            set AdapterBlock = $(!NetRuleHardwareDIALOUTIPBlock)
+        else-ifint $(NumAddDialinoutIPX) > 0
+            set-sub NumAddDialinoutIPX = $(NumAddDialinoutIPX), 1
+            set NetcardInfoList = >($(NetcardInfoList), +
+                                 {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+                                  $(!Product$(ThisOption)DIALINOUTIPXName)})
+            set ServiceParamList = +
+                         {{EnumExportPref,$(NoTitle),$(!REG_VT_DWORD),0},+
+                         {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+            set AdapterType = $(!NetRuleHardwareDIALINOUTIPXType)
+            set AdapterClass = $(!NetRuleHardwareDIALINOUTIPXClass)
+            set AdapterBlock = $(!NetRuleHardwareDIALINOUTIPXBlock)
+        endif
+        Shell  $(!UtilityInf), AddValueList, $(KeyNetcard), $(NetcardInfoList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+        endif
+        CloseRegKey $(KeyNetcard)
+        set TempProdName = """"$(!Product$(ThisOption)Name)$(AdapterNumber)""""
+        set TempBindForm = $(TempProdName)$(!NetRuleHardware$(ThisOption)BindForm)
+        set AdapterRulesList = +
+            {{type,$(NoTitle),$(!REG

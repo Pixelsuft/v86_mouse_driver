@@ -1,0 +1,104 @@
+"
+    set CS_UseRegistry   = $(!NTN_ScUseRegistry)
+    Debug-Output "UTILITY.INF: [CreateService] entered for "$(CS_NameOfService)
+    Ifstr(i) $(CS_UseRegistry) != "YES"
+        Ifstr(i) $(CS_UseRegistry) != "NO"
+            Set CS_UseRegistry = "NO"
+        Endif
+    Endif
+    Ifstr(i) $(CS_Dependencies) == ""
+        Set CS_Dependencies = {}
+    Endif
+    Ifstr(i) $(CS_KeyServices) == ""
+        Shell "", BaseServiceKey
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+           set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+           goto C_S_Return
+        endif
+        set CS_KeyServices = $($R1)
+        set CS_KeyServicesOpened = $($R1)
+    Endif
+    ifstr(i) $(CS_TypeOfService) == "system"
+        set TypeValue = 2
+        set StartValue = 3
+    else-ifstr(i) $(CS_TypeOfService) == "systemstart"
+        set TypeValue = 2
+        set StartValue = 1
+    else-ifstr(i) $(CS_TypeOfService) == "systemauto"
+        set TypeValue = 2
+        set StartValue = 2
+    else-ifstr(i) $(CS_TypeOfService) == "adapter"
+        set TypeValue = 4
+        set StartValue = 3
+        Set CS_UseRegistry = "YES"
+    else-ifstr(i) $(CS_TypeOfService) == "kernelauto"
+        set TypeValue = 1
+        set StartValue = 1
+    else-ifstr(i) $(CS_TypeOfService) == "autoserviceshare"
+        set TypeValue = 32
+        set StartValue = 2
+    else-ifstr(i) $(CS_TypeOfService) == "transport"
+        set TypeValue = 2
+        set StartValue = 3
+    else-ifstr(i) $(CS_TypeOfService) == "kernel"
+        set TypeValue = 1
+        set StartValue = 3
+    else-ifstr(i) $(CS_TypeOfService) == "kernelautostart"
+        set TypeValue = 1
+        set StartValue = 2
+    else-ifstr(i) $(CS_TypeOfService) == "kerneldisable"
+        set TypeValue = 1
+        set StartValue = 4
+    else-ifstr(i) $(CS_TypeOfService) == "service"
+        set TypeValue = 16
+        set StartValue = 3
+    else-ifstr(i) $(CS_TypeOfService) == "serviceauto"
+        set TypeValue = 16
+        set StartValue = 2
+    else-ifstr(i) $(CS_TypeOfService) == "servicedisable"
+        set TypeValue = 16
+        set StartValue = 4
+    else-ifstr(i) $(CS_TypeOfService) == "serviceshare"
+        set TypeValue = 32
+        set StartValue = 3
+    else
+        Set CS_UseRegistry = "YES"
+        Debug-Output "UTILITY.INF: [CreateService] Unrecognized TypeOfService parameter"
+        set TypeValue = 4
+        set StartValue = 3
+    endif
+    Ifint $(TypeValue) > 4
+        Ifstr(i) $(CS_ObjectName) == ""
+            set CS_ObjectName = "LocalSystem"
+        Endif
+    Endif
+    OpenRegKey $(CS_KeyServices) "" $(CS_NameOfService) $(MAXIMUM_ALLOWED) +
+        CS_KeyTempSvc
+    ifstr $(CS_KeyTempSvc) != $(KeyNull)
+        GetRegValue $(CS_KeyTempSvc),"DeleteFlag", DeleteFlagInfo
+        set DeleteFlag = *($(DeleteFlagInfo), 4)
+        ifint $(DeleteFlag) == 1
+            Set RegistryErrorIndex = REBOOT_MACHINE_BEFORE_ADD_ADAPTER
+            goto C_S_Return
+        endif
+    endif
+    ifstr(i) $(CS_UseRegistry) == "YES"
+        Debug-Output "UTILITY.INF: [CreateService] "$(CS_NameOfService)" using Registry"
+        ifstr(i) $(CS_KeyTempSvc) == $(KeyNull)
+           CreateRegKey $(CS_KeyServices) {$(CS_NameOfService),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CS_KeyTempSvc
+        else
+           Debug-Output "UTILITY.INF: service key "$(CS_NameOfService)" already existed"
+           Set RegistryErrorIndex = UNABLE_CREATE_CONFIGURE_SERVICE
+           CloseRegKey $(CS_KeyTempSvc)
+           Goto C_S_Return
+        endif
+        Ifstr(i) $(CS_KeyTempSvc) == $(KeyNull)
+           Debug-Output "UTILITY.INF: could not create service key "$(CS_NameOfService)
+           Set RegistryErrorIndex = UNABLE_CREATE_CONFIGURE_SERVICE
+           CloseRegKey $(CS_KeyTempSvc)
+           Goto C_S_Return
+        else
+            set NewValueList = {+
+                               {Type,$(NoTitle),$(!REG_VT_DWORD),$(TypeValue)},+
+                               {Start,$(

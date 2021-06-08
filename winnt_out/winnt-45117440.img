@@ -1,0 +1,126 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Global Village Communication
+
+[Version]
+Signature="$CHICAGO$"
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Class=Modem
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem10% = Modem10, UNIMODEM0AD65972	; Simplemodem 144vi
+%Modem9% = Modem9, UNIMODEMF998CBE2	; Simplemodem 288vi
+%Modem8% = Modem8, UNIMODEMFB03E616	; Simplemodem 144ve
+%Modem7% = Modem7, UNIMODEM23A23CC3	; Simplemodem 288ve
+%Modem6% = Modem6, UNIMODEMB2251BDB	; Simplemodem 144fi
+%Modem5% = Modem5, UNIMODEM7F943131	; Simplemodem 288fi V.34
+%Modem4% = Modem4, UNIMODEM8CAF3977	; Simplemodem 96f
+%Modem3% = Modem3, UNIMODEM9F1B39F2	; Simplemodem 144f
+%Modem2% = Modem2, UNIMODEMB35B067F	; Simplemodem 288f V.FC
+%Modem1% = Modem1, UNIMODEM25DBC05A	; Simplemodem 288f V.34
+
+
+; Installation sections
+
+[Modem10]	; Simplemodem 144vi
+AddReg=All, Modem10.AddReg, INTERNAL
+
+[Modem9]	; Simplemodem 288vi
+AddReg=All, Modem9.AddReg, INTERNAL
+
+[Modem8]	; Simplemodem 144ve
+AddReg=All, Modem8.AddReg, EXTERNAL
+
+[Modem7]	; Simplemodem 288ve
+AddReg=All, Modem7.AddReg, EXTERNAL
+
+[Modem6]	; Simplemodem 144fi
+AddReg=All, Modem6.AddReg, INTERNAL
+
+[Modem5]	; Simplemodem 288fi V.34
+AddReg=All, Modem5.AddReg, INTERNAL
+
+[Modem4]	; Simplemodem 96f
+AddReg=All, Modem4.AddReg, EXTERNAL
+
+[Modem3]	; Simplemodem 144f
+AddReg=All, Modem3.AddReg, EXTERNAL
+
+[Modem2]	; Simplemodem 288f V.FC
+AddReg=All, Modem2.AddReg, EXTERNAL
+
+[Modem1]	; Simplemodem 288f V.34
+AddReg=All, Modem1.AddReg, EXTERNAL
+
+
+; AddReg sections
+
+[Modem10.AddReg]	; Simplemodem 144vi
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem9.AddReg]	; Simplemodem 288vi
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem8.AddReg]	; Simplemodem 144ve
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem7.AddReg]	; Simplemodem 288ve
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem6.AddReg]	; Simplemodem 144fi
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem5.AddReg]	; Simplemodem 288fi V.34
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem4.AddReg]	; Simplemodem 96f
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+
+[Modem3.AddReg]	; Simplemodem 144f
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem2.AddReg]	; Simplemodem 288f V.FC
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem1.AddReg]	; Simplemodem 288f V.34
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+
+; User visible strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Simplecomputing Australia Pty Ltd"
+
+; Model strings
+
+Modem10="Simplemodem 144vi"
+Modem9="Simplemodem 288vi"
+Modem8="Simplemodem 144ve"
+Modem7="Simplemodem 288ve "
+Modem6="Simplemodem 144fi"
+Modem5="Simplemodem 288fi V.34"
+Modem4="Simplemodem 96f"
+Modem3="Simplemodem 144f"
+Modem2="Simplemodem 288f V.FC"
+Modem1="Simplemodem 288f V.34"
+
+
+[All]
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init,      1,, "AT<cr>"
+HKR, Init,      2,, "AT &F E0 V1 W1 S95=47 &C1 &D2 S0=0<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup,    1,, "ATH<

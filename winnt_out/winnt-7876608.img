@@ -1,0 +1,60 @@
+ard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N5"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, 
+
+HKR, Responses, "<cr>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<lf>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr>OK<lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",     1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CED<cr><lf> ", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR SERIAL SPEED SETUP<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300<cr><lf>", 1, 02, 00, 00,00,00,00, 2c,01,00,00
+HKR, Responses, "<cr><lf>CONNECT 600<cr><lf>", 1, 02, 00, 00,00,00,00, 58,02,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 00, 00,00,00,00, b0,04,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>", 1, 02, 00, 00,00,00,00, 60,09,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>", 1, 02, 00, 00,00,00,00, 20,1c,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>", 1, 02, 00, 00,00,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CARRIER 14400<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200 V.42<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 V.42<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 V.42<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 V.42<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600T V.42<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200 NORMAL<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 NORMAL<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 NORMAL<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 NORMAL<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 V.42<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400T V.42<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 9600 NORMAL<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 RELIABLE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 RELIABLE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 RELIABLE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 RELIABLE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600T RELIABLE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 RELIABLE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400T RELIABLE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200 RELIABLE COMPRESSED<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 RELIABLE COMPRESSED<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 RELIABLE COMPRESSED<cr><lf>", 1, 01, 00, 00,00,0

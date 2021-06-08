@@ -1,0 +1,87 @@
+NDOWSSYSPATH)\ISDNHELP.HLP
+	      endif
+	   else
+          LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\DIGIINST.DLL $(!STF_WINDOWSSYSPATH)\DIGIINST.DLL
+          LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\..\common\ISDNHELP.HLP $(!STF_WINDOWSSYSPATH)\ISDNHELP.HLP
+	   endif
+    endif
+    Exit
+[Install-Update]
+    Debug-Output "********************* Inside Install-Update *************************"
+    Debug-Output "   AddCopy = "$(AddCopy)
+    Debug-Output "   DoCopy = "$(DoCopy)
+    Debug-Output "   DoConfig = "$(DoConfig)
+    Debug-Output "   NTN_InstallPhase = "$(!NTN_InstallPhase)
+    Debug-Output "   Option = "$(Option)
+    Debug-Output "   SrcDir = "$(SrcDir)
+   set STF_VITAL        = NO
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   AddSectionFilesToCopyList Files-Dll $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\common\isdnhelp.hlp
+   ifstr(i) $(FilePresent) != "YES"
+       LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\common\isdnhelp.hl_
+       ifstr(i) $(FilePresent) != "YES"
+	       Debug-Output "   Retrieving images from "$(SrcDir)
+	       AddSectionFilesToCopyList Files-$(Option)-firmware $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+	       AddSectionFilesToCopyList Files-common-system32 $(SrcDir) $(!STF_WINDOWSSYSPATH)
+       else
+	       Debug-Output "   Retrieving images from "$(SrcDir)"..\common"
+	       AddSectionFilesToCopyList Files-$(Option)-firmware $(SrcDir)..\common $(!STF_WINDOWSSYSPATH)\drivers
+	       AddSectionFilesToCopyList Files-common-system32 $(SrcDir)..\common $(!STF_WINDOWSSYSPATH)
+       endif
+   else
+       Debug-Output "   Retrieving images from "$(SrcDir)"..\common"
+       AddSectionFilesToCopyList Files-$(Option)-firmware $(SrcDir)..\common $(!STF_WINDOWSSYSPATH)\drivers
+       AddSectionFilesToCopyList Files-common-system32 $(SrcDir)..\common $(!STF_WINDOWSSYSPATH)
+   endif
+   set !STF_NCPA_FLUSH_COPYLIST = TRUE
+   CopyFilesInCopyList
+   Debug-Output "********************* exiting Install-Update *************************"
+   exit
+[QueryParameters]
+   set Status = STATUS_FAILED
+   set KeyProduct      = ""
+   set KeyNull         = ""
+   set KeyProductName = $($0)
+   set BusTypeNum = 1
+   Debug-Output "QueryParameters: "$(KeyProductName)
+   Debug-Output "                 REG_H_LOCAL = "$(!REG_H_LOCAL)
+   Debug-Output "                 !MAXIMUM_ALLOWED = "$(!MAXIMUM_ALLOWED)
+   Debug-Output "                 UtilityInf = "$(UtilityInf)
+   Debug-Output "                 UtilityInf = "$(UtilityInf)
+   OpenRegKey $(!REG_H_LOCAL) "" $(KeyProductName) $(!MAXIMUM_ALLOWED) KeyProduct
+   Debug-Output "KeyProduct = "$(KeyProduct)
+   Ifstr $(KeyProduct) == $(KeyNull)
+       set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+       Debug-Output "Cannot find component product key"
+       goto QueryParameters_End
+   Endif
+   Debug-Output "INF: Shelling to FindService"
+   Shell $(UtilityInf) FindService, $(KeyProduct)
+   Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "INF: FindService shell failure"
+       Goto QueryParameters_End
+   Endif
+   Ifstr(i) $($R0) != NO_ERROR
+       Debug-Output "INF: FindService Shell error: "$($R0)
+       Goto QueryParameters_End
+   endif
+   set KeyParameters = $($R2)
+   CloseRegKey $($R1)
+   Ifstr $(KeyParameters) == $(KeyNull)
+       set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+       Debug-Output "Cannot find component service"
+       Goto QueryParameters_End
+   endif
+   set ValueName = ""
+   set ValueData = ""
+   set ValueStr  = ""
+   set ValueList = {}
+   EnumRegValue $(KeyParameters) ValueList
+   ForListDo $(ValueList)
+       set ValueItem = $($)
+       set ValueName = *($(ValueItem),1)
+       set ValueData = *($(ValueItem),4)
+       Ifstr(i) $(ValueName) == "BusType"
+           set BusTypeNum = $(ValueData

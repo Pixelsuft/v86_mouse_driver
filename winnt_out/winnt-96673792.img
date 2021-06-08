@@ -1,0 +1,191 @@
+k and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = False
+mnu25.Checked = False
+mnu50.Checked = True
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+
+Private Sub mnu75_Click()
+'Set zoom to 75% and redisplay image.
+'Zoom value is a float
+oleImgEdit1.Zoom = 75!
+oleImgEdit1.Refresh
+
+'check the current menu pick and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = True
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+
+Private Sub mnuAbout_Click()
+'Add your code here
+MsgBox "Function to be implemented by user."
+End Sub
+
+
+Private Sub mnuActual_Click()
+'Set fit to inch to inch and redisplay image.
+oleImgEdit1.FitTo (InchToInch)
+oleImgEdit1.Refresh
+
+'check the current zoom menu pick and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = True
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+
+Private Sub mnuAppend_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuAttachNote_Click()
+'see documentation for the list of annotation types
+oleImgEdit1.SelectTool AnnoAttachNote
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = False
+mnuAttachNote.Checked = True
+mnuFillRect.Checked = False
+mnuFreeHand.Checked = False
+mnuHiLight.Checked = False
+mnuHollowRect.Checked = False
+mnuStamp.Checked = False
+mnuStraightLine.Checked = False
+mnuTextFromFile.Checked = False
+mnuTypedText.Checked = False
+
+End Sub
+
+
+Private Sub mnuBack_Click()
+'Save current page if modified, then return to the
+'previously displayed page.
+If oleImgEdit1.ImageModified = True Then
+    If MsgBox(ImageChanged, vbYesNo) = vbYes Then
+        mnuSave_Click
+    End If
+End If
+oleImgEdit1.page = LastPage
+oleImgEdit1.Display
+
+'Update the selected page thumbnail
+oleImgThumbnail1.DeselectAllThumbs
+oleImgThumbnail1.ThumbSelected(LastPage) = True
+
+End Sub
+
+
+Private Sub mnuBestFit_Click()
+'zoom the image so that the entire image
+'fits in the display window
+oleImgEdit1.FitTo (BestFit)
+
+'check the current menu pick and uncheck the others.
+mnuBestFit.Checked = True
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuZoomToSelection.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+
+Private Sub mnuBurnIn_Click()
+'burn in all visible annotations,(1,) and preserve
+'colors, (2).  See documentation for other valid arguments.
+ret = oleImgEdit1.BurnInAnnotations(1, 2)
+
+End Sub
+
+
+Private Sub mnuConvert_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+End Sub
+
+Private Sub mnuCopy_Click()
+'Copy the selected area to the clipboard.
+If Selection = True Then
+    oleImgEdit1.ClipboardCopy
+End If
+End Sub
+
+
+Private Sub mnuCopyPage_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuCustom_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuCut_Click()
+'Cut the selected area to the clipboard.
+If Selection = True Then
+    oleImgEdit1.ClipboardCut
+End If
+
+End Sub
+
+
+Private Sub mnuDeletePage_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+Private Sub mnuDrag_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuExit_Click()
+'Close the app
+
+Unload frmSample
+
+End Sub
+
+Private Sub mnuFillRect_Click()
+'see documentation for the list of annot

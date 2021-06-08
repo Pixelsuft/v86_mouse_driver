@@ -1,0 +1,115 @@
+tbps>/V32b  <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b  <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b  <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b  <carrierbps>/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V32b  <carrierbps>/NONE<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/V42 /SREJ<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32  <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32  <carrierbps>/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32  <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32  <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32  <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32  <carrierbps>/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V.32  <carrierbps>/NONE<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/V42 /SREJ<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22  <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22  <carrierbps>/V42 /SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22  <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22  <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22  <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22  <carrierbps>/MNP4<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V.22  <carrierbps>/NONE<cr><lf>
+
+;the next section attempts to catch all other responses not
+;explicitly listed above.  The port speed is not changed
+;from what it was originally set to by RAS.
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><ignore>
+
+;----------------------------------------
+[Angia DataStart for CompaqLTE]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=&U1
+<compression_off>=&U0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=ANGIA Corporation
+
+COMMAND_INIT=AT&F&C1&D2 L3 V1 W2 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL4<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL4<cr><lf>
+
+;----------------------------------------
+[Apex Data PCMCIA 144]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=APEX DATA INC. V.32bis
+
+;----------------------------------------
+[ATI 2400 etc/e]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=&U1
+<compression_off>=&U0
+<protocol_on>=&Q6
+<protocol_off>=&Q0
+<autodial_on>=ATDT
+<autodial_off>=AT X3 D
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=9600
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=2400etc/e
+
+COMMAND_INIT=AT&F&C1&D2 X4 W1 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[ATI 9600 etc/e]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+;<compression_on>=&U1
+;compression forced off for stability
+<compression_on>=&U0
+<compression_off>=&U0
+<

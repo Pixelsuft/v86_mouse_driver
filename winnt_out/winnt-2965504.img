@@ -1,0 +1,140 @@
+display
+the panel %1.
+
+The panel specified cannot be found on
+the fixed disk or diskette drive, or the
+panel is not in the correct format.
+
+Check that the panel is located on the
+fixed disk or diskette drive and that it
+is formatted correctly.  Retry the command.
+EThe Installation Aid cannot create
+the file %1
+
+This error usually occurs when:
+
+1. There is no more room on
+   the fixed disk or diskette.
+2. The diskette is write protected.
+3. The file name is a duplicate name of
+   an existing file.
+
+Do one of the following:
+
+1. Remove some unwanted files to make
+   room on the fixed disk or diskette.
+2. Enable the diskette for writing.
+3. Rename the duplicate file.
+EThe Installation Aid cannot find the
+label %1
+
+The GOTO or CALL command contains an
+unacceptable label.
+
+Correct the label name and retry the command.
+EThe Installation Aid cannot find the
+file %1
+
+EThe Installation Aid detected an
+unacceptable file name or syntax error: %1
+
+This error usually occurs when:
+
+1. The file name or syntax has unacceptable
+   characters. Unacceptable characters are:
+   . " / \ [ ] : | < > + ; , and all control
+   characters.
+2. The file name may have been typed incorrectly.
+
+Correct the syntax and spelling.
+Retry the command.
+EThe Installation Aid cannot access the
+file %1
+
+This error usually occurs when:
+
+1. The file requested does not have read or
+   write access.
+2. The file has been changed.
+3. The file name is not correct.
+4. The path is not correct.
+
+Do one of the following:
+
+1. Change the file mode to read or write.
+2. Restore the file to its original state.
+3. Check the spelling of the file name.
+4. Check the spelling of the path name.
+EThe Installation Aid cannot process this
+command.
+
+Set MEMMAN=SWAP in the CONFIG.SYS file.
+EThe application being processed cannot continue.
+WThe Installation Aid cannot read part
+of the program file.
+
+The comment delimiters do not match.
+EThe Installation Aid detected a syntax
+error: %1
+
+Correct the syntax and retry the command.
+EThe Installation Aid detected a missing
+parameter in the SELECT statement.
+
+A variable is needed for the SELECT statement.
+
+Specify the variable in the SELECT statement
+and retry the command.
+EThe system cannot access the Program Selector.
+
+The Program Selector is not installed.
+
+Change the CONFIG.SYS file to specify:
+protshell=dmpc.exe shell11f.cnf shell11f.exe cmd.exe
+EThe Installation Aid has detected a
+duplicate label name %1
+
+There are two labels with the same name located
+on different lines.  The system will use the
+first occurrence of the label name.
+
+Remove one of the labels with the same name.
+IThe installation was not successful.
+IView history file. IProgram title ...IDate installed ..IDate updated ....IThe trace utility cannot find a minor
+code, group or type record in %1 that matches the
+selection on the command line. This trace definition
+file is ignored.
+EThe specified device cannot accept the contents
+of the system trace buffer.
+EThe trace utility was unable to update the
+trace status of the following process IDs:
+IThere is not enough memory available to run the
+trace utility.
+IThe trace utility has detected a format error
+in the process ID list. The system process ID status for
+tracing was not updated.
+EThe system cannot accept the
+extension specified on the program file.
+IThe trace utility detected a switch option that
+was not correct. The switch option %1 is ignored.
+IThe trace utility detected a conflict between
+/S and /R switch options that suspend and resume logging of
+trace points in the trace buffer. The switch options are
+ignored.
+?
+?
+?
+EThe command or program is not
+compatible with the version of Microsoft
+Operating System/2 being used. $
+Py
+ENo file name was specified.
+EThe parameters are incorrect.
+?
+EEDLIN cannot open the specified file.
+EEDLIN cannot continue because of
+a read error in %S.
+EEDLIN will not edit a file with a .BAK extension.
+EThe disk is full and all the edits were lost.
+?
+EEDLIN cannot 

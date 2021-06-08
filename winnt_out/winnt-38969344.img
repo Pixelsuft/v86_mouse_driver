@@ -1,0 +1,101 @@
+st   Files-PrinterMonitor          +
+                                  $(MonitorOption)              +
+                                  $(SrcDir)                    +
+                                  $(!STF_PRNMONITORPATH)
+    set KeyList = ^( PrinterMonitorsWithHelp, 1 )
+    ifcontains(i) $(MonitorOption) in $(KeyList)
+        AddSectionKeyFileToCopyList   Files-PrinterMonitorHelp      +
+                                      $(MonitorOption)              +
+                                      $(SrcDir)                    +
+                                      $(!STF_PRNMONITORPATH)
+    endif
+    ifstr(i) $(MonitorOption) == "lexmon"
+        AddSectionFilesToCopyList Files-$(MonitorOption) $(SrcDir) $(!STF_PRNMONITORPATH)
+    endif
+    ifstr(i) $(MonitorOption) == "lexlmpm"
+        AddSectionFilesToCopyList Files-$(MonitorOption) $(SrcDir) $(!STF_PRNMONITORPATH)
+        LoadLibrary "" $(SrcDir)mvntinst.dll !LIBMVINSTHANDLE
+        LibraryProcedure Directory $(!LIBMVINSTHANDLE), GetMarkVisionDirectory
+        set !MVDirectory = $(Directory)
+        AddSectionFilesToCopyList Files-MarkVision $(SrcDir) $(!MVDirectory)
+    endif
+    exit
+[Install-DoCopyOption]
+    CopyFilesInCopyList
+    exit
+[Install-Configure]
+    ifstr(i) $(MonitorOption) == "lexmon"
+        LoadLibrary "" $(!STF_CWDDIR)lexcfg.cpl !LIBCFGHANDLE
+        LibraryProcedure STATUS  $(!LIBCFGHANDLE), CreateInteractShortcut
+        LibraryProcedure STATUS, $(!LIBCFGHANDLE), LexCfgInf
+        FreeLibrary $(!LIBCFGHANDLE)
+    endif
+    set Model       = $(Option)
+    set Monitor      = #(Files-PrinterMonitor, $(MonitorOption), 2)
+    LibraryProcedure STATUS,$(!LIBHANDLE), SetupAddPrinterMonitor   +
+                                               $(Model)            +
+                                               $(!STF_PRNENVIRONM) +
+                                               $(Monitor)           +
+                                               $(!STF_PRINTSERVER)
+    ifstr(i) $(MonitorOption) == "lexlmpm"
+       LibraryProcedure Result, $(!LIBMVINSTHANDLE), CreateMVRegistryEntries
+    endif
+    ifstr(i) $(MonitorOption) == "lexlmpm"
+       LibraryProcedure Result, $(!LIBMVINSTHANDLE), CreateMVShortcut
+    endif
+    ifstr(i) $(MonitorOption) == "lexlmpm"
+       FreeLibrary $(!LIBMVINSTHANDLE)
+    endif
+    exit
+[ExternalInstallOption]
+    Set !G:DebugOutputControl = 0
+    set Exit_Code    = $(!SETUP_ERROR_GENERAL)
+    set DrivesToFree = {}
+    install LoadSetupLibrary
+    ifstr(i)      $(STF_LANGUAGE)  == ""
+        goto end
+    else-ifstr(i) $(OPTION)        == ""
+        goto end
+    else-ifstr(i) $(ADDCOPY)       == ""
+        goto end
+    else-ifstr(i) $(DOCOPY)        == ""
+        goto end
+    else-ifstr(i) $(DOCONFIG)      == ""
+        goto end
+    endif
+    read-syms PlatformID
+    read-syms ProductType
+    ifstr(i) $(STF_PLATFORM) == $(PlatformID_I386)
+        set STF_PRNPLATFORM = "w32x86"
+        set STF_PRNENVIRONM = "Windows NT x86"
+    else-ifstr(i) $(STF_PLATFORM) == $(PlatformID_Mips)
+        set STF_PRNPLATFORM = "w32mips"
+        set STF_PRNENVIRONM = "Windows NT R4000"
+    else-ifstr(i) $(STF_PLATFORM) == $(PlatformID_PPC)
+        set STF_PRNPLATFORM = "w32ppc"
+        set STF_PRNENVIRONM = "Windows NT PowerPC"
+    else-ifstr(i) $(STF_PLATFORM) == $(PlatformID_Alpha)
+        set STF_PRNPLATFORM = "w32alpha"
+        set STF_PRNENVIRONM = "Windows NT Alpha_AXP"
+    else
+        goto end
+    endif
+    read-syms UiVars
+    detect    UiVars
+    read-syms Strings$(STF_LANGUAGE)
+    ifstr(i) $(STF_SRCDIR) != $(STF_CWDDIR)
+        goto skip_asksource
+    endif
+    set STF_SRCDIR = A:\
+    shell "registry.inf" GetNTSource
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+    else
+        set STF_SRCDIR = $($R1)
+    endif
+    read-syms LexmarkVars
+    debug-output $(OPTION)
+    Split-String $(STF_SRCDIR) "\" SrcDirList
+    set TestItem = *( $(SrcDirList), 3 )
+    ifstr(i) $(TestItem) == $(STF_PLATFORM)
+     

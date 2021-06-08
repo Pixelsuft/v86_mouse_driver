@@ -1,0 +1,107 @@
+tr(i) $(!NTN_InstallMode) == configure
+        set CommonStatus = STATUS_REBOOT
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the ibm token ring driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+        set StartLabel = configureadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               Set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    goto nextstep
+configureadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) NetCardKey
+    ifstr(i) $(NetCardKey) == ""
+        set CommonStatus = STATUS_USERCANCEL
+        goto successful
+    endif
+    GetRegValue $(NetCardKey) "ServiceName" ServiceInfo
+    set ServiceName = *($(ServiceInfo),4)
+    CloseRegKey $(NetCardKey)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ServiceName)"\Parameters" $(MAXIMUM_ALLOWED) ParamKey
+    ifstr(i) $(ParamKey) != ""
+        GetRegValue $(ParamKey),"NetworkAddress", NetworkAddressInfo
+        set NetworkAddress = *($(NetworkAddressInfo), 4)
+        read-syms FileDependentDlg$(!STF_LANGUAGE)
+        ui start "NetworkAddress"
+        ifstr(i) $(DLGEVENT) == "CONTINUE"
+            set NetworkAddress = *($(EditTextOut),1)
+            SetRegValue $(ParamKey) {NetworkAddress,$(NoTitle),$(!REG_VT_SZ),$(NetworkAddress)}
+            ui pop 1
+        else
+            set CommonStatus = STATUS_USERCANCEL
+            ui pop 1
+        endif
+        CloseRegKey $(ParamKey)
+    endif
+    goto successful
+nextstep = +
+    StartWait
+installproduct = +
+    ifstr(i) $(Option) == "IBMTOKMC"
+        set NETCARD_ID = $(IBMTOKMC_ID)
+        Shell $(UtilityInf), MCAFindBus, $(IBMTOKMC_1BYTE), $(IBMTOKMC_2BYTE)
+    else
+        set NETCARD_ID = $(IBMTOKA_ID)
+        Shell $(UtilityInf), MCAFindBus, $(IBMTOKA_1BYTE), $(IBMTOKA_2BYTE)
+    endif
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) == {}
+        set Error = $(CANNOT_FIND_ANY_CARD)
+        set CommonStatus = STATUS_USERCANCEL
+        set from = "end"
+        goto nonfatal
+    endif
+    set AdapterList = $($R1)
+    ifint $(OldVersionExisted) == $(FALSE)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+           Ifstr(i) $(DoCopy) == "YES"
+              Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+              Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  Goto ShellCodeError
+              Else-Ifstr(i) $($R0) == STATUS_FA

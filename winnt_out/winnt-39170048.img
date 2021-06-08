@@ -1,0 +1,129 @@
+TRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[GVC SM2400]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=249
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=AT-C2401-0E
+;----------------------------------------
+[GVC SM96]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=SM-96
+
+COMMAND_INIT=AT&F&C1&D2Q0V1E1S0=0S2=128S7=55<speaker><cr>
+COMMAND_INIT=AT<compression><hwflowcontrol><protocol><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT=<cr><lf><cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT=<cr><lf><cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf><cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+
+;----------------------------------------
+[GVC FM14400]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=FM-144VBIS
+DETECT_RESPONSE=FM-1114V
+
+COMMAND_INIT=AT&F&C1&D2Q0V1E1S0=0S2=128 S7=55 S95=44<cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+
+;----------------------------------------
+[Hayes Accura 14400]
+ALIAS=Hayes Optima 14400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=14400
+
+;----------------------------------------
+[Hayes Accura 28800]
+ALIAS=Hayes Optima 28800
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=28800
+
+;----------------------------------------
+[Hayes Compatible 1200]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=1200
+MAXCONNECTBPS=1200
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+COMMAND_INI

@@ -1,0 +1,119 @@
+-------------------------------------
+PRINTER PAINTJET
+;
+; Treats the Paintjet as a B&W device for both text and color.  Specifying
+; one color plane uses just black and white as the two available colors.
+;
+; SETUP 	
+;	   esc*t90R 		select 90dpi
+;	   esc*t180R 		select 180dpi
+;	   esc*r1U		select 1 color plane and reset color palette.
+;	   esc&a#H		move curser position, in decipoints.
+;	   esc*r1A		start graphics at current cursor position.
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE	DATA,ROW
+
+  DISPLAYMODE	4,5,13,19     				; 320x200 180dpi
+    SETUP	27,42,116,49,56,48,82,27,42,114,49,85,27,38,97,49,50,54,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,4,3,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	6,14          				; 640x200 180dpi
+    SETUP	27,42,116,49,56,48,82,27,42,114,49,85,27,38,97,49,50,54,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,4,2,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	15,16	   				; 640x350  180dpi
+    SETUP	27,42,116,49,56,48,82,27,42,114,49,85,27,38,97,52,53,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,4,3,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	17,18	   				; 640x480  180dpi
+    SETUP	27,42,116,49,56,48,82,27,42,114,49,85,27,38,97,57,53,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,2,2,ROTATE
+    RESTORE	27,42,114,066	
+;----------------------------------------------------------------------------
+PRINTER QUIETJET 
+;
+; SETUP 	
+;	   esc*t96R 		select 96x96dpi
+;	   esc*t192R 		select 192x192dpi
+;	   esc*t1280S 		select 192x96dpi
+;	   esc*rA		start graphics at current cursor position
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE DATA,ROW
+
+  DISPLAYMODE 4,5,13,19     				; 320x200  96x96dpi
+    SETUP 27,42,116,57,54,82,27,42,114,65                         
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,4,3,ROTATE
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 6,14	   				; 640x200 192x96dpi
+    SETUP 27,42,114,49,50,56,48,83,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,2
+    RESTORE 27,42,114,66
+ 
+  DISPLAYMODE 15,16	   				; 640x350 192x96dpi
+    SETUP 27,42,114,49,50,56,48,83,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1    
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 17,18	   				; 640x480 192x96dpi
+    SETUP 27,42,114,49,50,56,48,83,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1           
+    RESTORE 27,42,114,66
+;----------------------------------------------------------------------------
+PRINTER QUIETJETPLUS
+;
+; SETUP 	
+;	   esc*t96R 		select 96x96dpi
+;	   esc*t192R 		select 192x192dpi
+;	   esc*t1280S 		select 192x96dpi
+;	   esc*rA		start graphics at current cursor position
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE DATA,ROW
+
+  DISPLAYMODE 4,5,13,19     				; 320x200 96x96dpi
+    SETUP 27,42,116,57,54,82,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,4,3,ROTATE
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 6,14	   				; 640x200 96x96dpi
+    SETUP 27,42,116,57,54,82,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,4,1,ROTATE         
+    RESTORE 27,42,114,66
+ 
+  DISPLAYMODE 15,16	   				; 640x350 192x96dpi
+    SETUP 27,42,114,49,50,56,48,83,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,4,3           
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 17,18	   				; 640x480 96x96dpi
+    SETUP 27,42,116,57,54,82,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,2           
+    RESTORE 27,42,114,66
+;-------------------------------------

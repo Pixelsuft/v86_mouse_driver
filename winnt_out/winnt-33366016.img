@@ -1,0 +1,139 @@
+AY "MBT160O1L8CDEDCDL4ECC"
+    SparklePause
+
+END SUB
+
+'Level:
+'Sets game level
+SUB Level (WhatToDO, sammy() AS snaketype) STATIC
+    
+    SELECT CASE (WhatToDO)
+
+    CASE STARTOVER
+        curLevel = 1
+    CASE NEXTLEVEL
+        curLevel = curLevel + 1
+    END SELECT
+
+    sammy(1).head = 1                       'Initialize Snakes
+    sammy(1).length = 2
+    sammy(1).alive = TRUE
+    sammy(2).head = 1
+    sammy(2).length = 2
+    sammy(2).alive = TRUE
+
+    InitColors
+    
+    SELECT CASE curLevel
+    CASE 1
+        sammy(1).row = 25: sammy(2).row = 25
+        sammy(1).col = 50: sammy(2).col = 30
+        sammy(1).direction = 4: sammy(2).direction = 3
+
+
+    CASE 2
+        FOR i = 20 TO 60
+            Set 25, i, colorTable(3)
+        NEXT i
+        sammy(1).row = 7: sammy(2).row = 43
+        sammy(1).col = 60: sammy(2).col = 20
+        sammy(1).direction = 3: sammy(2).direction = 4
+
+    CASE 3
+        FOR i = 10 TO 40
+            Set i, 20, colorTable(3)
+            Set i, 60, colorTable(3)
+        NEXT i
+        sammy(1).row = 25: sammy(2).row = 25
+        sammy(1).col = 50: sammy(2).col = 30
+        sammy(1).direction = 1: sammy(2).direction = 2
+
+    CASE 4
+        FOR i = 4 TO 30
+            Set i, 20, colorTable(3)
+            Set 53 - i, 60, colorTable(3)
+        NEXT i
+        FOR i = 2 TO 40
+            Set 38, i, colorTable(3)
+            Set 15, 81 - i, colorTable(3)
+        NEXT i
+        sammy(1).row = 7: sammy(2).row = 43
+        sammy(1).col = 60: sammy(2).col = 20
+        sammy(1).direction = 3: sammy(2).direction = 4
+   
+    CASE 5
+        FOR i = 13 TO 39
+            Set i, 21, colorTable(3)
+            Set i, 59, colorTable(3)
+        NEXT i
+        FOR i = 23 TO 57
+            Set 11, i, colorTable(3)
+            Set 41, i, colorTable(3)
+        NEXT i
+        sammy(1).row = 25: sammy(2).row = 25
+        sammy(1).col = 50: sammy(2).col = 30
+        sammy(1).direction = 1: sammy(2).direction = 2
+
+    CASE 6
+        FOR i = 4 TO 49
+            IF i > 30 OR i < 23 THEN
+                Set i, 10, colorTable(3)
+                Set i, 20, colorTable(3)
+                Set i, 30, colorTable(3)
+                Set i, 40, colorTable(3)
+                Set i, 50, colorTable(3)
+                Set i, 60, colorTable(3)
+                Set i, 70, colorTable(3)
+            END IF
+        NEXT i
+        sammy(1).row = 7: sammy(2).row = 43
+        sammy(1).col = 65: sammy(2).col = 15
+        sammy(1).direction = 2: sammy(2).direction = 1
+
+    CASE 7
+        FOR i = 4 TO 49 STEP 2
+            Set i, 40, colorTable(3)
+        NEXT i
+        sammy(1).row = 7: sammy(2).row = 43
+        sammy(1).col = 65: sammy(2).col = 15
+        sammy(1).direction = 2: sammy(2).direction = 1
+
+    CASE 8
+        FOR i = 4 TO 40
+            Set i, 10, colorTable(3)
+            Set 53 - i, 20, colorTable(3)
+            Set i, 30, colorTable(3)
+            Set 53 - i, 40, colorTable(3)
+            Set i, 50, colorTable(3)
+            Set 53 - i, 60, colorTable(3)
+            Set i, 70, colorTable(3)
+        NEXT i
+        sammy(1).row = 7: sammy(2).row = 43
+        sammy(1).col = 65: sammy(2).col = 15
+        sammy(1).direction = 2: sammy(2).direction = 1
+
+    CASE 9
+        FOR i = 6 TO 47
+            Set i, i, colorTable(3)
+            Set i, i + 28, colorTable(3)
+        NEXT i
+        sammy(1).row = 40: sammy(2).row = 15
+        sammy(1).col = 75: sammy(2).col = 5
+        sammy(1).direction = 1: sammy(2).direction = 2
+   
+    CASE ELSE
+        FOR i = 4 TO 49 STEP 2
+            Set i, 10, colorTable(3)
+            Set i + 1, 20, colorTable(3)
+            Set i, 30, colorTable(3)
+            Set i + 1, 40, colorTable(3)
+            Set i, 50, colorTable(3)
+            Set i + 1, 60, colorTable(3)
+            Set i, 70, colorTable(3)
+        NEXT i
+        sammy(1).row = 7: sammy(2).row = 43
+        sammy(1).col = 65: sammy(2).col = 15
+        sammy(1).direction = 2: sammy(2).direction = 1
+
+    END SELECT
+END 

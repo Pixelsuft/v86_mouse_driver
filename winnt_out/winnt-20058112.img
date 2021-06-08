@@ -1,0 +1,142 @@
+ha174x_Inst.Services]
+AddService = aha174x, %SPSVCINST_ASSOCSERVICE%, aha174x_Service_Inst, Miniport_EventLog_Inst
+
+[aha174x_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\aha174x.sys
+LoadOrderGroup = SCSI Miniport
+
+[sparrow_Inst]
+CopyFiles = @sparrow.sys
+Reboot
+
+[sparrow_Inst.Services]
+AddService = sparrow, %SPSVCINST_ASSOCSERVICE%, sparrow_Service_Inst, Miniport_EventLog_Inst
+
+[sparrow_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\sparrow.sys
+LoadOrderGroup = SCSI Miniport
+
+[arrow_Inst]
+CopyFiles = @arrow.sys
+Reboot
+
+[arrow_Inst.Services]
+AddService = arrow, %SPSVCINST_ASSOCSERVICE%, arrow_Service_Inst, Miniport_EventLog_Inst
+
+[arrow_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\arrow.sys
+LoadOrderGroup = SCSI Miniport
+
+[aic78xx_Inst]
+CopyFiles = @aic78xx.sys
+Reboot
+
+[aic78xx_Inst.Services]
+AddService = aic78xx, %SPSVCINST_ASSOCSERVICE%, aic78xx_Service_Inst, Miniport_EventLog_Inst
+
+[aic78xx_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\aic78xx.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;****************************
+;AMD Manufacturer device list
+[AMD]
+%amsint.DeviceDesc% = amsint_Inst,
+
+[amsint_Inst]
+CopyFiles = @amsint.sys
+Reboot
+
+[amsint_Inst.Services]
+AddService = amsint, %SPSVCINST_ASSOCSERVICE%, amsint_Service_Inst, Miniport_EventLog_Inst
+
+[amsint_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\amsint.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;****************************
+;AMI Manufacturer device list
+[AMI]
+%ami0nt.DeviceDesc% = ami0nt_Inst, AMI0NT_SCSI       ; BUGBUG (lonnym): what is this ID????
+
+[ami0nt_Inst]
+CopyFiles = @ami0nt.sys
+Reboot
+
+[ami0nt_Inst.Services]
+AddService = ami0nt, %SPSVCINST_ASSOCSERVICE%, ami0nt_Service_Inst, Miniport_EventLog_Inst
+
+[ami0nt_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ami0nt.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;*********************************
+;BusLogic Manufacturer device list
+[BLCDevices]
+%buslogic.DeviceDesc%              = buslogic_Inst, BUSLOGIC_SCSI
+%*BUS0042.DeviceDesc%              = buslogic_Inst, *BUS0042
+%MF\EISA_BUS4201_DEV0.DeviceDesc%  = buslogic_Inst, MF\EISA_BUS4201_DEV0
+%PCI\VEN_104B&DEV_1040.DeviceDesc% = buslogic_Inst, PCI\VEN_104B&DEV_1040
+%flashpnt.DeviceDesc%              = flashpnt_Inst, FLASHPNT_SCSI
+
+[buslogic_Inst]
+CopyFiles = @buslogic.sys
+Reboot
+
+[buslogic_Inst.Services]
+AddService = buslogic, %SPSVCINST_ASSOCSERVICE%, buslogic_Service_Inst, Miniport_EventLog_Inst
+
+[buslogic_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\buslogic.sys
+LoadOrderGroup = SCSI Miniport
+
+
+[flashpnt_Inst]
+CopyFiles = @flashpnt.sys
+Reboot
+
+[flashpnt_Inst.Services]
+AddService = flashpnt, %SPSVCINST_ASSOCSERVICE%, flashpnt_Service_Inst, Miniport_EventLog_Inst
+
+[flashpnt_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\flashpnt.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;*******************************
+;Compaq Manufacturer device list
+[COMPAQ]
+%cpqarray.DeviceDesc% = cpqarray_Inst, CPQARRAY_SCSI   ; BUGBUG (lonnym): what ID is this????
+%*CPQ4410.DeviceDesc% = ncrc710_Inst,  *CPQ4410
+%*CPQ4411.DeviceDesc% = ncrc710_Inst,  *CPQ4411
+%cpqfws2e.DeviceDesc% = cpqfws2e_Inst, CPQFWS2E_SCSI
+
+[cpqarray_Inst]
+Co

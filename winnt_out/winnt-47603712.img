@@ -1,0 +1,102 @@
+, Voice, Speakerphone, Voicemail, isa
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 W2 S0=0 &D2 &C1 \V1<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, ErrorControl_On,, "\N6"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem10.AddReg] ; Boca V.34
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F E0 V1 W1 S95=47 S0=0 &D2 &C1<cr>"
+
+[Modem9.AddReg] ; Boca 14.4 V.32bis M1440E external 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 &R1 &D2 &C1 V1 W1 S0=0 S95=47<cr>"
+
+[Modem8.AddReg] ; Boca V.34 INTERNAL
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem7.AddReg] ; 14400 PCMCIA Fax/modem
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 \V2<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem2.AddReg] ; Boca 14.4Kbps Multimedia & Boca 14.4Kbps V.32BIS
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem1.AddReg] ; Boca 28.8 V.Fast (ext) & Boca 28.8 V.Fast (internal)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+; Strings
+
+[Strings]
+Mfg = "Boca Research"
+
+; Model strings
+
+Modem14="Boca BocaModem 14.4Kbps V.32bis PCMCIA"   
+Modem13="Boca SoundExpression 14.4VSp 14.4 Data-FAX"
+Modem12="Boca Complete Ofc Communicator 14.4 Data-FAX"
+Modem11="Boca 28.8 Kbps V.34 MV.34I"       ;V.34 Internal
+Modem10="Boca 28.8 Kbps V.34 MV.34E"       ;V.34 External
+Modem9="Boca 14.4 Kbps V.32BIS M1440E"     ;M1440E
+Modem8="Boca 28.8 Kbps V.34 MV.34I"        ;V.34
+Modem7="Boca 14.4 Kbps V.32BIS PCMCIA"     ;PCMCIA, 14.4
+Modem6="Boca 14.4 Kbps V.32BIS M1440IW"    ;M1440IW
+Modem5="Boca 14.4 Kbps V.32BIS M1440I"     ;M1440I
+Modem4="Boca 28.8 V.Fast MV28KI"           ;MV28KI #009125
+Modem3="Boca 14.4 Kbps V.32BIS M144IW"     ;M144IW #010418
+Modem2="Boca 14.4 Kbps Multimedia FDV14I"  ;FDV14I #008652
+Modem1="Boca 28.8 V.Fast MV24KE"           ;MV24KE #11767
+
+; --------------------------------------------------------------
+; Common Registry Sections
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "0<cr>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "2<cr>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "4<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddReg]
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init, 2,, "AT &F E0 V1 W1 S95=47<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+HKR,, Reset,, "AT&F<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ";"
+HKR, Settings

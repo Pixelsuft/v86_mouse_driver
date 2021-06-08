@@ -1,0 +1,84 @@
+egistry
+    endif
+    set NewValueList = {{type,0,$(!REG_VT_SZ),$(NetRuleSoftwareType)},+
+                       {use,0,$(!REG_VT_SZ),$(NetRuleSoftwareUse)}, +
+                       {bindform,0,$(!REG_VT_SZ),$(NetRuleSoftwareBindForm)}, +
+                       {class,0,$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareClass)}, +
+                       {bindable,0,$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareBindable)}, +
+                       {InfOption,0,$(!REG_VT_SZ),$(Option)}, +
+                       {Infname ,0,$(!REG_VT_SZ),$(ProductInfName)} }
+    Shell  $(UtilInf), AddValueList, $(SoftNetRulesKey), $(NewValueList)
+    ifint $($ShellCode) != 0
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(KeyProduct)
+    CloseRegKey $(SoftNetRulesKey)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto fatalregistry
+    endif
+    ForListDo $(AdapterList)
+        set BusNum = *($($),1)
+        set SlotNum = *($($),2)
+        Debug-Output "Bus Number = "$(BusNum)
+        Debug-Output "Slot Number = "$(SlotNum)
+        Shell $(UtilInf), IsNetCardAlreadyInstalled, $(BusNum), +
+                      $(SlotNum), +
+                      $(ProductHardwareDescription), +
+                      $(ProductHardwareName)
+        ifint $($ShellCode) != 0
+                goto ShellCodeError
+        endif
+        Ifstr $($R0) != NO_ERROR
+               set Error = $($R0)
+                    goto fatal
+        Endif
+        ifstr(i) $($R1) != "YES"
+            Shell $(UtilInf), AddHardwareComponent, $(ProductHardwareName),+
+                              $(ProductInfName),$(ProductKeyName)
+            ifint $($R4) != -1
+                Set REMOVE_HARDWARE = >($(REMOVE_HARDWARE),$(CardKey)"\"$($R4))
+            endif
+            ifint $($ShellCode) != 0
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+               CloseRegKey $($R1)
+               CloseRegKey $($R2)
+               CloseRegKey $($R3)
+               goto fatalregistry
+            Endif
+            set KeyParameters = $($R3)
+            set KeyAdapterRules = $($R2)
+            set AdapterNumber = $($R4)
+            set NewValueList = {{Manufacturer,0,$(!REG_VT_SZ),$(Manufacturer)},+
+                               {Title,0,$(!REG_VT_SZ),"["$($R4)"] "$(ProductHardwareTitle)},+
+                               {Description,0,$(!REG_VT_SZ),$(ProductHardwareDescription)},+
+                               {ProductName,0,$(!REG_VT_SZ),$(ProductHardwareName)},+
+                               {ServiceName,0,$(!REG_VT_SZ),$($R5)},+
+                               {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)},+
+                               {InstallDate,0,$(!REG_VT_DWORD),*($(Now),1)}}
+            Shell  $(UtilInf), AddValueList, $($R1), $(NewValueList)
+            ifint $($ShellCode) != 0
+                goto ShellCodeError
+            endif
+            CloseRegKey $($R1)
+            set TempProdName = """"$(ProductHardwareName)$(AdapterNumber)""""
+            set TempBindForm = $(TempProdName)$(NetRuleHardwareBindForm)
+            set NewValueList = {{type,0,$(!REG_VT_SZ),$(NetRuleHardwareType)},+
+                                {bindform,0,$(!REG_VT_SZ),$(TempBindForm)}, +
+                                {class,0,$(!REG_VT_MULTI_SZ),$(NetRuleHardwareClass)}, +
+                                {InfOption,0,$(!REG_VT_SZ),$(Option)}, +
+                                {Infname ,0,$(!REG_VT_SZ),$(ProductInfName)}}
+            Shell  $(UtilInf), AddValueList, $(KeyAdapterRules), $(NewValueList)
+            ifint $($ShellCode) != 0
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                    CloseRegKey $(KeyParameters)
+                    CloseRegKey $(KeyAdapterRules)
+                    goto fatalregistry
+            endif
+            CloseRegKey $(K

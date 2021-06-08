@@ -1,0 +1,50 @@
+sc, you may need the IBM Thinkpad Utilities diskette for Windows NT. If you want to view or change your hardware configuration settings, you can obtain the IBM Thinkpad Utilities diskette from one of the following locations. These changes are referred to in README.TXT in the \DRVLIB\MWAVE\THINKPAD\DISK1 directory.
+
+ 	On the Internet: 	http://www.pc.ibm.com/support/tps/winnt.html
+				ftp://ftp.pc.ibm.com/pub/mobiles
+	On CompuServe:	GO Thinkpad
+	On PC Co. BBS:	919-517-0001, area 37
+
+To install the IBM Thinkpad Utilities for Windows NT, follow the installation instructions described in the README.TXT file included on the IBM Thinkpad Utilities diskette.
+
+PCMCIA Cards
+PCMCIA cards are supported in Windows NT version 4.0. For a list of supported cards and a list of compatible notebook computers, see the Hardware Compatibility List.
+
+When using PCMCIA devices, such as modems and network cards on a computer running Windows NT Workstation, power management features on the computer system should be turned off. Consult the manufacturer's system manual for procedures to disable power management.
+
+PCMCIA SCSI Cards
+On PCMCIA SCSI cards at least one of the devices on the SCSI bus needs to supply termination power for proper operation.
+
+PCMCIA Notes
+
+If the PCMCIA controller was not present when you installed Windows NT, use the Devices icon in Control Panel to change the startup type to Manual. Double-click Devices, and select Pcmcia. Click Startup and then click Manual.
+
+PCMCIA Atdisk and drive letters
+In some instances the driver letter for the PCMCIA harddisk can become C:.  If this is causing you problems, change the drive letter assignment using Disk Administrator.
+
+
+Interrupt Conflicts
+If you have an IRQ conflict, the information that follows includes a few workarounds.
+
+Note
+PCMCIA net device resources can be changed by using the PC Card or Network icon in Control Panel.
+
+For modems, try disabling one of the COM ports in you systems BIOS. This will make PCMCIA enable the PCMCIA modem at a different IRQ.
+
+If you have Windows NT installed on a laptop and need to install  the Elnk3 or Ne2000 driver and your system does not have a CD-ROM drive or is not connected to a network, you can access the drivers by copying the Elnk3.sys or Ne2000.sys driver to the root of C:. When prompted for the path to the driver, type in "C:\".
+
+
+PCI Notebook Computers and PCMCIA Hard Disks
+If you have a notebook computer that uses a PCI bus (Compaq Elite 5x00 or HP Omnibook 5000), you will need to disable Atapi.sys to run PCMCIA hard disks in your system. This can be done by changing the boot setting for ATAPI in the Devices icon in Control Panel and restarting the system. To allow IDE CD-ROM drives to work properly, enable Atapi.sys. To allow the PCMCIA hard disks to work properly, disable Atapi.sys. 
+
+
+Plug and Play ISA Device Installation and PNPISA.SYS
+Installation of Plug and Play ISA (PnP ISA) devices under Windows NT version 4.0 requires an enabler driver that recognizes how to locate and configure those devices.  The driver, PNPISA.SYS, is in the \Drvlib folder on the Windows NT version 4.0 compact disc. For information about how to install the enabler, see "Installing PNPISA.SYS if not Enabled" later in this document. 
+
+The enabler does not contain complete Windows 95 Plug and Play support.  For example, the enabler does not dynamically allocate resources for PnP ISA devices.  It does, however, enable a user interface (UI) that allows you to manually select system resources that do not conflict with other devices in the system.
+
+PnP ISA Enabler, Present on Shipped Computers
+Some computer manufacturers who provide PnP ISA devices with their products enable PNPISA.SYS at the factory.  In this case, the devices that came installed in the computer may be configured by the manufacturer.  If new PnP ISA devices are added later, you can configure the new devices when the New Hardware Found dialog box appears.
+
+Installing PNPISA.SYS if not Enabled
+1. Insert the Windows NT version 4.0 compact disc into 

@@ -1,0 +1,126 @@
+RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText) 
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-RPCBANYAN]
+1,RPCLTC8.DLL , SIZE=15120
+1,RPCLTS8.DLL , SIZE=17168
+[Files-RPCLOCATE]
+1,LOCATOR.EXE , SIZE=118032
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    RPCLOCATE   = "RPC Configuration"
+    RPCBANYAN   = "RPC support for Banyan"
+[LocatorNamesENG]
+LocName1 = "Windows NT Locator"
+LocName2 = "DCE Cell Directory Service"
+[SecurityNamesENG]
+SecName1 = "Windows NT Security Service"
+SecName2 = "DCE Security Service"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+ProductSoftwareDescription      = "Remote Procedure Call service enables RPC-written programs to perform procedures on multiple computers. Includes the endpoint mapper and other RPC services."
+ProductRPCTitle   = "RPC Configuration"
+ProductRPCBanyanTitle   = "RPC support for Banyan"
+ProductRPCBaynanSoftDescription      = "RPC support for Banyan"
+RpcSrvDisplayNameRpcss   = "Remote Procedure Call (RPC) Service"
+RpcSrvDisplayNameLocator = "Remote Procedure Call (RPC) Locator"
+RpcSrvDisplayNameSSP     = "NT LM Security Support Provider"
+RpcSuiteDisplayName      = "Remote Procedure Call Configuration"
+[RPCLOCATEConstantsENG]
+FunctionTitle   = "RPC Configuration"
+ShellCodeErrorTitle     = "Error: "$(FunctionTitle)
+ShellCodeErrorText      = "Shell Code Error."
+[RPCBANYANConstantsENG]
+FunctionTitle   = "RPC support for Banyan"
+ShellCodeErrorTitle     = "Error: "$(FunctionTitle)
+ShellCodeErrorText      = "Shell Code Error."
+[DialogConstantsENG]
+Help        = "&Help"
+Exit        = "Cancel"
+OK          = "OK"
+HelpContext = ""
+Continue    = "C&ontinue"
+Cancel      = "C&ancel"
+[RpcProviderDlgENG]
+Caption = "RPC Configuration"
+Edit1Label = "Network &Address:"
+Combo1Label = "&Name Service Provider:"
+Combo2Label = "&Security Service Provider:"
+Help        = "&Help"
+Continue    = "OK"
+Cancel      = "Cancel"
+DlgType = Combination
+DlgTemplate = "RPCPROVIDE"
+EditTex

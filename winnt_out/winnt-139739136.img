@@ -1,0 +1,100 @@
+ewNumDialinNBF  = *($(Result),4)
+    Debug-Output "PortsConfigure NewNumDialinNBF: "$(NewNumDialinNBF)
+    set fSerialInstalled = *($(Result),5)
+    Debug-Output "PortsConfigure fSerialInstalled: "$(fSerialInstalled)
+    set fUnimodemInstalled = *($(Result),6)
+    Debug-Output "PortsConfigure fUnimodemInstalled: "$(fUnimodemInstalled)
+    set fOtherInstalled = *($(Result),7)
+    Debug-Output "PortsConfigure fOtherInstalled: "$(fOtherInstalled)
+    ifstr(i) $(fSerialInstalled) == TRUE
+        set NewNumPortsList = >($(NewNumPortsList), $(NullString)$(NewNumPorts)$(NullString))
+    else-ifstr(i) $(fOtherInstalled) == TRUE
+        set NewNumPortsList = >($(NewNumPortsList), $(NullString)$(NewNumPorts)$(NullString))
+    else-ifstr(i) $(fUnimodemInstalled) == TRUE
+        set NewNumPortsList = >($(NewNumPortsList), $(NullString)$(NewNumPorts)$(NullString))
+    endif
+    set fNetbeuiSelected = *($(Result),8)
+    Debug-Output "PortsConfigure NetbeuiSelected: "$(fNetbeuiSelected)
+    set fTcpIpSelected = *($(Result),9)
+    Debug-Output "PortsConfigure TcpIpSelected: "$(fTcpIpSelected)
+    set fIpxSelected = *($(Result),10)
+    Debug-Output "PortsConfigure IpxSelected: "$(fIpxSelected)
+    set fNetbeuiAllowed = *($(Result),11)
+    Debug-Output "PortsConfigure NetbeuiAllowed: "$(fNetbeuiAllowed)
+    set fTcpIpAllowed = *($(Result),12)
+    Debug-Output "PortsConfigure TcpIpAllowed: "$(fTcpIpAllowed)
+    set fIpxAllowed = *($(Result),13)
+    Debug-Output "PortsConfigure IpxAllowed: "$(fIpxAllowed)
+    ifstr(i) $(fNetbeuiSelected) == TRUE
+        set fNetbeuiChosen = TRUE
+    else
+        set fNetbeuiChosen = $(fNetbeuiAllowed)
+    endif
+    ifstr(i) $(fTcpIpSelected) == TRUE
+        set fTcpIpChosen = TRUE
+    else
+        set fTcpIpChosen = $(fTcpIpAllowed)
+    endif
+    ifstr(i) $(fIpxSelected) == TRUE
+        set fIpxChosen = TRUE
+    else
+        set fIpxChosen = $(fIpxAllowed)
+    endif
+    ifstr(i) $(fTcpIpSelected) == TRUE
+        set NewNumDialoutIP = $(NewNumDialoutNBF)
+    endif
+    ifint $(NewNumDialinNBF) != 0
+         ifstr(i) $(fTcpIpAllowed) == TRUE
+             set NewNumDialinIP = 1
+         endif
+    endif
+    Debug-Output "NewNumDialinIP: "$(NewNumDialinIP)
+    Debug-Output "NewNumDialoutIP: "$(NewNumDialoutIP)
+    ifstr(i) $(fIpxChosen) == TRUE
+        set NewNumDialinoutIPX = 1
+        Debug-Output "IPX Selected - NewNumDialinoutIPX: "$(NewNumDialinoutIPX)
+    endif
+    ifstr(i) $(fIpxAllowed) == TRUE
+        set EnableIpxRouter = 1
+    else
+        set EnableIpxRouter = 0
+    endif
+    ifstr(i) $(fNetbeuiAllowed) == FALSE
+         set NewNumDialinNBF = 0
+    endif
+    ifstr(i) $(fNetbeuiSelected) == FALSE
+        set NewNumDialoutNBF = 0
+    endif
+    Debug-Output "NewNumDialinNbf: "$(NewNumDialinNBF)
+    Debug-Output "NewNumDialoutNbf: "$(NewNumDialoutNBF)
+    set NetBiosGtwyEnabled = 0
+    set EnableIpRouter     = 0
+    set EnableWanRouter    = 0
+    Shell "" GetNetworkAccess
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "error shelling GetNetworkAccess."
+        goto ShellCodeError
+    endif
+    set NetBiosGtwyEnabled = $($R1)
+    set EnableIpRouter     = $($R2)
+    set EnableWanRouter    = $($R3)
+    ifint $(NetBiosGtwyEnabled) == 0
+        ifstr(i) $(fNetbeuiAllowed) == TRUE
+            set-add NewNumDialoutNBF  = $(NewNumDialoutNBF), $(NewNumDialinNBF)
+            set     NewNumDialinNBF = 0
+            Debug-Output "Mapped dialin ports to dialout ports "$(NewNumDialoutNBF)
+        endif
+    endif
+    set NewNumDialin = 0
+    set NewNumDialout = 0
+    set-add NewNumDialin = $(NewNumDialinNBF), $(NewNumDialinIP)
+    ifstr(i) $(fIpxAllowed) == TRUE
+        set-add NewNumDialin = $(NewNumDialin), $(NewNumDialinoutIPX)
+    endif
+    set-add NewNumDialout = $(NewNumDialoutNBF), $(NewNumDialoutIP)
+    ifstr(i) $(fIpxSelected) == TRUE
+        set-add NewNumDialout = $(NewNumDialout), $(NewNumDialinoutIPX)
+    endif
+    ifstr(i) $(fNetcardInstalled) == FALSE
+        ifint $(NewNumDialin) != 0
+   

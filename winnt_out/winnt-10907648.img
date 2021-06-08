@@ -1,0 +1,102 @@
+ = +
+    return $(RegistryErrorIndex)
+[PrepareToCopy]
+    Read-syms ProgressCopy$(!STF_LANGUAGE)
+    Return STATUS_SUCCESSFUL
+[DoAskSource]
+    Set DAS_CWDDIR  = $($0)
+    Set DAS_SRCDIR  = $($1)
+    Set DAS_BUILTIN = $($2)
+    Set DAS_Result  = STATUS_FAILED
+    Ifstr(i) $(!STF_SRCDIR_OVERRIDE) != ""
+        Set DAS_SRCDIR = $(!STF_SRCDIR_OVERRIDE)
+        Set DAS_Result = STATUS_SUCCESSFUL
+        Goto DAS_exit
+    Endif
+    Ifstr(i) $(DAS_BUILTIN) == YES
+        Ifstr(i) $(!NTN_InstallPhase) == primary
+            Ifstr(i) $(!STF_SRCDIR_WINNT) != ""
+                Set DAS_SRCDIR = $(!STF_SRCDIR_WINNT)
+            Endif
+            Set DAS_Result = STATUS_SUCCESSFUL
+            Goto DAS_exit
+        Endif
+    Else
+        Ifstr(i) $(!NTN_InstallPhase) == primary
+            Set DAS_Result = STATUS_SUCCESSFUL
+            Goto DAS_exit
+        Else
+            Set DAS_SRCDIR = ""            
+        EndIf
+    Endif
+    Debug-Output "UTILITY.INF: [DoAskSource] STF_CWDDIR = "$(DAS_CWDDIR)" STF_SRCDIR = "$(DAS_SRCDIR)
+    Ifstr(i) $(DAS_SRCDIR) == ""
+        Set DAS_SRCDIR = "A:\"
+    Endif
+    Ifstr(i) $(DAS_SRCDIR) == $(!STF_SRCDIR_USED)
+        Set DAS_SRCDIR = $(!STF_SRCDIR_KEYED)
+    Endif
+    Shell "subroutn.inf" DoAskSource $(DAS_SRCDIR)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "UTILITY.INF: shelling SUBROUTN.INF [DoAskSource] failed"
+        goto DAS_exit
+    endif
+    Set DAS_Result = $($R0)
+    Ifstr(i) $(DAS_Result) == STATUS_USERCANCEL
+        Set !p:CommonStatus = STATUS_USERCANCEL
+        goto DAS_exit
+    Endif
+    Set DAS_SRCDIR = $($R1)
+    Set !STF_SRCDIR_USED = $($R1)
+    Set !STF_SRCDIR_KEYED = $($R3)
+    Ifstr(i) $(DAS_BUILTIN) == YES
+        OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft\Windows Nt\CurrentVersion" $(!REG_KEY_WRITE) KeyNt
+        Ifstr(i) $(KeyNt) != ""
+            SetRegValue $(KeyNt) {SourcePath,$(NoTitle),$(!REG_VT_SZ),$(!STF_SRCDIR_USED)}
+            Debug-Output "UTILITY.INF: SourcePath stored is "$(!STF_SRCDIR_USED)
+            CloseRegKey $(KeyNt)
+        Endif
+    Endif
+DAS_exit =+
+    Read-syms ProgressCopy$(!STF_LANGUAGE)
+    Return $(DAS_Result) $(DAS_SRCDIR)
+[RemoveSoftwareComponent]
+    Debug-Output "Remove Software Component..."
+    read-syms InitBaseVars
+    set RS_Manufacturer = $($0)
+    set RS_ProductName  = $($1)
+    set RS_CheckRefCount = $($2)
+    set RS_VersionNum   = "CurrentVersion"
+    set RS_ManufacturerKey = $(!NTN_SoftwareBase)"\"$(RS_Manufacturer)
+    set RS_ProductKey   = $(!NTN_SoftwareBase)"\"$(RS_Manufacturer)"\"$(RS_ProductName)
+    set RS_ProductVerKey        = $(!NTN_SoftwareBase)"\"$(RS_Manufacturer)"\"$(RS_ProductName)"\"$(RS_VersionNum)
+    set RegistryErrorIndex      = NO_ERROR
+    ifstr(i) $(RS_CheckRefCount) != FALSE
+        Shell "", IsRefCountEqualZero, $(RS_ProductVerKey)
+        Ifstr(i) $($R0) != NO_ERROR
+            Debug-Output "UTILITY.INF: [RemoveSoftwareComponent] IsRefCountEqualZero returned "$($R0)
+            goto RemoveSoftwareComponent_Return
+        endif
+        Ifint $($R1) == 0
+            set RegistryErrorIndex = REF_COUNT_NOT_ZERO
+            goto RemoveSoftwareComponent_Return
+        endif
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RS_ManufacturerKey) $(MAXIMUM_ALLOWED) ProductKey
+    Ifstr $(ProductKey) == $(KeyNull)
+       Debug-Output "UTILITY.INF: could not open Software product key"
+       set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       goto RemoveSoftwareComponent_Return
+    endif
+    DeleteRegTree $(ProductKey) $(RS_ProductName)
+    CloseRegKey $(ProductKey)
+    Shell "" RemoveService, $(RS_ProductName), "YES"
+    Set RS_RemoveError = $($R0)
+    Ifint $(RS_RemoveError) != 0
+         Debug-Output "UTILITY.INF: RemoveService wrapper failed, error: "$(RS_RemoveResult)
+         Set RegistryErrorIndex = UNABLE_REMOVE_CONFIGURE_SERVICE
+         Goto RemoveSoftwareComponent_Return
+    Endif
+RemoveSoftwareComponent_Return = +
+    Return $(RegistryErrorIndex)
+[RemoveHardwareComp

@@ -1,0 +1,89 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; This INF supports Rockwell & some Cirrus chipset modems, encompassing many mfgs & models.
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Calcom%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEMBEFF8E53     ; Calcom 9624VF, Viva msg center
+ExcludeFromSelect=PCMCIA\DATA_RACE-V.32BIS/FAX_145-01-24-1C8D  ; Data Race 14.4 Data 9600 Fax, Data Race 14.4 Data 14.4 Fax
+ExcludeFromSelect=UNIMODEMEAF8FBCB     ; Digtan, Diamond
+ExcludeFromSelect=UNIMODEM2BB278BD     ; General DataComm FastPro, V.F 28.8
+
+ExcludeFromSelect=UNIMODEMB58BD3B8          ; Prometheus
+ExcludeFromSelect=UNIMODEM57025E9F          ; Prometheus
+ExcludeFromSelect=ISAPNP\SSC0000_DEV0000    ; Prometheus, Sierra
+
+ExcludeFromSelect=PCMCIA\MEGAHERTZ-CC324FM-D0CC  ; Megahertz and Epson CC324FM
+ExcludeFromSelect=UNIMODEM2CC25305  ; Megahertz and Epson CC324FM
+
+[Rockwell26.PosDup]
+*PNP0500
+
+[Manufacturer]
+%Calcom%   = Calcom
+%Epson%    = Epson
+%Acer%     = Acer
+%Victory%  = Victory
+%SierraWireless% = SierraWireless
+%DataRace% = DataRace
+%Mitsubishi% = Mitsubishi
+%Diamond%  = Diamond
+%GDC% = GDC
+%ETECH% = ETECH
+%Cirrus% = Cirrus
+%Prometheus% = Prometheus
+
+[Calcom]
+%Calcom1%  = Rockwell1, UNIMODEM585301A8    ; Calcom 1442EX
+%Calcom2%  = Rockwell2, UNIMODEMCDFB9F26    ; Calcom 2842EX
+%Calcom3%  = Rockwell3, UNIMODEMC38C605D    ; Calcom 2842I
+%Calcom4%  = Rockwell4, UNIMODEM9EE288FD    ; Calcom 1442F
+%Calcom5%  = Rockwell5, ROCK2_Calcom5, UNIMODEM858E1599    ; Calcom 1442VF
+%Calcom5%  = Rockwell5, ROCK2_Calcom5, UNIMODEM16E3BF9F    ; Calcom 1442VF
+%Calcom6%  = Rockwell6, ROCK2_Calcom6, UNIMODEM9F2BBC58    ; Calcom 9624i
+%Calcom7%  = Rockwell7, ROCK2_Calcom7, UNIMODEMBEFF8E53    ; Calcom 9624VF
+%Calcom8%  = Rockwell7, UNIMODEMBEFF8E53    ; Calcom 9624VF, Viva msg center
+
+[Epson]
+%Epson1% = Rockwell8, ROCK2_Epson1, PCMCIA\MEGAHERTZ-CC324FM-D0CC
+%Epson1% = Rockwell8, ROCK2_Epson1, UNIMODEM2CC25305
+
+%Epson2% = Rockwell8, PCMCIA\MEGAHERTZ-CC324FM-D0CC
+%Epson2% = Rockwell8, UNIMODEM2CC25305
+
+[Acer]
+%Acer1%  = Rockwell6,  ROCK2_Acer1, UNIMODEMF17C76B0
+%Acer2%  = Rockwell6,  ROCK2_Acer2, UNIMODEMF17C76B0
+%Acer3%  = Rockwell6,  UNIMODEM0FF842E0
+%Acer4%  = Rockwell9,  ROCK2_Acer4, UNIMODEMEB2448CD
+%Acer5%  = Rockwell10, ROCK2_Acer5, UNIMODEM7EBF3F36
+%Acer6%  = Rockwell5,  ROCK2_Acer6, UNIMODEM858E1599
+
+[Victory]
+%Victory1% = Rockwell11, UNIMODEM7C16C318
+
+[SierraWireless]
+%SierraWireless1% = Rockwell12, UNIMODEMF6FF7662
+%SierraWireless1% = Rockwell12, UNIMODEM3C66A726
+
+[DataRace]
+%DataRace1% = Rockwell13, PCMCIA\DATA_RACE-V.32BIS/FAX_145-01-24-0A80
+%DataRace1% = Rockwell13, UNIMODEM4C0DB6BF
+
+%DataRace1% = Rockwell13, PCMCIA\DATA_RACE-V.32BIS/FAX_145-01-24-56ED                     ; RediCARD Data 14.4 Fax 9600
+%DataRace1% = Rockwell13, ROCK2_DataRace1, PCMCIA\DATA_RACE-V.32BIS/FAX_145-01-24-1C8D    ; RediCARD Data 14.4 Fax 9600
+%DataRace1% = Rockwell13, UNIMODEM4E03291C                                                ; RediCARD Data 14.4 Fax 9600
+%DataRace1% = Rockwell13, UNIMODEMDFCEA50D                                                ; RediCARD Data 14.4 Fax 9600
+%DataRace2% = Rockwell14, PCMCIA\DATA_RACE-V.22BIS/FAX_145-01-14-05D3                     ; RediCARD Data 2400 Fax 9600
+%DataRace2% = Rockwell14, PCMCIA\DATA_RACE-V.22BIS/FAX_145-01-14-FA24                     ; RediCARD Data 2400 Fax 9600
+%DataRace2% = Rockwell14, UNIMODEMF3F6EED2                                                ; RediCARD Data 2400 Fax 9600
+%DataRace2% = Rockwell14, UNIMODEM5606C4CF                                                ; RediCARD Data 2400 Fax 9600
+%DataRace3% = Rockwell13, ROCK2_DataRace3, PCMCIA\DATA_RACE-V.32BIS/FAX_145-01-24-1C8D    ; RediCARD Data 14.4 Fax 14.4
+%DataRace3% = Rockwell13, UNIMODEME02A4FA6                                                ; RediCARD Data 14.4 Fax 14.4
+%DataRace4% = Rockwell13, PCMCIA\DATA_RACE-V.32BIS/FAX_145-01-24-1C8D                

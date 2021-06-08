@@ -1,0 +1,178 @@
+
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Codex 2264]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*FL3
+<hwflowcontrol_off>=*FL0
+<compression_on>=*SM3
+<compression_off>=*SM0
+<protocol_on>=*SM2
+<protocol_off>=*SM0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2S0=0 V1 *XC1 E1 S7=55 S2=128<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Codex 3220]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+<hwflowcontrol_off>=*FL0
+<hwflowcontrol_on>=*FL3
+<protocol_off>=*SM0
+<protocol_on>=*SM3
+<compression_off>=*DC0
+<compression_on>=*DC1
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=AT&I0<cr>
+DETECT_RESPONSE=7040
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 *XC1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Codex 3260]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+<hwflowcontrol_off>=*FL0
+<hwflowcontrol_on>=*FL3
+<protocol_off>=*SM0
+<protocol_on>=*SM3
+<compression_off>=*DC0
+<compression_on>=*DC1
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2 V1 *XC1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+;----------------------------------------
+[Codex 3261]
+ALIAS=Codex 3260
+
+DETECT_STRING=AT&I0<cr>
+DETECT_RESPONSE=6510
+
+;----------------------------------------
+[Codex 3262]
+ALIAS=Codex 3260
+
+;----------------------------------------
+[Codex 3263]
+ALIAS=Codex 3260
+
+;----------------------------------------
+[Codex 3265]
+ALIAS=Codex 3260
+
+;----------------------------------------
+[Codex 3260 Fast]
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+<hwflowcontrol_off>=*FL0
+<hwflowcontrol_on>=*FL3
+<protocol_off>=*SM0
+<protocol_on>=*SM3
+<compression_off>=*DC0
+<compression_on>=*DC1
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F S0=0 &C1 &D2 V1 X4 S2=128 *XC1 S7=55<cr>
+COMMAND_INIT=AT<speaker><protocol><hwflowcontrol><compression><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Codex 3261 Fast]
+ALIAS=Codex 3260 Fast
+
+DETECT_STRING=AT&I0<cr>
+DETECT_RESPONSE=7061
+
+;----------------------------------------
+[Codex 3262 Fast]
+ALIAS=Codex 3260 Fast
+
+;----------------------------------------
+[Codex 3263 Fast]
+ALIAS=Codex 3260 Fast
+
+;----------------------------------------
+[Codex 3265 Fast]
+ALIAS=Codex 3260 Fast
+
+;----------------------------------------
+[Codex V.34R]
+ALIAS=Codex 3260 Fast
+
+;----------------------------------------
+[Codex 3220 Plus]
+;ALIAS=Codex 3220
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+<hwflowcontrol_off>=*FL0
+<hwflowcontrol_on>=*FL3
+<protocol_off>=*SM0
+<protocol_on>=*SM3
+<compression_off>=*DC0
+<compression_on>=*DC1
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=AT X3 D
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 *XC1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Compaq 2400 PCMCIA]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI9<cr>
+DETECT_RESPONSE=iNC215US
+
+;----------------------------------------
+[Compaq SpeedPAQ 144]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<h

@@ -1,0 +1,88 @@
+HELL_CODE_OK)
+           Debug-Output "Cannot add NDISWAN to ServiceGroupOrder"
+           goto ShellCodeError
+        endif
+DoNdisWanEnd = +
+    endif 
+    ifstr(i) $(DoRasAsyMac) == TRUE
+        set ThisOption = RASASYMAC
+        set RasSpecificString = $(Product$(ThisOption)Name)
+        ifstr(i) $(fSerialInstalled) == TRUE
+            set AsySoftwareType = "kernelautostart"
+        else-ifstr(i) $(fOtherInstalled) == TRUE
+            set AsySoftwareType = "kernelautostart"
+        else-ifstr(i) $(fUnimodemInstalled) == TRUE
+            set AsySoftwareType = "kernelautostart"
+        else
+            set AsySoftwareType = "kerneldisable"
+        endif
+        Shell $(!UtilityInf), AddSoftwareComponent, $(!Manufacturer), +
+              $(Product$(ThisOption)Name), $(Product$(ThisOption)Name), +
+              $(Product$(ThisOption)DisplayName), +
+              $(!RasInfName), $(Product$(ThisOption)ImagePath), $(AsySoftwareType),+
+              "NDIS", {}, "", $(!RasMsgDll), $(!RasEventTypeSupported)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddSoftware bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        CloseRegKey $($R3)
+        CloseRegKey $($R4)
+        CloseRegKey $($R5)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+          $(Product$(ThisOption)Type)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMinorVersion)},+
+             {BindControl,$(NoTitle),$(!REG_VT_DWORD),$(HideBindings)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(!CurrentDate),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(!HideComponent)}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $(SoftNetRuleKey)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+        {{class, $(NoTitle), $(!REG_VT_MULTI_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {bindform,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)BindForm)}, +
+             {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              $(!NetRule$(ThisOption)Bindable)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            goto fatalregistry
+        en

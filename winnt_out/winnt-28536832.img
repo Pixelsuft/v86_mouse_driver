@@ -1,0 +1,92 @@
+rRpcProtocol "ncadg_ipx" "RpcLtScm.Dll"
+        Shell $(UtilityInf) AddServerRpcProtocol "ncacn_spx" "RpcLtScm.Dll"
+    Endif
+    ifstr(i) $(!STF_GUI_UNATTENDED) != YES
+        ifstr(i) $(InstallFromRas) != "YES"
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\RASMan" $(MAXIMUM_ALLOWED) RASKey
+            ifstr(i) $(RASKey) != ""
+                Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(RASRebindError)
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+                endif
+                CloseRegKey $(RASKey)
+                ifstr(i) $($R1) == "OK"
+                    set SaveNTN_InstallMode = $(!NTN_InstallMode)
+                    set !NTN_InstallMode = configure
+                    Shell "oemnsvra.inf" InstallOption $(!STF_LANGUAGE) "RAS" $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) 
+                    set !NTN_InstallMode = $(SaveNTN_InstallMode)
+                endif
+            endif
+        endif
+    endif
+    LibraryProcedure DontCare $(!NCPA_HANDLE), CPlSetup $(!STF_HWND),+
+              SECURESVC, $(ProductNWLNKSPXName), 3
+    EndWait
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    goto successful
+configureadapter = +
+    Debug-Output "OEMNXPIP.INF: At ConfigureAdapter"
+    ifstr(i) $(Option) == "NWLNKIPX"
+        Set BindList = {}
+        OpenRegKey $(!REG_H_LOCAL) "" $(LinkageKeyName) $(MAXIMUM_ALLOWED) LinkageKey
+        ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            GetRegValue $(LinkageKey) "Bind" BindList
+            ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+               set BindList = *($(BindList),4)
+            else
+               Set BindList = {}
+            endif
+            CloseRegKey $(LinkageKey)
+        endif
+        ifstr(i) $(BindList) == {}
+            debug-output "NWLNK.INF: no binding info; warning user"
+            read-syms InfoDlgCantConfigure
+            goto infomsg
+        endif
+        Debug-Output "OEMNXPIP.INF: configureadapter, BindList = "$(BindList)
+        set OldVersionExisted = $(TRUE)
+        set CardList = ""
+        ForListDo $(BindList)
+            Split-String $($), "\", BindInfo
+            QueryListSize BindElem $(BindInfo)
+            Set BindName = *($(BindInfo),$(BindElem))
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(BindName) $(MAXIMUM_ALLOWED) CardServiceKey
+            ifstr(i) $(CardServiceKey) != ""
+                CloseRegKey $(CardServiceKey)
+                Set CardList = $(CardList)"@"$(BindName)
+            endif
+        EndForListDo
+        ifstr(i) $(CardList) != ""
+            Debug-Output "OEMNXPIP.INF: configureadapter, CardList = "$(CardList)
+            LoadLibrary "x", $(!STF_WINDOWSSYSPATH)\ipxcfg.dll NWLNKLIB_HANDLE
+            set FLibraryErrCtl = 1
+	        ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+		    LibraryProcedure ResultList, $(NWLNKLIB_HANDLE), RunIpxDlg, $(!STF_HWND) $(!STF_PRODUCT) "YES" $(!AUTONETIPXFRAMETYPE)
+	        else
+	    	    LibraryProcedure ResultList, $(NWLNKLIB_HANDLE), RunIpxDlg, $(!STF_HWND) $(!STF_PRODUCT)
+	        endif
+            FreeLibrary $(NWLNKLIB_HANDLE)
+            set FLibraryErrCtl = 0
+            Debug-Output "OEMNXPIP.INF: configureadapter, ResultList = "$(ResultList)
+            Set Result = *($(ResultList),1)
+            Ifint $(Result) == 0
+                set CommonStatus = STATUS_USERCANCEL
+            Else
+                set CommonStatus = STATUS_REBOOT
+            Endif
+        else
+            set CommonStatus = STATUS_USERCANCEL
+        endif
+    else
+        Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+        set from = end
+        set to = end
+        set CommonStatus = STATUS

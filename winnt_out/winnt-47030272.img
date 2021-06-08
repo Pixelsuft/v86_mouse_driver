@@ -1,0 +1,111 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   ELSA GmbH
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM64CE944A, UNIMODEM2CAD71C2, UNIMODEM63F0FE69, UNIMODEM391D6C57
+
+[Models]
+%Modem28% = Modem1, UNIMODEM391D6C57		; Generic MicroLink 24000TL/28000TL
+%Modem27% = Modem10, UNIMODEM63F0FE69		; Generic MicroLink 2460TL or 2460PC
+%Modem26% = Modem13, UNIMODEM2CAD71C2		; Generic MicroLink 14.4TQ or 14.4TQV
+%Modem25% = Modem18, UNIMODEM64CE944A     	; Generic ELISA 144/144V or Ziff144
+
+%Modem24% = Modem24, UNIMODEM2C31D5DF						; MicroLink ISDN TD
+%Modem23% = Modem23, UNIMODEMC41B245F           					; MicroLink ISDN TL PRO
+%Modem22% = Modem22, UNIMODEME276C593						; MicroLink ISDN TL
+%Modem22% = Modem22, UNIMODEM3AAD62E4						; MicroLink ISDN TL
+%Modem22% = Modem22, UNIMODEM2D9D2D30						; MicroLink ISDN TL
+%Modem20% = Modem20, ELSA_Modem20,UNIMODEM64CE944A				; ELISA 144V
+%Modem19% = Modem19, ELSA_Modem19,UNIMODEM64CE944A				; ELISA 144
+%Modem18% = Modem18, ELSA_Modem18,UNIMODEM64CE944A				; ZIFF 144
+%Modem17% = Modem17, PCMCIA\ELSA,_Aachen_(Germany)-MicroLink_14.4MC-0D87		; MicroLink 14.4MC
+%Modem16% = Modem16, UNIMODEM10BFA5FD						; MicroLink 28.8TQV
+%Modem15% = Modem15, UNIMODEM156297A2						; MicroLink 28.8TQ
+%Modem15% = Modem15, UNIMODEM4CD701ED						; MicroLink 28.8TQ
+%Modem14% = Modem14, ELSA_Modem14,UNIMODEM2CAD71C2				; MicroLink 14.4TQV
+%Modem13% = Modem13, ELSA_Modem15,UNIMODEM2CAD71C2				; MicroLink 14.4TQ
+%Modem12% = Modem12, PCMCIA\ELSA,_Aachen_(Germany)-MicroLink_2460MC-E2B6		; MicroLink 2460MC
+%Modem11% = Modem11, UNIMODEM4DF238FC						; MicroLink 2460PC
+%Modem11% = Modem11, ELSA_Modem11,UNIMODEM63F0FE69				; MicroLink 2460PC
+%Modem10% = Modem10, ELSA_Modem10,UNIMODEM63F0FE69				; MicroLink 2460TL
+%Modem9% = Modem9, UNIMODEMCB9C72DF						; MicroLink 2440TR
+%Modem8% = Modem8, UNIMODEMED8BE360						; MicroLink 2440T
+%Modem6% = Modem6, UNIMODEM6358119D						; MicroLink 14.4PC
+%Modem5% = Modem5, UNIMODEMA55F1682						; MicroLink 14.4TM
+%Modem5% = Modem5, UNIMODEM7165EC8C						; MicroLink 14.4TM
+%Modem3% = Modem3, ELSA_Modem3,UNIMODEM391D6C57           					; MicroLink 24oooTL
+%Modem2% = Modem2, UNIMODEMD4EE7C82						; MicroLink 14.4TL
+%Modem2% = Modem2, UNIMODEMA4EAEB9F						; MicroLink 14.4TL
+%Modem1% = Modem1, ELSA_Modem1,UNIMODEM391D6C57						; MicroLink 288ooTL
+%Modem1% = Modem1, UNIMODEMDE2F6BC4						; MicroLink 288ooTL
+		  
+
+; Installation sections
+
+[Modem24]	; MicroLink ISDN TD
+AddReg=All, MfgAddReg, Modem24.AddReg, External
+
+[Modem23]	; MicroLink ISDN TL PRO
+AddReg=All, MfgAddReg, Modem23.AddReg, External
+
+[Modem22]	; MicroLink ISDN TL
+AddReg=All, MfgAddReg, Modem22.AddReg, External
+
+[Modem20]	; ELISA 144V
+AddReg=All, MfgAddReg, Modem20.AddReg, External
+
+[Modem19]	; ELISA 144
+AddReg=All, MfgAddReg, Modem19.AddReg, External
+
+[Modem18]	; ZIFF 144
+AddReg=All, MfgAddReg, Modem18.AddReg, External
+
+[Modem17]	; MicroLink 14.4MC
+AddReg=All, MfgAddReg, Modem17.AddReg, PCMCIA
+
+[Modem16]	; MicroLink 28.8TQV
+AddReg=All, MfgAddReg, Modem16.AddReg, External
+
+[Modem15]	; MicroLink 28.8TQ
+AddReg=All, MfgAddReg, Modem15.AddReg, External
+
+[Modem14]	; MicroLink 14.4TQV
+AddReg=All, MfgAddReg, Modem14.AddReg, External
+
+[Modem13]	; MicroLink 14.4TQ
+AddReg=All, MfgAddReg, Modem13.AddReg, External
+
+[Modem12]	; MicroLink 2460MC
+AddReg=All, MfgAddReg, Modem12.AddReg, PCMCIA
+
+[Modem11]	; MicroLink 2460PC
+AddReg=All, MfgAddReg, Modem11.AddReg, Internal
+
+[Modem10]	; MicroLink 2460TL
+AddReg=All, MfgAddReg, Modem10.AddReg, External
+
+[Modem9]	; MicroLink 2440TR
+AddReg=All, MfgAddReg, Modem9.AddReg, External
+
+[Modem8]	; MicroLink 2440T
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem6]	; MicroLink 14.4PC
+AddReg=All, MfgAddReg, Modem6.AddReg, Internal
+
+[Modem5]	; MicroLink 14.4TM
+AddReg=All, MfgAddReg, Modem5.AddReg, External
+
+[Mod

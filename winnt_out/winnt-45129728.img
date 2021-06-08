@@ -1,0 +1,32 @@
+ 1, 01, 03, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS - V.42bis compression negotiated
+HKR, Responses, "<cr><lf>COMPRESSION: V.42 BIS<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS - V.42bis compression negotiated
+HKR, Responses, "<cr><lf>COMPRESSION: V.42bis<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS - V.42bis compression negotiated
+HKR, Responses, "<cr><lf>COMPRESSION: V.42 bis<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS - V.42bis compression negotiated
+HKR, Responses, "<cr><lf>COMPRESSION: NONE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; COMPRESSION: NONE - No compression negotiated
+HKR, Responses, "<cr><lf>PROTOCOL: NONE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; PROTOCOL: NONE - Asynchronous mode
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM - V.42 LAPM error-control negotiated
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM - V.42 LAPM error-control negotiated
+HKR, Responses, "<cr><lf>PROTOCOL: ALT<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ALT - Alternative protocol (MNP compatible EC)
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>", 1, 01, 0a, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ALT-CELLULAR
+HKR, Responses, "<cr><lf>PROTOCOL: MNP<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP2<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP3<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP4<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; FAX Error - Action ERROR
+HKR, Responses, "<cr><lf>CONNECT/ARQ<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00 ; CONNECT - Connection at 300 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 300/ARQ<cr><lf>", 1, 02, 02, 2C,01,00,00, 00,00,00,00 ; CONNECT - Connection at 300 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 0600/ARQ<cr><lf>", 1, 02, 02, 58,02,00,00, 00,00,00,00 ; CONNECT 600 - Connection at 600 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00 ; CONNECT 1200 - Connection at 1200 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/ARQ<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/ARQ<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00 ; CONNECT 2400 - Connection at 2400 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ<cr><lf>", 1, 02, 02, C0,12,00,00, 00,00,00,00 ; CONNECT 4800 - Connection at 4800 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ<cr><lf>", 1, 02, 02, 20,1C,00,00, 00,00,00,00 ; CONNECT 7200 - Connection at 7200 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ<cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00 ; CONNECT 9600 - Connection at 9600 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ<cr><lf>", 1, 02, 02, 00,2E,00,00, 00,00,00,00 ; CONNECT 12000 - Connection at 12000 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00 ; CONNECT 14400 - Connection at 14400 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ<cr><lf>", 1, 02, 02, A0,41,00,00, 00,00,00,00 ; CONNECT 16800 - Connection at 16800 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ<cr><lf>", 1, 02, 02, 00,4B,00,00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 21600/ARQ<cr><lf>", 1, 02, 02, 60,54,00,00, 00,00,00,00 ; CONNECT 21600 - Connection at 21600 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 24000/ARQ<cr><lf>", 1, 02, 02, C0,5D,00,00, 00,00,00,00 ; CONNECT 24000 - Connection at 24000 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 26400/ARQ<cr><lf>", 1

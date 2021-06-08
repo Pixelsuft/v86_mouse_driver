@@ -1,0 +1,179 @@
+%1.
+EThe operating system cannot run %1.
+E%1 cannot be run in OS/2 mode.
+EThe operating system cannot run %1.
+E%1 cannot be run in OS/2 mode.
+EThe operating system cannot run %1.
+EThe operating system cannot run %1.
+EThe operating system cannot run this
+application program.
+EThe operating system is not presently
+configured to run this application.
+EThe operating system cannot run %1.
+EThe operating system cannot run this
+application program.
+IThe code segment cannot be greater than or equal to 64KB.
+EThe operating system cannot run %1.
+EThe operating system cannot run %1.
+IThe system could not find the environment
+option that was entered.
+?
+INo process in the command subtree has a
+signal handler.
+EThe file name or extension is too long.
+IThe ring 2 stack is in use.
+IThe global file name characters, * or ? are entered
+incorrectly or too many global file name characters are specified.
+EThe signal being posted is not correct.
+EThe signal handler cannot be set.
+?
+IThe segment is locked and cannot be reallocated.
+?
+EToo many dynamic link modules are attached to this
+program or dynamic link module.
+?
+IThe ring 2 stack is not allowed to shrink.
+?
+?
+EThe Exitlist routine address is not at ring 3.
+?
+?
+?
+?
+EThe specified Presentation Manager (PM) session ID
+could not be selected.
+?
+?
+?
+EThe specified child process does not exist, or there
+are no more child processes to wait for.
+?
+EThe system detected an invalid pipe operation.
+EThe pipe is in use by another process.
+IThere is no data to be read.
+EThe pipe is disconnected.
+EMore data is available.
+?
+?
+?
+?
+?
+EThe network connection is disconnected.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+EThe move or rename operation is not allowed.
+EThe move or rename operation is not allowed.
+EThe specified file system name is not correct.
+EThe specified device name is not correct.
+EAn incorrect extended attribute name was used.
+EThe extended attribute list size is not correct.
+EThe extended attribute list is too long.
+IThe specified file name expression was not found.
+EA timeout occurred before the requested changes could be
+completed.
+IThere are no more attached devices or drives.
+EThe directory search structure is no longer valid.
+IA match for the set of characters used was not found.
+EThe requested stack is too large.
+IThe file system cannot be installed.
+EThe starting address is not at ring 3.
+EThe start routine address for the dynamic link library
+is not at ring 3.
+EThe specified file was not copied.
+IThe directory cannot be copied.
+IThe file is locked by the network process.
+IAn error internal to network file management has occurred.
+?
+?
+?
+?
+?
+?
+EThe extended attributes are corrupted.
+ENo more space is available for extended attributes.
+EThe system cannot find the extended attribute.
+EThe system detected an extended attribute read error.
+EExtended attributes cannot be created on this disk
+or diskette.
+EThe extended attribute system file cannot be opened.
+EThe target file system cannot save extended attributes.
+EThe target file system cannot save extended attributes.
+IThe extended attributes for the file or directory
+were discarded because the target file system does not
+support extended attributes.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+EThe program specified a process identifier that does not exist.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+EThe message passed to the message retriever was
+truncated.
+EThe system cannot find message %1
+in message file %2.
+EMessage file %1 cannot be found.
+EThe system cannot read message file %1.
+EA programming error occurred when
+using the message retriever.
+EThe system cannot display the message.
+?
+?
+?
+?
+?
+?
+?
+?
+EThe specified queue is not owned by the requesting process.
+?
+EThe specified queue name is already in use.
+EThe specified queue element does not exist.
+ENot enough memory is available to process a queue request.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+EThe function masks supplied to either VioRegister
+or VioGlobReg are not cor

@@ -1,0 +1,69 @@
+     set ConcSpeed = *($(TmpConcSpeed),4)
+               Endif
+               set ChildConcList = {}
+               ForListDo {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"}
+                  set CurrentChildConc = "Concentrator"$($)
+                  Ifint $(TraceConfig) == 1
+                     Debug-Output "CurrentChildConc = "$(CurrentChildConc)
+                  Endif
+                  OpenRegKey $(ConcKey) "" $(CurrentChildConc) $(MAXIMUM_ALLOWED) ChildConcKey
+                  Ifstr $(ChildConcKey) != $(KeyNull)
+                     GetRegValue $(ChildConcKey) "ConcDisplayName" ChildConcDisplayName
+                     Ifint $(TraceConfig) == 1
+                        Debug-Output "ChildConcDisplayName = "*($(ChildConcDisplayName),4)
+                     Endif
+                     GetRegValue $(ChildConcKey) "LineSpeed" TmpChildConcSpeed
+                     Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                        Debug-Output "No LineSpeed entry exists for Childconc, defaulting to 14!"
+                        set ChildConcSpeed = 14
+                     Else
+                        set ChildConcSpeed = *($(TmpChildConcSpeed),4)
+                     Endif
+                     ForListDo {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"}
+                        set CurrentPort = "Port"$($)
+                        Ifint $(TraceConfig) == 1
+                           Debug-Output "CurrentPort = "$(CurrentPort)
+                        Endif
+                        OpenRegKey $(ChildConcKey) "" $(CurrentPort) $(MAXIMUM_ALLOWED) PortKey
+                        Ifstr $(PortKey) != $(KeyNull)
+                           GetRegValue $(PortKey) "DosDevices" PortName
+                           Ifstr $(PortNameList) == $(KeyNull)
+                              set PortNameList = *($(PortName),4)
+                           Else
+                              set PortNameList = >($(PortNameList), >($(CurrentPort),*($(PortName),4)))
+                           Endif
+                           Ifint $(TraceConfig) == 1
+                              Debug-Output $(CurrentPort)"->"*($(PortName),4)
+                           Endif
+                           CloseRegKey $(PortKey)
+                        EndIf
+                     EndForListDo
+                     Ifint $(TraceConfig) == 1
+                        Debug-Output "PortNameList = "
+                        LibraryProcedure Result2, $(DGCONFIG_HANDLE), DumpList, $(PortNameList)
+                     Endif
+                     set CurrentChildConc = >($(CurrentChildConc), *($(ChildConcDisplayName),4))
+                     set CurrentChildConc = >($(CurrentChildConc), $(ChildConcSpeed))
+                     set CurrentChildConc = >($(CurrentChildConc), {})
+                     set CurrentChildConc = >($(CurrentChildConc), $(PortNameList))
+                     Ifint $(TraceConfig) == 1
+                        Debug-Output "CurrentChildConc = "
+                        LibraryProcedure Result2, $(DGCONFIG_HANDLE), DumpList, $(CurrentChildConc)
+                     Endif
+                     set ChildConcList = >($(ChildConcList),$(CurrentChildConc))
+                     Ifint $(TraceConfig) == 1
+                        Debug-Output "ChildConcList = "
+                        LibraryProcedure Result2, $(DGCONFIG_HANDLE), DumpList, $(ChildConcList)
+                     Endif
+                  EndIf
+               EndForListDo
+               set PortNameList = {}
+               ForListDo {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"}
+                  set CurrentPort = "Port"$($)
+                  Ifint $(TraceConfig) == 1
+                     Debug-Output "CurrentPort = "$(CurrentPort)
+                  Endif
+                  OpenRegKey $(ConcKey) "" $(CurrentPort) $(MAXIMUM_ALLOWED) PortKey
+                  Ifstr $(PortKey) != $(KeyNull)
+                     GetRegValue $(PortKey) "DosDevices" PortName
+                     Ifstr $(

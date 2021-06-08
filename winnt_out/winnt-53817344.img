@@ -1,0 +1,94 @@
+P874.Reg.96
+AddReg = Font.CP874.Reg.120
+UpdateInis=Font.CP874.Ini
+
+;
+; CP 1258/1258 Vietnamese
+;
+[Font.CP1258.Files]
+app850.fon
+cga40850.fon
+cga80850.fon
+ega40850.fon
+ega80850.fon
+
+[Font.CP1258.Files.96]
+vga850.fon
+vgafix.fon
+vgasys.fon
+coure.fon
+serife.fon
+smalle.fon
+sserife.fon
+
+[Font.CP1258.Files.120]
+8514oem.fon
+8514fix.fon
+8514sys.fon
+courf.fon
+seriff.fon
+smallf.fon
+sseriff.fon
+
+[Font.CP1258.96]
+CopyFiles = Font.CP1258.Files,Font.CP1258.Files.96
+DelReg = Font.CP1258.Reg.120
+AddReg = Font.CP1258.Reg.96
+UpdateInis=Font.CP1258.Ini
+
+[Font.CP1258.120]
+CopyFiles = Font.CP1258.Files,Font.CP1258.Files.120
+DelReg = Font.CP1258.Reg.96
+AddReg = Font.CP1258.Reg.120
+UpdateInis=Font.CP1258.Ini
+
+
+[Font.96]
+
+;
+; Per-OEM-Codepage stuff.
+;
+[Font.CP437.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vgaoem.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vgaoem.fon
+
+[Font.CP737.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafixg.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasysg.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga737.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafixg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasysg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga737.fon
+
+[Font.CP775.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgaf1257.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgas1257.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga775.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgaf1257.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgas1257.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga775.fon
+
+[Font.CP850.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga850.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga850.fon
+
+[Font.CP852.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafixe.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasyse.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga852.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafixe.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasyse.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga852.fon
+
+[Font.CP855.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafixr.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasysr.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","

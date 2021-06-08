@@ -1,0 +1,75 @@
+\Command",,,"""%24%\%PROGDIR%\mlset32.exe"""
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}\InProcServer32",,,"%24%\%PROGDIR%\mlshext.dll"
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}\InProcServer32",ThreadingModel,,"Apartment"
+;HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}\shellex\ContextMenuHandlers\{00020D76-0000-0000-C000-000000000046}"
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}\shellex\PropertySheetHandlers\{00020D76-0000-0000-C000-000000000046}"
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}\ShellFolder",Attributes,1,72,00,00,00
+
+; Put msmail3.x into the bad apps list because Exchange disables it
+;HKLM,SYSTEM\CurrentControlSet\Control\SessionManager\CheckBadApps\MSMAIL.EXE,MSMAIL.HLP,,1025
+;HKLM,SYSTEM\CurrentControlSet\Control\SessionManager\CheckBadApps\MSMAIL.EXE,FlagsMSMAIL.HLP,,"L"
+
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MAPI,Installed,,"0"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MSFS,Installed,,"0"
+
+[SpecialBaseAddReg]
+;
+; Don't whack the Installed= for components that could be part of EMS!
+; See discussion at top of file.
+;
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents,"EMAIL",,"EMAIL"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\EMAIL,INF,,"msmail.inf"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\EMAIL,Section,,"EMAIL"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\EMAIL,Installed,,"0"
+
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents,"MAPI",,"MAPI"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MAPI,INF,,"msmail.inf"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MAPI,Section,,"MSMAIL"
+
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents,"MSFS",,"MSFS"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MSFS,INF,,"msmail.inf"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MSFS,Section,,"MSFS"
+
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents,"IMAIL",,"IMAIL"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\IMAIL,INF,,"msmail.inf"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\IMAIL,Section,,"IMAIL"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\IMAIL,Installed,,"0"
+
+[MAPIAddReg]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MAPI,Installed,,"1"
+
+[MAPIAddReg.Remove]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MAPI,Installed,,"0"
+
+[MSFSAddReg]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MSFS,Installed,,"1"
+
+; Add MSFS extensions
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","MSFS Menu Extensions",,"4.0;msfs32.dll;1;01111111111;1;MSFS"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","MSFS PropSheet Extensions",,"4.0;msfs32.dll;2;01;000001;MSFS"
+
+[MSFSAddReg.Remove]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\MSFS,Installed,,"0"
+
+[MSFSDelReg]
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","MSFS Menu Extensions"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","MSFS PropSheet Extensions"
+
+[IMAILAddReg]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\IMAIL,Installed,,"1"
+
+; Add IMAIL extensions
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","Internet Mail",,"4.0;minet32.dll;2;;;IMAIL"
+
+[IMAILDelReg]
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","Internet Mail"
+
+[IMAILAddReg.Remove]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\IMAIL,Installed,,"0"
+
+[MAPIDelReg]
+; Remove the Inbox wizard if it happens to exist
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{00020D76-0000-0000-C000-000000000046}"
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}"
+
+; Uncomment this to blow away profiles during install

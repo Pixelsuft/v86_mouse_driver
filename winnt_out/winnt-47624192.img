@@ -1,0 +1,113 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Blatzheim Datensysteme
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM35128D02, UNIMODEMA74E9121, UNIMODEME121B63B
+
+[Models]
+%Modem9% = Modem2,UNIMODEME121B63B 				; Generic 2400 Blatz/Mix     
+%Modem8% = Modem3,UNIMODEMA74E9121      			; Generic 14.4 Blatz/Mix
+%Modem7% = Modem7,UNIMODEM35128D02	    			; Generic 28.8 Blatz/Mix
+%Modem6% = Modem6,Blatz_Modem6          			; Starline 28k8 
+%Modem5% = Modem5,Blatz_Modem5          			; GM 144H Vbis+FAX
+%Modem4% = Modem4,UNIMODEM848B6083      			; GM 288 Vbis+fax
+%Modem4% = Modem4,UNIMODEM3D88352E      			; GM 288 Vbis+fax
+%Modem4% = Modem4,Blatz_Modem4,UNIMODEM35128D02      	; GM 288 Vbis+fax
+%Modem3% = Modem3,Blatz_Modem3,UNIMODEMA74E9121      	; GM 144 Vbis+FAX
+%Modem3% = Modem3,UNIMODEMD00E0E11      			; GM 144 Vbis+FAX
+%Modem3% = Modem3,UNIMODEM2923711A      			; GM 144 Vbis+FAX
+%Modem3% = Modem3,UNIMODEM5855326C      			; GM 144 Vbis+FAX
+%Modem2% = Modem2,Blatz_Modem2,UNIMODEME121B63B      	; GM 24 Vbis+Fax
+%Modem1% = Modem1,UNIMODEM4BC1E168      			; Starline 19k2
+
+; Installation sections
+
+[Modem8]	; Generic 14.4 Blatz/Mix
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem7]	; Generic 28.8 Blatz/Mix
+AddReg=All, MfgAddReg, Modem7.AddReg, External
+
+[Modem6]        ; Starline 28k8
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem5]	; GM 144H Vbis+FAX
+AddReg=All, MfgAddReg, Modem3.AddReg, Internal
+
+[Modem4]	; GM 288 Vbis+fax
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem3]	; GM 144 Vbis+FAX
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem2]	; GM 24 Vbis+Fax
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]	; Starline 19k2
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+; AddReg sections
+
+[Modem8.AddReg]	; Generic 14.4 Blatz/Mix
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 0f,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Init,      3,, "AT S95=250 <cr>"
+
+[Modem7.AddReg]	; Generic 28.8 Blatz/Mix
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 0f,00,00,00, 07,00,00,00, 0d,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, InactivityTimeout,, ""
+
+[Modem6.AddReg] ; Starline 28k8
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 0f,00,00,00, 07,00,00,00, 0d,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init,      3,, "AT &F W3 S66=68  <cr>"
+
+[Modem4.AddReg]	;GM 288 Vbis+fax
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 0f,00,00,00, 07,00,00,00, 0d,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem3.AddReg]	;GM 144 Vbis+FAX
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 0f,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Forced,, "\N2"
+
+[Modem2.AddReg]	;GM 24 Vbis+Fax
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F W0 <cr>"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C3"
+
+[Modem1.AddReg]	; Starline 19k2
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 3c,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 00,4b,00,00
+HKR, Init,      3,, "AT &F W3 S66=68  <cr>"
+
+
+; User visible strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Blatzheim Datensysteme"
+
+; Model strings
+Modem9="2400 Vbis+FAX"
+Modem8="14.4 Vbis+FAX"
+Modem7="28.8 Vbis+FAX"
+Modem6="Blatzheim Starline 28k8"
+Modem5="Blatzheim GM 144H Vbis+FAX"
+Modem4="Blatzheim GM 288 Vbis+FAX

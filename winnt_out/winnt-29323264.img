@@ -1,0 +1,142 @@
+[PCIOptions]
+ALANE0
+LEC
+J2585A
+J2585B
+J2973A
+J2970A
+SMC8432
+SMC9232
+SMC9332
+EMPCI
+E10PCI
+E10PPCI
+E100BPCI
+E100BEXP
+IBMFEPCI
+HPTXPCI
+NE100PCI
+A2560PCI
+NetFlex3
+STREAMER
+3C595
+3C590
+3C905
+RTL8029
+OCTK16
+OCE4XMP10
+OCE4XMP100
+O100PCI
+RNSFDDI
+NCPF
+SKFPNT
+SKTOKNT_PCI
+[PCIFilename]
+drvlib.nic\ALANENT\oemsetup.inf
+drvlib.nic\MDGLEC\oemsetup.inf
+drvlib.nic\HPVGP\oemsetup.inf
+drvlib.nic\HPVGP\oemsetup.inf
+drvlib.nic\HPVGP\oemsetup.inf
+drvlib.nic\HPVGP\oemsetup.inf
+drvlib.nic\SMCPCI\oemsetup.inf
+drvlib.nic\SMC9232\oemsetup.inf
+drvlib.nic\SMCPCI\oemsetup.inf
+drvlib.nic\EMPCI\OEMSETUP.INF
+drvlib.nic\E10P\OEMSETUP.INF
+drvlib.nic\E100B\OEMSETUP.INF
+drvlib.nic\E100B\OEMSETUP.INF
+drvlib.nic\E100B\OEMSETUP.INF
+drvlib.nic\IBMFE\OEMSETUP.INF
+drvlib.nic\HPTX\OEMSETUP.INF
+drvlib.nic\NE100\OEMSETUP.INF
+drvlib.nic\AT2560\OEMSETUP.INF
+drvlib.nic\NETFLX3\OEMSETUP.INF
+drvlib.nic\STREAMER\OEMSETUP.INF
+drvlib.nic\3C59X\OEMSETUP.INF
+drvlib.nic\3C59X\OEMSETUP.INF
+drvlib.nic\3C90X\OEMSETUP.INF
+drvlib.nic\RTL8029\OEMSETUP.INF
+drvlib.nic\OCTK16\oemsetup.inf
+drvlib.nic\OCE4XMP\oemsetup.inf
+drvlib.nic\OCE4XMP\oemsetup.inf
+drvlib.nic\O100\OEMSETUP.INF
+drvlib.nic\RNSFDDI\oemsetup.inf
+drvlib.nic\NPPCI\oemsetup.inf
+drvlib.nic\SKFPNT\oemsetup.inf
+drvlib.nic\SKTOKNT\oemsetup.inf
+[PCIOptionsTextENG]
+ALANE0      = "Adaptec ATM LAN Emulation Adapter"
+LEC         = "Madge ATM LAN Emulation Client"
+J2585A      = "HP DeskDirect (J2585A) 10/100 PCI LAN Adapter"
+J2585B      = "HP DeskDirect (J2585B) 10/100 PCI LAN Adapter"
+J2973A      = "HP DeskDirect (J2973A) 10BaseT PCI LAN Adapter"
+J2970A      = "HP DeskDirect (J2970A) 10BaseT/2 PCI LAN Adapter"
+SMC8432     = "SMC 8432 EtherPower PCI Ethernet Adapter"
+SMC9232     = "SMC 9232 Fast Ethernet Adapter"
+SMC9332     = "SMC 9332 EtherPower10/100 PCI Fast Ethernet Adapter"
+EMPCI       = "Cogent eMASTER+ PCI Adapter"
+E10PCI      = "Intel EtherExpress PRO/10 PCI LAN Adapter"
+E10PPCI     = "Intel EtherExpress PRO/10+ PCI Adapter"
+E100BPCI    = "Intel 82557-based 10/100 Ethernet PCI Adapter"
+E100BEXP    = "Intel EtherExpress PRO/100B PCI Adapter"
+IBMFEPCI    = "IBM 100/10 PCI Ethernet Adapter"
+HPTXPCI     = "HP 10/100TX PCI Ethernet Adapter"
+NE100PCI    = "Microdyne NE10/100 PCI Adapter"
+A2560PCI    = "Allied Telesyn AT-2560 Series PCI/100 Ethernet Adapter"
+NetFlex3    = "Compaq NetFlex-3 Controller"
+STREAMER    = "IBM Auto LANStreamer PCI Adapter"
+3C595       = "3Com Fast EtherLink PCI 10/100BASE-T Adapter (3C595)"
+3C590       = "3Com EtherLink III PCI Bus-Master Adapter (3C590)"
+3C905       = "3Com Fast EtherLink XL Adapter (3C905)"
+RTL8029     = "Realtek RTL8029 PCI Adapter"
+OCTK16      = "Olicom Token Ring 16/4 Adapter"
+OCE4XMP10   = "Olicom Ethernet PCI/II 10 Adapter"
+OCE4XMP100  = "Olicom Ethernet PCI/II 10/100 Adapter"
+O100PCI     = "Olicom Ethernet PCI 10/100 Adapter"
+RnsFDDI     = "RNS 2200 PCI FDDI LAN Controller"
+NCPF        = "Network Peripherals NuCard PCI FDDI"
+SKFPNT      = "SysKonnect SK-NET FDDI PCI Adapter"
+SKTOKNT_PCI = "SysKonnect SK-NET Token Ring PCI Adapter"
+[MCAOptions]
+aclser
+SKFMNT
+TC$4046e
+F30XX
+IRMAtrac
+OCTK16
+TKXP16
+WAVELAN_MCA
+XCSPE2
+XCSPE3
+HPMCA
+STREAMER
+NCRTOK
+AT1700
+ELINK527
+QUADENET
+IBMENIIN
+TC$4046e
+[MCAFilename]
+drvlib.nic\SGATE\OEMSETUP.INF
+drvlib.nic\SKFMNT\OEMSETUP.INF
+drvlib.nic\TCTOK\OEMSETUP.INF
+drvlib.nic\CTF30\OEMSETUP.INF
+drvlib.nic\IRMANT\OEMSETUP.INF
+drvlib.nic\OCTK16\OEMSETUP.INF
+drvlib.nic\TKXP16\OEMSETUP.INF
+drvlib.nic\WAVLAN\OEMSETUP.INF
+drvlib.nic\XPE2\OEMSETUP.INF
+drvlib.nic\XPE3\OEMSETUP.INF
+drvlib.nic\HPMCA\OEMSETUP.INF
+drvlib.nic\STREAMER\OEMSETUP.INF
+drvlib.nic\NCRTOK\OEMSETUP.INF
+drvlib.nic\AT1720\OEMSETUP.INF
+drvlib.nic\3C527\OEMSETUP.INF
+drvlib.nic\QUADENET\OEMSETUP.INF
+drvlib.nic\IBMENIIN\OEMSETUP.INF
+drvlib.nic\TCTOK\OEMSETUP.INF
+[MCAOptionsTextENG]
+aclser      = "Star Gate ACL/Avanstar Family Adapter"
+SKFMNT      = "SysKonnect SK-NET MCA FDDI Adapter"
+TC$4046e    = "Thomas-Conrad TC4046 Token Ring Adapter"
+F30XX       = "Cabletro

@@ -1,0 +1,151 @@
+wflowcontrol_off>=\\Q0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<compression_on>=%C1
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI9<cr>
+DETECT_RESPONSE=COMPAQ
+
+COMMAND_INIT=AT&F&C1&D2 V1 W2S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+;----------------------------------------
+[Compaq SpeedPAQ 144 PCMCIA]
+ALIAS=Compaq SpeedPAQ 144
+DETECT_STRING=ATI9<cr>
+DETECT_RESPONSE=COMPAQ
+
+;--------------------------------------------------------------------------------
+; WARNING: The following modem had problems with CALLBACK feature in RAS.
+;--------------------------------------------------------------------------------
+[CXR Telcom 1445]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*LR2*LG2
+<hwflowcontrol_off>=*LR0*LG0
+<protocol_on>=*M2
+<protocol_off>=*M1
+<compression_on>=*E1
+<compression_off>=*E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=1445
+
+COMMAND_INIT=AT&F1<cr>
+COMMAND_INIT=AT&C1&D2 *V1 *N1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><speaker><compression><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+
+;----------------------------------------
+[DataRace RediModem V.32bis]
+;Error control and flow control forced on for stability.
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q3
+<protocol_on>=\\N3
+<protocol_off>=\\N3
+<compression_on>=%C1
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PC Half-Card V.32bis/V.42bis/Fax
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55 W1<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Datatrek 2424AMH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><ignore>
+CONNECT=<cr><lf><h07>CONNECT <connectbps><ignore>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><ignore>
+CONNECT=<cr><lf><h07>CONNECT <connectbps><ignore>
+
+;----------------------------------------
+[Datatrek Elite 624D]
+;Advanced features disabled
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=DataTrek <?><?> <?>.<?><?><?> D32
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+;COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker>-M0\\V0<cr>
+COMMAND_INIT=AT<speaker>-M0\\V0<cr>
+COMMAND_INIT=AT%C0<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+		
+;----------------------------------------
+[Datatrek V.32]
+;Supported as a client modem only
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on

@@ -1,0 +1,105 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: EXP and Angia
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%EXP%
+
+[ControlFlags]
+ExcludeFromSelect=PCMCIA\INTELLIGENT-ANGIA_FAX/MODEM-2682   ; Angia Netherlands + USA combo
+ExcludeFromSelect=PCMCIA\EXP-THINFAX_9624-24D9              ; EXP 9600/2400, EXP Basic
+
+[Manufacturer]
+%EXP% = EXP
+%ANGIA% = ANGIA
+%CreativeLabs% = CreativeLabs
+
+; Modem models
+
+[CreativeLabs]
+%Modem15% = Modem14, PCMCIA\INTELLIGENT-CREATIVE_LABS_MODEM_BLASTER_288-66EC
+%Modem15% = Modem14, UNIMODEM2AE184B5
+
+[ANGIA]
+%Modem14% = Modem14, PCMCIA\INTELLIGENT-ANGIA_FAX/MODEM-D5C4
+%Modem14% = Modem14, UNIMODEMA01C6D2D
+%Modem14% = Modem14, UNIMODEMBF68F0DA
+%Modem13% = Modem13, EXP_Modem13, PCMCIA\INTELLIGENT-ANGIA_FAX/MODEM-2682 ; Angia safejack terbo 19200 Data FAX
+%Modem13% = Modem13, UNIMODEM27391FB3                                     ; Angia safejack terbo 19200 Data FAX
+%Modem13% = Modem13, UNIMODEM8856B9C3                                     ; Angia safejack terbo 19200 Data FAX
+%Modem11% = Modem11, PCMCIA\INTELLIGENT-ANGIA_FAX/MODEM-2682              ; Angia Netherlands + USA combo
+%Modem10% = Modem10, EXP_Modem10, PCMCIA\INTELLIGENT-ANGIA_FAX/MODEM-2682 ; Angia 14.4 PCMCIA (PCM144) - USA
+; bugbug -- rank0 collision with mdmtosh.inf -- commented out until we resolv
+; %Modem10% = Modem10, UNIMODEM39888E6F                                    ; Angia 14.4 PCMCIA (PCM144) - USA
+%Modem9%  = Modem9,  EXP_Modem9, PCMCIA\INTELLIGENT-ANGIA_FAX/MODEM-2682  ; Angia 14.4 PCMCIA (FAX-PCM2-NL) - Netherlands
+
+[EXP]
+%Modem12%= Modem2,  PCMCIA\EXP-THINFAX_9624-24D9                    ; ThinFax BASIC, 9600/2400
+%Modem8% = Modem8,  EXP_Modem8, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874  ; fax/data modem 1414CL PCMCIA
+%Modem8% = Modem8,  EXP_Modem8, UNIMODEM858E1599                    ; fax/data modem 1414CL PCMCIA
+%Modem7% = Modem7,  PCMCIA\EXP-THINFAX_1414I-5671                   ; fax/data modem 14.4i PCMCIA
+%Modem7% = Modem7,  EXP_Modem7, UNIMODEM5C047344                    ; fax/data modem 14.4i PCMCIA
+%Modem6% = Modem6,  PCMCIA\EXP-THINFAX_288-D8A3                     ; fax/data modem 28.8 PCMCIA
+%Modem6% = Modem6,  UNIMODEM36048F4E                                ; fax/data modem 28.8 PCMCIA
+%Modem5% = Modem5,  PCMCIA\EXP-THINFAX_1414-5B67                    ; fax/data modem 14400/14400 PCMCIA
+%Modem4% = Modem4,  PCMCIA\EXP-THINFAX_9696-AB4A                    ; fax/data modem 9600/9600 PCMCIA
+%Modem3% = Modem3,  EXP_Modem3, PCMCIA\EXP-THINFAX_9624-24D9        ; fax/data modem 9600/2400 PCMCIA 
+%Modem2% = Modem2,  EXP_Modem2, PCMCIA\EXP-THINFAX_9624-24D9        ; ThinFax BASIC FAX/DATA PCMCIA Modem
+%Modem1% = Modem1,  EXP_Modem1
+
+; Installation sections
+
+[Modem14]
+AddReg=All, MfgAddReg, Modem14.AddReg, PCMCIA
+
+[Modem13]
+AddReg=All, MfgAddReg, Modem13.AddReg, PCMCIA
+
+[Modem11]
+AddReg=All, MfgAddReg, Modem11.AddReg, PCMCIA
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, PCMCIA
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, PCMCIA
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, PCMCIA
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, PCMCIA
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, PCMCIA
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, PCMCIA
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, PCMCIA
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, PCMCIA
+
+; AddReg sections
+
+[Modem14.AddReg]    ; Angia safejack 28.8, V.34 - no cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Init, 3,, "AT E0 V1 W2<cr>"
+HKR, Init, 4,, "AT &C1 &D2 \V1<cr>"
+HKR, Settings, Compression_On,, "%%C1"
+
+[Modem13.AddReg]    ; Angia safejack terbo 19200 Data FAX
+HKR,, Properties, 1, 80,01,00,00, ff,00,00

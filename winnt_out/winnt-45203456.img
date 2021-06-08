@@ -1,0 +1,102 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Rockwell 
+; Supports Rockwell PCMCIA voice modems
+
+[Version]
+; LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%MS%
+
+[Manufacturer]
+%Rockwell% = Rockwell
+%Connectware% = Connectware
+
+[Rockwell]
+%Modem17% = Modem17, PCMCIA\RIPICAB-RC144ACL-3BD0
+%Modem18% = Modem18, PCMCIA\RIPICAB-RC288ACL-0755
+%Modem18% = Modem18, UNIMODEMBB081B33
+
+
+[Connectware]
+%Modem19% = Modem18, PCMCIA\CONNECTWARE-PhoneWorks_28.8_To_Go!-339D  
+%Modem19% = Modem18, UNIMODEMC82699F0  
+
+[Modem17]       
+AddReg=All, MfgAddReg, ROCKWELL_VOICE, Modem17.AddReg, PCMCIA
+
+[Modem18]
+AddReg=All, MfgAddReg, ROCK_VOICE_ALL, ROCK_VOICE_SERWAVE, ROCKWELL_VOICE, Modem18.AddReg, PCMCIA
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[Modem17.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem18.AddReg]     
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[ROCKWELL_VOICE]
+HKR,, VoiceProfile,         1, 27,02,48,00
+HKR,, VoiceManufacturerID,  1, 01,00
+HKR,, VoiceProductIDWaveIn, 1, 80,00
+HKR,, VoiceProductIDWaveOut,1, 81,00
+
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+
+HKR,, SpeakerPhoneSpecs,       1, 00,00,00,00,  0f,00,00,00,  03,00,00,00,  00,00,00,00
+HKR, SpeakerPhoneEnable,      1,, "at#vls=5<cr>"
+HKR, SpeakerPhoneDisable,     1,, "at#vls=0<cr>"
+HKR, SpeakerPhoneMute,        1,, "at<cr>"
+HKR, SpeakerPhoneUnMute,      1,, "at<cr>"
+HKR, SpeakerPhoneSetVolumeGain,  1,, "at<cr>"
+
+HKR,, HandsetCloseDelay,         1, 05,00,00,00
+HKR,, ForwardDelay,            1,88,13    
+HKR, CloseHandset,                   1,, "at#cls=0<cr>"
+HKR, StartPlay,               1,, "at#vtx<cr>"
+HKR, StopPlay,                1,, "None"
+HKR, StopPlay,                2,, "NoResponse"
+HKR, StartRecord,             1,, "at#vrx<cr>"
+HKR, StopRecord,              1,, "None"
+HKR, StopRecord,              2,, "NoResponse"
+HKR,, TerminateRecord,,      "<h10>E<cr>at<cr>"
+HKR,, TerminatePlay,,        "<h10><h03>at<cr>"
+HKR,, AbortPlay,,            "<h10><h18>at<cr>"
+HKR, LineSetPlayFormat,       1,, "at#vls=0<cr>"
+HKR, LineSetRecordFormat,     1,, "None"
+HKR, LineSetRecordFormat,     2,, "NoResponse"
+HKR, HandsetSetRecordFormat,   1,,"at#vsr=7200<cr>"
+HKR, HandsetSetRecordFormat,   2,,"at#vbs=4<cr>"
+HKR, HandsetSetPlayFormat,     1,,"at#vsr=7200<cr>"
+HKR, HandsetSetPlayFormat,     2,,"at#vbs=4<cr>"
+HKR, OpenHandset,               1,, "at#cls=8<cr>"
+HKR, OpenHandset,               2,, "at#vls=2<cr>"
+HKR, VoiceAnswer,               1,, "at#cls=8<cr>"
+HKR, VoiceAnswer,               2,, "at#vls=0<cr>"
+HKR, VoiceAnswer,               3,, "at#vbt=1<cr>"
+HKR, VoiceAnswer,               4,, "at#vsr=7200<cr>"
+HKR, VoiceAnswer,               5,, "at#vbs=4<cr>"
+HKR, VoiceAnswer,               6,, "ats30=60<cr>"
+HKR, VoiceAnswer,               7,, "ata<cr>"
+HKR, VoiceDialNumberSetup,               1,, "at#cls=8<cr>"
+HKR, VoiceDialNumberSetup,               2,, "at#vls=0<cr>"
+HKR, VoiceDialNumberSetup,               3,, "at#vrn=0<cr>"
+HKR, VoiceDialNumberSetup,               4,, "at#vbt=1<cr>"
+HKR, VoiceDialNumberSetup,               5,, "at#vsr=7200<cr>"
+HKR, VoiceDialNumberSetup,               6,, "at#vbs=4<cr>"
+HKR, VoiceDialNumberSetup,               7,, "ats30=60<cr>"
+HKR, GenerateDigit,               1,, "at#vts=<Digit><cr>"
+HKR,, CallerIDPrivate,, P
+HKR,, CallerIDOutSide,, O
+HKR,, VariableTerminator,,<cr><lf>
+
+HKR, Responses, "<cr><lf>VCON<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATE = ", 1, 93, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "TIME = ", 1, 94, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NMBR = ", 1, 95, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses,

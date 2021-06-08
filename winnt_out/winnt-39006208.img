@@ -1,0 +1,148 @@
+N(curr$)
+    END IF
+    RETURN
+
+GetStringGetKey:
+    Kbd$ = ""
+    WHILE Kbd$ = ""
+        Kbd$ = INKEY$
+    WEND
+    RETURN
+END FUNCTION
+
+'Initialize:
+'  Read colors in and set up assembly routines
+SUB Initialize
+
+    WIDTH , 25
+    VIEW PRINT
+
+    FOR ColorSet = 1 TO 4
+        FOR X = 1 TO 10
+            READ colors(X, ColorSet)
+        NEXT X
+    NEXT ColorSet
+
+    LoadState
+
+    P = VARPTR(ScrollUpAsm(1))
+    DEF SEG = VARSEG(ScrollUpAsm(1))
+    FOR I = 0 TO 13
+       READ J
+       POKE (P + I), J
+    NEXT I
+
+    P = VARPTR(ScrollDownAsm(1))
+    DEF SEG = VARSEG(ScrollDownAsm(1))
+    FOR I = 0 TO 13
+       READ J
+       POKE (P + I), J
+    NEXT I
+
+    DEF SEG
+
+END SUB
+
+'Intro:
+'  Display introduction screen.
+SUB Intro
+    SCREEN 0
+    WIDTH 80, 25
+    COLOR 7, 0
+    CLS
+
+    Center 4, "Q B a s i c"
+    COLOR 15
+    Center 5, "‹     ‹ ‹‹‹‹ ‹   ‹ ‹‹‹‹ ‹   ‹      ‹     ‹ ‹‹‹‹ ‹   ‹ ‹‹‹‹ ‹‹‹‹‹ ‹‹‹‹ ‹‹‹‹‹"
+    Center 6, "€ﬂ‹ ‹ﬂ€ €  € €‹  € €    €‹‹‹€      €ﬂ‹ ‹ﬂ€ €  € €‹  € €  € €     €    €   €"
+    Center 7, "€  ﬂ  € €  € € ﬂ‹€ €ﬂﬂﬂ   €        €  ﬂ  € €ﬂﬂ€ € ﬂ‹€ €ﬂﬂ€ € ﬂﬂ€ €ﬂﬂﬂ €ﬂ€ﬂﬂ"
+    Center 8, "€     € €‹‹€ €   € €‹‹‹   €        €     € €  € €   € €  € €‹‹‹€ €‹‹‹ €  ﬂ‹"
+    COLOR 7
+    Center 11, "A Personal Finance Manager written in"
+    Center 12, "MS-DOS QBasic"
+    Center 24, "Press any key to continue"
+
+    SparklePause
+END SUB
+
+'LCenter:
+'  Center TEXT$ on the line printer
+SUB LCenter (text$)
+    LPRINT TAB(41 - LEN(text$) / 2); text$
+END SUB
+
+'LoadState:
+'  Load color preferences and account info from MONEY.DAT
+SUB LoadState
+
+    OPEN "money.dat" FOR INPUT AS #1
+    INPUT #1, ColorPref
+
+    FOR a = 1 TO 19
+        LINE INPUT #1, account(a).Title
+        LINE INPUT #1, account(a).AType
+        LINE INPUT #1, account(a).Desc
+    NEXT a
+    
+    CLOSE
+
+END SUB
+
+'Menu:
+'  Handles Menu Selection for a single menu (either sub menu, or menu bar)
+'  currChoiceX  :  Number of current choice
+'  maxChoice    :  Number of choices in the list
+'  choice$()    :  Array with the text of the choices
+'  itemRow()    :  Array with the row of the choices
+'  itemCol()    :  Array with the col of the choices
+'  help$()      :  Array with the help text for each choice
+'  barMode      :  Boolean:  TRUE = menu bar style, FALSE = drop down style
+'
+'  Returns the number of the choice that was made by changing currChoiceX
+'  and returns the scan code of the key that was pressed to exit
+'
+FUNCTION Menu (CurrChoiceX, MaxChoice, choice$(), ItemRow(), ItemCol(), help$(), BarMode)
+   
+    currChoice = CurrChoiceX
+
+    'if in bar mode, color in menu bar, else color box/shadow
+    'bar mode means you are currently in the menu bar, not a sub menu
+    IF BarMode THEN
+        COLOR colors(7, ColorPref), colors(4, ColorPref)
+        LOCATE 1, 1
+        PRINT SPACE$(80);
+    ELSE
+        FancyCls colors(2, ColorPref), colors(1, ColorPref)
+        COLOR colors(7, ColorPref), colors(4, ColorPref)
+        Box ItemRow(1) - 1, ItemCol(1) - 1, ItemRow(MaxChoice) + 1, ItemCol(1) + LEN(choice$(1)) + 1
+        
+        COLOR colors(10, ColorPref), colors(6, ColorPref)
+        FOR a = 1 TO MaxChoice + 1
+            LOCATE ItemRow(1) + a - 1, ItemCol(1) + LEN(choice$(1)) + 2
+            PRINT CHR$(178); CHR$(178);
+        NEXT a
+        LOCATE ItemRow(MaxChoice) + 2, ItemCol(MaxChoice) + 2
+        PRINT STRING$(LEN(choice$(MaxChoice)) + 2, 178);
+    END IF
+    
+    'print the choices
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    FOR a = 1 TO MaxChoice
+        LOCATE ItemRow(a), ItemCol(a)
+        PRINT choice$(a);
+    NEXT a
+
+    finished = FALSE
+
+    WHILE NOT finished
+        
+        GOSUB MenuShowCursor
+        GOSUB MenuGetKey
+        GOSUB MenuHideCursor
+
+        SELECT CASE Kbd$
+            CASE CHR$(0) + "H": GOSUB MenuUp
+            CASE CHR$(0) + "P": GOSUB MenuDown
+            CASE CHR$(0) + "K": GOSUB MenuLeft
+            CASE CHR$(0) + "M": GOSUB MenuRight
+            CASE CHR$(13): GOSUB 

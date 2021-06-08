@@ -1,0 +1,92 @@
+numerating MEDIAS\ISDN key."
+            CloseRegKey $(KeyIsdn)
+            set Status = STATUS_SUCCESSFUL
+            goto UpgradeIsdnInfoEnd
+        endif
+        QueryListSize IsdnPorts $(PortList)
+        ifint $(IsdnPorts) == 0
+            set Status = STATUS_SUCCESSFUL
+            CloseRegKey $(KeyIsdn)
+            goto UpgradeIsdnInfoEnd
+        endif
+        set MediaType = "ISDN"
+        set Addresses = {}
+        OpenRegKey $(!REG_H_LOCAL) "" $(PcimacName) +
+                                               $(!MAXIMUM_ALLOWED) KeyPcimac
+        ifstr $(KeyPcimac) != $(KeyNull)
+            GetRegValue $(KeyPcimac), "Address", AddressList
+            ifint $(RegLastError) == 0
+                set Addresses = *($(AddressList), 4)
+            endif
+            GetRegValue $(KeyPcimac), "Media Type", MediaValue
+            ifint $(RegLastError) == 0
+                set MediaType = *($(MediaValue), 4)
+            endif
+            CloseRegKey $(KeyPcimac)
+        else
+            Debug-Output "UpgradeIsdnInfo: error opening DEVICEMAP\TAPI DEVICES\PCIMAC key."
+            CloseRegKey $(KeyIsdn)
+            goto UpgradeIsdnInfoEnd
+        endif
+        set AddressList = {}
+        set NameList    = {}
+        set UsageList   = {}
+        set index = 1
+        forlistdo $(PortList)
+           set Address =  *($(Addresses), $(index))
+           set-add index = $(index) , 1
+           set AddressList = >($(AddressList), $(Address))
+           set PortName = *($($), 1)
+           set NameList = >($(NameList), Pcimac$(PortName))
+           OpenRegKey $(KeyIsdn) "" $(PortName) $(!MAXIMUM_ALLOWED) KeyPort
+           ifstr $(KeyPort) != $(KeyNull)
+             GetRegValue $(KeyPcimac), "Usage", UsageValue
+             ifint $(RegLastError) == 0
+                 set Usage = *($(UsageValue), 4)
+                 set UsageList = >($(UsageList), $(Usage))
+             else
+                Debug-Output "UpgradeIsdnInfo: error reading usage "$(PortName)
+                set UsageList = >($(UsageList), "Client")
+             endif
+             CloseRegKey $(KeyPort)
+           else
+             Debug-Output "UpgradeIsdnInfo: error opening key "$(PortName)
+             set UsageList = >($(UsageList), "Client")
+           endif
+        endforlistdo
+        set KeyTapi = $(KeyNull)
+        CreateRegKey $(!REG_H_LOCAL) +
+                 {$(TapiName),$(NoTitle),GenericClass}  +
+                  "" $(!MAXIMUM_ALLOWED) "" KeyTapi
+        ifstr $(KeyTapi) != $(KeyNull)
+            CreateRegKey $(KeyTapi) +
+                 {"Pcimac" ,$(NoTitle),GenericClass} +
+                 "" $(!MAXIMUM_ALLOWED) "" KeyPcimac
+            ifstr $(KeyPcimac) != $(KeyNull)
+                Debug-Output "UpgradeIsdnInfo: MediaType "$(MediaType)
+                Debug-Output "UpgradeIsdnInfo: Addresses "$(AddressList)
+                Debug-Output "UpgradeIsdnInfo: Names  "$(NameList)
+                Debug-Output "UpgradeIsdnInfo: Usage  "$(UsageList)
+                SetRegValue $(KeyPcimac) {"Media Type", 0, +
+				                   $(!REG_VT_SZ),$(MediaType)}
+                SetRegValue $(KeyPcimac) {"Address", 0, +
+				                   $(!REG_VT_MULTI_SZ),$(AddressList)}
+                SetRegValue $(KeyPcimac) {"Friendly Name", 0, +
+				                   $(!REG_VT_MULTI_SZ),$(NameList)}
+                SetRegValue $(KeyPcimac) {"Usage", 0, +
+				                   $(!REG_VT_MULTI_SZ),$(UsageList)}
+                CloseRegKey $(KeyPcimac)
+            else
+                Debug-Output "UpgradeIsdnInfo: error creating RAS\TAPI DEVICES\Pcimac key"
+            endif
+        else
+             Debug-Output "UpgradeIsdnInfo: error creating RAS\TAPI DEVICES key"
+        endif
+        CloseRegKey $(KeyIsdn)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasKeyName) +
+                                      $(!MAXIMUM_ALLOWED) KeyRas
+        ifstr $(KeyRas) != $(KeyNull)
+            DeleteRegTree $(KeyRas) "Media"
+            CloseRegKey $(KeyRas)
+        endif
+        set KeyRasman = $(Ke

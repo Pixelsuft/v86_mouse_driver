@@ -1,0 +1,105 @@
+; SCSI.INF -- This file contains descriptions of all the SCSI
+;             Host Adapters supported in Windows NT
+
+; Copyright (c) 1993-1996, Microsoft Corporation
+
+[version]
+signature="$Windows NT$"
+Class=SCSIAdapter
+ClassGUID={4D36E97B-E325-11CE-BFC1-08002BE10318}
+Provider=%Msft%
+LayoutFile=layout.inf
+
+[DestinationDirs]
+DefaultDestDir = 12 ; DIRID_DRIVERS
+
+[ControlFlags]
+;
+; Exclude the following devices from Select Device list.
+; These represent 'combination' driver nodes, for which there are separate items to be
+; presented to the user.  These combination nodes are only used when figuring out what
+; driver node to associate with a pre-existing service.
+;
+ExcludeFromSelect = SPARROW_SCSI, ARROW_SCSI, BUSLOGIC_SCSI, DPTSCSI_SCSI, FD16_700_SCSI, ATAPI_SCSI
+ExcludeFromSelect = DAC960NT_SCSI, SYMC810_SCSI, NCR53C9X_SCSI, NCRC710_SCSI, FD8XX_SCSI, MITSUMI_SCSI
+
+;
+; Exclude the following devices from the platforms where they are not available.
+;
+ExcludeFromSelect.NTPPC = CPQARRAY_SCSI, DELLDSA_SCSI, *ADP1740, *ADP7770, *ADP7771, *ADP2840, AMI0NT_SCSI, mca_7f4c, mca_7f4d, mca_7f4f, MF\EISA_ZDS2000_DEV2, OLISCSI_SCSI, mca_004e, mca_01ba, *pnpa003, *ctl2001, *pnpA02B, *USC0140, *USC0141
+ExcludeFromSelect.NTPPC = mca_01bb, *CPQ4410, *CPQ4411, mca_8eff, *PNPA022, *WDC2001, *FDC0950, *pnpa030, *pnpa031, *pnpa032, *USC0142, *USC0143, *USC0240, FLASHPNT_SCSI, CPQFWS2E_SCSI
+ExcludeFromSelect.NTAlpha = mca_7f4c, mca_7f4d, mca_7f4f, MF\EISA_ZDS2000_DEV2, OLISCSI_SCSI, mca_004e, mca_01ba, mca_01bb, *CPQ4410, *CPQ4411, mca_8eff, *PNPA022, *WDC2001, *FDC0950, *pnpa030, *pnpa031, *pnpa032, *pnpa003, *ctl2001, *pnpA02B
+ExcludeFromSelect.NTAlpha = *USC0140, *USC0141, *USC0142, *USC0143, *USC0240, FLASHPNT_SCSI, CPQFWS2E_SCSI
+ExcludeFromSelect.NTMIPS = MF\EISA_ZDS2000_DEV2, *CPQ4410, *CPQ4411, mca_8eff, *PNPA022, *WDC2001, *FDC0950, *pnpa030, *pnpa031, *pnpa032, *pnpa003, *ctl2001, *pnpA02B, *USC0140, *USC0141, *USC0142, *USC0143, *USC0240, FLASHPNT_SCSI, CPQFWS2E_SCSI
+
+;
+; Exclude the generic (non-PCI) IDE description from all platforms.  We can't do this globally (i.e.,
+; "ExcludeFromSelect" with no suffix) because then we'll think it was hidden because we wanted that to
+; be the migration name.
+;
+ExcludeFromSelect.NTPPC = *PNP0600
+ExcludeFromSelect.NTAlpha = *PNP0600
+ExcludeFromSelect.NTMIPS = *PNP0600
+ExcludeFromSelect.NTx86 = *PNP0600
+
+[Manufacturer]
+%StdMfg%=StdMfg
+%ADP%=ADAPTEC
+%AMD%=AMD
+%AMI%=AMI
+%BLCName%=BLCDevices
+%COMPAQ%=COMPAQ
+%DELL%=DELL
+%DPT%=DPT
+%FDC%=FUTURED
+%MYLEX%=MYLEX
+%NCR%=NCR
+%QLOGIC%=QLOGIC
+%ZENITH%=ZENITH
+%OLIVETTI%=OLIVETTI
+%IBM%=IBM
+%SYMBIOS%=SYMBIOS
+%MITSUMI%=MITSUMI
+%PANASONIC%=PANASONIC
+%SONY%=SONY
+%ULTRASTOR%=ULTRASTOR
+
+
+;********************************
+;Adaptec Manufacturer device list
+[ADAPTEC]
+%aha154x.DeviceDesc%  = aha154x_Inst,  *ADP1540
+%*ADP1542.DeviceDesc% = aha154x_Inst,  *ADP1542
+%*ADP1542.DeviceDesc% = aha154x_Inst,  *ADP4215
+%aha174x.DeviceDesc%  = aha174x_Inst,  *ADP1740
+%sparrow.DeviceDesc%  = sparrow_Inst,  SPARROW_SCSI
+%*ADP1510.DeviceDesc% = sparrow_Inst,  *ADP1510
+%*ADP1515.DeviceDesc% = sparrow_Inst,  *ADP1515
+%*ADP1520.DeviceDesc% = sparrow_Inst,  *ADP1520
+%*ADP6360.DeviceDesc% = sparrow_Inst,  *ADP6360
+%arrow.DeviceDesc%    = arrow_Inst,    ARROW_SCSI
+%*ADP7770.DeviceDesc% = arrow_Inst,    *ADP7770, *ADP7771
+%*ADP2840.DeviceDesc% = arrow_Inst,    *ADP2840
+%aic78xx.DeviceDesc%  = aic78xx_Inst,  PCI\VEN_9004&DEV_7178
+%aha2920.DeviceDesc%  = fd16_700_Inst, *FDC0000
+%ADP460.DeviceDesc%   = sparrow_Inst,  PCMCIA\Adaptec__Inc.-APA-460_16-Bit_PCMCIA_to_SCSI_Host_Adapter-96E6
+
+[aha154x_Inst]
+CopyFiles = @aha154x.sys
+Reboot
+
+[aha154x_Inst.Services]
+AddService = aha154x, %SPSVCINST_ASSOCSERVICE%, aha154x_Service_Inst, Miniport_EventLog_Inst
+
+[aha154x_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\aha154x.sys
+LoadOrderGroup = SCSI Miniport
+
+[aha174x_Inst]
+CopyFiles = @aha174x.sys
+Reboot
+
+[a

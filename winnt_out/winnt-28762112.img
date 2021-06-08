@@ -1,0 +1,108 @@
+[Identification]
+   OptionType = NetTransport
+[Options]
+   ATALK
+[GeneralConstants]
+UtilInf                     = "UTILITY.INF"
+SubInf                      = "SUBROUTN.INF"
+!KeyNull                    = ""
+!ACCESS                     = 33554432
+!SERVICE_NO_CHANGE          = 4294967295
+RegistryErrorIndex	    = NO_ERROR
+KeyProduct                  = ""
+KeyParameters		    = ""
+TRUE                        = 1
+FALSE                       = 0
+NoTitle                     = 0
+ProductInfName		    = "oemnxpsm.inf"
+[FileConstants]
+Manufacturer		= "Microsoft"
+ProductMajorVersion = "4"
+ProductMinorVersion = "0"
+ProductVersion		= $(ProductMajorVersion)"."$(ProductMinorVersion)
+SFMKeyName		= $(!NTN_SoftwareBase)"\"$(Manufacturer)"\SFM\CurrentVersion"
+ATALKKeyName	= $(!NTN_SoftwareBase)"\"$(Manufacturer)"\AppleTalk\CurrentVersion"
+ProductOpSupport     = 134 
+IsInitialInstall	= 0
+SFMUnattended		= 0
+AtalkPerfLibraryName      = "atkctrs.dll"
+AtalkPerfOpenFunction     = "OpenAtkPerformanceData"
+AtalkPerfCloseFunction    = "CloseAtkPerformanceData"
+AtalkPerfCollectFunction  = "CollectAtkPerformanceData"
+AtalkCounterFileName      = "atkctrs.ini"
+AtalkEventLogName         = "atkctrs"
+!PerfKeyName              = "Performance"
+UtilDll                  = "sfmutil.dll"
+ResDll                   = "sfmres.dll"
+NtNetIniFileName         = $(!STF_WINDOWSSYSPATH)"\ntnet.ini"
+WinFileIniFileName       = $(!STF_WINDOWSSYSPATH)"\winfile.ini"
+AfpMgrCplFile            = "sfmmgr.cpl"
+SrvMgrIniSection         = "SMAddons"
+WinFileIniSection        = "Addons"
+AtWinSockDll             = "sfmwshat.dll"
+!EventLogKey             = $(!NTN_ServiceBase)"\EventLog\Application"
+ProductATALKName        = "AppleTalk"
+ProductATALKImagePath   = "%SystemRoot%\system32\drivers\sfmatalk.sys"
+ProductATALKSvcType     = "kernel"
+ProductATALKType        = "transport"
+ProductATALKEventDll    = "%SystemRoot%\system32\sfmatmsg.dll"
+NetRuleATALKType        = "appletalk appletalktransport"
+NetRuleATALKUse         = $(ProductATALKType)" none none"
+NetRuleATALKBindForm    = """appletalk"" yes yes container"
+NetRuleATALKClass       = {"appletalktransport basic "}
+NetRuleATALKBindList    = {"appletalktransport ndisDriver non non 100", +
+                           "appletalktransport ltkndisDriver non exclusive 100" }
+[Identify]
+   read-syms Identification
+   set Status     = STATUS_SUCCESSFUL
+   set Identifier = $(OptionType)
+   set Media      = #("Source Media Descriptions", 1, 1)
+   Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+   set Status        	= STATUS_FAILED
+   set OptionList     	= {}
+   set OptionTextList 	= {}
+   set LanguageList 	= ^(LanguagesSupported, 1)
+   Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+   else
+	  set Status = STATUS_NOLANGUAGE
+      goto finish_ReturnOptions
+   endif
+returnoptions = +
+   set OptionList     = ^(Options, 1)
+   set OptionTextList = ^(OptionsText$($0), 1)
+   set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+   Return $(Status) $(OptionList) $(OptionTextList)
+[date]
+Now     = {} ? $(!LIBHANDLE) GetSystemDate
+[InstallOption]
+   set Status   = STATUS_FAILED
+   set Option   = $($1)
+   set SrcDir   = $($2)
+   Set AddCopy  = $($3)
+   Set DoCopy   = $($4)
+   Set DoConfig = $($5)
+   set LanguageList = ^(LanguagesSupported, 1)
+   Ifcontains(i) $($0) NOT-IN $(LanguageList)
+	  return STATUS_NOLANGUAGE
+   EndIf
+   detect date
+   set-subst LF = "\n"
+   set-subst CR = "\r"
+   read-syms GeneralConstants
+   read-syms FileConstants
+   read-syms DialogConstants$(!STF_LANGUAGE)
+   read-syms FileConstants$(!STF_LANGUAGE)
+   set-title  $(FunctionTitle)
+   set CommonStatus = STATUS_SUCCESSFUL
+Begin = +
+   IfStr(i) $(!NTN_InstallMode)    ==      deinstall
+	  Set StartLabel = RemoveAdmin
+	  Set REMOVE_SOFTWARE = {}
+	  Set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(Product$(Option)Name))
+   else-Ifstr(i) $(!NTN_InstallMode) == Update
+	  set StartLabel = UpgradeAdmin
+   else-Ifstr(i) $(!NTN_InstallMode) == configure
+	  	 goto

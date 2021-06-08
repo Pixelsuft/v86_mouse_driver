@@ -1,0 +1,80 @@
+ses, "PROTOCOL: LAPM/AFT",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M/AFT",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT-CELLULAR",           1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP2",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP3",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP4",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "AUTOSTREAM: LEVEL 1", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "AUTOSTREAM: LEVEL 2", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "AUTOSTREAM: LEVEL 3", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+; --------------------------------------------------
+; Model AddReg sections
+
+[GenReg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,c2,01,00, 00,c2,01,00
+
+[Gen3Reg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 2c,01,00,00, 2c,01,00,00
+HKR,, DCB, 1, 1C,00,00,00, 2C,01,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+[Gen12Reg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, b0,04,00,00, b0,04,00,00
+HKR,, DCB, 1, 1C,00,00,00, B0,04,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+[Gen24Reg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 80,25,00,00, 60,09,00,00
+HKR,, DCB, 1, 1C,00,00,00, 60,09,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+[Gen24NFCReg] ; No Flow Control
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 80,25,00,00, 60,09,00,00
+HKR,, DCB, 1, 1C,00,00,00, 60,09,00,00, 11,00,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+[Gen96Reg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,96,00,00, 80,25,00,00
+HKR,, DCB, 1, 1C,00,00,00, 80,25,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+[Gen144Reg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, DCB, 1, 1C,00,00,00, 00,4B,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+[Gen192Reg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,c2,01,00, 00,4b,00,00
+HKR,, DCB, 1, 1C,00,00,00, 00,4B,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+[Gen288Reg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, DCB, 1, 1C,00,00,00, 00,96,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+; --------------------------------------------------
+[Strings]
+MS = "Microsoft"
+
+Avtek="Avtek"
+Avtek1="Avtek PC MegaData Fax"
+Avtek2="Avtek MegaData Fax"
+Avtek3="Avtek MegaPlus Fax 1234"
+Avtek4="Avtek MegaPlus Fax V.32bis"
+Avtek5="Avtek Mini Pocket Fax"
+Avtek6="Avtek MegaData Fax 144"
+Avtek7="Avtek MegaPlus Fax V.34"
+Avtek8="Avtek MegaPlus Fax 288"
+
+Banksia="Banksia"
+Banksia1 ="Banksia MyModem V.32bis Fax"
+Banksia2 ="Banksia MyFastModem 28.8 Fax"
+Banksia3 ="Banksia MyFastModem 28.8 V.34 Fax"
+Banksia4 ="Banksia MyVoiceModem"
+Banksia5 ="Banksia MyPocketModem"
+Banksia6 ="Banksia MyInModem V.32bis Fax"
+Banksia7 ="Banksia MyFastInModem"
+Banksia8 ="Banksia Blitzer V.32bis Fax"
+Banksia9 ="Banksia Joey"
+Banksia10="Banksia Bit Blitzer MX-5 V.32"
+Banksia11="Banksia Bit Blitzer MX-5S V.32bis"
+Banksia12="Banksia Bit Blitzer MX-6 V.32bis Fax"
+Banksia13="Banksia ProModem MX-5W V.32 Fax"
+Banksia14="Banksia ProModem MX-6W V.32bis Fax"

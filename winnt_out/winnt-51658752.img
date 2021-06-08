@@ -1,0 +1,87 @@
+LM,"SOFTWARE\Microsoft\Windows\CurrentVersion\URL\Prefixes","ftp.",2,"ftp://"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\URL\Prefixes","gopher.",2,"gopher://"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\URL\Prefixes","home.",2,"http://"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\URL\Prefixes","mosaic.",2,"http://"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\URL\Prefixes","www.",2,"http://"
+
+HKCU,"SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings","EnableAutodisconnect",3,01,00,00,00
+HKCU,"SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings","DisconnectIdleTime",3,14,00,00,00
+HKCU,"SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings","EnableSecurityCheck",3,01,00,00,00
+
+HKLM,"System\CurrentControlSet\Services\Winsock\Autodial","AutodialDllName32",2,"url.dll"
+HKLM,"System\CurrentControlSet\Services\Winsock\Autodial","AutodialFcnName32",2,"AutodialHookCallback"
+
+HKLM,"Software\Microsoft\Windows\CurrentVersion\App Paths\IEXPLORE.EXE",,2,"%24%\%LONG_INET_PROGRAMS%\IEXPLORE.EXE"
+HKLM,"Software\Microsoft\Windows\CurrentVersion\App Paths\IEXPLORE.EXE","Path",2,"%24%\%LONG_INET_PROGRAMS%;"
+
+
+[DoNotRemove.Add.Reg]
+HKCR,"exefile","EditFlags",3,"D8,07,00,00"
+HKCR,".htm",,2,"htmlfile"
+HKCR,".html",,2,"htmlfile"
+HKCR,"htmlfile",,2,"%IDHTML%"
+HKCR,"htmlfile\DefaultIcon",,2,"%24%\%LONG_INET_PROGRAMS%\IExplore.exe,1"
+HKCR,"htmlfile\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"htmlfile\shell\open\ddeexec",,2,"""file:%1"",,-1,,,,,"
+HKCR,"htmlfile\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"htmlfile\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,".au",,2,"aufile"
+HKCR,".au","Content Type",2,"audio/basic"
+
+HKCR,".snd",,2,"aufile"
+HKCR,".snd","Content Type",2,"audio/basic"
+
+HKCR,"aufile",,2,"%AUSOUND%"
+HKCR,"MIME\Database\Content Type\audio/basic","Extension",2,".au"
+
+HKCR,"aufile\DefaultIcon",,2,"MPlay32.exe,2"
+HKCR,"aufile\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"aufile\shell\open\ddeexec",,2,"""file:%1"",,-1,,,,,"
+HKCR,"aufile\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"aufile\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+HKCR,"soundrec","EditFlags",3,00,00,01,00
+HKCR,"avifile","EditFlags",3,00,00,01,00
+HKCR,"midfile","EditFlags",3,00,00,01,00
+HKCR,"mplayer","EditFlags",3,00,00,01,00
+
+
+HKCR,".wav","Content Type",2,"audio/wav"
+HKCR,"MIME\Database\Content Type\audio/wav","Extension",2,".wav"
+HKCR,"MIME\Database\Content Type\audio/x-wav","Extension",2,".wav"
+
+HKCR,".movie","Content Type",2,"video/x-sgi-movie"
+HKCR,"MIME\Database\Content Type\video/x-sgi-movie","Extension",2,".movie"
+
+HKCR,".qt","Content Type",2,"video/quicktime"
+HKCR,".mov","Content Type",2,"video/quicktime"
+HKCR,"MIME\Database\Content Type\video/quicktime","Extension",2,".qt"
+
+HKCR,".mpeg","Content Type",2,"video/mpeg"
+HKCR,".mpg","Content Type",2,"video/mpeg"
+HKCR,".mpe","Content Type",2,"video/mpeg"
+HKCR,"MIME\Database\Content Type\video/mpeg","Extension",2,".mpeg"
+
+HKCR,".tiff","Content Type",2,"image/tiff"
+HKCR,".tif","Content Type",2,"image/tiff"
+HKCR,"MIME\Database\Content Type\image/tiff","Extension",2,".tiff"
+
+HKCR,".tar","Content Type",2,"application/x-tar"
+HKCR,"MIME\Database\Content Type\application/x-tar","Extension",2,".tar"
+
+HKCR,".tgz","Content Type",2,"application/x-compressed"
+HKCR,"MIME\Database\Content Type\application/x-compressed","Extension",2,".tgz"
+
+HKCR,".man","Content Type",2,"application/x-troff-man"
+HKCR,"MIME\Database\Content Type\application/x-troff-man","Extension",2,".man"
+
+HKCR,".latex","Content Type",2,"application/x-latex"
+HKCR,"MIME\Database\Content Type\application/x-latex","Extension",2,".latex"
+
+HKCR,".ps","Content Type",2,"application/postscript"
+HKCR,".eps","Content Type",2,"application/postscript"
+HKCR,".ai","Content Type",2,"application/postscript"
+HKCR,"MIME\Database\Content Type\application/postscript","Extension",2,".ps"
+
+HKCR,".sit","Content Type",2,"application/x-stuffit"
+HKCR,"MIME\Database\Content Type\appl

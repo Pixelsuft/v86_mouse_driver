@@ -1,0 +1,263 @@
+[Version]
+Signature = $Chicago$
+ClassGUID = {00000000-0000-0000-0000-000000000000}
+LayoutFile = layout.inf
+
+;
+; Font files that should be ignored by the font applet's
+; autoinstallation thread. Read by the font folder app
+; when it starts up. Generally, size-dependent ANSI bitmap fonts
+; and bitmap OEM fonts go here.
+;
+[HiddenFontFiles]
+8514fix.fon
+8514fixe.fon
+8514fixg.fon
+8514fixr.fon
+8514fixt.fon
+85f1257.fon
+85775.fon
+8514oem.fon
+8514oeme.fon
+8514oemg.fon
+8514oemr.fon
+8514oemt.fon
+85s1257.fon
+8514sys.fon
+8514syse.fon
+8514sysg.fon
+8514sysr.fon
+8514syst.fon
+app775.fon
+app850.fon
+app852.fon
+app857.fon
+app866.fon
+cga40737.fon
+cga40850.fon
+cga40852.fon
+cga40857.fon
+cga40866.fon
+cga40869.fon
+cga40woa.fon
+cga80737.fon
+cga80850.fon
+cga80852.fon
+cga80857.fon
+cga80866.fon
+cga80869.fon
+cga80woa.fon
+coure.fon
+coue1257.fon
+couree.fon
+coureg.fon
+courer.fon
+couret.fon
+courf.fon
+couf1257.fon
+courfe.fon
+courfg.fon
+courfr.fon
+courft.fon
+dos737.fon
+dos869.fon
+dosapp.fon
+ega40737.fon
+ega40850.fon
+ega40852.fon
+ega40857.fon
+ega40866.fon
+ega40869.fon
+ega40woa.fon
+ega80737.fon
+ega80850.fon
+ega80852.fon
+ega80857.fon
+ega80866.fon
+ega80869.fon
+ega80woa.fon
+marlett.ttf
+serife.fon
+sere1257.fon
+serifee.fon
+serifeg.fon
+serifer.fon
+serifet.fon
+seriff.fon
+serf1257.fon
+seriffe.fon
+seriffg.fon
+seriffr.fon
+serifft.fon
+smalle.fon
+smae1257.fon
+smallee.fon
+smalleg.fon
+smaller.fon
+smallet.fon
+smallf.fon
+smaf1257.fon
+smallfe.fon
+smallfg.fon
+smallfr.fon
+smallft.fon
+sserife.fon
+ssee1257.fon
+sserifee.fon
+sserifeg.fon
+sserifer.fon
+sserifet.fon
+sseriff.fon
+ssef1257.fon
+sseriffe.fon
+sseriffg.fon
+sseriffr.fon
+sserifft.fon
+symbole.fon
+symbolf.fon
+vga737.fon
+vga775.fon
+vga850.fon
+vga852.fon
+vga857.fon
+vga860.fon
+vga861.fon
+vga863.fon
+vga865.fon
+vga866.fon
+vga869.fon
+vgafix.fon
+vgaf1257.fon
+vgafixe.fon
+vgafixg.fon
+vgafixr.fon
+vgafixt.fon
+vgaoem.fon
+vgasys.fon
+vgas1257.fon
+vgasyse.fon
+vgasysg.fon
+vgasysr.fon
+vgasyst.fon
+
+;
+; CP 437/1252
+;
+[Font.CP437.Files]
+dosapp.fon
+cga40woa.fon
+cga80woa.fon
+ega40woa.fon
+ega80woa.fon
+
+[Font.CP437.Files.96]
+vgaoem.fon
+vgafix.fon
+vgasys.fon
+coure.fon
+serife.fon
+smalle.fon
+sserife.fon
+
+[Font.CP437.Files.120]
+8514oem.fon
+8514fix.fon
+8514sys.fon
+courf.fon
+seriff.fon
+smallf.fon
+sseriff.fon
+
+[Font.CP437.96]
+CopyFiles = Font.CP437.Files,Font.CP437.Files.96
+DelReg = Font.CP1252.Reg.120
+AddReg = Font.CP1252.Reg.96
+AddReg = Font.CP437.Reg.96
+UpdateInis=Font.CP437.Ini
+
+[Font.CP437.120]
+CopyFiles = Font.CP437.Files,Font.CP437.Files.120
+DelReg = Font.CP1252.Reg.96
+AddReg = Font.CP1252.Reg.120
+AddReg = Font.CP437.Reg.120
+UpdateInis=Font.CP437.Ini
+
+;
+; CP 737/1253
+;
+[Font.CP737.Files]
+dos737.fon
+cga40737.fon
+cga80737.fon
+ega40737.fon
+ega80737.fon
+
+[Font.CP737.Files.96]
+vga737.fon
+vgafixg.fon
+vgasysg.fon
+coureg.fon
+serifeg.fon
+smalleg.fon
+sserifeg.fon
+
+[Font.CP737.Files.120]
+8514oemg.fon
+8514fixg.fon
+8514sysg.fon
+courfg.fon
+seriffg.fon
+smallfg.fon
+sseriffg.fon
+
+[Font.CP737.96]
+CopyFiles = Font.CP737.Files,Font.CP737.Files.96
+DelReg = Font.CP1253.Reg.120
+AddReg = Font.CP1253.Reg.96
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP737.Reg.96
+UpdateInis=Font.CP737.Ini
+
+[Font.CP737.120]
+CopyFiles = Font.CP737.Files,Font.CP737.Files.120
+DelReg = Font.CP1253.Reg.96
+AddReg = Font.CP1253.Reg.120
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP737.Reg.120
+UpdateInis=Font.CP737.Ini
+
+;
+; CP 775/1257
+;
+[Font.CP775.Files]
+app775.fon
+cga40850.fon
+cga80850.fon
+ega40850.fon
+ega80850.fon
+
+[Font.CP775.Files.96]
+vga775.fon
+vgaf1257.fon
+vgas1257.fon
+coue1257.fon
+sere1257.fon
+smae1257.fon
+ssee1257.fon
+
+[Font.CP775.Files.120]
+85775.fon
+85f1257.fon
+85s1257.fon
+couf1257.fon
+serf1257.fon
+smaf1257.fon
+ssef1257.fon
+
+[Font.CP775.96]
+CopyFiles = Font.CP775.Files,Font.CP775.Files.96
+DelReg = Font.CP1257.Reg.120
+AddReg = Font.CP1257.Reg.96
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP775.Reg.96
+UpdateInis=Font

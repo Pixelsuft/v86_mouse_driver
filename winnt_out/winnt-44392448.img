@@ -1,0 +1,53 @@
+,00,00,00,00
+HKR,Responses,"<cr><lf>RINGING<cr><lf>",1,01,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>VOICE<cr><lf>",1,01,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>CONNECT<cr><lf>",1,02,00,00,00,00,00,00,00,00,00
+
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ<cr><lf>",1,2,2,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/LAPM<cr><lf>",1,2,2,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/V34/LAPM<cr><lf>",1,2,2,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/LAPM/MNP5<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/MNP/MNP5<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/MNP/V42BIS<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/NONE<cr><lf>",1,2,0,B0,04,00,0,0,0,0,0
+
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/LAPM/MNP5<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/LAPM<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/LAPM<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/LAPM/NONE<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/LAPM/V42BIS<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/MNP/MNP5<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/MNP/NONE<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/MNP/V42BIS<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/NONE<cr><lf>",1,2,0,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/V34/NONE<cr><lf>",1,2,0,60,09,00,0,0,0,0,0
+
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/LAPM/MNP5<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/LAPM/NONE<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/LAPM/V42BIS<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/MNP/MNP5<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/MNP/NONE<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/MNP/V42BIS<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V32/LAPM/MNP5<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V32/LAPM<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/LAPM<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V32/LAPM/V42BIS<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V32/MNP/MNP5<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V32/MNP/NONE<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V32/MNP/V42BIS<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V34/LAPM/MNP5<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V34/LAPM<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V34/LAPM/NONE<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V34/LAPM/V42BIS<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V34/MNP/MNP5<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V34/MNP/NONE<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/V34/MNP/V42BIS<cr><lf>",1,2,3,C0,12,0

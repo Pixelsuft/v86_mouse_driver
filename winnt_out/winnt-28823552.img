@@ -1,0 +1,108 @@
+)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVRA.INF: InstallIsnSapService: Registry error: create service" 
+            set Status = STATUS_FAILED
+        endif
+        set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),"SAP"}}
+        Shell  $(UtilityInf), AddValueList, $(RuleKey), $(NewValueList)
+        CloseRegKey $(RuleKey)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "utility.INF: ShellCode error. Cannot added SapAgent"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVRA.INF: InstallIsnSapService: Registry error: create service" 
+            set Status = STATUS_FAILED
+        endif
+        Shell $(UtilityInf) AddServerRpcProtocol "ncadg_ipx" "RpcLtScm.Dll"
+        Shell $(UtilityInf) AddServerRpcProtocol "ncacn_spx" "RpcLtScm.Dll"
+    endif
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        CloseRegKey $(KeyService)
+    endif
+    Shell "" AddSAPUsed $(InstallFrom)
+    EndWait
+    goto successful
+configureadapter = +
+    goto end
+bindingadapter =+
+    goto end
+removeadapter = +
+    set RasIsnSapKeyName = "System\CurrentControlSet\Services\NwSapAgent"
+    set ProductRASISNSAPName  = "NwSapAgent"
+    Shell "" RemoveSAPUsed $(InstallFrom)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasIsnSapKeyName) $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) != $(KeyNull)
+        CloseRegKey $(BS_KeyServices)
+        Shell "" NumOfUsed
+        set NumOfUsed = $($R0)
+        ifint $(NumOfUsed) == 0
+            Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $(ProductRASISNSAPName)
+            OpenRegKey $(!REG_H_LOCAL) "" "Software\Microsoft\NWCWorkstation" $(MAXIMUM_ALLOWED) NWCKey
+            ifstr(i) $(NWCKey) == ""
+            else
+            	CloseRegKey $(NWCKey)
+            endif
+        else
+            ifstr(i) $(InstallFrom) == "SAP"
+                read-syms InUsed
+            set from = end
+            set to = end
+                    goto warning
+            endif
+        endif
+    endif
+RemoveSapAgentReturn = +
+    goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)}
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSAPDescription)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf) AddServerRpcProtocol "ncadg_ipx" "RpcLtScm.Dll"
+        Shell $(UtilityInf) AddServerRpcProtocol "ncacn_spx" "RpcLtScm.Dll"
+    endif
+    goto end
+successful = +
+    goto end
+infomsg =+
+   read-syms InfoDlg
+   ui start "Warning"
+   set CommonStatus = STATUS_USERCANCEL
+   goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "STATUS", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatalinfo = +
+    Set CommonStatus = STATUS_USERCANCEL
+    Set Severity = STATUS
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+          

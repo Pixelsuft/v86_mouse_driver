@@ -1,0 +1,116 @@
+ All, GenericAddReg, Gen96Reg, INTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC119]
+AddReg      = All, GenericAddReg, Gen144Reg, INTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC11A]
+AddReg      = All, GenericAddReg, Gen288Reg, INTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC11B]
+AddReg      = All, GenericAddReg, GenAnyReg, INTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC11C]
+AddReg      = All, GenericAddReg, EnhancedAddReg, Enh96Reg, INTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC11D]
+AddReg      = All, GenericAddReg, EnhancedAddReg, Enh144Reg, INTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC11E]
+AddReg      = All, GenericAddReg, EnhancedAddReg, Enh288Reg, INTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC11F]
+AddReg      = All, GenericAddReg, EnhancedAddReg, EnhAnyReg, INTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[VoiceView_remove]
+UpdateInis  = VView.Rem.Inis
+
+[VV_Sys]
+fte.dll
+vvexe32.exe
+wsvv.vxd
+
+[VV_Sock_Sys]
+wsock32.dll
+wsock.vxd
+vtdi.386
+
+[VV_App]
+filexfer.exe
+
+[VV_Help]
+filexfer.hlp
+filexfer.cnt
+
+[VView.Inis]
+setup.ini, progman.groups,, "group4="%APPS_DESC%""         ;creates folder
+setup.ini, group4,, """%FileXfer_DESC%"", filexfer.exe"    ;creates link
+setup.ini, progman.groups,, "SendTo=""..\..\%SendTo_DESC%"""    ;creates folder
+setup.ini, SendTo,,"""%SendToPhone_DESC%"", filexfer.exe"           ; create Link to EXE
+setup.ini, progman.groups,, "group1=""%StartUp_DESC%"""          ;creates folder
+setup.ini, group1,, """%StartXfer_DESC%"", filexfer.exe /a"      ;creates link
+
+[VView.Rem.Inis]
+setup.ini, progman.groups,, "group4=""%APPS_DESC%"""   ;creates folder
+setup.ini, group4,, """%FileXfer_DESC%"""              ;deletes link
+setup.ini, progman.groups,, "SendTo=""..\..\%SendTo_DESC%"""     ;creates folder
+setup.ini, SendTo,,"""%SendToPhone_DESC%"""                         ;deletes link
+setup.ini, progman.groups,, "group1=""%StartUp_DESC%"""   ;creates folder
+setup.ini, group1,, """%StartXfer_DESC%"""                ;deletes link
+
+[VoiceView_Socket]
+HKLM, System\CurrentControlSet\Services\VxD\Winsock, "VoiceView Winsock Provider",, "wsvv.vxd"
+
+[VoiceView_Modem]
+HKR,, RunOnce,,"grpconv /o"
+HKR,, VoiceView, 1, 01
+HKR, MonitorVoiceViewOn,   1,, "AT+FCLASS=80<cr>"
+HKR, MonitorVoiceViewOn,   2,, "None"
+HKR, MonitorVoiceViewOff,  1,, "AT+FCLASS=0<cr>"
+HKR, MonitorVoiceViewOff,  2,, "None"
+
+HKR, Responses, "-SSV",          1, 09, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "-SMD",          1, 09, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "-SFA",          1, 09, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "-SRA",          1, 09, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "-SRQ",          1, 09, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "-SRC:",         1, 09, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "-STO",          1, 09, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "-SVM",          1, 09, 00, 00,00,00,00, 00,00,00,00
+
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, D

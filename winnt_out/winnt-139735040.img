@@ -1,0 +1,101 @@
+ Debug-Output "DoClientOnly "$(DoClientOnly)
+    Debug-Output "DoAdminOnly "$(DoAdminOnly)
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    ifstr(i) $(DoAdminOnly) == TRUE
+        read-syms NoConfigAdmin$(!STF_LANGUAGE)
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "STATUS" $(NoConfigAdmin)
+        goto end
+    endif
+    goto PortsConfigure
+PortsConfigure = +
+    StartWait
+    read-syms StatusDeterminingConfig$(!STF_LANGUAGE)
+    shell $(subroutninf) PushBillBoard NETSTATUSDLG $(ReadingConfig)
+    Set BillboardVisible = 1
+    LoadLibrary "x" $(!STF_CWDDIR)rascfg.dll PORTSDLGHANDLE
+    set Result = {}
+    set fNetcardInstalled = FALSE
+    shell "" IsNetcardInstalled
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set fNetcardInstalled = $($R1)
+    endif
+    Debug-Output "fNetcardInstalled Option "$(fNetcardInstalled)
+CheckProtocolsInstalled =+
+    shell "" QueryInstalledProtocols
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set fNetbeuiInstalled = $($R1)
+        set fTcpIpInstalled   = $($R2)
+        set fIpxInstalled     = $($R3)
+    else
+        read-syms QueryInstalledProtocolsError$(!STF_LANGUAGE)
+        shell $(subroutninf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(Text)
+        goto end
+    endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    Debug-Output "!STF_UNATTENDED is "$(!STF_UNATTENDED)
+    Debug-Output "!STF_GUI_UNATTENDED is "$(!STF_GUI_UNATTENDED)
+    Debug-Output "!STF_UNATTENDED_SECTION is "$(!STF_UNATTENDED_SECTION)
+    LibraryProcedure Result, $(PORTSDLGHANDLE), RasPortsConfig $(!STF_HWND) +
+                     $(!NTN_InstallMode) $(fNetcardInstalled) $(ProductPath) +
+                     $(fNetbeuiInstalled) $(fTcpIpInstalled) $(fIpxInstalled) +
+                     $(!STF_GUI_UNATTENDED) $(!STF_UNATTENDED) $(!STF_UNATTENDED_SECTION)
+    StartWait
+    set NewNumPorts   = 0
+    set NewNumTapiPorts = 0
+    set NewNumDialoutNBF = 0
+    set NewNumDialinNBF  = 0
+    set NewNumDialinIP = 0
+    set NewNumDialoutIP = 0
+    set NewNumDialinoutIPX = 0
+    set fSerialInstalled = FALSE
+    set fUnimodemInstalled = FALSE
+    set fOtherInstalled = FALSE
+    set fNetbeuiChosen = FALSE
+    set fTcpIpChosen = FALSE
+    set fIpxChosen = FALSE
+    set fNetbeuiSelected = FALSE
+    set fTcpIpSelected = FALSE
+    set fIpxSelected = FALSE
+    set fNetbeuiAllowed = FALSE
+    set fTcpIpAllowed = FALSE
+    set fIpxAllowed = FALSE
+    set NewNumPorts       = *($(Result),1)
+    set NewNumTapiPorts   = *($(Result),2)
+    set NewNumPortsList = {}
+    set NullString   = ""
+    Debug-Output "PortsConfigure returned: "$(Result)
+    Debug-Output "PortsConfigure NewNumPorts: "$(NewNumPorts)
+    Debug-Output "PortsConfigure NewNumTapiPorts: "$(NewNumTapiPorts)
+    ifstr(i) $(NewNumPorts) == "EXITSETUP"
+        Debug-Output "PortsConfigre User selected ExitSetup."
+        goto RemoveDiskFiles
+    else-ifstr(i) $(NewNumPorts) == "NOPORTS"
+        Debug-Output "PortsConfigre: No serial ports detected."
+        shell $(subroutninf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorNoPorts)
+        goto RemoveDiskFiles
+    else-ifstr(i) $(NewNumPorts) == "BADARGS"
+        Debug-Output "PortsConfigre: bad arguments to dll."
+        shell $(subroutninf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorBadArgs)
+        goto RemoveDiskFiles
+    else-ifstr(i) $(NewNumPorts) == "FAILURE"
+        Debug-Output "PortsConfigre: Unknown failure."
+        shell $(subroutninf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorUnknown)
+        goto RemoveDiskFiles
+    endif
+    goto PortsConfigure1
+RemoveDiskFiles = +
+    set CommonStatus = STATUS_USERCANCEL
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        goto filecopycancel
+    endif
+    goto end
+PortsConfigure1 = +
+    set NewNumDialoutNBF = *($(Result),3)
+    Debug-Output "PortsConfigure NewNumDialoutNBF: "$(NewNumDialoutNBF)
+    set N

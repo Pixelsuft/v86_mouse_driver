@@ -1,0 +1,140 @@
+continue because of
+a syntax error.
+IEDLIN has created a new file.
+IThe string specified cannot be found.
+PO.K.?
+EEDLIN cannot continue because the line
+is longer than 253 characters.
+IThe entire input file has been read.
+PDo you want to end the edit  (Y/N)?
+EEDLIN cannot continue unless a
+destination line number is specified.
+EEDLIN does not have enough
+room to merge the specified file.
+IThe U.S. PC version (437) of the
+graphic code page table is currently
+loaded.
+IThe Canadian French version (863) of
+the graphic code page table is
+currently loaded.
+IThe Portuguese version (860) of the
+graphic code page table is currently
+loaded.
+IThe Nordic version (865) of the graphic
+code page table is currently loaded.
+IThe U.S. PC version (437) of the
+graphic code page table has just been
+loaded.
+IThe Canadian French version (863) of
+the graphic code page table has just
+been loaded.
+IThe Portuguese version (860) of the
+graphic code page table has just been
+loaded.
+IThe Nordic version (865) of the graphic
+code page table has just been loaded.
+INo graphic code page table has been
+loaded.
+IAn unrecognizable graphic
+code page table is currently loaded.
+?
+IThe acceptable GRAFTABL parameters are:
+
+  /STA - Display the name and number of
+         the current graphic code page
+  ?    - Display this summary of
+         parameters
+  437  - U.S. PC code page
+  850  - Multilingual graphic code page
+  860  - Portuguese graphic code page
+  863  - Canadian French graphic
+         code page
+  865  - Nordic graphic code page
+IThe Multilingual version (850) of the
+graphic code page table is currently
+loaded.
+IThe Multilingual version (850) of the
+graphic code page table has just been
+loaded.
+?
+IA disk read error occurred.
+IThe file OS2LDR cannot be found.
+IInsert a system diskette and restart
+the system.
+IThe system cannot find the OS2KRNL file.
+IThe file OS2KRNL is not acceptable.
+IThe system does not have enough storage to
+start the operating system.
+?
+IThe OS/2 Logging Facility is loaded.
+Buffer Size:              %1 KB
+IMinimum Free Disk Space:  %1 KB
+IWrap File Size:           %1 KB
+I
+Press Esc to create the logical drive IThe LOGDAEM program cannot be started with a
+RUN= statement. The command is ignored.
+EThe OS/2 Logging Facility log file %1 is at
+the %2 KB free disk space limit. Logging to
+the file has been suspended.
+IThe OS/2 Logging Facility is not loaded.
+IThe OS/2 Logging Facility cannot delete
+the %1 file.
+IUnrecoverable error occurred while
+writing to side %1, track %2 of the target diskette.
+EThe OS/2 Logging Facility cannot create
+the %1 file.
+IThe OS/2 Logging Facility cannot rename the
+%1 file to %2.
+IThe OS/2 Logging Facility encountered a general
+failure.
+IComponent ID =
+IRelease Level =
+IThere are no appended directories.
+IThe system has detected a
+conflict between the APPEND and ASSIGN
+utilities. APPEND is not active.
+IThe system has detected a conflict between
+the APPEND utility and the TOPVIEW application.
+APPEND is not active.
+IAPPEND is already installed.
+IThe path or parameter is incorrect.
+IA path specified for APPEND is incorrect.
+IYou are attempting to use an incorrect version of APPEND.
+?
+ISoftware Name =
+?
+EError %1 encountered an unexpected end of file
+on the redirected input. The process has stopped.
+?
+?
+?
+?
+?
+?
+ENot enough storage is available to create DOS mode.
+EThere is not enough storage to create DOS mode.
+I
+The system is stopped.
+
+Correct the preceding error and restart the system.
+IDOS mode cannot be started.
+IThe file "%1" does not contain a valid device
+driver. Install the correct device driver file; then restart
+the system.
+E%1 messages were lost.
+EThe country information file "%3" specified in
+the %2 command on line %1 of the CONFIG.SYS file is incorrect.
+EThe system could not demand load the
+application's segment. %1 is in error.
+For additional detailed information also see message SYS%2.
+?
+?
+?
+?
+?
+IDOS Command Prompt
+IMore:
+PProgram Selector
+?
+?
+EAn error was det

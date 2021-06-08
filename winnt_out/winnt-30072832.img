@@ -1,0 +1,91 @@
+MNADDI.INF: !STF_NCDETCARD is: "$(!STF_NCDETCARD)
+    Debug-Output "OEMNADDI.INF: !STF_NCDETINFO is: "$(!STF_NCDETINFO)
+    Debug-Output "OEMNADDI.INF: =================================================="
+    Set DetectedCard = FALSE
+    Ifstr(i) $(ActivateDetection) != TRUE
+	    Goto $(StartLabel)
+    Endif
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+	Debug-Output "OEMNADDI.INF: KeyProduct "$(KeyProduct)
+    Ifstr $(KeyProduct) != $(KeyNull)
+	    CloseRegKey $(KeyProduct)
+	    ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+	       Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+	           $(ProductVersion)
+	       ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	           Debug-Output "ShellCode error: cannot get an error string."
+	           goto ShellCodeError
+	       endif
+	       goto end
+	    else
+	       set NetworkCardKeyName = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+	       OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(!MAXIMUM_ALLOWED) IE_KeyNetcards
+	       ifstr(i) $(IE_KeyNetcards) != ""
+	           EnumRegKey $(IE_KeyNetcards) IE_KeyNameList
+	           ForListDo $(IE_KeyNameList)
+	    	       OpenRegKey $(IE_KeyNetcards) "" *($($),1) +
+	    	         $(!MAXIMUM_ALLOWED) NetworkCardKey
+	    	       Ifstr(i) $(NetworkCardKey) != $(KeyNull)
+	    	           GetRegValue $(NetworkCardKey),"Manufacturer", ManufacturerInfo
+	    	           set ManufacturerName = *($(ManufacturerInfo), 4)
+	    	           Debug-Output "   Manufacturer = "$(ManufacturerName)
+	    	           Ifstr $(ManufacturerName) != $(Manufacturer)
+	    	               goto nextnetcard2
+	    	           endif
+	    	           GetRegValue $(NetworkCardKey),"ProductName", ProductNameInfo
+	    	           set ProductName = *($(ProductNameInfo), 4)
+	    	           Debug-Output "   ProductName = "$(ProductName)
+	    	           Ifstr(i) $(ProductName) != "PCIMAC"
+	    	               goto nextnetcard2
+	    	           endif
+	    	           OpenRegKey $(NetworkCardKey) "" "NetRules" +
+	    	               $(!MAXIMUM_ALLOWED) NetRuleKey
+	    	           Ifstr $(NetRuleKey) != $(KeyNull)
+	    	               GetRegValue $(NetRuleKey),"InfOption", InfOptionInfo
+	    	               set InfOption = *($(InfOptionInfo), 4)
+	    	               Debug-Output "InfOption = "$(InfOption)
+	    	           endif
+	    	           Ifstr(i) $(InfOption) == $(Option)
+	    	               set CopyFirmwareOnly = $(FALSE)
+	    	           endif
+	    	           CloseRegKey $(NetRules)
+	    	           CloseRegKey $(NetworkCardKey)
+	    	       endif
+nextnetcard2 = +
+	           EndForListDo
+	           CloseRegKey $(IE_KeyNetcards)
+	       endif
+	       ifint $(CopyFirmwareOnly) == $(FALSE)
+	           Shell $(UtilityInf), CardExistedDlg
+	           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    	       Debug-Output "ShellCode error: cannot get an error string."
+	    	       goto ShellCodeError
+	           endif
+	           ifstr(i) $($R1) != "OK"
+                   goto end
+	           endif
+	           set OldVersionExisted = $(TRUE)
+	        endif
+	    endif
+    else
+	    set CopyFirmwareOnly = $(FALSE)
+    endif
+	goto adapteroptions
+configureadapter = +
+    Debug-Output "OEMNADDI.INF: Configure Adapter "$(!NTN_RegBase)
+    Debug-Output "              !REG_H_LOCAL = "$(!REG_H_LOCAL)
+    shell "" QueryParameters $(!NTN_RegBase)
+    set BusTypeNum = $($R1)
+    Debug-Output "OEMNADDI.INF: (Config) BusTypeNum is: "$(BusTypeNum)
+adapteroptions = +
+    StartWait
+    ifint $(OldVersionExisted) == $(FALSE)
+	    ifstr(i) $(!NTN_InstallMode) == "install"
+	       Ifstr(i) $(DoCopy) == "YES"
+	          Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+	          Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    	      Goto ShellCodeError
+	          Else-Ifstr(i) $($R0) == STATUS_FAILED
+	    	      Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+	    	      ifint $($Sh

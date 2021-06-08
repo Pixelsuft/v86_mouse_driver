@@ -1,0 +1,65 @@
+ease includes support for the Microsoft SideWinder 3D Pro joystick. 
+To install the joystick
+1. Click Start, point to Settings,and then click Control Panel.
+2. Double-click the Multimedia icon. 
+3. Click the Devices tab.  
+If you do not have administrator privileges, log off and log back on as an administrator.
+4. Click Add.
+5. Select Microsoft Sidewinder 3D Pro Joystick and then click OK..
+   The Microsoft SideWinder Joystick Configuration dialog box is displayed. No changes are required.
+6.  Click OK to close the dialog box.
+     You must restart your computer before you can use your joystick.
+
+To install the joystick driver for any other type of joystick
+1. Click Start, point to Settings,and then click Control Panel.
+2. Double-click the Multimedia icon. 
+3. Click the Devices tab.  
+If you do not have administrator privileges, log off and log back on as an administrator.
+4. Click Add.
+5. Select Unlisted or Updated Driver, and then click OK.
+6. Insert the Windows NT compact disc into the CD-ROM drive.
+7. Type the path to the joystick drivers as follows: <cd rom drive letter>:\DRVLIB\MULTIMED\JOYSTICK\<platform> where <platform> is your platform type.
+For example, type, D:\DRVLIB\MULTIMED\JOYSTICK\i386. 
+8. Click OK.
+   The joystick configuration dialog box is displayed.
+9. Click OK to close the dialog box.
+    You must restart your computer before you can use your joystick.
+
+The joystick driver is known to be incompatible with, or may be incompatible with certain versions of, the following hardware:
+NetPower MIPS (or any other machine using the Mozart sound/midi/joyport chip)
+Aztech sound cards.
+
+Plug and Play Sound Blaster Support
+Drivers for Plug and Play Sound Blaster sound cards are included on the Windows NT compact disc. They can be found in \DRVLIB\AUDIO\SBPNP folder. Before installing the drivers see, the Readme.txt file in the same directory. 
+For more information about Plug and Play on Windows NT, see "Plug and Play ISA Device Installation and PNPISA.SYS" earlier in this document.
+
+Sound Blaster/ATAPI Problems
+ATAPI devices such as CD ROM drives are not supported in this release on the built-in IDE controller on Sound Blaster Plug and Play adapters.  
+
+Sound Blaster/SCSI Problems
+Sound Blaster/SCSI cards and PCI SCSI cards may display an INACCESSIBLE_BOOT_DEVICE blue screen when performing a new installation or an upgrade. This occurs because the BIOS assigns the PCI SCSI card an interrupt number that is already in use.  If this occurs, physically remove the sound card before reinstalling, or remove the driver during text mode portion of setup and then reinstall after the installation or upgrade is completed.
+
+Distorted Sound Using Toshiba Laptop with Integrated Sound Card
+Some games (such as. Doom95) may have garbled sound on Windows NT version 4.0 when running in full-screen mode on a Toshiba laptop with an integrated sound card. To solve this problem change your sound card's DMA setting  from DMA 1 to another available channel.
+
+Sound Blaster Pro 2 CT1600 Using Motorola Powerstack PowerPC
+When using an SB Pro2 CT1600 sound card on a Motorola Powerstack PPC the MIDI synth chip may hiss. This occurs if the CT1345 chip is labeled 91.   
+To work around the the problem 
+1. Click Start, point to Programs, Accessories, Multimedia, and then double-click Media Player.
+2. On the Device menu, click MIDI Sequencer..  
+3. Play any MIDI file for 15 seconds or longer. Sample files are located in the Media folder in your %systemroot%\Media directory.  
+This procedure will need to be performeed each time the machine is restarted.
+
+Determining if your system is capable of utilizing ESS audio support in Windows NT version 4.0
+Many system manufacturers implement ESS audio hardware in their mobile computer product lines.  Some of these manufactures include:
+
+Digital Equipment Corporation
+Gateway
+Hewlett-Packard
+IBM 
+Toshiba
+Zeos
+
+To determine if your system implements an audio chipset, run the Windows NT NTHQ tool to analyze your hardware.  
+
+To determine if your m

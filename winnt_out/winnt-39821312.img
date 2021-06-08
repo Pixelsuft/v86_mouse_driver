@@ -1,0 +1,94 @@
+%\AppGPFault\Jungle0
+HKCU,%KEY_DEFSCH%\MenuCommand\Jungle0
+HKCU,%KEY_DEFSCH%\MenuPopup\Jungle0
+;-----------------------------------------------------
+
+;--- Robotz Sound Scheme Install Sections ------------
+[robotz.files]
+%ROBOTZ_RECYCLE%.WAV     ,robotzre.wav
+%ROBOTZ_DEFAULT%.WAV     ,robotzde.wav
+%ROBOTZ_WINDOWSSTART%.WAV,robotzwi.wav
+%ROBOTZ_WINDOWSEXIT%.WAV ,robotz~1.wav
+%ROBOTZ_CRITICALSTOP%.WAV,robotzcr.wav
+%ROBOTZ_QUESTION%.WAV    ,robotzqu.wav
+%ROBOTZ_EXCLAMATION%.WAV ,robotzex.wav
+%ROBOTZ_ASTERISK%.WAV    ,robotzas.wav
+%ROBOTZ_OPEN%.WAV        ,robotzop.wav
+%ROBOTZ_CLOSE%.WAV       ,robotzcl.wav
+%ROBOTZ_MAXIMIZE%.WAV    ,robotzma.wav
+%ROBOTZ_MINIMIZE%.WAV    ,robotzmi.wav
+%ROBOTZ_RESTOREDOWN%.WAV ,robotz~3.wav
+%ROBOTZ_RESTOREUP%.WAV   ,robotz~4.wav
+%ROBOTZ_ERROR%.WAV       ,robotzer.wav
+%ROBOTZ_MENUCOMMAND%.WAV ,robotzme.wav
+%ROBOTZ_MENUPOPUP%.WAV   ,robotz~2.wav
+
+[robotz.reg]
+HKLM,%KEY_OPTIONAL%\Robotz,Installed,,"1"
+
+HKCU,AppEvents\Schemes\Names\Robotz0,,,"%V_ROBOTZ%"
+HKCU,AppEvents\Schemes\Apps\Explorer,,,"%V_EXPLORER%"
+HKCU,AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\Robotz0,,,%25%\media\%ROBOTZ_RECYCLE%.wav
+HKCU,%KEY_DEFSCH%\.Default\Robotz0,,,"%25%\media\%ROBOTZ_DEFAULT%.wav"
+HKCU,%KEY_DEFSCH%\SystemStart\Robotz0,,,"%25%\media\%ROBOTZ_WINDOWSSTART%.wav"
+HKCU,%KEY_DEFSCH%\SystemExit\Robotz0,,,"%25%\media\%ROBOTZ_WINDOWSEXIT%.wav"
+HKCU,%KEY_DEFSCH%\SystemHand\Robotz0,,,"%25%\media\%ROBOTZ_CRITICALSTOP%.wav"
+HKCU,%KEY_DEFSCH%\SystemQuestion\Robotz0,,,"%25%\media\%ROBOTZ_QUESTION%.wav"
+HKCU,%KEY_DEFSCH%\SystemExclamation\Robotz0,,,"%25%\media\%ROBOTZ_EXCLAMATION%.wav"
+HKCU,%KEY_DEFSCH%\SystemAsterisk\Robotz0,,,"%25%\media\%ROBOTZ_ASTERISK%.wav"
+HKCU,%KEY_DEFSCH%\Open\Robotz0,,,
+HKCU,%KEY_DEFSCH%\Close\Robotz0,,,
+HKCU,%KEY_DEFSCH%\Maximize\Robotz0,,,"%25%\media\%ROBOTZ_MAXIMIZE%.wav"
+HKCU,%KEY_DEFSCH%\Minimize\Robotz0,,,"%25%\media\%ROBOTZ_MINIMIZE%.wav"
+HKCU,%KEY_DEFSCH%\RestoreDown\Robotz0,,,"%25%\media\%ROBOTZ_RESTOREDOWN%.wav"
+HKCU,%KEY_DEFSCH%\RestoreUp\Robotz0,,,"%25%\media\%ROBOTZ_RESTOREUP%.wav"
+HKCU,%KEY_DEFSCH%\AppGPFault\Robotz0,,,"%25%\media\%ROBOTZ_ERROR%.wav"
+HKCU,%KEY_DEFSCH%\MenuCommand\Robotz0,,,"%25%\media\%ROBOTZ_MENUCOMMAND%.wav"
+HKCU,%KEY_DEFSCH%\MenuPopup\Robotz0,,,"%25%\media\%ROBOTZ_MENUPOPUP%.wav"
+
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,MMCheckForOFN,,"Rundll32.exe mmsys.cpl,mmseRunOnce CHECK_OFN"
+HKCU,AppEvents\Schemes\NewSchemes\Robotz,,,
+
+[robotz.remove.reg]
+HKLM,%KEY_OPTIONAL%\Robotz,Installed,,"0"
+
+[robotz.remove.DelReg]
+HKCU,AppEvents\Schemes\Names\Robotz0
+HKCU,AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\Robotz0
+HKCU,%KEY_DEFSCH%\.Default\Robotz0
+HKCU,%KEY_DEFSCH%\SystemStart\Robotz0
+HKCU,%KEY_DEFSCH%\SystemExit\Robotz0
+HKCU,%KEY_DEFSCH%\SystemHand\Robotz0
+HKCU,%KEY_DEFSCH%\SystemQuestion\Robotz0
+HKCU,%KEY_DEFSCH%\SystemExclamation\Robotz0
+HKCU,%KEY_DEFSCH%\SystemAsterisk\Robotz0
+HKCU,%KEY_DEFSCH%\Open\Robotz0
+HKCU,%KEY_DEFSCH%\Close\Robotz0
+HKCU,%KEY_DEFSCH%\Maximize\Robotz0
+HKCU,%KEY_DEFSCH%\Minimize\Robotz0
+HKCU,%KEY_DEFSCH%\RestoreDown\Robotz0
+HKCU,%KEY_DEFSCH%\RestoreUp\Robotz0
+HKCU,%KEY_DEFSCH%\AppGPFault\Robotz0
+HKCU,%KEY_DEFSCH%\MenuCommand\Robotz0
+HKCU,%KEY_DEFSCH%\MenuPopup\Robotz0
+;-----------------------------------------------------
+
+;--- Utopia Sound Scheme Install Sections ------------
+[utopia.files]
+%UTOPIA_RECYCLE%.WAV     ,utopiare.wav
+%UTOPIA_DEFAULT%.WAV     ,utopiade.wav
+%UTOPIA_WINDOWSSTART%.WAV,utopiawi.wav
+%UTOPIA_WINDOWSEXIT%.WAV ,utopia~1.wav
+%UTOPIA_CRITICALSTOP%.WAV,utopiacr.wav
+%UTOPIA_QUESTION%.WAV    ,utopiaqu.wav
+%UTOPIA_EXCLAMATION%.WAV ,utopiaex.wav
+%UTOPIA_ASTERISK%.WAV    ,utopiaas.wav
+%UTOPIA_OPEN%.WAV        ,utopiaop.wav
+%UTOPIA_CLOSE%.WAV       ,utopiacl.wav
+%UTOPIA_MAXIMIZE%.WAV    ,utopiama.wav
+%UTOPIA_MINIMIZE%.WAV    ,utopiami.wav
+%UTOPIA_RESTOREDOWN%.WAV ,utopia~3.wav
+%UTOPIA_RESTOREUP%.WAV   ,utopia~4.wav
+%UTOPIA_ERROR%.WAV       ,utopiaer.wav
+%UTOPIA_MENUCOMMAND%.WAV ,utopiame.wav
+%UTOPIA_MENUPOPUP%.WAV   ,utopia~2.wav

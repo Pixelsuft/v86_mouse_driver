@@ -1,0 +1,106 @@
+         = ""
+    !STF_WINDOWSPATH    = "" ? $(!LIBHANDLE) GetWindowsNtDir
+    !STF_WINDOWSSYSPATH = "" ? $(!LIBHANDLE) GetWindowsNtSysDir
+    !STF_FLOPPYLIST     = {} ? $(!LIBHANDLE) GetFloppyDriveLetters
+    !STF_UNUSEDDRIVES   = {} ? $(!LIBHANDLE) GetUnusedDrives
+    !STF_LANGUAGE       = "ENG"
+    VolumeList      = {} ? $(!LIBHANDLE) GetHardDriveLetters
+    VolumeFreeList  = {} ? $(!LIBHANDLE) GetHardDriveFreeSpace
+    VolumeFSList    = {} ? $(!LIBHANDLE) GetHardDriveFileSystems
+    DestVolume      = ""
+    MinHelpID   = 25000
+    MaxHelpID   = 25999
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        ifstr(i) $($1) == ""
+            goto returnoptions
+        endif
+        set PlatformList = ^(PlatformsSupported, 1)
+        Ifcontains(i) $($1) in $(PlatformList)
+            goto returnoptions
+        else
+            set Status = STATUS_NOTSUPPORTED
+            goto finish_ReturnOptions
+        endif
+    Else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    Endif
+returnoptions = +
+    ifstr(i) $($1) == "MCA"
+      set OptionList     = ^(OptionsMCA, 1)
+      set OptionTextList = ^(OptionsTextMCA$($0), 1)
+    else
+      set OptionList     = ^(Options, 1)
+      set OptionTextList = ^(OptionsText$($0), 1)
+    endif
+    set Status = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[Shell Commands]
+    set-title "Serial Setup"
+    set-subst LF = "\n"
+    set Exit_Code = $(ExitCodeOk)
+    Debug-Output "OEMNADDS.INF: STF_CWDDIR is "$(!STF_CWDDIR)
+    Debug-Output "OEMNADDS.INF: STF_RANFROM is "$(!STF_RANFROM)
+    ifstr(i) $(!STF_RANFROM) != ""
+        ifstr(i) $(!STF_RANFROM) != $(!STF_CWDDIR)"SERIAL\"
+           set !STF_SRCDIR = $(!STF_RANFROM)
+        endif
+    endif
+    LoadLibrary "x" $(!STF_CWDDIR)setupdll.dll !LIBHANDLE
+    shell "" InstallOption ENG DigiBoard $(!STF_SRCDIR)
+    FreeLibrary $(!LIBHANDLE)
+    set Status = $($R0)
+    Return $(Status)
+[InstallOption]
+    read-syms DebugOptions
+    Debug-Output "OEMNADDS.INF: In [InstallOption] section"
+    Debug-Output "OEMNADDS.INF: TraceConfig = "$(TraceConfig)
+    set Status = STATUS_FAILED
+    set Option    = $($1)
+    set SrcDir    = $($2)
+    set AddCopy   = $($3)
+    set DoCopy    = $($4)
+    set DoConfig  = $($5)
+    set !SourceDir = $($2)
+    ifstr(i) $(!STF_BUSTYPE) == "MCA"
+        set BusType = "MCA"
+    else
+        set BusType = ""
+    endif
+    read-syms GeneralConstants
+    read-syms FileConstants
+    Debug-Output "OEMNADDS.INF: Language = "$($0)
+    Debug-Output "OEMNADDS.INF: OptionID = "$($1)
+    Debug-Output "OEMNADDS.INF: SourceDirectory = "$($2)
+    Debug-Output "OEMNADDS.INF: AddCopy = "$(AddCopy)
+    Debug-Output "OEMNADDS.INF: DoCopy = "$(DoCopy)
+    Debug-Output "OEMNADDS.INF: DoConfig = "$(DoConfig)
+    Debug-Output "OEMNADDS.INF: BusType = "$(BusType)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Debug-Output "OEMNADDS.INF: returning STATUS_NO_LANGUAGE"
+        return STATUS_NOLANGUAGE
+    Endif
+    set-subst LF = "\n"
+    Debug-Output "OEMNADDS.INF: ManufacturerDisplayName = "$(ManufacturerDisplayName)
+    Debug-Output "OEMNADDS.INF: AdapterTitle = "$(AdapterTitle)
+    Debug-Output "OEMNADDS.INF: AdapterHardwareName = "$(AdapterHardwareName)
+    Debug-Output "OEMNADDS.INF: AdapterHardwareDriver = "$(AdapterHardwareDriver)
+    read-syms BindingInfo-DigiFEP5
+    set NetRuleSoftwareBindable = $(BindingInfo)
+    read-syms BindingInfo-$(AdapterHardwareDriver)
+    set NetRuleSoftwareBindableHdwDriver

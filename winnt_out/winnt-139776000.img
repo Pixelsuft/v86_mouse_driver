@@ -1,0 +1,97 @@
+ $(NewNumDialin) != 0
+            set RasStartValue = 2
+        endif
+    endif
+    set KeySvr = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasSvrKeyName) $(!MAXIMUM_ALLOWED) KeySvr
+    ifstr $(KeySvr) == $(KeyNull)
+        Debug-Output "OEMNSVRA.INF: could not open RemoteAccess key"
+    else
+        ifstr(i) $(!NTN_InstallMode) != install
+            GetRegValue $(KeySvr) "Start" StartList
+            ifint $(RegLastError) == 0
+                set RasStartValue = *($(StartList), 4)
+            endif
+        endif
+        ifint $(NewNumDialin) == 0
+            ifint $(RasStartValue) != 4
+                set RasStartValue = 3
+            endif
+        endif
+        Debug-Output "OEMNSVRA.INF: Setting RemoteAccess start type to "$(RasStartValue)
+        SetRegValue $(KeySvr) {Start,$(NoTitle),$(!REG_VT_DWORD),$(RasStartValue)}
+        CloseRegKey $(KeySvr)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasSvrParamKeyName) $(!MAXIMUM_ALLOWED) KeySrvParams
+    ifstr $(KeySrvParams) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF: could not open RasSvr Params key"
+       set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+       goto fatalregistry
+    endif
+    set NewValueList = +
+        {{NetBiosGatewayEnabled, $(NoTitle), $(!REG_VT_DWORD), $(NetBiosGtwyEnabled)}}
+    Shell  $(!UtilityInf), AddValueList, $(KeySrvParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+    CloseRegKey $(KeySrvParams)
+WriteRasMan = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasManParamKeyName) $(!MAXIMUM_ALLOWED) KeyRasManParams
+    ifstr $(KeyRasManParams) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF: could not open RasMan Params key"
+       set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+       goto fatalregistry
+    endif
+    set MediaValue = {"rastapi"}
+    ifstr(i) $(fSerialInstalled) == TRUE
+        set MediaValue = >($(MediaValue), "rasser")
+    endif
+    set OtherConfigKey = $(!NTN_SoftwareBase)"\"$(!Manufacturer)"\"$(ProductRASName)"\OTHER DEVICES\CONFIGURED"
+    set KeyOtherMedia = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(OtherConfigKey) $(!MAXIMUM_ALLOWED)  +
+               KeyOtherMedia
+    ifstr $(KeyOtherMedia) != $(KeyNull)
+        EnumRegKey $(KeyOtherMedia) OtherList
+        Debug-Output "oemnsvra.inf: Other Media list "$(OtherList)
+        ForListDo $(OtherList)
+            set MediaName = *($($),1)
+            set KeyMedia = $(KeyNull)
+            OpenRegKey $(KeyOtherMedia) "" $(MediaName) $(!MAXIMUM_ALLOWED)  +
+                       KeyMedia
+            ifstr $(KeyMedia) != $(KeyNull)
+                GetRegValue $(KeyMedia), "MediaType" MediaType
+                Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                    set MediaTypeValue = *($(MediaType),4)
+                    set MediaValue = >($(MediaValue), $(MediaTypeValue))
+                endif
+                CloseRegKey $(KeyMedia)
+            endif
+        EndForListDo
+        CloseRegKey $(KeyOtherMedia)
+    else
+        Debug-Output "oemnsvra.inf: Other Media not configured"
+    endif
+    Debug-Output "Adding Medias as "$(MediaValue)
+    set NewValueList = {{Medias,$(NoTitle),$(!REG_VT_MULTI_SZ),$(MediaValue)}}
+    Shell  $(!UtilityInf), AddValueList, $(KeyRasManParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+    CloseRegKey $(KeyRasManParams)
+WriteNdisWan = +
+    set PrevNumPorts = 0
+    set PrevNumDialin = 0
+    set PrevNumDialout = 0
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacParamKeyName) $(!MAXIMUM_ALLOWED) KeyMacParams
+    ifstr $(KeyMacParams) == $(KeyNull)
+       ifstr(i) $(!NTN_Inst

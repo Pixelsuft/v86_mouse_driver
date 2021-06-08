@@ -1,0 +1,117 @@
+em was unable to make OS2LDR contiguous.
+EThe system cannot accept the path %1
+specified for the SWAPPATH= statement in the
+CONFIG.SYS file.  The system will attempt to
+use the root directory of the startup drive.
+?
+IThe system found an incorrect path name.
+IDirectory path listing
+IPath: %1
+ISubdirectories:  %1
+IFiles:           %1
+IFiles:           None
+ISubdirectories:  None
+I                 %1
+INo subdirectories exist.
+IAn incorrect character was entered in the
+message ID number. Correct the message ID
+and retry the command.
+IThe message ID number cannot
+contain more than four digits.
+For example, HELP 0123. Retry the command using the correct
+number of digits.
+IThe message ID number was not entered.
+For example, HELP 0123.
+Enter the desired message ID number.
+EThe system cannot find %1.
+PAlt+Esc to switch to the next session.
+
+Ctrl+Esc to switch to the Task List.
+
+Type HELP ON for help text.
+
+Type HELP OFF for no help text.
+
+Type HELP message-number for message help.
+
+Type HELP [ BOOK ] SUBJECT to receive online information.
+
+Type EXIT to end this OS/2 session.
+
+P  OS/2     Ctrl+Esc = Task List                               Type HELP = help
+INo help is available for the message
+ID number requested.
+PAlt+Esc to switch to the next session.
+
+Ctrl+Esc to switch to the Task List.
+
+Type HELP ON for help text.
+
+Type HELP OFF for no help text.
+
+Type HELP message-number for message help.
+P  DOS      Ctrl+Esc = Task List                               Type HELP = help
+IThe message file %1 cannot be found.
+Use the DPATH (OS/2) or APPEND (DOS mode) to
+specify the location of the message file, then
+retry the command.
+If HELP is still unable to find the message file,
+install the message file in the current directory,
+and retry the command.
+IHELP cannot read message file %1
+Another process may be using the message file
+or the message file is incorrect. Wait for the
+other process to finish, or reinstall the message
+file. Then retry the command.
+EVIEW cannot be found.
+?
+P
+***************************************************
+* Insert the diskette containing the swap file in *
+*   drive %1 and close the drive door.            *
+***************************************************
+P
+***************************************************
+*  Remove the write protection from the diskette  *
+*      in drive %1 containing the swap file.      *
+***************************************************
+I
+***************************************************
+*    ------Possible System Failure-------         *
+*    Unrecoverable error in the swap file         *
+***************************************************
+I
+***************************************************
+*    ------Possible System Failure-------         *
+*           The swap file is full.                *
+***************************************************
+I
+***************************************************
+*    ------Possible System Failure-------         *
+*       The swap control table is full.           *
+***************************************************
+EA virtual disk could not be installed.
+IThe %1 file system program has been started.
+IThe type of file system for the disk is %1.
+IInstalled V1.3 External Device for Drive %1.
+EThe system cannot run the specified program.
+IThe requested function is not available in DOS
+mode for file system %1.
+EThe program cannot continue processing.
+EThe requested function is not supported on this
+disk or diskette for file system %1.
+?
+I
+ Volume in drive %1 has no label.
+PEnter a volume label of up to 11 characters
+or press Enter for no volume label update.  I
+ The volume label in drive %1 is %2.
+?
+IThe system cannot find the file "%1". This device
+driver, program, or data file is not located in the default
+path or the path specified for it in the CONFIG.SYS file.
+Install this file in the correct directory, or correct the
+appropriate CONFIG.SYS file statement.
+EThere is not enough storage to load the program
+or device driver "%1".
+E%1

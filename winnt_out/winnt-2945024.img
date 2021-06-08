@@ -1,0 +1,137 @@
+IAsynchronous Communications mode has been set.
+IMODE DSKT VER=%1
+IThe parallel printer cannot be
+redirected to a communication device.  Use
+the SPOOL utility to redirect the output.
+PInsert a diskette in drive A and press enter to continue or
+press CTRL+Break to cancel the MODE command.
+EThe MODE parameter LPT%1 is not correct.
+EThe MODE parameter CHARS %1 is not correct.
+EThe MODE parameter LINES %1 is not correct.
+EThe MODE parameter %1 is not correct.
+EThe MODE parameter BAUD %1 is not correct.
+IThe MODE parameter %1 is not supported by this COM port.
+EThe MODE parameter %1 is not supported in DOS mode.
+EThe COM port specified is not installed.
+IThe MODE diskette ReadBack command has been successfully completed.
+EThe MODE parameter ROWS %1 is not correct.
+EThe MODE parameter DISPLAY %1 is not correct.
+EThe MODE parameter DISPLAY is missing.
+EThe MODE COM "%1" parameter is not correct.
+?
+EThe MODE parameter %1 is not correct.
+?
+EThe MODE parameters DISPLAY %1 or ROWS %2 is not correct.
+EThe MODE parameter DATABITS %1 is not correct.
+EThe MODE parameter STOPBITS %1 is not correct.
+EThe MODE parameter PARITY %1 is not correct.
+EThe MODE parameter %1 is not correct.
+I
+Files will be restored from drive %1:
+P
+Insert backup diskette %1 in drive %2:
+Press Enter when ready.
+P
+Warning!  The diskette is out of sequence.
+Replace the diskette or press Enter to continue.
+P
+Warning!  File %1 is a read-only file.
+Replace the file (Y/N)?
+P
+Warning!  File %1 was changed after the backup.
+Replace the file (Y/N)?
+P
+Operating system files are restored.
+The target disk may not be usable.
+P
+The files were backed up on %1.
+P%1
+E
+The source and target drives entered are the same.
+E
+The number of parameters entered is incorrect.
+?
+E
+No files were found to restore.
+?
+?
+I
+The last file listed was not restored.
+I
+The source diskette does not contain backup files.
+?
+EThe system cannot restore a file in an
+incorrect order.
+?
+?
+?
+I
+The system cannot restore the file.
+PDiskette %1
+P
+Insert the RESTORE target diskette in drive %1.
+Press Enter when ready.
+?
+?
+?
+?
+?
+?
+EThe system cannot write to the BACKUP
+log file. Press Enter to continue, or press
+Ctrl+Break to cancel.
+EThe drive letter must be specified
+for the BACKUP command.
+?
+ENo source drive was specified.
+ENo target drive was specified.
+IThe target disk cannot be used to append files because
+it contains files from a previous version of BACKUP.
+?
+EThe source and target drives entered are the same.
+EThe system cannot run the FORMAT command.
+IKEYS is on.
+IKEYS is off.
+EThe system cannot find the drive specified.
+EThe system cannot find the FORMAT utility.
+EThe system cannot open the logfile.
+EThe BACKUP command cannot format
+drive %1.
+IThe last backup target diskette
+was not inserted.
+IThe BACKUP command is logging to file %1.
+IWarning!  The files in the root directory
+of target drive %1: will be erased.
+
+Press Enter to continue or Ctrl+Break to cancel.
+IWarning!  The files in the \BACKUP directory
+of target drive %1: will be erased.
+
+Press Enter to continue or Ctrl+Break to cancel.
+IThe files are being backed up to drive %1.
+PDiskette number %1
+IThe system cannot find any files to back up.
+PInsert a backup source diskette in %1:
+
+Press Enter to continue or Ctrl+Break to cancel.
+PInsert backup diskette %1 in drive %2:
+EThe file cannot be backed up at this time.
+PInsert the last backup diskette in drive %1:
+
+Press Enter to continue or Ctrl+Break to cancel.
+EThe target disk cannot be used
+to back up files.
+IThe last file was not backed up
+because the target fixed disk is full.
+ITarget fixed disk %1: is full.
+EThe system cannot create the directory.
+EThe path name is too long.
+P (Y/N)? ?
+ISource files are being read...
+?
+I%1 file or directory cannot be found.
+P%1 specifies the directory or file name.
+Does %1 specify a directory (Y/N)? EThe system cannot copy to a
+subdirectory belonging to the source directory.
+EAt least one of the specified parameters is not
+correct,

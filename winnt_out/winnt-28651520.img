@@ -1,0 +1,83 @@
+_OK)
+                Debug-Output "ShellCode error."
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "Resgitry error: add value list."
+                CloseRegKey $(SoftProductKey)
+                CloseRegKey $(SoftNetRuleKey)
+                CloseRegKey $(SoftServiceKey)
+                CloseRegKey $(KeyParameters)
+                CloseRegKey $(SoftLinkageKey)
+                goto fatalregistry
+            endif
+            set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSRVType)},+
+                                {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSRVClass)}, +
+                                {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSRVUse)}, +
+                                {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSRVBindForm)}, +
+                                {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+            Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error."
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftLinkageKey)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "OEMNSVSV.INF: Registry error: add value list."
+                CloseRegKey $(KeyParameters)
+                goto fatalregistry
+            endif
+            CreateRegKey $(SoftServiceKey) {"AutotunedParameters",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" AutoTunedKey
+            CreateRegKey $(SoftServiceKey) {"Shares",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" SharesKey
+            set NewValueList = {{NullSessionPipes,$(NoTitle),$(!REG_VT_MULTI_SZ),{"COMNAP","COMNODE","SQL\QUERY","SPOOLSS","LLSRPC","EPMAPPER","LOCATOR"}},+
+                               {NullSessionShares,$(NoTitle),$(!REG_VT_MULTI_SZ),{"COMCFG", "DFS$"}} }
+            Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error."
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(AutoTunedKey)
+            CloseRegKey $(SharesKey)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "OEMNSVSV.INF: Registry error: add value list."
+                CloseRegKey $(KeyParameters)
+                goto fatalregistry
+            endif
+            OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\LicenseService" +
+                    $(!REG_KEY_ALL_ACCESS)  LICENSESERVICEKEY
+            Ifstr(i) $(LICENSESERVICEKEY) != ""
+                shell "registry.inf" ModifyServicesEntry "LicenseService" $(!SERVICE_AUTO_START)
+            Endif
+            CloseRegKey $(LICENSESERVICEKEY)
+        endif
+        goto writeparameters
+writeparameters = +
+        ifstr(i) $(Lmannounce) == "ON"
+            set LmannounceValue = 1
+        else
+            set LmannounceValue = 0
+        endif
+        ifint $(Size) == 4
+            set LargeSystemCache = 0
+            set Size = 3
+        else-ifint $(Size) == 3
+            set LargeSystemCache = 1
+        else
+            set LargeSystemCache = 0
+        endif
+        set NewValueList = {{Size,$(NoTitle),$(!REG_VT_DWORD),$(Size)},+
+                           {Lmannounce,$(NoTitle),$(!REG_VT_DWORD),$(LmannounceValue)} }
+        ifint $(OldVersionExisted) == $(TRUE)
+            OpenRegKey $(!REG_H_LOCAL) "" $(ParamKeyName) $(MAXIMUM_ALLOWED) KeyParameters
+        endif
+        Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+        s

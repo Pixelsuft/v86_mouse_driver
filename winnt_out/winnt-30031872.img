@@ -1,0 +1,82 @@
+!= $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Ifstr(i) $(RegistryErrorIndex) != REF_COUNT_NOT_ZERO
+            goto fatalregistry
+        endif
+    endif
+    install RemoveFiles
+removeadapterExit = +
+    Debug-Output "OEMNADDS.INF: Exiting removeadapter"
+    goto end
+UpgradeSoftware = +
+    Debug-Output "******************Entering UpgradeSoftware******************"
+    Debug-Output "   ProductKeyName = "$(ProductKeyName)
+    Debug-Output "   NTN_RegBase = "$(!NTN_RegBase)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        CloseRegKey $(KeyProduct)
+    endif
+    set NetworkCardKeyName = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+    OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(MAXIMUM_ALLOWED) IE_KeyNetcards
+    ifstr(i) $(IE_KeyNetcards) != ""    
+        EnumRegKey $(IE_KeyNetcards) IE_KeyNameList
+        ForListDo $(IE_KeyNameList)
+            OpenRegKey $(IE_KeyNetcards) "" *($($),1) +
+                  $(MAXIMUM_ALLOWED) NetworkCardKey
+            Ifstr(i) $(NetworkCardKey) != $(KeyNull)
+                GetRegValue $(NetworkCardKey),"Manufacturer", ManufacturerInfo
+                set ManufacturerName = *($(ManufacturerInfo), 4)
+                Debug-Output "   Manufacturer = "$(ManufacturerName)
+                Ifstr $(ManufacturerName) != $(Manufacturer)
+                    goto nextnetcard
+                endif
+                GetRegValue $(NetworkCardKey),"ProductName", ProductNameInfo
+                set ProductName = *($(ProductNameInfo), 4)
+                Debug-Output "   ProductName = "$(ProductName)
+                ifcontains(i) $(ProductName) not-in $(AdapterHardwareDriverList)
+                    goto nextnetcard
+                endif
+                GetRegValue $(NetworkCardKey),"ServiceName", ServiceNameInfo
+                set ServiceName = *($(ServiceNameInfo), 4)
+                Debug-Output "   ServiceName = "$(ServiceName)
+                OpenRegKey $(NetworkCardKey) "" "NetRules" +
+                    $(MAXIMUM_ALLOWED) NetRuleKey
+                Ifstr $(NetRuleKey) != $(KeyNull)
+                   GetRegValue $(NetRuleKey),"InfOption", InfOptionInfo
+                   set InfOption = *($(InfOptionInfo), 4)
+                   set Option = $(InfOption)
+                   read-syms FileConstants
+                endif
+                CloseRegKey $(NetRules)
+                CloseRegKey $(NetworkCardKey)
+            endif
+            install "Install-Upgrade"
+            ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+              Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+              ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  goto ShellCodeError
+              endif
+              set Error = $($R0)
+              goto fatal
+            endif
+            OpenRegKey $(!REG_H_LOCAL) "" +
+                  $(!NTN_ServiceBase)"\"$(ServiceName) +
+                  $(MAXIMUM_ALLOWED) ServiceKey
+            Ifstr $(ServiceKey) != $(KeyNull)
+                Debug-Output "   Opened service key "$(ServiceName)" successfully"
+                OpenRegKey $(ServiceKey) "" "Parameters" +
+                      $(MAXIMUM_ALLOWED) ParametersKey
+                Ifstr $(ParametersKey) != $(KeyNull)
+                   SetRegValue $(ParametersKey) {FEPImagePath,$(NoTitle),$(!REG_VT_SZ),$(AdapterFepImage)}
+                   SetRegValue $(ParametersKey) {BiosImagePath,$(NoTitle),$(!REG_VT_SZ),$(AdapterBiosImage)}
+                   CloseRegKey $(ParametersKey)
+                else
+                    goto fatalregistry
+                Endif
+                CloseRegKey $(

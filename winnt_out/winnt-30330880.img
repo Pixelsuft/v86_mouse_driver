@@ -1,0 +1,117 @@
+D) KeyProduct
+	Ifstr $(KeyProduct) == $(KeyNull)
+	    set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+	    Debug-Output "Cannot find component product key"
+	    goto fatalregistry
+	Endif
+    Endif
+    Debug-Output "INF: Shelling to FindService"
+    Shell $(UtilityInf) FindService, $(KeyProduct)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	Debug-Output "INF: FindService shell failure"
+	Goto ShellCodeError
+    Endif
+    Ifstr(i) $($R0) != NO_ERROR
+	Debug-Output "INF: FindService Shell error: "$($R0)
+	Goto fatalregistry
+    endif
+    Set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Ifstr $(KeyParameters) == $(KeyNull)
+	set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+	Debug-Output "Cannot find component service"
+	goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE)
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+	set ValueItem = $($)
+	set ValueName = *($(ValueItem),1)
+	set ValueData = *($(ValueItem),4)
+	ifstr(i) $(ValueName) == "BUS_TO_SCAN"
+	    set BusScanValue = $(ValueData)
+	else-ifstr(i) $(ValueName) == "TP"
+	    set TPValue = $(ValueData)
+	else-ifstr(i) $(ValueName) == "LED0"
+	    set LED0Value = $(ValueData)
+	else-ifstr(i) $(ValueName) == "LED1"
+	    set LED1Value = $(ValueData)
+	else-ifstr(i) $(ValueName) == "LED2"
+	    set LED2Value = $(ValueData)
+	else-ifstr(i) $(ValueName) == "LED3"
+	    set LED3Value = $(ValueData)
+	else-ifstr(i) $(ValueName) == "IOBaseAddress"
+	    set IOBaseAddrValue = $(ValueData)
+	else-ifstr(i) $(ValueName) == "InterruptNumber"
+	    set IRQValue = $(ValueData)
+	else-ifstr(i) $(ValueName) == "DMAChannel"
+	    set DMAChannelValue = $(ValueData)
+	else-ifstr(i) $(ValueName) == "FDUP"
+	    set FullDuplexValue = $(ValueData)
+	else-ifstr(i) $(ValueName) == "BUSTIMER"
+	    set BusTimerValue = $(ValueData)
+	else-ifstr(i) $(ValueName) == "BusType"
+	    set BusInterfaceType = $(ValueData)
+        ifint $(BusInterfaceType) == 5
+            set IsISA = 0
+        else
+            set IsISA = 1
+        endif
+	else-ifstr(i) $(ValueName) == "BusNumber"
+	    set BusNumber = $(ValueData)
+	endif
+    EndForListDo
+    Ifint $(TPValue) == 0
+	Set CheckItemsIn = {"OFF"}
+    Else
+	Set CheckItemsIn = {"ON"}
+    Endif
+    Ifstr $(BusScanValue) == "PNP"
+	Set RadioIn = {1}
+    Else-Ifstr $(BusScanValue) == "VESA"
+	Set RadioIn = {2}
+    Else-Ifstr $(BusScanValue) == "ISA"
+	Set RadioIn = {3}
+    Else-Ifstr $(BusScanValue) == "ALL"
+	Set RadioIn = {4}
+    Else-Ifstr $(BusScanValue) == ""
+	Set RadioIn = {4}
+    Endif
+    Debug-Output $(InfName)" TP is "$(TPValue)
+ifint $(IsISA) == 1
+    set IRQValue = *($(IRQList), ~($(IRQValues),$(IRQValue)))
+    ifstr(i) $(IRQValue) == ""
+	set IRQValue = *($(IRQList), 2)
+    endif
+    Debug-Output $(InfName)" IRQ_Level is "$(IRQValue)
+    set DMAChannelValue = *($(DMAChannelList), ~($(DMAChannelValues),$(DMAChannelValue)))
+    ifstr(i) $(DMAChannelValue) == ""
+	set DMAChannelValue = *($(DMAChannelList), 2)
+    endif
+    Debug-Output $(InfName)" DMA is "$(DMAChannelValue)
+    set IOBaseAddrValue = *($(IOBaseAddrList), ~($(IOBaseAddrValues),$(IOBaseAddrValue)))
+    ifstr(i) $(IOBaseAddrValue) == ""
+	set IOBaseAddrValue = *($(IOBaseAddrList), 1)
+    endif
+    Debug-Output $(InfName)" I/o base is "$(IOBaseAddrValue)
+endif
+    set LED0Value = *($(LEDList), ~($(LEDValues),$(LED0Value)))
+    ifstr(i) $(LED0Value) == ""
+	set LED0Value = *($(LEDList), 1)
+    endif
+    Debug-Output $(InfName)" LED0 is "$(LED0Value)
+    set LED1Value = *($(LEDList), ~($(LEDValues),$(LED1Value)))
+    ifstr(i) $(LED1Value) == ""
+	set LED1Value = *($(LEDList), 1)
+    endif
+    Debug-Output $(InfName)" LED1 is "$(LED1Value)
+    set LED2Value = *($(LEDList), ~($(LEDValues),$(LED2Value)))
+    ifstr(i) $(LED2Value) == ""
+	set LED2Value = *($(LEDList), 1)
+    endif
+    Debug-Output $(InfName)" LED2 is "$(LED0Value)
+    set LED3Value = *($(LEDList), ~($(LEDValues),$(LED

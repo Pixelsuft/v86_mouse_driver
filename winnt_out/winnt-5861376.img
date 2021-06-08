@@ -1,0 +1,35 @@
+                                                                                                      
+[neomagic.Miniport]                                                                                                          
+neo20xx.sys                                                                                                                 
+                                                                                                                       
+[neomagic.Display]                                                                                                           
+neo20xx.dll
+                                                                                                                       
+                                                                                                                       
+;                                                                                                                      
+; Service Installation                                                                                                 
+;                                                                                                                      
+                                                                                                                       
+[neomagic.Services]                                                                                                          
+AddService = neomagic, 0x00000002, neomagic_Service_Inst, neomagic_EventLog_Inst                                                         
+                                                                                                                       
+[neomagic_Service_Inst]                                                                                                      
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER                                                            
+StartType      = 1                  ; SERVICE_SYSTEM_START                                                             
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE                                                             
+LoadOrderGroup = Video                                                                                                 
+ServiceBinary  = %12%\neo20xx.sys                                                                                        
+                                                                                                                       
+[neomagic_EventLog_Inst]                                                                                                     
+AddReg = neomagic_EventLog_AddReg                                                                                            
+                                                                                                                       
+[neomagic_EventLog_AddReg]                                                                                                   
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\neo20xx.sys"  
+HKR,,TypesSupported,0x00010001,7                                                                                       
+                                                                                                                       
+                                                                                                                       
+;                                                                                                                      
+; Software Installation                                                                                                
+;                                                                                                                      
+                                                                                                                       
+[neomagic.SoftwareSettings]                   

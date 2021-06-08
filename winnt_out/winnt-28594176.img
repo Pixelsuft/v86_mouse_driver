@@ -1,0 +1,85 @@
+Name))
+        Set BrowServiceType = "serviceshare"
+        Ifint $(SystemMemory) > 12287
+            Set BrowServiceType = "autoserviceshare"
+        Endif
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+            $(ProductBROWSERName), +
+            $(ProductBROWSERName), +
+            $(ProductBROWSERDisplayName), $(STF_CONTEXTINFNAME), +
+            $(ProductBROWSERImagePath), $(BrowServiceType), "",+
+            {"LanmanWorkstation","LanmanServer"}, "",+
+            $(NetEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        set BROWSER_ParmKey     = $($R4)
+        set BROWSER_NetRuleKey  = $($R2)
+        set BROWSER_ProductKey  = $($R1)
+        ifstr(i) $(!STF_PRODUCT) != "WINNT"
+            set ProductOpSupport = $(ProductOpSupportSERVER)
+        else
+            set ProductOpSupport = $(ProductOpSupportWKSTA)
+        endif
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductBROWSERTitle)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductBROWSERDescription)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductBROWSERName)},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(BROWSER_ProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: registry error: add value list."
+            CloseRegKey $(BROWSER_ProductKey)
+            CloseRegKey $(BROWSER_NetRuleKey)
+            CloseRegKey $(BROWSER_ParmKey)
+            goto fatalregistry
+        endif
+        CloseRegKey $(NROWSER_ProductKey)
+        set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),BROWSER}}
+        Shell  $(UtilityInf), AddValueList, $(BROWSER_NetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(SoftLinkageKey)
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add value list."
+            CloseRegKey $(BROWSER_NetRuleKey)
+            CloseRegKey $(BROWSER_ParmKey)
+            goto fatalregistry
+        endif
+        CloseRegKey $(BROWSER_NetRuleKey)
+        Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+            Set MaintainServerString = "Yes"
+        Else
+            Set MaintainServerString = "Auto"
+        Endif
+        set NewValueList = {{MaintainServerList,$(NoTitle),$(!REG_VT_SZ),$(MaintainServerString)},+
+                           {IsDomainMaster,$(NoTitle),$(!REG_VT_SZ),"FALSE"}}
+        Shell  $(UtilityInf), AddValueList, $(BROWSER_ParmKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(BROWSER_ParmKey)
+        Ifstr(i) $(RegistryEr

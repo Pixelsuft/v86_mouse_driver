@@ -1,0 +1,66 @@
+orIndex) != NO_ERROR
+            EndWait
+            Debug-Output "Resgitry error: add value list."
+            CloseRegKey $(SoftwareProductKey)
+            CloseRegKey $(SoftwareNetRuleKey)
+            CloseRegKey $(SoftwareServiceKey)
+            CloseRegKey $(SoftwareParameterKey)
+            CloseRegKey $(SoftLinkageKey)
+            goto fatalregistry
+        endif
+        CreateRegKey $(SoftwareParameterKey) {"EnableAuthenticationTraps",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+        Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+            {{"switch", $(NoTitle), $(!REG_VT_DWORD), "1"}}
+        CloseRegKey $(KeyTypesSubkey)
+        CreateRegKey $(SoftwareParameterKey) {"TrapConfiguration",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+        CloseRegKey $(KeyTypesSubkey)
+        CreateRegKey $(SoftwareParameterKey) {"PermittedManagers",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+        CloseRegKey $(KeyTypesSubkey)
+        CreateRegKey $(SoftwareParameterKey) {"ValidCommunities",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+        Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+            {{"1", $(NoTitle), $(!REG_VT_SZ), "public"}}
+        CloseRegKey $(KeyTypesSubkey)
+        CreateRegKey $(SoftwareParameterKey) {"RFC1156Agent",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+        Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+            {{"sysContact", $(NoTitle), $(!REG_VT_SZ), ""},+
+             {"sysLocation", $(NoTitle), $(!REG_VT_SZ), ""},+
+             {"sysServices", $(NoTitle), $(!REG_VT_DWORD), 76}}
+        CloseRegKey $(KeyTypesSubkey)
+        CreateRegKey $(SoftwareParameterKey) {"ExtensionAgents",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+        Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+            {{"1", $(NoTitle), $(!REG_VT_SZ), "SOFTWARE\Microsoft\LANManagerMIB2Agent\CurrentVersion"}, +
+             {"2", $(NoTitle), $(!REG_VT_SZ), "SOFTWARE\Microsoft\RFC1156Agent\CurrentVersion"} +
+             }
+        CloseRegKey $(KeyTypesSubkey)
+        CloseRegKey $(SoftwareProductKey)
+        CloseRegKey $(SoftwareNetRuleKey)
+        CloseRegKey $(SoftwareServiceKey)
+        CloseRegKey $(SoftwareParameterKey)
+        CloseRegKey $(SoftLinkageKey)
+        OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft" $(MAXIMUM_ALLOWED) MicrosoftKey
+        CreateRegKey $(MicrosoftKey) {"RFC1156Agent",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+        CreateRegKey $(KeyTypes) {"CurrentVersion",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+        Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+            {{"Pathname", $(NoTitle), $(!REG_VT_EXPAND_SZ), "%SystemRoot%\System32\inetmib1.dll"}}
+        CloseRegKey $(KeyTypesSubkey)
+        CloseRegKey $(KeyTypes)
+        CreateRegKey $(MicrosoftKey) {"LANManagerMIB2Agent",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+        CreateRegKey $(KeyTypes) {"CurrentVersion",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+        Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+            {{"Pathname", $(NoTitle), $(!REG_VT_EXPAND_SZ), "%SystemRoot%\System32\lmmib2.dll"}}
+        CloseRegKey $(KeyTypesSubkey)
+        CloseRegKey $(KeyTypes)
+        Shell "" InstallMicrosoftAgent "WINS" "WinsMibAgent" "%SystemRoot%\System32\winsmib.dll"
+        Shell "" InstallMicrosoftAgent "DHCPServer" "DhcpMibAgent" "%SystemRoot%\System32\dhcpmib.dll"
+        Shell "" AddSnmpTrapService
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+        endif
+    endif
+    EndWait
+    set FLibraryErrCtl = 1
+    LibraryProcedure Result, $(!TCPCFG_HANDLE), CPlSnmp, $(!STF_HWND), $(!STF_GUI_UNATTENDED), $(!STF_UNATTENDED), $(!STF_UNATTENDED_SECTION)
+    ifint $(Result) == 0
+        set CommonStatus = STATUS_REBOOT
+    else-ifint $

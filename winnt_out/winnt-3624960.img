@@ -1,0 +1,94 @@
+                   {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductTitle)},+
+                       {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductDescription)},+
+                       {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductName)},+
+                       {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+                       {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+    Shell  $(UtilityInf), AddValueList, $(ISVersion), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVNW.INF: ShellCode error."
+        goto ShellCodeError
+    endif
+    set NewValueList = {{"InfOption",$(NoTitle),$(!REG_VT_SZ),"Inetsrv"}}
+    Shell  $(UtilityInf), AddValueList, $(ISNetRule), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVNW.INF: ShellCode error."
+        goto ShellCodeError
+    endif
+    ifstr(i) $(!NTN_InstallPhase) == primary
+        goto end
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\Microsoft\INetStp" $(MAXIMUM_ALLOWED) BS_INetStp
+    ifstr $(BS_INetStp) != $(KeyNull)
+        ifstr(i) $(!STF_PRODUCT) == "WINNT"
+             set Error = $(Warning3Winnt)
+        else
+             set Error = $(Warning3LanmanNt)
+        endif
+        set from = end
+        set to = end
+        goto warning
+    else
+        ifstr(i) $(!NTN_Origination) == "install"
+            ifstr(i) $(!NTN_InstallPhase) == "secondary"
+                ifstr(i) $(!STF_PRODUCT) == "WINNT"
+                     set Error = $(Warning4Winnt)
+                else
+                     set Error = $(Warning4LanmanNt)
+                endif
+                Shell "utility.inf" RemoveSoftwareComponent "Microsoft" "Inetsrv" "FALSE"
+                set from = end
+                set to = end
+                goto nonfatal
+            endif
+        endif
+        set FWaitForProcess = 1
+        RunProgram RC "" "" $(!STF_WINDOWSSYSPATH)"\inetins.exe"
+        set FWaitForProcess = 0
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\Microsoft\INetStp" $(MAXIMUM_ALLOWED) INetStpKey
+        ifstr $(INetStpKey) == $(KeyNull)
+            Shell "utility.inf" RemoveSoftwareComponent "Microsoft" "Inetsrv" "FALSE"
+        endif
+    endif
+    set CommonStatus = STATUS_NO_EFFECT
+    goto successful
+configureadapter = +
+    goto end
+bindingadapter =+
+    goto end
+removeadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\Microsoft\INetStp" $(MAXIMUM_ALLOWED) BS_INetStp
+    ifstr $(BS_INetStp) == $(KeyNull)
+        Shell "utility.inf" RemoveSoftwareComponent "Microsoft" "Inetsrv" "FALSE"
+        set CommonStatus = STATUS_NO_EFFECT
+    else
+        ifstr(i) $(!NTN_InstallPhase) == primary
+            goto end
+        endif
+        GetRegValue $(BS_INetStp),"InstallPath",InstallPath
+        set FWaitForProcess = 1
+        RunProgram RC "" "" *($(InstallPath),4)"\setup.exe" "/R"
+        set FWaitForProcess = 0
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\Microsoft\INetStp" $(MAXIMUM_ALLOWED) INetStpKey
+        ifstr $(INetStpKey) == $(KeyNull)
+            Shell "utility.inf" RemoveSoftwareComponent "Microsoft" "Inetsrv" "FALSE"
+        endif
+    endif
+    goto end
+UpgradeSoftware = +
+    ifstr(i) $(!STF_PRODUCT) == "WINNT"
+         set ProductDescription = $(ProductSoftwareWINNTDescription)
+    else
+         set ProductDescription = $(ProductSoftwareLANMANNTDescription)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyCurrentVersion
+    Ifstr $(KeyCurrentVersion) != $(KeyNull)
+        SetRegValue $(KeyCurrentVersion) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductDescription)}
+        SetRegValue $(KeyCurrentVersion) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyCurrentVersion)
+    endif
+    goto end
+successful = +
+    goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CO

@@ -1,0 +1,121 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Supra
+
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Supra%
+
+[Manufacturer]
+%Supra% = Supra
+
+[ControlFlags]  
+ExcludeFromSelect=SERENUM\SUP1330
+ExcludeFromSelect=SERENUM\SUP1331
+ExcludeFromSelect=*SUP1420
+ExcludeFromSelect=*SUP1440
+ExcludeFromSelect=*SUP1580
+ExcludeFromSelect=*SUP1640
+ExcludeFromSelect=*SUP1421
+ExcludeFromSelect=*SUP1581
+
+[Modem38.PosDup]         ; Express 336i Multinational
+*PNP0500
+
+[Modem36.PosDup]         ; Retail 336 SpPhone
+*PNP0500
+
+[Modem31.NoResDup]       ; HSVO 336
+UNIMODEM7A7CA4B7
+
+[Modem27.PosDup]         ; NEC Modem
+*PNP0500
+
+[Modem25.PosDup]         ; Express 288i Multinational
+*PNP0500
+
+[Modem23.PosDup]         ; OEM SpPhone
+*PNP0500
+
+[Modem20.PosDup]         ; Retail SpPhone
+*PNP0500
+
+[Modem18.NoResDup]       ; HSVO
+UNIMODEMBE60301A, UNIMODEM94A79C90
+
+
+[Supra]
+%Supra38% = Modem38, *SUP1581                                   ; Express 336i Multinational
+%Supra38% = Modem38, UNIMODEMC99E09FE  
+%Supra36% = Modem36, *SUP1421                                   ; Retail SpeakerPhone with VoiceView
+%Supra36% = Modem36, UNIMODEM1DF829B2
+%Supra31PNP% = Modem31, SERENUM\SUP1331
+%Supra31% = Modem31, UNIMODEM7A7CA4B7
+%Supra27% = Modem27, *SUP1640                                   ; NEC Single Chip
+%Supra27% = Modem27, SUPRV_SUPRA27  
+%Supra25% = Modem25, *SUP1580                                   ; Express 288i Multinational
+%Supra25% = Modem25, UNIMODEM9D5F85C0
+%Supra23% = Modem23, *SUP1440                                   ; OEM Speakerphone with VoiceView
+%Supra23% = Modem23, UNIMODEM14B44DBB
+
+%Supra20% = Modem20, *SUP1420                                   ; Retail SpeakerPhone with VoiceView
+%Supra20% = Modem20, UNIMODEM4492B6B8
+
+%Supra18PNP% = Modem18, SERENUM\SUP1330        ;HSVO
+%Supra18% = Modem18, UNIMODEMBE60301A  
+%Supra18% = Modem18, UNIMODEM2C91C3BE  
+
+[Modem38]
+AddReg=All, MfgAddReg, Supra_Voice_All3, Supra_Voice_Serwave2, Modem38.AddReg, INTERNAL
+
+[Modem36]
+AddReg=All, MfgAddReg, VoiceView_Modem, VoiceView_Socket, Supra_Voice_All, Supra_Voice_Serwave, Modem36.AddReg, INTERNAL
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[Modem31]
+AddReg=All, MfgAddReg, Supra_Voice_All2, Supra_Voice_Serwave, Modem31.AddReg, EXTERNAL
+
+[Modem27]
+AddReg=All, MfgAddReg, VoiceView_Modem, VoiceView_Socket, Supra_Voice_All, Supra_Voice_Serwave, Modem27.AddReg, INTERNAL
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[Modem25]
+AddReg=All, MfgAddReg, Supra_Voice_All3, Supra_Voice_Serwave2, Modem25.AddReg, INTERNAL
+
+[Modem23]
+AddReg=All, MfgAddReg, VoiceView_Modem, VoiceView_Socket, Supra_Voice_All, Supra_Voice_Serwave, Modem23.AddReg, INTERNAL
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[Modem20]
+AddReg=All, MfgAddReg, VoiceView_Modem, VoiceView_Socket, Supra_Voice_All, Supra_Voice_Serwave, Modem20.AddReg, INTERNAL
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[Modem18]
+AddReg=All, MfgAddReg, Supra_Voice_All2, Supra_Voice_Serwave, Modem18.AddReg, EXTERNAL
+
+[Modem38.AddReg]
+HKR,, Properties, 1, C0,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,C2,01,00, 40,83,00,00
+
+[Modem36.AddReg]
+HKR,, Properties, 1, C0,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,C2,01,00, 40,83,00,00
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+
+[Modem31.AddReg]
+HKR,, Properties, 1, C0,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,03,00,00, 00,84,03,00, 40,83,00,00
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+
+[Modem27.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,

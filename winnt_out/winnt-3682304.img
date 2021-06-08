@@ -1,0 +1,112 @@
+ $(!NTN_InstallMode) == bind
+        set StartLabel = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set CommonStatus = STATUS_REBOOT
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the proteon 1990 driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+        set StartLabel = configureadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    goto nextstep
+configureadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) NetCardKey
+    ifstr(i) $(NetCardKey) == ""
+        set CommonStatus = STATUS_USERCANCEL
+        goto successful
+    endif
+    GetRegValue $(NetCardKey) "ServiceName" ServiceInfo
+    set ServiceName = *($(ServiceInfo),4)
+    CloseRegKey $(NetCardKey)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ServiceName)"\Parameters" $(MAXIMUM_ALLOWED) ParamKey
+    ifstr(i) $(ParamKey) != ""
+        GetRegValue $(ParamKey),"NetworkAddress", NetworkAddressInfo
+        GetRegValue $(ParamKey),"CardSpeed", CardSpeedInfo
+	ifint *($(CardSpeedInfo),4) == 4
+	    set RadioIn = {1}
+	else
+	    set RadioIn = {2}
+	endif
+        set NetworkAddress = *($(NetworkAddressInfo), 4)
+        read-syms FileDependentDlg$(!STF_LANGUAGE)
+        ui start "NetworkAddress"
+        ifstr(i) $(DLGEVENT) == "CONTINUE"
+	        ifcontains 1 in $(RadioOut)
+    		    set CardSpeed = 4
+	        else
+    		    set CardSpeed = 16
+	        endif
+            SetRegValue $(ParamKey) {CardSpeed,$(NoTitle),$(!REG_VT_DWORD),$(CardSpeed)}
+            set NetworkAddress = *($(EditTextOut),1)
+            SetRegValue $(ParamKey) {NetworkAddress,$(NoTitle),$(!REG_VT_SZ),$(NetworkAddress)}
+            ui pop 1
+        else
+            set CommonStatus = STATUS_USERCANCEL
+            ui pop 1
+        endif
+        CloseRegKey $(ParamKey)
+    endif
+    goto successful
+nextstep = +
+    StartWait
+installproduct = +
+    Shell $(UtilityInf), EISAFindBus, $(P1990_1BYTE)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) == {}
+        set Error = $(CANNOT_FIND_ANY_CARD)
+        set CommonStatus = STATUS_USERCANCEL
+        set from = "end"
+        goto nonfatal
+    endif
+    set AdapterList = $($R1)
+    ifint $(OldVersionExisted) == $(FALSE)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+           Ifstr(i) $(DoCopy) == "YES"
+      

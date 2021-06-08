@@ -1,0 +1,98 @@
+[Identification]
+    OptionType = NetTransport
+[Options]
+    TC
+[FileConstants]
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+NetBTEventDLL   = "%SystemRoot%\System32\netevent.dll"
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+Sockmaxlength           = 16
+Sockminlength           = 16
+ProductDHCPName          = "DHCP"
+ProductDHCPImagePath     = "%SystemRoot%\System32\services.exe"
+ProductDHCPSvcType       = "autoserviceshare"
+ProductNETBTName          = "NetBT"
+ProductNETBTImagePath     = "%SystemRoot%\System32\drivers\netbt.sys"
+ProductNETBTSvcType       = "kernel"
+NetRuleNETBTType          = "netbt netBiosTransport netbtTransport"
+NetRuleNETBTClass         = {"netbtTransport netBiosTransport"}
+NetRuleNETBTUse           = $(SoftwareType)" none none"
+NetRuleNETBTBindForm      = """NetBT"" yes yes simple"
+ProductOpSupport     = 134 
+ProductLMHOSTSName      = "LmHosts"
+ProductLMHOSTSImagePath  = "%SystemRoot%\System32\services.exe"
+ProductTCName      = "Tcpip"
+ProviderName       = $(ProductTCName)
+Winsock20Provider = "%SystemRoot%\System32\rnr20.dll"
+Winsock11Provider = "%SystemRoot%\System32\wsock32.dll"
+ProductProviderGUID      = "{22059d40-7e9e-11cf-ae5a-00aa00a7112b}"
+ProductProviderNameSpaces = 12 
+ProductTCImagePath   = "\SystemRoot\System32\drivers\tcpip.sys"
+ProductTCWshDllPath  = "%SystemRoot%\System32\wshtcpip.dll"
+ProductTCSvcType     = "kernel"
+NetRuleTCType        = "tcpip tcpipTransport"
+NetRuleTCUse         = $(SoftwareType)" none none"
+NetRuleTCBindForm    = """Tcpip"" yes yes container"
+NetRuleTCBindable    = {"tcpipService tcpipTransport non exclusive 100","tcpipTransport ndisDriver non non 100"}
+NetRuleTCClass       = {"tcpipTransport basic","tcpipService basic yes"}
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(Product$(Option)Name)"\CurrentVersion"
+ProductTCKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductTCName)"\CurrentVersion"
+TCNetRuleKeyName = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\Tcpip\CurrentVersion\NetRules"
+NetBTNetRuleKeyName = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\NetBT\CurrentVersion\NetRules"
+OldProductKeyName  = $(!NTN_ServiceBase)"\Tcpip\Parameters"
+LinkageKeyName  = $(!NTN_ServiceBase)"\Tcpip\Linkage"
+ParametersKeyName  = $(!NTN_ServiceBase)"\Tcpip\Parameters"
+ServiceTCKeyName = $(!NTN_ServiceBase)"\Tcpip"
+ServiceKeyName  = $(!NTN_ServiceBase)
+NetBTLinkageKeyName  = $(!NTN_ServiceBase)"\NetBT\Linkage"
+AdaptersKeyName  = $(!NTN_ServiceBase)"\NetBT\Adapters"
+PerformanceName  = $(!NTN_ServiceBase)"\NetBT\Performance"
+NetBTParamKeyName  = $(!NTN_ServiceBase)"\NetBT\Parameters"
+DosDevices      = "SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices"
+[GeneralConstants]
+UtilityInf       = "UTILITY.INF"
+subroutineinf    = "SUBROUTN.INF"
+IPINFOINF        = "ipinfo.inf"
+SoftwareType     = "transport"
+Exit_Code        = 0
+BillboardVisible = 0
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+SERVICE_NO_CHANGE = 4294967295
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle         = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+ 

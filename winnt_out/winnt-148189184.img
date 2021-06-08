@@ -1,0 +1,61 @@
+T&nbsp;4.0 Workstation Resource Kit.</i></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<a name="2.7"><b>2.7 Installing Windows&nbsp;NT&nbsp;4.0 on a Computer Running Windows&nbsp;2000 </b></a></p>
+<p>
+When installing Windows&nbsp;NT&nbsp;4.0 on a computer with Windows&nbsp;2000 beta version or later installed, Setup may continuously restart after the initial text-mode phase of Windows&nbsp;NT&nbsp;4.0 Setup.</p>
+<p>
+The updated Winnt32.exe in the \Support\Winnt32 folder allows you to install Windows&nbsp;NT&nbsp;4.0 on a computer already running Windows&nbsp;2000.</p>
+<p><blockquote>
+<b>To update the Winnt32.exe</b></p>
+<ol>
+<li>Copy the \Support\Winnt32\Winnt32.exe file from the Windows&nbsp;NT&nbsp;4.0 SP6 CD to a folder on your hard disk. You can also double-click the file on the SP6 CD.</li>
+<li>When prompted for the location of the Windows&nbsp;NT&nbsp;4.0 files, supply the path to the \i386 folder or \Alpha on the Windows&nbsp;NT&nbsp;4.0 CD.</li>
+<li>After Windows&nbsp;NT&nbsp;4.0 is installed, install SP6.</li>
+<li>Copy Ntldr.com and Ntdetect.com from the Windows&nbsp;2000 CD to the root of the system drive.</li>
+</ol></blockquote>
+<p>
+<b>Note: </b> To use this installation method, your installation partition must be formatted with the FAT file system.</p>
+<p>
+For more information, visit the Microsoft Personal Online Support Center Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=SUPPORT">http://support.microsoft.com/support/</a></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<a name="2.8"><b>2.8 Upgrading a Cluster to Service&nbsp;Pack&nbsp;6</b></a></p>
+<p>This section covers upgrading your cluster services to Service Pack&nbsp;6.</p>
+<p>
+<b><a name="2.8.1">2.8.1</a> Rolling Upgrade</b></p>
+<p>
+You can eliminate the downtime of your cluster services and minimize administrative complexity by performing a rolling upgrade of the operating system. In a rolling upgrade, you sequentially upgrade the operating system on each node, making sure that one node is always available to handle client requests.</p>
+<p>
+A rolling upgrade consists of four phases:</p>
+<ul>
+<li>Phase 1: Preliminary - Each node runs Windows&nbsp;NT&nbsp;4.0 SP3.</li>
+<li> Phase 2: Upgrade Node 1 - Node 1 is paused, and Node 2 handles all cluster resource groups while you upgrade the operating system of Node 1 to Windows&nbsp;NT&nbsp;4.0 SP6.</li>
+<li>Phase 3: Upgrade Node 2 - Node 1 rejoins the cluster. Node 2 is paused, and Node 1 handles all cluster resource groups while you upgrade the operating system on Node 2 to SP6.</li>
+<li>Phase 4: Final - Node 2 rejoins the cluster.</li>
+</ul>
+<p>
+The operation of Phase 3, when the two cluster nodes run different Service Packs, is called a "mixed-version cluster." You should ensure that every resource on your cluster can operate in a mixed-version environment. If version incompatibilities prevent a cluster resource from operating in a mixed-version cluster, you won't be able to successfully complete your rolling upgrade.</p>
+<p>
+<b>Note:</b> You can't create new groups, resources, or resource types in a mixed-version cluster.</p>
+<p><blockquote>
+<b>To perform a rolling upgrade</b></p>
+<ol>
+<li>Pause the cluster service on Node 1 and move its resource groups to Node 2.</li>
+<li>Upgrade Node 1 from SP3 to SP6.</li>
+<li>Perform validation tests on Node 1 to certify that the node is fully functional.</li>
+<li>In <b>Cluster Administrator</b>, click <b>Resume Node</b>.</li>
+<li>Repeat Steps 1 through 4 for Node 2 instead of Node 1.</li>
+</ol></blockquote>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="2.8.2"><b>2.8.2 Alternatives to a Rolling Upgrade</b></a></p>
+<p>
+There are two alternatives to a rolling upgrade for upgrading Windows&nbsp;NT&nbsp;4.0 on a cluster.</p>
+<p>
+If you can't perform a rolling upgrade because your cluster manages a resou

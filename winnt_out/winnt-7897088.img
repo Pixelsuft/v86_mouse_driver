@@ -1,0 +1,48 @@
+
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>"				, 1, 02, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>"				, 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>"				, 1, 02, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>"				, 1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600<cr><lf>"				, 1, 02, 00, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000<cr><lf>"				, 1, 02, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400<cr><lf>"				, 1, 02, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>"				, 1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>"				, 1, 02, 00, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>"				, 1, 02, 00, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>"			, 1, 02, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 ALT<cr><lf>"			, 1, 02, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 ALT /MNP 5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300 ALT / MNP5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 ALT / MNP5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 ALT / MNP5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 ALT / MNP5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 ALT / MNP5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 ALT / MNP5<cr><lf>"		, 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT

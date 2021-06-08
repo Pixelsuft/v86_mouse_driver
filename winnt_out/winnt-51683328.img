@@ -1,0 +1,81 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1997 Microsoft Corporation
+; Manufacturer: U.S.Robotics, Inc. (Sportster)
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%USR%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM5A28D161
+ExcludeFromSelect=SERENUM\USR0000  ; Sportster 14.4 PNP
+ExcludeFromSelect=UNIMODEM7E803A35 ; Sportster 14.4 PNP
+ExcludeFromSelect=UNIMODEMD21C6D4A ; Sportster 14.4 PNP
+ExcludeFromSelect=SERENUM\USR0011  ;Sportster 28.8 internal
+
+[Modem3a.NoResDup]
+UNIMODEM7E803A35,UNIMODEMD21C6D4A
+
+[Modem28.NoResDup]
+UNIMODEM7A1BB094
+
+[Manufacturer]
+%USR% = USR
+%DEC% = DEC
+
+[DEC]
+%Modem22% = Modem17,  PCMCIA\DIGITAL-PCMCIA_28_800_V.34_FAX-8FAF
+%Modem22% = Modem17,  UNIMODEMF72FBA02
+%Modem21% = Modem18,  PCMCIA\DIGITAL-PCMCIA_V.32BIS_14_400_FAX-DDAE
+
+[USR]
+%Modem28PNP% = Modem28, SERENUM\USR0011    ;Sportster 28800 V.34, internal
+%Modem28% = Modem28, SERENUM\USR0011       ;Sportster 28800 V.34, internal
+%Modem28% = Modem28, UNIMODEM7A1BB094      ;Sportster 28800 V.34, internal
+%Modem28% = Modem28, UNIMODEM2CA175B7      ;Sportster 28800 V.34, internal
+
+; %Modem27% = Modem19,  UNIMODEMB7A2ED54  ; severe interop bug -- unsupported
+%Modem26% = Modem26,  UNIMODEM803D22C8   ; sportster 28800 33600
+%Modem26% = Modem26,  UNIMODEM2095B40E   ; sportster 28800 33600
+%Modem26% = Modem26,  UNIMODEM7ABE8C8F   ; sportster 28800 33600
+%Modem26% = Modem26,  UNIMODEMD622DBF0   ; sportster 28800 33600
+
+%Modem25% = Modem3a,  UNIMODEMD21C6D4A
+%Modem24% = Modem24,  UNIMODEM7E803A35   
+%Modem23% = Modem16,  UNIMODEME76319A1   ;Sportster 28800 (Sweden)
+%Modem23% = Modem16,  UNIMODEMD93AA044   ;Sportster 28800 (Sweden)
+%Modem20% = Modem16,  UNIMODEM5A28D161   ;Sportster 28800 V.34, internal+external combo
+%Modem19% = Modem19,  USRSP_Modem19, UNIMODEM5A28D161   ;Sportster 28800 V.34, internal
+%Modem18% = Modem18,  PCMCIA\USROBOTICS-PCMCIA_14_400_FAX-552B      ;Sportster 14400 PCMCIA
+%Modem18% = Modem18,  PCMCIA\USROBOTICS-PCMCIA_14_400_FAX-B4EC      ;Sportster 14400 PCMCIA
+%Modem17% = Modem17,  USRSP_Modem17, PCMCIA\USROBOTICS-PCMCIA_28800_DATA/FAX-92A2  ;Sportster 28800 PCMCIA V.34
+%Modem17% = Modem17,  UNIMODEM779AF855  ;Sportster 28800 PCMCIA V.34
+%Modem17% = Modem17,  UNIMODEMD1EA1E5F  ;Sportster 28800 PCMCIA V.34
+%Modem17% = Modem17,  UNIMODEM402CE3B6  ;Sportster 28800 PCMCIA V.34
+%Modem16% = Modem16,  USRSP_Modem16, UNIMODEMD687E7EB   ;Sportster 28800 V.34, external
+%Modem16% = Modem16,  USRSP_Modem16, UNIMODEM5A28D161   ;Sportster 28800 V.34, external
+%Modem16% = Modem16,  UNIMODEM16ADA0B2   ;Sportster 28800 V.FC
+%Modem15% = Modem15,  USRSP_Modem15      ;Sportster 1200
+%Modem14% = Modem14,  USRSP_Modem14      ;Sportster 9600 V.42bis
+%Modem12% = Modem12,  UNIMODEMDF0B7023   ;Sportster 9600 FAX or FAX PC
+%Modem12% = Modem12,  UNIMODEM24AB465A   ;Sportster 9600 FAX
+%Modem12% = Modem12,  UNIMODEM1FA45BF3   ;Sportster 9600 FAX
+%Modem11% = Modem11,  USRSP_Modem11      ;Sportster 2400 V.42bis PC
+%Modem10% = Modem10,  USRSP_Modem10      ;Sportster 2400 V.42bis
+%Modem9%  = Modem9,   USRSP_Modem9       ;Sportster 2400 PC
+%Modem8%  = Modem8,   USRSP_Modem8       ;Sportster 2400 V.42bis FAX PC
+%Modem7%  = Modem7,   USRSP_Modem7       ;Sportster 2400 V.42bis FAX
+%Modem6%  = Modem6,   UNIMODEM95B0CA3B   ;Sportster 2400
+%Modem6%  = Modem6,   UNIMODEMB37584C1   ;Sportster 2400
+%Modem5%  = Modem5,   USRSP_Modem5, UNIMODEM04D8823C   ;Sportster 14400 V.42bis PC
+%Modem5%  = Modem5,   UNIMODEMEF29BFC0   ;Sportster 14400 V.42bis PC
+%Modem4%  = Modem4,   UNIMODEM04D8823C   ;Sportster 14400 V.42bis
+%Modem3%  = Modem3,   USRSP_Modem3, UNIMODEM1F3959B0   ;Sportster 14400 FAX PC
+%Modem3%  = Modem3,   UNIMODEMA5325AF2   ;Sportster 14400 FAX PC
+%Modem3%  = Modem3,   UNIMODEM193EC3D3   ;Sportster 14400 FAX PC
+%Modem3%  = Modem3,   USRSP_Modem3, UNIMODEMD21C6D4A   ;Sportster 14400 FAX PC
+%Modem3aPNP%=Modem3a, SERENUM\USR0000    ;Sportster 14400 FAX PC
+%Modem3a% = Modem3a,  USRSP_Modem3a, UNIMODEM7E803A35  ;Sportster 14400 FAX PC
+%Mo

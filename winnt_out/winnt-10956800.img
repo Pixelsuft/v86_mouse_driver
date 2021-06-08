@@ -1,0 +1,96 @@
+en master component key: "$(Product)
+        Set Error = CANNOT_FIND_COMPONENT_SERVICE
+        Goto RDC_Return
+    Endif
+    GetRegValue $(MasterKey) DependentInfNames InfNamesValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set InfNamesList = *($(InfNamesValue),4)
+        Set InfIndex = ~($(InfNamesList),$(InfName))
+        QueryListSize NameListSize $(InfNamesList)
+    Endif
+    GetRegValue $(MasterKey) DependentInfOptions InfOptionsValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set InfOptionsList = *($(InfOptionsValue),4)
+        QueryListSize OptionListSize $(InfOptionsList)
+    Endif
+    Ifint $(NameListSize) != $(OptionListSize)
+        Set Error = UNABLE_INSTALL
+        Debug-Output "UTILITY.INF: Dependent INF list degenerate: "$(Product)
+        Goto RDC_Return
+    Endif
+    Ifint $(NameListSize) == 0
+        Set Status = STATUS_SUCCESSFUL
+        Goto RDC_Return
+    Endif
+    Set OldOption = $(!NTN_InfOption)
+    Set OldMode   = $(!NTN_InstallMode)
+    Set OldInf    = $(!NTN_Infname)
+    Set !NTN_InstallMode = deinstall
+    Set Tindex = 0
+    ForListDo $(InfNamesList)
+        Set-add Tindex = $(Tindex), 1
+        Set !NTN_InfOption = *($(InfOptionsList),$(Tindex))
+        Set !NTN_Infname = $($)
+        Debug-Output "UTILITY.INF: Removing "$(Product)" dependent: "$(InfName)":"$(InfOption)
+        Shell $(!NTN_Infname) InstallOption $(!STF_LANGUAGE) $(!NTN_InfOption) $(!STF_SRCDIR) +
+              $(!NtLmAddCopy) $(!NtLmDoCopy) $(!NtLmDoConfig)
+    EndForListDo
+    Set !NTN_InfOption   = $(OldOption)
+    Set !NTN_InstallMode = $(OldMode)
+    Set !NTN_Infname     = $(OldInf)
+    Set Status = STATUS_SUCCESSFUL
+RDC_Return =+
+    Ifstr(i) $(MasterKey) != $(KeyNull)
+       CloseRegKey $(MasterKey)
+    Endif
+    return $(Status) $(Error)
+[AddDefaultNetCardParameters]
+    set KeyParameter = $($0)
+    ForListDo $(!NetCardParameterName)
+        set Name = $($)
+        set Value = *($(!NetCardParameterValue), $(#))
+        ifstr(i) $(Name) == "NetworkAddress"
+            set Type = $(!REG_VT_SZ)
+        else
+            set Type = $(!REG_VT_DWORD)
+        endif
+ Debug-Output "Name = "$(Name)
+ Debug-Output "Value = "$(Value)
+        SetRegValue $(KeyParameter) {$(Name),$(NoTitle),$(Type),$(Value)}
+    EndForListDo
+    return
+[FindNextNetworkCard]
+    read-syms InitBaseVars
+    set NetcardName = $($0)
+    set iSearch = $($1)
+    set KeyNetcard = ""
+    Debug-Output "Utility.Inf: FindNextNetworkCard "$(NetcardName)", "$(iSearch)
+checknextnetcard = +
+    set KeyName = $(NetworkCardKeyName)"\"$(iSearch)
+    Debug-Output "Utility.Inf: FindNextNetworkCard, checking "$(KeyName)
+    OpenRegKey $(!REG_H_LOCAL) "" $(KeyName) $(MAXIMUM_ALLOWED) KeyNetcard
+    set-add iSearch = $(iSearch), 1
+    Ifstr $(KeyNetcard) != $(KeyNull)
+        GetRegValue $(KeyNetcard) "ProductName" ValueList
+        ifstr(i) $(NetcardName) != *($(ValueList),4)   
+            CloseRegKey $(KeyNetcard)
+            Debug-Output "Utility.Inf: FindNextNetworkCard, its not "*($(ValueList),4)" at "$(iSearch)
+            goto checknextnetcard
+        endif
+        Debug-Output "Utility.Inf: FindNextNetworkCard, Found "*($(ValueList),4)" at "$(iSearch)
+    else
+        Debug-Output "Utility.Inf: FindNextNetworkCard, Last One "$(iSearch)
+    endif
+    Debug-Output "Utility.Inf: FindNextNetworkCard returning "$(KeyNetcard)","$(iSearch)
+    return $(KeyNetcard) $(iSearch)
+[AFDVars]
+ProductAFDTitle         = "AFD Networking Support Environment"
+ProductAFDName          = "Afd"
+ProductAFDImagePath     = "\SystemRoot\System32\drivers\afd.sys"
+ProductAFDSvcType       = "kernelautostart"
+[RegistryErrorsENG]
+UNABLE_ACCESS_SOFTWARE_REG,"Unable to access SOFTWARE subtree in Registry"
+UNABLE_CREATE_MANUFACTURER_KEY,"Unable to create Manufacturer key in Registry"
+UNABLE_OPEN_MICROSOFT_KEY,"Unable to open Microsoft subkey in Registry"
+UNABLE_CREATE_PRODUCT_KEY,"Unable to create subkey in Registry for Windows NT"
+UNABLE_CREATE_PRODUCT_VERSION,"Unable to cr

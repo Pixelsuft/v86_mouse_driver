@@ -1,0 +1,47 @@
+2, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX EC<cr><lf>",         1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX EC/V42BIS<cr><lf>",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200 EC<cr><lf>",             1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200 EC/V42BIS<cr><lf>",      1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 EC<cr><lf>" ,               1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 EC/V42BIS<cr><lf>" ,        1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 EC<cr><lf>" ,               1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 EC/V42BIS<cr><lf>" ,        1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 EC<cr><lf>" ,               1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 EC/V42BIS<cr><lf>" ,        1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 EC<cr><lf>" ,               1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 EC/V42BIS<cr><lf>" ,        1, 02, 03, 80,25,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CARRIER 300<cr><lf>",             1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 600<cr><lf>" ,            1, 01, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 0600<cr><lf>" ,           1, 01, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200TX/75RX<cr><lf>",     1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75TX/1200RX<cr><lf>",     1, 01, 00, B0,04,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CARRIER 1200/75<cr><lf>",         1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75/1200<cr><lf>",         1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200<cr><lf>",            1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200/75 V.23<cr><lf>",    1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75/1200 V.23<cr><lf>",    1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 2400<cr><lf>",            1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 4800<cr><lf>",            1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 7200<cr><lf>",            1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 9600<cr><lf>",            1, 01, 00, 80,25,00,00, 00,00,00,00
+
+[144]
+HKR, Responses,"<cr><lf>CONNECT 12000<cr><lf>",            1, 02, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 12000/ARQ<cr><lf>",        1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 12000/REL<cr><lf>",        1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 12000/MNP<cr><lf>",        1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 12000/LAP-M<cr><lf>",      1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 12000/V42BIS<cr><lf>",     1, 02, 01, E0,2E,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 14400<cr><lf>",            1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 14400/ARQ<cr><lf>",        1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 14400/REL<cr><lf>",        1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 14400/MNP<cr><lf>",        1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 14400/LAP-M<cr><lf>",      1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 14400/V42BIS<cr><lf>",     1, 02, 01, 40,38,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 16800<cr><lf>",            1, 02, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 16800/ARQ<cr><lf>",        1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 16800/REL<cr><lf>",        1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNEC

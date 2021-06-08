@@ -1,0 +1,95 @@
+allPhase = secondary
+     ifstr(i) $(!NTN_OVERIDEPHASE) != ""
+         Set !NTN_InstallPhase = $(!NTN_OVERIDEPHASE)
+     Else
+         OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\Setup" $(!REG_KEY_READ) KeySetup
+         Ifstr(i) $(KeySetup) != ""
+             GetRegValue $(KeySetup) "SystemSetupInProgress" SetupInpValue
+             Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                 Set SetupInp = *($(SetupInpValue),4)
+                 Debug-Output "NCPASHEL.INF: SetupInp = "$(SetupInp)
+             Endif
+             Ifint $(SetupInp) == 1
+                 Set !NTN_InstallPhase = primary
+                 GetRegValue $(KeySetup) "WinntPath" SetupPathValue
+                 Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                     Set !STF_SRCDIR_WINNT = *($(SetupPathValue),4)
+                     Debug-Output "NCPASHEL.INF: STF_SRCDIR_WINNT = "$(!STF_SRCDIR_WINNT)
+                 Endif
+             Endif
+             CloseRegKey $(KeySetup)
+         Endif
+     EndIf
+     Debug-Output "NCPASHEL.INF: NTN_InstallPhase = "$(!NTN_InstallPhase)
+     Debug-Output "NCPASHEL.INF: NTN_InfSection = "$(!NTN_InfSection)
+     Debug-Output "NCPASHEL.INF: NTN_InstallMode = "$(!NTN_InstallMode)
+   Ifstr(i) $(!NTN_Origination) == "install"
+        Goto skipdetection
+   Endif
+   Ifstr(i) $(!NTN_InfSection) == BindingsReview
+        Goto skipdetection
+   Endif
+   Ifstr(i) $(!NTN_InstallMode) == install
+        Goto startdetection
+   Endif
+   Ifstr(i) $(!NTN_InstallMode) == configure
+        Goto startdetection
+   Endif
+   Goto skipdetection
+startdetection = +
+   Ifstr(i) $(!NCPA_HANDLE) != ""
+       Debug-Output "NCPASHEL.INF: Enable netcard detection from NCPA.CPL"
+       Shell "NCPARAM.INF" Param_ControlDetection DTSTART
+   Endif
+skipdetection = +
+     ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_I386)
+         set !STF_PLATFORM = $(!PlatformID_I386)
+         set !SYS      = $(!ProcessorID_I386)
+     else-ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_I486)
+         set !STF_PLATFORM = $(!PlatformID_I386)
+         set !SYS      = $(!ProcessorID_I386)
+     else-ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_I586)
+         set !STF_PLATFORM = $(!PlatformID_I386)
+         set !SYS      = $(!ProcessorID_I386)
+     else-ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_R4000)
+         set !STF_PLATFORM = $(!PlatformID_Mips)
+         set !SYS      = $(!ProcessorID_R4000)
+     else-ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_Alpha)
+         set !STF_PLATFORM = $(!PlatformID_Alpha)
+         set !SYS      = $(!ProcessorID_Alpha)
+     else-ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_PPC601)
+         set !STF_PLATFORM = $(!PlatformID_PPC)
+         set !SYS      = $(!ProcessorID_PPC601)
+     else-ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_PPC603)
+         set !STF_PLATFORM = $(!PlatformID_PPC)
+         set !SYS      = $(!ProcessorID_PPC603)
+     else-ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_PPC604)
+         set !STF_PLATFORM = $(!PlatformID_PPC)
+         set !SYS      = $(!ProcessorID_PPC604)
+     else-ifstr(i) $(!STF_PROCESSOR) == $(!ProcessorID_PPC620)
+         set !STF_PLATFORM = $(!PlatformID_PPC)
+         set !SYS      = $(!ProcessorID_PPC620)
+     else
+         set !STF_PLATFORM = $(!PlatformID_I386)
+         set !SYS      = $(!ProcessorID_I386)
+     endif
+     Ifstr(i) $(!STF_LANGUAGE) != "ENG"    
+         Debug-Output "NCPASHEL: Language not set to English; resetting"
+         !STF_LANGUAGE = "ENG"
+     Endif
+     read-syms ProgressCopy$(!STF_LANGUAGE)
+    Ifstr(i) $(!NTN_RegBase) == ""
+        set !NTN_RegBase = ""
+    Endif
+    set !NTN_ServiceBase  = "SYSTEM\CurrentControlSet\SERVICES"
+    Ifstr(i) $(!NTN_InstallMode) == ""
+        Debug-Output "NCPASHEL:!NTN_InstallMode was not defined!"
+        set !NTN_InstallMode  = "configure"
+    Endif
+    Ifstr(i) $(!NTN_SoftwareBase) == ""
+        set !NTN_SoftwareBase = "SOFTWARE"
+    Endif
+    Ifstr(i) $(!NTN_Origination) == ""
+        set !NTN_Origination = "ncpa"
+    Endif
+    Ifstr(i

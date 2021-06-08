@@ -1,0 +1,96 @@
+t be found.
+?
+EThe spool directory contains
+the maximum number of files.
+IPrinting of the current spool file has been cancelled.
+IThe printing of all spool files has been cancelled.
+?
+EA sharing violation occurred
+in the spool directory.
+ESpool is already running for the specified
+device %1.
+IThe spool disk is full. Programs
+attempting to write to a spooled printer
+will be suspended until space is available.
+Other operations might also be suspended.
+For spooling to continue, remove any
+unwanted files from the disk containing the
+spool subdirectory.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+EThe KEYB command does not support the country or subcountry
+code entered for the currently loaded codepage support.
+?
+EThe system cannot write the operating system files
+to the target drive.
+EThe system is unable to transfer system
+files at this time.
+EThe system cannot find the operating system files.
+IAn internal error occurred.
+?
+EThe system cannot accept the target drive.
+IThe partition table on the startup drive is incorrect.
+IThe operating system cannot be loaded from the startup drive.
+IThe operating system is missing from the startup drive.
+EThe VDISK specified in the
+CONFIG.SYS file cannot be installed.
+EThe system does not have enough
+storage to initialize a virtual disk.
+IVDISK Version 1.3 Virtual Disk %1
+Disk Size:          %2 KB
+Sector Size:        %3
+Directory Entries:  %4
+I0Return the error to the program
+1End the program
+2Retry the operation
+3Ignore the error and continue
+4Press Enter to continue
+Detached Process ID
+Pop-up Process ID
+IÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                             ³
+³        Session Title:                                                       ³
+³        %%                                                                   ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+³                                                                             ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³                   %%                                                        ³
+³                   %%                                                        ³
+³                   %%                                                        ³
+³                   %%                                                        ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+EThe system cannot accept the drive %1
+specified for the SWAPPATH= statement in the
+CONFIG.SYS file.  The default drive %2
+will be used.
+EThe system cannot accept the path %1
+specified for the SWAPPATH= statement in the
+CONFIG.SYS file.  The system will attempt to
+use the subdirectory \OS2\SYSTEM of the startup
+drive.
+EThe system cannot create file %1.
+ISwapping has been switched off.
+EThe system does not have enough
+storage to activate swapping.
+EThe syst

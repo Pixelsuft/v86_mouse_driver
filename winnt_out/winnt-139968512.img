@@ -1,0 +1,91 @@
+en RasSvr Params key"
+           CloseRegKey $(RasIpKey)
+           return $(Status)
+        endif
+        ifstr(i) $(AddTcpInfo) == TRUE
+            CreateRegKey $(KeySrvParams) {"Ip",$(NoTitle),GenericClass} "" $(!MAXIMUM_ALLOWED) "" RemoteIpKey
+            OpenRegKey $(KeySrvParams) "" "Ip" $(!MAXIMUM_ALLOWED) RemoteIpKey
+            ifstr $(RemoteIpKey) != $(KeyNull)
+               EnumRegValue $(RasIpKey) NewValueList
+               Shell  "utility.inf", AddValueList, $(RemoteIpKey), $(NewValueList)
+               CloseRegKey $(RemoteIpKey)
+            endif
+        else
+            Debug-Output "SaveTpcipInfo: removing ip info"
+            DeleteRegTree $(KeySrvParams) "IP"
+        endif
+        CloseRegKey $(RasIpKey)
+        CloseRegKey $(KeySrvParams)
+    endif
+    Debug-Output "SaveTcpipInfo: exit"
+    set Status = STATUS_SUCCESSFUL
+    return $(Status)
+[SaveIpxInfo]
+    Debug-Output "SaveIpxInfo: entry RouterInstalled= "$($0)" AddIpxInfo = "$($1)
+    set RouterInstalled = $($0)
+    set AddIpxInfo      = $($1)
+    set Status          = STATUS_FAILED
+    Set KeyNull         = ""
+    set RasIpxKeyName =  $(!NTN_SoftwareBase)"\Microsoft\Ras\Protocols\Ipx"
+    set RasSvrParamKeyName = $(!NTN_ServiceBase)"\RemoteAccess\Parameters"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasIpxKeyName) $(!MAXIMUM_ALLOWED) RasIpxKey
+    ifstr $(RasIpxKey) != $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasSvrParamKeyName) +
+                                            $(!MAXIMUM_ALLOWED) KeySrvParams
+        ifstr $(KeySrvParams) == $(KeyNull)
+           Debug-Output "SaveTcpipInfo: could not open RasSvr Params key"
+           CloseRegKey $(RasIpxKey)
+           return $(Status) $(fRouterInstalled)
+        endif
+        ifstr(i) $(AddIpxInfo) == TRUE
+            CreateRegKey $(KeySrvParams) {"Ipx",$(NoTitle),GenericClass} "" $(!MAXIMUM_ALLOWED) "" RemoteIpxKey
+            OpenRegKey $(KeySrvParams) "" "Ipx" $(!MAXIMUM_ALLOWED) RemoteIpxKey
+            ifstr $(RemoteIpxKey) != $(KeyNull)
+               EnumRegValue $(RasIpxKey) NewValueList
+               Shell  "utility.inf", AddValueList, $(RemoteIpxKey), $(NewValueList)
+               SetRegValue $(RemoteIpxKey) {RouterInstalled, 0,$(!REG_VT_DWORD), $(RouterInstalled)}
+               CloseRegKey $(RemoteIpxKey)
+            endif
+        else
+            Debug-Output "SaveIpxInfo: removing ipx info"
+            DeleteRegTree $(KeySrvParams) "IPX"
+        endif
+        CloseRegKey $(KeySrvParams)
+        CloseRegKey $(RasIpxKey)
+    endif
+    Debug-Output "SaveIpxInfo: exit"
+    set Status = STATUS_SUCCESSFUL
+    return $(Status)
+[AddServiceDependency]
+    Debug-Output "AddServiceDependency: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set DependentService = $(!NTN_ServiceBase)\$($0)
+    set DependentName = $($0)
+    set DependOn = $($1)
+    set ServiceKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(DependentService)"\Linkage" $(!MAXIMUM_ALLOWED) ServiceKey
+    ifstr(i) $(ServiceKey) != $(KeyNull)
+        GetRegValue $(ServiceKey) "OtherDependencies" ServicesList
+        ifint $(RegLastError) != 0
+           set ServiceValues = {}
+        else
+           set ServiceValues = *($(ServicesList),4)
+        endif
+        debug-output "AddServiceDependency: Old OtherDependencies: "$(ServiceValues)
+        ifstr(i) $(ServiceValues) == {}
+            Set ServiceValues = {$(DependOn)}
+        else-ifstr(i) $(ServiceValues) == ""
+            Set ServiceValues = {$(DependOn)}
+        else-ifcontains(i) $(DependOn) in $(ServiceValues)
+            return STATUS_SUCCESSFUL
+        else
+            Set ServiceValues = >($(ServiceValues), $(DependOn))
+        endif
+        debug-output "AddServiceDependency: New OtherDependencies: "$(ServiceValues)
+        SetRegValue $(ServiceKey) {OtherDependencies, 0,+
+                                   $(!REG_VT_MULTI_SZ), $(ServiceValues)}
+        CloseRegKey $(ServiceKey)
+        set Status = STATUS_SUCCESSFUL
+    else
+        Debug-Output "AddSe

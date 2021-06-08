@@ -1,0 +1,114 @@
+TF_NCPA_FLUSH_COPYLIST = TRUE
+    CopyFilesInCopyList
+    Exit
+[Install-nwcfgdll]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-nwcfgdll $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    Exit
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)
+        AddSectionFilesToCopyList Files-Drivers $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-nwcfgdll $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-Drivers $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   ifstr(i) $(DoCopy) == "YES"
+      set !STF_NCPA_FLUSH_COPYLIST = TRUE
+      CopyFilesInCopyList
+   endif
+   Exit
+[AddShortName]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\NetworkProvider" $(MAXIMUM_ALLOWED) NetProviderKey
+    ifstr $(NetProviderKey) != $(KeyNull)
+        OpenRegKey $(NetProviderKey) "" "ShortName" $(MAXIMUM_ALLOWED) ShortNameKey
+        ifstr $(ShortNameKey) == $(KeyNull)
+            CreateRegKey $(NetProviderKey) {"ShortName",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" ShortNameKey
+        endif
+        ifstr $(ShortNameKey) != $(KeyNull)
+            SetRegValue $(ShortNameKey) {"NW",$(NoTitle),$(!REG_VT_SZ),$(ProductProviderDisplayName)}
+        endif
+    else
+        debug-output "something wrong..."
+    endif
+    return
+[AddParameterKey]
+   read-syms GeneralConstants
+   set SoftParameterKey = $($0)
+   ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+       shell $(!STF_UNATTENDED) ReadDefaultData $(!STF_UNATTENDED_SECTION)
+       SetRegValue $(SoftParameterKey) {DefaultLocation,$(NoTitle),$(!REG_VT_SZ),$(!DefaultLocation)}
+       SetRegValue $(SoftParameterKey) {DefaultScriptOptions,$(NoTitle),$(!REG_VT_DWORD),$(!DefaultScriptOptions)}
+   endif
+   CreateRegKey $(SoftParameterKey) {"Logon",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" LogonKey
+   CreateRegKey $(SoftParameterKey) {"Option",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" OptionKey
+   Set FLibraryErrCtl = 1
+   LibraryProcedure Result $(!NWCFG_HANDLE), SetEverybodyPermission, $(OptionKey), 2
+   Set FLibraryErrCtl = 0
+   CloseRegKey $(LogonKey)
+   CloseRegKey $(OptionKey)
+   Return
+[GetFilesSize]
+    set FileSizeList = >(^(Files-Drivers,3),^(Files-NWWKSTA,3))
+    set TotalSize = 0
+    ForListDo $(FileSizeList)
+        ForListDo $($)
+            Debug-Output $($)
+            Split-String $($) "=" SplitString
+            set Size = *($(SplitString),3)
+            set-add TotalSize = $(TotalSize) $(Size)
+        EndForListDo
+    EndForListDo
+    set-div SizeInK = $(TotalSize) 1024
+    return $(SizeInK)
+[Install-Update-Inf]
+   AddSectionFilesToCopyList Files-Inf $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   set !STF_NCPA_FLUSH_COPYLIST = TRUE
+   CopyFilesInCopyList
+   exit
+[RemoveBackupFiles]
+    return
+[Restore-Oldexe]
+[Restore-Oldsys]
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-Drivers]
+1,NWRDR.SYS , SIZE=999
+[Files-nwcfgdll]
+1,NWAPI32.DLL , SIZE=999
+[Files-NWWKSTA]
+1,NETWARE.DRV , SIZE=999
+1,NW16.EXE , SIZE=999
+1,NWAPI16.DLL , SIZE=999
+1,NWC.CPL , SIZE=999
+1,NWDOC.CNT , SIZE=1377
+1,NWDOC.HLP , SIZE=4

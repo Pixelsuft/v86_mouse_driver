@@ -1,0 +1,53 @@
+nger be accessible.
+
+Norton Navigator, and AntiVirus for Windows 95
+These applications are specific to the Windows 95 operating system and are not intended for use on Windows NT version 4.0. They correctly detect that Windows 95 is not present and do not install.
+
+Norton NT Tools 1.0
+You cannot enter a colon or the designations "AM" or "PM" directly into the Norton Control Center virus scans scheduling edit box. You can schedule virus scans by copying a time from an application such as Notepad to the Windows clipboard and pasting it in the edit box. You can also set the scheduled time by choosing Scheduler on the Tools menu in the Norton AntiVirus Scanner.
+Some of the buttons in Norton System Doctor’s alarms such as Task Manager and System Settings fail to work on Windows NT version 4.0.  Contact Symantec at www.symantec.com for more information.
+
+Now Up-to-Date 95
+Although this application can be installed, early versions do not run. 
+
+This application requires MFC version 3.0 DLLs, but does not install them. For more information, see “Windows 95 Applications and Microsoft Foundation Class Libraries” earlier in this document.
+
+OfficeBlox
+Some versions of OfficeBlox install but do not run. This application requires MFC version 3.0 DLLs, but some versions do not install them. For more information, see “Windows 95 Applications and Microsoft Foundation Class Libraries” earlier in this document.
+Labels and values may not appear in the CalcSheets for CalcBlox objects embedded in the WorkBlox demonstration application in some early versions. Contact Alpha Blox for upgrade information.
+
+Omniform
+Omniform fails to install because it interprets the Windows NT 4.0 version number incorrectly. Contact Caere Corporation, 100 Cooper Court, Los Gatos, CA 95030, (800) 535-SCAN for upgrade information.
+
+OzCIS
+OzCIS requires that you create a .PIF file prior to installing under Windows NT. See “Creating PIF Files.” If OzCIS loses characters when transmitting data, try using a lower baud rate.
+
+PackRat 5.011 for Windows
+On RISC-based computers, the PackRat setup program generates illegal instructions when trying to modify the path. Select No when the PackRat setup program asks if you would like to add the PackRat directory to your path. After installation, add the directory to your path manually.
+
+pcAnywhere 2.0
+Installing pcAnywhere 2.0 for Windows or pcAnywhere 2.0 for Windows 95 under Windows NT can lead to lost files on NTFS-formatted drives. For more information, contact Symantec at http://www.symantec.com.
+
+pcAnywhere III for MS-DOS
+Start pcAnywhere by using a custom PIF and custom startup files. Be sure to include the dosonly command in the custom configuration file. For more information, see “Running MS-DOS-based Remote Control Applications” earlier in these Release Notes.
+
+pcAnywhere32
+You need pcAnywhere32 version 7.5 to enter Host mode under Windows NT version 4.0. Contact Symantec at http://www.symantec.com for upgrade information.
+
+Peachtree Accounting 3.05
+Peachtree Accounting causes a General Protection Fault with long printer names. Create a local printer and rename the printer to less than 15 characters in length.
+
+PixelPro 
+PixelPro does not install or run under Windows NT.
+
+PowerDesk
+PowerDesk for Windows 95 does not run after installation. PowerDesk requires the Windows 95 Kernel32.dll file, which is not available in Windows NT Workstation or Windows NT Server. The PowerDesk ExplorerPlus tool runs, but some folder and drive names are garbled and some functions do not work as expected. Microhelp does not support PowerDesk on Windows NT. 
+
+Procomm 2.0
+When setting up Procomm 2.0 for Windows, Setup does not properly install its icon. Instead, you can create a shortcut to start the program. To create a shortcut:  right-click the desktop. Click New, click Shortcut. Type the location and name or use the Browse button.
+
+Qmodem Pro for Windows 95  
+ToolTips may not appear. Contact Mustang Software (805.873.2500) for upgrade information.
+
+Quantum Gate
+When installing Quantum Ga

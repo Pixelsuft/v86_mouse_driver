@@ -1,0 +1,33 @@
+ocal icon file instead of a remote icon file. In the Start menu, click Settings\Taskbar and in the Start Menu Programs tab click Advanced. In the Explorer, select the application and right click. Click Properties and in the Shortcut tab click Change Icon. In the Change Icon dialog box, type a local path to an icon file (for example %SystemRoot%\system32\shell32.dll).
+
+The Explorer will also cache shortcuts to remote documents in the Start\Documents menu.  You can easily clear this menu by clicking Settings\Taskbar and in the Start Menu Programs tab click Clear.
+
+Explorer shortcuts and Autodial
+· If you are not connected to the network and have a shortcut on the desktop that references a remote file, double-clicking on that shortcut will cause an Autodial attempt but will not start the application after the Dial-Up Networking connection has been made. 
+This is because the Explorer times-out operations on remote objects after 7.5 seconds and it may take 30 seconds or more to connect if you are using a modem.
+After the Dial-Up Networking connection is established, double-click on the shortcut again to start the application. 
+
+Invoking Autodial multiple times from the same application using the same DNS or IP address
+· If you are connected to a local LAN and run an application that references a DNS or IP address that is unreachable, Autodial will only start the first time this address is determined to be unreachable.  Subsequent tries using the same DNS or IP address within the same application will not invoke Autodial.  Autodial will start if the application is restarted or a different address is used.  
+ 
+Windows 95 Clients
+A Windows 95 RNA client must enable compression if it is dialing into a Windows NT version 4.0 RAS server that forces encryption. Otherwise, the RAS server will disconnect the line.
+
+ShivaRemote for Windows Dial-In Clients
+If a ShivaRemote for Windows Dial-In client dials into a Windows NT version 4.0 RAS server using NetBEUI, the client will report a NetBIOS error and not connect to the server using NetBEUI. The client can connect using IP or IPX.
+
+Connection Problems between Windows NT version 3.51 Clients and Windows NT version 4.0 Servers
+If a Windows NT version 3.51 RAS client dials into a Windows NT version 4.0 RAS server and fails with error 742, the client should clear the Require data encryption checkbox in the Security tab in Dial-Up Networking and retry the connection. Windows NT version 3.51 clients can eliminate this problem by obtaining the Windows NT version 3.51 Service Pack 5.
+
+If a Windows NT version 4.0 RAS server disconnects a Windows NT version 3.51 RAS client, check to see if the following RemoteAccess event is logged in the Event Viewer:
+"The server machine is configured to require data encryption.  The machine for user Domain\Username connected on port COMX does not support encryption.  The line
+has been disconnected."
+
+If you see this message, on the Windows NT version 4.0 RAS server, click the Network icon in Control Panel. In the Services tab, select Remote Access Service and click Properties. Click Network, and clear the Force data encryption checkbox. 
+
+Upgrading from Windows NT version 3.5x to Windows NT version 4.0
+· If Windows NT RAS is upgraded to version 4.0, then the modems that are already installed and configured are treated as modem.inf modems, as indicated in the Remote Access Setup dialog box as Type Modem (modem.inf). Any new modems installed after an upgrade or on a new Windows NT installation are added as Type Modem (unimodem). To add a new modem port to RAS configuration, the modem must first be added by clicking Add and then clicking Install Modem. 
+
+· If you use Security Dynamics or Digital Pathways 3rd-party security .DLL and are upgrading from Windows NT version 3.5x RAS to Windows NT version 4.0 RAS, you must get new versions of the .DLLs from Security Dynamics and Digital Pathways.
+
+· If you have a Digi ISDN BRI adapter, after you upgrade to Windows NT version 4.0, in the Remote Access Service configuration in the Network 

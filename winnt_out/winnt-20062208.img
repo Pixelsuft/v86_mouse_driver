@@ -1,0 +1,129 @@
+pyFiles = @cpqarray.sys
+Reboot
+
+[cpqarray_Inst.Services]
+AddService = cpqarray, %SPSVCINST_ASSOCSERVICE%, cpqarray_Service_Inst, Miniport_EventLog_Inst
+
+[cpqarray_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\cpqarray.sys
+LoadOrderGroup = SCSI Miniport
+
+[cpqfws2e_Inst]
+CopyFiles = @cpqfws2e.sys
+Reboot
+
+[cpqfws2e_Inst.Services]
+AddService = cpqfws2e, %SPSVCINST_ASSOCSERVICE%, cpqfws2e_Service_Inst, Miniport_EventLog_Inst
+
+[cpqfws2e_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\cpqfws2e.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;*****************************
+;Dell Manufacturer device list
+[DELL]
+%delldsa.DeviceDesc% = delldsa_Inst, DELLDSA_SCSI   ; BUGBUG (lonnym): what ID is this????
+
+[delldsa_Inst]
+CopyFiles = @delldsa.sys
+Reboot
+
+[delldsa_Inst.Services]
+AddService = delldsa, %SPSVCINST_ASSOCSERVICE%, delldsa_Service_Inst, Miniport_EventLog_Inst
+
+[delldsa_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\delldsa.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;****************************
+;DPT Manufacturer device list
+[DPT]
+%dptscsi.DeviceDesc%               = dptscsi_Inst, DPTSCSI_SCSI
+%*DPTA401.DeviceDesc%              = dptscsi_Inst, *DPTA401
+%*DPTA402.DeviceDesc%              = dptscsi_Inst, *DPTA402
+%*DPTA410.DeviceDesc%              = dptscsi_Inst, *DPTA410
+%*DPTA411.DeviceDesc%              = dptscsi_Inst, *DPTA411
+%*DPTA501.DeviceDesc%              = dptscsi_Inst, *DPTA501
+%*DPTA502.DeviceDesc%              = dptscsi_Inst, *DPTA502
+%*NEC8201.DeviceDesc%              = dptscsi_Inst, *NEC8201
+%*DPTA701.DeviceDesc%              = dptscsi_Inst, *DPTA701
+%PCI\VEN_1044&DEV_A400.DeviceDesc% = dptscsi_Inst, PCI\VEN_1044&DEV_A400
+
+[dptscsi_Inst]
+CopyFiles = @dptscsi.sys
+Reboot
+
+[dptscsi_Inst.Services]
+AddService = dptscsi, %SPSVCINST_ASSOCSERVICE%, dptscsi_Service_Inst, Miniport_EventLog_Inst
+
+[dptscsi_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\dptscsi.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;**************************************
+;Future Domain Manufacturer device list
+[FUTURED]
+%fd16_700.DeviceDesc% = fd16_700_Inst, FD16_700_SCSI
+%FD16ISA%             = fd16_700_Inst, *FDC0000
+%FD16MCA%             = fd16_700_Inst, *FDC0000
+%FD16PCMCIANEW%       = fd16_700_Inst, PCMCIA\Future_Domain_Corporation-SCSI_PCMCIA_Credit_Card_Controller-1BF8
+%FD16PCI%             = fd16_700_Inst, PCI\VEN_1036&DEV_0000
+%fd7000ex.DeviceDesc% = fd7000ex_Inst, *WDC2001
+%fd8xx.DeviceDesc%    = fd8xx_Inst, FD8XX_SCSI
+%FD8SHORT%            = fd8xx_Inst, *FDC0950
+%FD8LONG%             = fd8xx_Inst, *FDC0950
+
+[fd16_700_Inst]
+CopyFiles = @fd16_700.sys
+Reboot
+
+[fd16_700_Inst.Services]
+AddService = fd16_700, %SPSVCINST_ASSOCSERVICE%, fd16_700_Service_Inst, Miniport_EventLog_Inst
+
+[fd16_700_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\fd16_700.sys
+LoadOrderGroup = SCSI Miniport
+
+[fd7000ex_Inst]
+CopyFiles = @fd7000ex.sys
+Reboot
+
+[fd7000ex_Inst.Services]
+AddService = fd7000ex, %SPSVCINST_ASSOCSERVICE%, fd7000ex_Service_Inst, Miniport_EventLog_Inst
+
+[fd7000ex_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\fd7000ex.sys
+LoadOrderGroup = SCSI Miniport
+
+[fd8xx_Inst]
+CopyFiles = @fd8xx.sys
+Reboot
+
+[fd8xx_Inst.Services]
+AddService = fd8xx, %SPSVCINST_ASSOCSERVICE%, fd8xx_Service_Inst, Miniport_EventLog_Inst
+
+[fd8xx_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl

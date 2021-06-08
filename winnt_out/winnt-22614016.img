@@ -1,0 +1,54 @@
+dows NT 3.5 Resource Kit.
+
+---------------------------------------------------
+QUESTION:
+Are there any plans to provide an upgrade for Windows for Workgroups RAS clients and Windows NT version 3.1 RAS clients so that they will be compatible 
+with the new software compression scheme in Windows NT version 3.5?
+
+ANSWER:
+Support for Windows for Workgroups 3.11 RAS and Windows NT version 3.1 RAS software compression is available in the Windows NT version 3.51 release.
+
+---------------------------------------------------
+QUESTION:
+1.  I can successfully connect using RAS on a Windows NT Workstation version 3.5 with a Windows NT Server version 3.1 running RAS.  However, I get the following message in the Connection Information dialog on the Windows NT version 3.5 client: "Using Down-Level RAS Protocol". 
+
+2.  The connection information also shows that I am getting 0% compression. This message occured when I switched from a Windows for Workgroups 3.11 RAS client to a Windows NT Workstation version 3.5 RAS client. Any suggestions for getting my compression back?
+
+ANSWER:
+1.  Windows NT version 3.1 RAS does not support PPP, which the Windows NT version 3.5 RAS client is attempting to use when connecting. Windows NT version 3.5 RAS falls back to the older protocol to make the connection and displays the "Using Down-Level RAS Protocol" message.
+
+2.  To get software compression with Windows NT version 3.5 RAS calling a Windows NT version 3.1 RAS server, upgrade your RAS client to Windows NT version 3.51 which supports the older software compression algorithm used in Windows NT version 3.1.
+
+---------------------------------------------------
+QUESTION:
+Windows NT version 3.5 has PPP/SLIP built into RAS, so you can use the RAS client software to connect your Windows NT computer to the Internet.
+Suppose I have a LAN which includes a bunch of Windows for Workgroups version 3.11 systems networked to a system running Windows NT version 3.5. If the Windows NT system uses RAS to connect to an Internet provider, and if I have the TCP/IP protocol on all computers on the LAN, will the Windows NT computer connect the two ends? That is, will it act as a gateway, allowing the Windows for Workgroups computers to see the Internet on the other end of the RAS connection?
+If so, is it automatic, or do I have to do something to enable it? If not, is there any way to get this capability?  Is it in Windows NT Server or some third-party product?
+
+ANSWER:
+LAN to LAN routing is not supported today.  Look for it in the Windows NT 3.51 Service Pack release in the next few months.
+For more information, see the Windows NT 3.5 Resource Kit or the following Knowledge Base article:
+Enabling Routing of IP Packets on RAS Clients
+ID: Q121877
+
+---------------------------------------------------
+QUESTION:
+What are all the steps necessary to make a RAS connection from Windows for Workgroups to Windows NT version 3.5 with a null modem setup?
+
+ANSWER:
+1.  Install RAS on the RAS server.  Configure it for a null modem, at 9600 bps.
+2.  On the RAS server, create an account for the user dialing in.
+3.  On the RAS server, in RAS Admin, select the Permissions command under the Users menu. Grant dial-in permission for that user account.
+4.  Install RAS on the Windows for Workgroups client.  Configure it for a null modem.
+5.  In Remote Access, create a phonebook entry to the server you are dialing.  Enter 1 (or some random number) for the phone number.
+6.  Choose the Dial button.  The rest happens exactly like an analog connection.
+     Make sure you are using a standard null modem cable. See the RAS on-line Help topic "Cabling Requirements" for details.
+
+---------------------------------------------------
+QUESTION:
+I have TCP/IP installed on both my RAS server and client, but when I dial in, I get an error saying PPP is not installed.
+
+ANSWER:
+You need to enable TCP/IP for RAS.
+To enable a protocol for RAS, start the Control Panel Network icon.
+In the Network Settings dialog box, select Remote Access Service and choose the Conf

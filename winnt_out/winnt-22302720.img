@@ -1,0 +1,52 @@
+s. Contact Carmel Software at http://www.fbsolutions.com/NTAV for upgrade information.
+A new nested folder cannot be created by the Carmel Anti-Virus Setup program. You must create the destination folder if it does not already exist before running Setup.
+
+Chessmaster 3000
+Because of copy protection on the Chessmaster distribution disks, Windows NT does not support installation of this application. Chessmaster 4000 works correctly.
+
+Claris Works 2.0
+Palette problems cause random General Protection Faults in version 2.0 of Claris Works for Windows.
+
+The problems are fixed in version 4.0. Contact Claris (5201 Patrick Henry Drive, PO Box 58168, Santa Clara, CA, 95052-8168) for upgrade information.
+
+Claris Works 4.0
+An access violation can occur when you attempt to import documents. 
+The "Introduction to Claris Works" help file does not run under Windows NT Workstation or Windows NT Server version 4.0.
+
+Some non-standard fonts cannot be used with Claris Works 4.0 when run under Windows NT version  4.0.
+
+CleanSweep 95
+CleanSweep 95 detects applications only in the current user’s Personal Groups. It does not find any applications in Common Groups.
+
+The CleanSweep 95 "Install monitor" and "Usage monitor" features are not available under Windows NT version 4.0.
+
+Codewright
+Codewright may appear to hang or crash when updating its Help files index. Older versions of Codewright cannot index the version 4.0 Help files found in some applications, such as the Win32 SDK. Contact Premia at www.premia.com for upgrade information.
+
+Commute
+Start Commute by using a custom PIF and custom startup files. Be sure to clear the Allow Fast Paste check box in the Advanced Options dialog box when creating the PIF. For more information, see “MS–DOS Applications Requiring a .PIF File” earlier in this document.
+
+CompuServe Information Manager (CIM) for MS-DOS
+The MS-DOS--based version of CIM attempts to access COM1 through COM4 when it starts. If any of these ports is not installed or is already in use, you may see the following error message:  “The system cannot open COM port requested by the application.” You can safely ignore this message unless your modem is installed on the unavailable port.
+
+CompuServe Information Manager (CIM) for Windows 1.4 and 2.0.1
+· All versions of WinCIM.exe block all mouse input, and all top level windows including the desktop and Taskbar while connecting to the service because the application uses a system modal dialog when dialing and connecting.
+
+· If you receive a Winsock error when launching WinCIM 2.0.1, it means the Mosaic check box is checked. CompuServe's Winsock is incompatible with Windows NT. (Use of CompuServe's Mosaic is accessible by using RAS. See Network.wri for more information about
+configuring RAS.)
+To eliminate the Winsock error
+1. Launch WinCIM. 
+2. On the Sessions menu, click Settings.  
+3. Clear the Use Winsock check box, and then click OK.
+
+Copydoubler (Macintosh application)
+When doing a fast replace of an existing folder, Copydoubler may incorrectly assume that the first directory does not exist and will attempt to recreate it on the server resulting in Error 48 (DuplicateFileName). Other copying errors may occur with the program when used with   Windows NT Macintosh-accessible volumes.
+
+Corel Depth 6.0
+When selecting a print format, be aware that Corel DEPTH exhibits a dotted line illustrating the print format you have selected. When printing to anything larger than the white page background such as a poster/plotter size, the dotted line is not apparent because you  selected a size greater than the working plane. However, your print out will not match the expected print size. 
+
+Corel Draw 3.0 and 4.0
+When you attempt to save a file, the error “Not enough disk space” or “Error writing <filename> file” might appear. To resolve this, select None, 1K, or 2K, in the Image Header list.
+
+Corel Draw 5.0
+The Roll-Up dialog boxes in Corel Draw 5.0 will not close if you double-click the System menu. To close Roll Up dialog boxes, click once on the System 

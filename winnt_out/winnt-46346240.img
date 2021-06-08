@@ -1,0 +1,85 @@
+HKR, Fax, FixModemClass,, "2"
+HKR, Fax, ResetCommand,, "AT S111=2"
+HKR, Fax, SetupCommand,, "AT E0 S0=0"
+HKR, Responses, "<cr><lf>CARRIER 64000<cr><lf>", 1, 01, 00, 00,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: PAD<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: V.14<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>", 1, 02, 00, 00,FA,00,00, 00,00,00,00
+
+[Modem16.AddReg]   ; KORTEX NUMERIS 288 Interne
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,05,00,00, 00,C2,01,00, 00,FA,00,00
+HKR,, FClass, 1, 07,00,00,00
+HKR, Init,      2,, "AT &O3<cr>"
+HKR, Init,      3,, "AT E0 S0=0 S95=45<cr>"
+HKR, Init,      4,, "AT &O7<cr>"
+HKR, Init,      5,, "AT S0=0 S95=45<cr>"
+HKR, Init,      6,, "AT &O1<cr>"
+HKR, Init,      7,, "AT S112=32<cr>"
+HKR, Init,      8,, "AT S111=7<cr>"
+HKR, Init,      9,, "AT S0=0 S95=45 \N3 %%C3<cr>"
+HKR, Init,      10,, "AT &O0<cr>"
+HKR, Hangup,    1,, "AT<cr>"
+HKR,, Reset,, "AT<cr>"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, Modulation_CCITT,, "B0 +MS=11,1,300,28800"
+HKR, Settings, Modulation_Bell,, "B1 +MS=11,1,300,28800"
+HKR, Settings, Modulation_CCITT_V23,, "B0 +MS=3,0,1200,1200"
+HKR, Fax, FixSerialSpeed,, "19200"
+HKR, Fax, FixModemClass,, "2"
+HKR, Fax, ResetCommand,, "AT S111=2"
+HKR, Fax, SetupCommand,, "AT E0 S0=0"
+HKR, Responses, "<cr><lf>CARRIER 64000<cr><lf>", 1, 01, 00, 00,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: PAD<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>", 1, 02, 00, 00,FA,00,00, 00,00,00,00
+
+[Modem15.AddReg]   ; KORTEX NUMERIS 144 Externe
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,05,00,00, 00,E1,00,00, 00,FA,00,00
+HKR,, FClass, 1, 0f,00,00,00
+HKR, Init,      2,, "AT &O3<cr>"
+HKR, Init,      3,, "AT E0 S0=0 S95=45<cr>"
+HKR, Init,      4,, "AT &O6<cr>"
+HKR, Init,      5,, "AT S0=0 S95=45<cr>"
+HKR, Init,      6,, "AT &O7<cr>"
+HKR, Init,      7,, "AT S0=0 S95=45<cr>"
+HKR, Init,      8,, "AT &O1<cr>"
+HKR, Init,      9,, "AT S112=32<cr>"
+HKR, Init,      10,, "AT S111=7<cr>"
+HKR, Init,      11,, "AT S0=0 S95=45 \N3 %%C3<cr>"
+HKR, Init,      12,, "AT &O0<cr>"
+HKR, Hangup,    1,, "AT<cr>"
+HKR,, Reset,, "AT<cr>"
+HKR, Settings, DialSuffix,, ""
+HKR, Fax, FixSerialSpeed,, "19200"
+HKR, Fax, FixModemClass,, "2"
+HKR, Fax, ResetCommand,, "AT S111=2"
+HKR, Fax, SetupCommand,, "AT E0 S0=0"
+HKR, Responses, "<cr><lf>CARRIER 64000<cr><lf>", 1, 01, 00, 00,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: PAD<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: V.14<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>", 1, 02, 00, 00,FA,00,00, 00,00,00,00
+
+[Modem14.AddReg]   ; KORTEX NUMERIS 144 Interne
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,05,00,00, 00,C2,01,00, 00,FA,00,00
+HKR,, FClass, 1, 0f,00,00,00
+HKR, Init,      2,, "AT &O3<cr>"
+HKR, Init,      3,, "AT E0 S0=0 S95=45<cr>"
+HKR, Init,      4,, "AT &O7<cr>"
+HKR, Init,      5,, "AT S0=0 S95=45<cr>"
+HKR, Init,      6,, "AT &O1<cr>"
+HKR, Init,      7,, "AT S112=32<cr>"
+HKR, Init,      8,, "AT S111=7<cr>"
+HKR, Init,      9,, "AT S0=0 S95=45 \N3 %%C3<cr>"
+HKR, Init,      10,, "AT &O0<cr>"
+HKR, Hangup,    1,, "AT<cr>"
+HKR,, Reset,, "AT<cr>"
+HKR, Settings, DialSuffix,, ""
+HKR, Fax, FixSerialSpeed,, "19200"
+HKR, Fax, FixModemClass,, "2"
+HKR, Fax, ResetCommand,, "AT S111=2"
+HKR, Fax, SetupCommand,, "AT E0 S0=0"
+HKR, Responses, "<cr><lf>CARRIER 64000<cr><lf>", 1, 01, 00, 00,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: PAD<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>", 1, 02, 00, 00,FA,00,00, 00,00,00,00
+
+[Modem13.AddReg]   ; KORTEX NUMERIS Externe
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 10,00,00,00, 00,E1,00,00, 00,FA,00

@@ -1,0 +1,103 @@
+_VT_EXPAND_SZ),"%SystemRoot%\System32\Repl\Import"},+
+                            {ExportPath,$(NoTitle),$(!REG_VT_EXPAND_SZ),"%SystemRoot%\System32\Repl\Export"}}
+        Shell  $(UtilityInf), AddValueList, $(RP_ParmKey), $(NewValueList)
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error."
+            Goto ShellCodeError
+        Endif
+        Set RegistryErrorIndex = $($R0)
+        CloseRegKey $(RP_ParmKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: registry error: add value list."
+            CloseRegKey $(RP_SrvKey)
+            goto fatalregistry
+        Endif
+        Debug-Output "OEMNSVWK.INF: Create Replicator keys and directories"
+        CreateRegKey $(RP_SrvKey) {"Exports",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" ExportsKey
+        CreateRegKey $(RP_SrvKey) {"Imports",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" ImportsKey
+        LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), SECUREKEY, $(ExportsKey), 2
+        LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), SECUREKEY, $(ImportsKey), 2
+        CloseRegKey $(ExportsKey)
+        CloseRegKey $(ImportsKey)
+        CloseRegKey $(RP_SrvKey)
+        Install Install-Repl-Dirs
+    Endif
+    Goto writeparameters
+writeparameters = +
+    EndWait
+    goto successful
+ConfigureBrowser = +
+    set FLibraryErrCtl = 1
+    LibraryProcedure ResultList $(!NCPA_HANDLE), CPlBROWSER $(!STF_HWND)
+    Set Result = *($(ResultList),1)
+    ifint $(Result) == 0
+        set CommonStatus = STATUS_REBOOT
+    else-ifint $(Result) == 1
+        set CommonStatus = STATUS_USERCANCEL
+    else
+        set RegistryErrorIndex = $(Result)
+        goto fatalregistry
+    endif
+    goto successful
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+        set RegistryErrorIndex = CANT_REMOVE_WKSTA_NTAS
+        goto fatalregistry
+    endif
+    ifcontains(i) $(ProductWKSTAName) in $(OEM_ABANDON_OPTIONS)
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+           $(ProductWKSTAName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+           Debug-Output "OEMNSVWK.INF: ShellCode error"
+           goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+           goto fatalregistry
+        endif
+    endif
+    ifcontains(i) $(ProductBROWSERName) in $(OEM_ABANDON_OPTIONS)
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+           $(ProductBROWSERName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+           Debug-Output "OEMNSVWK.INF: ShellCode error"
+           goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+           goto fatalregistry
+        endif
+    endif
+    Set RemoveOptions = {+
+        $(ProductNETLOGONName), +
+        $(ProductALERTERName), +
+        $(ProductMESSENGERName), +
+        $(ProductRDRName), +
+        $(ProductREPLName)}
+    ForListDo  $(RemoveOptions)
+        ifcontains(i) $($) in $(OEM_ABANDON_OPTIONS)
+           Shell $(UtilityInf), RemoveService, $($), "YES"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "OEMNSVWK.INF: ShellCode error"
+               goto ShellCodeError
+           endif
+           set RegistryErrorIndex = $($R0)
+           Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+               goto fatalregistry
+           endif
+        endif
+    EndForListDo
+    Shell $(UtilityInf) RemoveNetworkProvider $(ProviderName)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVWK.INF: ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto fatalregistry
+    endif
+    goto end

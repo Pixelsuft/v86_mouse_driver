@@ -1,0 +1,104 @@
+      goto fatalregistry
+             EndIf
+             SetRegValue $(AtkSvcKey) {Group,$(NoTitle),$(!REG_VT_SZ),"PNP_TDI"}
+             OpenRegKey $(AtkSvcKey) "" "Linkage" $(!ACCESS) AtkLinkageKey
+             Ifstr $(AtkLinkageKey) != $(!KeyNull)
+                 DeleteRegValue $(AtkLinkageKey) "OtherDependencies"
+                 CloseRegKey $(AtkLinkageKey)
+             Endif
+             CloseRegKey $(AtkSvcKey)
+             Shell "" CreateEventLogKey $(AtalkEventLogName) +
+                                        $(AtalkPerfLibraryName)
+             Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Set RegistryErrorIndex = $($R1)
+                goto fatalregistry
+             EndIf
+         Else
+             Debug-Output "OEMNXPSM.INF: error opening ATALK service key."
+         EndIf
+         SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+         SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+         SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(Option)Description)}
+         SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+         OpenRegKey $(KeyProduct) "" "NetRules" $(!ACCESS) KeyNetRules
+         Ifstr $(KeyNetRules) != $(!KeyNull)
+             SetRegValue $(KeyNetRules) {use,0,$(!REG_VT_SZ),$(NetRuleATALKUse)}
+             CloseRegKey $(KeyNetRules)
+         Endif
+         CloseRegKey $(KeyProduct)
+         Shell "utility.inf" AddRpcProtocol ncacn_at_dsp RpcLtCcm.Dll RpcLtScm.Dll
+        Set MaskAllAccess  = 33554432
+        Set NewInfName = "oemnxpsm.inf"
+        Set CacheKey   = "Software\Microsoft\Ncpa\InfOptions" 
+        Set CacheValue = "oemnsvsm.inf"
+        OpenRegKey $(!REG_H_LOCAL) "" $(CacheKey) $(MaskAllAccess) Cache
+        Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            DeleteRegTree $(Cache) $(CacheValue)
+            CloseRegKey $(Cache)
+        endif
+        Shell $(UtilInf) UpdateWinsockMappings $(ProductATALKName) "%SystemRoot%\System32\"$(AtWinSockDll)
+        ifstr(i) $($R0) != NO_ERROR
+            goto fatal
+        endif
+	  endif
+   goto end
+successful = +
+    Set Status = STATUS_SUCCESSFUL
+    goto end
+ShellCodeError = +
+   read-syms ShellingError$(!STF_LANGUAGE)
+   Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(ErrorString)
+fatalregistry = +
+   EndWait
+   Shell $(UtilInf) RegistryErrorString $(RegistryErrorIndex)
+   IfInt $(ShellCode) != 0
+	  goto ShellCodeError
+   Endif
+   set Error = $($R0)
+   goto fatal
+fatal = +
+   Ifint $(BillboardVisible) != 0
+	  Shell $(SubInf) PopBillboard
+      Set BillboardVisible = 0
+   Endif
+   read-syms MiscErrorString3$(!STF_LANGUAGE)
+   Shell $(SubInf) SetupMessage, $(!STF_LANGUAGE), "FATAL",$(ErrorString)$(Error)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	  goto ShellCodeError
+   endif
+   goto failed
+failed = +
+   set CommonStatus = STATUS_FAILED
+   ifstr(i) $(REMOVE_FLAG) == TRUE
+	  set REMOVE_FLAG = FALSE
+      goto RemoveAdmin
+   endif
+   goto end
+usercancel = +
+   Set CommonStatus = STATUS_USERCANCEL
+end = +
+   EndWait
+   Return $(CommonStatus)
+[FindMediaType]
+   Set Status = STATUS_FAILED
+   Set CardName = $(!NTN_ServiceBase)"\"$($0)"\Parameters"
+   OpenRegKey $(!REG_H_LOCAL) "" $(CardName) $(!ACCESS) CardKey
+   Ifstr(i) $(CardKey) == $(!KeyNull)
+	  Set RegistryErrorIndex = $($R0)
+      Return $(Status) $(RegistryErrorIndex)
+   EndIf
+   GetRegValue $(CardKey) "MediaType" MediaTypeList
+   Set MediaType = *($(MediaTypeList),4)
+   Set Status = STATUS_SUCCESSFUL
+   Return $(Status) $(MediaType)
+[CreateAtalkConfig]
+   Set AdapterName         = $($0)
+   Set KeyAdapters         = $($1)
+   Set RetStatus    = STATUS_SUCCESSFUL
+   read-syms GeneralConstants
+   CreateRegKey $(KeyAdapters) {$(AdapterName), 0, GenericClass} "" $(!ACCESS) "", TempKeyAdapters
+   Shell "" FindMediaType $($0)
+   Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+	  Set MediaType = $($R1)
+   else
+	  Set Registry

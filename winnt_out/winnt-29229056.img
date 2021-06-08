@@ -1,0 +1,64 @@
+
+                    GetRegValue $(KeyNetRules),"InfName", InfNameInfo
+                    set !UG_Filename = *($(InfNameInfo), 4)
+                    CloseRegKey $(KeyNetRules)
+                else
+                    Split-String $(!NTN_Infname), "\", FilenameList
+                    QueryListSize ListSize $(FilenameList)
+                    set !UG_Filename = *($(FilenameList), $(ListSize))
+                endif
+                install "Install-Update-Inf"
+            endif
+        endif
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductNWWKSTADescription)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyProduct)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\Nwrdr\Performance" $(MAXIMUM_ALLOWED) KeyPerformance
+        Ifstr $(KeyPerformance) != $(KeyNull)
+            CloseRegKey $(KeyPerformance)
+            Set FLibraryErrCtl = 1
+            ifstr(i) $(!STF_PRODUCT) == "WINNT"
+                LibraryProcedure Result $(!NWCFG_HANDLE), CleanupRegistryForNWCS
+            endif
+            Set FLibraryErrCtl = 0
+            LibraryProcedure Result $(!NWCFG_HANDLE), GetKernelVersion
+            ifint *($(Result),3) < 529
+                Set FLibraryErrCtl = 1
+                LibraryProcedure STATUS $(!NWCFG_HANDLE), unlodctr nwrdr
+                LibraryProcedure STATUS $(!NWCFG_HANDLE), lodctr $(!STF_WINDOWSSYSPATH)\nwperf.ini
+                Set FLibraryErrCtl = 0
+            endif
+        else
+            Set FLibraryErrCtl = 1
+            LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\autoexec.nt", $(REM1)$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\autoexec.nt", "lh %SystemRoot%\system32\nw16"$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\autoexec.nt", "lh %SystemRoot%\system32\vwipxspx"$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), AppendSzToFile, $(!STF_WINDOWSSYSPATH)"\autoexec.nt", $(REM1)$(CR)$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), AppendSzToFile, $(!STF_WINDOWSSYSPATH)"\autoexec.nt", "lh %SystemRoot%\system32\nw16"$(CR)$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), AppendSzToFile, $(!STF_WINDOWSSYSPATH)"\autoexec.nt", "lh %SystemRoot%\system32\vwipxspx"$(CR)$(LF)
+            Set FLibraryErrCtl = 0
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\nwrdr" $(MAXIMUM_ALLOWED) KeyNwrdr
+            CreateRegKey $(KeyNwrdr) {"Performance",$(NoTitle),GenericClass} "" +
+                    $(MAXIMUM_ALLOWED) "" KeyPerformance
+            set NewValueList = {{Library,$(NoTitle),$(!REG_VT_SZ),"Perfnw.dll"},+
+                               {Open,$(NoTitle),$(!REG_VT_SZ),"OpenNetWarePerformanceData"},+
+                               {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectNetWarePerformanceData"},+
+                               {Close,$(NoTitle),$(!REG_VT_SZ),"CloseNetWarePerformanceData"}}
+            Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+            set RegistryErrorIndex = $($R0)
+            CloseRegKey $(KeyPerformance)
+            CloseRegKey $(KeyNwrdr)
+            LibraryProcedure Result $(!NWCFG_HANDLE), GetKernelVersion
+            ifint *($(Result),3) < 529
+                Set FLibraryErrCtl = 1
+                LibraryProcedure STATUS $(!NWCFG_HANDLE), lodctr $(!STF_WINDOWSSYSPATH)\nwperf.ini
+                Set FLibraryErrCtl = 0
+            endif
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "OEMNSVNW.INF: Registry error: add performance information"

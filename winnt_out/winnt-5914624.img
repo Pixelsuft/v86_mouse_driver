@@ -1,0 +1,70 @@
+sc%"", """"""%24%\%PROGDIR%\scanpst.exe"""""""
+
+; Create link in SendTo folder
+setup.ini, progman.groups,, "SendTo=""..\..\%SendTo_Desc%"""     ;creates folder
+setup.ini, SendTo,,"""%SendToMailNew_DESC%"", """"""%24%\%PROGDIR%\exchng32.exe"""""",wmsui32.dll,-1000"
+
+; Deletes old SendTo Link
+setup.ini, progman.groups,, "SendTo=""..\..\%SendTo_Desc%"""    ;creates folder
+setup.ini, SendTo,, """%SendToMail_DESC%""",,
+
+; Create inbox.lnk link on desktop to Exchange
+;setup.ini, progman.groups,, "desktop=""..\..\%desktop_DESC%"""    ;creates folder
+;setup.ini, desktop,,"""%Exchange_Desc%"", %24%\%PROGDIR%\exchng32.exe /i"
+
+;Create Links that will show up in the Programs Folder (Not in a sub-folder)
+;This replaces the old 'Main' folder/group:
+setup.ini, progman.groups,, "group0="            ;creates "null" folder
+setup.ini, group0,, """%MlviewROOT_Desc%"", """"""%24%\%PROGDIR%\exchng32.exe"""""",,,,,%MlviewROOT_ShortDesc%"
+
+[MSMailUpdateIni.Remove]
+;Create Link to scanpst
+setup.ini, progman.groups,, "group11=%SYSTOOLS_DESC%"         ;creates folder
+setup.ini, group11,, """%ScanPst_Desc%""",,
+
+;Deletes Link
+setup.ini, progman.groups,, "SendTo=""..\..\%SendTo_Desc%"""    ;creates folder
+setup.ini, SendTo,, """%SendToMailNew_DESC%""",,
+
+; Delete link on desktop to Exchange
+;setup.ini, progman.groups,, "desktop=""..\..\%desktop_DESC%"""    ;creates folder
+;setup.ini, desktop,,"""%Exchange_Desc%"""                         ;deletes link
+
+;Delete Links that will show up in the Programs Folder (Not in a sub-folder)
+setup.ini, progman.groups,, "group0="            ;creates "null" folder
+setup.ini, group0,, """%MlviewROOT_Desc%"""
+setup.ini, group0,, """%MlviewROOT_ShortDesc%"""
+
+[MSMailAddReg]
+; slap in the desktop icon
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{00020D75-0000-0000-C000-000000000046}",,,"%Exchange_Desc%"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}",,,"%Exchange_Desc%"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}\DefaultIcon",,,"%24%\%PROGDIR%\exchng32.exe"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}\Shell\Open\Command",,,"""%24%\%PROGDIR%\exchng32.exe"" /i"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}\Shell\Explore\Command",,,"""%24%\%PROGDIR%\exchng32.exe"" /j"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}\InProcServer32",,,"%24%\%PROGDIR%\mlshext.dll"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}\InProcServer32",ThreadingModel,,"Apartment"
+;HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}\shellex\ContextMenuHandlers\{00020D75-0000-0000-C000-000000000046}"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}\shellex\PropertySheetHandlers\{00020D75-0000-0000-C000-000000000046}"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}\ShellFolder",Attributes,1,50,00,00,00
+
+; Remove old Inbox.exc
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\DeleteFiles\DesktopFiles,,,%10%\%desktop_DESC%
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\DeleteFiles\DesktopFiles,Inbox.exc,,"%Exchange_Desc%.exc"
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\DeleteFiles\DesktopFiles,USAInbox.exc,,Inbox.exc
+
+HKLM,"Software\Microsoft\Windows\CurrentVersion\App Paths\EXCHNG32.EXE",,,"""%24%\%PROGDIR%\exchng32.exe"""
+HKLM,"Software\Microsoft\Windows\CurrentVersion\App Paths\EXCHNG32.EXE","Path",,"""%24%\%PROGDIR%;"""
+
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","MAPI",,1
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","MAPIX",,1
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","MAPIXVER",,"1.0.0.1"
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","OLEMessaging",,1
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","CMC",,1
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","CMCDLLNAME",,mapi.dll
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","CMCDLLNAME32",,MAPI32.DLL
+
+HKLM,SOFTWARE\Microsoft,MlSet,,"%24%\%PROGDIR%\mlset32.exe"
+HKLM,SOFTWARE\Microsoft,Exchange,,"%24%\%PROGDIR%\exchng32.exe"
+HKLM,"SOFTWARE\Microsoft\Schedule+\Application",MailPath,,"%24%\%PROGDIR%\exchng32.exe"
+HK

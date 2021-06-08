@@ -1,0 +1,96 @@
+str(i) $(KeySecurity) == $(KeyNull)
+               Debug-Output "OEMNSVRP.INF: Registry error creating subordinate RPC keys"
+               Goto fatalregistry
+           Endif
+           Set NewValueList = {{DefaultProvider,$(NoTitle),$(!REG_VT_SZ),$(MSSecurityDLL)},+
+                        {10,$(NoTitle),$(!REG_VT_SZ),$(MSSecurityDLL)},+
+                        {DefaultAuthLevel,$(NoTitle),$(!REG_VT_DWORD),0}}
+           Shell  $(UtilityInf), AddValueList, $(KeySecurity), $(NewValueList)
+           Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "OEMNSVRP.INF: ShellCode error."
+               CloseRegKey $(KeySecurity)
+               goto ShellCodeError
+           Endif
+           set RegistryErrorIndex = $($R0)
+           Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+              Debug-Output "OEMNSVRP.INF: registry error: add value list."
+              goto fatalregistry
+           Endif
+        Endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcSoftKeyName)$(ClientProto) $(MAXIMUM_ALLOWED) KeyClient
+        Ifstr $(KeyClient) != $(KeyNull)
+            EnumRegValue $(KeyClient) ValueList        
+            ForListDo $(ValueList)
+                set ValueItemList = $($)
+                Ifcontains(i) *($(ValueItemList),4) in $(DLLClientList)
+                    set NewValueList = {*($(ValueItemList),1),0,$(!REG_VT_SZ),"rpcltccm.dll" }
+                    SetRegValue $(KeyClient) $(NewValueList)
+                    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                        Debug-Output "OEMNSVRP.INF: registry error: setting new client protocol dll name:"*($(ValueItemList),1)":"$(RegLastError)
+                        goto fatalregistry
+                    endif
+                Endif
+            EndForListDo
+            CloseRegKey $(KeyClient)
+        else
+            Debug-Output "OEMNSVRP.INF: registry error: opening client protocols for dll rename"
+            goto fatalregistry
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcSoftKeyName)$(ServerProto) $(MAXIMUM_ALLOWED) KeyServer
+        Ifstr $(KeyServer) != $(KeyNull)
+            EnumRegValue $(KeyServer) ValueList        
+            ForListDo $(ValueList)
+                set ValueItemList = $($)
+                Ifcontains(i) *($(ValueItemList),4) in $(DLLServerList)
+                    set NewValueList = {*($(ValueItemList),1),0,$(!REG_VT_SZ),"rpcltscm.dll" }
+                    SetRegValue $(KeyServer) $(NewValueList)
+                    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                        Debug-Output "OEMNSVRP.INF: registry error: setting new server protocol dll name:"*($(ValueItemList),1)":"$(RegLastError)
+                        goto fatalregistry
+                    endif
+                Endif
+            EndForListDo
+            CloseRegKey $(KeyServer)
+        else
+            Debug-Output "OEMNSVRP.INF: registry error: opening server protocols for dll rename"
+            goto fatalregistry
+        endif
+        CloseRegKey $(KeySecurity)
+        CloseRegKey $(KeyProduct)
+    else
+        goto fatalregistry
+    endif
+    goto end
+successful = +
+    goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(

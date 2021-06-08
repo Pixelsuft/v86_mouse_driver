@@ -1,0 +1,115 @@
+e-Ifstr(i) $(ValueName) == "InterruptNumber"
+            set IRQLevel = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "IOBaseAddress"
+            set IOAddrValue = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "CableType"
+            set CableType = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "DMAChannel"
+            set DMAChannel = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "CardSpeed"
+            set CardSpeed = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "NetworkAddress"
+            set NetworkAddress = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusType"
+            set BusInterfaceType = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumber = $(ValueData)
+        endif
+    EndForListDo
+    set IOBaseAddress = *($(IOBaseAddressList), ~($(IOBaseAddressValue),+
+        $(IOAddrValue)))
+    Ifstr(i) $(CableType) == ""
+        set Rad1 = 2
+    else
+        set Rad1 = $(CableType)
+    endif
+    Ifint $(CardSpeed) == 4
+        set Rad2 = 3
+    else
+        set Rad2 = 4
+    endif
+    set RadioIn = {$(Rad1), $(Rad2) }
+    goto adapteroptions
+adapteroptions = +
+    set from = adapteroptions
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusInterfaceType = $(!AutoNetInterfaceType)
+        else
+            set BusInterfaceType = 1    
+        endif
+        ifstr(i) $(!AutoNetBusNumber) != ""
+            set BusNumber = $(!AutoNetBusNumber)
+        else
+            set BusNumber = 0
+        endif
+        goto nextstep
+    endif
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    ui start "InputDlg"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set IRQLevel = $(Combo1Out)
+        set IOBaseAddress = $(Combo2Out)
+        set DMAChannel = $(Combo3Out)
+        set NetworkAddress = *($(EditTextOut),1)
+        IfContains "1" IN $(RadioOut)
+            set CableType = 1
+        else-IfContains "2" IN $(RadioOut)
+            set CableType = 2
+        endif
+        IfContains "3" IN $(RadioOut)
+            set CardSpeed = 4
+        else-IfContains "4" IN $(RadioOut)
+            set CardSpeed = 16
+        endif
+        ui pop 1
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        set CommonStatus = STATUS_USERCANCEL
+        Debug-Output "Action: exit. Bye."
+        ui pop 1
+        goto end
+    else
+        ui pop 1
+        Debug-Output "Action: unknown. Bye."
+        goto end
+    endif
+    ifstr(i) $(!STF_NCDETINFO) == {}
+        Shell $(UtilityInf),GetBusTypeDialog,$(ProductHardwareDescription) $(BusInterfaceType) $(BusNumber)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set BusInterfaceType = $($R1)
+        set BusNumber = $($R2)
+    else
+        set BusInterfaceType = *($(!STF_NCDETINFO),5)
+        set BusNumber = *($(!STF_NCDETINFO),6)
+    endif
+nextstep = +
+    ifint $(OldVersionExisted) == $(TRUE)
+        ifstr(i) $(!NTN_InstallMode) == configure
+            goto writeparameters
+        endif
+    endif
+    StartWait
+    ifint $(OldVersionExisted) == $(FALSE)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+           Ifstr(i) $(DoCopy) == "YES"
+              Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+              Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  Goto ShellCodeError
+              Else-Ifstr(i) $($R0) == STATUS_FAILED
+                  Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                  ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                      goto ShellCodeError
+                  endif
+                  set Error = $($R0)
+                  Goto fatal
+              Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                  Goto successful
+              Endif
+              Set SrcDir = $($R1)
+           Endif
+           install "Install-Option"
+           ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+             

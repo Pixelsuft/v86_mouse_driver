@@ -1,0 +1,53 @@
+uring one day, wouldn't the ninth find that there were no free IP address to allocate?
+Is it therefore more prudent to use the static IP pool facility of RAS rather than DHCP, or is there something I have missed?
+
+ANSWER:
+For your two port server, you will only use three IP addresses: two for RAS clients and one for the server.  When a client calls in, it is given an IP address.  When the client hangs up, that address is returned to the RAS server for use with the next client.  So, no matter how many clients call in, at most you will use three addresses on your two port server at any given time.
+
+---------------------------------------------------
+QUESTION:
+My LAN consists of one Novell 3.12 server and one Windows NT Server version 3.5. I would like to be able to remotely administer the Windows NT Server computer like I can using Rconsole in Novell.
+
+I am going to be on the road much of the year and would like to be able to dial back into my Windows NT Server computer and troubleshoot remotely from my home computer or from my notebook computer like I can with Novell. I have talked with my local vendor and they have come back with the suggestion to install Windows NT Server version 3.5 on my home system and through RAS dial into my office server. Is this possible and is this the best way to do it?
+
+ANSWER:
+You do not need to install Windows NT Server on your home computer, you can do remote administration with Windows NT Workstation. If you install RAS on your office computer, you can then run RAS from the laptop to connect to it and do remote administration. 
+
+For more information refer to the QUESTION and ANSWER section above which discusses an answer to your question in more detail.
+
+---------------------------------------------------
+QUESTION:
+I'm getting the following Administrator Alert message from my Primary Domain Controller (PDC):
+"Failed to authenticate with <UNKNOWN>, a Windows NT Domain Controller for
+domain SITE2."
+
+\\NTPDC is my primary domain controller at work and \\SITE2 is the domain controller at a second site.  They are set up to allow dial-in access from one to the other.  They both run Windows NT Server version 3.5.  What is this message trying to say and why does it occur hourly?
+
+ANSWER:
+The alert is telling you that one domain controller tried to connect with the other domain controller
+to sync up the accounts, but the second domain controller could not be reached.
+If you have a trust relationship between the two, and they are only connected via RAS, 
+then you will get this alert when the connection is not active.
+
+---------------------------------------------------
+QUESTION:
+Can I configure my Windows NT Server version 3.5 as a SLIP server for Windows for Workgroups clients? If so, what
+do I need to do on the Windows NT Server side? What software will I need on the Windows for Workgroups client side?
+
+ANSWER:
+RAS is configurable as a PPP server, not as a SLIP server.  Unless there is a strong reason for using SLIP, just use the RAS that ships with Windows for Workgroups to connect to the Windows NT RAS server.
+If you need IP instead of NetBEUI, use a third party PPP package on the Windows for Workgroups computer to give you PPP access.
+
+---------------------------------------------------
+QUESTION:
+We have an Windows NT Server computer for our Windows for Workgroups clients. Is there a way for a Windows for Workgroups client to dial out
+on the modem on the Windows NT Server using software like QuickLinks or Procom? Windows NT
+is great for dialing in using RAS to connect to our network, but we need to share the modem at
+the Windows NT Server to dial out from our workstations to access various BBSs or CompuServe.
+
+ANSWER:
+You will need to install a modem pooling package in order for this to work. You can use Spartacom software for this. Spartacom can be reached at Tel: (404) 455-0701 or Fax: (404) 457-9500.
+
+---------------------------------------------------
+QUESTION:
+I have the call waiting service on my line at home - if someone calls me and my

@@ -1,0 +1,49 @@
+sp;1</b></a></p>
+<p>
+If you install MDAC&nbsp;2.0 or later after installing SP6, the ODBC Help files Obdcinst.hlp and Obdcinst.cnt will not match the help file for the installed version of MDAC. This is because the ODBC Help file installed by SP6 has the SP6 file date. To work around this, before you install MDAC, delete the files Odbcinst.hlp and Odbcinst.cnt. If you've already installed MDAC, delete the Odbcinst.hlp and reinstall MDAC.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="4.7"><b>4.7 Installing Internet Explorer&nbsp;5 as a Non-Default Browser</b></a></p>
+<p>
+You can install Internet Explorer&nbsp;5 without adding the Internet Explorer icon to the desktop and without adding the system file associations that make Internet Explorer&nbsp;5 the default browser. If you have the SP6 CD, you can find Internet Explorer&nbsp;5 in the \ValueAdd\MSIE5 folder.</p>
+<p><blockquote>
+<b>To install Internet Explorer&nbsp;5 as a non-default browser</b></p>
+<ol>
+<li>Click <b>Start</b>, and then click <b>Run</b>.</li>
+<li>In <b>Named</b>, type:<br> <b>IE5SETUP.EXE /C:"ie5wzd /S:""#e"" /X /R:N /Q:A /m:0"</b></li> 
+<li>Click <b>OK</b>.</li>
+</ol></blockquote>
+<p>
+This command changes the Internet Explorer&nbsp;5 installation to prevent adding the Internet Explorer icon to the desktop or changing the system file associations to make Internet Explorer&nbsp;5 the default browser.</p>
+<p>
+<b>Note:</b> This command only works if you have not installed the Microsoft Windows Desktop Update on your computer.</p>
+
+<p>
+For more information, visit the Microsoft Personal Online Support Center Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=SUPPORT">http://support.microsoft.com/support/</a></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<a name="4.8"><b>4.8 Exchange Server Reindexing</b></a></p>
+<p>
+If you install SP6 on a computer running Microsoft Exchange Server, the installation may trigger Exchange to begin a lengthy reindexing process. While the Sort Order for Windows&nbsp;NT&nbsp;4.0 has not changed in this Service Pack, Exchange may still interpret the application of the Service Pack as a possible Sort Order change and reindex to ensure data integrity. After reindexing is completed, the database should start. Do not attempt to interrupt the server while it is reindexing because that may cause the database to become inconsistent. For more information, visit the Microsoft Personal Online Support Center Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=SUPPORT">http://support.microsoft.com/support/</a></p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="4.9">4.9</a> Regset.exe and Tandqic.sys Backup Issues</b></p>
+<p>SP6 provides the regset.exe utility for you to work around a backup and restore issue related to tandqic.sys. Regset.exe can be used to update the default value for the following registry entries:</p>
+<p>HKCU\Software\Microsoft\Ntbackup\Backup Engine\Use fast file restore<br>
+HKCU\Software\Microsoft\Ntbackup\User Interface\Use Tape Catalogs</p>
+<p>If you have backed up your Windows&nbsp;NT&nbsp;4.0 SP4 or SP5 systems using tandqic.sys, you cannot restore the backup data if the above registry values are set to 1. Changing the registry values to 0 allows you to perform a successful restore.</p>
+<p>In addition, to do a backup restoration, you must be running Ntbackup on Windows&nbsp;NT&nbsp;4.0 with SP6 installed.</p>
+<p><blockquote>
+<b>To change registry values</b></P>
+<ol>
+<li>Click <b>Start</b>, point to <b>Programs</b>, and then click <b>Command Prompt</b>.</li>
+<li>At the prompt, type <b>copy d:\support\utils\regset.exe</b></li>
+<li>At the next prompt, type <b>regset</b> or <b>regset 0</b> to change the default value to 0.</li>
+</ol>
+<p><b>Note:</b> After data backup restoration from SP4 is completed, the registry entries sho

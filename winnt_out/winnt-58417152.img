@@ -1,0 +1,155 @@
+; This is the Setup information file to install optional components
+; Copyright (c) 1996 Microsoft Corporation
+
+
+[version]
+signature="$Windows NT$"
+ClassGUID={00000000-0000-0000-0000-000000000000}
+LayoutFile=layout.inf
+
+
+[DestinationDirs]
+ChatCopyFilesSys		= 11	;LDID_SYSTEM
+ChatCopyFilesHelp		= 11	;LDID_SYSTEM
+DialerCopyFilesProg		= 24,%Dialer_DIR%
+DialerCopyFilesHelp		= 18	;LDID_HELP
+HypertrmCopyFilesProg   = 24,%Hypertrm_DIR%
+HypertrmCopyFilesSys    = 11
+HypertrmCopyFilesHelp   = 18	;LDID_HELP
+HypertrmCopyFilesConfig = 53,%HypertrmProfile_DIR%
+HypertrmDelFilesProg     = 24,%Hypertrm_DIR%
+
+
+[BaseWinOptions]
+BaseSection
+
+
+[Optional Components]
+CommApps	;Top level option
+Chat
+Dialer
+Hypertrm
+
+
+[BaseSection]
+AddReg			= BaseAddReg
+
+
+[CommApps]
+OptionDesc		= %CommApps_DESC%
+Tip			= %CommApps_TIP%
+IconIndex		= 7 ;Telephone mini-icon for dialogs
+
+
+[Chat]
+OptionDesc		= %Chat_DESC%
+Tip			= %Chat_TIP%
+IconIndex		= 16 ;Net Client mini-icon for dialogs
+Parent			= CommApps
+InstallType		= 14 ;Typical, Portable, Custom
+CopyFiles		= ChatCopyFilesSys, ChatCopyFilesHelp
+AddReg			= ChatAddReg
+UpdateInis		= ChatInis
+Uninstall		= ChatUninstall
+Upgrade			= ChatUpgrade
+Detect			= %11%\winchat.exe
+
+
+[ChatUninstall]
+DelFiles		= ChatCopyFilesSys, ChatCopyFilesHelp
+AddReg			= ChatUninstallAddReg
+UpdateInis		= ChatUninstallInis
+
+
+[ChatUpgrade]
+CopyFiles		= ChatCopyFilesSys, ChatCopyFilesHelp
+AddReg			= ChatAddReg
+
+
+[ChatInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Chat_DESC%"",""""""%11%\winchat.exe"""""",,,,""%11%"""
+
+
+[ChatUninstallInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Chat_DESC%"""
+
+
+[Dialer]
+OptionDesc		= %Dialer_DESC%
+Tip			= %Dialer_TIP%
+IconIndex		= 47 ;Phone mini-icon for dialogs
+Parent			= CommApps
+InstallType		= 14 ;Typical, Portable, Custom
+CopyFiles		= DialerCopyFilesProg, DialerCopyFilesHelp
+AddReg			= DialerAddReg
+UpdateInis		= DialerInis
+Uninstall		= DialerUninstall
+Upgrade			= DialerUpgrade
+Detect			= %24%\%Dialer_DIR%\dialer.exe
+
+
+[DialerUninstall]
+DelFiles		= DialerCopyFilesProg, DialerCopyFilesHelp
+AddReg			= DialerUninstallAddReg
+DelReg			= DialerDelReg
+UpdateInis		= DialerUninstallInis
+
+
+[DialerUpgrade]
+CopyFiles		= DialerCopyFilesProg, DialerCopyFilesHelp
+AddReg			= DialerAddReg
+
+
+[DialerInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Dialer_DESC%"",""""""%24%\%Dialer_DIR%\dialer.exe"""""",,,,""%24%\%Dialer_DIR%"""
+
+
+[DialerUninstallInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Dialer_DESC%"""
+
+
+[Hypertrm]
+OptionDesc		= %Hypertrm_DESC%
+Tip			= %Hypertrm_TIP%
+IconIndex		= 35 ;Phone mini-icon for dialogs
+Parent			= CommApps
+InstallType		= 14 ;Typical, Portable, Custom
+CopyFiles		= HypertrmCopyFilesProg, HypertrmCopyFilesSys, HypertrmCopyFilesHelp, HypertrmCopyFilesConfig
+DelFiles        = HypertrmDelFilesProg
+AddReg			= HypertrmAddReg
+UpdateInis		= HypertrmInis
+Uninstall		= HypertrmUninstall
+Upgrade			= HypertrmUpgrade
+Detect			= %24%\%Hypertrm_DIR%\hypertrm.exe
+
+
+[HypertrmUninstall]
+DelFiles		= HypertrmCopyFilesProg, HypertrmCopyFilesSys, HypertrmCopyFilesHelp, HypertrmCopyFilesConfig
+AddReg			= HypertrmUninstallAddReg
+DelReg			= HypertrmDelReg
+UpdateInis		= HypertrmUninstallInis
+
+
+[HypertrmUpgrade]
+CopyFiles		= HypertrmCopyFilesProg, HypertrmCopyFilesSys, HypertrmCopyFilesHelp, HypertrmCopyFilesConfig
+DelFiles        = HypertrmDelFilesProg
+AddReg			= HypertrmAddReg
+UpdateInis		= HypertrmInis
+
+
+[HypertrmInis]
+setup.ini, progman.groups,, "GroupHypTrm=%Hypertrm_GROUP%"
+setup.ini, GroupHypTrm,, """%Hypertrm_DESC%"",""""""%24%\%Hypertrm_DIR%\hypertrm.exe"""""",,,,""%USERPROFILE%\%HypertrmProfile_DIR%"""
+
+
+[HypertrmUninstallInis]
+setup.ini, progman.groups,, "GroupHypTrm=%Hypertrm_GROUP%"
+setup.ini, GroupHypTrm,, """%Hypertrm_DESC%"""
+
+
+[BaseAddReg]
+;Create entries for Maint Mode Setup, set all

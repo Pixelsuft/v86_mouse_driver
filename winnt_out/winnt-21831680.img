@@ -1,0 +1,102 @@
+    endif
+    set MiniportKey = $($R1)
+    ifstr(i) $($2) != ""
+        set KeyPath   = {{$($5), $(NoTitle), $(MaskAllAccess)}}
+        set KeyValues = $($2)
+        shell "" CreateKey $(MiniportKey) $(KeyPath) $(KeyValues)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            CloseRegKey $(ServicesKey)
+            CloseRegKey $(MiniportKey)
+            goto error_MakeServicesEntry
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            CloseRegKey $(ServicesKey)
+            CloseRegKey $(MiniportKey)
+            goto error_MakeServicesEntry
+        endif
+        set ParametersKey = $($R1)
+        ForListDo $($3)
+            set-sub DeviceNum = $(#) 1
+            set EntryName = "Device"$(DeviceNum)
+            set KeyPath   = {{$(EntryName), $(NoTitle), $(MaskAllAccess)}}
+            set KeyValues = $($3)
+            shell "" CreateKey $(ParametersKey) $(KeyPath) $(KeyValues)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                CloseRegKey $(ServicesKey)
+                CloseRegKey $(MiniportKey)
+                CloseRegKey $(ParametersKey)
+                goto error_MakeServicesEntry
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                CloseRegKey $(ServicesKey)
+                CloseRegKey $(MiniportKey)
+                CloseRegKey $(ParametersKey)
+                goto error_MakeServicesEntry
+            endif
+            CloseRegKey $($R1)
+        EndForListDo
+        CloseRegKey $(ParametersKey)
+    endif
+    CloseRegKey $(MiniportKey)
+    ifstr(i) $($4) != {}
+        OpenRegKey $(ServicesKey) "" "eventlog\system" $(MaskAllAccess) EventLogKey
+        ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            Debug-Output "REGISTRY.INF: Failed to open eventlog key"
+            CloseRegKey $(ServicesKey)
+            goto error_MakeServicesEntry
+        endif
+        set KeyPath   = {{$($0), $(NoTitle), $(MaskAllAccess)}}
+        set KeyValues = $($4)
+        shell "" CreateKey $(EventLogKey) $(KeyPath) $(KeyValues)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            CloseRegKey $(ServicesKey)
+            CloseRegKey $(EventLogKey)
+            goto error_MakeServicesEntry
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            CloseRegKey $(ServicesKey)
+            CloseRegKey $(EventLogKey)
+            goto error_MakeServicesEntry
+        endif
+        CloseRegKey $($R1)
+        CloseRegKey $(EventLogKey)
+    endif
+    CloseRegKey $(ServicesKey)
+    set Status = STATUS_SUCCESSFUL
+    goto finish_MakeServicesEntry
+error_MakeServicesEntry = +
+    shell "" ModifyServicesEntry $($0) $(!SERVICE_DISABLED)
+finish_MakeServicesEntry = +
+    Return $(Status)
+[GetServicesEntryStart]
+    set Status     = STATUS_FAILED
+    set StartValue = ""
+    read-syms RegistryConstants
+    Debug-Output "REGISTRY.INF: Get Services node Start value: "$($0)
+    set KeyName = "system\"$(!STF_CONTROLSET)"\services\"$($0)
+    OpenRegKey $(!REG_H_LOCAL) "" $(KeyName) $(!REG_KEY_READ) KeyHandle
+    ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "REGISTRY.INF: Couldn't open services node for read access"
+        goto finish_GetServicesEntryStart
+    endif
+    GetRegValue $(KeyHandle) "Start" StartValueList
+    ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "REGISTRY.INF: Couldn't read Start value"
+        CloseRegKey $(KeyHandle)
+        goto finish_GetServicesEntryStart
+    endif
+    CloseRegKey $(KeyHandle)
+    set StartValue = *($(StartValueList), 4)
+    set Status = STATUS_SUCCESSFUL
+finish_GetServicesEntryStart = +
+    Return $(Status) $(StartValue)
+[RemoveServicesEntry]
+    set Status = STATUS_FAILED
+    read-syms RegistryConstants
+    Debug-Output "REGISTRY.INF: Removing Services node: "$($0)
+    shell "" ModifyServicesEntry $($0) $(!SERVICE_DISABLED)
+    Return $($R0)
+[MakeSetupKey]
+    set Status = STATUS_FAILED
+    read-syms  RegistryConstants
+    OpenRegKey $(!REG_H_LOCAL) "" "system\"$(!STF_CONTROLSET)"\contro

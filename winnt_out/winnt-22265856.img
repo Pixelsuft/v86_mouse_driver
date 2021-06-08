@@ -1,0 +1,54 @@
+og boxes requesting configuration information for the device.  The following examples illustrate the type of user input typically required.
+
+· PnP ISA modems and PnP ISA serial port devices
+Both of these devices are configured using the Advanced Port Settings dialog box. Use this dialog box to select the interrupt request and input/output range resources for the underlying serial port, and configure the COM port number and FIFO settings.  After the devices are installed, Advanced Port Settings can be accessed using the Ports icon in Control Panel. Select the COM port, click Settings, and then click  Advanced.
+
+· PnP ISA multimedia cards
+For these devices, each different multimedia device can present a different dialog box.  For example, the Creative Labs SoundBlaster16 driver displays a property page with only a General tab. (Other multimedia device property pages could have additional tabs on them.) When you click Settings, you can select an interrupt, input/output ranges, and direct memory access (DMA) channels. To access the property page for any multimedia device, double-click the Multimedia icon in Control Panel. Click the Devices tab, and then select the PnP ISA device in the Multimedia devices box.  Click Properties and then click Settings.
+For more information about installing a Creative Labs SoundBlaster16 Plug and Play driver, see the DRVLIB\AUDIO\SBPNP\README.TXT file.
+
+Removing PnP ISA Devices
+To remove a PnP ISA device, you must use one of  the Control Panel icons. For example, to remove a PnP ISA modem or serial port, use the Ports icon in Control Panel.  To remove a multimedia PnP ISA device, use the Multimedia icon in Control Panel.
+
+PnP ISA SCSI
+A Plug and Play SCSI adapter that has been installed during Windows NT Setup will be redetected after Plug and Play ISA enabler is installed on the system. When the New Hardware Found dialog box is displayed, you are prompted to either keep the existing driver or install a new driver by specifying a driver location.  Click Yes to keep the existing driver.
+
+All Plug and Play ISA SCSI adapters should be set to run in Legacy mode.  For example, Adaptec AHA152x ISA Plug and Play adapters can be set to Legacy mode by performing the following: 
+
+1. Select a resource setting that is not already in use using DIP switches on the adapter.  Do not select "inactive".
+2. Press Ctrl-A to start the SCSI Setup Utility after the banner appears. 
+3. Turn off PnP mode. 
+
+For more information about the Plug and Play ISA enabler, see "Plug and Play ISA Device Installation and PNPISA.SYS" earlier in this document.
+
+ROM Shadowing on Multiprocessor Systems
+If you encounter persistent installation problems on multiprocessor systems, try installing with ROM shadowing disabled. 
+
+Running Windows NT version 4.0 on PCI Bus Systems
+To run Windows NT version 4.0 on a PCI bus system, you may need to enable the interrupts via the CMOS screen or by switching jumpers on the motherboard. Refer to system documentation to determine how to enable interrupts for your system.
+
+
+Windows NT SCSI Driver Changes
+With the release of Windows NT version 4.0, the drivers for certain SCSI adapters have been moved from the base operating system to the Windows NT Driver Library (\DRVLIB) included on the Windows NT version 4.0 compact disc. Check the following list to determine if any of your adapters are affected by this change. If your computer has an adapter that appears on this list, you must create a driver disk before installing Windows NT version 4.0. Use this disk to install the appropriate driver(s) during Setup, or keep the disk handy and install the driver by using Control Panel once Setup is complete.
+
+The following drivers have been moved:
+always.sys
+dtc329x.sys
+t128.syst13b.sys
+tmv1.sys
+ultra124.sys
+wd33c93.sys
+
+The following adapters are affected by this change:
+SCSI ADAPTERS
+
+Always IN-2000
+Data Technology Corp. 3290
+Maynard 16-bit SCSI Adapter
+MediaVision Pro Audio Spectrum-16
+Trantor T-128
+Trantor T-130B
+
+DISK CONTROLLERS
+
+UltraStor 124f EISA Di

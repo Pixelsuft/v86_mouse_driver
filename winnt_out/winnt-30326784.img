@@ -1,0 +1,128 @@
+t family driver software."
+	    Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		Debug-Output "ShellCode error: cannot get an error string."
+		goto ShellCodeError
+	    endif
+	    set Error = $($R0)
+	    set from = end
+	    set to = end
+	    goto nonfatalinfo
+	endif
+    else
+	set StartLabel = installadapter
+	set OEM_ABANDON_OPTIONS = {}
+	set OEM_ABANDON_SOFTWARE = FALSE
+	set OEM_ABANDON_ON = TRUE
+    endif
+    set IRQValue = *($(IRQList), 9)
+    set IOBaseAddrValue = *($(IOBaseAddrList), 17)
+    set DMAChannelValue = *($(DMAChannelList), 5)
+    set RadioIn  = {4}
+    set BusScanValue = "ALL"
+    set LED0Value = *($(LEDList), 1)
+    set LED1Value = *($(LEDList), 1)
+    set LED2Value = *($(LEDList), 1)
+    set LED3Value = *($(LEDList), 1)
+    set TPValue = 1
+    set FullDuplexValue = *($(FullDuplexList), 4)
+    set BusTimerValue = *($(BusTimerList), 10)
+    Set from = $(fatal)
+    Set to = $(fatal)
+    Goto $(StartLabel)
+installadapter = +
+	set IsISA = 0
+	set Vendor = 4130
+	set CardID = 8192
+	Shell $(UtilityInf), GetPCIInformation, $(Vendor) $(CardID)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto ShellCodeError
+	endif
+	set AdapterList = $($R0)
+        set NewAdapterList = {}
+	set NumNew = 0
+	ForListDo $(AdapterList)
+	    set BusNumber = *($($),1)
+	    set SlotNum = *($($),2)
+	    Shell $(UtilityInf), IsNetCardAlreadyInstalled, $(BusNumber), +
+		$(SlotNum), $(GenericPCIAdapterName), $(ProductHardwareName)
+	    ifstr(i) $($R1) != "YES"
+		    set-add NumNew = $(NumNew),1
+		    ifstr(i) $(NewAdapterList) == {}
+	            set NewAdapterList = {$($)}
+            else
+		        set NewAdapterList = >($(NewAdapterList),$($))
+            endif
+	    endif
+	EndForListDo
+	set AdapterList = $(NewAdapterList)
+	ifint $(NumNew) == 0
+	    set AdapterList = {{0,0,0}}
+	    set IsISA = 1
+	endif
+	debug-output $(AdapterList)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+	CloseRegKey $(KeyProduct)
+	ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+	   Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+	       $(ProductVersion)
+	   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	       Debug-Output "ShellCode error: cannot get an error string."
+	       goto ShellCodeError
+	   endif
+	   goto end
+	else
+	   Shell $(UtilityInf), CardExistedDlg
+	   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	       Debug-Output "ShellCode error: cannot get an error string."
+	       goto ShellCodeError
+	   endif
+	   ifstr(i) $($R1) != "OK"
+	       goto end
+	   endif
+	   set OldVersionExisted = $(TRUE)
+	endif
+    endif
+    ifint $(OldVersionExisted) == $(FALSE)
+	ifstr(i) $(!NTN_InstallMode) == "install"
+	   Ifstr(i) $(DoCopy) == "YES"
+		Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) NO
+		Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		    Goto ShellCodeError
+		Else-Ifstr(i) $($R0) == STATUS_FAILED
+		    Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+		    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+			goto ShellCodeError
+		    endif
+		    set Error = $($R0)
+		    Goto fatal
+		Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+		    Goto successful
+		Endif
+		Set SrcDir = $($R1)
+	    endif
+	    install "Install-Helpfile"
+	endif
+    endif
+    SetHelpFile "pcnet.hlp" 1 11
+    Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	Goto ShellCodeError
+    Else-Ifstr(i) $($R0) == STATUS_FAILED
+	Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto ShellCodeError
+	endif
+	set Error = $($R0)
+	Goto fatal
+    Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+	Goto successful
+    Endif
+    Set SrcDir = $($R1)
+    install "Install-Dll"
+    goto adaptersetup
+configureadapter = +
+    SetHelpFile "pcnet.hlp" 1 11
+    Ifstr $(KeyProduct) == $(KeyNull)
+	OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWE

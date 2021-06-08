@@ -1,0 +1,110 @@
+[Identification]
+    OptionType = NetAdapter
+[PlatformsSupported]
+    ISA
+    EISA
+    "Jazz-Internal Bus"
+    PCI
+[Options]
+    DC21040
+    DC21041
+    DC21140
+    DC21142
+    DE434
+    DE435
+    MULTIA
+    DE425
+    DE450
+    DE500
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+subroutineinf   = "SUBROUTN.INF"
+SoftwareType    = "driver"
+Exit_Code       = 0
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+Manufacturer    = "DigitalEquipmentCorporation"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+VendorID = 4113  
+ProductSoftwareName     = "DC21X4"
+ProductSoftwareTitle    = "DEC DC21X4 Adapter Driver"
+ProductSoftwareImagePath = "\SystemRoot\System32\drivers\DC21X4.sys"
+NetRuleSoftwareType     = "DC21X4Sys ndisDriver DC21X4Driver"
+NetRuleSoftwareUse      = $(SoftwareType)
+NetRuleSoftwareBindForm = """DC21X4Sys"" yes no container"
+NetRuleSoftwareClass    = {"DC21X4Driver basic"}
+NetRuleSoftwareSWBindable = {"DC21X4Driver DC21040Adapter non exclusive 100",+
+                             "DC21X4Driver DC21041Adapter non exclusive 100",+
+                             "DC21X4Driver DC21140Adapter non exclusive 100",+
+                             "DC21X4Driver DC21142Adapter non exclusive 100",+
+                             "DC21X4Driver MULTIAAdapter non exclusive 100",+
+                             "DC21X4Driver DE434Adapter non exclusive 100",+
+                             "DC21X4Driver DE435Adapter non exclusive 100",+
+                             "DC21X4Driver DE425Adapter non exclusive 100", +
+                             "DC21X4Driver DE450Adapter non exclusive 100", +
+                             "DC21X4Driver DE500Adapter non exclusive 100" }
+OptionHelpFile = "DC21X4.hlp"
+ProductHardwareName = "DC21X4"
+NetRuleHardwareDC21040Type  = "DC21040 DC21040Adapter"
+NetRuleHardwareDC21040Class = {"DC21040Adapter basic"}
+ProductOpSupport     = 134 
+ProductDE425OpSupport     = 132 
+AdapterDC21040Type = 5  
+HelpDC21040Id = 10
+DC21040CFID = 135185    
+NetRuleHardwareDC21041Type  = "DC21041 DC21041Adapter"
+NetRuleHardwareDC21041Class = {"DC21041Adapter basic"}
+AdapterDC21041Type = 5  
+HelpDC21041Id = 20
+DC21041CFID = 1314833    
+NetRuleHardwareDC21140Type  = "DC21140 DC21140Adapter"
+NetRuleHardwareDC21140Class = {"DC21140Adapter basic"}
+AdapterDC21140Type = 5   
+HelpDC21140Id = 30
+DC21140CFID = 593937     
+StoreAndForward = 0      
+TxmThreshold100 = 512    
+NetRuleHardwareDC21142Type  = "DC21142 DC21142Adapter"
+NetRuleHardwareDC21142Class = {"DC21142Adapter basic"}
+AdapterDC21142Type = 5   
+HelpDC21142Id = 40
+DC21142CFID = 1642513   
+NetRuleHardwareDE434Type    = "DE434 DE434Adapter"
+NetRuleHardwareDE434Class   = {"DE434Adapter basic"}
+AdapterDE434Type   = 5  
+HelpDE434Id = 100
+DE434CFID = 135185      
+NetRuleHardwareDE435Type    = "DE435 DE435Adapter"
+NetRuleHardwareDE435Class   = {"DE435Adapter basic"}
+AdapterDE435Type   = 5  
+HelpDE435Id = 110
+DE435CFID = 135185      
+NetRuleHardwareMULTIAType  = "MULTIA MULTIAAdapter"
+NetRuleHardwareMULTIAClass = {"MULTIAAdapter basic"}
+AdapterMULTIAType = 5  
+HelpMULTIAId = 130
+MULTIACFID = 135185    
+SiaRegister0 = 12353  
+SiaRegister1 = 0      
+SiaRegister2 = 6      
+NetRuleHardwareDE425Type    = "DE425 DE425Adapter"
+NetRuleHardwareDE425Class   = {"DE425Adapter basic"}
+AdapterDE425Type   = 2  
+DE425CFID = 135185      
+DE425_1BYTE = 1346544400  
+EISA_MASK   = 4043309055
+NetRuleHardwareDE450Type  = "DE450 DE450Adapter"
+NetRuleHardwareDE450Class = {"DE450Adapter basic"}
+AdapterDE450Type = 5  
+HelpDE450Id = 20
+DE450CFID = 1314833    
+NetRuleHardwareDE500Type  = "DE500 DE500Adapter"
+NetRuleHardwareDE500Class = {"DE500Adapter basic"}
+AdapterDE500Type = 5   
+HelpDE500Id = 30
+DE500CFID = 593937     
+NetRuleHardwareBindForm = " yes yes container"
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+ParamKeyName

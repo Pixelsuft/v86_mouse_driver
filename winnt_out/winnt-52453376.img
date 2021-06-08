@@ -1,0 +1,181 @@
+gorilla
+  PUT (StartX, StartY), GorD&, PSET
+
+  adjust = Scl(4)                   'For scaling CGA
+
+  xedge = Scl(9) * (2 - PlayerNum)  'Find leading edge of banana for check
+
+  Impact = FALSE
+  ShotInSun = FALSE
+  OnScreen = TRUE
+  PlayerHit = 0
+  NeedErase = FALSE
+
+  StartXPos = StartX
+  StartYPos = StartY - adjust - 3
+
+  IF PlayerNum = 2 THEN
+    StartXPos = StartXPos + Scl(25)
+    direction = Scl(4)
+  ELSE
+    direction = Scl(-4)
+  END IF
+
+  IF Velocity < 2 THEN              'Shot too slow - hit self
+    x# = StartX
+    y# = StartY
+    pointval = OBJECTCOLOR
+  END IF
+   
+  DO WHILE (NOT Impact) AND OnScreen
+ 
+  Rest .02
+
+  'Erase old banana, if necessary
+  IF NeedErase THEN
+    NeedErase = FALSE
+    CALL DrawBan(oldx#, oldy#, oldrot, FALSE)
+  END IF
+
+  x# = StartXPos + (InitXVel# * t#) + (.5 * (Wind / 5) * t# ^ 2)
+  y# = StartYPos + ((-1 * (InitYVel# * t#)) + (.5 * gravity# * t# ^ 2)) * (ScrHeight / 350)
+         
+  IF (x# >= ScrWidth - Scl(10)) OR (x# <= 3) OR (y# >= ScrHeight - 3) THEN
+    OnScreen = FALSE
+  END IF
+
+          
+  IF OnScreen AND y# > 0 THEN
+
+    'check it
+    LookY = 0
+    LookX = Scl(8 * (2 - PlayerNum))
+    DO
+      pointval = POINT(x# + LookX, y# + LookY)
+      IF pointval = 0 THEN
+        Impact = FALSE
+        IF ShotInSun = TRUE THEN
+          IF ABS(ScrWidth \ 2 - x#) > Scl(20) OR y# > SunHt THEN ShotInSun = FALSE
+        END IF
+      ELSEIF pointval = SUNATTR AND y# < SunHt THEN
+        IF NOT SunHit THEN DoSun SUNSHOCK
+        SunHit = TRUE
+        ShotInSun = TRUE
+      ELSE
+        Impact = TRUE
+      END IF
+      LookX = LookX + direction
+      LookY = LookY + Scl(6)
+    LOOP UNTIL Impact OR LookX <> Scl(4)
+   
+    IF NOT ShotInSun AND NOT Impact THEN
+      'plot it
+      rot = (t# * 10) MOD 4
+      CALL DrawBan(x#, y#, rot, TRUE)
+      NeedErase = TRUE
+    END IF
+            
+    oldx# = x#
+    oldy# = y#
+    oldrot = rot
+
+  END IF
+
+      
+  t# = t# + .1
+
+  LOOP
+
+  IF pointval <> OBJECTCOLOR AND Impact THEN
+    CALL DoExplosion(x# + adjust, y# + adjust)
+  ELSEIF pointval = OBJECTCOLOR THEN
+    PlayerHit = ExplodeGorilla(x#, y#)
+  END IF
+
+  PlotShot = PlayerHit
+
+END FUNCTION
+
+'Rest:
+'  pauses the program
+SUB Rest (t#)
+  s# = TIMER
+  t2# = MachSpeed * t# / SPEEDCONST
+  DO
+  LOOP UNTIL TIMER - s# > t2#
+END SUB
+
+'Scl:
+'  Pass the number in to scaling for cga.  If the number is a decimal, then we
+'  want to scale down for cga or scale up for ega.  This allows a full range
+'  of numbers to be generated for scaling.
+'  (i.e. for 3 to get scaled to 1, pass in 2.9)
+FUNCTION Scl (n!)
+
+  IF n! <> INT(n!) THEN
+      IF Mode = 1 THEN n! = n! - 1
+  END IF
+  IF Mode = 1 THEN
+      Scl = CINT(n! / 2 + .1)
+  ELSE
+      Scl = CINT(n!)
+  END IF
+
+END FUNCTION
+
+'SetScreen:
+'  Sets the appropriate color statements
+SUB SetScreen
+
+  IF Mode = 9 THEN
+    ExplosionColor = 2
+    BackColor = 1
+    PALETTE 0, 1
+    PALETTE 1, 46
+    PALETTE 2, 44
+    PALETTE 3, 54
+    PALETTE 5, 7
+    PALETTE 6, 4
+    PALETTE 7, 3
+    PALETTE 9, 63       'Display Color
+  ELSE
+    ExplosionColor = 2
+    BackColor = 0
+    COLOR BackColor, 2
+
+  END IF
+
+END SUB
+
+'SparklePause:
+'  Creates flashing border for intro and game over screens
+SUB SparklePause
+
+  COLOR 4, 0
+  A$ = "*    *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    "
+  WHILE INKEY$ <> "": WEND 'Clear keyboard buffer
+
+  WHILE INKEY$ = ""
+    FOR A = 1 TO 5
+      LOCATE 1, 1                             'print horizontal sparkles
+      PRINT MID$(A$, A, 80);
+      LOCATE 22, 1
+      PRINT MID$(A$, 6 - A, 80);
+
+      FOR b = 2 TO 21                         'Print Vertical sparkles
+        c = (A + b) MOD 5
+        IF c = 1 THEN
+          LOCATE b, 80
+          PRINT "*";
+          LOCATE 23 - b, 1
+          PRINT "*";
+        ELSE
+          LOCATE b, 80
+          PRINT " ";
+          LOCATE 23 - b, 1
+          PRINT " ";
+        END IF
+      NEXT b
+    NEXT A
+  WEND
+END SU

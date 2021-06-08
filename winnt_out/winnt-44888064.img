@@ -1,0 +1,93 @@
+00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,C2,01,00, 40,83,00,00
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+
+[Modem25.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,C2,01,00, 80,70,00,00
+
+[Modem23.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+
+[Modem20.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+
+[Modem18.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,03,00,00, 00,84,03,00, 80,70,00,00
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+
+[Strings]
+Supra = "Diamond Multimedia"
+
+Supra38 = "SupraExpress 336i Multinational"
+Supra36 = "Supra 336i SP"
+Supra31PNP = "SupraSonic 336V+ Plug & Play"
+Supra31 = "SupraSonic 336V+"
+Supra27 = "Supra 336i SVD"
+Supra25 = "SupraExpress 288i Multinational"
+Supra23 = "Supra 288i SP"
+Supra20 = "SupraExpress 288i SP"
+Supra18PNP = "SupraSonic 288V+ Plug & Play"
+Supra18 = "SupraSonic 288V+"
+
+; VoiceView 
+
+APPS_DESC        = "Accessories"     ; Name of Accessories menu
+StartUp_DESC     = "StartUp"
+SendTo_DESC      = "SendTo"          ; Name of SendTo folder in the Windows dir
+FileXfer_DESC    = "File Transfer"   ; Name of file tranfer app in Accessories menu
+SendToPhone_DESC = "Person On Phone" ; Name for file transfer app in SendTo menu
+StartXfer_DESC   = "VoiceView Auto Detection"   ; Name for auto start feature
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.VXD
+HKR,,DevLoader,,*VCOMM
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK - Command executed
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR - Invalid command, checksum, error in command line or command line too long
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[Supra_Voice_All]   ; Supra baseline voice settings, includes VoiceView init plus everything
+HKR,,Enumerator,,serwave.vxd
+
+HKR,, SpeakerPhoneSpecs,       1, 00,00,00,00,  0f,00,00,00,  03,00,00,00,  00,00,00,00
+HKR, SpeakerPhoneEnable,      1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneDisable,     1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneDisable,     2,, "at#spk=0,15,,<cr>"
+HKR, SpeakerPhoneDisable,     3,, "at#vls=0<cr>"
+HKR, SpeakerPhoneMute,        1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneMute,        2,, "at#spk=0,,,<cr>"
+HKR, SpeakerPhoneUnMute,      1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneUnMute,      2,, "at#spk=1,,,<cr>"
+HKR, SpeakerPhoneSetVolumeGain,  1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneSetVolumeGain,  2,, "at#spk=,<Vol>,<Gain><cr>"
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+HKR,, ForwardDelay,            1,88,13
+HKR, CloseHandset,                   1,, "at#cls=0<cr>"
+HKR,, CallerIDPrivate,,P
+HKR,, CallerIDOutSide,,O
+HKR,, VariableTerminator,,<cr><lf>
+HKR, GenerateDigit,               1,, "at#vts=<Digit><cr>"
+
+HKR, Responses, "<cr><lf>VCON<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATE = ", 1, 93, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "TIME = ", 1, 94, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NMBR = ", 1, 95, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NAME = ", 1, 96, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "MESG = ", 1, 97, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING1<cr><lf>",        1, 18, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING2<cr><lf>",        1, 19, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING3<cr><lf>",   

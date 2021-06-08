@@ -1,0 +1,159 @@
+determine display capabilities
+Private Declare Function GetDeviceCaps Lib "gdi32" (ByVal hdc As Long, ByVal nIndex As Long) As Long
+
+Private Sub Form_Load()
+'initialize the variables
+Dim dc As Long
+Dim index As Long
+
+Selection = False
+Annot8Visible = False
+CurrentPage = 1
+LastPage = 1
+TotalPages = 1
+
+dc = hdc
+index = 12  '12 = BITSPERPIXEL
+numbits = GetDeviceCaps(dc, index) 'finds out how many colors video driver supports
+
+End Sub
+
+Private Sub Form_Resize()
+'when the form is resized, position the Image Edit
+'control window and\or the ThumbNail control window
+'so that they fit within the new form
+'dimensions.
+
+If frmSample.WindowState = 1 Or frmSample.ScaleWidth < 1 Or frmSample.ScaleHeight < 1 Then
+    Exit Sub 'leave if app is being minimized or the form is too small
+End If
+If mnuOnePage.Checked Then 'Just image displayed
+    oleImgEdit1.Left = frmSample.ScaleLeft
+    oleImgEdit1.Top = frmSample.ScaleTop
+    oleImgEdit1.Width = frmSample.ScaleWidth
+    oleImgEdit1.Height = frmSample.ScaleHeight
+
+ElseIf mnuThumbnail.Checked Then 'Just ThumbNail displayed
+    oleImgThumbnail1.Left = frmSample.ScaleLeft
+    oleImgThumbnail1.Top = frmSample.ScaleTop
+    oleImgThumbnail1.Width = frmSample.ScaleWidth
+    oleImgThumbnail1.Height = frmSample.ScaleHeight
+
+Else 'Image and ThumbNail displayed. ThumbNail gets 1/3 of frame, Image 2/3.
+    oleImgThumbnail1.Left = frmSample.ScaleLeft
+    oleImgThumbnail1.Top = frmSample.ScaleTop
+    oleImgThumbnail1.Width = frmSample.ScaleWidth
+    oleImgThumbnail1.Height = frmSample.ScaleHeight / 3
+    oleImgEdit1.Left = frmSample.ScaleLeft
+    oleImgEdit1.Top = frmSample.ScaleHeight / 3
+    oleImgEdit1.Width = frmSample.ScaleWidth
+    oleImgEdit1.Height = (frmSample.ScaleHeight * 2 / 3)
+
+End If
+
+End Sub
+
+
+Private Sub Form_Unload(Cancel As Integer)
+'if image has changed, give the user a chance to
+'save it before closing
+If oleImgEdit1.ImageModified = True Then
+    If MsgBox(ImageChanged, vbYesNo) = vbYes Then
+        mnuSave_Click
+    End If
+End If
+
+End Sub
+
+
+
+
+
+
+Private Sub mnu100_Click()
+'Set zoom to 100% and redisplay image.
+'Zoom value is a float
+oleImgEdit1.Zoom = 100!
+oleImgEdit1.Refresh
+
+'check the current menu pick and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = True
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+
+Private Sub mnu200_Click()
+'Set zoom to 200% and redisplay image.
+'Zoom value is a float
+oleImgEdit1.Zoom = 200!
+oleImgEdit1.Refresh
+
+'check the current menu pick and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = True
+mnu400.Checked = False
+End Sub
+
+
+Private Sub mnu25_Click()
+'Set zoom to 25% and redisplay image.
+'Zoom value is a float
+oleImgEdit1.Zoom = 25!
+oleImgEdit1.Refresh
+
+'check the current menu pick and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = False
+mnu25.Checked = True
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+
+Private Sub mnu400_Click()
+'Set zoom to 400% and redisplay image.
+'Zoom value is a float
+oleImgEdit1.Zoom = 400!
+oleImgEdit1.Refresh
+
+'check the current menu pick and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = True
+End Sub
+
+
+Private Sub mnu50_Click()
+'Set zoom to 50% and redisplay image.
+'Zoom value is a float
+oleImgEdit1.Zoom = 50!
+oleImgEdit1.Refresh
+
+'check the current menu pic

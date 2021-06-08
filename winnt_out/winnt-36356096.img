@@ -1,0 +1,128 @@
+) $(!NTN_Infname) == ""
+        goto fatalnoinfname
+    Endif
+    Ifstr(i) $(!NTN_InfSection) == ""
+        Set !NTN_InfSection = "InstallOption"
+    Endif
+    ifstr(i) $(!NTN_InstallMode) == "Update"
+        Debug-Output "NCPASHEL.INF: Upgrade mode"
+        Shell "" DoAskOemsetupSource $(!STF_SRCDIR)
+        Ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+            goto shellerror
+        Endif
+        ifstr(i) $($R0) == STATUS_SUCCESSFUL
+            set !STF_SRCDIR = $($R1)
+        else-ifstr(i) $($R0) == STATUS_USERCANCEL
+            set Exit_Code = 1
+            goto end
+        else
+            set Exit_Code = 2
+            goto end
+        endif
+        Set !NTN_Infname = $(!STF_SRCDIR)oemsetup.inf
+    endif
+    Ifstr(i) $(!NTN_InstallMode) == install
+        set AddCopy  = YES
+        set DoCopy   = YES
+        set DoConfig = YES
+    Else-ifstr(i) $(!NTN_InstallMode) == "Update"
+        set AddCopy  = YES
+        set DoCopy   = YES
+        set DoConfig = NO
+        Debug-Output "NCPASHEL.INF: Shell to "$(!NTN_Infname)
+        Shell $(!NTN_Infname) ReturnOptions $(!STF_LANGUAGE)
+        Ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+           Debug-Output "NCPASHEL.INF: SHELL ERROR: "$($ShellCode)
+           goto shellerror
+        Endif
+        Ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+           IfContains(i) $(!NTN_InfOption) in $($R1)
+              goto ContinueUpgrade
+           endif
+        endif
+        read-syms IncorrectOemsetupDisk$(!STF_LANGUAGE)
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorText)
+        set Exit_Code = 1
+        goto end
+ContinueUpgrade = +
+    Endif
+    ifstr(i) $(!NTN_SRCPATH) != ""
+        Set !STF_SRCDIR_OVERRIDE = $(!STF_SRCDIR)
+    Endif
+    Shell $(!NTN_Infname) $(!NTN_InfSection) +
+         $(!STF_LANGUAGE) $(!NTN_InfOption) +
+         $(!STF_SRCDIR) $(AddCopy) $(DoCopy) $(DoConfig)
+    Ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "NCPASHEL.INF: SHELL ERROR: "$($ShellCode)
+       goto shellerror
+    Endif
+    Debug-Output "NCPASHEL: INF return: "$($R0)
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set Exit_Code = 0
+    else-ifstr(i) $($R0) == STATUS_USERCANCEL
+        set Exit_Code = 1
+    else-ifstr(i) $($R0) == STATUS_NO_EFFECT
+        set Exit_Code = 3
+    else-ifstr(i) $($R0) == STATUS_REBIND
+        set Exit_Code = 4
+    else-ifstr(i) $($R0) == STATUS_REBOOT
+        set Exit_Code = 5
+    else
+        set Exit_Code = 2
+    Endif
+    EndWait
+    goto end
+shellerror = +
+   read-syms ShellError$(!$ShellCode)$(!STF_LANGUAGE)
+   Debug-Output "NCPASHEL: SHELL ERROR: "$(Error)
+   goto fatal
+fatalnoinfname = +
+   set FatalErrorIndex = 2
+   goto fatalmsg
+fatalmsg = +
+   read-syms FatalError$(FatalErrorIndex)$(!STF_LANGUAGE)
+   Debug-Output "NCPASHEL: FATAL ERROR: "$(Error)
+   goto fatal
+fatal = +
+   read-syms FatalDlg$(!STF_LANGUAGE)
+   ui start "FatalError"
+   goto end
+end = +
+   Ifstr(i) $(!LIBHANDLE) != ""
+       LibraryProcedure DontCare, $(!LIBHANDLE), DeleteAllConnections
+   Endif
+   Debug-Output "NCPASHEL: NCPASHEL: returning to NCPA"
+   goto term
+term = +
+   Debug-Output "NCPASHEL: Bye."
+   exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[LanguageID]
+   ENG
+[LanguageTextENG]
+   "English (United States)"
+[ProgressCopyENG]
+    ProCaption   = "Windows NT Networking Setup"
+    ProCancel    = "Cancel"
+    ProCancelMsg = "Windows NT is not correctly installed.  Are you sure you want "+
+                   "to cancel copying files?"
+    ProCancelCap = "Setup Message"
+    ProText1     = "Copying:"
+    ProText2     = "To:"
+    PlatformID_I386 = I386
+    PlatformID_Mips = Mips
+    PlatformID_PPC  = ppc
+[FatalDlgENG]
+STF_MB_TITLE = "Setup Message"
+Dl

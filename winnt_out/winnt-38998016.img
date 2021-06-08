@@ -1,0 +1,137 @@
+       IF CurrFig#(4) <> 0 THEN
+                PRINT USING u2$; CurrFig#(4);
+            ELSE
+                PRINT SPACE$(Vis(CurrCol));
+            END IF
+        CASE 5
+            IF CurrFig#(5) <> 0 THEN
+                PRINT USING u2$; CurrFig#(5);
+            ELSE
+                PRINT SPACE$(Vis(CurrCol));
+            END IF
+    END SELECT
+    RETURN
+
+
+EditTransEditItem:
+
+    CurrRecord = CurrTopline + CurrRow - 1
+    COLOR colors(8, ColorPref), colors(9, ColorPref)
+
+    SELECT CASE CurrCol
+        CASE 1, 2, 3
+            Kbd$ = GetString$(CurrRow + 4, col(CurrCol), Kbd$, new$, Vis(CurrCol), Max(CurrCol))
+            CurrString$(CurrCol) = new$
+            GOSUB EditTransPutLine
+            GOSUB EditTransGetLine
+        CASE 4
+            start$ = Kbd$
+            DO
+                Kbd$ = GetString$(CurrRow + 4, col(4), start$, new$, Vis(4), Max(4))
+                new4# = VAL(new$)
+                start$ = ""
+            LOOP WHILE new4# >= 999999.99# OR new4# < 0
+
+            a = CurrRecord
+            WHILE a <= MaxRecord
+                Balance#(a) = Balance#(a) + new4# - CurrFig#(4) + CurrFig#(5)
+                a = a + 1
+            WEND
+            CurrFig#(4) = new4#
+            CurrFig#(5) = 0
+            GOSUB EditTransPutLine
+            GOSUB EditTransGetLine
+            GOSUB EditTransPrintBalances
+            GOSUB EditTransWriteBalance
+        CASE 5
+            start$ = Kbd$
+            DO
+                Kbd$ = GetString$(CurrRow + 4, col(5), start$, new$, Vis(5), Max(5))
+                new5# = VAL(new$)
+                start$ = ""
+            LOOP WHILE new5# >= 999999.99# OR new5# < 0
+
+            a = CurrRecord
+            WHILE a <= MaxRecord
+                Balance#(a) = Balance#(a) - new5# + CurrFig#(5) - CurrFig#(4)
+                a = a + 1
+            WEND
+            CurrFig#(4) = 0
+            CurrFig#(5) = new5#
+            GOSUB EditTransPutLine
+            GOSUB EditTransGetLine
+            GOSUB EditTransPrintBalances
+            GOSUB EditTransWriteBalance
+        CASE ELSE
+    END SELECT
+    GOSUB EditTransPrintLine
+    RETURN
+
+EditTransMoveUp:
+    IF CurrRow = 1 THEN
+        IF CurrTopline = 1 THEN
+            BEEP
+        ELSE
+            ScrollDown
+            CurrTopline = CurrTopline - 1
+            GOSUB EditTransGetLine
+            GOSUB EditTransPrintLine
+        END IF
+    ELSE
+        CurrRow = CurrRow - 1
+        GOSUB EditTransGetLine
+    END IF
+    RETURN
+
+EditTransMoveDown:
+    IF (CurrRow + CurrTopline - 1) >= MaxRecord THEN
+        BEEP
+    ELSE
+        IF CurrRow = 19 THEN
+            ScrollUp
+            CurrTopline = CurrTopline + 1
+            GOSUB EditTransGetLine
+            GOSUB EditTransPrintLine
+        ELSE
+            CurrRow = CurrRow + 1
+            GOSUB EditTransGetLine
+        END IF
+    END IF
+    RETURN
+
+EditTransPrintLine:
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    CurrRecord = CurrTopline + CurrRow - 1
+    LOCATE CurrRow + 4, 2
+    IF CurrRecord = MaxRecord + 1 THEN
+        PRINT u1x$;
+    ELSEIF CurrRecord > MaxRecord THEN
+        PRINT u1$;
+    ELSE
+        PRINT USING u$; CurrString$(1); CurrString$(2); CurrString$(3);
+        IF CurrFig#(4) = 0 AND CurrFig#(5) = 0 THEN
+            PRINT USING u4$ + "³" + u4$ + "³" + u3$; Balance#(CurrRecord)
+        ELSEIF CurrFig#(5) = 0 THEN
+            PRINT USING u2$ + "³" + u4$ + "³" + u3$; CurrFig#(4); Balance#(CurrRecord)
+        ELSE
+            PRINT USING u4$ + "³" + u2$ + "³" + u3$; CurrFig#(5); Balance#(CurrRecord)
+        END IF
+    END IF
+    RETURN
+
+EditTransPrintBalances:
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    FOR a = 1 TO 19
+        CurrRecord = CurrTopline + a - 1
+        IF CurrRecord <= MaxRecord THEN
+            LOCATE 4 + a, 66
+            PRINT USING u3$; Balance#(CurrTopline + a - 1);
+        END IF
+    NEXT a
+    RETURN
+
+EditTransDeleteRecord:
+    IF MaxRecord = 1 THEN
+        BEEP
+    ELSE
+        CurrRecord =

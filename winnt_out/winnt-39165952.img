@@ -1,0 +1,177 @@
+IT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Eiger 144 PCMCIA]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[ETech UFOMATE P1496MX]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=P1496MX
+
+COMMAND_INIT=AT&F&C1&D2 $X1 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Evercom 24]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=EV943
+
+;----------------------------------------
+[Evercom 24E]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=EV947
+
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+COMMAND_INIT=ATZ&C1&D2 V1 S0=0 S2=128 S7=55<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Evercom 24E+]
+
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+COMMAND_INIT=AT&F &C1 &D2 Q0 V1 \N1 S0=0 S2=128 S7=55<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;-----------------------------------------------
+; Fastcomm Communications MonoFRAD
+; (Frame Relay Access Device)
+;
+; The MonoFRAD has no modem command language.
+; Thus, RAS can't query the device to recognize
+; it automatically.
+;
+; To use this device, configure the RAS port,
+; cancel the automatic configuration, and then
+; select this entry from the listbox.
+;
+;-----------------------------------------------
+
+[Fastcomm MonoFRAD]
+
+CALLBACK_TIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=57600
+MAXCONNECTBPS=115200
+
+COMMAND_INIT=
+NoResponse
+
+COMMAND_LISTEN=
+NoResponse
+
+COMMAND_DIAL=
+NoResponse
+
+;----------------------------------------
+[Gateway 2000 Internal Alt]
+ALIAS=US Robotics Sportster 14400
+;-----------------------------------------
+[Gateway 2000 Internal]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C1
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Gateway TelePath 1.5
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55 W1 S95=44<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Gateway 2000 Nomad 14400]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N7
+<compression_off>=%C0
+<compression_on>=%C1
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATX1D
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Texas Instrument V.32
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 S0=0 S2=128 S7=55 W0<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Gateway 2000 PCMCIA]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=GATEWAY2000
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[Generic 144 PCMCIA modem]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_S

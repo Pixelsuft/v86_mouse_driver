@@ -1,0 +1,89 @@
+entLog_Inst
+
+[ultra24f_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ultra24f.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;*************************************************************
+;The EventLog entries are the same for all SCSI miniports.
+[Miniport_EventLog_Inst]
+AddReg = Miniport_EventLog_AddReg
+
+[Miniport_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll"
+HKR,,TypesSupported,%REG_DWORD%,7
+[Strings]
+Msft = "Microsoft"
+
+ADP = "Adaptec"
+aha154x.DeviceDesc  = "Adaptec AHA-154X/AHA-164X SCSI Host Adapter"
+*ADP1542.DeviceDesc = "Adaptec AHA-154X Plug and Play SCSI Host Adapter"
+aha174x.DeviceDesc  = "Adaptec AHA-174X EISA SCSI Host Adapter"
+sparrow.DeviceDesc  = "Adaptec AHA-151X/AHA-152X or AIC-6260/AIC-6360 SCSI Host Adapter"
+*ADP1510.DeviceDesc = "Adaptec AHA-1510 SCSI Host Adapter"
+*ADP1515.DeviceDesc = "Adaptec AVA-1515 SCSI Host Adapter"
+*ADP1520.DeviceDesc = "Adaptec AHA-152X/AHA-1510 SCSI Host Adapter"
+*ADP6360.DeviceDesc = "Adaptec AIC-6X60 ISA Single-Chip SCSI Controller"
+arrow.DeviceDesc    = "Adaptec AHA-274X/AHA-284X/AIC-777X SCSI Host Adapter"
+*ADP7770.DeviceDesc = "Adaptec AIC-777X or AHA-274X EISA SCSI Host Adapter"
+*ADP2840.DeviceDesc = "Adaptec AHA-284X VESA SCSI Host Adapter"
+aic78xx.DeviceDesc  = "Adaptec AHA-294X/AHA-394X or AIC-78XX PCI SCSI Controller"
+aha2920.DeviceDesc  = "Adaptec AHA-2920 SCSI Host Adapter"
+ADP460.DeviceDesc   = "Adaptec SlimSCSI 16-Bit PCMCIA SCSI Host Adapter"
+
+AMD = "Advanced Micro Devices (AMD)"
+amsint.DeviceDesc = "AMD PCI SCSI Controller/Ethernet Adapter"
+
+AMI = "AMI"
+ami0nt.DeviceDesc = "AMIscsi SCSI Host Adapter"
+
+BLCName = "BusLogic"
+buslogic.DeviceDesc = "BusLogic SCSI Host Adapter"
+*BUS0042.DeviceDesc = "BusLogic MultiMaster SCSI Host Adapters"
+MF\EISA_BUS4201_DEV0.DeviceDesc = "BusLogic MultiMaster EISA SCSI Host Adapters"
+PCI\VEN_104B&DEV_1040.DeviceDesc = "BusLogic MultiMaster PCI SCSI Host Adapters"
+flashpnt.DeviceDesc = "BusLogic FlashPoint PCI SCSI Host Adapter"
+
+COMPAQ = "Compaq"
+cpqarray.DeviceDesc = "Compaq Drive Array"
+*CPQ4410.DeviceDesc = "Compaq Integrated 32-Bit Fast-SCSI-2 Controller"
+*CPQ4411.DeviceDesc = "Compaq EISA 32-Bit Fast-SCSI-2 Controller"
+cpqfws2e.DeviceDesc = "Compaq 32-Bit Fast-Wide SCSI-2/E Controller"
+
+DELL = "Dell"
+delldsa.DeviceDesc = "Dell Drive Array"
+
+DPT = "DPT Corporation"
+dptscsi.DeviceDesc  = "DPT SCSI Host Adapter"
+*DPTA401.DeviceDesc = "DPT PM2012B1 EISA SCSI Host Adapters"
+*DPTA402.DeviceDesc = "DPT PM2012B2 EISA SCSI Host Adapters"
+*DPTA410.DeviceDesc = "DPT PM2x22A EISA SCSI Host Adapters"
+*DPTA411.DeviceDesc = "DPT Spectre chipset SCSI Adapters"
+*DPTA501.DeviceDesc = "DPT PM2012B1/9x EISA SCSI Host Adapters"
+*DPTA502.DeviceDesc = "DPT PM2012B2/9x EISA SCSI Host Adapters"
+*NEC8201.DeviceDesc = "NEC EISA SCSI Host Adapter"
+*DPTA701.DeviceDesc = "DPT PM2011B1/9x ISA SCSI Host Adapters"
+PCI\VEN_1044&DEV_A400.DeviceDesc = "DPT PM2124A PCI SCSI Host Adapter"
+
+FDC = "Future Domain Corporation"
+fd16_700.DeviceDesc = "Adaptec AHA-2920 or Future Domain 16XX/PCI/SCSI2Go SCSI Host Adapter"
+FD16ISA = "Future Domain TMC-1650/1660/1670/1680 SCSI Host Adapter"
+FD16MCA = "Future Domain MCS-600/700 SCSI Host Adapter"
+FD16PCMCIANEW = "Future Domain SCSI2Go PCMCIA SCSI Host Adapter"
+FD16PCI = "Future Domain PCI SCSI HOST Adapter"
+fd7000ex.DeviceDesc = "Future Domain TMC-7000EX EISA SCSI Host Adapter"
+fd8xx.DeviceDesc = "Future Domain 8XX SCSI Host Adapter"
+FD8SHORT="Future Domain TMC-850/M/MER/MEX SCSI Host Adapter"
+FD8LONG="Future Domain TMC-860/860M/885/885M SCSI Host Adapter"
+
+StdMfg = "(Standard mass storage controllers)"
+;
+; IMPORTANT--Leave the trailing space in descr. for atapi, so we can distinguish it from pci atapi
+;
+atapi.DeviceDesc       = "IDE CD-ROM (ATAPI 1.2)/Dual-channel PCI IDE Controller "
+PCI\CC_0101.DeviceDesc = "IDE CD-ROM (ATAPI 1.2)/Dual-channel PCI IDE Controller"
+*PNP0600.DeviceDesc    = 

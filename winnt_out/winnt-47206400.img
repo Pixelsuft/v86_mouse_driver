@@ -1,0 +1,102 @@
+
+[Modem37]
+AddReg=All, Common, Modem37.AddReg, External
+
+[Modem39]
+AddReg=All, Common, Modem39.AddReg, External
+
+[Modem40]
+AddReg=All, Common, Modem40.AddReg, Internal
+
+; AddReg sections
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 00,4b,00,00
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, d0,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, d0,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F &C1&D2<cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+[Modem12.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 50,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F &C1&D2<cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+[Modem13.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+HKR, Settings, ErrorControl_On,, ""
+HKR, Settings, ErrorControl_Off,, ""
+HKR, Settings, ErrorControl_Forced,, ""
+HKR, Settings, SpeedNegotiation_Off,, ""
+HKR, Settings, SpeedNegotiation_On,, ""
+
+[Modem14.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, d0,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F &C1&D2<cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+HKR, Settings, ErrorControl_On,, ""
+HKR, Settings, ErrorControl_Off,, ""
+HKR, Settings, ErrorControl_Forced,, ""
+HKR, Settings, SpeedNegotiation_Off,, ""
+HKR, Settings, SpeedNegotiation_On,, ""
+
+[Modem16.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 50,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F &C1&D2<cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Soft,, ""
+HKR, Settings, ErrorControl_Off,, ""
+HKR, Settings, ErrorControl_On,, ""
+HKR, Settings, ErrorControl_Forced,, ""
+HKR, Settings, SpeedNegotiation_Off,, ""
+HKR, Settings, SpeedNegotiation_On,, ""
+
+
+[Modem17.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, c0,12,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F &C1&D2<cr>"
+
+[Modem18.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 50,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F &C1 &D2 <cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+[Modem19.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 50,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem20.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, c0,12,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F &C1&D2<cr>"
+
+[Modem23.AddReg]
+HKR,, Properties, 1, 40,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f

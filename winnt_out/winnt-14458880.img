@@ -1,0 +1,169 @@
+notepad% = notepad.exe,notepad.exe,,0
+%du_networking% = rasphone.exe,rasphone.exe,,0
+
+;
+; Device Installer Migration
+;
+; The following section is used to migrate legacy INFs/devices into a PnP-installed
+; state, so that the appropriate class installers always see devices of their class in
+; a consistent state.
+;
+; (We're currently migrating only SCSI and TAPE classes.)
+;
+[LegacyPnPMigration]
+ClassesToSweep = oemscs*.inf, oemtap*.inf
+ClassesToMigrate = {4D36E97B-E325-11CE-BFC1-08002BE10318}, {6D807884-7D21-11CF-801C-08002BE10318}
+
+;
+; Fonts.
+;
+[InstallFonts]
+UpdateInis=Fonts.Install
+
+[UpgradeFonts]
+UpdateInis=Fonts.Upgrade
+
+[Fonts.Install]
+;
+; These are fonts that GUI setup installs on non-upgrades.
+;
+win.ini,Fonts,,"Roman (All res)=ROMAN.FON"
+win.ini,Fonts,,"Script (All res)=SCRIPT.FON"
+win.ini,Fonts,,"Modern (All res)=MODERN.FON"
+win.ini,Fonts,,"Small Fonts (VGA res)=SMALLE.FON"
+win.ini,Fonts,,"Arial (TrueType)=ARIAL.TTF"
+win.ini,Fonts,,"Arial Bold (TrueType)=ARIALBD.TTF"
+win.ini,Fonts,,"Arial Bold Italic (TrueType)=ARIALBI.TTF"
+win.ini,Fonts,,"Arial Italic (TrueType)=ARIALI.TTF"
+win.ini,Fonts,,"Courier New (TrueType)=COUR.TTF"
+win.ini,Fonts,,"Courier New Bold (TrueType)=COURBD.TTF"
+win.ini,Fonts,,"Courier New Bold Italic (TrueType)=COURBI.TTF"
+win.ini,Fonts,,"Courier New Italic (TrueType)=COURI.TTF"
+win.ini,Fonts,,"Lucida Console (TrueType)=LUCON.TTF"
+win.ini,Fonts,,"Lucida Sans Unicode (TrueType)=L_10646.TTF"
+win.ini,Fonts,,"Times New Roman (TrueType)=TIMES.TTF"
+win.ini,Fonts,,"Times New Roman Bold (TrueType)=TIMESBD.TTF"
+win.ini,Fonts,,"Times New Roman Bold Italic (TrueType)=TIMESBI.TTF"
+win.ini,Fonts,,"Times New Roman Italic (TrueType)=TIMESI.TTF"
+win.ini,Fonts,,"WingDings (TrueType)=WINGDING.TTF"
+win.ini,Fonts,,"Symbol (TrueType)=SYMBOL.TTF"
+win.ini,Fonts,,"Symbol 8,10,12,14,18,24 (VGA res)=SYMBOLE.FON"
+
+[Fonts.Upgrade]
+;
+; These are fonts that are installed/deleted/changed on upgrade.
+;
+win.ini,Fonts,"Roman (Plotter)=","Roman (All res)=ROMAN.FON"
+win.ini,Fonts,"Script (Plotter)=","Script (All res)=SCRIPT.FON"
+win.ini,Fonts,"Modern (Plotter)=","Modern (All res)=MODERN.FON"
+;win.ini,Fonts,"MS Console (TrueType)=","Lucida Console (TrueType)=LUCON.TTF"
+
+[DestinationDirs]
+Files.System = 10,system32
+Files.System.CopyAlways = 10,system32
+Files.NoWin31.System32ToSysroot = 10
+Files.NoWin31.System32ToSystem = 10,system
+Files.NoWin31.SetupToSysroot = 10
+Files.NoWin31.SetupToSystem = 10,system
+Files.NoWin31CopyAlways.SetupToSysroot = 10
+Files.NoWin31CopyAlways.SetupToHelp = 10,help
+Files.NoWin31DeleteAlways.Sysroot = 10
+Files.Win31CopyAlways.SetupToSysroot = 10
+
+[Files.NoWin31.System32ToSysroot]
+NOTEPAD.EXE
+TASKMAN.EXE
+
+[Files.NoWin31.System32ToSystem]
+AVICAP.DLL
+AVIFILE.DLL
+COMMDLG.DLL
+LZEXPAND.DLL
+KEYBOARD.DRV
+MCIAVI.DRV
+MCISEQ.DRV
+MCIWAVE.DRV
+MMSYSTEM.DLL
+MMTASK.TSK
+MOUSE.DRV
+MSVIDEO.DLL
+OLECLI.DLL
+OLESVR.DLL
+SHELL.DLL
+SOUND.DRV
+SYSTEM.DRV
+TAPI.DLL
+TIMER.DRV
+VER.DLL
+VGA.DRV
+WFWNET.DRV
+WINSPOOL.DRV
+
+[Files.NoWin31.SetupToSysroot]
+_DEFAULT.PIF
+WINHELP.EXE
+WIN.INI
+WINFILE.INI
+WINHELP.EXE
+
+[Files.NoWin31CopyAlways.SetupToSysroot]
+REGEDIT.EXE
+
+[Files.NoWin31CopyAlways.SetupToHelp]
+REGEDIT.CNT
+REGEDIT.HLP
+
+[Files.NoWin31DeleteAlways.Sysroot]
+CANYON.MID
+CHIMES.WAV
+DING.WAV
+RINGIN.WAV
+RINGOUT.WAV
+
+[Files.Win31CopyAlways.SetupToSysroot]
+REGEDIT.EXE,REGEDT16.EXE
+REGEDIT.HLP,REGEDT16.HLP
+REGEDITV.CNT
+REGEDITV.HLP
+
+[Files.System]
+SPOOLSS.EXE
+SPOOLSS.DLL
+AUTOEXEC.TMP,AUTOEXEC.NT
+CONFIG.TMP,CONFIG.NT
+
+[Files.System.CopyAlways]
+
+;
+; List of infs we load and run BaseWinOptions at Setup time.
+;
+[BaseWinOptionsInfs]
+accessor.inf
+communic.inf
+games.inf
+imagevue.inf
+mmopt.inf
+msmail.inf
+multimed.inf
+optional.inf
+pinball.inf
+wordpad.inf
+
+;
+; Infs that get run at optional components time,
+; in initial and upgrade cases.
+;
+[Infs.Always]
+iexplore.inf,DefaultInstall
+
+
+[ServicesToRename]
+OLE = RpcSs
+
+[Strings]
+;
+; Names of program groups
+;
+main = "Main"
+games = "Games"
+accessories = 

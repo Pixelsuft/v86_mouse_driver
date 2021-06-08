@@ -1,0 +1,65 @@
+r=servicepacks">http://www.microsoft.com/windows/servicepacks</a></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="1.3"><b>1.3 List of Fixes in Windows&nbsp;NT&nbsp;4.0 Service Packs 1 through 5</b></a></p>
+<p>
+For a list of fixes contained in Service Packs 1 through 5, visit the Microsoft Personal Online Support Center Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=SUPPORT"> http://support.microsoft.com/support/</a></p>
+
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="1.4"><b>1.4 Year&nbsp;2000 Updates</b></a></p>
+
+<p>SP6 is not required for year&nbsp;2000 compliance. Microsoft is committed to maintaining SP4, SP5, and SP6 with fixes for known year&nbsp;2000 issues.</p>
+<p>
+<b>Note:</b> In order to simplify the upgrade process, the SP4 Y2ksetup.exe composite patch is no longer included in the recommended upgrade path. Y2ksetup.exe was used to update the following Windows&nbsp;NT&nbsp;4.0 components:</p>
+<ul>
+<li>Microsoft Internet Explorer&nbsp;5 </li>
+<li>Microsoft Data Access Components (MDAC)</li>
+<li>Site Server Express</li>
+</ul>
+<p>
+<b>Important:</b> Do not install Y2ksetup.exe after you install SP6.</p>
+<p>With SP6, you should install any needed updates to these components individually.</p>
+
+<p>
+The Microsoft Year&nbsp;2000 Product Analyzer scans a hard disk or network drive to report the year&nbsp;2000 compliance levels of Microsoft products and, if updates are required, the report provides links to product-specific update information.</p>
+<p>
+To determine which updates you may need, to download the Microsoft Year&nbsp;2000 Product Analyzer, or to read the latest year&nbsp;2000 information regarding Microsoft products, visit the Microsoft Year&nbsp;2000 Portal Page Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=Microsoft%20Year%202000"> http://www.microsoft.com/year2000/</a><br>
+You can also call the Microsoft Year&nbsp;2000 Readiness Disclosure line at 1-888-MSFT-Y2K (1-888-673-8925) or contact your local Microsoft subsidiary.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="1.5"><b>1.5 Encryption</b></a></p>
+<p>This section contains important information regarding standard and 128-bit encryption.</p>
+<p><a name="1.5.1"><b>1.5.1 Encryption in this Service Pack</b></a></p>
+<p>SP6 contains standard encryption. This release isn't supported for installation on an existing North American 128-bit installation of Windows&nbsp;NT&nbsp;4.0. If you install SP6 on a computer with 128-bit encryption, system services might fail to start.</p>
+
+<p><blockquote>
+<b>To determine if 128-bit encryption is installed</b>
+<ol>
+<li>Double-click <b>My Computer</b>.</li>
+<li>On the <b>View</b> menu, click <b>Folder Options</b>.</li>
+<li>On the <b>View</b> tab, select <b>Show all files</b>, and then click <b>OK</b>.</li>
+<li>Click <b>Start</b>, point to <b>Find</b>, and then click <b>Files or Folders</b>.</li>
+<li>In <b>Named</b>, type <b>Rsaenh.dll</b>.</li>
+<li>Select the hard disk to search, and then click <b>Find Now</b>.</li>
+<li>Repeat steps 4 and 5 for any additional hard disks you want to check.</li>
+</ol>
+</blockquote>
+<p>If the file exists in the system folder in your Windows&nbsp;NT folder, then you have 128-bit encryption support installed. If the file does not exist, you have standard encryption.</p>
+<p>
+Installing the standard encryption version of SP6 on a previously existing 128-bit computer does not downgrade all of the encryption in the operating computer, so it will not necessarily change whether you can export the computer.</p>
+
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="1.5.2"><b>1.5.2 How to Get the Correct Version</b></a></p>
+<p>If your computer has 128-bit encryption, download the 128-bit version of SP6. To do this, visit the Microsof

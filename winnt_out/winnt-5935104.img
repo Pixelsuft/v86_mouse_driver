@@ -1,0 +1,82 @@
+Types","FOXX:FPJX"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOXX:FMNX"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","L123:LWKS"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","L123:LWK3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","PPT3:SLD3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPT "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWK:AWWP"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWK:AWSS"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWK:AWDB"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWK:RLRB"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWK:sWWP"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWK:sWSS"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWK:sWRB"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLS5"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:sLS5"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLB5"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLA5"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLW5"
+
+; mdisp32.reg stuff
+
+;; MAPI.Session ---------------------------------------------------------------
+
+HKCR,MAPI.Session
+HKCR,MAPI.Session.1
+HKCR,CLSID\{3FA7DEB3-6438-101B-ACC1-00AA00423326}
+
+;; MAPI.Message ---------------------------------------------------------------
+
+HKCR,MAPI.Message
+HKCR,MAPI.Message.1
+HKCR,CLSID\{3FA7DEB4-6438-101B-ACC1-00AA00423326}
+
+;; MAPI.Folder ----------------------------------------------------------------
+
+HKCR,MAPI.Folder
+HKCR,MAPI.Folder.1
+HKCR,CLSID\{3FA7DEB5-6438-101B-ACC1-00AA00423326}
+
+;
+; Update mapisvc.inf to show there's new service providers...
+;
+
+[MSMAILUpdateMapiSvcInf]
+%11%\mapisvc.inf,Services,,"MSPST MS=%MSLMS_Desc%"
+%11%\mapisvc.inf,Services,,"MSPST AB=%MSPAB_Desc%"
+%11%\mapisvc.inf,Default Services,,"MSPST AB=%MSPAB_Desc%"
+%11%\mapisvc.inf,Default Services,,"MSPST MS=%MSLMS_Desc%"
+%11%\mapisvc.inf,MSPST AB,,"PR_DISPLAY_NAME=%MSPAB_Desc%"
+%11%\mapisvc.inf,MSPST AB,,"PR_SERVICE_DLL_NAME=MSPST.DLL"
+%11%\mapisvc.inf,MSPST AB,,"PR_SERVICE_ENTRY_NAME=PABServiceEntry"
+%11%\mapisvc.inf,MSPST AB,,"Providers=MSPST ABP"
+%11%\mapisvc.inf,MSPST AB,,"PR_SERVICE_SUPPORT_FILES=MSPST.DLL"
+%11%\mapisvc.inf,MSPST AB,,"PR_RESOURCE_FLAGS=SERVICE_SINGLE_COPY|SERVICE_NO_PRIMARY_IDENTITY"
+%11%\mapisvc.inf,MSPST ABP,,"PR_PROVIDER_DLL_NAME=MSPST.DLL"
+%11%\mapisvc.inf,MSPST ABP,,"PR_RESOURCE_TYPE=MAPI_AB_PROVIDER"
+%11%\mapisvc.inf,MSPST ABP,,"PR_DISPLAY_NAME=%MSPAB_Desc%"
+%11%\mapisvc.inf,MSPST ABP,,"PR_PROVIDER_DISPLAY=%MSPAB_Desc%"
+%11%\mapisvc.inf,MSPST MS,,"PR_DISPLAY_NAME=%MSLMS_Desc%"
+%11%\mapisvc.inf,MSPST MS,,"PR_SERVICE_DLL_NAME=MSPST.DLL"
+%11%\mapisvc.inf,MSPST MS,,"PR_SERVICE_ENTRY_NAME=PSTServiceEntry"
+%11%\mapisvc.inf,MSPST MS,,"Providers=MSPST MSP"
+%11%\mapisvc.inf,MSPST MS,,"PR_SERVICE_SUPPORT_FILES=mspst.dll"
+%11%\mapisvc.inf,MSPST MS,,"PR_RESOURCE_FLAGS=SERVICE_NO_PRIMARY_IDENTITY"
+%11%\mapisvc.inf,MSPST MSP,,"PR_PROVIDER_DLL_NAME=MSPST.DLL"
+%11%\mapisvc.inf,MSPST MSP,,"PR_RESOURCE_TYPE=MAPI_STORE_PROVIDER"
+%11%\mapisvc.inf,MSPST MSP,,"PR_RESOURCE_FLAGS=STATUS_DEFAULT_STORE"
+%11%\mapisvc.inf,MSPST MSP,,"PR_DISPLAY_NAME=%MSLMS_Desc%"
+%11%\mapisvc.inf,MSPST MSP,,"PR_PROVIDER_DISPLAY=%MSLMS_Desc%"
+%11%\mapisvc.inf,MSPST MSP,,"PR_MDB_PROVIDER=4e495441f9bfb80100aa0037d96e0000"
+%11%\mapisvc.inf,Help File Mappings,,"%HFM_MAPI%=exchng.hlp"
+%11%\mapisvc.inf,Help File Mappings,,"%HFM_PAB%=exchng.hlp"
+%11%\mapisvc.inf,Help File Mappings,,"%HFM_PST%=exchng.hlp"
+
+[MSFSUpdateMapiSvcInf]
+%11%\mapisvc.inf,Services,,"MSFS=%MSFS_Desc%"
+%11%\mapisvc.inf,Default Services,,"MSFS=%MSFS_Desc%"
+%11%\mapisvc.inf,MSFS,,"PR_DISPLAY_NAME=%MSFS_Desc%"
+%11%\mapisvc.inf,MSFS,,"PR_SERVICE_DLL_NAME=MSFS.DLL"
+%11%\mapisvc.inf,MSFS,,"PR_SERVICE_ENTRY_NAME=ServiceEntry"
+%11%\mapisvc.inf,MSFS,,"WIZARD_ENTRY_NAME=WizardInformation"
+%11%\mapisvc.inf,MSFS,,"Providers=SFS_A

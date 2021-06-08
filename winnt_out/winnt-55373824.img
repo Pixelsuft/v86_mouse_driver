@@ -1,0 +1,198 @@
+oftware Installation
+
+[wdvga.SoftwareSettings]
+AddReg = wdvga_SoftwareDeviceSettings
+
+; Service Installation
+
+[wdvga.Services]
+AddService = wdvga, 0x00000002, wdvga_Generic_Service_Inst, wdvga_EventLog_Inst
+
+[wdvga_EventLog_Inst]
+AddReg = wdvga_EventLog_AddReg
+
+[wdvga_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\wdvga.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[wdvga_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\wdvga.sys
+
+
+
+
+; weitekp9 Driver Section
+
+
+[weitekp9]
+CopyFiles=weitekp9.Miniport, weitekp9.Display
+
+; Software Installation
+
+[weitekp9.SoftwareSettings]
+AddReg = weitekp9_SoftwareDeviceSettings
+
+; Service Installation
+
+[weitekp9.Services]
+AddService = weitekp9, 0x00000002, weitekp9_Generic_Service_Inst, weitekp9_EventLog_Inst
+
+[weitekp9_EventLog_Inst]
+AddReg = weitekp9_EventLog_AddReg
+
+[weitekp9_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\weitekp9.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[weitekp9_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\weitekp9.sys
+
+; special weitekp9 driver that require manual configuration
+
+[viper]
+CopyFiles=weitekp9.Miniport, weitekp9.Display
+LogConfig=viper.LogConfig
+
+[viper.SoftwareSettings]
+AddReg = weitekp9_SoftwareDeviceSettings
+[viper.Services]
+AddService = weitekp9, 0x00000002, weitekp9_Generic_Service_Inst, weitekp9_EventLog_Inst
+
+[viper.LogConfig]
+ConfigPriority=HARDWIRED
+MemConfig=20000000-20FFFFFF, 80000000-80FFFFFF, A0000000-A0FFFFFF
+
+[P9000]
+CopyFiles=weitekp9.Miniport, weitekp9.Display
+LogConfig=P9000.LogConfig
+
+[P9000.SoftwareSettings]
+AddReg = weitekp9_SoftwareDeviceSettings
+[P9000.Services]
+AddService = weitekp9, 0x00000002, weitekp9_Generic_Service_Inst, weitekp9_EventLog_Inst
+
+[P9000.LogConfig]
+ConfigPriority=HARDWIRED
+MemConfig=04000000-04FFFFFF, 08000000-08FFFFFF, 0D000000-0DFFFFFF, 0E000000-0EFFFFFF, 0F000000-0FFFFFFF, 80000000-80FFFFFF, C0000000-C0FFFFFF, D0000000-D0FFFFFF, E0000000-E0FFFFFF, F0000000-F0FFFFFF
+
+; xga Driver Section
+
+
+[xga]
+CopyFiles=xga.Miniport, xga.Display
+
+; Software Installation
+
+[xga.SoftwareSettings]
+AddReg = xga_SoftwareDeviceSettings
+
+; Service Installation
+
+[xga.Services]
+AddService = xga, 0x00000002, xga_Generic_Service_Inst, xga_EventLog_Inst
+
+[xga_EventLog_Inst]
+AddReg = xga_EventLog_AddReg
+
+[xga_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\xga.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[xga_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\xga.sys
+
+
+
+
+
+
+;
+; Display Driver List
+;
+; This must match the section in txtsetup.inx
+;
+
+[detect.Display]
+8514a.dll
+ati.dll
+cirrus.dll
+framebuf.dll
+mga.dll
+qv.dll
+s3.dll
+tga.dll
+vga.dll
+vga256.dll
+vga64k.dll
+w32.dll
+weitekp9.dll
+xga.dll
+
+
+
+
+[8514a.Display]
+8514a.dll
+
+[ati.Display]
+ati.dll
+8514a.dll
+
+[cirrus.Display]
+vga.dll
+cirrus.dll
+vga256.dll
+vga64k.dll
+
+[dell_dgx.Display]
+framebuf.dll
+
+[et4000.Display]
+vga.dll
+w32.dll
+vga256.dll
+vga64k.dll
+
+[jazzg300.Display]
+framebuf.dll
+
+[jazzg364.Display]
+framebuf.dll
+
+[jzvxl484.Display]
+
+[mga.Display]
+mga.dll
+
+[mga_mil.Display]
+mga.dll
+
+[ncr77c22.Display]
+vga.dll
+vga256.dll
+vga64k.dll
+
+[psidisp.Display]
+
+[qv.Display]
+vga.dll
+qv.dll
+
+[s3.Display]
+s3.dll
+
+[tga.Display]
+
+[trident.Displa

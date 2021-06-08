@@ -1,0 +1,97 @@
+_USERCANCEL
+        goto nonfatal
+    endif
+    goto end
+bindingadapter =+
+    set l_unattended = 0
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    ifstr(i) $(KeyProduct) != ""
+        GetRegValue $(KeyProduct) "STF_GUI_UNATTENDED" UnattendedList
+	    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+	        set !STF_GUI_UNATTENDED = *($(UnattendedList),4)
+	        DeleteRegValue $(KeyProduct) "STF_GUI_UNATTENDED"
+	    endif
+        GetRegValue $(KeyProduct) "AUTONETIPXFRAMETYPE" FrameTypeList
+	    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+	        set !AUTONETIPXFRAMETYPE = *($(FrameTypeList),4)
+	        DeleteRegValue $(KeyProduct) "AUTONETIPXFRAMETYPE"
+	    endif
+        GetRegValue $(KeyProduct) "Unattend" KeyUnattend
+	    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+	        set l_unattended = *($(KeyUnattend),4)
+	        DeleteRegValue $(KeyProduct) "Unattend"
+	    endif
+	    CloseRegKey $(KeyProduct)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(LinkageKeyName) $(MAXIMUM_ALLOWED) KeyLinkage
+    ifstr(i) $(KeyLinkage) != ""
+        SetRegValue $(KeyLinkage) {Export,$(NoTitle),$(!REG_VT_MULTI_SZ),{"\Device\NwlnkIpx"}}
+        CloseRegKey $(KeyLinkage)
+    endif
+    Shell "nbinfo.inf" CheckMixRpcProtocol "NwlnkNb" 7 "nwlnkipx" "ncacn_nb_ipx" "rpcltccm.dll" "RpcLtScm.Dll"
+    LoadLibrary "x", $(!STF_WINDOWSSYSPATH)\ipxcfg.dll NWLNKLIB_HANDLE
+    set FLibraryErrCtl = 1
+    LibraryProcedure ResultList, $(NWLNKLIB_HANDLE), IPXCfgChk $(l_unattended)
+    FreeLibrary $(NWLNKLIB_HANDLE)
+    set FLibraryErrCtl = 0
+    Set Result = *($(ResultList),1)
+    ifint $(Result) == 0
+        Debug-Output "OEMNXPIP.INF:  reconfiguration not required"
+        set CommonStatus = STATUS_USERCANCEL
+        goto successful
+    else
+        Debug-Output "OEMNXPIP.INF:  reconfiguration required"
+    endif
+    goto configureadapter
+removeadapter = +
+    Shell $(UtilityInf), IsRefCountEqualZero $(ProductKeyName)
+    ifint $($R1) == 0
+        read-syms InUse$(!STF_LANGUAGE)
+        goto infomsg
+    endif
+    Debug-Output "OEMNXPIP.INF: At removeadapter"
+    Shell $(UtilityInf), RemoveWinsockInfo, $(ProductNWLNKIPXName)
+    Shell $(UtilityInf), RemoveWinsockInfo, $(ProductNWLNKSPXName)
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_ipx"
+    Shell $(UtilityInf) RemoveClientRpcProtocol "ncadg_ipx"
+    Shell $(UtilityInf) RemoveClientRpcProtocol "ncacn_spx"
+    Shell $(UtilityInf) RemoveServerRpcProtocol "ncadg_ipx"
+    Shell $(UtilityInf) RemoveServerRpcProtocol "ncacn_spx"
+    ForListDo $(OEM_ABANDON_SOFTWARE)
+        DEBUG-OUTPUT "Remove component: "$($)
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $($)
+    EndForListDo
+    ForListDo  $(OEM_ABANDON_OPTIONS)
+        DEBUG-OUTPUT "Remove component: "$($)
+        Set UseSvcctrl = "YES"
+        Shell $(UtilityInf), RemoveService, $($), $(UseSvcctrl)
+    EndForListDo
+    Shell $(UtilityInf) RemoveServiceProvider $(ProductNWLNKIPXName)
+    Shell $(UtilityInf), RemoveNameSpaceProvider, $(ProviderGUID)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\Browser\Parameters" $(MAXIMUM_ALLOWED) BrowserParamKey
+    ifstr(i) $(BrowserParamKey) != ""
+        DeleteRegValue $(BrowserParamKey) "DirectHostBinding"
+        CloseRegKey $(BrowserParamKey)
+    Endif
+    goto end
+UpgradeSoftware = +
+    Ifstr(i) $(Option) != NWLNKIPX
+        set CommonStatus = STATUS_NO_EFFECT
+        goto end
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(OldProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        GetRegValue $(KeyProduct),"RefCount", RefCountInfo
+        CloseRegKey $(KeyProduct)
+        set OEM_ABANDON_OPTIONS = {+
+            "NWLINKSYS",+
+            "NWLINKSPX",+
+            "NWNBLINKSYS"}
+        set OEM_ABANDON_SOFTWARE = {+
+            "NWNBLINK",+
+            "NWLINKIPX",+
+          

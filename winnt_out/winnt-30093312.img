@@ -1,0 +1,118 @@
+  CloseRegKey $(ServiceKey)
+	    	    	   else
+	    	    	       goto fatalregistry
+	    	    	   endif
+	    	           Endif
+	    	           set Option = $(InfOption)
+	    	           install "Install-Update"
+	    	           ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+	    	    	 Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+	    	    	 goto filecopycancel
+	    	           endif
+	    	        endif
+	    	        CloseRegKey $(NetRules)
+	    	        CloseRegKey $(NetworkCardKey)
+	    	    endif
+	    	    OpenRegKey $(!REG_H_LOCAL) "" +
+	    	          $(!NTN_ServiceBase)"\"$(ServiceName) +
+	    	          $(!MAXIMUM_ALLOWED) ServiceKey
+	    	    Ifstr $(ServiceKey) != $(KeyNull)
+	    	        Debug-Output "   Opened service key "$(ServiceName)" successfully"
+	    	        OpenRegKey $(ServiceKey) "" "Parameters" +
+	    	    	  $(!MAXIMUM_ALLOWED) ParametersKey
+	    	        Ifstr $(ParametersKey) != $(KeyNull)
+	    	           Ifstr(i) $(InfOption) == "PCIMAC4"
+	    	    	Debug-Output "Resetting BoardType = PCIMAC4"
+	    	    	SetRegValue $(ParametersKey) {BoardType,$(NoTitle),$(!REG_VT_SZ),"PCIMAC4"}
+	    	           Endif
+	    	           CloseRegKey $(ParametersKey)
+	    	        else
+	    	    	goto fatalregistry
+	    	        Endif
+	    	        CloseRegKey $(ServiceKey)
+	    	    else
+	    	        goto fatalregistry
+	    	    endif
+nextnetcard = +
+	        EndForListDo
+	    endif
+       shell "" QueryParameters $(!NTN_RegBase)
+       set BusTypeNum = $($R1)
+       Debug-Output "OEMNADDI.INF: (update) BusTypeNum is: "$(BusTypeNum)
+	    LoadLibrary "x" $(!STF_CWDDIR)setupdll.dll !LIBHANDLE
+	    LoadLibrary "x" $(!STF_CWDDIR)digiinst.dll DIGIHANDLE
+	    LibraryProcedure Result, $(DIGIHANDLE), DigiEntry, $(!STF_HWND) $(Option) $(!NTN_InstallMode) "" $(BusTypeNum)
+	    Ifstr(i) $(Result) == Success
+	    	goto successful
+	    else-Ifstr(i) $(Result) == Cancel
+	    	goto cancel
+	    else-Ifstr(i) $(Result) == Error
+	    	goto fatal
+	    endif
+	    FreeLibrary $(!LIBHANDLE)
+	    FreeLibrary $(DIGIHANDLE)
+    endif
+    set iSearch = 1
+nextncu = +
+    Shell $(UtilityInf), FindNextNetworkCard, $(ProductHardwareName), $(iSearch)
+    set KeyNetcard = $($R0)
+    set iSearch = $($R1)
+    Debug-Output "OemNadEp.Inf: FindNextNetworkCard "$(KeyNetcard)","$(iSearch)
+    Ifstr $(KeyNetcard) != $(KeyNull)
+        Debug-Output "OemNadEp.Inf: Setting OperationsSupport value"
+        SetRegValue $(KeyNetcard) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyNetcard)
+        goto nextncu
+    Endif
+    goto end
+successful = +
+    set CommonStatus = STATUS_SUCCESSFUL
+    goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+	    goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+	    goto $(from)
+    else
+	    goto "end"
+    endif
+nonfatalinfo = +
+    Set Severity = STATUS
+    Set CommonStatus = STATUS_USERCANCEL
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+	    Set Severity = NONFATAL
+	    Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        goto ShellCodeError
+	    endif
+	    set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+	    goto $(from)
+    else
+	    goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto nonfatal
+fataldetect = +
+    Shell $(UtilityInf),RegistryErrorString,CANNOT_DETECT
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    Debug-Output "

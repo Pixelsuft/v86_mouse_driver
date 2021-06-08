@@ -1,0 +1,127 @@
+eadapter
+		Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+			Debug-Output "Cannot configure the DEC FDDIcontroller/PCI driver software."
+			Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+			ifint $($ShellCode) != $(!SHELL_CODE_OK)
+				Debug-Output "ShellCode error: cannot get an error string."
+				goto ShellCodeError
+			endif
+			set Error = $($R0)
+			set from = end
+			set to = end
+			goto nonfatalinfo
+		endif
+	else
+		set StartLabel = installadapter
+		set OEM_ABANDON_OPTIONS = {}
+		set OEM_ABANDON_SOFTWARE = FALSE
+		set OEM_ABANDON_ON = TRUE
+	endif
+	endif
+	Debug-Output "NTN_Origination"$(!NTN_Origination)
+	set from = $(fatal)
+	set to = $(fatal)
+	goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+	CloseRegKey $(KeyProduct)
+	ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+	   Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+	       $(ProductVersion)
+	   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	       Debug-Output "ShellCode error: cannot get an error string."
+	       goto ShellCodeError
+	   endif
+	   goto end
+	else
+	   Shell $(UtilityInf), CardExistedDlg
+	   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	       Debug-Output "ShellCode error: cannot get an error string."
+	       goto ShellCodeError
+	   endif
+	   ifstr(i) $($R1) != "OK"
+	       set CommonStatus = STATUS_USERCANCEL
+	       goto end
+	   endif
+	   set OldVersionExisted = $(TRUE)
+	endif
+    Endif
+    Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	Goto ShellCodeError
+    Else-Ifstr(i) $($R0) == STATUS_FAILED
+	Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	   goto ShellCodeError
+	endif
+	set Error = $($R0)
+	   Goto fatal
+    Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+	   Goto successful
+    Endif
+    Set SrcDir = $($R1)
+    install "Install-Option"
+    Goto adapteroptions    
+configureadapter = +
+	Ifstr $(KeyProduct) == $(KeyNull)
+		OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) KeyProduct
+		Ifstr $(KeyProduct) == $(KeyNull)
+			set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+			Debug-Output "Cannot find component product key"
+			goto fatalregistry
+		Endif
+	Endif
+	Debug-Output "INF: Shelling to FindService"
+	Shell $(UtilityInf) FindService, $(KeyProduct)
+	Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		Debug-Output "INF: FindService shell failure"
+		Goto ShellCodeError
+	Endif
+	Ifstr(i) $($R0) != NO_ERROR
+		Debug-Output "INF: FindService Shell error: "$($R0)
+		Goto fatalregistry
+	endif
+	Set KeyParameters = $($R2)
+	CloseRegKey $($R1)
+	Ifstr $(KeyParameters) == $(KeyNull)
+		set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+		Debug-Output "Cannot find component service"
+		goto fatalregistry
+	endif
+	set OldVersionExisted = $(TRUE)
+	set ValueName = ""
+	set ValueData = ""
+	set ValueStr  = ""
+	set ValueList = {}
+	EnumRegValue $(KeyParameters) ValueList
+	ForListDo $(ValueList)
+		set ValueItem = $($)
+		set ValueName = *($(ValueItem),1)
+		set ValueData = *($(ValueItem),4)
+		ifstr(i) $(ValueName) == "BurstSize"
+			set BurstSizeIndex = $(ValueData)
+		else-ifstr(i) $(ValueName) == "BusNumber"
+			set BusNumber = $(ValueData)
+		else-ifstr(i) $(ValueName) == "CardInstance"
+			set CardInstanceIndex = $(ValueData)
+		else-ifstr(i) $(ValueName) == "FullDuplexEnable"
+			set FullDuplexEnableIndex = $(ValueData)
+		else-ifstr(i) $(ValueName) == "RcvBuffCnt"
+			set RcvBuffCntIndex = $(ValueData)
+		else-ifstr(i) $(ValueName) == "XmtBuffCnt"
+			set XmtBuffCntIndex = $(ValueData) 
+		else-ifstr(i) $(ValueName) == "RequestedTTRT"
+			set RequestedTTRTIndex = $(ValueData)
+		endif
+	EndForListDo
+	Set Caption = $(FunctionTitle)
+	ifstr(i) $(FullDuplexEnableIndex) == 1
+		set RadioIn = {1}
+	else
+		set RadioIn = {2}
+	endif
+	ifstr(i) $(RequestedTTRTIndex) == ""
+		set EditText1 = 8
+	else
+		set EditText1 = $(RequestedT

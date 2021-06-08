@@ -1,0 +1,51 @@
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>",                        1, 02, 00, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>",                       1, 02, 00, 00,00,00,00, 00,C2,01,00
+
+HKR, Responses, "<cr><lf>CARRIER 300<cr><lf>",                          1, 01, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200<cr><lf>",                         1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75TX/1200RX<cr><lf>",                  1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75RX/1200TX<cr><lf>",                  1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200/75<cr><lf>",                      1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75/1200<cr><lf>",                      1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 2400<cr><lf>",                         1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 4800<cr><lf>",                         1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 7200<cr><lf>",                         1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 9600<cr><lf>",                         1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 12000<cr><lf>",                        1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 14400<cr><lf>",                        1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 16800<cr><lf>",                        1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 19200<cr><lf>",                        1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 21600<cr><lf>",                        1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 24000<cr><lf>",                        1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 26400<cr><lf>",                        1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 28800<cr><lf>",                        1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CARRIER Transmit: 19200 Receive: 19200 V.34<cr><lf>",1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 19200 Receive: 21600 V.34<cr><lf>",1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 19200 Receive: 21600 V.34<cr><lf>",1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 21600 Receive: 21600 V.34<cr><lf>",1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 24000 Receive: 21600 V.34<cr><lf>",1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 21400 Receive: 24000 V.34<cr><lf>",1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 24000 Receive: 24000 V.34<cr><lf>",1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 26400 Receive: 24000 V.34<cr><lf>",1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 24000 Receive: 26400 V.34<cr><lf>",1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 26400 Receive: 26400 V.34<cr><lf>",1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 26400 Receive: 28800 V.34<cr><lf>",1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 28800 Receive: 26400 V.34<cr><lf>",1, 01, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER Transmit: 28800 Receive: 28800 V.34<cr><lf>",1, 01, 00, 80,70,00,00, 00,00,00,00
+
+
+[MfgAddReg]
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+HKR,, Reset,, "AT&F<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ";"
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+HKR,

@@ -1,0 +1,159 @@
+>=\\Q1
+<hwflowcontrol_off>=\\Q0
+<compression_on>=\\C5
+<compression_off>=\\C4
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=RACAL
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>MNP <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>MNP <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+;----------------------------------------
+[Racal RMD 9642PA]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q1
+<hwflowcontrol_off>=\\Q0
+<compression_on>=\\C5
+<compression_off>=\\C4
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATX3
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=096
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+
+;Following line disables error correction, compression. To enable, delete
+;the following line and use rasphone interface.
+COMMAND_INIT=AT \\N0 <cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>MNP <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>MNP <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+;----------------------------------------
+[SD ACM400 w/ AT&T 3820]
+
+;This entry uses the Security Dynamics ACM/400 with the
+;AT&T Comsphere 3820 modem.
+;The macro definitions, <xxx_xx>=, and COMMAND_INIT= lines must be
+;changed in order to use other modems with the ACM/400.
+;Set ACM/400 ports to fixed 19200 bps (not autobaud).
+;Do not use Destination IDs with ACM/400 accounts.
+
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1"H3
+<compression_off>=%C0"H0
+<protocol_on>=\\N5
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2 V1 X7 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+COMMAND_LISTEN=ATE0Q1S0=1<cr>
+CONNECT=<match>"DIALIN_GATEWAY"
+CONNECT=<?><?><?><?><hC0><h21><ignore>
+CONNECT=<?><?><?><hC0><h21><ignore>
+CONNECT=<?><?><hC0><h21><ignore>
+
+;----------------------------------------
+[Supra COM CARD 144 PCMCIA]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Supra Corporation
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[SupraModem 2400]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=249
+;----------------------------------------
+[Supra Fax Modem 9624 Internal]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=AFEP-C2501-H0
+;----------------------------------------
+[Supra Fax Modem V32]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI5<cr>
+DETECT_RESPONSE=Supra
+
+COMMAND_INIT=AT&F2&C1&D2 V1 W1 Q0 S7=55 <cr>
+COMMAND_INIT=AT S2=128 S11=55 S95=44 S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Supra Fax Modem V32bis]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M

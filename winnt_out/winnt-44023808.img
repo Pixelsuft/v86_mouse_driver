@@ -1,0 +1,161 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Zoom Telephonics, Inc.
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEMF17C76B0
+ExcludeFromSelect=UNIMODEM78099CF5
+ExcludeFromSelect=UNIMODEM5C047344
+ExcludeFromSelect=UNIMODEMC162740C
+
+[Models]
+%Modem1% = Modem1, ZOOM_Modem1, UNIMODEM959C40CA
+%Modem1% = Modem1, UNIMODEME95168C4
+%Modem1% = Modem1, ZOOM_Modem1, UNIMODEM78099CF5
+%Modem2% = Modem2, UNIMODEM4C7391F9
+%Modem2% = Modem2, UNIMODEM8B8772CA
+%Modem3% = Modem3, UNIMODEM95D3EACB
+%Modem3% = Modem3, UNIMODEME5448F84
+%Modem3% = Modem3, ZOOM_Modem3, UNIMODEMC162740C
+%Modem4% = Modem4, UNIMODEM9324D5D5
+%Modem5% = Modem5, UNIMODEM1E353020
+%Modem5% = Modem5, UNIMODEM375D83F8
+%Modem6% = Modem6, UNIMODEM185D5F4F
+%Modem7% = Modem7, UNIMODEMEAF499D3
+%Modem8% = Modem8, UNIMODEMACDEA9A9
+%Modem9% = Modem9, UNIMODEM53A6E915
+%Modem10% = Modem10, UNIMODEM9E7BA41D
+%Modem10% = Modem10, ZOOM_Modem10, UNIMODEM78099CF5
+%Modem10% = Modem10, UNIMODEMA3B609C9
+%Modem11% = Modem1,  UNIMODEMFBA0938F
+%Modem11% = Modem1,  UNIMODEM753CA81C
+%Modem12% = Modem10, UNIMODEM99FF8A06
+%Modem12% = Modem10, UNIMODEM3DC89C12
+%Modem13% = Modem1,  UNIMODEM2B41F717
+%Modem14% = Modem14, UNIMODEMC1B9FDCD
+%Modem15% = Modem15, UNIMODEM0CCBF371
+%Modem16% = Modem16, UNIMODEM11C530AE
+%Modem16% = Modem16, UNIMODEM6689F803
+%Modem17% = Modem17, UNIMODEM644F938E
+%Modem18% = Modem18, UNIMODEM02A7F902
+%Modem19% = Modem19, UNIMODEMB3C93738
+%Modem20% = Modem20, UNIMODEM58BF97E1
+%Modem21% = Modem21, UNIMODEM894FC955
+%Modem22% = Modem22, ZOOM_Modem22, UNIMODEM733C4E29
+%Modem23% = Modem23, ZOOM_Modem23, UNIMODEMA3EEEF33
+%Modem24% = Modem24, ZOOM_Modem24, UNIMODEMF17C76B0
+%Modem25% = Modem24, UNIMODEMF17C76B0
+%Modem26% = Modem26, UNIMODEMC70560FF
+%Modem27% = Modem1,  UNIMODEM78099CF5
+%Modem28% = Modem28, PCMCIA\ZOOM_TELEPHONICS_PCMCIA_9624__-3CA1
+%Modem28% = Modem28, PCMCIA\ZOOM_TELEPHONICS-PCMCIA_LC-5EE9
+%Modem28% = Modem28, ZOOM_Modem28, UNIMODEM9F2BBC58
+%Modem29% = Modem29, PCMCIA\ZOOM_TELEPHONICS-PCMCIA_14.4C-B698
+%Modem29% = Modem29, ZOOM_Modem29, UNIMODEM5C047344
+%Modem30% = Modem30, UNIMODEM5C047344
+%Modem31% = Modem31, ZOOM_Modem31, UNIMODEM535147EF
+%Modem32% = Modem3,  ZOOM_Modem32, UNIMODEMC162740C
+%Modem33% = Modem3,  UNIMODEMC162740C
+%Modem34% = Modem34, UNIMODEM6C97F65F
+%Modem35% = Modem35, UNIMODEMBAA73236   
+
+
+[Modem1]
+AddReg=All, Modem1Reg, EXTERNAL
+
+[Modem2]
+AddReg=All, Modem2Reg, EXTERNAL, Cellular
+
+[Modem3]
+AddReg=All, Modem2Reg, INTERNAL, Cellular
+
+[Modem4]
+AddReg=All, Modem4Reg, EXTERNAL, Cellular
+
+[Modem5]
+AddReg=All, Modem4Reg, INTERNAL, Cellular
+
+[Modem6]
+AddReg=All, Modem6Reg, EXTERNAL, Cellular
+
+[Modem7]
+AddReg=All, Modem6Reg, INTERNAL, Cellular
+
+[Modem8]
+AddReg=All, Modem1Reg, EXTERNAL
+
+[Modem9]
+AddReg=All, Modem1Reg, INTERNAL
+
+[Modem10]
+AddReg=All, Modem1Reg, INTERNAL
+
+[Modem14]
+AddReg=All, Modem14Reg, EXTERNAL
+
+[Modem15]
+AddReg=All, Modem14Reg, INTERNAL
+
+[Modem16]
+AddReg=All, Modem16Reg, EXTERNAL
+
+[Modem17]
+AddReg=All, Modem16Reg, INTERNAL
+
+[Modem18]
+AddReg=All, Modem18Reg, EXTERNAL
+
+[Modem19]
+AddReg=All, Modem18Reg, INTERNAL
+
+[Modem20]
+AddReg=All, Modem20Reg, EXTERNAL
+
+[Modem21]
+AddReg=All, Modem20Reg, INTERNAL
+
+[Modem22]
+AddReg=All, Modem22Reg, INTERNAL
+
+[Modem23]
+AddReg=All, Modem22Reg, EXTERNAL
+
+[Modem24]
+AddReg=All, Modem24Reg, INTERNAL
+
+[Modem26]
+AddReg=All, Modem26Reg, EXTERNAL   
+
+[Modem28]
+AddReg=All, Modem28Reg, PCMCIA
+
+[Modem29]
+AddReg=All, Modem29Reg, PCMCIA
+
+[Modem30]
+AddReg=All, Modem30Reg, PCMCIA   
+
+[Modem31]
+AddReg=All, Modem31Reg, EXTERNAL   
+
+[Modem34]
+AddReg=All, Modem34Reg, INTERNAL   
+
+[Modem35]
+AddReg=All, Modem35Reg, EXTERNAL   
+
+
+[Modem1Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem2Reg]

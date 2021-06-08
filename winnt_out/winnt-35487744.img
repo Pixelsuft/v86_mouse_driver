@@ -1,0 +1,84 @@
+      Debug-Output "NETBOND.INF: NTN_RegBase is "$(!NTN_RegBase)
+            Shell  $(ThisInfName) GetSignature
+            ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "NETBOND.INF: Does not have a GetSignature section "$(ThisInfName)
+                ifstr(i) $(!STF_UNATTENDED) == "NO"
+                  ifstr(i) $(!NTN_UPGRADEWARN) == "YES"
+                    set ServiceTitle = *($(!NTN_TextToBeShown), $(#))
+                    Shell "" IsNetCard $(ThisInfName)
+                    ifstr(i) $($R0) == "YES"
+                        read-syms UpgradeNetCardWarnings
+                    else
+                        read-syms UpgradeWarnings
+                    endif
+                    read-syms WarningDlg
+                    ui start "Warning"
+                  endif
+                endif
+                goto skipthisinf
+            endif
+            ifstr(i) $($R0) != "MICROSOFT_FILE"
+                Debug-Output "NETBOND.INF: This is not an MS Inf "$(ThisInfName)
+                ifstr(i) $(!STF_UNATTENDED) == "NO"
+                  ifstr(i) $(!NTN_UPGRADEWARN) == "YES"
+                    set ServiceTitle = *($(!NTN_TextToBeShown), $(#))
+                    Shell "" IsNetCard $(ThisInfName)
+                    ifstr(i) $($R0) == "YES"
+                        read-syms UpgradeNetCardWarnings
+                    else
+                        read-syms UpgradeWarnings
+                    endif
+                    read-syms WarningDlg
+                    ui start "Warning"
+                  endif
+                endif
+                goto skipthisinf
+            endif
+        endif
+        ifstr(i) $(!NTN_NOTIFY_HWND) == ""
+            ifstr(i) $(!NTN_InstallMode) == "Update"
+                Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(MPreUpgrade1)*($(!NTN_TextToBeShown),$(#))$(MPreInstall2)
+            else
+                Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(MPreInstall1)*($(!NTN_TextToBeShown),$(#))$(MPreInstall2)
+            endif
+            Set BillboardVisible = 1
+        else
+            LibraryProcedure STATUS, $(!NCPA_HANDLE), SendProgressMessage, $(!PWM_SETPROGRESSTEXT), $(!NTN_NOTIFY_HWND), "D", $(NTN_PGI), "A", *($(!NTN_TextToBeShown),$(#))
+        endif
+        Set InfOption = *($(!NTN_OptionsToBeRun),$(#))
+        Set !STF_NCDETINFO = *($(!NTN_NCDETINFOS),$(#)) 
+        ifstr(i) $(!STF_NCDETINFO) != "{}"
+            Set !STF_NCDETECT = "YES"
+            Set !STF_NCDETCARD = *($(!STF_NCDETINFO),2)
+            Set !STF_NCOPTION = *($(!STF_NCDETINFO),1)
+            Debug-Output "NETBOND.INF: DetectInfo Available"
+        else
+            Debug-Output "NETBOND.INF: No DetectInfo Available"
+            Set !STF_NCDETECT = "NO"
+            Set !STF_NCDETCARD = 0
+            Set !STF_NCOPTION = ""
+        endif
+        Set OemPath = *($(!NTN_NETOEMPATHS),$(#)) 
+        ifstr(i)  $(OemPath) == ""
+            Set OemPath = $(!STF_SRCDIR)
+        endif
+        Set !STF_SRCDIR_OVERRIDE = ""
+        Set !STF_UNATTENDED_SECTION = *($(!NTN_NETSECTIONS),$(#)) 
+        Debug-Output "NETBOND.INF: Unattend Section for "$(ThisInfName)" is "$(!STF_UNATTENDED_SECTION)
+        shell "subroutn.inf" GetDefaultAnswer "NetCardParameterList"
+        ifstr(i) $(!NTN_InstallMode) != "Update"
+            Shell $(ThisInfName) InstallOption $(!STF_LANGUAGE) $(InfOption) $(OemPath) "YES" "NO" "NO"
+        else
+            Shell $(ThisInfName) InstallOption $(!STF_LANGUAGE) $(InfOption) $(OemPath) "YES" "NO" "YES"
+        endif
+        ifstr(i) $(!NTN_NOTIFY_HWND) == ""
+            Set BillboardVisible = 1
+            ifstr(i) $(!NTN_InstallMode) == "Update"
+                Set-title *($(!NTN_TextToBeShown),$(#))$(MPostUpgrade)
+            else
+                Set-title *($(!NTN_TextToBeShown),$(#))$(MPostInstall)
+            endif
+        else
+            LibraryProcedure STATUS, $(!NCPA_HANDLE), SendProgressMessage, $(!PWM_SETPROGRESSPOS), $(!NTN_NOTIFY_HWND), "D", $(NTN_PGI), "D", $(#)
+        endif
+        Set Net

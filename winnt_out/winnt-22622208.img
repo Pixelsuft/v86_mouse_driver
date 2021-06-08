@@ -1,0 +1,56 @@
+ RAS have different cabling needs. So, the fact that your COM software works does not assure that RAS will work.
+Are you using a 25-pin to 9-pin Mouse cable adapter?  Or does your serial cable plug directly into the COM port on the computer and modem?
+
+See the RAS on-line Help topic "Cabling Requirements" for details.
+
+---------------------------------------------------
+QUESTION:
+How do I change the default timeout? I have searched the Registry and all other files 
+and found nothing. Also, what do you define as idle, as I have had a 24-hour connection established, 
+with absolutely no processing?
+
+ANSWER:
+You can change the idle timeout value in the Registry at HKEY_LOCAL_MACHINE on Local
+Machine\SYSTEM\CurrentControlSet\Services\RemoteAccess\Parameters\Autodisconnect.
+By default this value will be 0x14 (20 minutes). Change it to something like 0x5.
+
+Idle is defined as no significant traffic over the link.  You can have a computer
+connected with no visible processes running, but keep in mind things like the browser,
+replication, etc. that run on the system without any user intervention.  These processes
+can keep the RAS link alive.
+
+---------------------------------------------------
+QUESTION:
+I've loaded RAS on a Windows NT Server computer that is a member server, not a domain controller. When I run RAS Administrator to grant dial-in privileges, I only see the local users -- Administrator and Guest, not the domain users. I can run User Manager for Domains and see the domain users, but RAS Administrator does not see them.  Must I load RAS on a domain controller to support people calling into my domain? 
+
+ANSWER:
+It sounds like you have RAS Administrator focused on the local computer instead of the domain.
+In RAS Admin, from the Server menu, select the Select Domain or Server command and enter the domain name.
+When the screen refreshes you should be able to view the domain RAS accounts.
+
+---------------------------------------------------
+QUESTION:
+I connect often to a SLIP server using Netmanage Chamelion on my Windows for Workgroups computer every day. When I try to use my Windows NT Server version 3.5, I cannot connect and get a 611 error instead. I enter my login and password fine, but when I choose the Done button I instantly get the 611 error. It tells me the route is unknown. What can I do to get this up and running?
+
+ANSWER:
+Windows NT RAS cannot accept incoming SLIP calls. It will accept incoming PPP calls, and it will make outgoing PPP or SLIP calls. 
+Configure your client software, Netmanage Chamelion on your Windows for Workgroups computer, to use PPP when it dials a Windows NT RAS server.
+
+---------------------------------------------------
+QUESTION:
+I have a phone system that needs to let it ring at least twice before answering. Is there any way I can control how many rings occur before my RAS server answers a client call?
+I have a US Robotics Sportster 14400 modem handling my calls.  Supposedly, an ATS0=2 command should do what I want but where can I enter this command?
+
+ANSWER:
+Edit your MODEM.INF file in the \systemroot\SYSTEM32\ras directory. Search for the
+section [US Robotics Sportster 14400], and change the ATS0= entry to 2 or 3.
+
+---------------------------------------------------
+QUESTION:
+I'm having problems being authenticated on the network after using RAS to connect from my home computer.
+On my computer at home, the computer name is \\HOME and my user name is greg. 
+When I start RAS from home and contact the office I can logon as Administrator, Greg, or
+Guest and all three give me an Access Denied message when I try to access a share on the office computer. The office computer name is \\GREG.  The three above user accounts all exist on the \\GREG computer which is running RAS Administrator. Why am I getting this message?
+
+ANSWER:
+What is happening is that after logging into your local computer, your local credentials are being cached and used when you are trying to access your network. The RAS authentication does not override your cached cred

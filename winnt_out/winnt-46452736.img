@@ -1,0 +1,66 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Intel Corp.
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Intel%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM2D08133E   ; Intel 300 and Viva 14.4 combo
+ExcludeFromSelect=UNIMODEM3DBAACC2   ; Intel Faxmodem 144/144i and Intel Faxmodem 144/144e combo
+ExcludeFromSelect=UNIMODEM5DC8F5BA   ; Intel Faxmodem 144/144i and Intel Faxmodem 144/144e combo
+ExcludeFromSelect=UNIMODEMAF312C16   ; Intel Faxmodem 96/96e and 96/96i combo
+ExcludeFromSelect=UNIMODEM1308F3EC   ; Intel Faxmodem 400 and 400e combo
+ExcludeFromSelect=UNIMODEM857A2E1B   ; Intel/Puredata 400e combo
+ExcludeFromSelect=UNIMODEMEB77762B   ; Intel/Puredata 200 combo
+ExcludeFromSelect=UNIMODEM9729BF96   ; Intel/Puredata 200 combo
+ExcludeFromSelect=UNIMODEM6E4ABD3B   ; Intel/Puredata 400e and 14.4EX combo
+ExcludeFromSelect=UNIMODEM6C4FF788   ; 24v/96i, 24v/96e
+
+[Manufacturer]
+%Intel%    = Intel
+%Puredata% = Puredata
+
+[Intel]  
+%Modem30% = Modem12,  UNIMODEM6C4FF788                ; 24v/96i, 24v/96e
+%Modem24% = Modem5,   UNIMODEM6E4ABD3B                ; Intel SatisFAXtion 400e and 14.4EX combo
+%Modem23% = Modem19,  UNIMODEM1308F3EC                ; Intel SatisFAXtion 400 and 400e combo
+%Modem22% = Modem9,   UNIMODEMAF312C16                ; Intel Faxmodem 96/96i and 96/96e combo
+%Modem21% = Modem7,   UNIMODEM5DC8F5BA                ; Intel Faxmodem 144/144i and Intel Faxmodem 144/144e combo
+%Modem21% = Modem7,   UNIMODEM3DBAACC2                ; Intel Faxmodem 144/144i and Intel Faxmodem 144/144e combo
+%Modem20% = Modem20,  UNIMODEM2D08133E                ; Intel 300 and Viva 14.4 combo
+%Modem19% = Modem19,  INTEL_Modem19, UNIMODEM857A2E1B ; SatisFAXtion Modem/400e
+%Modem19% = Modem19,  INTEL_Modem19, UNIMODEM6E4ABD3B ; SatisFAXtion Modem/400e
+%Modem19% = Modem19,  INTEL_Modem19, UNIMODEM1308F3EC ; SatisFAXtion Modem/400e
+%Modem18% = Modem18,  UNIMODEMBD094F8B                ; Intel Faxmodem 144/144i v2.28
+%Modem18% = Modem18,  INTEL_Modem18, UNIMODEM5DC8F5BA ; Intel Faxmodem 144/144i v1.43, v2.20
+%Modem18% = Modem18,  INTEL_Modem18, UNIMODEM3DBAACC2 ; Intel Faxmodem 144/144i v1.43, v2.20
+%Modem14% = Modem14,  INTEL_Modem14, UNIMODEM9F2BBC58 ; Intel Faxmodem 24/96i
+%Modem14% = Modem14,  INTEL_Modem14, UNIMODEM901DD6E5 ; Intel Faxmodem 24/96i
+%Modem13% = Modem13,  INTEL_Modem13, UNIMODEM6C4FF788 ; Intel Faxmodem 24v/96i
+%Modem12% = Modem12,  INTEL_Modem12, UNIMODEM6C4FF788 ; Intel Faxmodem 24v/96e
+%Modem11% = Modem11,  UNIMODEM81FDF22E                ; Intel 2400e V.42bis Modem
+
+%Modem11% = Modem11,  INTEL_Modem11, UNIMODEMD209269F ; Intel 2400e V.42bis Modem
+%Modem10% = Modem10,  INTEL_Modem10, UNIMODEMAF312C16 ; Intel Faxmodem 96/96i
+%Modem9%  = Modem9,   INTEL_Modem9, UNIMODEMAF312C16  ; Intel Faxmodem 96/96e
+%Modem7%  = Modem7,   INTEL_Modem7, UNIMODEM5DC8F5BA  ; Intel Faxmodem 144/144e v1.70
+%Modem7%  = Modem7,   INTEL_Modem7, UNIMODEM3DBAACC2  ; Intel Faxmodem 144/144e v1.43, v2.20
+%Modem6%  = Modem6,   UNIMODEM52C15FC7                ; 9600EX
+%Modem5%  = Modem5,   UNIMODEM0589FB57                ; 14.4EX
+%Modem5%  = Modem5,   INTEL_Modem5, UNIMODEM6E4ABD3B  ; 14.4EX
+%Modem5%  = Modem19,  INTEL_Modem5, UNIMODEM857A2E1B  ; 14.4EX / 400e clone
+%Modem4%  = Modem4,   INTEL_Modem4, UNIMODEM2D08133E  ; SatisFAXtion Modem/300
+%Modem3%  = Modem3,   UNIMODEM03326EC6                ; SatisFAXtion Classic
+%Modem2%  = Modem2,   INTEL_Modem2, UNIMODEMEB77762B  ; SatisFAXtion Modem/200
+%Modem2%  = Modem2,   INTEL_Modem2, UNIMODEM9729BF96  ; SatisFAXtion Modem/200
+%Modem1%  = Modem1,   INTEL_Modem1, UNIMODEM1308F3EC  ; SatisFAXtion Modem/400
+
+[Puredata]
+%Modem25% = Modem19,  INTEL_Modem25, UNIMODEM857A2E1B ; SatisFAXtion Modem/400e
+%Modem25% = Modem19,  INTEL_Modem25, UNIMODEM6E4ABD3B ; SatisFAXtion Modem/400e
+%Modem25% = Modem19,  INTEL_Modem25, UNIMODEM1308F3EC ; SatisFAXtion Modem/400e
+%Modem26% = Modem19,  UNIMODEM857A2E1B                ; Intel and Puredata SatisFAXti

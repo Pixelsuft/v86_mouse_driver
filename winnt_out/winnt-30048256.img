@@ -1,0 +1,107 @@
+l)}
+MemoryRangeList = {"C0000","C8000","D0000","D8000","E0000","E8000"}
+IORangeList = {"104","114","124","204","224","304","324"}
+IRQDefault = 0
+MemoryDefault = 2
+IODefault = 6
+[AdapterSettings-nt4i]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","D0000","E0000"}
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 1
+IODefault = 6
+[AdapterSettings-nt8i]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","D0000","E0000"}
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 1
+IODefault = 6
+[AdapterSettings-nt16i]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","D0000","E0000"}
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 1
+IODefault = 6
+[AdapterSettings-nt16e]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","D0000","E0000", }
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 1
+IODefault = 6
+[AdapterSettings-nt8e]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","D0000","E0000", }
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 1
+IODefault = 6
+[AdapterSettings-nt4e]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","D0000","E0000", }
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 1
+IODefault = 6
+[AdapterSettings-2Port]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","C2000","C4000","C6000","C8000", "CA000", "CC000", "CE000", +
+               "D0000","D2000","D4000","D6000","D8000", "DA000", "DC000", "DE000", +
+               "E0000","E2000","E4000","E6000","E8000", "EA000", "EC000", "EE000" }
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 8
+IODefault = 6
+[AdapterSettings-4Port]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","C2000","C4000","C6000","C8000", "CA000", "CC000", "CE000", +
+               "D0000","D2000","D4000","D6000","D8000", "DA000", "DC000", "DE000", +
+               "E0000","E2000","E4000","E6000","E8000", "EA000", "EC000", "EE000" }
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 8
+IODefault = 6
+[AdapterSettings-8Port]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","C2000","C4000","C6000","C8000", "CA000", "CC000", "CE000", +
+               "D0000","D2000","D4000","D6000","D8000", "DA000", "DC000", "DE000", +
+               "E0000","E2000","E4000","E6000","E8000", "EA000", "EC000", "EE000" }
+IORangeList = {"100","110","120","200","220","300","320"}
+IRQDefault = 0
+MemoryDefault = 8
+IODefault = 6
+[BindingInfo-DigiFEP5]
+BindingInfo =   {+
+                "digiFEP5Driver ntepcDriver non exclusive 100", +
+                "digiFEP5Driver ntcxDriver non exclusive 100", +
+                "digiFEP5Driver ntxemDriver non exclusive 100", +
+                "digiFEP5Driver ntxallDriver non exclusive 100" +
+                }
+[BindingInfo-ntxem]
+BindingInfo     = {+
+                  $(AdapterHardwareDriver)"Driver "$(AdapterHardwareDriver)"Adapter non exclusive 100", +
+                  }
+[BindingInfo-ntcx]
+BindingInfo     = {+
+                  $(AdapterHardwareDriver)"Driver "$(AdapterHardwareDriver)"Adapter non exclusive 100", +
+                  }
+[BindingInfo-ntepc]
+BindingInfo     = {+
+                  $(AdapterHardwareDriver)"Driver "$(AdapterHardwareDriver)"Adapter non exclusive 100", +
+                  }
+[BindingInfo-ntxall]
+BindingInfo     = {+
+                  $(AdapterHardwareDriver)"Driver "$(AdapterHardwareDriver)"Adapter non exclusive 100" +
+                  }
+[InstallResources]
+    set STF_VITAL = ""
+    Debug-Output "OEMNADDS.INF: [InstallResources]"
+    AddSectionFilesToCopyList Files-Resource $(!SourceDir) $(!STF_WINDOWSSYSPATH)
+    CopyFilesInCopyList
+    Debug-Output "OEMNADDS.INF: [InstallResources] - Exiting"
+    exit
+[Install-Option]
+    Debug-

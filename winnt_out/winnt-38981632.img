@@ -1,0 +1,132 @@
+'
+'                    Q B a s i c   M O N E Y   M A N A G E R
+'
+'                   Copyright (C) Microsoft Corporation 1990
+'
+' The Money Manager is a personal finance manager that allows you
+' to enter account transactions while tracking your account balances
+' and net worth.
+'
+' To run this program, press Shift+F5.
+'
+' To exit QBasic, press Alt, F, X.
+'
+' To get help on a BASIC keyword, move the cursor to the keyword and press
+' F1 or click the right mouse button.
+'
+
+
+'Set default data type to integer for faster operation
+DEFINT A-Z
+
+'Sub and function declarations
+DECLARE SUB TransactionSummary (item%)
+DECLARE SUB LCenter (text$)
+DECLARE SUB ScrollUp ()
+DECLARE SUB ScrollDown ()
+DECLARE SUB Initialize ()
+DECLARE SUB Intro ()
+DECLARE SUB SparklePause ()
+DECLARE SUB Center (row%, text$)
+DECLARE SUB FancyCls (dots%, Background%)
+DECLARE SUB LoadState ()
+DECLARE SUB SaveState ()
+DECLARE SUB MenuSystem ()
+DECLARE SUB MakeBackup ()
+DECLARE SUB RestoreBackup ()
+DECLARE SUB Box (Row1%, Col1%, Row2%, Col2%)
+DECLARE SUB NetWorthReport ()
+DECLARE SUB EditAccounts ()
+DECLARE SUB PrintHelpLine (help$)
+DECLARE SUB EditTrans (item%)
+DECLARE FUNCTION Cvdt$ (X#)
+DECLARE FUNCTION Cvst$ (X!)
+DECLARE FUNCTION Cvit$ (X%)
+DECLARE FUNCTION Menu% (CurrChoiceX%, MaxChoice%, choice$(), ItemRow%(), ItemCol%(), help$(), BarMode%)
+DECLARE FUNCTION GetString$ (row%, col%, start$, end$, Vis%, Max%)
+DECLARE FUNCTION Trim$ (X$)
+
+'Constants
+CONST TRUE = -1
+CONST FALSE = NOT TRUE
+
+'User-defined types
+TYPE AccountType
+    Title        AS STRING * 20
+    AType        AS STRING * 1
+    Desc         AS STRING * 50
+END TYPE
+
+TYPE Recordtype
+    Date     AS STRING * 8
+    Ref      AS STRING * 10
+    Desc     AS STRING * 50
+    Fig1     AS DOUBLE
+    Fig2     AS DOUBLE
+END TYPE
+
+'Global variables
+DIM SHARED account(1 TO 19)  AS AccountType     'Stores the 19 account titles
+DIM SHARED ColorPref                            'Color Preference
+DIM SHARED colors(0 TO 20, 1 TO 4)              'Different Colors
+DIM SHARED ScrollUpAsm(1 TO 7)                  'Assembly Language Routines
+DIM SHARED ScrollDownAsm(1 TO 7)
+DIM SHARED PrintErr AS INTEGER                  'Printer error flag
+
+    DEF SEG = 0                     ' Turn off CapLock, NumLock and ScrollLock
+    KeyFlags = PEEK(1047)
+    POKE 1047, &H0
+    DEF SEG
+  
+    'Open money manager data file.  If it does not exist in current directory,
+    '  goto error handler to create and initialize it.
+    ON ERROR GOTO ErrorTrap
+    OPEN "money.dat" FOR INPUT AS #1
+    CLOSE
+    ON ERROR GOTO 0     'Reset error handler
+
+    Initialize          'Initialize program
+    Intro               'Display introduction screen
+    MenuSystem          'This is the main program
+    COLOR 7, 0          'Clear screen and end
+    CLS
+
+    DEF SEG = 0                     ' Restore CapLock, NumLock and ScrollLock states
+    POKE 1047, KeyFlags
+    DEF SEG
+
+    END
+
+' Error handler for program
+' If data file not found, create and initialize a new one.
+ErrorTrap:
+    SELECT CASE ERR
+        ' If data file not found, create and initialize a new one.
+        CASE 53
+            CLOSE
+            ColorPref = 1
+            FOR a = 1 TO 19
+                account(a).Title = ""
+                account(a).AType = ""
+                account(a).Desc = ""
+            NEXT a
+            SaveState
+            RESUME
+        CASE 24, 25
+            PrintErr = TRUE
+            Box 8, 13, 14, 69
+            Center 11, "Printer not responding ... Press Space to continue"
+            WHILE INKEY$ <> "": WEND
+            WHILE INKEY$ <> " ": WEND
+            RESUME NEXT
+        CASE ELSE
+    END SELECT
+    RESUME NEXT
+
+
+'The following data defines the color schemes available via the main menu.
+'
+'    scrn  dots  bar  back   title  shdow  choice  curs   cursbk  shdow
+DATA 0,    7,    15,  7,     0,     7,     0,      15,    0,      0
+DATA 1,    9,    12,  3,     0,     1,     15,     0,     7,      0
+DATA 3,    15,   13,  1, 

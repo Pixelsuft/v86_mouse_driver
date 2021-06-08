@@ -1,0 +1,172 @@
+ShowAnnotationToolPalette
+    Annot8Visible = True
+    mnuShowTools.Checked = True
+End If
+
+End Sub
+
+
+Private Sub mnuStamp_Click()
+'Bring up the Rubber Stamp Properties dialog to choose the stamp you want.
+oleImgEdit1.ShowRubberStampDialog
+
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = False
+mnuAttachNote.Checked = False
+mnuFillRect.Checked = False
+mnuFreeHand.Checked = False
+mnuHiLight.Checked = False
+mnuHollowRect.Checked = False
+mnuStamp.Checked = True
+mnuStraightLine.Checked = False
+mnuTextFromFile.Checked = False
+mnuTypedText.Checked = False
+
+End Sub
+
+
+Private Sub mnuStraightLine_Click()
+'see documentation for the list of annotation types
+oleImgEdit1.SelectTool AnnoStraightLine
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = False
+mnuAttachNote.Checked = False
+mnuFillRect.Checked = False
+mnuFreeHand.Checked = False
+mnuHiLight.Checked = False
+mnuHollowRect.Checked = False
+mnuStamp.Checked = False
+mnuStraightLine.Checked = True
+mnuTextFromFile.Checked = False
+mnuTypedText.Checked = False
+
+End Sub
+
+Private Sub mnuTextFromFile_Click()
+'see documentation for the list of annotation types
+oleImgEdit1.SelectTool AnnoTextFromFile
+
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = False
+mnuAttachNote.Checked = False
+mnuFillRect.Checked = False
+mnuFreeHand.Checked = False
+mnuHiLight.Checked = False
+mnuHollowRect.Checked = False
+mnuStamp.Checked = False
+mnuStraightLine.Checked = False
+mnuTextFromFile.Checked = True
+mnuTypedText.Checked = False
+
+End Sub
+
+Private Sub mnuThumbnail_Click()
+'Size the thumbnail window to the app window and
+'display it. Hide the image window.
+oleImgThumbnail1.Left = frmSample.ScaleLeft
+oleImgThumbnail1.Top = frmSample.ScaleTop
+oleImgThumbnail1.Width = frmSample.ScaleWidth
+oleImgThumbnail1.Height = frmSample.ScaleHeight
+oleImgThumbnail1.Visible = True
+oleImgEdit1.Visible = False
+'oleImgThumbnail1.Image = oleImgEdit1.Image
+mnuThumbnail.Checked = True
+mnuOnePage.Checked = False
+mnuPageThumbnail.Checked = False
+
+End Sub
+
+Private Sub mnuToolbar_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuTypedText_Click()
+'see documentation for the list of annotation types
+oleImgEdit1.SelectTool AnnoText
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = False
+mnuAttachNote.Checked = False
+mnuFillRect.Checked = False
+mnuFreeHand.Checked = False
+mnuHiLight.Checked = False
+mnuHollowRect.Checked = False
+mnuStamp.Checked = False
+mnuStraightLine.Checked = False
+mnuTextFromFile.Checked = False
+mnuTypedText.Checked = True
+
+End Sub
+
+Private Sub mnuZoomIn_Click()
+'Double the size of the image view
+Dim zoomval As Single 'zoom value
+
+zoomval = oleImgEdit1.Zoom
+zoomval = zoomval * 2
+If zoomval < ZoomMax Then
+    oleImgEdit1.Zoom = zoomval
+    oleImgEdit1.Refresh
+Else
+    MsgBox "At maximum zoom"
+End If
+
+'uncheck the zoom menu picks.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+Private Sub mnuZoomOut_Click()
+'Reduce the image by half
+Dim zoomval As Single 'zoom value
+
+zoomval = oleImgEdit1.Zoom
+zoomval = zoomval / 2
+If zoomval >= ZoomMin Then
+    oleImgEdit1.Zoom = zoomval
+    oleImgEdit1.Refresh
+Else
+    MsgBox "At minimum zoom"
+End If
+
+
+'uncheck the zoom menu picks.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = False
+mnuActual.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+Private Sub mnuZoomT

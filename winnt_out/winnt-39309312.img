@@ -1,0 +1,158 @@
+NECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 2440T
+
+
+;----------------------------------------
+[ELSA MicroLink 2440TR - GER]
+ALIAS=ELSA MicroLink 2440T - GER
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 2440TR
+
+;----------------------------------------
+[ELSA MicroLink 2460TL - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&F$K0 X3 S0=0 S2=128 S7=55 S95=8\\V1<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 2460TL
+
+;----------------------------------------
+[ELSA MicroLink 2460PC - GER]
+ALIAS=ELSA MicroLink 2460TL - GER
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 2460TL
+
+;----------------------------------------
+[ELSA MicroLink 2460MC - GER]
+ALIAS=ELSA MicroLink 2460TL - GER
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 2460MC
+
+;----------------------------------------
+[ELSA MicroLink 14.4 PC - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 14.4PC
+
+COMMAND_INIT=AT&F$K0 X3 S31=64 S0=0 S2=128 S7=55 S95=8\\V1<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+;----------------------------------------
+[ELSA MicroLink 14.4 TL - GER]
+ALIAS=ELSA MicroLink 14.4 PC - GER
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 14.4TL
+
+;----------------------------------------
+[ELSA MicroLink 14.4 T - GER]
+ALIAS=ELSA MicroLink 14.4 PC - GER
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 14.4T
+
+;----------------------------------------
+[ELSA MicroLink 14.4 TM - GER]
+ALIAS=ELSA MicroLink 14.4 PC - GER
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 14.4TM
+
+;----------------------------------------
+[ELISA 144 - GER]
+ALIAS=ELSA MicroLink 14.4 PC - GER
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=ELISA 144
+
+;----------------------------------------
+[ELSA MicroLink 288ooTL - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=115200
+
+COMMAND_INIT=AT&F$K0 X3 S0=0 S2=128 S7=55 S31=64 S95=8\\V1<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 288ooTL
+
+;----------------------------------------
+[ELSA MicroLink 14.4MC - GER]
+DEVICETYPE=modem
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONN

@@ -1,0 +1,145 @@
+ssion_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F.
+COMMAND_INIT=AT&C1&D2 \\V1 X1 W2 Q0 S0=0 S2=128 S7=60<cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+;----------------------------------------
+[Dataflex Rapier+ V32Bis - UK]
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2Q0V1E1\\J1S0=0S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+;----------------------------------------
+[Psion Dacom PDM 50F - UK]
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2Q0V1E1S0=0S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+;----------------------------------------
+;Please note that this modem does NOT support 14,400bps DTE speed.
+[Andest Rocket - UK]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&F&C1&D2 $X2 V1 S0=0 S2=128 S7=60<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> ALT<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> ALT /MNP 5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> LAPM /V.42bis<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> ALT<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> ALT /MNP 5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> LAPM /V.42bis<cr><lf>
+
+;----------------------------------------
+[Intel SatisFaxtion - UK]
+ALIAS=Hayes Compatible 2400
+
+;---------------------------------------------------------------------------
+; This modem does not support callback when connecting to MS RAS 1.x Servers
+;---------------------------------------------------------------------------
+[USR Worldport 14400 - UK]
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&R2&H1
+<hwflowcontrol_off>=&R1&H0
+<compression_on>=&K1
+<compression_off>=&K0
+<protocol_on>=&M4
+<protocol_off>=&M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1 &D2 &A3 &B1 V1 Q0 S0=0 S2=128 S7=60<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/NONE<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/V32/NONE<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ<cr><lf>
+CONNECT_EC=\
+<cr><lf>CON

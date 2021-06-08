@@ -1,0 +1,94 @@
+:Base windows.hlp>proc4
+:Title Windows NT Help
+:Index Accessibility & Disability Support Help=acc_dis.hlp
+:Index Accessibility Help=access.hlp
+:Index Basic Tasks =common.hlp
+:Index Control Panel Help=control.hlp
+:Index DCOM Help=dcomcnfg.hlp              ; distributed com help
+:Index Glossary=glossary.hlp
+:Index Help on Help =winhlp32.hlp
+:Index If you've used Windows before=31users.hlp
+:Index Joystick Control Panel Help=joy.hlp
+:Index Mouse Help=mouse.hlp
+:Index Network Control Panel Help=netcfg.hlp
+:Index Network Help =network.hlp
+:Index Security tab help=ntsecui.hlp
+:Index Sharing tab help=ntshrui.hlp
+:Index Support & Ed. Help=supp_ed.hlp
+:Index System Control Panel Help=sysdm.hlp
+:Index Tape, SCSI, PCMCIA Control Panel Help=devapps.hlp
+:Index Windows Help =windows.hlp
+:Index Windows NT Command Reference=ntcmds.hlp
+:Index Windows NT General Help=winnt.hlp
+:Link 31users.hlp
+:Link access.hlp
+:Link common.hlp
+:Link glossary.hlp
+:Link mouse.hlp
+:Link mspaint.hlp
+:Link network.hlp
+:Link notepad.hlp
+:Link regedit.hlp
+:Link tcpip.hlp
+:Link winhlp32.hlp
+:include update.cnt
+1 If you've used Windows before=WIN31_TRANSITION_PIECE@..\..\..\genhelp\usa\build\31users.hlp>big
+1 Introducing Windows NT
+2 A List of What's New
+3 A new look and feel=NEW_WHATS_NEW>medium
+3 Faster ways to get your work done=NEW_FASTER_WAYS>medium
+3 More ways to customize Windows NT=NEW_CUSTOMIZING_WINDOWS>medium
+3 New programs and features=NEW_PROGRAMS_ACCESSORIES>medium
+3 New accessories in Windows NT=NEW_ACCESSORIES_ACCESSORIES>medium
+3 Support for portable computers=NEW_PORTABLES>medium
+3 Improved networking=NEW_NETWORKING>medium
+2 Using Windows Accessories
+3 For General Use
+4 Windows games=APP_GAMES
+4 Calculator: for making calculations =APP_CALCULATOR
+4 Microsoft Exposition: a catalog of Microsoft products =expo@expo.hlp>proc4
+3 For Writing and Drawing
+4 Paint: for creating a picture =APP_PAINTBRUSH
+4 WordPad: for writing and formatting documents =APP_WORDPAD
+4 Notepad: for writing and editing text files=APP_NOTEPAD
+3 For Communicating with Others
+4 Phone Dialer: for dialing the telephone from your computer=APP_DIALER
+4 Windows Messaging: for sending and receiving messages=APP_MAIL
+4 HyperTerminal: for connecting to other computers=APP_TERMINAL@windows.hlp>proc4
+3 For Sound and Video
+4 CD Player: for playing compact discs=APP_CDPLAYER
+4 Media Player: for playing multimedia files=APP_MEDIAPLAYER
+4 Sound Recorder: for creating and playing sound files=APP_SOUNDRECORDER
+4 Volume Control: for adjusting sound level=APP_VOL_CTRL
+3 For Using with Two Computers
+4 My Briefcase: for synchronizing files=APP_BRIEFCASE
+3 For Maintaining Your Computer
+4 Backing up your files=APP_BACKUP
+4 Increasing disk space=APP_DRIVESPACE
+4 Detecting and repairing disk errors=IDH_DISK_LOGICAL
+2 Network Services
+3 For Windows NT Workstation=ADVANCED_SERVICES_W@winnt.hlp
+3 For Windows NT Server=ADVANCED_SERVICES_S@winnt.hlp
+3 Installing Network Services=Installing_network@winnt.hlp
+:include supp_ed.cnt
+:include acc_dis.cnt
+1 How To...
+2 Run Programs
+3 Starting a program =WIN_TRAY_START_PROG
+3 Switching between programs =WIN_TRAY_SWITCH_BETWEEN_APPS
+3 Installing a program from a CD-ROM=WIN_ADDPROG_INSTALL_PROGRAM
+3 Removing a program from your computer=WIN_ADDPROG_REMOVE_SOFTWARE
+3 Starting a command prompt window=WINDOWS_DOS_START_DOS
+3 Optimizing MS-DOS programs=WINDOWS_DOS_CONFIGURE
+3 Shutting down your computer =WIN_TRAY_SHUTDOWN
+2 Work with Files and Folders
+3 Finding a file or folder=WIN_TRAY_FIND_FILE
+3 Opening a document you've used recently=WIN_TRAY_OPEN_DOC
+3 Seeing what's on your computer =WINDOWS_FCAB_LOOK_AT_FILES
+3 Copying a file or folder =WINDOWS_FCAB_COPY_FILE
+3 Moving a file or folder=WINDOWS_FCAB_MOVE_FILES
+3 Deleting a file or folder =WINDOWS_FCAB_DELETE_FILES
+3 Sharing a folder=NTSHRUI_SHARING_FOLDER@ntshrui.hlp>proc4
+3 Retrieving deleted files or shortcuts=WINDOWS_WASTE_RETRIEVE_FILES
+3 Copying a file to a floppy disk=WIN_COPY_FILE_TO_FLOPPY
+3 Creating a folder =WINDOWS_

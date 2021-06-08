@@ -1,0 +1,93 @@
+COPYLIST = TRUE
+   CopyFilesInCopyList
+   exit
+[InstallOption]
+   set TccOption = $($1)
+   set SrcDir    = $($2)
+   set AddCopy   = $($3)
+   set DoCopy    = $($4)
+   set DoConfig  = $($5)
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering InstallOption"
+   Debug-Output "$(STF_CONTEXTINFNAME): STF_CWDIR: .$(!STF_CWDIR)."
+   Debug-Output "$(STF_CONTEXTINFNAME): STF_LANGUAGE: .$(!STF_LANGUAGE)."
+   Debug-Output "$(STF_CONTEXTINFNAME): !NTN_RegBase .$(!NTN_RegBase)."
+   Debug-Output "$(STF_CONTEXTINFNAME): !NTN_SoftwareBase .$(!NTN_SoftwareBase)."
+   Debug-Output "$(STF_CONTEXTINFNAME): TccOption: .$(TccOption). SrcDir: .$(SrcDir)."
+   Debug-Output "$(STF_CONTEXTINFNAME): AddCopy: .$(AddCopy). DoCopy: .$(DoCopy). DoConfig: .$(DoConfig)."
+   set LanguageList = ^(LanguagesSupported, 1)
+   Ifcontains(i) $($0) NOT-IN $(LanguageList)
+      Return STATUS_NOLANGUAGE
+   endif
+   set-subst LF = "\n"
+   read-syms GeneralConstants
+   read-syms FileConstants
+   set OptionNameList           = ^(OptList$(!STF_LANGUAGE), 1 )
+   set OptionHdwrNameList       = ^(OptList$(!STF_LANGUAGE), 3 )
+   set OptionHdwrTitleList      = ^(OptList$(!STF_LANGUAGE), 4 )
+   set OptionHdwrDescList       = ^(OptList$(!STF_LANGUAGE), 5 )
+   set ProductHdwrName          = *($(OptionHdwrNameList),+
+                                  ~($(OptionNameList), $($1)))
+   set ProductHdwrTitle         = *($(OptionHdwrTitleList),+
+                                  ~($(OptionNameList), $($1)))
+   set ProductHdwrDesc          = *($(OptionHdwrDescList),+
+                                  ~($(OptionNameList), $($1)))
+   Debug-Output "$(STF_CONTEXTINFNAME): ProductHdwrName .$(ProductHdwrName)."
+   Debug-Output "$(STF_CONTEXTINFNAME): ProductHdwrTitle .$(ProductHdwrTitle)."
+   Debug-Output "$(STF_CONTEXTINFNAME): ProductHdwrDesc .$(ProductHdwrDesc)."
+   read-syms DialogConstants$(!STF_LANGUAGE)
+   ifstr(i) $(!NTN_Origination) == "NCPA"
+      set Continue = "OK"
+   endif
+   read-syms FileConstants$(!STF_LANGUAGE)
+   detect date
+   set-title $(FunctionTitle)
+   set to   = InstallOptionDispatch
+   set from = InstallOptionDispatch
+   set CommonStatus = STATUS_SUCCESSFUL
+   EndWait
+InstallOptionDispatch = +
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering InstallOptionDispatch"
+   Ifstr(i) $(!NTN_InstallMode) == deinstall
+      set StartLabel = RemoveAdapterFromRegistry
+   else-Ifstr(i) $(!NTN_InstallMode) == Update
+      set StartLabel = UpgradeSoftware
+   else-Ifstr(i) $(!NTN_InstallMode) == bind
+      set StartLabel = CheckAdapterBinding
+   else-Ifstr(i) $(!NTN_InstallMode) == configure
+      set StartLabel = GetAdapterConfigFromRegistry
+      Ifstr(i) $(KeyName_Software) == $(!NTN_RegBase)
+         Debug-Output "$(STF_CONTEXTINFNAME): Cannot configure driver software."
+         Shell $(UtilityInf), RegistryErrorString, CANNOT_CONFIGURE_SOFTWARE
+         ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            set ShellErrorSection = UtilityInf:RegistryErrorString
+            goto ShellCodeError
+         endif
+         set Error = $($R0)
+         set from = InstallOptionExit
+         set to = InstallOptionExit
+         goto SetNonFatalInfo
+      endif
+   else
+      set StartLabel = TestForExistingInstallation
+      set OEM_ABANDON_OPTIONS = {}
+      set OEM_ABANDON_SOFTWARE = FALSE
+      set OEM_ABANDON_ON = TRUE
+   endif
+   set InterruptValue         = 2
+   set MemoryBaseValue        = 53248
+   set IoBaseValue            = 736
+   set SlotNumberValue        = 1
+   set BusNumberValue         = 0
+   set BusTypeValue           = 1
+   set MediaTypeValue         = 8
+   set PacketSizeValue        = 1024
+   set NdisInterfaceIsa       = 1
+   set NdisInterfaceEisa      = 2
+   set Tc3047EisaIdValue      = 1349464391
+   set Tc3147EisaIdValue      = 1349464135
+   set from                   = $(FatalError)
+   set to                     = $(FatalError)
+   goto $(StartLabel)
+TestForExistingInstallation = +
+   set OldVersionExisted = $(FALSE)
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering TestForExistingInstall

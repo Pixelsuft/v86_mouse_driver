@@ -1,0 +1,126 @@
+x0b80",2944
+    "UNKNOWN",65535
+[DmaChannelChoices]
+    "PIO",0
+    "DMA Channel 01",1
+    "DMA Channel 02",2
+    "DMA Channel 03",3
+    "DMA Channel 04",4
+    "DMA Channel 05",5
+    "DMA Channel 06",6
+    "DMA Channel 07",7
+    "DMA Channel 08",8
+    "DMA Channel 09",9
+    "DMA Channel 10",10
+    "DMA Channel 11",11
+    "DMA Channel 12",12
+    "DMA Channel 13",13
+    "DMA Channel 14",14
+    "DMA Channel 15",15
+    "DMA",500
+    "MMIO",501
+    "UNKNOWN",65535
+[IrqNumberChoices]
+    "01",1
+    "02",2
+    "03",3
+    "04",4
+    "05",5
+    "06",6
+    "07",7
+    "08",8
+    "09",9
+    "10",10
+    "11",11
+    "12",12
+    "13",13
+    "14",14
+    "15",15
+    "UNKNOWN",65535
+[SlotNumberChoices]
+    "00",0
+    "01",1
+    "02",2
+    "03",3
+    "04",4
+    "05",5
+    "06",6
+    "07",7
+    "08",8
+    "09",9
+    "10",10
+    "11",11
+    "12",12
+    "13",13
+    "14",14
+    "15",15
+    "16",16
+    "17",17
+    "18",18
+    "19",19
+    "20",20
+    "21",21
+    "22",22
+    "23",23
+    "24",24
+    "25",25
+    "26",26
+    "27",27
+    "28",28
+    "29",29
+    "30",30
+    "31",31
+    "UNKNOWN",65535
+[RxTxSlotsChoices]
+    "Rx=02 Tx=02",0
+    "Rx=03 Tx=03",1
+    "Rx=04 Tx=04",2
+    "Rx=06 Tx=06",3
+    "Rx=08 Tx=08",4
+    "Rx=10 Tx=10",5
+[StatsChoices]
+    "Disabled",0
+    "Enabled",1
+[MpChoices]
+    "One",0
+    "Multiple",1
+    "UNKNOWN",65535
+[FileConstantsENG]
+FunctionTitle   = "MdgMPort v"$(ProductVersion)": Madge Smart Ringnode Setup"
+ProductSoftwareTitle       = "MdgMPort"
+ProductSoftwareDescription = "MdgMPort: Madge Smart Ringnode NDIS3 Miniport Driver"
+ProductHardwareMSMDGMPISATitle   = "Madge Smart 16/4 AT Ringnode"
+ProductHardwareMSMDGMPATPTitle   = "Madge Smart 16/4 AT Plus Ringnode"
+ProductHardwareMSMDGMPISACTitle  = "Madge Smart 16/4 ISA Client Ringnode"
+ProductHardwareMSMDGMPISACPTitle = "Madge Smart 16/4 ISA Client Plus Ringnode"
+ProductHardwareMSMDGMPPCTitle    = "Madge Smart 16/4 PC Ringnode"
+ProductHardwareMSMDGMPEISATitle  = "Madge Smart 16/4 EISA Ringnode"
+ProductHardwareMSMDGMPMCATitle   = "Madge Smart 16/4 MC Ringnode"
+ProductHardwareMSMDGMPMC32Title  = "Madge Smart 16/4 MC32 Ringnode"
+ProductHardwareMSMDGMPSM16Title  = "Madge Smart 16 Ringnode"
+ProductHardwareMSMDGMPPNPTitle   = "Madge Smart 16/4 ISA Client PnP Ringnode"
+ProductHardwareMSMDGMPPCITitle   = "Madge Smart 16/4 PCI Ringnode and BM2"
+ProductHardwareMSMDGMPPCIBMTitle = "Madge Smart 16/4 PCI Ringnode BM"
+ProductHardwareMSMDGMPPCMCIATitle  = "Madge Smart 16/4 PCMCIA Ringnode"
+ProductHardwareMSMDGMPISADescription   = "Madge Smart 16/4 AT Ringnode"
+ProductHardwareMSMDGMPATPDescription   = "Madge Smart 16/4 AT Plus Ringnode"
+ProductHardwareMSMDGMPISACDescription  = "Madge Smart 16/4 ISA Client Ringnode"
+ProductHardwareMSMDGMPISACPDescription = "Madge Smart 16/4 ISA Client Plus Ringnode"
+ProductHardwareMSMDGMPPCDescription    = "Madge Smart 16/4 PC Ringnode"
+ProductHardwareMSMDGMPEISADescription  = "Madge Smart 16/4 EISA Ringnode"
+ProductHardwareMSMDGMPMCADescription   = "Madge Smart 16/4 MC Ringnode"
+ProductHardwareMSMDGMPMC32Description  = "Madge Smart 16/4 MC32 Ringnode"
+ProductHardwareMSMDGMPSM16Description  = "Madge Smart 16 Ringnode"
+ProductHardwareMSMDGMPPNPDescription   = "Madge Smart 16/4 ISA Client PnP Ringnode"
+ProductHardwareMSMDGMPPCIDescription   = "Madge Smart 16/4 PCI Ringnode and BM2"
+ProductHardwareMSMDGMPPCIBMDescription = "Madge Smart 16/4 PCI Ringnode BM"
+ProductHardwareMSMDGMPPCMCIADescription   = "Madge Smart 16/4 PCMCIA Ringnode"
+SpeedUserListMSMDGMPISA    = {"Set at adapter", "Force 16 MBit/s"}
+SpeedRawListMSMDGMPISA     = {0, 2}
+SpeedUserListMSMDGMPATP    = {"Set at adapter", "Force 4 MBit/s", "Force 16 MBit/s"}
+SpeedRawListMSMDGMPATP     = {0, 1, 2}
+SpeedUserListMSMDGMPISAC   = {"Set at adapter", "Force 16 MBit/s"}
+SpeedRawListMSMDGMPISAC    = {0, 2}
+SpeedUserListMSMDGMPISACP  = {"Set at adapter", "Force 4 MBit/s", "Force 16 MBit/s"}
+SpeedRawListMSMDGMPISACP   = {0, 1, 2}
+SpeedUserListMSMDGMPPC     = {"Set at adapter", "Forc

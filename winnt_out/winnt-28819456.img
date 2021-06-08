@@ -1,0 +1,81 @@
+             Else-Ifstr(i) $($R0) == STATUS_FAILED
+                   Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                      goto ShellCodeError
+                   endif
+                   set Error = $($R0)
+                   Goto fatal
+                Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                   Goto successful
+                Endif
+                Set SrcDir = $($R1)
+            Endif
+            set NwlnkName = "NWLINKIPX"
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NWLINKIPX" $(MAXIMUM_ALLOWED) BS_KeyServices
+            Ifstr $(BS_KeyServices) == $(KeyNull)
+                set NwlnkName = "NWLNKIPX"
+                OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NWLNKIPX" $(MAXIMUM_ALLOWED) BS_KeyServices
+                Ifstr $(BS_KeyServices) == $(KeyNull)
+                    Shell "oemnxpip.inf" ReturnOptions $(!STF_LANGUAGE)
+                    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                        set OldStfSrcDir = $(!STF_SRCDIR_OVERRIDE)
+                        set !STF_SRCDIR_OVERRIDE = ""
+                        set NwlnkName = *($($R1),1)
+                        Shell "oemnxpip.inf" InstallOption $(!STF_LANGUAGE), *($($R1),1),+
+                            $(SrcDir), $(AddCopy), "NO", $(DoConfig)
+                        set !STF_SRCDIR_OVERRIDE = $(OldStfSrcDir)
+                    else
+                        Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(InstallNWLINKFirst)
+                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                            goto ShellCodeError
+                        endif
+                        goto end
+                    endif
+                else
+                    CloseRegKey $(BS_KeyServices)
+                endif
+            else
+                CloseRegKey $(BS_KeyServices)
+            endif
+            Debug-Output "OEMNSVCU.INF: installadapter: installing [Install-Option]"
+            install "Install-Option"
+            ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+               Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+               set Error = $($R0)
+               goto fatal
+            endif
+        endif
+        Shell $(UtilityInf), AddSoftwareComponent, "Microsoft", +
+            $(ProductSAPName), +
+            $(ProductSAPName), +
+            $(ProductSAPDisplayName), +
+            $(STF_CONTEXTINFNAME),+
+            $(ProductSAPImagePath), +
+            "autoserviceshare" , "", {"NWLNKIPX"}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVRA.INF: InstallRasIsnSapService : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        set ProductKey = $($R1)
+        set RuleKey = $($R2)
+        CloseRegKey $($R3)
+        CloseRegKey $($R4)
+        CloseRegKey $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductSAPTitle)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSAPDescription)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(ProductKey), $(NewValueList)
+        CloseRegKey $(ProductKey)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "utility.INF: ShellCode error. Cannot added SapAgent"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0

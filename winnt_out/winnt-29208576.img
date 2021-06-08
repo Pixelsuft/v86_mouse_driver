@@ -1,0 +1,78 @@
+yName) $(MAXIMUM_ALLOWED) LSAKey
+    Ifstr $(LSAKey) != $(KeyNull)
+        GetRegValue $(LSAKey),"Authentication Packages", PackagesInfo
+        set Packages = *($(PackagesInfo), 4)
+        ifcontains(i) "nwprovau" in $(Packages)
+            debug-output "Authentication Packages already exist."
+        else
+            ifstr(i) $(Packages) == ""
+                set Packages = {"nwprovau"}
+            else
+                set Packages = >($(Packages),"nwprovau")
+            endif
+            SetRegValue $(LSAKey) {"Authentication Packages",$(NoTitle),$(!REG_VT_MULTI_SZ),$(Packages)}
+        endif
+        CloseRegKey $(LSAKey)
+    endif
+    ifstr(i) $(DoWKSTA) == TRUE
+        Debug-Output "OEMNSVNW.INF: Install Workstation in registry."
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductNWWKSTAName))
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+            $(ProductNWWKSTAName), +
+            $(ProductNWWKSTAName), +
+            $(ProductNWWKSTADisplayName), $(STF_CONTEXTINFNAME), +
+            $(ProductNWWKSTAImagePath), "autoserviceshare", "NetworkProvider", {}, "",+
+            $(NetwareEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVNW.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVNW.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey      = $($R1)
+        Set SoftNetRuleKey      = $($R2)
+        Set SoftServiceKey      = $($R3)
+        Set SoftParameterKey    = $($R4)
+        Set SoftLinkageKey      = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductNWWKSTATitle)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductNWWKSTADescription)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductNWWKSTAName)},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVNW.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVNW.INF: registry error: add value list."
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(SoftParameterKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNWWKSTAType)},+
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleNWWKSTAClass)}, +
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNWWKSTAUse)}, +
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNWWKSTABindForm)}, +
+                            {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleNWWKSTABindable)}, +
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),NWWKSTA}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVNW.INF: ShellCode error."

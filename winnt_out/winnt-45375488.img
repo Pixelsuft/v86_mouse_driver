@@ -1,0 +1,79 @@
+, ff,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Init, 2,, "AT &F S0=0 &D2 E0 V1<cr>"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Rockwell18.AddReg]  ; (internal 14400) - no speed negotiation, inactivity timer is \Tn with max 90 minutes
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Rockwell21.AddReg] ; (internal 14400) - with cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q1 *H1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H1"
+
+[Rockwell22.AddReg]  ; (external 14400) - Logicode data-fax-voice with cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C3"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q1 *H1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H1"
+
+[Rockwell23.AddReg] ; (external 14400)  Logicode and Microcom combo
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, c3,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C3"
+
+[Rockwell24.AddReg] ; (internal 14400) - cirrus chipset found in Logicode, no cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V1 S0=0<cr>"
+
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,,"\N3-J1"          
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4-J1"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Rockwell25.AddReg] ; (internal 2400) - Logicode 9426
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S0=0 S95=47<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+HKR,, InactivityScale, 1, 0a,00,00,00    ; 10 sec
+
+[Rockwell27.AddReg] ; (PCMCIA 14400, no cell, cirrus chipset) - Logicode
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V2 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,,"\N3-J1"          
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4-J1"
+
+[Rockwell28.AddReg] ; (internal 1200)  - no compr, ec, speed neg, hard flow, cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, b0,04,00,00, b0,04,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S0=0<cr>"
+
+[Rockwell29.AddReg] ; Piiceon Dispatcher 14.4 with cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W1 S95=47 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N

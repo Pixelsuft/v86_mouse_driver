@@ -1,0 +1,98 @@
+SoftwareTitle), +
+         $(STF_CONTEXTINFNAME), +
+         $(SoftwareImage), +
+         "kernel", "NDIS", {}, "",+
+         $(NetEventDLL)
+   Set OEM_ABANDON_SOFTWARE = TRUE
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+      set ShellErrorSection = UtilityInf:AddSoftwareComponent
+      goto ShellCodeError
+   endif
+   set RegistryErrorIndex = $($R0)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+      EndWait
+      Debug-Output $(STF_CONTEXTINFNAME)": AddAdapterSoftware - add component error"
+      CloseRegKey $($R1)
+      CloseRegKey $($R2)
+      CloseRegKey $($R3)
+      CloseRegKey $($R4)
+      CloseRegKey $($R5)
+      goto FatalRegistryError
+   endif
+   Set Key_SoftwareProduct    = $($R1)
+   Set Key_SoftwareNetRules   = $($R2)
+   CloseRegKey $($R3)
+   CloseRegKey $($R4)
+   CloseRegKey $($R5)
+   set NewValueList = {+
+       {SoftwareType, $(NoTitle), $(!REG_VT_SZ),    $(SoftwareType)},+
+       {MajorVersion, $(NoTitle), $(!REG_VT_DWORD), $(SoftwareMajorVersion)},+
+       {MinorVersion, $(NoTitle), $(!REG_VT_DWORD), $(SoftwareMinorVersion)},+
+       {Title,        $(NoTitle), $(!REG_VT_SZ),    $(SoftwareTitle)},+
+       {Description,  $(NoTitle), $(!REG_VT_SZ),    $(SoftwareDescription)},+
+       {ServiceName,  $(NoTitle), $(!REG_VT_SZ),    $(TccBaseName)},+
+       {InstallDate,  $(NoTitle), $(!REG_VT_DWORD), *($(Now),1)}+
+       }
+   Shell  $(UtilityInf), AddValueList, $(Key_SoftwareProduct), $(NewValueList)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+      set ShellErrorSection = UtilityInf:AddValueList
+      goto ShellCodeError
+   endif
+   Set RegistryErrorIndex = $($R0)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+      EndWait
+      Debug-Output $(STF_CONTEXTINFNAME)": AddAdapterSoftware - add value list error"
+      CloseRegKey $(Key_SoftwareProduct)
+      CloseRegKey $(Key_SoftwareNetRules)
+      goto FatalRegistryError
+   endif
+   Set NewValueList = {+
+       {type,      $(NoTitle), $(!REG_VT_SZ),       $(NetRuleSoftwareType)},+
+       {use,       $(NoTitle), $(!REG_VT_SZ),       $(NetRuleSoftwareUse)}, +
+       {bindform,  $(NoTitle), $(!REG_VT_SZ),       $(NetRuleSoftwareBindForm)}, +
+       {class,     $(NoTitle), $(!REG_VT_MULTI_SZ), $(NetRuleSoftwareClass)}, +
+       {bindable,  $(NoTitle), $(!REG_VT_MULTI_SZ), $(NetRuleSoftwareBindable)}, +
+       {InfOption, $(NoTitle), $(!REG_VT_SZ),       $(TccOption)}+
+       }
+   Shell  $(UtilityInf), AddValueList, $(Key_SoftwareNetRules), $(NewValueList)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+      set ShellErrorSection = UtilityInf:AddValueList
+      goto ShellCodeError
+   endif
+   Set RegistryErrorIndex = $($R0)
+   CloseRegKey $(Key_SoftwareProduct)
+   CloseRegKey $(Key_SoftwareNetRules)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+      EndWait
+      Debug-Output $(STF_CONTEXTINFNAME)": AddAdapterSoftware - add NetRule error"
+      goto FatalRegistryError
+   endif
+AddAdapterHardwareToRegistry = +
+   Shell $(UtilityInf), +
+         AddHardwareComponent, +
+         $(ProductHdwrName), +
+         $(STF_CONTEXTINFNAME), +
+         $(KeyName_Software)
+   ifint $($R4) != -1
+      Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards\"$($R4))
+   endif
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+      set ShellErrorSection = UtilityInf:AddHardwareComponent
+      goto ShellCodeError
+   endif
+   set RegistryErrorIndex = $($R0)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+      EndWait
+      Debug-Output $(STF_CONTEXTINFNAME)": AddAdapterHardware - add component error"
+      CloseRegKey $($R1)
+      CloseRegKey $($R2)
+      CloseRegKey $($R3)
+      goto FatalRegistryError
+   endif
+   set Key_HardwareNetRules   = $($R2)
+   set Key_HardwareParameters = $($R3)
+   set AdapterNumber          = $($R4)
+   set NewValueList = {+
+       {Manufacturer, $(NoTitle), $(!REG_VT_SZ),    $(Manufacturer)},+
+       {Title,        $(NoTitle), $(!REG_VT_SZ),    "["$($R4)"] "$(ProductHdwrTitle)},+
+       {Description,  $(NoTit

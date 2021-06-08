@@ -1,0 +1,99 @@
+
+    Debug-Output "RemoveNdisTapiService entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NdisTapiKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        Shell "utility.inf", RemoveService $(!ProductNDISTAPIName) "YES"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVRA.INF: RemoveNdisTapiService : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNSVRA.INF: RemoveNdisTapiService: Registry error: "
+            return STATUS_FAILED
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    Debug-Output "RemoveNdisTapiService exit"
+    return $(Status)
+[InstallNwlnkRipService]
+    Debug-Output "InstallNwlnkRipService entry"
+    set Status  = STATUS_FAILED
+    set KeyNull = ""
+    Set SrcDir  = $(!STF_SRCDIR)
+    ifstr(i) $(!NTN_InstallMode) == "install"
+       set !STF_SRCDIR_OVERRIDE = $(SrcDir)
+    endif
+    set AddCopy  = YES
+    set DoCopy   = YES
+    set DoConfig = YES
+    set SaveNTN_InstallMode = $(!NTN_InstallMode)
+    set !NTN_InstallMode = install
+    Shell "oemnsvrr.inf" InstallOption $(!STF_LANGUAGE) "NWLNKRIP"  +
+          $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) "RAS"
+    set !NTN_InstallMode = $(SaveNTN_InstallMode)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Error installing NWLNKRIP service"
+        Goto InstallNwlnkRipServiceEnd
+    Endif
+    Set InstallStatus = $($R0)
+    Ifstr(i) $(InstallStatus) != STATUS_SUCCESSFUL
+        Ifstr(i) $(InstallStatus) != STATUS_USERCANCEL
+            Debug-Output "InstallNwlnkRipService returned "$(InstallStatus)
+            Goto InstallNwlnkRipServiceEnd
+        Endif
+    Endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(!RasIsnRipKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    ifstr $(KeyService) != ""
+        OpenRegKey $(KeyService) "" "Parameters" $(!MAXIMUM_ALLOWED) KeyParams
+        ifstr(i) $(KeyParams) != ""
+            GetRegValue $(KeyParams),"NetbiosRouting", NetbiosRoutingInfo
+            Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+               set NetbiosRouting = *($(NetbiosRoutingInfo), 4)
+            else
+               set NetbiosRouting = 2
+            endif
+            ifint $(NetbiosRouting) == 0
+               set NetbiosRouting = 2
+            else-ifint $(NetbiosRouting) == 1
+               set NetbiosRouting = 3
+            endif
+            SetRegValue $(KeyParams) {NetbiosRouting, $(NoTitle), $(!REG_VT_DWORD), $(NetbiosRouting)}
+            CloseRegKey $(KeyParams)
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    Shell "" AddServiceDependency "RemoteAccess" $(!ProductRASISNRIPName)
+    ifstr(i) $($R0) == STATUS_FAILED
+        Debug-Output "InstallNwlnkRipService: error adding service dependency"
+    endif
+    set Status = STATUS_SUCCESSFUL
+InstallNwlnkRipServiceEnd =+
+    Debug-Output "InstallNwlnkRipService exit"
+    return $(Status)
+[RemoveNwlnkRipService]
+    Debug-Output "RemoveNwlnkRipService entry"
+    set Status = STATUS_FAILED
+    set KeyNull = ""
+    Set SrcDir  = $(!STF_SRCDIR)
+    set AddCopy  = YES
+    set DoCopy   = YES
+    set DoConfig = YES
+    set SaveNTN_InstallMode = $(!NTN_InstallMode)
+    set !NTN_InstallMode = deinstall
+    Shell "oemnsvrr.inf" InstallOption $(!STF_LANGUAGE) "NWLNKRIP"  +
+          $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) "RAS"
+    set !NTN_InstallMode = $(SaveNTN_InstallMode)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Error removing NWLNKRIP service"
+        Goto RemoveNwlnkRipServiceEnd
+    Endif
+    Set RemoveStatus = $($R0)
+    Ifstr(i) $(RemoveStatus) != STATUS_SUCCESSFUL
+        Ifstr(i) $(RemoveStatus) != STATUS_USERCANCEL
+            Debug-Output "RemoveNwlnkRipService returned "$(RemoveStatus)
+            Goto RemoveNwlnkRipServiceEnd
+        Endif
+    Endif
+    Shell "" RemoveServiceDependency "RemoteAccess" $(!ProductRASISNRIPName)
+    ifstr(i) $($R0) 

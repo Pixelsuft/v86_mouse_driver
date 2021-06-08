@@ -1,0 +1,50 @@
+ for Windows 95, previously posted on CompuServe, can be used to administer FPNW and DSMN users.
+
+Remote Booting of Windows 95 Clients
+The Remoteboot Service now supports remote booting of Windows 95 clients. This simplifies the use of Windows 95 on “diskless” desktops connected to a server running Windows NT.
+
+Roaming User Profiles
+When you specify a user’s home directory as their user profile directory in User Manager for Domains, the contents of the home directory are copied to the user’s computer at logon. The same files are copied back to the server at logoff. This causes extended delays when the user has a large amount of data in the home directory. This might also lead to version problems as users modify different copies of their files. 
+
+If copying the user’s home directory as part of the roaming user profile uses up the free disk space, entries are written to the system event log and error messages appear. If this situation occurs, look in the User Profile tab of the System icon in Control Panel. There you can see the currently cached user profiles and how much space they occupy.
+
+Note
+The %username% variable does not resolve to the user name when used in the User Profile Path: it is taken literally, and the path is created and used.
+
+Documentation Updates
+The information in this section is included to provided additional or corrected information from the documentation set.
+
+Character Limitations on Volume Labels
+FAT volume labels cannot contain any of the following characters, including spaces. This limitation does not apply to NTFS volumes.
+? / \ | . ,  ; : + = [ ] { } < >
+
+Performance Monitor
+· A perfmon System Object called "Processor Queue Length" returns values other than 0 even when not monitoring a thread counter.  The documented behavior of this counter is that it should always return 0 when not monitoring a specific thread counter.
+
+· You can now use DNS names when specifying which computer to monitor. 
+
+Installing Client-Based Network Administrative Tools on Windows NT Workstation
+To install the Windows NT Server Administrative Tools on a computer running Windows NT Workstation, the Setup.bat file must be run from \Clients\srvtools\winnt directory at the command prompt. Setup.bat is located on the Windows NT Server compact disc in the \Clients\srvtools\winnt  folder.
+
+To install the administrative tools
+1. Insert the Windows NT Server compact disc in the CD-ROM drive.
+2. Click Start, point to Programs, and then click Command Prompt.
+3. Type <cd rom drive letter>:\clients\srvtools\winnt\setup.bat
+where cd rom drive letter is the CD-ROM drive
+4. Follow the on-screen instructions.
+
+System Policy
+System policy can be defined for both users and groups. The order of precedence of system policies can be set for instances where a user is a member of multiple groups. Three settings are available for each policy item (enabled, disabled, or not specified). These policy settings are saved to the Netlogon share of the PDC, where they are replicated to the BDCs in the domain. When a user logs on, the NTConfig.pol file (depending on the client) is parsed for policy settings to apply.
+
+When a user logs on, the user policy (as defined in System Policy Editor) for the user is applied. If a user-specific policy is not applied the default user policy is applied followed by the group policies in priority order:
+· The lowest priority (as defined in System Policy Editor) group policy for the user is applied.
+· The next highest priority group policy is applied, and this step repeats until the policies for all of the user's groups have been applied.
+
+Testing Your Newly Created Recovery Disk
+1. Insert the fault-tolerant boot floppy disk and restart the computer.
+2. If your boot selection correctly specifies the alternate ARC path to the secondary mirrored partition, your system should begin to boot and then fail with the following STOP message:
+
+*** STOP: 0x0000001E (0xc0000006,0x801Abe58,0x00000000, 0x00000000) KMODE_EXCEPTION_NOT_HANDLED
+
+User Manager
+Profiles are no longer li

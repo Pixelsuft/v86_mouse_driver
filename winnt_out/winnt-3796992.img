@@ -1,0 +1,110 @@
+fddi driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        else
+            Debug-Output "Cannot configure the fddi adapter card."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_HARDWARE
+        endif
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+        set from = end
+        set to = end
+        goto nonfatalinfo
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               Set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    goto nextstep
+configureadapter = +
+    set Error = "Configure: Not Implmemented yet"
+    goto fatal
+nextstep = +
+    StartWait
+installproduct = +
+    Shell $(UtilityInf), MCAFindBus, $(NPMCA_1BYTE), $(NPMCA_2BYTE)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) == {}
+        set Error = $(CANNOT_FIND_ANY_CARD)
+        set CommonStatus = STATUS_USERCANCEL
+        set from = "end"
+        goto nonfatal
+    endif
+    set AdapterList = $($R1)
+    ifint $(OldVersionExisted) == $(FALSE)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+           Ifstr(i) $(DoCopy) == "YES"
+              Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+              Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  Goto ShellCodeError
+              Else-Ifstr(i) $($R0) == STATUS_FAILED
+                  Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                  ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                      goto ShellCodeError
+                  endif
+                  set Error = $($R0)
+                  Goto fatal
+              Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                  Goto successful
+              Endif
+              Set SrcDir = $($R1)
+           Endif
+           install "Install-Option"
+           ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+              Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+              ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  goto ShellCodeError
+              endif
+              set Error = $($R0)
+              goto fatal
+           endif
+        endif
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), +
+            $(ProductSoftwareName), +
+            $(ProductSoftwareTitle), $(STF_CONTEXTINFNAME), +
+            $(ProductSoftwareImagePath), "kernel", "NDIS", {}, "",+
+            $(NetEventDLL)
+        Set OEM_ABANDON_SOFTWARE = TRUE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(Registr

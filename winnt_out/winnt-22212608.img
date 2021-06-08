@@ -1,0 +1,35 @@
+-click the Internet Information Server Setup icon on the desktop and follow the setup screen instructions.  When it appears, click Add/Remove, then select Internet Service Manager (HTML). Follow the setup screen instructions to complete the installation.
+
+If you have any HTML pages in your Home virtual directory, the IIS setup program will not install any of the new 2.0 sample pages.  The sample pages now include links to the HTML documentation and to the Web-based Internet Service Manager. To install the samples, move your current content files into a temporary directory before installing IIS 2.0.
+
+Anonymous User Account
+If users cannot use the Anonymous user logon to connect to IIS servers, set the anonymous user account (the account is named IUSR_<computer name>) password on the IIS server to a publicly known value (for example, password) in both User Manager for Domains and Internet Service Manager.
+
+Removing TCP/IP
+If you remove the TCP/IP protocol, the Internet Information Server component cannot be removed using the Internet Information Services icon.  To work around the problem and remove IIS, reinstall the TCP/IP protocol, and then remove IIS.
+
+Support for Private Communication Technology (PCT)
+Internet Information Server supports the PCT 2.0 specification, which is designed to secure general-purpose business and personal communications on the Internet and includes features such as privacy, authentication, and mutual identification. PCT enhances Secure Sockets Layer (SSL) with technology developed for Secure Transaction Technology (STT), particularly in authentication and protocol efficiency. By separating authentication from encryption, PCT enables applications to use authentication that is significantly stronger than the 40-bit key limit for encryption allowed by the U.S. government for export. Microsoft's implementation of PCT is backward compatible with SSL.
+
+Changes to User Configuration
+If changes to user configurations (such as adding or removing users from a group, changing passwords, or changing NTFS permissions) do not take affect immediately, try stopping and restarting the Internet services (WWW, FTP, and gopher).  Internet Information Server caches security tokens for all users.  Changes to user configurations will not appear until the security-token cache is cleared and the new tokens are cached.  The default caching interval is 15 minutes. 
+
+Default File-Extension Mappings
+ Previous releases of Internet Information Server installed a default file-extension mapping to map .bat and .cmd files to the command interpreter Cmd.exe. If you are upgrading Internet Information Server, the Setup program removes the previously-installed .bat and .cmd mapping. If you are installing Internet Information Server for the first time, Setup simply does not create this default mapping.
+
+You can map .cmd or .bat files to the Cmd.exe program by creating a registry entry. Use file-extension mappings carefully. Mapping batch command files to an interpreter may pose a security threat to your server. 
+
+For information on creating the registry entry, see "Associating Interpreters with Applications" in Chapter 10, "Configuring Registry Entries," in the Internet Information Server Installation and Administration Guide. 
+
+Product Home Page
+The HTML samples include a product home page (Default.htm) for Internet Information Server that contains links to the product documentation, the Web-based server administration tool, and to the Microsoft Web site.
+If you already have a file named default.htm in the Wwwroot directory, Setup will not replace your file with the product’s default home page. You can view the product home page by typing the following URL:
+
+     http://computername/Samples/Default.htm
+
+If you do not have a file named Default.htm in the Wwwroot directory, Setup copies the file to the Wwwroot directory. 
+ 
+Publishing from Network Drives
+The FTP, gopher, and WWW services cannot publish from redirected network drives (that is, from drive letters assigned to network shared folders). 
+
+T

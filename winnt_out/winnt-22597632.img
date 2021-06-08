@@ -1,0 +1,110 @@
+. Contact your 3Com representative for information about upgrading your Access Builder software. If you do not have a 3Com representative, contact the 3Com Corporation product information line at 800-638-3266. You can also call 408-764-5000 and ask for the product information line.
+
+
+Using Terminal Mode in RAS
+--------------------------
+Some Internet providers require new users to register using terminal mode after connecting the first time. Try using the terminal mode provided by Remote Access and select Dumb Terminal from the terminal mode emulations offered at connect time by the Internet provider. If the terminal emulation provided in RAS does not work, use the Terminal program in the Program Manager Accessories group.
+
+PPP Service Providers
+----------------------
+The following service providers have been successfully tested with Windows NT. These are additions to the PPP service providers provided in RAS Help.
+
+Maestro Technologies, Inc.
+New York, NY
+Phone 212-240-9600
+PPP
+
+Network 23, Co.
+New York, NY
+Phone 917-424-8806
+PPP
+
+International Internet Association (IIA)
+Herndon, VA
+Phone 703-904-4100
+PPP/SLIP
+
+Eskimo North
+Seattle, WA
+Phone 206-367-7457
+PPP
+
+DKnet
+Koebenhavn Oe, Denmark
+Phone 45-39-17-99-00
+PPP
+
+WinNet
+Harrow, England
+Phone 44-181-863-1191
+PPP
+
+EUnet Finland
+Helsinki, Finland
+Phone 358-0-400-2060
+PPP/SLIP
+
+COM
+Les Ulis, France
+Phone 33-1-69-28-85-15
+PPP
+
+Individual Network e.V. (IN)
+Oldenburg, Germany
+Phone 49-441-980-8556
+PPP
+
+SANGONeT
+Johannesburg, South Africa
+Phone 27-11-838-6943/4
+PPP
+
+ZAMNET Communications Systems Ltd
+Lusaka, Zambia
+Phone 260-1-293-317 or 260-1-252-507
+PPP
+
+
+=================================================
+RAS AND TCP/IP
+=================================================
+
+Resetting DHCP Leases on RAS Servers
+------------------------------------
+If you configure a new set of IP addresses at the DHCP server and you want RAS servers to re-synchronize with the new DHCP configuration, you must delete the RAS server's DHCP cache and reset the lease on the RAS server. This is accomplished by deleting a Registry key and restarting the Remote Access server, as described below.
+
+At the command prompt, type:
+
+start regedt32.exe
+
+In the \HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services
+\RemoteAccess\Parameters\IP entry, delete the entire DhcpAddresses key. Restart the Remote Access Server service.
+
+
+
+=================================================
+RAS AND IPX
+=================================================
+
+Using NetBIOS Applications on IPX
+------------------------------
+RAS supports running NetBIOS applications on IPX. No configuration is necessary if the RAS remote client is the application client and the NetBIOS application server is on the LAN. However, if the NetBIOS application server is the remote computer, you may need to set one or both of the following Registry entries to ensure the IPX type 20 packets used for initial contact between the NetBIOS IPX client and server are forwarded correctly. 
+
+To set where NetBIOS broadcast packets from dial-in lines are broadcast, change the following Registry key:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+\NwlnkIpx\Parameters\DisableDialinNetbios.
+
+To set whether packets are broadcast to or from the LAN through the RAS IPX router, change the following Registry key:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+\NwlnkRip\Parameters\NetbiosRouting. The DisableDialinNetbios parameter must be set correctly in addition to NetbiosRouting.
+
+For more information, see the appropriate Registry topics in Remote Access Help.
+
+
+Using Shiva Remote Version 3.2 Client Software and IPX
+------------------------------------------------------
+If you are using the IPX protocol with Shiva remote client software, you must configure the Windows NT 3.51 RAS server IPX settings to allow remote clients to request an IPX node number. You configure the RAS server using the Network option of Control Panel.
+
+
+
+==================================

@@ -1,0 +1,177 @@
+ff>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=9600
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=096
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=AT V1 X4 S0=0 S2=128 S7=55 S95=44<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Zoom VFX V.32bis]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=&Q5
+<protocol_off>=&Q0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=VFX14.4
+DETECT_RESPONSE=TR14
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=AT V1 X4 S0=0 S2=128 S7=55 S95=44 <cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Zoom VFP 28.8 internal]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=VFP
+DETECT_RESPONSE=VFC
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=28800
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=AT V1 W1 X4 S0=0 S2=128 S7=55 S95=44 <cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+;----------------------------------------
+[ZyXel U-1496]
+;Cannot toggle EC and DC entirely independently in ZyXel.
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&H3
+<hwflowcontrol_off>=&H0
+<compression_on>=&K4
+<compression_off>=&K0
+<protocol_on>=&K3
+<protocol_off>=&K0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=1496
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=ATV1 X5 S0=0S2=128 S7=55 S35=2<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><protocol><compression><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[ZyXel U-1496B]
+ALIAS=ZyXel U-1496
+
+;----------------------------------------
+[ZyXel U-1496E]
+ALIAS=ZyXel U-1496
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=1496E
+
+;----------------------------------------
+[ZyXel U-1496]
+ALIAS=ZyXel U-1496
+
+;----------------------------------------
+[ZyXel U-1496E+]
+ALIAS=ZyXel U-1496
+
+;----------------------------------------
+[ZyXel U-1496B+]
+ALIAS=ZyXel U-1496
+
+;----------------------------------------
+[ZyXel U-1496+]
+ALIAS=ZyXel U-1496
+
+;----------------------------------------
+[ZyXel U-1496P]
+ALIAS=ZyXel U-1496
+
+;----------------------------------------
+; UK MODEMS
+;----------------------------------------
+
+;----------------------------------------
+[Hayes Ultra 14400 - UK]
+ALIAS=Hayes Optima 14400
+
+;----------------------------------------
+[Smartlink Pocket 2400 - UK]
+ALIAS=Hayes Compatible 2400
+
+;----------------------------------------
+[Smartlink V32Bis/Fax - UK]
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compre

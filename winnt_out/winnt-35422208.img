@@ -1,0 +1,223 @@
+L (Dev) L2)
+    (ownerlist T L2 Lout)
+)
+
+( (dobindstrassert Owner Name Objname Devlist Fullbindstr Fullexportstr)
+    (ownerlist Devlist () Ownerlist)
+    (not (isblocked (Name|Ownerlist)))
+    (printif (nl "Asserting bindstring: " Name " = " Fullbindstr ","
+              nl "                        export = " Fullexportstr nl))
+    (assertz (bindstring Owner Name Objname Ownerlist Fullbindstr Fullexportstr))
+    (cut)
+)
+
+( (dobindstrassert _ _ _ _ _ _)
+)
+
+  
+
+( (bindstrassert Name (Devlist|T))
+    (makedevstring import Devlist "" Bindstr)
+    (makedevstring export (Name|Devlist) "" Exportstr)
+    (string_concat "\Device\" Bindstr Fullbindstr)
+    (string_concat "\Device\" Exportstr Fullexportstr)
+    (ifpresent _ Name _ Owner Objname)
+    (dobindstrassert Owner Name Objname Devlist Fullbindstr Fullexportstr)
+    (bindstrassert Name T)
+)
+
+  
+
+( (makedevstring _ () Bindstr Bindstr)
+    (cut)   
+)
+
+  
+( (makedevstring _ (Dev|Tail) Oldstr Newstr)
+    (ifpresent _ Dev _ _ Objectname)
+    (ifbind Dev bare)
+    (cut)
+    (string_concat Oldstr Objectname Newstr)
+)
+
+  
+
+( (makedevstring _ (Dev|Tail) Oldstr Newstr)
+    (ifpresent _ Dev Devtype _ _)
+    (devBind Devtype _ _ no _)
+    (cut)
+    (makedevstring _ Tail Oldstr Newstr)
+)
+  
+( (makedevstring _ (Dev) Oldstr Newstr)
+    (atom Dev)
+    (cut)
+    (ifpresent _ Dev _ _ Objectname)
+    (cut)
+    (string_concat Oldstr Objectname Newstr)
+)
+
+  
+  
+
+( (makedevstring export (Dev Devnext|Tail) Oldstr Newstr)
+    (isendpoint Dev)
+    (isstream Devnext)
+    (cut)
+    (makedevstring _ (Devnext Dev) Oldstr Newstr)
+)
+
+  
+( (makedevstring _ (Dev Devnext|Tail) Oldstr Newstr)
+    (isstream Devnext)
+    (cut)
+    (makedevstring _ (Devnext Dev|Tail) Oldstr Newstr)
+)
+  
+( (makedevstring _ (Dev|Tail) Oldstr Newstr)
+    (isendpoint Dev)
+    (cut)
+    (ifpresent _ Dev _ _ Objectname)
+    (string_concat Oldstr Objectname Newstr)
+)
+
+  
+( (makedevstring _ (Dev|Tail) Oldstr Newstr)
+    (ifpresent _ Dev Devtype _ Objectname)
+    (cut)
+    (ifbind Devtype Method)
+    (getsep Method Sep)
+    (cut)
+    (string_concat Oldstr Objectname T1)
+    (string_concat T1 Sep T2)
+    (makedevstring _ Tail T2 Newstr)
+)
+
+( (getsep simple "_")
+  (cut)
+)
+( (getsep _ "\") )
+
+   
+
+( (bindflatten _ () List List) )   
+
+( (bindflatten Devlist (Dev|List) Inlist Outlist)
+    (atom Dev)	 
+    (cut)
+    (append Devlist (Dev) Devnew)
+    (bindflatten Devnew List Inlist Outlist)
+)
+( (bindflatten Devlist ((Dev)|T) Inlist Outlist)
+    (atom Dev)
+    (cut)
+    (append Devlist (Dev) Devnew)
+    (bindflatten Devlist T (Devnew|Inlist) Outlist)
+)
+( (bindflatten Devlist (H|T) Inlist Outlist)
+    (bindflatten Devlist H Inlist List1)
+    (bindflatten Devlist T List1 Outlist)
+)
+
+
+
+( (makebindlist List)
+    (findall (From To) (binding From To _ _ _) List)
+)
+
+
+
+
+( (string_subst Tok Str Newtok Newstr)
+    (substr Tok Str)
+    (string_break Tok Str Left Right)
+    (string_concat Left Newtok Str1)
+    (string_concat Str1 Right Newstr)
+    (cut)
+)
+
+( (string_subst Tok Str _ Str)
+)
+
+
+
+
+( (list_subst _ () _ ())
+    (cut)
+)
+( (list_subst Tok (Tok|T) Newtok (Newtok|LT))
+    (cut)
+    (list_subst Tok T Newtok LT)
+)
+( (list_subst Tok (H|T) Newtok (H|LT))
+    (list_subst Tok T Newtok LT)
+)
+
+
+
+
+( (substr Sub Str)
+    
+    
+    
+    (string_break Sub Str Left Right)
+    (not (eq Str Left))
+)
+
+
+
+
+
+
+
+
+
+
+
+
+( (printif List)
+    (printctl on)
+    (cut)
+    (printall List)
+)
+( (printif _) )
+
+( (displayif Thing)
+    (printctl on)
+    (cut)
+    (display Thing)
+)
+( (displayif _) )
+
+( (pctl on)
+    (cut)
+    (asserta (printctl on))
+)
+( (pctl off)
+    (retract (printctl _))
+)
+
+( (pstdout on)
+    (cut)
+    (asserta (printstdout on))
+)
+( (pstdout off)
+    (retract (printstdout _))
+)
+
+( (statctl on)
+    (cut)
+    (asserta (statctl on))
+)
+( (statctl off)
+    (retract (statctl _))
+)
+
+( (tostring nl "")
+    (cut)
+    (tracenl)
+    
+)
+
+( (tostring X X)
+    

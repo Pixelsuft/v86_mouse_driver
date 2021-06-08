@@ -1,0 +1,42 @@
+58,02,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/REL COMPRESSED<cr><lf>",  1,  02,  03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/REL COMPRESSED<cr><lf>",  1,  02,  03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/REL COMPRESSED<cr><lf>",      1,  02,  03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/REL COMPRESSED<cr><lf>",      1,  02,  03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/REL COMPRESSED<cr><lf>",         1,  02,  03,  B0,04,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL COMPRESSED<cr><lf>", 1,  02,  03,  60,09,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/REL COMPRESSED<cr><lf>", 1,  02,  03,  C0,12,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/REL COMPRESSED<cr><lf>", 1,  02,  03,  20,1C,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/REL COMPRESSED<cr><lf>", 1,  02,  03,  80,25,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL COMPRESSED<cr><lf>", 1, 02,  03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/REL COMPRESSED<cr><lf>", 1, 02,  03,  40,38,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/REL COMPRESSED<cr><lf>", 1, 02,  03,  A0,41,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/REL COMPRESSED<cr><lf>", 1,  02,  03,  00,4B,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/REL COMPRESSED<cr><lf>", 1,  02,  03,  60,54,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/REL COMPRESSED<cr><lf>", 1,  02,  03,  C0,5D,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/REL COMPRESSED<cr><lf>", 1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/REL COMPRESSED<cr><lf>", 1,  02,  03,  80,70,00,00,  00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/REL COMPRESSED<cr><lf>", 1,  02,  03, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/REL COMPRESSED<cr><lf>",           1, 02, 03, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/REL COMPRESSED<cr><lf>",   1, 02, 03, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/REL COMPRESSED<cr><lf>",         1, 02, 03, 00,C2,01,00, 00,00,00,00
+
+
+HKR, Responses, "<cr><lf>PROTOCOL: NONE<cr><lf>",                   1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB<cr><lf>",     1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB/HDX<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB/AFT<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB/HDX<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB/AFT<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM<cr><lf>",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M<cr><lf>",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM/HDX<cr><lf>",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM/AFT<cr><lf>",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M/AFT<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT<cr><lf>",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>",           1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP<cr><lf>",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP2<cr><lf>",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP3<cr><lf>",   

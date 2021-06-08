@@ -1,0 +1,58 @@
+asa may need to make changes to IIS for the file to work properly. For more information, see the Windows&nbsp;NT&nbsp;4.0 Option Pack Help.</p>
+<p>
+To ensure that Global.asa is available to Asp.dll after applying SP6, folders that contain Global.asa files should be marked as&nbsp;applications. For more information, see the "Creating Applications" topic in the Windows&nbsp;NT&nbsp;4.0 Option Pack online documentation.</p>
+<p>
+Certain CryptoAPI-related file name extensions (.cer, .crt, and .der) aren't registered correctly when Internet Explorer&nbsp;4 is installed after SP6. To restore the file name extension registration, run the following command line:</p>
+<p>
+<b>Regsvr32.exe cryptext.dll</b></p>
+<p>
+This problem is fixed in Internet Explorer&nbsp;5.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="4.4"><b>4.4 Security Configuration Manager</b></a></p>
+<p>This section discusses issues with Security Configuration Manager.</p>
+<p>
+<a name="4.4.1"><b>4.4.1 Error Messages Received When You Log On to a Secure Desktop</b></a></p>
+<p>
+The first time a user logs on to a Compatible, Secure, or Hi Secure Windows&nbsp;NT&nbsp;4.0 computer running Internet Explorer&nbsp;5 or later, the following message appears:</p>
+<p><blockquote>
+"INF Install Failure. Reason: Access is denied. Corresponding Start Menu Items are missing."</blockquote></p>
+<p>
+To work around this message, potential users of the system should log on prior to securing the desktop.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="4.5"><b>4.5 Microsoft Proxy Server</b></a></p>
+This section discusses issues using Microsoft Proxy Server with Windows&nbsp;NT&nbsp;4.0 SP6.</p>
+<p>
+<a name="4.5.1"><b>4.5.1 Web Administration Tool</b></a></p>
+<p>
+After SP6 is installed, the Web Administration Tool for Microsoft Proxy Server&nbsp;2.0 may stop responding. This occurs because IIS doesn’t have the correct program setting for the Proxy Server Web administration tool, which requires script execute permission. This problem may only occur with Windows&nbsp;NT&nbsp;Server&nbsp;4.0, SP6, and the Windows&nbsp;NT&nbsp;4.0 Option Pack.</p>
+<p><blockquote>
+<b>To restart the Web Administration Tool</b></p>
+<ol>
+<li>Click <b>Start</b>, point to <b>Programs</b>, point to <b>Windows&nbsp;NT&nbsp;4.0 Option Pack</b>, point to <b>Microsoft Internet Server</b>, and then click <b>Internet Service Manager</b>.</li>
+<li>In the left pane, click <b>Internet Information Server</b>.</li>
+<li>In the right pane, double-click your server name.</li>
+<li>In the right pane, double-click <b>MS Proxy Administration Web Site</b>.<br>
+<li>In the right pane, right-click <b>PrxAdmin</b>, and then click <b>Properties</b>.</li>
+<li>On the <b>Virtual Directory</b> tab, and then in the Application Settings section, set the Permissions to <b>Script</b>.</li>
+<li>In the Application Settings section, click <b>Create</b>.</li><br>
+If a <b>Remove</b> button appears and there isn’t a <b>Create</b> button, no further action is necessary. The computer is already properly configured.</li>
+<li>Click <b>OK</b>. You may be prompted to restart your computer.</li>
+</ol></blockquote></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="4.5.2"><b>4.5.2 Microsoft Proxy Server&nbsp;1.0 Client</b></a></p>
+<br>
+Installing SP6 on a computer running Windows&nbsp;NT&nbsp;4.0 Workstation or Server with Microsoft Proxy Server&nbsp;1.0 client installed disables the WinSock Proxy Client component. As a result, programs that access the Internet and depend on the Proxy client may not be able to gain access to the Internet. You should uninstall Microsoft Proxy Client before installing SP6. After you install SP6, you can reinstall the Proxy Client.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="4.6"><b>4.6 MDAC&nbsp;2.0 Service Pack&nb

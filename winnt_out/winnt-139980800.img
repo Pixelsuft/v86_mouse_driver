@@ -1,0 +1,114 @@
+TF_WINDOWSSYSPATH)\RASNBFCP.DLL
+RASNBIPCDLL    = $(!STF_WINDOWSSYSPATH)\RASNBIPC.DLL
+RASCCPDLL      = $(!STF_WINDOWSSYSPATH)\RASCCP.DLL
+RASCBCPDLL     = $(!STF_WINDOWSSYSPATH)\RASCBCP.DLL
+ASYNCMACSYS    = $(!STF_WINDOWSSYSPATH)\DRIVERS\ASYNCMAC.SYS
+NDISWANSYS     = $(!STF_WINDOWSSYSPATH)\DRIVERS\NDISWAN.SYS
+RASARPSYS      = $(!STF_WINDOWSSYSPATH)\DRIVERS\RASARP.SYS
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Ras-Admin]
+1,RASADMIN.EXE , SIZE=126224 , NODELETESOURCE
+1,RASSAPI.DLL , SIZE=22800 , NODELETESOURCE
+1,RASADMIN.CNT , SIZE=1330
+1,RASADMIN.HLP , SIZE=42084
+[Files-Ras-Client]
+1,RASPHONE.EXE , SIZE=52496 , NODELETESOURCE
+1,RASSHELL.DLL , SIZE=18704 , NODELETESOURCE
+1,RASAPI16.DLL , SIZE=4512
+1,RASAPI32.DLL , SIZE=127248
+1,RASCAUTH.DLL , SIZE=28432
+1,RASCPL.CPL , SIZE=10512
+1,RASDIAL.EXE , SIZE=17168
+1,RASGLOSS.CNT , SIZE=2310
+1,RASGLOSS.HLP , SIZE=23767
+1,RASMON.EXE , SIZE=117520
+1,RASPHONE.CNT , SIZE=7381
+1,RASPHONE.HLP , SIZE=289828
+1,RASSCRPT.DLL , SIZE=54544
+[Files-Ras-Common]
+1,RASADHLP.DLL , SIZE=10000
+1,RASAUTO.DLL , SIZE=73488
+1,RASAUTOU.EXE , SIZE=12048
+1,RASCBCP.DLL , SIZE=9488
+1,RASCCP.DLL , SIZE=11024
+1,RASCHAP.DLL , SIZE=24848
+1,RASDLG.DLL , SIZE=347408
+1,RASIPCP.DLL , SIZE=16656
+1,RASIPHLP.DLL , SIZE=27920
+1,RASIPXCP.DLL , SIZE=22800
+1,RASMAN.DLL , SIZE=61200
+1,RASMAN.EXE , SIZE=8976
+1,RASMSG.DLL , SIZE=28944
+1,RASMXS.DLL , SIZE=26896
+1,RASNBFCP.DLL , SIZE=15632
+1,RASNBIPC.DLL , SIZE=8976
+1,RASPAP.DLL , SIZE=13584
+1,RASPPPEN.DLL , SIZE=49936
+1,RASSER.DLL , SIZE=16656
+1,RASSPAP.DLL , SIZE=15120
+1,RASTAPI.DLL , SIZE=33040
+[Files-Ras-Drivers]
+1,ASYNCMAC.SYS , SIZE=39152
+1,NDISTAPI.SYS , SIZE=8496
+1,NDISWAN.SYS , SIZE=57104
+1,RASACD.SYS , SIZE=8112
+1,RASARP.SYS , SIZE=12912
+[Files-Ras-Inf]
+modem = 1,MODEM.INF , SIZE=999 , NODELETESOURCE
+pad = 1,PAD.INF , SIZE=999 , NODELETESOURCE
+rasico = 1,RAS.ICO , SIZE=999 , NODELETESOURCE
+rasread = 1,RASREAD.TXT , SIZE=999 , NODELETESOURCE
+switch = 1,SWITCH.INF , SIZE=999 , NODELETESOURCE
+[Files-Ras-Scp]
+cis = 1,CIS.SCP , SIZE=999 , NODELETESOURCE
+pppmenu = 1,PPPMENU.SCP , SIZE=999 , NODELETESOURCE
+scriptdoc = 1,SCRIPT.DOC , SIZE=999 , NODELETESOURCE
+slip = 1,SLIP.SCP , SIZE=999 , NODELETESOURCE
+slipmenu = 1,SLIPMENU.SCP , SIZE=999 , NODELETESOURCE
+[Files-Ras-Server]
+1,RASADMIN.DLL , SIZE=18192
+1,RASCTRS.DLL , SIZE=15120
+1,RASGPRXY.DLL , SIZE=15120
+1,RASGTWY.DLL , SIZE=47888
+1,RASSAUTH.DLL , SIZE=28432
+1,RASSPRXY.EXE , SIZE=9488
+1,RASSRV.EXE , SIZE=69392
+[Files-Resource]
+1,RASCFG.DLL , SIZE=154384 , NODELETESOURCE
+1,RASFIL32.DLL , SIZE=12560 , NODELETESOURCE
+1,RASSETUP.CNT , SIZE=99 , NODELETESOURCE
+1,RASSETUP.HLP , SIZE=16757 , NODELETESOURCE
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    RAS = "Remote Access Service"
+[FileConstantsENG]
+    RasGroup    = "Remote Access Service"
+    RasPhone    = "Remote Access"
+    RasMon      = "Remote Access Monitor"
+    RasAdmin    = "Remote Access Admin"
+    ReadMe      = "Read Me"
+    RasInternet = "Remote Access and the Internet"
+    RasHelp     = "Remote Access Help"
+    ProCaption   = "Remote Access Service Setup"
+    ProCancel    = "Cance&l"
+    ProCancelMsg = "Remote Access Service is not correctly installed. "+
+                   "Are you sure you want to cancel copying files?"
+    ProCancelCap = "Remote Access Service Setup Message"
+    ProText1     = "Copying:"
+    ProText2     = "To:"
+    Error        = "Unable to determine proper source disk location; copy cannot be performed."
+    FunctionTitle   ="Remote Access Setup"
+    ProductRASDescription                = "Enables users to work offsite as though connected directly to a network."
+    ProductRASTitle                      = "Remote Access Service"
+    ProductRASDisplayName                = "Remote Access Service"
+    ProductRASMANDescription    

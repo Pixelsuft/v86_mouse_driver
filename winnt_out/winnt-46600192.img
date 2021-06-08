@@ -1,0 +1,108 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Hayes Optima 288 v.34 + Fax + Voice
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg%=Models
+
+[ControlFlags]
+ExcludeFromSelect=SERENUM\HAY0001
+
+[Modem1.NoResDup]
+UNIMODEM89638C47
+
+[Models]
+%Modem1% = Modem1, UNIMODEM89638C47  
+%Modem1PNP% = Modem1, SERENUM\HAY0001
+
+[Modem1]
+AddReg=All, MfgAddReg, Rock_Voice, Modem1.AddReg, EXTERNAL
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,84,03,00, 80,70,00,00
+HKR,, DCB, 1, 1C,00,00,00, 00,c2,01,00, 15,20,00,00, 00,00, 0a,00,0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+
+[Strings]
+Mfg  = "Hayes"
+Modem1="Hayes Optima 288 V.34-V.FC + FAX + Voice"
+Modem1PNP="Hayes Optima 288 V.34-V.FC + FAX + Voice Plug & Play"
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[Rock_Voice]
+HKR,,Enumerator,,serwave.vxd
+HKR,, VoiceProfile,    1,23,02,08,00
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"   
+HKR, EnableDistinctiveRing, 1,, "ATS101=1<cr>"   
+HKR, StartPlay,               1,, "at#vtx<cr>"
+HKR, StopPlay,                1,, "None"
+HKR, StopPlay,                2,, "NoResponse"
+HKR, StartRecord,             1,, "at#vrx<cr>"
+HKR, StopRecord,              1,, "None"
+HKR, StopRecord,              2,, "NoResponse"
+HKR,, TerminateRecord,,      "<h10>E<cr>at<cr>"
+HKR,, TerminatePlay,,        "<h10><h03>at<cr>"
+HKR,, AbortPlay,,            "<h10><h18>at<cr>"
+HKR, LineSetPlayFormat,       1,, "at#vls=0<cr>"
+HKR, LineSetRecordFormat,     1,, "None"
+HKR, LineSetRecordFormat,     2,, "NoResponse"
+HKR, HandsetSetRecordFormat,   1,,"at#vsr=7200<cr>"
+HKR, HandsetSetRecordFormat,   2,,"at#vbs=4<cr>"
+HKR, HandsetSetPlayFormat,     1,,"at#vsr=7200<cr>"
+HKR, HandsetSetPlayFormat,     2,,"at#vbs=4<cr>"
+HKR, OpenHandset,               1,, "at#cls=8<cr>"
+HKR, OpenHandset,               2,, "at#vls=1<cr>"
+HKR, CloseHandset,              1,, "at#cls=0<cr>"
+HKR, VoiceToDataAnswer,         1,, "at#cls=0<cr>"
+HKR, VoiceToDataAnswer,         2,, "ata<cr>"
+HKR, VoiceAnswer,               1,, "at#cls=8<cr>"
+HKR, VoiceAnswer,               2,, "at#vls=0<cr>"
+HKR, VoiceAnswer,               3,, "at#vbt=1<cr>"
+HKR, VoiceAnswer,               4,, "at#vsr=7200<cr>"
+HKR, VoiceAnswer,               5,, "at#vbs=4<cr>"
+HKR, VoiceAnswer,               6,, "ata<cr>"
+HKR, VoiceDialNumberSetup,               1,, "at#cls=8<cr>"
+HKR, VoiceDialNumberSetup,               2,, "at#vls=4<cr>"
+HKR, VoiceDialNumberSetup,               3,, "at#vrn=0<cr>"
+HKR, VoiceDialNumberSetup,           4,, "at#vbt=1<cr>"
+HKR, VoiceDialNumberSetup,           5,, "at#vsr=7200<cr>"
+HKR, VoiceDialNumberSetup,           6,, "at#vbs=4<cr>"
+HKR, GenerateDigit,               1,, "at#vts=<Digit><cr>"
+HKR,, CallerIDPrivate,,P
+HKR,, CallerIDOutSide,,O
+HKR,, VariableTerminator,,<cr><lf>
+HKR, Responses, "<cr><lf>VCON<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATE = ", 1, 93, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "TIME = ", 1, 94, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CALR = ", 1, 95, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NMBR = ", 1, 95, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NAME = ", 1, 96, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "MESG = ", 1, 97, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING A<cr><lf>",        1, 18, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING B<cr><lf>",        1, 19, 00, 00,00,00,00, 00,00,00,00
+HKR, Re

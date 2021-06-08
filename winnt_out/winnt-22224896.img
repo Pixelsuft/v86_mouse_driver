@@ -1,0 +1,35 @@
+ Type cd \<platform>\inetsrv and then press ENTER.
+4. Type inetstp.exe and then press ENTER.
+
+Internet Information Server Default File is Changed to Default.htm on Upgrade
+Upon upgrade from Internet Information Server 1.0 or an earlier version of Internet Information Server 2.0, the Default Document for the WWW Service will be set to Default.htm.  If you previously had a different default document, you need to change it in the Microsoft Internet Service Manager.  Go to the start menu and click on "Programs/Microsoft Internet Server/Internet Service Manager".  This will start the Microsoft Internet Service Manager.  Double click on the WWW line in the display.  Click on the Directories tab and edit the Default Document edit box.  Click OK.
+
+Account Lockout
+In this release of Windows NT, your user account can become locked out when you try to connect to network resources using the Run dialog box (accessed by clicking Run on the Start menu). When this problem occurs, the following error message appears:
+
+The referenced account is currently locked out and may not be logged on to.
+
+This problem occurs when the following conditions are true:
+
+· Account Lockout is enabled on the computer you are attempting to connect to.
+· You have an identical account name on the computer you are attempting to connect to.
+· The two accounts have different passwords.
+· You are specifying a UNC path containing both the server and share names (for example, \\Server\Share). 
+· You are attempting to connect to the server using the Run dialog box (accessed by clicking Run on the Start menu). 
+
+This problem does not occur when you attempt to access a computer that is a member of the domain you are currently logged on to (but which also has a local account name that is identical to yours).  This problem is more likely to occur in a workgroup environment or between domains where there is no trust relationship. 
+
+This problem occurs because Windows NT attempts the remote logon multiple times instead of displaying the Incorrect Password dialog box. Even if the server administrator increases the number of bad logon attempts that are allowed before account lockout occurs, for example to 10, the problem still occurs. After the sixth logon attempt the Incorrect Password dialog box appears and you are given the opportunity to enter the correct password. However, after you log off, log back on, and then attempt to connect to the same share again, your account is locked out due to the number of previously recorded bad logon attempts. If this problem occurs, map a drive by right-clicking on Network Neighborhood, clicking Map Network Drive, and entering the server and share information in the Path box.
+
+Installing Client-Based Network Administration Tools on a Computer Running Windows NT Workstation (Running Setup.bat) 
+To install the Windows NT Server Administrative Tools on a computer running Windows NT Workstation, the Setup.bat file must be run from \Clients\srvtools\winnt directory at the command prompt. Setup.bat is located on the Windows NT Server compact disc in the \Clients\srvtools\winnt folder.
+
+Remote Administration from Windows 95
+Additional server administration tools are now able to run remotely on Windows 95 desktops to further simplify administration of distributed networks with Windows NT Server computers. For more information, see CLIENTS\SRVTOOLS\WIN95\README.TXT on the Windows NT Server compact disc. 
+
+Remote Administration Tools and FPNW/DSMN
+Some versions of the Windows NT Administrative Tools for use by Windows 95 and Windows for Workgroups users can cause corruption of user account data when used to administer NetWare-enabled user accounts. Do not use the following versions of these tools to administer NetWare-enabled (File and Print Services for NetWare or Directory Service Manager for NetWare) users on servers running either Windows NT Server version 3.51 or Windows NT Server version 4.0:
+
+· The versions shipped with the Windows NT 3.51 Resource Kit.
+
+The FPNW-enabled version of the administration tools

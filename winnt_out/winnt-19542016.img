@@ -1,0 +1,101 @@
+up2=Accessories
+group6=Games
+
+; This section is for new install.
+[progman.groups]
+group3=Main,1
+group4=Accessories
+group5=Games
+group1=StartUp
+
+; Progman DDE control section. This section controls the progman DDE and defines which
+; .exe's will be added to which groups. The [progman.groups] sections lists section
+; names that each describe the contents of that group.
+;
+; Description string,  .EXE name, Icon extraction .EXE, Icon extraction index, profile
+;
+; If the profile field is left NULL, the item will always be added to the group. Otherwise
+; the item will only be added if it was installed via the partial install dlg.
+;
+;
+; NOTE: If EXE name is NULL item will be deleted from the group if it exists there.
+;
+
+[group3]
+"File Manager",     WINFILE.EXE
+"Control Panel",    CONTROL.EXE
+"Print Manager",    PRINTMAN.EXE
+"Clipboard Viewer", CLIPBRD.EXE
+"MS-DOS Prompt",    DOSPRMPT.PIF, PROGMAN.EXE, 9
+"Windows Setup",    SETUP.EXE
+"PIF Editor",       PIFEDIT.EXE
+"Read Me",          README.WRI,,,                              readme
+
+[group4]
+"Write",            WRITE.EXE
+"Paintbrush",       PBRUSH.EXE,,,                              pbrush
+"Terminal",         TERMINAL.EXE,,,                            terminal
+"Notepad",          NOTEPAD.EXE,,,                             notepad
+"Recorder",         RECORDER.EXE,,,                            recorder
+"Cardfile",         CARDFILE.EXE,,,                            cardfile
+"Calendar",         CALENDAR.EXE,,,                            calendar
+"Calculator",       CALC.EXE,,,                                calc
+"Clock",            CLOCK.EXE,,,                               clock
+"Object Packager",  PACKAGER.EXE,,,                            packager
+"Character Map",    CHARMAP.EXE,,,                             charmap
+"Media Player",     MPLAYER.EXE,,,                             mplayer
+"Sound Recorder",   SOUNDREC.EXE,,,                            soundrec
+
+[group5]
+"Solitaire",        SOL.EXE,,,                                 sol
+"Minesweeper",      WINMINE.EXE,,,                             winmine
+
+[group1]
+"Dr. Watson"
+
+[group2]
+"Object Packager",  PACKAGER.EXE,,,                            packager
+"Character Map",    CHARMAP.EXE,,,                             charmap
+"Media Player",     MPLAYER.EXE,,,                             mplayer
+"Sound Recorder",   SOUNDREC.EXE,,,                            soundrec
+"PIF Editor"
+"Write",            WRITE.EXE
+
+[group6]
+"Solitaire",        SOL.EXE,,,                                 sol
+"Minesweeper",      WINMINE.EXE,,,                             winmine
+
+[group7]
+"PIF Editor",       PIFEDIT.EXE
+"Read Me"
+"DOS Prompt"
+"MS-DOS Prompt",    DOSPRMPT.PIF, PROGMAN.EXE, 9
+"Read Me",          README.WRI,,,                              readme
+"Tutorial"
+
+[fonts]
+   6:SSERIFB.FON, "MS Sans Serif 8,10,12,14,18,24 (EGA res)", "133,96,72"
+   5:SSERIFE.FON, "MS Sans Serif 8,10,12,14,18,24 (VGA res)", "100,96,96"
+   5:SSERIFF.FON, "MS Sans Serif 8,10,12,14,18,24 (8514/a res)", "100,120,120"
+
+   6:COURB.FON, "Courier 8,10,12,15 (EGA res)", "133,96,72"
+   6:COURE.FON, "Courier 10,12,15 (VGA res)", "100,96,96"
+   6:COURF.FON, "Courier 10,12,15 (8514/a res)", "100,120,120"
+
+   6:SERIFB.FON, "MS Serif 8,10,12,14,18,24 (EGA res)", "133,96,72"
+   6:SERIFE.FON, "MS Serif 8,10,12,14,18,24 (VGA res)", "100,96,96"
+   5:SERIFF.FON, "MS Serif 8,10,12,14,18,24 (8514/a res)", "100,120,120"
+
+   6:ARIALB.FON, "Arial 8,10 (EGA res)", "133,96,72"
+   6:TIMESB.FON, "Times New Roman 8,10 (EGA res)", "133,96,72"
+
+   6:SYMBOLB.FON, "Symbol 8,10,12,14,18,24 (EGA res)", "133,96,72"
+   6:SYMBOLE.FON, "Symbol 8,10,12,14,18,24 (VGA res)", "100,96,96"
+   3:SYMBOLF.FON, "Symbol 8,10,12,14,18,24 (8514/a res)", "100,120,120"
+
+   6:SMALLB.FON, "Small Fonts (EGA res)", "133,96,72"
+   6:SMALLE.FON, "Small Fonts (VGA res)", "100,96,96"
+   6:SMALLF.FON, "Small Fonts (8514/a res)", "100,120,120"
+
+   6:ROMAN.FON, "Roman (Plotter)",   "CONTINUOUSSCALING"
+   6:SCRIPT.FON, "Script (Plotte

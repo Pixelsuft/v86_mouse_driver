@@ -1,0 +1,91 @@
+[Identification]
+    OptionType = NetTransport
+[Options]
+    NWLNKIPX
+[FileConstants]
+Manufacturer            = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+NWLNKIPXEventDLL   = "%SystemRoot%\System32\netevent.dll"
+ProductNWLNKIPXName        = "NwlnkIpx"
+ProductNWLNKIPXImagePath   = "\SystemRoot\System32\drivers\nwlnkipx.sys"
+ProductNWLNKIPXSvcType     = "kernel"
+ProviderImagePath          = "%SystemRoot%\System32\nwprovau.dll"
+ProviderNameSpaces         = 1 
+ProviderGUID               = "{e02daaf0-7e9f-11cf-ae5a-00aa00a7112b}"
+ProductNWLNKIPXWshDllPath  = "%SystemRoot%\System32\wshisn.dll"
+NetRuleNWLNKIPXType        = "nwlnkIpx ipxTransport"
+NetRuleNWLNKIPXUse         = $(SoftwareType)" none none"
+NetRuleNWLNKIPXBindForm    = """NwlnkIpx"" yes yes simple"
+NetRuleNWLNKIPXBindable    = {"ipxnbTransport ipxTransport non non 100",+
+                              "ipxTransport ndisDriver non non 100",+
+                              "lmNetService ipxnbTransport non non 100",+
+                              "nwcWorkstation ipxTransport non non 100",+
+                              "lanmanServer ipxTransport non non 100"}
+NetRuleNWLNKIPXClass       = {"ipxnbTransport basic yes", "ipxTransport basic yes"}
+ProductNWLNKIPXOpSupport   = 134 
+ProductNWLNKNBName         = "NwlnkNb"
+ProductNWLNKNBImagePath    = "\SystemRoot\System32\drivers\nwlnknb.sys"
+ProductNWLNKNBSvcType      = "kernel"
+NetRuleNWLNKNBType         = "nwlnkNb ipxnbTransport"
+NetRuleNWLNKNBUse          = "transport none no"
+NetRuleNWLNKNBBindForm     = """NwlnkNb"" yes yes container"
+ProductNWLNKNBOpSupport    = 128 
+ProductNWLNKSPXName         = "NwlnkSpx"
+ProductNWLNKSPXImagePath    = "\SystemRoot\System32\drivers\nwlnkspx.sys"
+ProductNWLNKSPXSvcType      = "kernel"
+NetRuleNWLNKSPXType         = "nwlnkSpx spxTransport"
+NetRuleNWLNKSPXBindable     = {"spxTransport ipxTransport non non 100"}
+NetRuleNWLNKSPXClass        = {"spxTransport basic yes"}
+NetRuleNWLNKSPXUse          = "transport none no"
+NetRuleNWLNKSPXBindForm     = """NwlnkSpx"" yes yes container"
+CompetitorServiceName = "IPXSPXII"
+CompetitorKeyName  = $(!NTN_ServiceBase)"\"$(CompetitorServiceName)
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(Product$(Option)Name)"\CurrentVersion"
+NWLNKIPXNetRuleKeyName = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\NwlnkIpx\CurrentVersion\NetRules"
+NWLNKNBNetRuleKeyName = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\NwlnkNb\CurrentVersion\NetRules"
+NWLNKIPXKeyName = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\NwlnkIpx\CurrentVersion"
+NWLNKNBKeyName = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\NwlnkNb\CurrentVersion"
+OldProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"Nwlinkipx"\CurrentVersion"
+LinkageKeyName  = $(!NTN_ServiceBase)"\NwlnkIpx\Linkage"
+RipKeyName  = $(!NTN_ServiceBase)"\Nwlnkrip"
+ServiceNWLNKKeyName = $(!NTN_ServiceBase)"\NwlnkIpx"
+ServiceNWLNKNBKeyName = $(!NTN_ServiceBase)"\NwlnkNB"
+ServiceKeyName  = $(!NTN_ServiceBase)
+[GeneralConstants]
+UtilityInf       = "UTILITY.INF"
+subroutineinf    = "SUBROUTN.INF"
+SoftwareType     = "transport"
+Exit_Code        = 0
+BillboardVisible = 0
+from             = ""
+to               = ""
+ExitCodeOk       = 0
+ExitCodeCancel   = 1
+ExitCodeFatal    = 2
+KeyNull          = ""
+MAXIMUM_ALLOWED    = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct    = ""
+KeyParameters = ""
+TRUE          = 1
+FALSE         = 0
+NoTitle       = 0
+ExitState     = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath   = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status         = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontai

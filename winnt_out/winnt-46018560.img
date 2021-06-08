@@ -1,0 +1,92 @@
+,00,00,00
+
+[Modem28.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0b,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F &D2 &C1 E0 V1 \V3 S90=249<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, DialSuffix,, ""
+
+[Modem27.AddReg] ; Motorola BitSURFR
+HKR,, Properties, 1, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,c2,01,00, 00,fa,00,00
+HKR, Init, 2,, "AT&C1&D2 W0 S0=0 %A2=95 %A4=0  %A96=1<cr>"
+;used to be:HKR, Init, 2,, "AT &F &C1 &D2 E0 V1<cr>"
+
+[Modem26.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 31,03,00,00, 00,4b,00,00, 80,25,00,00
+HKR, Settings, DialSuffix,, ""
+
+[Modem24.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,96,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init, 2,, "AT&F&D2&C1S0=0E0V1*XC1<cr>"
+HKR, Settings, FlowControl_Off,, "*FL0"
+HKR, Settings, FlowControl_Hard,, "*FL3"
+HKR, Settings, FlowControl_Soft,, "*FL1"
+HKR, Settings, ErrorControl_Forced,, "*SM2"
+HKR, Settings, ErrorControl_On,, "*SM3"
+HKR, Settings, ErrorControl_Off,, "*SM0"
+HKR, Settings, Compression_On,, "*DC1"
+HKR, Settings, Compression_Off,, "*DC0"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem23.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,96,00,00, 80,25,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init, 2,, "AT&F&D2&C1S0=0E0V1*XC1<cr>"
+HKR, Settings, FlowControl_Off,, "*FL0"
+HKR, Settings, FlowControl_Hard,, "*FL3"
+HKR, Settings, FlowControl_Soft,, "*FL1"
+HKR, Settings, ErrorControl_Forced,, "*SM2"
+HKR, Settings, ErrorControl_On,, "*SM3"
+HKR, Settings, ErrorControl_Off,, "*SM0"
+HKR, Settings, Compression_On,, "*DC1"
+HKR, Settings, Compression_Off,, "*DC0"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem21.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,96,00,00, 40,38,00,00
+HKR, Init, 2,, "AT&F&D2&C1S0=0E0V1*XC1*MM0*CM1<cr>"
+HKR, Settings, FlowControl_Off,, "*FL0"
+HKR, Settings, FlowControl_Hard,, "*FL3"
+HKR, Settings, FlowControl_Soft,, "*FL1"
+HKR, Settings, ErrorControl_Forced,, "*SM2"
+HKR, Settings, ErrorControl_On,, "*SM3"
+HKR, Settings, ErrorControl_Off,, "*SM0"
+HKR, Settings, Compression_On,, "*DC1"
+HKR, Settings, Compression_Off,, "*DC0"
+HKR, Settings, Blind_Off,, "*BD2S6=0"
+
+[Modem19.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0b,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT&F&D2&C1E0V1\V3S95=47S90=249<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+
+[Modem18.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,f4,01,00, c0,5d,00,00
+HKR, Init, 2,, "AT&F&D2&C1S0=0E0V1*XC1*MM10<cr>"
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Settings, FlowControl_Off,, "*FL0"
+HKR, Settings, FlowControl_Hard,, "*FL3"
+HKR, Settings, FlowControl_Soft,, "*FL1"
+HKR, Settings, ErrorControl_Forced,, "*SM2"
+HKR, Settings, ErrorControl_On,, "*SM3"
+HKR, Settings, ErrorControl_Off,, "*SM1"
+HKR, Settings, Compression_On,, "*DC1"
+HKR, Settings, Compression_Off,, "*DC0"
+HKR, Settings, Blind_Off,, "*BD2S6=0"
+HKR, Settings, InactivityTimeout,, "*SI5S30=<#>"
+
+[Modem17.AddReg]
+HKR,, Properties, 1, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,c2,01,00, 00,fa,00,00 
+HKR, Init, 2,, "AT&C1&D2 W0 S0=0 %A2=95 %A4=0  %A96=1<cr>"
+; used to be: HKR, Init, 2,, "AT &F &C1 &D2 E0 V1<cr>"

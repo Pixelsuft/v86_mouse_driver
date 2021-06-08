@@ -1,0 +1,201 @@
+way to pick the best graphics mode available
+  ON ERROR GOTO ScreenModeError
+  Mode = 9
+  SCREEN Mode
+  ON ERROR GOTO PaletteError
+  IF Mode = 9 THEN PALETTE 4, 0   'Check for 64K EGA
+  ON ERROR GOTO 0
+
+  MachSpeed = CalcDelay
+
+  IF Mode = 9 THEN
+    ScrWidth = 640
+    ScrHeight = 350
+    GHeight = 25
+    RESTORE EGABanana
+    REDIM LBan&(8), RBan&(8), UBan&(8), DBan&(8)
+
+    FOR i = 0 TO 8
+      READ LBan&(i)
+    NEXT i
+
+    FOR i = 0 TO 8
+      READ DBan&(i)
+    NEXT i
+
+    FOR i = 0 TO 8
+      READ UBan&(i)
+    NEXT i
+
+    FOR i = 0 TO 8
+      READ RBan&(i)
+    NEXT i
+
+    SunHt = 39
+
+  ELSE
+
+    ScrWidth = 320
+    ScrHeight = 200
+    GHeight = 12
+    RESTORE CGABanana
+    REDIM LBan&(2), RBan&(2), UBan&(2), DBan&(2)
+    REDIM GorL&(20), GorD&(20), GorR&(20)
+
+    FOR i = 0 TO 2
+      READ LBan&(i)
+    NEXT i
+    FOR i = 0 TO 2
+      READ DBan&(i)
+    NEXT i
+    FOR i = 0 TO 2
+      READ UBan&(i)
+    NEXT i
+    FOR i = 0 TO 2
+      READ RBan&(i)
+    NEXT i
+
+    MachSpeed = MachSpeed * 1.3
+    SunHt = 20
+  END IF
+RETURN
+
+ScreenModeError:
+  IF Mode = 1 THEN
+    CLS
+    LOCATE 10, 5
+    PRINT "Sorry, you must have CGA, EGA color, or VGA graphics to play GORILLA.BAS"
+    END
+  ELSE
+    Mode = 1
+    RESUME
+  END IF
+
+PaletteError:
+  Mode = 1            '64K EGA cards will run in CGA mode.
+  RESUME NEXT
+
+REM $STATIC
+'CalcDelay:
+'  Checks speed of the machine.
+FUNCTION CalcDelay!
+
+  s! = TIMER
+  DO
+    i! = i! + 1
+  LOOP UNTIL TIMER - s! >= .5
+  CalcDelay! = i!
+
+END FUNCTION
+
+' Center:
+'   Centers and prints a text string on a given row
+' Parameters:
+'   Row - screen row number
+'   Text$ - text to be printed
+'
+SUB Center (Row, Text$)
+  Col = MaxCol \ 2
+  LOCATE Row, Col - (LEN(Text$) / 2 + .5)
+  PRINT Text$;
+END SUB
+
+' DoExplosion:
+'   Produces explosion when a shot is fired
+' Parameters:
+'   X#, Y# - location of explosion
+'
+SUB DoExplosion (x#, y#)
+
+  PLAY "MBO0L32EFGEFDC"
+  Radius = ScrHeight / 50
+  IF Mode = 9 THEN Inc# = .5 ELSE Inc# = .41
+  FOR c# = 0 TO Radius STEP Inc#
+    CIRCLE (x#, y#), c#, ExplosionColor
+  NEXT c#
+  FOR c# = Radius TO 0 STEP (-1 * Inc#)
+    CIRCLE (x#, y#), c#, BACKATTR
+    FOR i = 1 TO 100
+    NEXT i
+    Rest .005
+  NEXT c#
+END SUB
+
+' DoShot:
+'   Controls banana shots by accepting player input and plotting
+'   shot angle
+' Parameters:
+'   PlayerNum - Player
+'   x, y - Player's gorilla position
+'
+FUNCTION DoShot (PlayerNum, x, y)
+
+  'Input shot
+  IF PlayerNum = 1 THEN
+    LocateCol = 1
+  ELSE
+    IF Mode = 9 THEN
+      LocateCol = 66
+    ELSE
+      LocateCol = 26
+    END IF
+  END IF
+
+  LOCATE 2, LocateCol
+  PRINT "Angle:";
+  Angle# = GetNum#(2, LocateCol + 7)
+
+  LOCATE 3, LocateCol
+  PRINT "Velocity:";
+  Velocity = GetNum#(3, LocateCol + 10)
+
+  IF PlayerNum = 2 THEN
+    Angle# = 180 - Angle#
+  END IF
+
+  'Erase input
+  FOR i = 1 TO 4
+    LOCATE i, 1
+    PRINT SPACE$(30 \ (80 \ MaxCol));
+    LOCATE i, (50 \ (80 \ MaxCol))
+    PRINT SPACE$(30 \ (80 \ MaxCol));
+  NEXT
+
+  SunHit = FALSE
+  PlayerHit = PlotShot(x, y, Angle#, Velocity, PlayerNum)
+  IF PlayerHit = 0 THEN
+    DoShot = FALSE
+  ELSE
+    DoShot = TRUE
+    IF PlayerHit = PlayerNum THEN PlayerNum = 3 - PlayerNum
+    VictoryDance PlayerNum
+  END IF
+
+END FUNCTION
+
+' DoSun:
+'   Draws the sun at the top of the screen.
+' Parameters:
+'   Mouth - If TRUE draws "O" mouth else draws a smile mouth.
+'
+SUB DoSun (Mouth)
+
+  'set position of sun
+  x = ScrWidth \ 2: y = Scl(25)
+
+  'clear old sun
+  LINE (x - Scl(22), y - Scl(18))-(x + Scl(22), y + Scl(18)), BACKATTR, BF
+
+  'draw new sun:
+  'body
+  CIRCLE (x, y), Scl(12), SUNATTR
+  PAINT (x, y), SUNATTR
+
+  'rays
+  LINE (x - Scl(20), y)-(x + Scl(20), y), SUNATTR
+  LINE (x, y - Scl(15))-(x, y + Scl(15)), SUNATTR
+
+  LINE (x - Scl(15), y - Scl(10))-(x + Scl(15), y + Scl(10)), SUNATTR
+  LINE (x - Scl(15), y + Scl(10))-(x + Scl(15), y - Scl(10)), SUNATTR
+
+  LINE (x - Scl(8), y - Scl(13))-(x + Scl(8), y + Scl(13)), SUNATTR

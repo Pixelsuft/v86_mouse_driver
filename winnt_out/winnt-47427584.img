@@ -1,0 +1,67 @@
+e_Dial,, "M1"
+HKR, Settings, SpeakerMode_On,, "M2"
+HKR, Settings, SpeakerMode_Setup,, "M3"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M *H2 :E0 S10=50"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M *H2 :E0 S10=50"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+HKR, Responses, "<cr>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<lf>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",     1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "0<cr>",       1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK
+HKR, Responses, "2<cr>",       1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING
+HKR, Responses, "3<cr>",       1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER
+HKR, Responses, "4<cr>",       1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR
+HKR, Responses, "6<cr>",       1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE
+HKR, Responses, "7<cr>",       1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY
+HKR, Responses, "8<cr>",       1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+HKR, Responses, "OK",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RING",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO CARRIER",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "ERROR",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO DIALTONE", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO DIAL TONE",1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "BUSY",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO ANSWER",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "FAX",         1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DATA",        1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "VOICE",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RINGING",     1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DELAYED",     1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "BLACKLISTED", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "+FCERROR",    1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "CONNECT",                 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/ARQ",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/REL",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/MNP",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/LAP-M",           1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/V42BIS",          1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/V42b",            1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300",             1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/ARQ",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/REL",         1, 02, 02, 2C,01

@@ -1,0 +1,95 @@
+em15.AddReg, PCMCIA
+
+[Modem14]   ; AT&T Dataport 28.8 V.34
+AddReg=All, MfgAddReg, Modem14.AddReg, EXTERNAL
+
+[Modem13]   ; Comsphere 3810 Plus
+AddReg=All, MfgAddReg, Modem13.AddReg, EXTERNAL
+
+[Modem12]   ; Comsphere 3820 Plus
+AddReg=All, MfgAddReg, Modem12.AddReg, EXTERNAL
+
+[Modem9]    ; DataPort Express
+AddReg=All, MfgAddReg, Modem8.AddReg, INTERNAL
+
+[Modem8]    ; DataPort Express
+AddReg=All, MfgAddReg, Modem8.AddReg, EXTERNAL
+
+[Modem7]    ; DataPort 2001 and dataport 14.4 combo. 
+AddReg=All, MfgAddReg, Modem7.AddReg, EXTERNAL
+
+[Modem6]    ; AT&T Keep in Touch PC Card
+AddReg=All, MfgAddReg, Modem6.AddReg, PCMCIA
+
+[Modem5]    ; AT&T Keep in Touch Express PC Card
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem4]    ; AT&T Comsphere 3810
+AddReg=All, MfgAddReg, Modem4.AddReg, EXTERNAL
+
+[Modem3]    ; AT&T Dataport 14.4/fax
+AddReg=All, MfgAddReg, Modem2.AddReg, INTERNAL
+
+[Modem2]    ; DataPort 14.4/FAX
+AddReg=All, MfgAddReg, Modem2.AddReg, EXTERNAL
+
+[Modem1]    ; DataPort 2001
+AddReg=All, MfgAddReg, Modem1.AddReg, EXTERNAL
+
+; AddReg sections
+
+[Modem20.AddReg] ; AT&T Comsphere 3825 Plus
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 7f,03,00,00, 00,c2,01,00, 40,83,00,00
+HKR, Settings, ErrorControl_On,, "\N5"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, ErrorControl_Cellular,, "&F6 \N5 S91=1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "&F6 \N4 S91=1"
+HKR, Settings, DialSuffix,, ";"            
+
+[Modem18.AddReg] ; Dataport PCX
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F &D2 &C1 E0 V1 W2<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, DialSuffix,, ";"            
+
+[Modem16.AddReg] ; KIT 28.8 PCMCIA with cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 07,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F &D2 &C1 E0 V1 S90=0<cr>"
+HKR, Settings, ErrorControl_Cellular,, "&F6 \N7"
+HKR, Settings, ErrorControl_Cellular_Forced,, "&F6 \N6"
+HKR, Settings, DialSuffix,, ";"            
+
+[Modem15.AddReg] ; KIT 28.8 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, DialSuffix,, ";"            
+
+[Modem14.AddReg] ; DataPort 28.8 V.34
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, DialSuffix,, ";"            
+
+[Modem13.AddReg] ; AT&T Comsphere 3810 Plus
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 3f,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, ErrorControl_On,, "\N5"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, ErrorControl_Cellular,, "&F6 \N5"
+HKR, Settings, ErrorControl_Cellular_Forced,, "&F6 \N4"
+HKR, Settings, DialSuffix,, ";"            
+
+[Modem12.AddReg] ; AT&T Comsphere 3820 Plus
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, ErrorControl_On,, "\N5"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+
+[Modem8.AddReg] ; DataPort Express External or internal
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem7.AddReg] ; old 1992 dataport 14.4/fax modem and 2001 combo (default to 19200 because 38400 doesn't always work well)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, DCB, 1, 1C,00,00,00, 00,4B,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+HKR, Init, 2,, "AT &F S0=0 &D2 &C1 E0 

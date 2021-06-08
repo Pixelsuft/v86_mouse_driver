@@ -1,0 +1,45 @@
+bout Microsoft Windows&nbsp;NT&nbsp;4.0 Workstation and Windows&nbsp;NT&nbsp;4.0 Server Service Pack&nbsp;6 (SP6), as well as&nbsp;answers to questions that you might have.</p>
+<p>
+For the most up-to-date list of supported hardware, see the Hardware Compatibility List by visiting the Microsoft Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=Hardware%20Compatibility%20List&pver=1.0&ar=/hwtest/hcl/">http://www.microsoft.com/hcl/default.asp</a></p> 
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<h2><a name="1.0">1.0 Introduction</a></h2>
+<p>
+This release of Microsoft Windows&nbsp;NT&nbsp;4.0 Service Pack&nbsp;6 is easy to apply while Windows&nbsp;NT is running. SP6 updates all files that are older than those included in this Windows&nbsp;NT Service Pack. Service Pack releases are cumulative, containing all previous Service Pack fixes and any new fixes created after Service Pack&nbsp;5 (SP5).</p>
+<p>
+<b>Important:</b> You should stop running any critical services before you apply Windows&nbsp;NT&nbsp;4.0 SP6. For more preinstallation recommendations, see <a href="#2.2">Before You Install the Service Pack</a>, later in this document.</p>
+
+<p><b><a name="1.1">1.1 What Is Service Pack&nbsp;6?</a></b></p>
+<p>
+SP6 is a collection of current updates and enhancements to Windows&nbsp;NT&nbsp;Server&nbsp;4.0 and Windows&nbsp;NT Workstation&nbsp;4.0 since their releases.</p>
+<p>
+SP6 is not a required upgrade. If you have deployed or are in the process of deploying a previous Service Pack, you probably need not change your plans. To accommodate customers in this situation, Microsoft provides software updates for critical issues to previous Service Packs. For example, you can continue to obtain year&nbsp;2000 (Y2K) software updates if you're using Service Pack&nbsp;4 (SP4).</p>
+<p>
+SP6 content is focused on:
+<ul>
+<li>Demonstrated customer impact
+<br>SP6 contains many of the recent updates to Windows&nbsp;NT&nbsp;4.0. In addition, SP6 has undergone extensive regression testing.</li>
+
+<li>Year&nbsp;2000 fixes<br>
+SP6 provides the latest fixes to known year&nbsp;2000 issues in Windows&nbsp;NT&nbsp;4.0. For more information about SP6 and year&nbsp;2000 issues, see <a href="#1.4">Section 1.4</a>, "Year&nbsp;2000 Updates," later in this document. For the latest information on year&nbsp;2000 and Windows&nbsp;NT&nbsp;4.0, visit the Microsoft Year&nbsp;2000 Portal Page Web site at:<br><a href="http://www.microsoft.com/isapi/redir.dll?prd=Microsoft%20Year%202000"> http://www.microsoft.com/year2000/</a><br>
+or call 1-888-MSFT-Y2K (1-888-673-8925) or contact your local Microsoft subsidiary.</li>
+
+<li>Euro issues
+<br>SP6 includes the existing updates for Windows&nbsp;NT&nbsp;4.0 euro support. For the most recent information about Windows&nbsp;NT&nbsp;4.0 and euro, visit the Microsoft Euro Currency Resource Center Web site at:<br>
+<a href=" http://www.microsoft.com/isapi/redir.dll?prd=Microsoft%20Euro">http://www.microsoft.com/technet/euro/</a></li>
+
+<li>Security updates<br>
+SP6 contains current updates for known Windows&nbsp;NT&nbsp;4.0 security issues. For the most recent information about Windows&nbsp;NT security, visit the Microsoft Security Advisor Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=Microsoft%20Security">http://www.microsoft.com/security/</a>
+</li></ul></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="1.2">1.2</a> List of Fixes in Service Pack&nbsp;6</b></p>
+<p>
+To assist customers who are deciding whether to upgrade to SP6, Microsoft provides extensive documentation of the fixes and updates contained in SP6. This documentation gives customers the opportunity to analyze whether the SP6 contents justify the necessary test and deployment resources. For the most recent list of affected Service Pack files, visit the Microsoft Windows&nbsp;NT Server Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&a

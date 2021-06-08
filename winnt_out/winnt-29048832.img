@@ -1,0 +1,84 @@
+OEMNXPTC.INF: ShellCode error adding RPC procotol"
+            goto ShellCodeError
+        Endif
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "OEMNXPTC.INF: ERROR adding RPC protocol data"
+            EndWait
+            goto fatalregistry
+        Endif
+        Shell $(UtilityInf) AddRpcProtocol "ncadg_ip_udp" "RpcLtCcm.Dll" "RpcLtScm.Dll"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error adding RPC procotol"
+            goto ShellCodeError
+        Endif
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "OEMNXPTC.INF: ERROR adding RPC protocol data"
+            EndWait
+            goto fatalregistry
+        Endif
+        Shell $(UtilityInf) AddMixRpcProtocol "Netbios" "tcpip" "ncacn_nb_tcp" "rpcltccm.dll" "RpcLtScm.Dll"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error adding RPC procotol (2)"
+            goto ShellCodeError
+        endif
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "OEMNXPTC.INF: ERROR adding RPC protocol data (2)"
+            EndWait
+            goto fatalregistry
+        Endif
+        Shell $(UtilityInf), AddWinsockInfo, +
+             $(Product$(ThisOption)Name), +
+             $(Product$(ThisOption)WshDllPath), +
+             $(Sockmaxlength),$(Sockminlength)
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNXPTC.INF: Registry error: Add Winsock Info."
+        Endif
+    endif
+    Ifstr(i) $(DoNbt) == TRUE
+        Set ThisOption = NETBT
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing NETBT..."
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName), $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath), $(Product$(ThisOption)SvcType), "PNP_TDI", {"Tcpip"}, "", $(NetBTEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set NBTProductKey       = $($R1)
+        Set NBTNetRuleKey       = $($R2)
+        Set NBTServiceKey       = $($R3)
+        Set NBTParameterKey     = $($R4)
+        Set NBTLinkageKey       = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Hidden,0,$(!REG_VT_DWORD),1},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(NBTProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) 

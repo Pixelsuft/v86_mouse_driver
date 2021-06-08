@@ -1,0 +1,104 @@
+,00,00,00, 50,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F &C1&D2<cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+[Modem24.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+
+[Modem25.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+
+[Modem26.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 80,25,00,00, 60,09,00,00
+
+[Modem27.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 80,25,00,00, 60,09,00,00
+
+[Modem28.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F \V2 <cr>"
+
+[Modem29.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init,      2,, "AT &F&C1&D2\V2<cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+[Modem30.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem31.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem32.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem36.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F <cr>"
+
+[Modem37.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 00,4b,00,00
+HKR, Init,      2,, "AT &F <cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+[Modem39.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init,      2,, "AT &F&C1&D2\V2<cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+[Modem40.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init,      2,, "AT &F&C1&D2\V2<cr>"
+HKR, Settings, FlowControl_Off,, ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+; Strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Discovery"
+
+Modem1="Discovery 1414 CX"
+Modem2="Discovery 1414 HX"
+Modem5="Discovery 1442 AM  1414 AX Security modem"
+Modem7="Discovery 1942 AM  1914 AX V32terbo-security modem"
+Modem8="Discovery 2400 A, 2nd rev"
+Modem9="Discovery 2400 C"
+Modem10="Discovery 2400 C Send Only Fax"
+Modem12="Discovery 2400 HM"
+Modem13="Discovery 2400 H"
+Modem14="Discovery 2400 H Send Only Fax"
+Modem16="Discovery 2400 PM"
+Modem17="Discovery 2400 P"
+Modem18="Discovery 2400 P Send Only Fax"
+Modem19="Discovery 2400 VM"
+Modem20="Discovery 2400 V, 2nd rev"
+Modem23="Discovery 2496 CX"
+Modem24="Discovery 2496 HX"
+Modem25="Discovery 2496 PX"
+Modem26="Discovery 2400 AM MNP & V.42(bis)"
+Modem27="Discovery 2400 CM, QM MNP & V.42(bis)"
+Modem28="Discovery 2400 CM, QM MNP"
+Modem29="Discovery & Victory 28.8K modem"
+Modem30="Discovery 9632 AM & AX V32bis"
+Modem31="Discovery 9632 AM & AX V32"
+Modem32="Discovery & Victory 14.4K modem"
+Modem33="Discovery 2400 V & 2400 VM"
+Modem34="Discovery 2400 AM, CM & QM - MNP & V.42(bis)"
+Modem35="Discovery 9632 AM & AX V32 & V32bis"
+Modem36="Discovery 1414AX, 1442AM, 1914AX, 1942AM Security modem"
+Modem37="Discovery 2400 A & 2400 C"
+Modem39="Discovery 2814 CX"
+Modem40="Discovery 2814 HX"
+
+[EXTERNAL]
+HKR,, DeviceType, 

@@ -1,0 +1,171 @@
+0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=
+;<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI5<cr>
+DETECT_RESPONSE=Supra
+
+COMMAND_INIT=AT&F2&C1&D2 S7=55 <cr>
+COMMAND_INIT=ATS2=128 S11=55 S95=44 S0=0<speaker><cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Supra Fax Modem 288]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI5<cr>
+DETECT_RESPONSE=Supra
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=28800
+
+COMMAND_INIT=AT&F2&C1&D2 S7=55 <cr>
+COMMAND_INIT=ATS2=128 S11=55 S95=44 S0=0<speaker><cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Supra Fax Modem 288 internal]
+ALIAS=Supra Fax Modem 288
+
+DETECT_STRING=ATI5<cr>
+DETECT_RESPONSE=Supra
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=28800
+
+;----------------------------------------
+[Supra Fax Modem Plus]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=9600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=TR00
+DETECT_STRING=ATI5<cr>
+DETECT_RESPONSE=Supra
+
+COMMAND_INIT=AT&F&C1&D2 V1 W1 Q0 <cr>
+COMMAND_INIT=ATS7=55 S2=128 S11=55 S95=44 S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit QBlazer]
+;Not tested as a server modem.
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=S58=2
+<hwflowcontrol_off>=S58=0
+<compression_on>=S190=1
+<compression_off>=S190=0
+<protocol_on>=S180=2
+<protocol_off>=S180=0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=QBlazer
+
+COMMAND_INIT=AT&F &C1 &D2 S0=0 S2=128 S7=55 S59=11 X4<cr>
+COMMAND_INIT=AT <hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit T1000]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=FA2.10
+
+COMMAND_INIT=AT~&F S53=1 S52=1 S58=0 S0=0 S55=3 S54=3 S7=55<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit T1500]
+;Server:untested
+;This modem has not been tested as a server modem. This modem is not
+;supported as a server modem.
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=S58=2 S68=255
+<hwflowcontrol_off>=S58=0 S68=255
+<compression_on>=S97=1 S106=1 S98=0
+<compression_off>=S98=0
+<protocol_on>=S95=2 S96=1
+<protocol_off>=S96=0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=T1500
+
+COMMAND_INIT=AT~&F X13 S131=1 S52=1 S55=3<cr>
+COMMAND_INIT=ATS110=0 S0=0 S55=3 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><protocol><compression><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Telebit T1600]
+;Advanced features are disabled
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400

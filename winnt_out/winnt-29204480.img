@@ -1,0 +1,98 @@
+    CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf), VerExistedDlg, $(Product$(Option)Title),+
+            $(ProductVersion)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVNW.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    CloseRegKey $(KeyProduct)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NetwareWorkstation" $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) == $(KeyNull)
+        Shell $(UtilityInf), CreateService, +
+            "NetwareWorkstation", +
+            $(ProductNWWKSTADisplayName), +
+            $(ProductNWWKSTAImagePath), "autoserviceshare", "NetworkProvider", {}, "",+
+            $(NetwareEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVNW.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        debug-output $($R0)
+        set RegistryErrorIndex = $($R0)
+        ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(RemoveAndReboot)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                goto ShellCodeError
+            endif
+            goto end
+        else
+            Shell $(UtilityInf) RemoveService "NetwareWorkstation" "YES"
+        endif
+    else
+        Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(RemoveAndReboot)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        CloseRegKey $(BS_KeyServices)
+        goto end
+    endif
+    goto nextstep
+nextstep = +
+    StartWait
+    Ifstr(i) $(!NTN_InstallMode) == install
+        Ifint $(OldVersionExisted) == $(FALSE)
+            goto installproduct
+        endif
+    endif
+    goto writeparameters
+installproduct = +
+    CloseRegKey $(ParamKeyName)
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        install "Install-nwcfgdll"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+    endif
+    set OEM_ABANDON_ON  = TRUE
+    LoadLibrary "nw" $(!STF_CWDDIR)\nwcfg.dll !NWCFG_HANDLE
+    Set FLibraryErrCtl = 1
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+    endif
+    LibraryProcedure Result $(!NWCFG_HANDLE), SetupRegistryForNWCS
+    LibraryProcedure Result $(!NWCFG_HANDLE), AddNetwarePrinterProvidor
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\Print\Providers\"$(ProductPrintProviderName) $(MAXIMUM_ALLOWED) PrintProviderKey
+    ifstr(i) $(PrintProviderKey) != $(KeyNull)
+        SetRegValue $(PrintProviderKey) {"DisplayName",$(NoTitle),$(!REG_VT_SZ),$(ProductPrintProviderName)}
+        CloseRegKey $(PrintProviderKey)
+    endif
+    Set FLibraryErrCtl = 0
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\Print\Providers" $(MAXIMUM_ALLOWED) PrintProviderKey
+    Ifstr $(PrintProviderKey) != $(KeyNull)
+        GetRegValue $(PrintProviderKey),"Order",OrderInfo
+        set OrderList = *($(OrderInfo),4)
+        set NewOrderList = {$(ProductPrintProviderName)}
+        ForListDo  $(OrderList)
+            ifstr(i) $($) != $(ProductPrintProviderName)
+                set NewOrderList = >($(NewOrderList),$($))
+            endif
+        EndForListDo
+        SetRegValue $(PrintProviderKey) {"Order",$(NoTitle),$(!REG_VT_MULTI_SZ),$(NewOrderList)}
+        CloseRegKey $(PrintProviderKey)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(LSAKe

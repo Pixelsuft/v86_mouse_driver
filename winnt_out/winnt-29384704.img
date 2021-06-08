@@ -1,0 +1,140 @@
+[Identification]
+    OptionType = NetAdapter
+[PlatformsSupported]
+    ISA
+    EISA
+    "Jazz-Internal Bus"
+[Options]
+    UBPC
+    UBPCEOTP
+[IRQChoicesUBPC]
+IRQ_0 = "2",2
+IRQ_1 = "3",3
+IRQ_2 = "4",4
+IRQ_3 = "5",5
+[IRQChoicesUBPCEOTP]
+IRQ_0 = "2",2
+IRQ_1 = "3",3
+IRQ_2 = "4",4
+IRQ_3 = "5",5
+IRQ_4 = "7",7
+IRQ_5 = "12",12
+[IRQChoicesUBPS]
+IRQ_0 = "2",2
+IRQ_1 = "3",3
+IRQ_2 = "4",4
+IRQ_3 = "5",5
+IRQ_4 = "7",7
+IRQ_5 = "12",12
+[IOBaseAddrChoices]
+IOBase_1  = "0x350",848
+IOBase_2  = "0x358",856
+IOBase_3  = "0x360",864
+IOBase_4  = "0x368",872
+[MemMappedWndBaseAddrChoicesUBPC]
+Add_1 = "0xC0000",786432
+Add_2 = "0xC8000",819200
+Add_3 = "0xD0000",851968
+Add_4 = "0xD8000",884736
+[MemMappedWndBaseAddrChoicesUBPCEOTP]
+Add_1 = "0x80000",524288
+Add_2 = "0x88000",557056
+Add_3 = "0x90000",589824
+Add_4 = "0x98000",622592
+Add_5 = "0xA0000",655360
+Add_6 = "0xA8000",688128
+Add_7 = "0xB0000",720896
+Add_8 = "0xB8000",753664
+Add_9 = "0xC0000",786432
+Add_10 = "0xC8000",819200
+Add_11 = "0xD0000",851968
+Add_12 = "0xD8000",884736
+Add_13 = "0xE0000",917504
+Add_14 = "0xE8000",950272
+[MemMappedWndBaseAddrChoicesUBPS]
+Add_2 = "0xC8000",819200
+Add_4 = "0xD8000",884736
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+subroutineinf   = "SUBROUTN.INF"
+SoftwareType    = "driver"
+Exit_Code       = 0
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductSoftwareName     = "UB"
+ProductSoftwareImagePath = "\SystemRoot\System32\drivers\ubnei.sys"
+NetRuleSoftwareType     = "ubneiSys ndisDriver ubDriver"
+NetRuleSoftwareUse      = $(SoftwareType)
+NetRuleSoftwareBindForm = """UbneiSys"" yes no container"
+NetRuleSoftwareClass    = {"ubDriver basic"}
+NetRuleSoftwareBindable = {"ubDriver ubAdapter non exclusive 100"} 
+ProductHardwareName     = "UB"
+NetRuleHardwareType     = "ub ubAdapter"
+NetRuleHardwareBindForm = " yes yes container"
+NetRuleHardwareClass    = {"ubAdapter basic"}
+ProductOpSupport     = 134 
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)"\"$(ProductHardwareName)"\Parameters"
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        ifstr(i) $($1) == ""
+           goto returnoptions
+        endif
+        set PlatformList = ^(PlatformsSupported, 1)
+        Ifcontains(i) $($1) in $(PlatformList)
+           goto returnoptions
+        else
+           set Status = STATUS_NOTSUPPORTED
+           goto finish_ReturnOptions
+        endif
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcon

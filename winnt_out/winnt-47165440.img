@@ -1,0 +1,100 @@
+,4b,00,00
+
+[Modem4.AddReg]     ;Digicom Connection 144+FAX
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem3.AddReg]     ; Digicom Connection 144 Plus 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem2.AddReg]     ; Digicom Connection 96 Plus
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,25,00,00
+
+[Modem1.AddReg]     ; Digicom Connection 144DF 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 01,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Strings]
+MS = "Microsoft"
+CreativeLabs = "Creative Labs"
+Modem30 = "Creative Labs Phone Blaster 28.8 DSVD PnP Voice"
+Modem29 = "Creative Labs Modem Blaster 28.8 DSVD PnP Voice"   
+Modem28 = "Creative Labs Modem Blaster 28.8"   
+Modem27 = "Creative Labs Phone Blaster Voice"      
+Modem26 = "Creative Labs Modem Blaster 14.4"   
+Modem19 = "Creative Labs Modem Blaster 14.4 PCMCIA" 
+Modem18 = "Digicom or Creative Labs 19.2 Modem" 
+Modem17 = "Creative Labs Modem Blaster 19.2"   
+
+Digicom = "Digicom"
+
+Modem29A  = "Digicom Data Fax Modem"
+
+Modem25  = "Digicom Softmodem 14400 + Fax"
+Modem24  = "Digicom 14.4 Data FAX Modem"
+Modem23  = "Digicom Eagle 14.4 V.32 Data FAX"
+Modem22  = "14.4 Data FAX Modem"
+Modem21  = "Digicom Scout Plus or Scout Plus Terbo"
+Modem20  = "Digicom Scout Plus or Terbo"
+Modem16d = "Digicom 9624LR+ External"
+Modem16c = "Digicom 9624AR+ External"
+Modem16b = "Digicom 9624LE+ External"
+Modem16a = "Digicom 9624E+ External"
+Modem15  = "Digicom 9624PC+ Internal"
+Modem14  = "Digicom Scout 14400 PCMCIA Fax Modem"
+Modem13  = "Digicom Scout Plus Internal"
+Modem12  = "Digicom Scout Plus External"
+Modem11  = "Digicom Scout Internal"
+Modem10  = "Digicom Scout External"
+Modem9   = "Digicom FaxModem 1442PC Internal"
+Modem8   = "Digicom Scout Classic 144 External"
+Modem7   = "Digicom Scout Plus Terbo External"
+Modem6d  = "Digicom 9624LR External"
+Modem6c  = "Digicom 9624AR External"
+Modem6b  = "Digicom 9624LE External"
+Modem6a  = "Digicom 9624E External"
+Modem5   = "Digicom Connection Pro 19.2 Internal"
+Modem4   = "Digicom Connection 144+FAX Internal"
+Modem3   = "Digicom Connection 144+ Internal"
+Modem2   = "Digicom Connection 96+ Internal"
+Modem1   = "Digicom Connection 144DF Internal"
+
+Digitan   ="Digitan Systems Inc."
+Modem31  ="Digitan 28.8 DSVD Data Fax Voice"
+
+; VoiceView 
+
+APPS_DESC        = "Accessories"     ; Name of Accessories menu
+StartUp_DESC     = "StartUp"
+SendTo_DESC      = "SendTo"          ; Name of SendTo folder in the Windows dir
+FileXfer_DESC    = "File Transfer"   ; Name of file tranfer app in Accessories menu
+SendToPhone_DESC = "Person On Phone" ; Name for file transfer app in SendTo menu
+StartXfer_DESC   = "VoiceView Auto Detection"   ; Name for auto start feature
+
+[Scout]
+HKR, Init, 2,, "AT &F E0 V1 *M2<cr>"
+HKR, Settings, FlowControl_Off,, "*F0"
+HKR, Settings, FlowControl_Hard,, "*F3"
+HKR, Settings, FlowControl_Soft,, "*F2"
+HKR, Settings, ErrorControl_On,, "*E9"
+HKR, Settings, ErrorControl_Off,, "*E0"
+HKR, Settings, ErrorControl_Forced,, "*E6"
+HKR, Settings, Compression_On,, "*E9"
+HKR, Settings, Compression_Off,, "*E5"
+
+[DestinationDirs]
+Register.Copy    = 17     ;LDID_INF
+VV_Sys           = 11           
+VV_Sock_Sys      = 11     ;LDID_SYS \Windows\system dir
+VV_Sock_Win      = 10     ;LDID_WIN \Windows dir
+VV_App           = 10
+VV_Help          = 18     ;LDID_HELP
+
+[ROCK_VOICE_ALL]
+HKR,,Enumerator,,serwave.vxd
+HKR,, ForwardDelay,            1,88,13    
+HKR,, SpeakerPhoneSpecs,       1, 00,00,00,00,  0f,00,00,00,  03,00,00,00,  00,00,00,00
+HKR, SpeakerPhoneEnable,      1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneDisable,     1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneDisable,     2,, "at#spk=0,15,,<cr>"
+HKR, SpeakerPhoneDisable,     3,, "at#vls=0<cr>"
+HKR, SpeakerPhoneMute,        1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneMute,

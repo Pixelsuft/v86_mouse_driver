@@ -1,0 +1,100 @@
+ 
+Cardinal5 ="Cardinal MVP144E 14.4 Kbps Fax Modem"    
+Cardinal6 ="Cardinal MVP24XF 2400 Fax Modem"    
+Cardinal7 ="Cardinal MVP144CC 14.4 Kbps PC Card"    
+Cardinal8 ="Cardinal MVP288I 28.8 Kbps V.34 Fax Modem"    
+Cardinal9 ="28.8, V.34-VFC Data Fax Modem"    ; Cardinal, CPI (Viva)
+Cardinal10 ="Cardinal MVP144IF 14.4 Kbps Fax Modem"    
+
+Cardinal11 ="14.4 Data Fax Modem"    ; MVP144IF, MVP144E, and Logicode
+
+Cardinal12 ="Cardinal MVP144I 14.4 Kbps Fax Modem"
+Cardinal13 ="Cardinal MB2650SR 2400 bps Fax Modem"
+Cardinal14 ="Cardinal MVP192I 19.2 Fax Modem"
+
+Digitan   ="Digitan Systems Inc."
+Digitan2  ="Digitan DS144FVM 14.4 Fax-Data-Voice Modem"
+Digitan3  ="Digitan DS288FVM 28.8 Fax-Data-Voice Modem"
+Digitan4  ="Digitan DS288F 28.8 Fax-Data Modem"
+
+BestData  = "Best Data"
+BestData1 = "Best Data Smart One 1442FX Modem"       ; 1442FX External
+BestData2 = "Best Data Smart One 1442F Modem"        ; 1442F Internal
+BestData3 = "Best Data Smart One 2834F Modem"        ; 2834F Internal
+BestData4 = "28.8 Internal modem"                    ; Zoom and Best data combo, INTERNAL
+BestData5 = "Best Data Smart One 2834FX Modem"       ; Best Data 2834FX External 
+BestData6 = "28.8 External modem"                    ; Zoom and Best data combo, EXTERNAL
+BestData7 = "Best Data Smart One 1442FX (FTX, RPI)"  ; Best Data 1442FX External (FTX, RPI model)
+BestData8 = "Best Data Smart One 1442F (FT, RPI)"    ; Best Data 1442FX Internal (FTX, RPI model)
+BestData9 = "Best Data Smart One 9624FQ Modem"       ; Best Data 9624FQ internal
+BestData10 = "Best Data Smart One 2400B Modem"       ; Best Data Smart One 2400B internal
+BestData11 = "Best Data Smart One 9648FX Modem"      ; Best Data Smart One 9648FX external
+BestData12 = "2400 bps Modem"                        ; Best Data Smart One 9648FX external and Viva combo
+BestData13 = "Best Data Smart One 2400X Modem"       ; Best Data Smart One 2400X
+
+SMART = "Smart Modular Technologies"
+SmartMod1 ="SMART Modular Tech ST 1414 Cell PCMCIA"
+SmartMod2 ="SMART Modular Tech ST 2814 V.34 PCMCIA"
+
+Apex  = "Apex Data Inc."
+Apex2 = "Apex Data-Fax PCA-1414 PCMCIA Modem"
+Apex3 = "Apex V.34 Cellular PCMCIA Modem"
+Apex4 = "V.34 Cellular PCMCIA Modem"   ; Apex and Toshiba combo
+
+ComOne = "Com 1"
+ComOne6="COM1-SA MC218 V.34 PCMCIA"        ; MC218 28.8 data fax voice
+ComOne4="COM1-SA MC216 14.4 PCMCIA"        ; MC216 
+ComOne2="COM1-SA MC214 2400 PCMCIA"        ; MC214A
+ComOne1="COM1-SA MC217 14.4 PCMCIA"        ; MC217A 14.4 data fax voice
+; ComOne13="PCMCIA S214 V22bis Fax-Modem"
+; ComOne12="PCMCIA SLIMFAXII Fax-Modem"
+; ComOne11="PCMCIA S218 V34 Fax-Modem"
+; ComOne10="PCMCIA SLIMV34 Fax-Modem"
+; ComOne9="PCMCIA S217 V32bis Fax-Modem"
+; ComOne8="PCMCIA AJ 1448 V32bis Fax-Modem"
+; ComOne7="PCMCIA SLIM144 Fax-Modem"
+; ComOne5="COM1-SA MV216 COM1-SA V32bis Data-Fax PCMCIA"
+; ComOne3="COM1-SA MV129 V22bis Data-Fax PCMCIA"
+
+Supra = "Supra Corporation"
+Supra1="Supra COMcard 144 Data Fax PCMCIA"
+
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddReg]
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S95=47 W1 S0=0<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+HKR,, Reset,, "AT&F<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ";"
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+HKR, Settings, SpeakerMode_Off,, "M0"
+HKR, Settings, SpeakerMod

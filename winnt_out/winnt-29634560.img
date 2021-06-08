@@ -1,0 +1,101 @@
+StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set CommonStatus = STATUS_REBOOT
+        set ActivateDetection = TRUE
+        set StartLabel = configureadapter
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the IBM software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+        set ActivateDetection = TRUE
+    endif
+    set IOBaseAddress = 1
+    Debug-Output "OEMNADTK.INF: =================================================="
+    Debug-Output "OEMNADTK.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNADTK.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    Debug-Output "OEMNADTK.INF: Option is: "$(Option)
+    Debug-Output "OEMNADTK.INF: !STF_NCDETECT  is: "$(!STF_NCDETECT)
+    Debug-Output "OEMNADTK.INF: !STF_NCOPTION  is: "$(!STF_NCOPTION)
+    Debug-Output "OEMNADTK.INF: !STF_NCDETCARD is: "$(!STF_NCDETCARD)
+    Debug-Output "OEMNADTK.INF: !STF_NCDETINFO is: "$(!STF_NCDETINFO)
+    Debug-Output "OEMNADTK.INF: =================================================="
+    Set DetectedCard = FALSE
+    set CardType = 1
+    set Pcmcia  = FALSE
+    Ifstr(i) $(ActivateDetection) != TRUE
+        Goto skipdetection
+    Endif
+    Set TypeList = {{IOADDR, IOADDR_Addr_List, IOBaseAddress},+
+                    {IRQ, IRQList, Token1IRQVal},+
+                    {MEMADDR, MMIODecList, Token1MMIOVal}}
+    Debug-Output "OEMNADTK.INF: Calling Param_BuildTypeLists"
+    Shell $(ParamInf) Param_BuildTypeLists $(Option) $(TypeList)
+    Set Status = $($R0)
+    ifstr(i) $(Status) != STATUS_SUCCESSFUL
+        Goto fataldetect
+    Endif
+    Debug-Output "OEMNADTK.INF: Calling Param_SetDefaults"
+    Shell $(ParamInf) Param_SetDefaults {}
+    Shell $(ParamInf) HexListFromDecList $(MMIODecList)
+    Set MMIOList = $($R0)
+    Shell $(UtilityInf) SortList $(SpeedList) TRUE FALSE
+    Set Combo1List = $($R0)
+    Shell $(UtilityInf) SortList $(IRQList) TRUE FALSE
+    Set Combo2List = $($R0)
+    Shell $(UtilityInf) SortList $(MMIOList) TRUE FALSE
+    Set Combo3List = $($R0)
+    Ifstr(i) $(!STF_NCDETECT) == YES
+        Ifstr(i) $(!STF_NCOPTION) == $(Option)
+           Set DetectedCard = TRUE
+           Debug-Output "OEMNADTK.INF: Setting DetectedCard to TRUE"
+        Endif
+    Endif
+skipdetection =+
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    Ifstr(i) $(DetectedCard) != TRUE
+        Goto adaptersetup
+    Endif
+    StartWait
+    Shell $(ParamInf) Param_QueryCard $(!STF_NCDETCARD)
+    EndWait
+    Ifstr(i) $($R0)

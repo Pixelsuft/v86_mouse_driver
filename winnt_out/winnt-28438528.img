@@ -1,0 +1,113 @@
+[Identification]
+    OptionType = NetTransport
+[Options]
+    STREAMS
+[FileConstants]
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+ProductSTREAMSName      = "Streams"
+ProductSTREAMSImagePath = "\SystemRoot\System32\drivers\streams.sys"
+ProductSTREAMSSvcType   = "kernel"
+NetRuleSTREAMSType      = "streams streamsEnvironment streamsEnvironment"
+NetRuleSTREAMSUse       = $(SoftwareType)" yes yes"
+NetRuleSTREAMSBindForm  = """Streams"" yes yes streams"
+NetRuleSTREAMSClassList = {"streamsEnvironment basic",+
+                           "streamsStack basic"}
+NetRuleSTREAMSBindList  = {"streamsEnvironment ndisDriver non non 100",+
+                           "streamsStack streamsEnvironment exclusive non 100"}
+ProductOpSupport     = 132 
+STREAMS_PATH    = "SYSTEM\currentcontrolset\services\streams"
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(Product$(Option)Name)"\CurrentVersion"
+LinkageKeyName  = $(!NTN_ServiceBase)"\Tcpip\Linkage"
+ServiceTCPIPKeyName = $(!NTN_ServiceBase)"\Tcpip"
+ServiceKeyName  = $(!NTN_ServiceBase)
+DosDevices      = "SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices"
+[GeneralConstants]
+UtilityInf       = "UTILITY.INF"
+subroutineinf    = "SUBROUTN.INF"
+SoftwareType     = "transport"
+Exit_Code        = 0
+BillboardVisible = 0
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle         = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_Origination) == "NCPA"
+        set Continue = $(OK)
+    endif
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        set StartLabel = removeadapter
+        set OEM_ABANDON_SOFTWARE = {+
+            $(ProductSTREAMSName)}
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        Debug-Output "STREAMS.INF: Cannot configure the driver software."
+        Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "STREAMS.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        

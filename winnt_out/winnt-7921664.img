@@ -1,0 +1,53 @@
+>", 1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 2400/VFC<cr><cr><lf>",    1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 4800/VFC<cr><cr><lf>",    1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 7200/VFC<cr><cr><lf>",    1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 9600/VFC<cr><cr><lf>",    1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 12000/VFC<cr><cr><lf>",   1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 14400/VFC<cr><cr><lf>",   1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 16800/VFC<cr><cr><lf>",   1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 19200/VFC<cr><cr><lf>",   1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 21600/VFC<cr><cr><lf>",   1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 24000/VFC<cr><cr><lf>",   1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 26400/VFC<cr><cr><lf>",   1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 28800/VFC<cr><cr><lf>",   1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT/ARQ<cr><lf>",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT/REL<cr><lf>",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT/LAP-M<cr><lf>",           1, 02, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300<cr><lf>",             1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/ARQ<cr><lf>",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/REL<cr><lf>",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/LAP-M<cr><lf>",       1, 02, 02, 2C,01,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 600<cr><lf>",             1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/ARQ<cr><lf>",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/REL<cr><lf>",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/LAP-M<cr><lf>",       1, 02, 02, 58,02,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 0600<cr><lf>",            1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/ARQ<cr><lf>",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/REL<cr><lf>",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/LAP-M<cr><lf>",      1, 02, 02, 58,02,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/REL<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/LAP-M<cr><lf>",      1, 02, 02, B0,04,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200/75<cr><lf>",         1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/ARQ<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/REL<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/LAP-M<cr><lf>",   1, 02, 02, B0,04,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX<cr><lf>",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/ARQ<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/LAP-M<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 75/1200<cr><lf>",         1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/ARQ<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/REL<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/LAP-M<cr><lf>",   1, 02, 02, B0,04,00,00, 00,00,00,00
+
+HKR

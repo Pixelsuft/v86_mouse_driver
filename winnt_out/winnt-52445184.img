@@ -1,0 +1,132 @@
+6e-9n0e-d-d-n0e-n0e-n0e-d-d-d-n0e-9n0e-d-d-n0e-"
+    Rest .3
+
+    PUT (x - 13, y), GorL&, PSET
+    PUT (x + 47, y), GorR&, PSET
+    PLAY "o2l16g-9n0g-een0g-n0g-n0g-eeen0g-9n0g-een0g-"
+    Rest .3
+
+    PUT (x - 13, y), GorR&, PSET
+    PUT (x + 47, y), GorL&, PSET
+    PLAY "o2l16b9n0baan0g-n0g-n0g-eeen0o1b9n0baan0b"
+    Rest .3
+
+    FOR i = 1 TO 4
+      PUT (x - 13, y), GorL&, PSET
+      PUT (x + 47, y), GorR&, PSET
+      PLAY "T160O0L32EFGEFDC"
+      Rest .1
+      PUT (x - 13, y), GorR&, PSET
+      PUT (x + 47, y), GorL&, PSET
+      PLAY "T160O0L32EFGEFDC"
+      Rest .1
+    NEXT
+  END IF
+END SUB
+
+'Intro:
+'  Displays game introduction
+SUB Intro
+
+  SCREEN 0
+  WIDTH 80, 25
+  MaxCol = 80
+  COLOR 15, 0
+  CLS
+
+  Center 4, "Q B a s i c    G O R I L L A S"
+  COLOR 7
+  Center 6, "Copyright (C) Microsoft Corporation 1990"
+  Center 8, "Your mission is to hit your opponent with the exploding"
+  Center 9, "banana by varying the angle and power of your throw, taking"
+  Center 10, "into account wind speed, gravity, and the city skyline."
+  Center 11, "The wind speed is shown by a directional arrow at the bottom"
+  Center 12, "of the playing field, its length relative to its strength."
+  Center 24, "Press any key to continue"
+
+  PLAY "MBT160O1L8CDEDCDL4ECC"
+  SparklePause
+  IF Mode = 1 THEN MaxCol = 40
+END SUB
+
+'MakeCityScape:
+'  Creates random skyline for game
+'Parameters:
+'  BCoor() - a user-defined type array which stores the coordinates of
+'  the upper left corner of each building.
+SUB MakeCityScape (BCoor() AS XYPoint)
+
+  x = 2
+
+  'Set the sloping trend of the city scape. NewHt is new building height
+  Slope = FnRan(6)
+  SELECT CASE Slope
+    CASE 1: NewHt = 15                 'Upward slope
+    CASE 2: NewHt = 130                'Downward slope
+    CASE 3 TO 5: NewHt = 15            '"V" slope - most common
+    CASE 6: NewHt = 130                'Inverted "V" slope
+  END SELECT
+
+  IF Mode = 9 THEN
+    BottomLine = 335                   'Bottom of building
+    HtInc = 10                         'Increase value for new height
+    DefBWidth = 37                     'Default building height
+    RandomHeight = 120                 'Random height difference
+    WWidth = 3                         'Window width
+    WHeight = 6                        'Window height
+    WDifV = 15                         'Counter for window spacing - vertical
+    WDifh = 10                         'Counter for window spacing - horizontal
+  ELSE
+    BottomLine = 190
+    HtInc = 6
+    NewHt = NewHt * 20 \ 35            'Adjust for CGA
+    DefBWidth = 18
+    RandomHeight = 54
+    WWidth = 1
+    WHeight = 2
+    WDifV = 5
+    WDifh = 4
+  END IF
+
+  CurBuilding = 1
+  DO
+
+    SELECT CASE Slope
+      CASE 1
+        NewHt = NewHt + HtInc
+      CASE 2
+        NewHt = NewHt - HtInc
+      CASE 3 TO 5
+        IF x > ScrWidth \ 2 THEN
+          NewHt = NewHt - 2 * HtInc
+        ELSE
+          NewHt = NewHt + 2 * HtInc
+        END IF
+      CASE 4
+        IF x > ScrWidth \ 2 THEN
+          NewHt = NewHt + 2 * HtInc
+        ELSE
+          NewHt = NewHt - 2 * HtInc
+        END IF
+    END SELECT
+
+    'Set width of building and check to see if it would go off the screen
+    BWidth = FnRan(DefBWidth) + DefBWidth
+    IF x + BWidth > ScrWidth THEN BWidth = ScrWidth - x - 2
+
+    'Set height of building and check to see if it goes below screen
+    BHeight = FnRan(RandomHeight) + NewHt
+    IF BHeight < HtInc THEN BHeight = HtInc
+
+    'Check to see if Building is too high
+    IF BottomLine - BHeight <= MaxHeight + GHeight THEN BHeight = MaxHeight + GHeight - 5
+
+    'Set the coordinates of the building into the array
+    BCoor(CurBuilding).XCoor = x
+    BCoor(CurBuilding).YCoor = BottomLine - BHeight
+
+    IF Mode = 9 THEN BuildingColor = FnRan(3) + 4 ELSE BuildingColor = 2
+
+    'Draw the building, outline first, then filled
+    LINE (x - 1, BottomLine + 1)-(x + BWidth + 1, BottomLine - BHeight - 1), BACKGROUND, B
+    LINE (x, BottomLine)-(x + BWidth, BottomLin

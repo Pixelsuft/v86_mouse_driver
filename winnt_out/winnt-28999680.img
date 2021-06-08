@@ -1,0 +1,88 @@
+   ifint $(RegLastError) == 0
+            ForListDo *($(TmpList), 4)
+                set OldList = >($(OldList), $($))
+            EndForListDo
+        endif
+        Debug-Output "AddUSRMediaGroupToServiceGroupOrder current list "$(OldList)
+        Ifcontains(i) $(PPTPGroupName) not-in $(OldList)
+            set NewGroupList = {}
+            ForListDo $(OldList)
+                ifstr(i) $($) == "NDIS"
+                    set NewGroupList = >($(NewGroupList), $(PPTPGroupName))
+                endif
+                set NewGroupList = >($(NewGroupList), $($))
+             EndForListDo
+            Debug-Output "AddUSRMediaGroupToServiceGroupOrder new list "$(NewGroupList)
+            SetRegValue $(KeyGroup) {List, 0,$(!REG_VT_MULTI_SZ),$(NewGroupList)}
+        endif
+        CloseRegKey $(KeyGroup)
+    else
+        Debug-Output "AddUSRMediaGroupToServiceGroupOrder error opening ServiceGroupOrder key."
+        Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", "ServiceGroupOrder Update Failed"
+    endif
+    return
+[UpdateAddressList]
+    Debug-Output $(InfName)": Entering [UpdateAddressList]"
+	Set NumberLineDevices = $($0)
+	Set AdapNum = $($1)
+	Set DriverName = $($2)
+	Set MediaType = $($3)
+    Set MAXIMUM_ALLOWED     = 33554432
+    Set KeyNull             = ""
+	Debug-Output $(InfName)": number of line devices received value "$(NumberLineDevices)
+	Debug-Output $(InfName)": adapter number received value "$(AdapNum)
+	Debug-Output $(InfName)": driver name received value "$(DriverName)
+	Shell "" CreateFullTapiAddrList $(AdapNum)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    Debug-Output "Cannot create the new TAPI address list"
+        goto ShellCodeError
+    endif
+	Set NewTapiAddrList = $($R0)
+	Set TapiAddressList = {}
+	ForListDo $(NewTapiAddrList)
+		Set CurListItem = $(AdapNum)"-"$($)"-0"
+		Set CurListNumber = $(#)
+		IfInt $(CurListNumber) <= $(NumberLineDevices)
+			Set TapiAddressList = >($(TapiAddressList), $(CurListItem))
+		Endif
+	EndForListDo
+	Debug-Output $(InfName)": Modified new Tapi Address List is :"$(TapiAddressList)
+    set RASPPTPAddress = "SYSTEM\CurrentControlSet\Services\"$(DriverName)$(AdapNum)"\Parameters"
+	Debug-Output $(InfName)": RASPPTPAddress is "$(RASPPTPAddress)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RASPPTPAddress) $(MAXIMUM_ALLOWED) KeyParam
+    Debug-Output $(InfName)": keyparam value is "$(KeyParam)
+    Ifstr(i) $(KeyParam) != $(KeyNull)
+	Debug-Output $(InfName)": entering to set usrwan2 value"
+	DeleteRegValue $(KeyParam) "AddressList"
+        SetRegValue $(KeyParam) {AddressList, 0,$(!REG_VT_MULTI_SZ),$(TapiAddressList)}
+	CloseRegKey $(KeyParam)
+	EndIf
+    OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft" $(MAXIMUM_ALLOWED) BaseKey
+    Shell "" HtCreateRegKey $(BaseKey) "TAPI DEVICES\RASPPTPM"
+    IfStr(i) $($R0) != NO_ERROR
+        Debug-Output $(InfName)": Error creating registry key!"
+        GoTo FatalRegistry
+    EndIf
+    Set TapiDeviceKey = $($R1)
+	DeleteRegValue $(TapiDeviceKey) "Address"
+	DeleteRegValue $(TapiDeviceKey) "Media Type"
+    SetRegValue $(TapiDeviceKey) {Address, 0,$(!REG_VT_MULTI_SZ),$(TapiAddressList)}
+    SetRegValue $(TapiDeviceKey) {"Media Type", 0,$(!REG_VT_SZ),$(MediaType)}
+    CloseRegKey $(TapiDeviceKey)
+    CloseRegKey $(BaseKey)
+    Read-Syms InvokeRasDlg$(!STF_LANGUAGE)
+    Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS", +
+	    $(InvokeRasConfigMsg)
+    Set AddCopy  = YES
+    Set DoCopy   = YES
+    Set DoConfig = YES
+    Set SaveNTN_InstallMode = $(!NTN_InstallMode)
+    Set !NTN_InstallMode = configure
+    Shell "oemnsvra.inf" InstallOption $(!STF_LANGUAGE) "RAS" "" $(AddCopy) $(DoCopy) $(DoConfig)
+    Set !NTN_InstallMode = $(SaveNTN_InstallMode)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": Error Shelling the RAS INF file oemnsvra.inf"
+        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS",  +
+                $(InvokeRasError)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            GoTo ShellCodeE

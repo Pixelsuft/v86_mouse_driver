@@ -1,0 +1,52 @@
+ New,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman Cyr,0",,"Times New Roman,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,204"
+
+[NLS.Registry.Ukraine]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  855,,C_855.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  866,,C_866.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage, 1251,,C_1251.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10007,,C_10007.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10017,,C_10017.NLS
+;
+; For the Ukrainian locale ACP is 1251 and MACCP is 10017
+;
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,1251
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10017
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","System,0",,"System,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Fixedsys,0",,"Fixedsys,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Small Fonts,0",,"Small Fonts,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Serif,0",,"MS Serif,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Sans Serif,0",,"MS Sans Serif,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier,0",,"Courier New,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial Cyr,0",,"Arial,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New Cyr,0",,"Courier New,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman Cyr,0",,"Times New Roman,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,204"
+
+[NLS.Registry.Greek]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  737,,C_737.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  869,,C_869.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  875,,C_875.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage, 1253,,C_1253.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10006,,C_10006.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,1253
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10006
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","System,0",,"System,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Fixedsys,0",,"Fixedsys,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Small Fonts,0",,"Small Fonts,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Serif,0",,"MS Serif,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Sans Serif,0",,"MS Sans Serif,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier,0",,"Courier New,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Sans Serif Greek,0",,"MS Sans Serif,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","System Greek,0",,"System,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Fixedsys Greek,0",,"Fixedsys,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Small Fonts Greek,0",,"Small Fonts,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Serif Greek,0",,"MS Serif,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial Greek,0",,"Arial,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New Greek,0",,"Courier New,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman Greek,0",,"Times New Roman,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,161"
+HKLM,"Software\Microsoft\

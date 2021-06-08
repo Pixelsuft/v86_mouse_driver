@@ -1,0 +1,100 @@
+4 Internal
+AddReg=All, MfgAddReg, highspeed, Modem16.AddReg, INTERNAL
+
+[Modem15]       ; Viva V.34 Internal
+AddReg=All, MfgAddReg, highspeed, Modem15.AddReg, INTERNAL
+
+[Modem14]       ; Viva V.34 External
+AddReg=All, MfgAddReg, highspeed, Modem14.AddReg, EXTERNAL
+
+[Modem13]       ; Viva 300-1200-2400 external 
+AddReg=All, MfgAddReg, lowspeed, Modem13.AddReg, EXTERNAL
+
+[Modem12]       ; Viva Hookup 2400SE
+AddReg=All, MfgAddReg, lowspeed, Modem12.AddReg, EXTERNAL
+
+[Modem11]       ; Viva 2400 Data/Fax External 
+AddReg=All, MfgAddReg, lowspeed, Modem11.AddReg, EXTERNAL
+
+[Modem10]       ; Viva Hookup 2400 internal 
+AddReg=All, MfgAddReg, lowspeed, Modem10.AddReg, INTERNAL
+
+[Modem9]        ; Viva 24i internal
+AddReg=All, MfgAddReg, lowspeed, Modem9.AddReg, INTERNAL 
+
+[Modem8]        ; Viva Message Center Internal 
+AddReg=All, MfgAddReg, lowspeed, Modem8.AddReg, INTERNAL 
+
+[Modem7]        ; Viva 2400 Data Fax Internal 
+AddReg=All, MfgAddReg, lowspeed, Modem7.AddReg, INTERNAL 
+
+[Modem6]        ; Viva modem 24 external 
+AddReg=All, MfgAddReg, lowspeed, Modem6.AddReg, EXTERNAL
+
+[Modem5]        ; Viva 2496p Pocket 
+AddReg=All, MfgAddReg, lowspeed, Modem5.AddReg, EXTERNAL
+
+[Modem4]        ; Viva 2442if  Internal
+AddReg=All, MfgAddReg, lowspeed, Modem4.AddReg, INTERNAL
+
+[Modem3]        ; Viva 14.4i Data FAX
+AddReg=All, MfgAddReg, highspeed, Modem3.AddReg, INTERNAL
+
+[Modem2]        ; Viva 14.4 FAX-P
+AddReg=All, MfgAddReg, highspeed, Modem2.AddReg, EXTERNAL
+
+[Modem1]        ; 14.4 Data Fax External
+AddReg=All, MfgAddReg, highspeed, Modem1.AddReg, EXTERNAL
+
+; AddReg sections
+
+[Modem22.AddReg]    ; Xircom CEM2 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 00,4b,00,00
+HKR, Init, 2,, "AT E0 V1 &C1 &D2 S0=0 W2 S95=47<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3 -J1"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+
+[Modem20.AddReg]    ; Zoltrix FM144ATI, 14.4 internal (RPI)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S95=47 W1 S0=0<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Modem19.AddReg]    ; Zoltrix ZX-288 (ZX288aci) external
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem18.AddReg]    ; Zoltrix ZX-144 (ZX144ATI) external  (RPI)
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S95=47 W1 S0=0<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00  
+
+[Modem17.AddReg]    ; Viva 14.4 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT E0 V1 &C1 &D2 S0=0 \V2<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3 -J1"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem16.AddReg]    ; Viva 14.4 internal 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT&FV1&D2&C1E0Q0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, ErrorControl_On,, "\N6"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N5"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settin

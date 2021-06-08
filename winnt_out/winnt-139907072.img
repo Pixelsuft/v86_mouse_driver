@@ -1,0 +1,85 @@
+       endif
+            Debug-Output "OEMNSVRA.INF: UpdateNetGroupDependency: new depend List "$(newGroupList)
+            LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $(Service) $(!SERVICE_NO_CHANGE), $(!SERVICE_NO_CHANGE), $(!SERVICE_NO_CHANGE), "", "", $(newGroupList), "", "", ""
+            CloseRegKey $(KeyService)
+        else
+            Debug-Output "UpdateNetGroupDependency: failed to open service linkage key"$(Service)
+        endif
+    EndForListDo
+    Debug-Output "UpdateNetGroupDependency exit"
+    return $(Status)
+[RemoveNetGroupDependency]
+    Set  Status = STATUS_SUCCESSFUL
+    set  KeyNull = ""
+    set  fNetbeuiInstalled  = $($0)
+    set  fTcpIpInstalled    = $($1)
+    set  fIpxInstalled      = $($2)
+    Debug-Output "UpdateNetGroupDependency entry"
+    set ServiceList =  {"nbf", "tcpip", "nwlnkipx"}
+    ForListDo $(ServiceList)
+        set Service = $($)
+        Debug-Output "OEMNSVRA.INF: Changing group dependency of "$(Service)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(Service) +
+                   $(!MAXIMUM_ALLOWED) KeyService
+        ifstr $(KeyService) != $(KeyNull)
+          set DeleteFlag = ""
+          GetRegValue $(KeyService),"DeleteFlag", DeleteFlagInfo
+          set DeleteFlag = *($(DeleteFlagInfo), 4)
+          ifint $(DeleteFlag) != 1
+            set newGroupList = {}
+            GetRegValue    $(KeyService) "DependOnGroup" GrpList
+            ifint $(RegLastError) == 0
+                Debug-Output "UpdateNetGroupDependency: old List "*($(GrpList), 4)
+                ForListDo *($(GrpList),4)
+                    ifstr(i) $($) != "NDISWAN"
+                        set newGroup = "+"$($)
+                        set newGroupList = >($(newGroupList), $(newGroup))
+                    endif
+                EndForListDo
+            endif
+            GetRegValue $(KeyService) "DependOnService" ServiceList
+            ifint $(RegLastError) == 0
+                Debug-Output "UpdateNetGroupDependency: old service List "*($(ServiceList), 4)
+                ForListDo *($(ServiceList),4)
+                    set newGroupList = >($(newGroupList), $($))
+                EndForListDo
+            endif
+            Debug-Output "OEMNSVRA.INF: UpdateNetGroupDependency: new depend List "$(newGroupList)
+            LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $(Service) $(!SERVICE_NO_CHANGE), $(!SERVICE_NO_CHANGE), $(!SERVICE_NO_CHANGE), "", "", $(newGroupList), "", "", ""
+            CloseRegKey $(KeyService)
+          endif
+        else
+            Debug-Output "UpdateNetGroupDependency: failed to open service linkage key"$(Service)
+        endif
+    EndForListDo
+    Debug-Output "UpdateNetGroupDependency exit"
+    return $(Status)
+[UpdateIPRouterInfo]
+    set EnableRouter = $($0)
+    set KeyNull      = ""
+    Debug-Output "UpdateIPRouterInfo entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\TCPIP\parameters" $(!MAXIMUM_ALLOWED) KeyIpParams
+    ifstr $(KeyIpParams) != $(KeyNull)
+        SetRegValue $(KeyIpParams) {IPEnableRouter, 0,+
+                                    $(!REG_VT_DWORD), $(EnableRouter)}
+        CloseRegKey $(KeyIpParams)
+    endif
+    Debug-Output "UpdateIPRouterInfo exit"
+    return STATUS_SUCCESSFUL
+[UpdateIPXRouterInfo]
+    set Status = STATUS_FAILED
+    set EnableRouter = $($0)
+    set KeyNull      = ""
+    Debug-Output "UpdateIPXRouterInfo entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NWLNKIPX\NetConfig" $(!MAXIMUM_ALLOWED) KeyIpxNetConfig
+    ifstr $(KeyIpxNetConfig) != $(KeyNull)
+        EnumRegKey $(KeyIpxNetConfig) DriverList
+        ForListDo $(DriverList)
+           set DriverName = *($($),1)
+           OpenRegKey $(KeyIpxNetConfig) "" $(DriverName) $(!MAXIMUM_ALLOWED) Driver
+           ifstr $(Driver) == $(KeyNull)
+               Debug-Output "UpdateIPXRouterInfo: could not open key ipx\netconfig\"$(DriverName)
+               CloseRegKey $(KeyIpxNetConfig)
+               return $(Status)
+           endif
+      

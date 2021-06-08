@@ -1,0 +1,88 @@
+ "" $(RasAsyMacParamKeyName) $(!MAXIMUM_ALLOWED) KeyMacParams
+    ifstr $(KeyMacParams) == $(KeyNull)
+       Debug-Output "UpdateNetCardInfo: could not open AsyncMac Params key"
+       goto UpdateNetCardInfoEnd
+    endif
+    set NewValueList = {}
+    ifstr(i) $(fNetbeuiChosen) == FALSE
+        set NewValueList =  >($(NewValueList), +
+                             {DialinNBF, $(NoTitle), $(!REG_VT_DWORD), 0})
+        set NewValueList = >($(NewValueList), +
+                             {DialoutNBF, $(NoTitle), $(!REG_VT_DWORD), 0})
+    endif
+    ifstr(i) $(fTcpIpChosen) == FALSE
+        set NewValueList = >($(NewValueList), +
+                            {DialinIP, $(NoTitle), $(!REG_VT_DWORD), 0 })
+        set NewValueList = >($(NewValueList), +
+                            {DialoutIP, $(NoTitle), $(!REG_VT_DWORD), 0 })
+    endif
+    ifstr(i) $(fIpxChosen) == FALSE
+        set NewValueList = >($(NewValueList), +
+                            {DialinoutIPX, $(NoTitle), $(!REG_VT_DWORD), 0})
+    endif
+    Shell  "utility.inf", AddValueList, $(KeyMacParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "UpdateNetCardInfo:AddValueList bombed out"
+         goto UpdateNetCardInfoEnd
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(KeyMacParams)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto UpdateNetCardInfoEnd
+    endif
+    set Status = STATUS_SUCCESSFUL
+UpdateNetCardInfoEnd =+
+    Debug-Output "UpdateNetcardInfo: Exit"
+    return $(Status)
+[UpdateNdisWanInfo]
+    Debug-Output "UpdateNdisWanNetInfo: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set NdisWanName = $(!NTN_SoftwareBase)"\Microsoft\NdisWan\CurrentVersion"
+    set NdisWanRulesName = $(!NTN_SoftwareBase)"\Microsoft\NdisWan\CurrentVersion\NetRules"
+    set NdisWanSvcName = $(!NTN_ServiceBase)"\NdisWan"
+    set RasManLinkageName = $(!NTN_ServiceBase)"\RasMan\Linkage"
+    OpenRegKey $(!REG_H_LOCAL) "" $(NdisWanName) $(!MAXIMUM_ALLOWED) KeyNdisWan
+    ifstr $(KeyNdisWan) != $(KeyNull)
+        SetRegValue $(KeyNdisWan) {Description, 0, +
+				$(!REG_VT_SZ),$(!ProductNDISWANDescription)}
+        SetRegValue $(KeyNdisWan) {PathName, 0, +
+				$(!REG_VT_SZ),$(!ProductNDISWANImagePath)}
+        SetRegValue $(KeyNdisWan) {ServiceName, 0, +
+				$(!REG_VT_SZ),$(!ProductNDISWANName)}
+        SetRegValue $(KeyNdisWan) {Title, 0, +
+				$(!REG_VT_SZ),$(!ProductNDISWANTitle)}
+        CloseRegKey $(KeyNdisWan)
+    else
+	    Debug-Output "UpdateNdisWanInfo: could not open NdisWan key"
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(NdisWanRulesName) $(!MAXIMUM_ALLOWED) KeyRules
+    ifstr $(KeyRules) != $(KeyNull)
+        SetRegValue $(KeyRules) {bindable, 0, +
+				$(!REG_VT_MULTI_SZ),$(!NetRuleNDISWANBindable)}
+        SetRegValue $(KeyRules) {bindform, 0, +
+				$(!REG_VT_SZ),$(!NetRuleNDISWANBindForm)}
+        SetRegValue $(KeyRules) {class, 0, +
+				$(!REG_VT_MULTI_SZ),$(!NetRuleNDISWANClass)}
+        SetRegValue $(KeyRules) {type, 0, +
+				$(!REG_VT_SZ),$(!NetRuleNDISWANType)}
+        SetRegValue $(KeyRules) {InfOption, 0, +
+				$(!REG_VT_SZ), "NDISWAN"}
+        CloseRegKey $(KeyRules)
+    else
+	    Debug-Output "UpdateNdisWanInfo: could not open NdisWan NetRules key"
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(NdisWanSvcName) $(!MAXIMUM_ALLOWED) KeyService
+    ifstr $(KeyService) != $(KeyNull)
+        SetRegValue $(KeyService) {DisplayName, 0, +
+				$(!REG_VT_SZ),$(!ProductNDISWANDisplayName)}
+        SetRegValue $(KeyService) {ImagePath, 0, +
+				$(!REG_VT_EXPAND_SZ),$(!ProductNDISWANImagePath)}
+        SetRegValue $(KeyService) {Start, 0, $(!REG_VT_DWORD),2}
+        SetRegValue $(KeyService) {Group, 0, $(!REG_VT_SZ), "NDISWAN"}
+        DeleteRegValue $(KeyService) "DependOnService"
+        DeleteRegValue $(KeyService) "DependOnGroup"
+        OpenRegKey $(KeyService) "" "Linkage" $(!MAXIMUM_ALLOWED) KeyLinkage
+        ifstr $(KeyLinkage) != $(KeyNull)
+            DeleteRegValue $(KeyLinkage) "OtherDependencies"
+    

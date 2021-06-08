@@ -1,0 +1,95 @@
+OURCE_FAIL"
+       ifint $($ShellCode) != $(!SHELL_CODE_OK)
+           goto ShellCodeError
+       endif
+       set Error = $($R0)
+       Goto fatal
+    Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+       Goto successful
+    Endif
+    Set SrcDir = $($R1)
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        Debug-Output "OEMNSVCU.INF: installadapter: installing [Install-Option]"
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+    endif
+    set OEM_ABANDON_ON  = TRUE
+    StartWait
+    set ThisOption = STCPIP
+    Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer),+
+        $(Product$(ThisOption)Name),+
+        $(Product$(ThisOption)Name),+
+        $(Product$(ThisOption)DisplayName),+
+        $(STF_CONTEXTINFNAME),+
+        $(Product$(ThisOption)ImagePath),+
+        $(Product$(ThisOption)SvcType), "",+
+        {"Afd","+TDI"}, "", "%systemroot%\system32\simptcp.dll"
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVSP.INF: ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $($R3)
+    CloseRegKey $($R5)
+    set STParamKey = $($R4)
+    set STVerKey   = $($R1)
+    set STRulesKey   = $($R2)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OEMNSVSP.INF: Registry error creating Simple TCP/IP service"
+        CloseRegKey $(STParamKey)
+        CloseRegKey $(STVerKey)
+        CloseRegKey $(STRulesKey)
+        goto fatalregistry
+    endif
+    set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),"Transport"},+
+                       {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                       {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                       {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                       {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                       {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                       {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+                       {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+    Shell  $(UtilityInf), AddValueList, $(STVerKey), $(NewValueList)
+    CloseRegKey $(STVerKey)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVSP.INF: ShellCode error, add value list"
+        CloseRegKey $(STParamKey)
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OEMNSVSP.INF: Registry error: add value list."
+        CloseRegKey $(STParamKey)
+        CloseRegKey $(STRulesKey)
+        goto fatalregistry
+    Endif
+    set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}}
+    Shell  $(UtilityInf), AddValueList, $(STRulesKey), $(NewValueList)
+    CloseRegKey $(STRulesKey)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVSP.INF: ShellCode error, add value list"
+        CloseRegKey $(STParamKey)
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OEMNSVSP.INF: Registry error: add value list."
+        CloseRegKey $(STParamKey)
+        goto fatalregistry
+    Endif
+    set NewValueList = {+
+                       {EnableMultipleThreads,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableTcpEcho,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableUdpEcho,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableTcpDiscard,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableUdpDiscard,$(NoTitle),$(!REG_VT_DWORD

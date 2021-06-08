@@ -1,0 +1,50 @@
+icrosoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,96
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,96
+
+[Font.CP1252.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (VGA res)",,COURE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (VGA res)",,SERIFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (VGA res)",,SSERIFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (VGA res)",,SMALLE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,96
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,96
+
+[Font.CP1253.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (VGA res)",,COUREG.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (VGA res)",,SERIFEG.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (VGA res)",,SSERIFEG.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (VGA res)",,SMALLEG.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,96
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,96
+
+[Font.CP1254.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (VGA res)",,COURET.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (VGA res)",,SERIFET.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (VGA res)",,SSERIFET.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (VGA res)",,SMALLET.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,96
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,96
+
+[Font.CP1257.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (VGA res)",,COUE1257.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (VGA res)",,SERE1257.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (VGA res)",,SSEE1257.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (VGA res)",,SMAE1257.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,96
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,96
+
+[Font.CP874.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (VGA res)",,COURE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (VGA res)",,SERIFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (VGA res)",,SSERIFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (VGA res)",,SMALLE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,96
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga850.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels"

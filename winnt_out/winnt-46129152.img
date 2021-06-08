@@ -1,0 +1,46 @@
+1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 21600/VFC",1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 24000/VFC",1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 26400/VFC",1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 28800/VFC",1, 01, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 31200/VFC",1, 01, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 33600/VFC",1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 300",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 1200",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 2400",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 4800",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 7200",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 9600",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 12000",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 14400",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 16800",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 19200",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 21600",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 24000",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 26400",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 300 Receive: 28800",   1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 300",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 1200",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 2400",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 4800",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 7200",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 9600",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 12000",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 14400",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 16800",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 19200",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 21600",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 24000",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 26400",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 1200 Receive: 28800",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 300",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 1200",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 2400",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 4800",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 7200",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 9600",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 12000",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 14400",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 16800",   1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER  Transmit: 2400 Receive: 19200",   1, 01

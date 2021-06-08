@@ -1,0 +1,54 @@
+ all removable media using only the Explorer. Ejecting media by other means, such as eject switch on the drive, can cause data inconsistency when viewing media information.  
+
+Data on write protected NTFS media cannot be seen. 
+
+Compaq LS-120
+When formatting a 1.44 MB floppy disk in a Compaq LS-120 drive, the progress indicator in the dialog box lags behind the formatting activity. After a minute or so, the progress indicator advances quickly and the format completes successfully.
+
+Creative Labs Sound Blaster on RISC Platforms
+If you are running Windows NT on a RISC platform with a Creative Labs Sound Blaster adapter card, you may experience problems (such as loss of sound) if you click Settings ,and then click Cancel in the property dialog box of the sound card.  To avoid this, click OK instead of Cancel.
+To restore sound
+1. Double-click the Multimedia icon in Control Panel
+2. Click the Devices tab. 
+3. Click Audio Devices, and select Audio for Creative Labs Sound Blaster. 
+4. Click Remove and then shut down and restart the computer. 
+5. Double-click the Multimedia icon in Control Panel. 
+6. Click the Devices tab and then click  Add
+7. Select the Creative Labs Sound Blaster driver, verify the settings, and then click OK. 
+8. Restart your system.
+
+Device Driver Load Order
+Third-party modifications to the load order of device drivers are not preserved on a system upgrade. If a device (such as an optical disk) is not operating correctly after a system upgrade, you may be required to reinstall the driver.
+
+DPT Configuration Tool for MIPS and PowerPC Machines
+On DPT's PCI bus adapters, the DPT Configuration tool is built into the adapter's firmware and on x86 processor-based computers, is accessible by pressing CTRL-D during boot. This toolcontrols the adapter's I/O address, parity, PCI transfer/burst, SCSI ID, termination, termination power, and several other adapter options.
+
+To configure DPT's PCI bus adapters when installed in either a MIPS or a PowerPC RISC processor-based computer, DPT has placed these functions in special versions of their Storage Manager tool software. To obtain this software, it may be downloaded through DPT's BBS number or their Internet FTP Site.
+
+BBS procedure:
+
+1. Dial in at (407) 831-6432 or (407) 830-1070
+2. Select: (F)ile directories
+3. Select file to download: 
+    MIPSMGR.ZIP for MIPS
+    MGRNTPPC.zip for PowerPC
+
+FTP server procedure:
+1. Go to: FTP.DPT.COM
+2. Then go to: 
+    PUB/TECHSUP/WINDOWS_NT/MIPS  for MIPS
+    PUB/TECHSUP/WINDOWS_NT/PPC  for PowerPC
+3. Downloads the file: 
+    MIPSMGR.zip for MIPS
+    NTMGRPPC.zip  for PowerPC
+
+If there are any problems downloading these tools, please contact DPT at (407)830-5522.
+
+
+El Torito (no emulation) Bootable CD-ROM Format
+If your computer's BIOS does not support the El Torito (no emulation) bootable CD-ROM format, you might get an error when you boot up your machine with the Windows NT compact disc inserted in the CD drive. To work around this problem, remove the CD-ROM from the drive and reboot the machine.
+
+ESDI Disk Drives with More Than 1024 Cylinders
+In some cases, on disk drives with more than 1024 cylinders, Windows NT installation proceeds normally until the first startup from the hard drive where Windows NT is installed. The Windows NT Boot Loader will load various files and then produce a Fatal System Error: 0x0000006b with the message that Phase 1 Process Initialization failed. Following this message will be some type of hexadecimal dump, and the system will be locked up. If you experience this difficulty, the following information can help.
+
+Microsoft has tested the ESDI controllers listed in README.WRI by using a hard drive with a capacity exceeding 516 MB (MB=1,048,576 bytes) formatted. The MS-DOS limit of 1024 cylinders creates a situation where special BIOS mapping on the controller is used to change the geometry of the drive. ESDI drives can be prepared with various values of sectors per track (spt) such as 53 or 63 spt geometry during a low-level format, as shown in the f

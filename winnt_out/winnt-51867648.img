@@ -1,0 +1,78 @@
+.register]
+;Register shared DLLs:
+;HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\SharedDLLs,%11%\mfc40.dll,2,"1"
+;HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\SharedDLLs,%11%\mfco40.dll,2,"1"
+;HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\SharedDLLs,%11%\oc30.dll,2,"1"
+;HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\SharedDLLs,%11%\oc30d.dll,2,"1"
+;HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\SharedDLLs,%11%\msvcrt40.dll,2,"1"
+
+
+[ImageVue.install.reg]
+HKLM,%KEY_OPTIONAL%\ImageVue,Installed,,"1"
+HKLM,%KEY_OPTIONAL%\FaxView,Installed,,"0"
+
+[ImageVue.remove.reg]
+; sets status for Maint Mode Setup to 'not installed'
+HKLM,%KEY_OPTIONAL%\ImageVue,Installed,,"0"
+
+; Register the image viewer ocx's, and shell extension. These entries were
+; sucked out of the registry into separate reg files.
+
+[ImageVueReg]
+
+HKCR,.tif,,,TIFImage.Document
+HKCR,TIFImage.Document,,,"%TIF_DOC%"
+HKCR,TIFImage.Document\DefaultIcon,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe,1"
+HKCR,TIFImage.Document\shell\open\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe ""%%1"""
+HKCR,TIFImage.Document\shell\print\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /p ""%%1"""
+HKCR,TIFImage.Document\shell\printto\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /pt ""%%1"" ""%%2"" ""%%3"" ""%%4"" "
+HKCR,TIFImage.Document\CLSID,,,{02B01C80-E03D-101A-B294-00DD010F2BF9}
+
+HKCR,TIFImage.Document\shellex
+HKCR,TIFImage.Document\shellex\PropertySheetHandlers,,,
+HKCR,TIFImage.Document\shellex\PropertySheetHandlers\{1D3ECD40-C835-11CE-9888-00608CC22020},,,""
+
+
+HKCR,.pcx,,,PCXImage.Document
+HKCR,PCXImage.Document,,,"%PCX_DOC%"
+HKCR,PCXImage.Document\DefaultIcon,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe,1"
+HKCR,PCXImage.Document\shell\open\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe ""%%1"""
+HKCR,PCXImage.Document\shell\print\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /p ""%%1"""
+HKCR,PCXImage.Document\shell\printto\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /pt ""%%1"" ""%%2"" ""%%3"" ""%%4"" "
+HKCR,PCXImage.Document\CLSID,,,{02B01C80-E03D-101A-B294-00DD010F2BF9}
+
+HKCR,PCXImage.Document\shellex
+HKCR,PCXImage.Document\shellex\PropertySheetHandlers,,,
+HKCR,PCXImage.Document\shellex\PropertySheetHandlers\{1D3ECD40-C835-11CE-9888-00608CC22020},,,""
+
+HKCR,.dcx,,,DCXImage.Document
+HKCR,DCXImage.Document,,,"%DCX_DOC%"
+HKCR,DCXImage.Document\DefaultIcon,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe,1"
+HKCR,DCXImage.Document\shell\open\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe ""%%1"""
+HKCR,DCXImage.Document\shell\print\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /p ""%%1"""
+HKCR,DCXImage.Document\shell\printto\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /pt ""%%1"" ""%%2"" ""%%3"" ""%%4"" "
+HKCR,DCXImage.Document\CLSID,,,{02B01C80-E03D-101A-B294-00DD010F2BF9}
+
+HKCR,DCXImage.Document\shellex
+HKCR,DCXImage.Document\shellex\PropertySheetHandlers,,,
+HKCR,DCXImage.Document\shellex\PropertySheetHandlers\{1D3ECD40-C835-11CE-9888-00608CC22020},,,""
+
+;HKCR,.awd,,,FaxView.Document
+;HKCR,FaxView.Document,,,"%FAX_DOC%"
+;HKCR,FaxView.Document\DefaultIcon,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe,1"
+;HKCR,FaxView.Document\shell\open\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe ""%%1"""
+;HKCR,FaxView.Document\shell\print\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /p ""%%1"""
+;HKCR,FaxView.Document\shell\printto\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /pt ""%%1"" ""%%2"" ""%%3"" ""%%4"" "
+;HKCR,FaxView.Document\CLSID,,,{02B01C80-E03D-101A-B294-00DD010F2BF9}
+
+;HKCR,FaxView.Document\shellex
+;HKCR,FaxView.Document\shellex\PropertySheetHandlers,,,
+;HKCR,FaxView.Document\shellex\PropertySheetHandlers\{1D3ECD40-C835-11CE-9888-00608CC22020},,,""
+
+HKCR,.xif,,,XIFImage.Document
+HKCR,XIFImage.Document,,,"%XIF_DOC%"
+HKCR,XIFImage.Document\DefaultIcon,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe,1"
+HKCR,XIFImage.Document\shell\open\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe ""%%1"""
+HKCR,XIFImage.Document\shell\print\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /p ""%%1"""
+HKCR,XIFImage.Document\shell\printto\command,,,"%24%\%IMAGEVUE_DIR%\WangImg.Exe /pt ""%%1"" ""%%2"" ""%%3"" ""%%4"" "
+HKCR,XIF

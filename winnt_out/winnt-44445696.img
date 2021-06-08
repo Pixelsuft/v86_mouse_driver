@@ -1,0 +1,71 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: U.S. Robotics, Inc. (Courier)
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEMB8355EDC   ; V.Everything, V.34 Ready
+ExcludeFromSelect=UNIMODEMA388E589   ; V.Everything, Dual Standard V.34 Fax
+ExcludeFromSelect=PCMCIA\USROBOTICS-PCMCIA_28800_DATA/FAX-92A2  ; Sportster, Courier PCMCIA
+ExcludeFromSelect=*USR0009  
+ExcludeFromSelect=SERENUM\USR0100  
+ExcludeFromSelect=UNIMODEM3BFBF0AE   ; V.Everything internal or external
+
+[Modem36.NoResDup]
+UNIMODEM3BFBF0AE
+
+[Modem35.PosDup]
+*PNP0500
+
+[Manufacturer]
+%Mfg% = Models
+
+[Models]
+%Modem38% = Modem38, PCMCIA\USROBOTICS-PCMCIA_V.Everything-3D75  ;Courier V.Everything (PC-Card) PCMCIA
+%Modem38% = Modem38, UNIMODEMD901726F  ;Courier V.Everything (PC-Card) PCMCIA
+%Modem38% = Modem38, UNIMODEM215748DF  ;Courier V.Everything (PC-Card) PCMCIA
+%Modem37% = Modem29, UNIMODEMDBE8D9C0   ;Total Control Quad V.34 Rack
+
+%Modem36PNP% = Modem36, SERENUM\USR0100              ; V.Everything external
+%Modem36% = Modem36, USRCR_Modem36, UNIMODEM3BFBF0AE   ; V.Everything external
+%Modem36GEN% = Modem36, UNIMODEM3BFBF0AE               ; combo V.Everything internal or external
+
+%Modem35PNP% = Modem35, *USR0009                        ; V.Everything internal ISAPNP
+%Modem35% = Modem35, USRCR_Modem35, UNIMODEM3BFBF0AE   ; V.Everything internal ISAPNP
+
+%Modem34% = Modem33, PCMCIA\USROBOTICS-PCMCIA_28800_DATA/FAX-92A2  ; U.S. Robotics 28.8 PCMCIA Modem
+%Modem33% = Modem33, USRCR_Modem33, PCMCIA\USROBOTICS-PCMCIA_28800_DATA/FAX-92A2  ; Courier 28.8 Dual Standard Data-Fax PCMCIA
+%Modem33% = Modem33, UNIMODEMB23CEDA2  ; Courier 28.8 Dual Standard Data-Fax PCMCIA
+%Modem32% = Modem29, UNIMODEMA388E589   ;V.Everything, Dual Standard V.34 Fax
+%Modem32% = Modem29, UNIMODEM8EAAB5CB   ;V.Everything, Dual Standard V.34 Fax
+%Modem31% = Modem23, USRCR_Modem31, UNIMODEMA388E589  ;Dual Standard V.34 Fax
+%Modem30% = Modem24, UNIMODEMB8355EDC   ;External Courier Dual Standard V.34 or V.Everything
+%Modem29% = Modem24, UNIMODEM2347FF16   ;External Courier V.32 V.FC Fax
+%Modem28% = Modem28, UNIMODEM1D65693C   ;External Courier 2400
+%Modem28% = Modem28, UNIMODEM127AE5E2   ;External Courier 2400
+%Modem27% = Modem27, UNIMODEM39ED6288   ;External Courier HST dual standard with v.32bis and ASL
+%Modem27% = Modem27, UNIMODEM3A2CF0D8   ;External Courier HST dual standard with v.32bis and ASL
+%Modem26% = Modem26, UNIMODEM730CFDCE   ;External Courier V32bis with ASL
+%Modem26% = Modem26, UNIMODEM6D63BB30   ;External Courier V32bis with ASL
+%Modem26% = Modem26, UNIMODEMA6C7E9DE   ;External Courier V32bis with ASL
+%Modem26% = Modem26, UNIMODEM565BEC06   ;External Courier V32bis with ASL
+%Modem25% = Modem25, UNIMODEMF399F4C4   ;External courier HST dual std with fax and ASL
+%Modem25% = Modem25, UNIMODEM7E55AE17   ;External courier HST dual std with fax and ASL
+%Modem24% = Modem24, UNIMODEM7C587E53   ;External Courier V.34 Ready
+%Modem24% = Modem24, UNIMODEM5C45417B   ;External Courier V.34 Ready - retail model before flash upgrade
+%Modem24% = Modem24, USRCR_Modem24, UNIMODEMB8355EDC   ;External Courier V.34
+%Modem23% = Modem29, USRCR_Modem23, UNIMODEMA388E589   ;External Courier V.Everything  - after flash upgrade
+%Modem23% = Modem23, UNIMODEM1252C879   ;External Courier V.Everything
+%Modem23% = Modem23, USRCR_Modem23, UNIMODEMB8355EDC   ;External Courier V.Everything
+%Modem22% = Modem22, USRCR_Modem22      ;Internal Courier Terbo V32bis Fax PC
+%Modem21% = Modem21, UNIMODEM2A860703   ;External Courier Terbo V32bis Fax
+%Modem20% = Modem20, USRCR_Modem20      ;Internal Courier Terbo Dual Standard Fax PC
+%Modem19% = Modem19, USRCR_Modem19      ;Internal Courier 14,400 Dual Standard PC
+%Modem18% = Modem18, UNIMODEMF537198E   ;External Courier 14,400 Dual Standard
+%Modem18% = Modem18, UNIMODEM439612CB   ;External Courier 14,400 Dual Standard
+%Modem17% = Modem17, USRCR_Modem17      ;Intern

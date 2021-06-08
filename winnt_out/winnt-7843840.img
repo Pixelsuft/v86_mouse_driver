@@ -1,0 +1,106 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1998 Microsoft Corporation \\MS-IRL\\
+; Manufacturer:   ke Kommunikations Elektronic
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem1% = Modem1, UNIMODEM9F4AD308                                     ; LOGEM 914 V.32bis, 928 V.34
+%Modem2% = Modem2, UNIMODEM2BE7B3AB                                     ; WorldBlazer
+%Modem3% = Modem3, PCMCIA\Psion_Dacom-Gold_Card_PCMCIA_Modem-3471       ; LOGEM 532fax PCMCIA Modem 
+%Modem4% = Modem4, kekomm_Modem4 ; no Unimodemid                                                ; LOGEM 64K ISDN Terminal-Adapter X.75 Modus 
+%Modem5% = Modem5, kekomm_Modem5 ; no Unimodemid                                                ; LOGEM 64K ISDN Terminal-Adapter Datex-J Modus 
+
+; Installation sections
+
+[Modem1]        ; LOGEM 914 V.32bis, 928 V.34
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+[Modem2]        ; WorldBlazer
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem3]        ; LOGEM 532fax PCMCIA Modem
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem4]        ; LOGEM 64K ISDN Terminal-Adapter X.75 Modus
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem5]        ; LOGEM 64K ISDN Terminal-Adapter Datex-J Modus 
+AddReg=All, MfgAddReg, Modem5.AddReg, External
+
+
+; AddReg sections
+
+[Modem1.AddReg] ; LOGEM 914 V.32bis, 928 V.34
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 09,00,00,00
+HKR, INIT,3,,"AT S0=0 &D2 &I0<cr>"
+
+[Modem2.AddReg] ; WorldBlazer
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,96,00,00, 40,38,00,00
+HKR,, FClass, 1, 09,00,00,00
+HKR, INIT,2,,"AT&F S50=0 S38=1 &D2<cr>"
+HKR, Settings, FlowControl_Off,, "S58=0 S68=255"
+HKR, Settings, FlowControl_Hard,, "S58=2 S68=255"
+HKR, Settings, FlowControl_Soft,, "S58=3 S68=255"
+HKR, Settings, ErrorControl_On,, "S180=2 S181=1"
+HKR, Settings, ErrorControl_Off,, "S180=0 S181=1"
+HKR, Settings, ErrorControl_Forced,, "S180=2 S181=2"
+HKR, Settings, Compression_On,, "S190=1"
+HKR, Settings, Compression_Off,, "S190=0"
+HKR, Settings, Blind_On,, "X1"
+HKR, Settings, InactivityTimeout,, "S41=<#>"
+
+[Modem3.AddReg] ; LOGEM 532fax PCMCIA Modem
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 3f,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 09,00,00,00
+HKR, INIT,3,,"AT S95=250<cr>"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "\N4"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, ErrorControl_Cellular_ON,, "-K1)M1"
+HKR, Settings, ErrorControl_Cellular_Forced_ON,, "-K1)M1"
+HKR, Settings, ErrorControl_Cellular_Off,, "-K0)M0"
+
+[Modem4.AddReg] ; LOGEM 64K ISDN Terminal-Adapter X.75 Modus
+HKR,, Properties, 1, 00,00,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 00,00,00,00, 30,00,00,00, 00,c2,01,00, 00,fa,00,00
+HKR,, FClass, 1, 00,00,00,00
+HKR, Init,      3,, "AT E1 V1 &D2 F70 \N6 X1 <cr>"
+HKR, Monitor,   1,, "None"
+HKR, Settings, Pulse,, ""
+HKR, Settings, Tone,, ""
+HKR, Settings, InactivityTimeout,, "S37=<#>"
+
+[Modem5.AddReg] ; LOGEM 64K ISDN Terminal-Adapter Datex-J Modus
+HKR,, Properties, 1, 00,00,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 00,00,00,00, 30,00,00,00, 00,c2,01,00, 00,fa,00,00
+HKR,, FClass, 1, 00,00,00,00
+HKR, Init,      3,, "AT E1 V1 &D2 F70 \N8 X1 <cr>"
+HKR, Monitor,   1,, "None"
+HKR, Settings, Pulse,, ""
+HKR, Settings, Tone,, ""
+HKR, Settings, InactivityTimeout,, "S37=<#>"
+
+; User visible strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "ke Kommunikations Elektronic (Germany)"
+
+; Model strings
+
+Modem1="ke LOGEM 914 V.32bis, 928 V.34"
+Modem2="ke WorldBlazer"
+Modem3="ke LOGEM 532fax PCMCIA Modem"
+Modem4="LOGEM 64K ISDN Terminal-Adap

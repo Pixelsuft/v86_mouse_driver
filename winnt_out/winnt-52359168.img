@@ -1,0 +1,120 @@
+---------------------------------------
+PRINTER RUGGEDWRITER
+;
+; SETUP 	
+;	   esc*t90R 		select 90dpi
+;	   esc*t180R 		select 180dpi
+;	   esc&a#H		move curser position, in decipoints.
+;	   esc*r1A		start graphics at current cursor position.
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE	DATA,ROW
+
+  DISPLAYMODE	4,5,13,19     				; 320x200 180dpi
+    SETUP	27,42,116,49,56,48,82,27,38,97,49,50,54,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,4,3,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	6,14          				; 640x200 180dpi
+    SETUP	27,42,116,49,56,48,82,27,38,97,49,50,54,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,4,2,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	15,16	   				; 640x350  90dpi
+    SETUP	27,42,116,57,48,82,27,38,97,49,51,53,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,2,1,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	17,18	   				; 640x480  180dpi
+    SETUP	27,42,116,49,56,48,82,27,38,97,57,53,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,2,2,ROTATE
+    RESTORE	27,42,114,066	
+;----------------------------------------------------------------------------
+PRINTER RUGGEDWRITERWIDE
+;
+; SETUP 	
+;	   esc*t90R 		select 90dpi
+;	   esc*t180R 		select 180dpi
+;	   esc&a#H		move curser position, in decipoints.
+;	   esc*r1A		start graphics at current cursor position.
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE	DATA,ROW
+
+  DISPLAYMODE	4,5,13,19     				; 320x200 90dpi
+    SETUP	27,42,116,57,48,82,27,38,97,49,55,49,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,4,3,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	6,14          				; 640x200 90dpi
+    SETUP	27,42,116,57,48,82,27,38,97,49,55,49,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,4,1,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	15,16	   				; 640x350  90dpi
+    SETUP	27,42,116,57,48,82,27,38,97,50,48,55,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,2,1,ROTATE
+    RESTORE	27,42,114,066	
+
+  DISPLAYMODE	17,18	   				; 640x480  180dpi
+    SETUP	27,42,116,49,56,48,82,27,38,97,50,57,55,48,72,27,42,114,49,65
+    GRAPHICS	27,42,98,COUNT,87,DATA     
+    PRINTBOX	STD,2,2,ROTATE
+    RESTORE	27,42,114,066	
+;----------------------------------------------------------------------------
+PRINTER THINKJET 
+;
+; SETUP 	
+;	   esc*r640S		select 96dpi
+;	   esc*r1280S		select 192dpi
+;	   esc*rA		start graphics at current cursor position.
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE DATA,ROW
+
+  DISPLAYMODE 4,5,13,19     				; 320x200 192x96dpi
+    SETUP 27,42,114,49,50,56,48,83,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,4,2
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 6,14	   				; 640x200 192x96dpi
+    SETUP 27,42,114,49,50,56,48,83,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,2
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 15,16	   				; 640x350 192x96dpi
+    SETUP 27,42,114,49,50,56,48,83,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1           
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 17,18	   				; 640x480 192x96dpi
+    SETUP 27,42,114,49,50,56,48,83,27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1           
+    RESTORE 27,42,114,66
+;----------------------------------------------------------------------------
+PRINTER GRAPHICS,THERMAL    ;; 5152, 4201, 4202(8"), 5201-002(8"), 5202, 3812
+			    ;; 4207, 4208, 5140
+
+   ; Maximum Print width: 8"
+   ; Horizontal BPI: 120    Vertical BPI: 72
+   

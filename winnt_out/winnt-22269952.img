@@ -1,0 +1,63 @@
+sk Array Controller
+
+Please see the Windows NT Hardware Compatibility List for additional information on these storage adapters.
+
+To create a driver disk for drivers that have been moved to the Driver Library
+1. Create a blank formatted 3.5-inch disk.
+2. Copy all files from the following directory to the blank disk:
+\drvlib\storage\retired\CPU_TYPE
+Where CPU_TYPE is X86 if you are using a machine with an x86-based processor; MIPS if your computer uses a MIPS RISC processor; or ALPHA if your computer uses a Digital Alpha processor.
+For enabler drivers, copy the files from the \Drvlib\storage\fenb directory.
+3. Write “Drivers disk” on the disk.
+
+To install drivers from the driver disk during Windows NT version 4.0 Setup
+1. Start Windows NT Setup. 
+During the course of  Setup, a message appears stating "Setup has recognized the following mass storage devices in your computer." 
+2. When prompted, press S to skip detection, then press S again to display a list of supported SCSI host adapters. 
+3. Select Other from the bottom of the list. 
+4. Insert the disk labled "Drivers Disk" when you are prompted to do so, and select your host adapter from this list.
+
+Windows NT will now recognize any devices attached to this adapter. Repeat this step for each host adapter not already recognized by Windows NT Setup.
+
+To install drivers when Setup recognizes one of the supported SCSI host adapters without making the devices attached to it available for use
+1. Restart Windows NT Setup. 
+2. When Windows NT Setup displays the message "Setup is inspecting your computer's hardware configuration...," press F6. 
+This prevents Windows NT Setup from performing disk controller detection and allows you to install the driver from the "Drivers Disk" you created. Note that all SCSI adapters will have to be installed manually.
+3. When Windows NT Setup displays the message "Setup could not determine the type of one or more mass storage devices installed in your system, or you have chosen to manually specify an adapter," press S to display a list of supported SCSI host adapters. 
+4. Select Other from the bottom of the list. 
+5. Insert the "Drivers Disk" when prompted to do so, and select your host adapter from this list. Note that in some cases, Windows NT Setup will repeatedly prompt you to swap disks.
+Windows NT will now recognize any devices attached to this adapter. Repeat this step for each host adapter not already recognized by Windows NT Setup.
+
+To install drivers from your driver disk after running Windows NT version 4.0 Setup
+1. After installing the properly configured adapter in your machine, start Windows NT version 4.0 as you normally would.
+2. Click Start, point to Settings, click Control Panel, and then double-click SCSI Adapters.
+3. Click the Drivers tab, and then click Add.
+4. Click Have Disk, insert your "Drivers Disk" into Drive A: and then click OK.
+5. Select the driver from the list and click OK. Click Continue to load the driver.
+6. Click Restart the computer to shutdown and restart your computer.
+
+SCSI Device Interrogation Tool (SCSItool)
+SCSItool detects SCSI adapters and the devices connected to the adapters. SCSItool helps Microsoft Answer Point and Enterprise Customer Unit (Product Support) personnel identify installed SCSI devices for diagnostic purposes when a system does not start or becomes unstable.  SCSItool must be run using a SCSItool boot floppy disk.
+
+The following adapters are supported:  
+
+Adaptec PCI, ISA, and EISA
+BusLogic PCI, EISA, and ISA
+
+System Requirements
+12MB RAM
+486 processor
+VGA monitor
+3.5 inch 1.44 MB drive
+
+To create a SCSItool disk
+Run Makedisk.bat from the \support\scsitool folder on the Windows NT Workstation or Windows NT Server compact disc. 
+
+Makedisk.bat creates a bootable floppy disk that you can use to start your computer and automatically run the diagnostic tool.
+
+To start SCSItool
+Insert the SCSItool disk in drive A and then restart the system.
+
+ SCSItool will do the following:
+·  Create a 4MB RAM drive 
+·  Detect the RAM drive lett

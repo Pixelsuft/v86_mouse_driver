@@ -1,0 +1,175 @@
+0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=MEGAHERTZ
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+COMMAND_INIT=AT&F&C1&D2 L2 X4 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Megahertz XJack PCMCIA 288]
+DEVICETYPE=modem
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<compression_on>=%C1
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=MEGAHERTZ
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=MHZ AT&T V.34
+
+COMMAND_INIT=AT&F&C1&D2 L2 W0 X4 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Metricom Wireless 9600]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+COMMAND_INIT=AT&F&C1&D2 S0=0 S2=127 S7=55<cr>
+COMMAND_DIAL=ATDT<phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[MicroCom DeskPorte FAST]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C3
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=DeskPorte V.FC
+
+COMMAND_INIT=AT&F&C1&D2 V1 -M0 W1 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[MicroCom DeskPorte FAST ES28.8]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=VFC
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=28800
+
+COMMAND_INIT=AT&F&C1&D2 V1 M0 W1 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[MicroCom DeskPorte V.34]
+ALIAS=MicroCom DeskPorte FAST
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=DeskPorte 28.8
+
+;----------------------------------------
+[MicroCom TravelCard 288 PCMCIA]
+ALIAS=MicroCom DeskPorte FAST
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=TravelCard V.FC
+
+;----------------------------------------
+[MicroCom QX 4232bis]
+;Advanced features disabled, MAXCONNECT set to 19200
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C3
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=1441
+DETECT_RESPONSE=1442
+
+COMMAND_INIT=AT&F&C1&D2 W1 V1 \\V1 \\N0 \\Q0 \\J1 %C0 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+;CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+;CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+;CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+;CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+;----------------------------------------
+[MicroComQX 4232HS]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C3
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodi

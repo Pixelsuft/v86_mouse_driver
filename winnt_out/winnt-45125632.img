@@ -1,0 +1,32 @@
+00,00 ; CONNECT 57600 - Connection at 57600 bps
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>", 1, 02, 00, 00,C2,01,00, 00,00,00,00 ; CONNECT 115200 - Connection at 115200 bps
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX<cr><lf>", 1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 1200/75RX - Connection at 1200/75 bps
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX<cr><lf>", 1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 75/1200RX - Connection at 75/1200 bps
+HKR, Responses, "<cr><lf>DELAYED", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; DELAYED - Blacklisting Action ERROR
+HKR, Responses, "<cr><lf>BLACKLISTED", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; BLACLISTED - Blacklisting Action ERROR
+HKR, Responses, "<cr><lf>CARRIER 300<cr><lf>", 1, 01, 00, 2C,01,00,00, 00,00,00,00 ; CARRIER 300 - Carrier detected at 300 bps
+HKR, Responses, "<cr><lf>CARRIER 1200/75<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 1200/75 - Carrier detected at 1200/75 bps
+HKR, Responses, "<cr><lf>CARRIER 75/1200<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 75/1200 - Carrier detected at 75/1200 bps
+HKR, Responses, "<cr><lf>CARRIER 1200<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 1200 - Carrier detected at 1200 bps
+HKR, Responses, "<cr><lf>CARRIER 2400<cr><lf>", 1, 01, 00, 60,09,00,00, 00,00,00,00 ; CARRIER 2400 - Carrier detected at 2400 bps
+HKR, Responses, "<cr><lf>CARRIER 4800<cr><lf>", 1, 01, 00, C0,12,00,00, 00,00,00,00 ; CARRIER 4800 - Carrier detected at 4800 bps
+HKR, Responses, "<cr><lf>CARRIER 7200<cr><lf>", 1, 01, 00, 20,1C,00,00, 00,00,00,00 ; CARRIER 7200 - Carrier detected at 7200 bps
+HKR, Responses, "<cr><lf>CARRIER 9600<cr><lf>", 1, 01, 00, 80,25,00,00, 00,00,00,00 ; CARRIER 9600 - Carrier detected at 9600 bps
+HKR, Responses, "<cr><lf>CARRIER 12000<cr><lf>", 1, 01, 00, E0,2E,00,00, 00,00,00,00 ; CARRIER 12000 - Carrier detected at 12000 bps
+HKR, Responses, "<cr><lf>CARRIER 14400<cr><lf>", 1, 01, 00, 40,38,00,00, 00,00,00,00 ; CARRIER 14400 - Carrier detected at 14400 bps
+HKR, Responses, "<cr><lf>CARRIER 16800<cr><lf>", 1, 01, 00, A0,41,00,00, 00,00,00,00 ; CARRIER 16800 - Carrier detected at 16800 bps
+HKR, Responses, "<cr><lf>CARRIER 19200<cr><lf>", 1, 01, 00, 00,4B,00,00, 00,00,00,00 ; CARRIER 19200 - Carrier detected at 19200 bps
+HKR, Responses, "<cr><lf>CARRIER 21600<cr><lf>", 1, 01, 00, 60,54,00,00, 00,00,00,00 ; CARRIER 21600 - Carrier detected at 21600 bps
+HKR, Responses, "<cr><lf>CARRIER 24000<cr><lf>", 1, 01, 00, C0,5D,00,00, 00,00,00,00 ; CARRIER 24000 - Carrier detected at 24000 bps
+HKR, Responses, "<cr><lf>CARRIER 26400<cr><lf>", 1, 01, 00, 20,67,00,00, 00,00,00,00 ; CARRIER 26400 - Carrier detected at 26400 bps
+HKR, Responses, "<cr><lf>CARRIER 28800<cr><lf>", 1, 01, 00, 80,70,00,00, 00,00,00,00 ; CARRIER 28800 - Carrier detected at 28800 bps
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>", 1, 02, 00, A0,41,00,00, 00,00,00,00 ; CONNECT 16800 - Connection at 16800 bps
+HKR, Responses, "<cr><lf>CONNECT 21600<cr><lf>", 1, 02, 00, 60,54,00,00, 00,00,00,00 ; CONNECT 21600 - Connection at 21600 bps
+HKR, Responses, "<cr><lf>CONNECT 24000<cr><lf>", 1, 02, 00, C0,5D,00,00, 00,00,00,00 ; CONNECT 24000 - Connection at 24000 bps
+HKR, Responses, "<cr><lf>CONNECT 26400<cr><lf>", 1, 02, 00, 20,67,00,00, 00,00,00,00 ; CONNECT 26400 - Connection at 26400 bps
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>", 1, 02, 00, 80,70,00,00, 00,00,00,00 ; CONNECT 28800 - Connection at 28800 bps
+HKR, Responses, "<cr><lf>COMPRESSION: CLASS 5<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00 ; COMPRESSION: CLASS5 - MNP5 compression negotiated
+HKR, Responses, "<cr><lf>COMPRESSION: CLASS5<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00 ; COMPRESSION: CLASS 5 - MNP5 compression negotiated
+HKR, Responses, "<cr><lf>COMPRESSION: MNP5<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00 ; COMPRESSION: MNP 5 - MNP5 compression negotiated
+HKR, Responses, "<cr><lf>COMPRESSION: V42BIS<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS - V.42bis compression negotiated
+HKR, Responses, "<cr><lf>COMPRESSION: V.42BIS<cr><lf>",

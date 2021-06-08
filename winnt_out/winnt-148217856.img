@@ -1,0 +1,56 @@
+uld be changed back to the default value of 1. If the value is not changed back, system performance will be greatly affected. To change the value manually, follow the above procedure and, at Step 3, type <b>regset 1</b>.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="5.0"><h2>5.0 Application Notes</h2></a></p>
+<p>
+This section includes program notes for SP6.<p>
+<p>
+<b><a name="5.1">5.1</a> CheckIt Diagnostic Kit&nbsp;4.0 by Touchstone</b></p>
+<p>
+The CheckIt Diagnostic Kit version&nbsp;4.0 won't have full functionality when you install it onto any version of Windows&nbsp;NT&nbsp;4.0.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="5.2"><b>5.2 Terminal Server</b></a></p>
+<p>
+SP6 is not supported on Windows&nbsp;NT Terminal Server. A future revision of SP6 specifically for Terminal Server will include the information required to allow existing installed programs to run in a multiple-session environment. Obtain this revision in the future to install SP6 on a Windows&nbsp;NT Terminal Server.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p>
+<a name="5.3"><b>5.3 Message Queue (MSMQ) for Windows&nbsp;95 Client</b></a></p>
+<p>
+This SP6 CD also includes MSMQ Windows&nbsp;95 Client fixes, located in the \Support\Msmq.95 folder. Most problems that are mentioned in <a href="#3.4">Section 3.4</a>, "Message Queue Notes," also apply to Windows&nbsp;95. In addition, the Windows&nbsp;95 MSMQ update fixes a problem causing long delays with MQOpenQueue() and MQIS operations on offline computers. This MSMQ Windows&nbsp;95 update doesn't have an uninstall option.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="5.4"><b>5.4 Windows&nbsp;NT&nbsp;4.0 Option Pack Fixes</b></a></p>
+<p>
+SP4 and SP6 include Option Pack fixes and enhancements. If you have&nbsp;the Internet Information Server version&nbsp;4.0 Option Pack installed,&nbsp;the SP6 update program automatically updates the Option Pack&nbsp;components installed on your computer.</p>
+<p>
+When you begin the installation of the Windows&nbsp;NT&nbsp;4.0 Option Pack on a server with Windows&nbsp;NT&nbsp;4.0 SP6 and Internet Information Server&nbsp;3.0, the following message may appear:</p>
+<p><blockquote>
+"Setup detected that Windows&nbsp;NT&nbsp;4.0 SP4 or greater is installed on your machine. We haven't tested this product on SP4. Do you wish to proceed?"</blockquote></p>
+<p>
+The Windows&nbsp;NT&nbsp;4.0 Option Pack is fully tested and supported to run on servers with the Windows&nbsp;NT&nbsp;4.0 SP6. In the dialog box, click <b>Yes</b> to continue Setup.</p>
+<p>
+<b>Note:</b> You should reinstall SP6 after you install the Windows&nbsp;NT&nbsp;4.0 Option Pack. Otherwise, an MSMQ MQIS Controller installation won't work until the SP6 is reinstalled.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p>
+<a name="5.5"><b>5.5 Security Configuration Manager</b></a></p>
+<p>
+Security Configuration Manager (SCM) is an integrated security system that gives administrators the ability to define and apply security configurations for Windows&nbsp;NT&nbsp;4.0 Workstation and Windows&nbsp;NT&nbsp;4.0 Server installations. SCM also has the capability to perform inspections of the installed computers to locate any degradation in the computer's security. For further information on SCM, including installation and usage instructions, refer to Readme.txt in the \Support\Mssce folder on the SP6 CD.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="5.6"><b>5.6 Certificate Server&nbsp;1.0 Known Problems and Limitations</b></a></p>
+<p>Release notes for Certificate Server&nbsp;1.0 are on the SP6 CD. In addition, there is an update release located at:<br> <a href="ftp://ftp.microsoft.com/bussys/ii

@@ -1,0 +1,65 @@
+                     = HPPCL.DLL
+"Star LaserPrinter 8 DB"                               = HPPCL.DLL
+"Star LaserPrinter 8 DX"                               = HPPCL.DLL
+"Star LaserPrinter 8 II"                               = HPPCL.DLL
+"Star LaserPrinter 8 III"                              = PCL5MS.DLL
+"Star LaserPrinter 8"                                  = HPPCL.DLL
+"Star LC-10"                                           = STAR9E.DLL
+"Star LC-10 Colour"                                    = STAR9E.DLL
+"Star LC-100 Colour"                                   = STAR9E.DLL
+"Star LC-15"                                           = STAR9E.DLL
+"Star LC-20"                                           = STAR9E.DLL
+"Star LC-200"                                          = STAR9E.DLL
+"Star LC24-10"                                         = STAR24E.DLL
+"Star LC24-100"                                        = STAR24E.DLL
+"Star LC24-15"                                         = STAR24E.DLL
+"Star LC24-20"                                         = STAR24E.DLL
+"Star LC24-200"                                        = STAR24E.DLL
+"Star LC24-200 Colour"                                 = STAR24E.DLL
+"Star NB24-10"                                         = STAR24E.DLL
+"Star NB24-15"                                         = STAR24E.DLL
+"Star NL-10"                                           = STAR9E.DLL
+"Star NX-1000 Rainbow"                                 = STAR9E.DLL
+"Star NX-1000"                                         = STAR9E.DLL
+"Star NX-1001"                                         = STAR9E.DLL
+"Star NX-1020 Rainbow"                                 = STAR9E.DLL
+"Star NX-1500"                                         = STAR9E.DLL
+"Star NX-2400"                                         = STAR24E.DLL
+"Star NX-2410"                                         = STAR24E.DLL
+"Star NX-2415"                                         = STAR24E.DLL
+"Star NX-2420 Rainbow"                                 = STAR24E.DLL
+"Star NX-2420"                                         = STAR24E.DLL
+"Star NX-2430"                                         = STAR24E.DLL
+"Star SJ-48"                                           = STARJET.DLL
+"Star XB-2410"                                         = STAR24E.DLL
+"Star XB-2415"                                         = STAR24E.DLL
+"Star XB-2420"                                         = STAR24E.DLL
+"Star XB-2425"                                         = STAR24E.DLL
+"Star XB24-10"                                         = STAR24E.DLL
+"Star XB24-15"                                         = STAR24E.DLL
+"Star XB24-200"                                        = STAR24E.DLL
+"Star XB24-250"                                        = STAR24E.DLL
+"Star XR-1000"                                         = STAR9E.DLL
+"Star XR-1020"                                         = STAR9E.DLL
+"Star XR-1500"                                         = STAR9E.DLL
+"Star XR-1520"                                         = STAR9E.DLL
+"Star ZA-200"                                          = STAR9E.DLL
+"Star ZA-250"                                          = STAR9E.DLL
+
+[Tandy]
+"Tandy LP-1000"                                        = HPPCL.DLL
+
+[Tegra]
+"Tegra Genesis"                                        = HPPCL.DLL
+
+[Tektronix]
+"Tektronix Phaser 140"                                 = TKPH1401.PPD
+"Tektronix Phaser 200e with 17 fonts v2011.108(3)"     = TK200172.PPD
+"Tektronix Phaser 200e with 39 fonts v2011.108(3)"     = TK200392.PPD
+"Tektronix Phaser 200i v2011.108(3)"                   = TKP200I2.PPD
+"Tektronix Phaser 200J"                                = TKP200J1.PPD
+"Tektronix Phaser 220e with 17 fonts"                  = TK220171.PPD
+"Tektronix Phaser 220e with 39 fonts"                  = TK220391.PPD
+"Tektronix Phaser 220i"                                = TKP220I1.PPD
+"Tektronix Phaser 220J"                                = TKP220J1.PPD
+"Tektronix Phaser 240 with 17 fonts"                   = 

@@ -1,0 +1,121 @@
+2,0,0
+winfile.exe  = 1,,250880,,,,,2,1,0
+winfile.hlp  = 1,,143872,,,,,2,0,0
+winfile.ini  = 1,,512,,,,,1,2
+wingding.ttf = 1,,71680,,,,,22,1,0
+winhelp.exe  = 1,,256512,,,,,1,3
+winhelp.hlp  = 1,,32768,,,,,2,1,0
+winhlp32.cnt = 1,,1024,,,,,2,0,0
+winhlp32.exe = 1,,310272,,,,,1,0,0
+winhlp32.hlp = 1,,24576,,,,,2,0,0
+winhstb.exe  = 1,,24064,,,,,2,0,0,winhlp32.exe
+winlogon.exe = 1,,164352,,,,,2,0,0
+winmine.cnt  = 1,,512,,,,,2,3,3
+winmine.exe  = 1,,35840,,,,,2,3,3
+winmine.hlp  = 1,,9728,,,,,2,3,3
+winmm.dll    = 1,,149504,,,,,2,0,0
+winmsd.exe   = 1,,153088,,,,,2,0,0
+winnt.bmp    = 1,,78848,,,,,1,0,0
+winnt.hlp    = 1,,13312,,,,,2,0,0
+winnt256.bmp = 1,,157184,,,,,1,0,0
+winoldap.mod = 1,,2560,,,,,2,0,0
+winprint.dll = 1,,12288,,,,,13,1,0
+winsock.dll  = 1,,3072,,,,,2,0,0
+winspool.drv = 1,,90112,,,,,2,0,0
+winspool.exe = 1,,2560,,,,,2,1,0
+winsrv.dll   = 1,,166912,,,,,2,0,0
+winstrm.dll  = 1,,19968,,,,,2,0,0
+wintrust.dll = 1,,12800,,,,,2,0,0
+winver.exe   = 1,,20992,,,,,2,1,0
+winword.doc  = 1,,4608,,,,,2,3,3
+winword2.doc = 1,,2048,,,,,2,3,3
+wkssvc.dll   = 1,,63488,,,,,2,1
+wordpad.cnt  = 1,,2048,,,,,2,3,3
+wordpad.exe  = 1,,204800,,,,,2,3,3
+wordpad.hlp  = 1,,27136,,,,,2,3,3
+wordpad.inf  = 1,,7680,,,,,20,0,0
+wordpfct.wpd = 1,,512,,,,,2,3,3
+wordpfct.wpg = 1,,512,,,,,2,3,3
+wow32.dll    = 1,,233984,,,,,2,1,0
+wowdeb.exe   = 1,,3072,,,,,2,1,0
+wowexec.exe  = 1,,10752,,,,,2,1,0
+wowfax.dll   = 1,,3584,,,,,2,0,0
+wowfaxui.dll = 1,,18432,,,,,2,0,0
+write.exe    = 1,,10240,,,,,2,3,3
+write32.wpc  = 1,,77312,,,,,2,3,3
+wshisn.dll   = 1,,15872,,,,,2,0,0
+wshnetbs.dll = 1,,10752,,,,,2,0,0
+wshtcpip.dll = 1,,18944,,,,,2,0,0
+ws2_32.dll   = 1,,58368,,,,,2,0,0
+ws2help.dll  = 1,,8704,,,,,2,0,0
+wsock32.dll  = 1,,20480,,,,,2,0,0
+xabios.bin   = 1,,2048,,,,,4,1
+xacook.bin   = 1,,6144,,,,,4,1
+xactsrv.dll  = 1,,84480,,,,,2,1,0
+xcopy.exe    = 1,,47616,,,,,2,1,0
+xdcs20.ppd   = 1,,15360,,,,,11,3
+xdcs35.ppd   = 1,,16896,,,,,11,3
+xdp350h.ppd  = 1,,12288,,,,,11,3
+xdp390.ppd   = 1,,10240,,,,,11,3
+xdp390h.ppd  = 1,,12288,,,,,11,3
+xdp4635.ppd  = 1,,10752,,,,,11,3
+xeroxpcl.dll = 1,,76800,,,,,11,3
+xfilexr.dll  = 1,,106496,,,,,2,3,3
+xr_42152.ppd = 1,,30208,,,,,11,3
+xr_42192.ppd = 1,,31744,,,,,11,3
+xr_42204.ppd = 1,,54272,,,,,11,3
+xr_42302.ppd = 1,,54272,,,,,11,3
+XR_45051.PPD = 1,,24576,,,,,11,3
+XR_45101.PPD = 1,,24576,,,,,11,3
+XR_45171.PPD = 1,,62464,,,,,11,3
+XR_45201.PPD = 1,,39424,,,,,11,3
+xr470002.ppd = 1,,11776,,,,,11,3
+xrd61351.ppd = 1,,36864,,,,,11,3
+xrdt0904.ppd = 1,,18432,,,,,11,3
+xrdt1354.ppd = 1,,38400,,,,,11,3
+xrx49001.ppd = 1,,46080,,,,,11,3
+xrx49151.ppd = 1,,61440,,,,,11,3
+xrx49201.ppd = 1,,59904,,,,,11,3
+XT_82001.PPD = 1,,24576,,,,,11,3
+blueday.bmp  = 1,,38400,,,,,1,3,3
+blulac16.bmp = 1,,1536,,,,,1,3,3
+blumon16.bmp = 1,,8704,,,,,1,3,3
+bubbles.bmp  = 1,,66048,,,,,1,3,3
+coffee16.bmp = 1,,8704,,,,,1,3,3
+coffeebn.bmp = 1,,17408,,,,,1,3,3
+feather.bmp  = 1,,16896,,,,,1,3,3
+fidlhead.bmp = 1,,66048,,,,,1,3,3
+furry16.bmp  = 1,,18944,,,,,1,3,3
+furrydog.bmp = 1,,38400,,,,,1,3,3
+geometrx.bmp = 1,,4608,,,,,1,3,3
+gonefish.bmp = 1,,17408,,,,,1,3,3
+grnstone.bmp = 1,,26624,,,,,1,3,3
+hazy16.bmp   = 1,,33280,,,,,1,3,3
+hikingbt.bmp = 1,,37888,,,,,1,3,3
+leaves16.bmp = 1,,13312,,,,,1,3,3
+lether16.bmp = 1,,6656,,,,,1,3,3
+mpltrail.bmp = 1,,26624,,,,,1,3,3
+pglyph16.bmp = 1,,16896,,,,,1,3,3
+pool.bmp     = 1,,26624,,,,,1,3,3
+prairie.bmp  = 1,,66048,,,,,1,3,3
+rhody.bmp    = 1,,17408,,,,,1,3,3
+rvrsumid.bmp = 1,,26624,,,,,1,3,3
+santafe.bmp  = 1,,66048,,,,,1,3,3
+seaside.bmp  = 1,,17408,,,,,1,3,3
+seside16.bmp = 1,,8704,,,,,1,3,3
+snakeskn.bmp = 1,,10752,,,,,1,3,3
+solstice.bmp = 1,,17408,,,,,1,3,3
+upstrm16.bmp = 1,,33280,,,,,1,3,3
+zapotec.bmp  = 1,,9728,,,,,1,3,3
+zaptec16.bmp = 1,,8704,,,,,1,3,3
+
+;
+; Exchange files
+;
+; We rely on msmail.inf to perform initial installation
+; and upgrades. The only issue is getting msmail.inf itself
+; upgraded, so that file is marked appropriately below.
+; Note that none of these files are handled by emergency repair
+; except mapi.dll and mapi32.dll.
+;
+ansi.

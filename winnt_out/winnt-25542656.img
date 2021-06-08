@@ -1,0 +1,162 @@
+
+; ERROR_DIAGNOISTICS response means connection attempt failed - the X25
+;  DIAGNOSTIC information will be extracted from the response and sent
+;  to the user.
+; ERROR_NO_CARRIER means that the remote modem hung up.
+; ERROR resonses are for generic failures.
+
+
+; Finally set no escape and no echo
+COMMAND=SET 1:0,2:0<cr>
+NoEcho
+CONNECT=<ignore>
+
+
+;-----------------------------------------------------------------------------
+[Eicon X.PAD]
+
+DEVICETYPE=pad
+DEFAULTOFF=
+
+MAXCARRIERBPS=1200
+MAXCONNECTBPS=1200
+
+;
+; INIT section.
+;
+COMMAND_INIT=PAR 2<cr>
+NoEcho
+OK=par 2:<ignore>
+ERROR_DIAGNOSTICS=CLR <Diagnostics>
+ERROR=ERR<ignore>
+
+;
+; LISTEN section.
+;
+COMMAND_LISTEN=
+NoEcho
+CONNECT=<match>"COM"
+ERROR_DIAGNOSTICS=CLR <Diagnostics>
+ERROR=ERR<ignore>
+
+;
+; CALL section.
+;
+COMMAND_DIAL=<x25address><cr><lf>
+NoEcho
+CONNECT=<match>"COM"
+ERROR_DIAGNOSTICS=CLR CONF  <cr><lf>CLR<Diagnostics>
+ERROR_DIAGNOSTICS=CLR <Diagnostics>
+ERROR=ERR<ignore>
+
+;-----------------------------------------------------------------------------
+[Compuserve]
+
+; Disclaimer:
+; This script has been included for customer convenience, but has NOT been
+; fully verified to work under all circumstances. Microsoft makes NO guarantees
+; as to the performance of this script. Please contact Microsoft
+; PSS NT support if you have problems or questions.
+
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+COMMAND=
+NoResponse
+
+COMMAND=<cr>
+OK=<ignore>
+
+COMMAND=+<cr>
+OK=<match>"Host Name:"
+
+COMMAND=<x25address><cr>
+CONNECT=<match>"Connected"
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+ERROR_DIAGNOSTICS=<cr><lf><Diagnostics>
+ERROR_DIAGNOSTICS=<lf><cr><lf><Diagnostics>
+
+
+;-----------------------------------------------------------------------------------
+[SITA Group Network]
+
+; Disclaimer:
+; This script has been included for customer convenience, but has NOT been
+; fully verified to work under all circumstances. Microsoft makes NO guarantees
+; as to the performance of this script. Please contact Microsoft
+; PSS NT support if you have problems or questions.
+;      PLEASE SEE COMMENTS BELOW REGARDING USAGE OF THE "User Data:" 
+;      and "Facilities:" FIELDS IN RAS WHEN USING THIS SITA SCRIPT.
+
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+COMMAND=...<cr>
+OK=<match>"SITA NETWORK:"
+
+; Enter your NUI number in the Remote Access program's X.25 Settings "User Data:" field.
+COMMAND=<UserData><cr>
+OK=<ignore>
+
+; Enter your x.25 password in the Remote Access program's X.25 Settings "Facilities:" field.
+COMMAND=<Facilities><cr>
+OK=<match>"active"
+ERROR_DIAGNOSTICS=<cr><lf><cr><lf><lf><Diagnostics>
+ERROR_DIAGNOSTICS=<lf><cr><lf><Diagnostics>
+
+COMMAND=PROF 6<cr>
+NoResponse
+
+COMMAND=
+NoResponse
+
+COMMAND=SET 2:1<cr>
+OK=<ignore>
+
+COMMAND=
+NoResponse
+
+COMMAND=SET 4:1,6:1,16:0,17:0,18:0,19:0,21:0<cr>
+OK=<ignore>
+
+COMMAND=
+NoResponse
+
+COMMAND=SET 118:0,119:0,120:0<cr>
+OK=<ignore>
+
+COMMAND=PAR?<cr>
+OK=<ignore>
+
+COMMAND=SET 2:0<cr>
+NoResponse
+
+COMMAND=
+NoResponse
+
+COMMAND=<x25address><cr>
+CONNECT=<match>"connected"
+;CONNECT=<ignore>
+ERROR_DIAGNOSTICS=<cr><lf><cr><lf><lf><Diagnostics>
+ERROR_DIAGNOSTICS=<lf><cr><lf><Diagnostics>
+
+;-----------------------------------------------------------------------------------
+[Alascom/Tymnet/MCI]
+
+; Disclaimer:
+; This script has been included for customer convenience, but has NOT been
+; fully verified to work under all circumstances. Microsoft makes NO guarantees
+; as to the performance of this script. Please contact Microsoft
+; PSS NT support if you have problems or questions.
+; NOTE: Whether your X.25 account is set up for a single x.121 identifier or a 
+; username/password combination, they both are entered in the Remote Access program's 
+; "X.25 Settings" dialog box in the "X.121 Address:" field. 
+; A username and password combination is entered simply by separating them with a 
+; SEMICOLON, e.g.:  John;mypass
+; where "John" is the username and "mypass" is the password.
+
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MA

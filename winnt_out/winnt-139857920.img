@@ -1,0 +1,85 @@
+les-Ras-Inf "modem" $(SourceDir) $(ProductPath)
+            set STF_RENAME = "PAD.NEW"
+            AddSectionKeyFileToCopyList Files-Ras-Inf "pad" $(SourceDir) $(ProductPath)
+            set STF_RENAME = "SWITCH.NEW"
+            AddSectionKeyFileToCopyList Files-Ras-Inf "switch" $(SourceDir) $(ProductPath)
+            set STF_RENAME = "CIS.SCP"
+            AddSectionKeyFileToCopyList Files-Ras-Scp "cis" $(SourceDir) $(ProductPath)
+            set STF_RENAME = "SLIP.SCP"
+            AddSectionKeyFileToCopyList Files-Ras-Scp "slip" $(SourceDir) $(ProductPath)
+            set STF_RENAME = "SLIPMENU.SCP"
+            AddSectionKeyFileToCopyList Files-Ras-Scp "slipmenu" $(SourceDir) $(ProductPath)
+            set STF_RENAME = "PPPMENU.SCP"
+            AddSectionKeyFileToCopyList Files-Ras-Scp "pppmenu" $(SourceDir) $(ProductPath)
+            set STF_RENAME = "SCRIPT.DOC"
+            AddSectionKeyFileToCopyList Files-Ras-Scp "scriptdoc" $(SourceDir) $(ProductPath)
+            set STF_RENAME = ""
+        endif
+    endif
+    ifstr(i) $(!NTN_InstallMode) == "Update"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    else-ifstr(i) $(DoCopy) == "YES"
+        set !STF_NCPA_FLUSH_COPYLIST = TRUE
+        CopyFilesInCopyList
+    endif
+    Debug-Output  "Done Copying Files"
+    exit
+[RemoveResources]
+    Debug-Output "In removing infs and dll"
+    set RemoveList = {}
+    set RenameList = {}
+    set RemoveList = >($(RemoveList), #(Files-RemoveList, MODEMINF, 1))
+    set RemoveList = >($(RemoveList), #(Files-RemoveList, PADINF, 1))
+    set RemoveList = >($(RemoveList), #(Files-RemoveList, SWITCHINF, 1))
+    set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSETUPHLP, 1))
+    set RenameList = >($(RenameList), #(Files-RemoveList, RASRESDLL, 1))
+    set RenameList = >($(RenameList), #(Files-RemoveList, RASCFGDLL, 1))
+    set RenameList = >($(RenameList), #(Files-RemoveList, RASFIL32DLL, 1))
+    ForListDo $(RemoveList)
+        Debug-Output "Removing "$($)
+        LibraryProcedure Status , $(!LIBHANDLE), DelFile $($)
+        Debug-Output "Status is "$(Status)
+    EndForListDo
+    ForListDo $(RenameList)
+        Split-String $($) "\" FilePath
+        QueryListSize PathLen $(FilePath)
+        Split-String *($(FilePath),$(PathLen)) "." FullFileName
+        Set FileName = *($(FullFileName),1)
+        Debug-Output "FileName is "$(FileName)
+        LibraryProcedure STATUS, $(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+        Debug-Output "CheckFile Status = "$(STATUS)
+        ifstr(i) $(STATUS) == YES
+            LibraryProcedure STATUS, $(!LIBHANDLE), DelFile $(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+            Debug-Output "Delfile Status = "$(STATUS)
+        endif
+        Debug-Output "Renaming from "$($)
+        Debug-Output "Renaming to "$(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+        LibraryProcedure Status1 , $(!LIBHANDLE), RenFile $($), $(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+        Debug-Output "Status is "$(Status1)
+        AddFileToDeleteList $(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+    EndForListDo
+    exit
+[InstallRasFiles]
+    set STF_VITAL = NO
+    set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+    Debug-Output  "In InstallRasFiles Copying Files"
+    Debug-Output  "ServerInstalled "$(ServerInstalled)
+    Debug-Output  "ClientInstalled "$(ClientInstalled)
+    ifstr(i) $(DoAdmin) == TRUE
+        AddSectionFilesToCopyList Files-Ras-Admin $(SourceDir) +
+                  $(!STF_WINDOWSSYSPATH)
+        ifstr(i) $(DoAdminOnly) == TRUE
+            goto InstallRasFiles1
+        endif
+    endif
+    ifstr(i) $(DoClient) == TRUE
+        AddSectionFilesToCopyList Files-Ras-Client $(SourceDir) +
+                 $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoServer) == TRUE
+        AddSectionFilesToCopyList Files-Ras-Server $(SourceDir) +
+                 $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(!NTN_InstallMode) == "Update"
+        AddSectionFilesToCopyList Files-Ras-Common $(SourceDir) +

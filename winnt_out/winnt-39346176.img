@@ -1,0 +1,167 @@
+rbps>/MNP4<cr><lf>
+
+[3X 514D - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2 S0=0 S2=43 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+[3X WYSIWYF 514DB - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=3X WYSIWYF 514DB
+
+
+[3X WYSIWYF 514DBX - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=3X WYSIWYF 514DBX
+
+[3X WYSIWYF 514DP - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=3X WYSIWYF 514DP
+
+[3X WYSIWYF 514DPX - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=3X WYSIWYF 514DPX
+
+[3X WYSIWYF 514DS - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=3X WYSIWYF 514DS
+
+[3X WYSIWYF 514DSX - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=3X WYSIWYF 514DSX
+
+[3X WYSIWYF 496DB - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=3X WYSIWYF 496DB
+
+[3X WYSIWYF 496D - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=496
+
+
+[3X WYSIWYF 514D - FRN]
+ALIAS=3X - FRN
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=514
+
+
+
+[3X - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+
+COMMAND_INIT=AT&F&C1&D2 S0=0 S2=43 S7=55 X0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+
+
+; **********  Modems COM1 **************************************************
+
+[COM1 MV214 - FRN]
+ALIAS=COM1 MV219 - FRN
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE= MV214
+
+[COM1 MV215 - FRN]
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=9600
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&E5
+<hwflowcontrol_off>=&E0
+<compression_on>=&E2
+<compression_off>=&E0
+<protocol_on>=&E1
+<protocol_off>=&E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE= MV215
+
+COMMAND_INIT=AT&F X4  S0=0 S2=43 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf><h00>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> RELIABLE/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> RELIABLE<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf><h00>
+CONNECT_EC=<cr><lf>CONNECT <connectbps> RELIABLE/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CON

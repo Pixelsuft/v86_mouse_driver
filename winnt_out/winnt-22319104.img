@@ -1,0 +1,55 @@
+the menu items can be selected as expected.
+
+Kid Cad 1.1
+You will not be able to run Kid Cad 1.1 in the Show Me mode because the mode requires the Windows 3.1 Macro Recorder which is not included in Windows NT version 4.0.  
+
+Lap-Link V
+File transfers between parallel ports and serial ports is not supported. You can transfer files by using modems.
+
+LHX Attack Chopper
+ LHX Attack Chopper will run slowly under Windows NT if sound is turned on.
+
+Lotus 1-2-3 version 2.4 and greater
+Lotus 1-2-3 can be configured to print in either parallel or LPT mode. For optimal printing performance with Windows NT, configure the application in LPT mode.
+
+Lotus Agenda
+Start Agenda by using the forcedos command. For more information, see the forcedos topic in the Command Reference section of Windows NT Help.
+
+Lotus AmiPro 3.1
+Lotus AmiPro version 3.1 does not recognize Print Setup settings. If you change any print attributes, such as Duplex in File, Print Setup does not work. To make settings work correctly, set the default document properties in the Printers folder.
+
+Lotus cc:Mail for Windows
+The PATH environment variable cannot exceed 143 characters or a General Protection Fault will occur in cc:Mail. When running 16-bit applications, the path used by Windows NT is created by appending the Autoexec.bat PATH to the System path. Reduce the System and/or the Autoexec.bat PATH.
+
+While installing cc:Mail for Windows, a General Protection Fault in Msconstf.dll occurs if you do not have a Config.sys file. Although Config.sys is required by Windows, it is not required for Windows NT. The cc:Mail setup program looks for Config.sys and the fault occurs if the file doesn't exist. Shutdown Windows NT and create an empty file named Config.sys in the root directory of your startup drive.
+
+Message-sorting icons appear incorrectly, looking like Minimize and Maximize window buttons.
+
+Lotus cc:Mail for MS-DOS
+Using the system mouse pointer during the installation of cc:Mail can lock the keyboard. To work around this problem, you can either hide the mouse pointer or, on x86-based computers only, run the installation program using the full screen.
+
+Lotus Freelance Graphics (Freelance 96)
+The Lotus Freelance Graphics 96 setup program displays a "FLW+855: Overflow" error. As a result, you cannot install Lotus Freelance Graphics 96. Contact Lotus for more information.
+
+Lotus Notes 3.x
+Lotus Notes will not run if you are using a NetWare Notes server.
+
+Lotus Notes/FX links are not supported in Word for Windows NT (32-bit). Notes/FX links are supported for Word for Windows 6.0c (16-bit) under Windows NT version 4.0.
+
+No alert sound is heard when Lotus Notes mail is received. Notes uses undocumented Windows version 3.0 calls to produce its mail alert sound. The undocumented calls are not supported under Windows NT version 4.0.
+
+Lotus Notes clients that use NetBIOS to communicate with the Notes server must be configured correctly to establish communication. The server and client must be configured to use the same network protocol. By default, a Notes client uses the first protocol (for example, NetBIOS LANA number 0). If this does not match the Notes server configuration, you must either configure the correct protocol for LANA0 using the Network icon in Control Panel or change the port used by the Lotus Notes client.
+
+Lotus Notes does not create a list of available program groups during installation.
+
+Lotus Notes 4
+Lotus does not support the Notes 4 16-bit client under Windows NT. Use the 32-bit client.
+
+Lotus Organizer
+Alarm tunes cannot be heard from Lotus Organizer version 1.1. However, Organizer version 2.x supports .WAV files in addition to its internal tunes for alarm sounds. The .WAV files will play as expected when an alarm occurs.
+
+Lotus ScreenCam
+Lotus ScreenCam is not supported under Windows NT version 4.0.
+
+Lotus SmartSuite
+When installing Lotus SmartSuite, a dialog may appear warning that the SmartSuite installation program has tried to directly access system hardware, which is not supported by Window

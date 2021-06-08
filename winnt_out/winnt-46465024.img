@@ -1,0 +1,47 @@
+ings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "\T<#>"             
+HKR, Responses, "<cr><lf>CONNECT 14400/REL-LAPM-COMP<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL-LAPM-COMP<cr><lf>", 1, 02, 03, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>", 1, 02, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>", 1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>", 1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>", 1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>", 1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>", 1, 02, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>", 1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>", 1, 02, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>", 1, 02, 00, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>", 1, 02, 00, 40,38,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>", 1, 02, 00, 40,38,00,00, 00,96,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>", 1, 02, 00, 40,38,00,00, 00,e1,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/REL<cr><lf>", 1, 02, 02, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/REL<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/REL<cr><lf>", 1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/REL<cr><lf>", 1, 02, 02, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/REL<cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL<cr><lf>", 1, 02, 02, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/REL<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/REL-MNP<cr><lf>", 1, 02, 02, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/REL-MNP<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL-MNP<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/REL-MNP<cr><lf>", 1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/REL-MNP<cr><lf>", 1, 02, 02, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/REL-MNP<cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL-MNP<cr><lf>", 1, 02, 02, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/REL-MNP<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/REL-MNP-COMP<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL-MNP-COMP<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/REL-MNP-COMP<cr><lf>", 1, 02, 03, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/REL-MNP-COMP<cr><lf>", 1, 02, 03, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/REL-MNP-COMP<cr><lf>", 1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL-MNP-COMP<cr><lf>", 1, 02, 03, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/REL-MNP-COMP<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/REL-LAPM<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL-LAPM<cr><lf>", 1, 02, 02, 60,

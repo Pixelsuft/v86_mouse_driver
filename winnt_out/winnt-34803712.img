@@ -1,0 +1,136 @@
+ANCEL
+               Goto successful
+           Endif
+           Set SrcDir = $($R1)
+        Endif
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           goto fatal
+        endif
+    endif
+nofilestocopy =+
+    Ifint $(OldVersionExisted) != $(FALSE)
+        Goto writeparameters
+    Endif
+    set OEM_ABANDON_ON = TRUE
+createservice =+
+   Shell $(UtilityInf), CreateService, $(ServiceKeyName), $(ServiceDisplayName),+
+         $(ServiceSysPath), "kernel", "", {}, "", "%SystemRoot%\System32\IoLogMsg.dll"
+   Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "OEMNSVRP.INF: ShellCode error creating NETDTECT service"
+       goto ShellCodeError
+   endif
+   Set RegistryErrorIndex = $($R0)
+   CloseRegKey $($R1)
+   CloseRegKey $($R2)
+   CloseRegKey $($R3)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+      EndWait
+      Debug-Output "OEMNSVRD.INF: Registry error: creating NETDTECT service"
+      CloseRegKey $($R2)
+      Goto fatalregistry
+   Endif
+    Shell $(UtilityInf) UpdateDetectionDllNames
+writeparameters = +
+    EndWait
+    goto successful
+bindingadapter =+
+    set Error = "RPC INF file invoked during bindings review."
+    goto fatal
+removeadapter = +
+    Set OEM_ABANDON_OPTIONS = {$(ServiceKeyName)}
+    ForListDo $(OEM_ABANDON_OPTIONS)
+        debug-output "OEMNSVRP.INF: Remove component: "$($)
+        Shell $(UtilityInf), RemoveService, $($), $(UseSvcctrl)
+    EndForListDo
+    goto end
+UpgradeSoftware = +
+    set Error = "Upgrade/update not supported for this product yet."
+    goto fatal
+successful = +
+    goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), STATUS, $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatal = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   AddSectionFilesToCopyList Files-DLL-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   CopyFilesInCopyList
+   exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filenam

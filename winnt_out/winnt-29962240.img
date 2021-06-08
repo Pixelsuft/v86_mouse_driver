@@ -1,0 +1,86 @@
+
+1,DC21X4.SYS , SIZE=999
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    DC21040  = "DEC PCI Ethernet DECchip 21040"
+    DC21041  = "DEC PCI Ethernet DECchip 21041"
+    DC21140  = "DEC PCI Fast Ethernet DECchip 21140"
+    DC21142  = "DEC PCI Fast Ethernet DECchip 21142"
+    DE434    = "DEC DE434 EtherWORKS Turbo PCI TP Adapter"
+    DE435    = "DEC DE435 EtherWORKS Turbo PCI Adapter"
+    MULTIA   = "DEC multia's Ethernet Controller"
+    DE425    = "DEC DE425 EtherWORKS Turbo EISA Adapter"
+    DE450    = "DEC DE450 EtherWORKS Turbo PCI Adapter"
+    DE500    = "DEC DE500 Fast Ethernet PCI Adapter"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+ProductSoftwareDescription = "DEC DC21x4 Driver"
+FunctionDC21040Title = "DEC DECchip 21040 Based Adapter Setup"
+ProductHardwareDC21040Description = "DEC PCI Ethernet DECchip 21040"
+ProductHardwareDC21040Title = "DEC PCI Ethernet DECchip 21040"
+FunctionDC21041Title = "DEC DECchip 21041 Based Adapter Setup"
+ProductHardwareDC21041Description = "DEC PCI Ethernet DECchip 21041"
+ProductHardwareDC21041Title = "DEC PCI Ethernet DECchip 21041"
+FunctionDC21140Title = "DEC DECchip 21140 Based Adapter Setup"
+ProductHardwareDC21140Description = "DEC PCI Fast Ethernet DECchip 21140"
+ProductHardwareDC21140Title = "DEC PCI Fast Ethernet DECchip 21140"
+FunctionDC21142Title = "DEC DECchip 21142 Based Adapter Setup"
+ProductHardwareDC21142Title = "DEC PCI Ethernet DC21142"
+ProductHardwareDC21142Description = "DEC PCI Fast Ethernet DECchip 21142"
+FunctionDE434Title   = "DEC DE434 PCI Adapter Card Setup"
+ProductHardwareDE434Description   = "DEC DE434 EtherWORKS Turbo PCI TP Adapter"
+ProductHardwareDE434Title   = "DEC DE434 EtherWORKS Turbo PCI TP Adapter"
+FunctionDE435Title   = "DEC DE435 PCI Adapter Card Setup"
+ProductHardwareDE435Description   = "DEC DE435 EtherWORKS Turbo PCI Adapter"
+ProductHardwareDE435Title   = "DEC DE435 EtherWORKS Turbo PCI Adapter"
+FunctionMULTIATitle = "DEC multia's Ethernet Controller Setup"
+ProductHardwareMULTIADescription = "DEC multia's Ethernet Controller"
+ProductHardwareMULTIATitle = "DEC multia's Ethernet Controller"
+FunctionDE425Title   = "DEC DE425 EISA Adapter Card Setup"
+ProductHardwareDE425Description   = "DEC DE425 EtherWORKS Turbo EISA Adapter"
+ProductHardwareDE425Title   = "DEC DE425 EtherWORKS Turbo EISA Adapter"
+FunctionDE450Title   = "DEC DE450 PCI Adapter Card Setup"
+ProductHardwareDE450Description   = "DEC DE450 EtherWORKS Turbo PCI Adapter"
+ProductHardwareDE450Title   = "DEC DE450 EtherWORKS Turbo PCI Adapter"
+FunctionDE500Title   = "DEC DE500 PCI Adapter Card Setup"
+ProductHardwareDE500Description   = "DEC DE500 Fast Ethernet PCI Adapter"
+ProductHardwareDE500Title   = "DEC DE500 Fast Ethernet PCI Adapter"
+ConnectionList  = ^(ConnectionChoices$(Option), 1)
+ConnectionValues = ^(ConnectionChoices$(Option), 2)
+NoList  = ^(NoChoices, 1)
+NoValues = ^(NoChoices, 2)
+ShellCodeErrorTitle     = "Error: "$(Function$(Option)Title)
+ShellCodeErrorText      = "Shell Code Error."
+CANNOT_FIND_ANY_CARD    = "Network card is not present in the system"
+[DialogConstantsENG]
+Help        = "&Help"
+Exit        = "Cancel"
+OK          = "OK"
+HelpContext = ""
+Continue    = "Continue"
+Cancel      = "Cancel"
+[FileDependentDlgENG]
+DlgText = "Choose the proper cable type for the "+
+          "network adapter. Select [Help] for a detailed "+
+          "description of the available options of the list."
+Combo1Label = "&Connection Type:"
+DlgTemplate = "ADAP_PROTO_COMBO"
+DlgType = "Combination"
+Caption = $(Function$(Option)Title)
+Combo1List = $(ConnectionList)
+Combo1Out  = $(ConnectionValue)
+ComboListItemsIn  = {Combo1List}
+ComboListItemsOut = {Combo1Out}
+EditTextLim = ""
+CBOptionsGreyed = {}
+MinHelpId = 10
+MaxHelpId = 1130
+HelpContext = $(Help$(Option)Id)
+[Connec

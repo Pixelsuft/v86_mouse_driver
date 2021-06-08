@@ -1,0 +1,90 @@
+ication/x-stuffit","Extension",2,".sit"
+
+HKCR,".hqx","Content Type",2,"application/mac-binhex40"
+HKCR,"MIME\Database\Content Type\application/mac-binhex40","Extension",2,".hqx"
+
+HKCR,".fif","Content Type",2,"application/fractals"
+HKCR,"MIME\Database\Content Type\application/fractals","Extension",2,".fif"
+
+HKCR,".zip","Content Type",2,"application/x-zip-compressed"
+HKCR,"MIME\Database\Content Type\application/x-zip-compressed","Extension",2,".zip"
+
+HKCR,".gz","Content Type",2,"application/x-gzip"
+HKCR,"MIME\Database\Content Type\application/x-gzip","Extension",2,".gz"
+
+HKCR,".z","Content Type",2,"application/x-compress"
+HKCR,"MIME\Database\Content Type\application/x-compress","Extension",2,".z"
+
+HKCR,".aiff",,2,"aifffile"
+HKCR,".aiff","Content Type",2,"audio/aiff"
+HKCR,".aif",,2,"aifffile"
+HKCR,".aif","Content Type",2,"audio/aiff"
+HKCR,".aifc",,2,"aifffile"
+HKCR,".aifc","Content Type",2,"audio/aiff"
+HKCR,"aifffile",,2,"%AIFF%"
+HKCR,"MIME\Database\Content Type\audio/aiff","Extension",2,".aiff"
+HKCR,"MIME\Database\Content Type\audio/x-aiff","Extension",2,".aiff"
+HKCR,"aifffile\DefaultIcon",,2,"MPlayer.exe,2"
+HKCR,"aifffile\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"aifffile\shell\open\ddeexec",,2,"""file:%1"",,-1,,,,,"
+HKCR,"aifffile\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"aifffile\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,".xbm",,2,"xbmfile"
+HKCR,".xbm","Content Type",2,"image/x-xbitmap"
+HKCR,"xbmfile",,2,"%XBM%"
+HKCR,"MIME\Database\Content Type\image/x-xbitmap","Extension",2,".xbm"
+HKCR,"MIME\Database\Content Type\image/xbm","Extension",2,".xbm"
+HKCR,"xbmfile\DefaultIcon",,2,"%24%\%LONG_INET_PROGRAMS%\IExplore.exe,8"
+HKCR,"xbmfile\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"xbmfile\shell\open\ddeexec",,2,"""file:%1"",,-1,,,,,"
+HKCR,"xbmfile\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"xbmfile\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,".gif",,2,"giffile"
+HKCR,".gif","Content Type",2,"image/gif"
+HKCR,"giffile",,2,"%GIF%"
+HKCR,"MIME\Database\Content Type\image/gif","Extension",2,".gif"
+HKCR,"giffile\DefaultIcon",,2,"%24%\%LONG_INET_PROGRAMS%\IExplore.exe,8"
+
+HKCR,"giffile\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"giffile\shell\open\ddeexec",,2,"""file:%1"",,-1,,,,,"
+HKCR,"giffile\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"giffile\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,".jpeg",,2,"jpegfile"
+HKCR,".jpeg","Content Type",2,"image/jpeg"
+HKCR,".jpe",,2,"jpegfile"
+HKCR,".jpe","Content Type",2,"image/jpeg"
+HKCR,".jpg",,2,"jpegfile"
+HKCR,".jpg","Content Type",2,"image/jpeg"
+HKCR,"jpegfile",,2,"%JPEG%"
+HKCR,"MIME\Database\Content Type\image/jpeg","Extension",2,".jpeg"
+HKCR,"jpegfile\DefaultIcon",,0,"%24%\%LONG_INET_PROGRAMS%\IExplore.exe,9"
+HKCR,"jpegfile\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"jpegfile\shell\open\ddeexec",,2,"""file:%1"",,-1,,,,,"
+HKCR,"jpegfile\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"jpegfile\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,".html","Content Type",2,"text/html"
+HKCR,".htm","Content Type",2,"text/html"
+HKCR,"MIME\Database\Content Type\text/html","Extension",2,".html"
+HKCR,"MIME\Database\Content Type\text/html","Encoding",3,08,00,00,00
+
+HKCR,".txt","Content Type",2,"text/plain"
+HKCR,"MIME\Database\Content Type\text/plain","Extension",2,".txt"
+HKCR,"MIME\Database\Content Type\text/plain","Encoding",3,07,00,00,00
+
+HKCR,".avi","Content Type",2,"video/avi"
+HKCR,"MIME\Database\Content Type\video/avi","Extension",2,".avi"
+HKCR,"MIME\Database\Content Type\video/x-msvideo","Extension",2,".avi"
+
+[Update.Reg]
+HKLM,"System\CurrentControlSet\Control\SecurityProviders",SecurityProviders,2,"msnsspc.dll"
+
+[Strings]
+KEY_OPTIONAL = "SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents"
+HISTORY = "history"
+CACHE = "cache"
+LONG_INET_PROGRAMS = "Program Files\Plus!\Microsoft Internet"
+DOCS_DIR = "docs"

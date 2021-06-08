@@ -1,0 +1,95 @@
+ 2,, "AT &F E0 &C1 &D2 V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 &D2 &C1 V1<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 &D2 &C1 V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 &C1 &D2 V1<cr>"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 &C1 &D2 V1<cr>"
+HKR, Settings, ErrorControl_On,, "&Q5"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 V1<cr>"
+HKR, Settings, ErrorControl_On,, "&Q5"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, "%%C1"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem11.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 &C1 &D2 V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "&Q5"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem12.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 &C1 &D2 V1<cr>"
+HKR, Settings, ErrorControl_On,, "&Q5"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "\N7"
+HKR, Settings, Compression_Off,, "\N0"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem13.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 &D2 &C1 V1<cr>"
+HKR, Settings, ErrorControl_On,, "&Q5"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "\N1"
+HKR, Settings, Compression_Off,, "\N0"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem14.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 B0 &D2 &C1 V1<cr>"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem15.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 &D2 &C1 B0 V1<cr>"
+HKR, Settings, ErrorControl_On,, "&Q5"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "\N1"
+HKR, Settings, Compression_Off,, "\N0"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem16.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init,      2,, "AT &F E0 B0 &D2 &C1 V1<cr>"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem17.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00

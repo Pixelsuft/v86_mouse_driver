@@ -1,0 +1,96 @@
+apterOptions"
+    Read-Syms FileDependentDlg$(!STF_LANGUAGE)
+AdapterVerify = +
+    Shell "" DebugConfiguration "inside AdapterVerify"
+    Shell "" DebugConfiguration "after running dialog"
+    IfStr(i) $(DetectedCard) != TRUE
+        Shell $(ParamInf) Param_SaveValues
+        Set NewParamSettings = $($R0)
+        IfStr(i) $(CurrParamSettings) == {}
+            Set DiffParamSettings = $(NewParamSettings)
+        Else
+            Shell $(ParamInf) Param_DiffValues $(CurrParamSettings)
+            Set DiffParamSettings = $($R0)
+        EndIf
+        Debug-Output $(InfName)": Calling Param_VerifyResources"
+        Shell $(ParamInf) Param_VerifyResources $(DiffParamSettings)
+        IfStr(i) $($R0) == STATUS_SUCCESSFUL
+            Debug-Output $(InfName)": Param_VerifyResources succeeded"
+            GoTo SkipOptions
+        EndIf
+    Else
+        Set CardVerifyIndex = $(!STF_NCDETCARD)
+        Debug-Output $(InfName)": Calling Param_VerifyCard"
+        Shell $(ParamInf) Param_VerifyCard $(!STF_NCDETCARD)
+        IfStr(i) $($R0) == STATUS_SUCCESSFUL
+            Debug-Output $(InfName)": Param_VerifyCard succeeded"
+            GoTo SkipOptions
+        EndIf
+    EndIf
+    Set from = AdapterOptions
+    Set to = SkipOptions
+    Shell $(UtilityInf),RegistryErrorString,VERIFY_WARNING
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": ShellCode error: cannot get an error string."
+        GoTo ShellCodeError
+    EndIf
+    Set Error = $($R0)
+    GoTo WarningMsg
+SkipOptions =+
+    IfInt $(OldVersionExisted) == $(TRUE)
+        IfStr(i) $(!NTN_InstallMode) == configure
+            GoTo WriteParameters
+        EndIf
+    EndIf
+    StartWait
+    IfInt $(OldVersionExisted) == $(FALSE)
+        IfStr(i) $(!NTN_InstallMode) == "install"
+           IfStr(i) $(DoCopy) == "YES"
+              Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+              IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+                  GoTo ShellCodeError
+              Else-IfStr(i) $($R0) == STATUS_FAILED
+                  Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                  IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+                      GoTo ShellCodeError
+                  EndIf
+                  Set Error = $($R0)
+                  GoTo FatalError
+              Else-IfStr(i) $($R0) == STATUS_USERCANCEL
+                  GoTo SuccessfulOption
+              EndIf
+              Set SrcDir = $($R1)
+           EndIf
+           Install "Install-Option"
+           IfStr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+              Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+              IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+                  GoTo ShellCodeError
+              EndIf
+              Set Error = $($R0)
+              GoTo FatalError
+           EndIf
+        EndIf
+        Shell $(UtilityInf), InstallSoftwareProduct, $(Manufacturer),+
+              $(ProductRASPPTPName), $(InfName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+              Debug-Output "InstallSoftware bombed out."
+              goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "REGISTRY PROBLEM"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            goto FatalRegistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(InfName)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(ProductRASPPTPSvcType)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ), $(ProductRASPPTPTitle)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductRASPPTPDescription)},+
+             {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorV

@@ -1,0 +1,76 @@
+
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        CloseRegKey $(SoftNetRuleKey)
+        CloseRegKey $(SoftServiceKey)
+        Shell "" AddParameterKey $(SoftParameterKey)
+        CloseRegKey $(SoftParameterKey)
+        CloseRegKey $(SoftLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVNW.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Set FLibraryErrCtl = 1
+        set FoundAutoExec = TRUE
+        set AutoExecName = "autoexec.nt"
+        LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName)
+        ifstr(i) $(STATUS) == NO
+            set AutoExecName = "autoexec.tmp"
+            LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName)
+            ifstr(i) $(STATUS) == NO
+                set FoundAutoExec = FALSE
+            endif
+        endif
+        ifstr(i) $(FoundAutoExec) == TRUE
+            LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), $(REM1)$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), "lh %SystemRoot%\system32\nw16"$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), "lh %SystemRoot%\system32\vwipxspx"$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), AppendSzToFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), $(REM1)$(CR)$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), AppendSzToFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), "lh %SystemRoot%\system32\nw16"$(CR)$(LF)
+            LibraryProcedure Result $(!NWCFG_HANDLE), AppendSzToFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), "lh %SystemRoot%\system32\vwipxspx"$(CR)$(LF)
+        endif
+        Set FLibraryErrCtl = 0
+    endif
+    ifstr(i) $(DoNWLINK) == TRUE
+        Shell "utility.inf", IncrementRefCount, "Software\Microsoft\"$(NwlnkName)"\CurrentVersion"
+    endif
+    ifstr(i) $(DoRDR) == TRUE
+        Debug-Output "OEMNSVNW.INF: Install Rdr registry"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductNWRDRName))
+        Shell $(UtilityInf), CreateService, $(ProductNWRDRName), +
+            $(ProductNWRDRDisplayName), $(ProductNWRDRImagePath), +
+            "system", "Network", {}, "", +
+            $(NetwareEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVNW.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        set NWRdrServiceKey = $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVNW.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        CreateRegKey $(NWRdrServiceKey) {"Performance",$(NoTitle),GenericClass} "" +
+                $(MAXIMUM_ALLOWED) "" KeyPerformance
+        set NewValueList = {{Library,$(NoTitle),$(!REG_VT_SZ),"Perfnw.dll"},+
+                           {Open,$(NoTitle),$(!REG_VT_SZ),"OpenNetWarePerformanceData"},+
+                           {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectNetWarePerformanceData"},+
+                           {Close,$(NoTitle),$(!REG_VT_SZ),"CloseNetWarePerformanceData"}}
+        Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(KeyPerformance)
+        CloseRegKey $(NWRdrServiceKey)
+        LibraryProcedure Result $(!NWCFG_HANDLE), GetKernelVersion
+        ifint *($(Result),3) < 529
+            Set FLibraryErrCtl = 1
+            LibraryProcedure STATUS $(!NWCFG_HANDLE), lodctr $(!STF_WINDOWSSYSPATH)\nwperf.ini
+            Set FLibraryErrCtl = 0
+        endif
+        Ifstr(i) $(RegistryErrorIndex) != NO_ER

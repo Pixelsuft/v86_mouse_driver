@@ -1,0 +1,107 @@
+  set STF_SRCDIR = *( $(SrcDirList), 1 )"\"
+    endif
+    set TempSrcDir = $(STF_SRCDIR)"LexmarkBackSlashTest"
+    Split-String $(TempSrcDir) "\" SrcDirList
+    QueryListSize ListSize $(SrcDirList)
+    set TestItem = *( $(SrcDirList), $(ListSize) )
+    ifstr(i) $(TestItem) != "LexmarkBackSlashTest"
+       set STF_SRCDIR = $(STF_SRCDIR)"\"
+    endif
+    ifstr(i) $(OPTION) == $(LexDLCOption)
+       ifstr(i) $(STF_PLATFORM) == $(PlatformID_I386)
+          set STF_SRCDIR = $(STF_SRCDIR)$(LexSrcDir)"\x86\"
+       else
+          set STF_SRCDIR = $(STF_SRCDIR)$(LexSrcDir)"\"$(STF_PLATFORM)"\"
+       endif
+       set LexmarkFile = $(STF_SRCDIR)$(LexDLCFile)
+       debug-output $(STF_SRCDIR)
+       debug-output $(LexmarkFile)
+       LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(LexmarkFile)
+       ifstr(i) $(STATUS) == YES
+          debug-output $(LexmarkFile)" exists"
+          goto skip_asksource
+       else
+          debug-output $(LexmarkFile)" does not exist"
+       endif
+    else-ifstr(i) $(OPTION) == $(LexIPOption)
+       ifstr(i) $(STF_PLATFORM) == $(PlatformID_I386)
+          set STF_SRCDIR = $(STF_SRCDIR)$(LexSrcDir)"\x86\"
+       else
+          set STF_SRCDIR = $(STF_SRCDIR)$(LexSrcDir)"\"$(STF_PLATFORM)"\"
+       endif
+       set LexmarkFile = $(STF_SRCDIR)$(LexIPFile)
+       debug-output $(STF_SRCDIR)
+       debug-output $(LexmarkFile)
+       LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(LexmarkFile)
+       ifstr(i) $(STATUS) == YES
+          debug-output $(LexmarkFile)" exists"
+          goto skip_asksource
+       else
+          debug-output $(LexmarkFile)" does not exist"
+       endif
+    endif
+    shell "subroutn.inf" DoAskSource $(STF_SRCDIR)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "shelling DoAskSource failed"
+        goto end
+    endif
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set STF_SRCDIR  = $($R1)
+        ifstr(i) $($R2) != ""
+            set DrivesToFree = >($(DrivesToFree), $($R2))
+        endif
+    else
+        goto end
+    endif
+skip_asksource = +
+    LibraryProcedure IsFullPath, $(!LIBHANDLE), CheckPathFullPathSpec $(STF_PRNMONITORPATH)
+    ifstr(i) $(IsFullPath) == "NO"
+        LibraryProcedure STATUS, $(!LIBHANDLE), ProcessForUNC $(STF_PRNMONITORPATH)
+        ifstr(i) $(STATUS) == "ERROR"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+            goto end
+        else-ifstr(i) $(STATUS) == "NOT-UNC"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+            goto end
+        else-ifstr(i) $(STATUS) == "UNC-FAILCONNECT"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+            goto end
+        else
+            set STF_PRNMONITORPATH = $(STATUS)
+        endif
+    endif
+    shell "" InstallOption $(STF_LANGUAGE) $(OPTION) $(STF_SRCDIR) $(ADDCOPY) $(DOCOPY) $(DOCONFIG)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Execing InstallOption failed"
+        goto end
+    endif
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set Exit_Code = $(!SETUP_ERROR_SUCCESS)
+    else-ifstr(i) $($R0) == STATUS_USERCANCEL
+        set Exit_Code = $(!SETUP_ERROR_USERCANCEL)
+    endif
+end =+
+    ForListDo $(DrivesToFree)
+        LibraryProcedure STATUS,$(!LIBHANDLE), DeleteNetConnection $($) "TRUE"
+    EndForListDo
+    install   FreeSetupLibrary
+    exit
+[LoadSetupLibrary]
+    LoadLibrary "x" $(!STF_CWDDIR)setupdll.dll !LIBHANDLE
+    exit
+[FreeSetupLibrary]
+    FreeLibrary $(!LIBHANDLE)
+    exit
+[PlatformID]
+    PlatformID_PPC = ppc
+    PlatformID_I386 = I386
+    PlatformID_Mips = Mips
+    PlatformID_Alpha  = Alpha
+[UiVars]
+    STF_CONTROLSET     = CurrentControlSet
+    STF_WINDOWSPATH    = "" ? $(!LIBHANDLE) GetWindowsNtDir
+    STF_WINDOWSSYSPATH = "" ? $(!LIBHANDLE) GetWindowsNtSysDir
+     STF_PRNMONITORPATH = "" ? $(!LIBHANDLE) GetWindowsNtSysDir
+[LexmarkVars]
+   LexDLCOption = "Lexmark DLC Network Port"
+   LexDLCFile   = "lexmon

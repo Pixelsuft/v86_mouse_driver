@@ -1,0 +1,98 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturers: Compaq Computer Corp, AST, DEC
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Compaq%
+
+[ControlFlags]
+ExcludeFromSelect=PCMCIA\INTEL-DATAFAX_9624-0E7D    ; Modem10
+ExcludeFromSelect=PCMCIA\INTEL-DATAFAX_14.4-7462    ; Modem11
+ExcludeFromSelect=UNIMODEM882C325F                  ; Modem13+18
+ExcludeFromSelect=UNIMODEM914F8102                  ; AST, Tandy
+ExcludeFromSelect=UNIMODEM6FC2012E                  ; AST, Banksia 
+ExcludeFromSelect=UNIMODEM89D634E1                  ; ISA, PCMCIA Compaq
+
+[Manufacturer]
+%AST% = AST
+%Compaq% = Compaq
+%DEC% = DEC
+%Banksia% = Banksia
+
+[Strings]
+Compaq="Compaq"
+Modem1="Compaq SpeedPaq 144-I"
+Modem2="Compaq SpeedPaq 144-P"
+Modem3="Compaq SpeedPaq 144 (Enhanced Com Slot)"
+Modem3GEN="Compaq SpeedPaq 144 Data Fax Modem"   ; PCMCIA or ISA
+Modem4="Compaq 144 Data+Fax (Enhanced Com Slot)"
+Modem5="Compaq PCMCIA 2400-9600"
+Modem6="Compaq PCMCIA 144"
+Modem7="Compaq International 2400 Data"
+Modem8="Compaq Presario 144 Data+Fax+Voice"
+Modem9="Compaq Presario 24-96 Data+Fax+Voice"
+Modem10="2400-9600 Data Fax Modem (PCMCIA)"
+Modem12="Compaq Presario International 24-96 Data+Fax+Voice"
+Modem13="Compaq SpeedPaq 192 Modem (PCMCIA)"
+Modem14="Compaq 288 Fax Modem (PCMCIA)"
+Modem15="Compaq Enhanced 9600 Data+Fax (Enhanced Com Slot)"
+Modem16="Compaq Enhanced 9600 Data (Enhanced Com Slot)"
+Modem17="Compaq 2400 Data+Fax (Enhanced Com Slot)"
+Modem18="Compaq SpeedPaq 192S Modem (PCMCIA)"
+Modem19="Compaq SpeedPaq 19.2 Kbps PCMCIA Modem"
+Modem28="Compaq Presario 144 Data+Fax"
+
+AST="AST"
+Modem15A="AST 14.4D-14.4F Data Fax PCMCIA modem"
+Modem16A="14.4 PCMCIA Data Fax modem"   ;Generic for Compaq, Intel, AST
+Modem20 ="AST Advantage 14.4 Data Fax Voice"
+Modem21 ="AST Advantage 14.4 Data Fax Voice Speakerphone"   
+Modem22 ="AST 2400-9600 Data Fax Voice Modem"   
+Modem22a="2400-9600 Data Fax Voice Modem"
+Modem23 ="AST 14.4 Data Fax Modem (RPI version)"
+Modem24 ="AST 14.4 Data Fax, Creatix International version"
+Modem25 ="AST 14.4 Data Fax, Pace International version"
+Modem26 ="AST 14.4 Data Fax, Banksia International version"
+Modem31 ="AST EXCA 24-96 Data Fax PCMCIA"
+Modem32 ="AST PNB 24D-96F Data Fax PCMCIA"
+
+DEC = "DEC"
+Modem27 = "DEC 14.4 International Data Fax PCMCIA"
+Modem33 = "DEC 14.4 Starion Data Fax Modem"
+
+Banksia = "Banksia"
+Modem29 ="Banksia 14.4 Data Fax"
+Modem30 ="Banksia 14.4 Data Fax"
+
+; Modem models
+
+[Compaq]
+%Modem1% = Modem1,   CPQ_Modem1, UNIMODEM5DDFE5D9
+%Modem2% = Modem2,   PCMCIA\COMPAQ-SpeedPaq_144/P-A4F8                
+%Modem2% = Modem2,   PCMCIA\COMPAQ-SPEEDPAQ_144/P-CC87
+%Modem2% = Modem2,   CPQ_Modem2, UNIMODEM89D634E1
+%Modem2% = Modem2,   PCMCIA\COMPAQ-SPEEDPAQ_144/P-CA72
+%Modem3% = Modem3,   CPQ_Modem3, UNIMODEM89D634E1
+%Modem3GEN% = Modem3, UNIMODEM89D634E1
+%Modem4% = Modem4,   CPQ_Modem4, UNIMODEM5DDFE5D9
+%Modem5% = Modem5,  "PCMCIA\COMPAQ-2400/9600_DATA_+_FAX-F9A7"
+%Modem5% = Modem5,  UNIMODEMB12051D2
+%Modem6% = Modem6,   PCMCIA\COMPAQ-PCMCIA_14.4_DATA_+_FAX-48AC        
+%Modem6% = Modem6,   UNIMODEM9F1F0080        
+%Modem6% = Modem6,   CPQ_Modem6, PCMCIA\INTEL-DATAFAX_14.4-7462
+%Modem7% = Modem7,   UNIMODEM248C0007                                 
+%Modem8% = Modem8,   BIOS\*CPQA0D1                                    
+%Modem8% = Modem8,   UNIMODEMFA2D3720
+%Modem9% = Modem9,   BIOS\*PNPC003
+%Modem9% = Modem9,   UNIMODEMF6710C87
+%Modem9% = Modem9,   UNIMODEMBF40C87E                                 
+%Modem9% = Modem9,   CPQ_Modem9, UNIMODEM9F2BBC58
+%Modem10% = Modem5,  PCMCIA\INTEL-DATAFAX_9624-0E7D                  
+%Modem10% = Modem5,  UNIMODEM996D0455                 
+%Modem12% = Modem12, BIOS\*CPQA0D3                                  
+%Modem13% = Modem13, PCMCIA\COMPAQ-SPEEDPAQ_192/P-0C92              
+%Modem13% = Modem13, PCMCIA\COMPAQ-SPEEDPAQ_192-BC4E                
+%Modem13% = Modem13, CPQ_Modem13, UNIMODEM882C325F                         

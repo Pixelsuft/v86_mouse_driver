@@ -1,0 +1,100 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Supports Archtek modems using following chipsets: Rockwell, Cirrus, TI, AT&T
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+%Phoebe%     = Phoebe
+
+[ControlFlags]
+ExcludeFromSelect=ISAPNP\GVC000F
+ExcludeFromSelect=ISAPNP\AAC000F 
+ExcludeFromSelect=SERENUM\UAC000F
+ExcludeFromSelect=UNIMODEMEF013CA3
+ExcludeFromSelect=SERENUM\TEX0011  
+ExcludeFromSelect=ISAPNP\TEX0011  
+
+[Modem15.PosDup]
+*PNP0500
+
+[Modem15.NoResDup]
+UNIMODEM22AEFBA6,UNIMODEMFC8C3F8A,UNIMODEMCB1E9421
+
+[Phoebe]
+%Phoebe1PNP% = Modem15, SERENUM\TEX0011  
+%Phoebe1PNP% = Modem15, ISAPNP\TEX0011  
+%Phoebe1% = Modem15, Arch_Phoebe1
+
+[Models]
+%Modem16PNP% = Modem15, SERENUM\UAC000F            ; Archtek SmartLink 3334BT
+%Modem15PNP% = Modem15, ISAPNP\AAC000F             ; Archtek SmartLink 3334BT
+%Modem15PNP% = Modem15, ISAPNP\GVC000F             ; Archtek SmartLink 3334BT
+%Modem15% = Modem15, UNIMODEM22AEFBA6              ; Archtek SmartLink 3334BT
+%Modem15% = Modem15, UNIMODEMFC8C3F8A              ; Archtek SmartLink 3334BT
+%Modem15% = Modem15, UNIMODEMCB1E9421              ; Archtek SmartLink 3334BT 
+%Modem10% = Modem10, UNIMODEMA0348579              ; SmartLink V32Te
+%Modem9% = Modem9, Arch_Modem9, UNIMODEM16E3BF9F   ; SmartLink 1414BCV/BCL
+%Modem4% = Modem4, Arch_Modem4, UNIMODEMEF013CA3   ; SmartLink 2834BA
+%Modem2% = Modem2, Arch_Modem2, UNIMODEMEF013CA3   ; SmartLink 2834A-1
+%Modem2a% = Modem2, UNIMODEMEF013CA3               ; SmartLink 2834A-1 and 2834BA
+%Modem1% = Modem2, UNIMODEM9E7EE592                ; SmartLink 2834A
+
+[Modem15]       ; SmartLink 3334BT
+AddReg=All, MfgAddReg, Modem15.AddReg, INTERNAL, 3334BT_Responses
+
+[Modem10]       ; SmartLink V32Te
+AddReg=All, MfgAddReg, Modem10.AddReg, EXTERNAL, Rock_Cirrus_Responses
+
+[Modem9]        ; SmartLink 1414BCV/BCL
+AddReg=All, MfgAddReg, Modem9.AddReg, INTERNAL, Rock_Cirrus_Responses
+
+[Modem4]        ; SmartLink 2834BA
+AddReg=All, MfgAddReg, Modem4.AddReg, INTERNAL, Rock_Cirrus_Responses
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem4.AddReg, EXTERNAL, Rock_Cirrus_Responses
+
+[Modem15.AddReg] ; SmartLink 3334BT
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 40,83,00,00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Init, 2,, "AT &F1<cr>"
+HKR, Init, 3,, "AT S0=0<cr>"
+HKR, Init, 4,, "AT E0 V1 &C1 &D2 Q0 &B1 &A3<cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, FlowControl_Off,, "&H0&I0&R1"
+HKR, Settings, FlowControl_Hard,, "&H1&R2&I0"
+HKR, Settings, FlowControl_Soft,, "&H2&I2&R1"
+HKR, Settings, ErrorControl_On,, "&M4"
+HKR, Settings, ErrorControl_Off,, "&M0"
+HKR, Settings, ErrorControl_Forced,, "&M5"
+HKR, Settings, Compression_On,, "&K1"
+HKR, Settings, Compression_Off,, "&K0"
+HKR, Settings, InactivityTimeout,, "S19=<#>"
+
+[Modem10.AddReg]        ; SmartLink V32Te
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 00,4b,00,00
+HKR,, DCB, 1, 1C,00,00,00, 00,E1,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+HKR, Init, 3,, "AT E0 V1 &D2 &C1 S0=0 S95=47<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem9.AddReg] ; SmartLink 1414BCV/BCL
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR,, DCB, 1, 1C,00,00,00, 00,E1,00,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+HKR, Init, 3,, "AT E0 &D2 &C1 S0=0 V1 \V2<cr>"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem4.AddReg] 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init,      4,, "AT W2 \V1<cr>"
+HKR,,

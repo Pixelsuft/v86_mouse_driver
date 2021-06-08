@@ -1,0 +1,77 @@
+ only to the printer's hardware fonts. TrueType fonts provided by Windows NT will print extended characters.
+
+Printing Colored Text on Non-PostScript Printers
+If text is not one of the primary printer colors (black, red, green, blue, cyan, magenta, yellow, or white), the color may be mapped to white and you will not see any text. In other cases, it may be mapped to another color.
+
+Using PostScript Printers
+If you notice any problems with character spacing when you print to a PostScript printer, see the following procedure to correct the problem.
+1. Click Start, point to Settings, and then click Printers.
+2. Right-click the printer, and then click Document Defaults. 
+3. Click the Advanced tab.
+4. In the Graphic section of the tree, click TrueType Font.
+5. Click Download as Softfont, and then click OK.
+6. Restart the application, and then print the document again.
+
+
+Using Color Printers
+Some Windows 3.1-based and Windows 95-based applications will not print colored text and graphic objects on color PCL printers at 24-bpp (True Color).  To produce output with the expected colors, print at a lower color depth.
+
+Troubleshooting Plotters
+Seven (7) data bit serial connections to plotters are not supported. Use eight (8) data bits.
+If some lines are not printing on pen plotters, try setting the plotter (on the plotter's control panel) so installed pens are the minimum width supported by the hardware. Some plotters will not print thin lines unless the thinnest pen is selected.
+
+Pen plotters can take more time to clear their buffers. You may want to set the port time-out to higher values to avoid receiving error messages.
+
+Windows NT plotter drivers for most HP DesignJet series plotters are designed for use with margins set to Normal, paper size set to Software, and autorotation set to Off. When troubleshooting problems, resetting the plotter to the factory defaults and making only necessary changes from the defaults is suggested.
+
+All Windows NT plotting support utilizes the HP-GL/2 language. Some plotters supported by Windows NT can be set to receive a choice of plotter languages. To work with Windows NT, HP-GL/2 must be selected.
+
+When printing to plotter models that offer a choice of roll or sheet media, the form to tray assignment must be set to the actual paper size physically available to the plotter. Selecting a cut sheet media size when plotting to roll media or roll media when plotting to cut sheet media is not supported, and may result in misaligned output.
+
+
+Converting Type 1 Fonts to TrueType Fonts
+The following is a list of Type 1 font vendors who have given permission to convert their fonts to TrueType. If a vendor is not listed here, you must contact them for permission to convert a font.
+
+Type 1 Font Vendors
+
+Adobe Systems Incorporated
+Alphabets, Inc.
+Agfa
+Ares Software Corp.
+Autologic Inc.
+Bear Rock Software Technologies Corp.
+Bill Tchakirides, UTF
+Bitstream Inc.
+Carter & Cone Type Inc.
+Castle Systems
+Diehl
+EmDash
+FontShop International
+ESSELTE LETRASET LTD
+
+
+Type 1 Font Vendors (cont.)
+
+Image Club Graphics, Inc.
+Lanston Type Co.
+Letter-Perfect/Elsware
+Linotype
+Linotype-Hell
+Miles Inc.
+Monotype Typography Inc.
+Pre Press Solutions
+Page Studio Graphics
+The Font Bureau Inc.
+The Font Company Inc.
+Treacy Faces Inc.
+U-Design Type Foundry.
+URW Software & Type GmbH
+Y&Y
+Galiad
+Galapagos
+Varityper
+
+Caching Print Server Information on Windows NT version 4.0
+Checks are made between Windows NT version 4.0 Server and Windows NT Workstation version 4.0 to make certain the cache is up to date with the print server. If you are using a version of Windows NT Server version 3.5 or earlier, and the printer settings or driver on the server have been changed since you connected to this printer, information on the cache may not match the information on the server. To update the cache on the computer running Windows NT Workstation, disconnect from the printer, and then reconnect. This will refresh all cached printer settings.
+
+Printing from Windows version 3.1-ba

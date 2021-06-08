@@ -1,0 +1,107 @@
+r(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    Ifint $(RegistryErrorIndex) == TCPIP_NONEXIST_ERROR
+        set CommonStatus = STATUS_USERCANCEL
+    endif
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    freeLibrary $(!TCPCFG_HANDLE)
+    goto term
+term = +
+    Return $(CommonStatus)
+[GetFilesSize]
+    set FileSizeList = ^(Files-SNMP,3)
+    set TotalSize = 0
+    ForListDo $(FileSizeList)
+        Split-String $($) "=" SplitString
+        set Size = *($(SplitString),3)
+        set-add TotalSize = $(TotalSize) $(Size)
+    EndForListDo
+    set-div SizeInK = $(TotalSize) 1024
+    return $(SizeInK)
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   exit
+[InstallMicrosoftAgent]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    set AServiceName = $($0)
+    set AAgentName   = $($1)
+    set APath        = $($2)
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\SNMP" $(MAXIMUM_ALLOWED) SNMPKey
+    ifstr(i) $(SNMPKey) != ""
+        CloseRegKey $(SNMPKey)
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$(AServiceName) $(MAXIMUM_ALLOWED) ServiceKey
+        ifstr(i) $(ServiceKey) != ""
+            CloseRegKey $(ServiceKey)
+            OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft" $(MAXIMUM_ALLOWED) MicrosoftKey
+            CreateRegKey $(MicrosoftKey) {$(AAgentName),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+            CreateRegKey $(KeyTypes) {"CurrentVersion",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+            Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+                {{"Pathname", $(NoTitle), $(!REG_VT_EXPAND_SZ), $(APath)}}
+            CloseRegKey $(KeyTypesSubkey)
+            CloseRegKey $(KeyTypes)
+            CloseRegKey $(MicrosoftKey)
+            OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\SNMP\Parameters" $(MAXIMUM_ALLOWED) SNMPParmKey
+            CreateRegKey $(SNMPParmKey) {$(AAgentName),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+            CloseRegKey $(KeyTypesSubkey)
+            CloseRegKey $(SNMPParmKey)
+            OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\SNMP\Parameters\ExtensionAgents" $(MAXIMUM_ALLOWED) KeyTypesSubkey
+            EnumRegValue $(KeyTypesSubkey) AgentsList
+            set Pos = 1
+            ForListDo $(AgentsList)
+                set-add Pos = $(Pos), 1
+            EndForListDo
+            Shell $(UtilityInf) AddValueList, $(KeyTypesSu

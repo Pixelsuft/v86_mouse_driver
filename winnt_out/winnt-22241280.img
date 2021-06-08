@@ -1,0 +1,32 @@
+out copying the Books Online files, see the Readme.doc file in the \Support\books folder of the compact disc.
+
+The Books Online program can be accessed by clicking the Start button, pointing to Programs, and then clicking Books Online. The first time you run the Books Online program, you set the location of the online books. Thereafter, the online books open automatically from that location.
+
+Personal and Common Groups 
+Under Windows NT version 3.51, if the administrator of a computer installed an application, the groups created for Program Manager would be “common,” that is, visible to all users who logged on to that computer.
+
+In Windows NT version 4.0, program groups have been replaced by folders containing shortcuts to various applications. The common groups are separated by a horizontal line on the Programs menu.
+
+Application installation programs create either common program groups or personal program groups. A few applications create both a common and a personal program group. If you upgrade from Windows NT version 4.0 Beta 1 to the final version of Windows NT version 4.0, you might have duplicate groups. Extra (Common) groups can be deleted. Other applications fail to create a program group. These variables depend on the user rights assigned to you when you install the program.
+
+Using Disk and File Maintenance Tools with Windows NT
+Disk tools, such as ScanDisk, and file maintenance tools that are not designed to use long filenames should not be used on volumes containing Windows NT Workstation or Windows NT Server versions 3.51 or 4.0 files. The tools can corrupt long filenames, which can lead to data loss.
+
+Long filenames are those that are longer than eight characters, have a file extension longer than three characters, contain spaces, or multiple periods.
+
+Assigning Drive Letters using Disk Administrator 
+If you encounter an "internal error occurred" message while assigning drive letters to certain hard disk partition configurations using Disk Administrator, exit the program and restart Disk Administrator.  You will then be able to assign drive letters correctly.
+
+Registry Editors
+Windows NT Setup installs two versions of Registry Editor: the Windows NT Registry Editor (REGEDT32.EXE) and either the Windows version 3.x version of Registry Editor (REGEDIT.EXE) or the Windows 95 version (REGEDIT.EXE).
+
+The Windows NT version of Registry Editor is installed in the %systemroot%\system32 directory. The Windows 3.x version (16-bit), or the Windows 95 version (32-bit) of Registry Editor is always installed in the %systemroot% directory (typically, c:\winnt).
+
+The version of Registry Editor that Setup installs depends on whether or not Setup detects the presence of Windows version 3.x in the directory where it is installing Windows NT version 4.0. If Setup detects that it is installing Windows NT in a directory that contains Windows version 3.x, or that it is upgrading Windows NT version 3.x that was originally installed in a directory which contained Windows version 3.x, Setup installs the Windows 3.x version of Registry Editor. In all other cases, Setup installs the Windows 95 version of Registry Editor.
+
+Systems installed with the Windows 3.x version of Registry Editor can still use the Windows 95 Registry Editor. To do so, copy the following files from the Windows NT version 4.0 compact disc: Regedit.exe, Regedit.hlp, and Regedit.cnt. Do not copy these files to the %systemroot% directory, as they may replace the Windows version 3.x Registry Editor files, which will prevent users from installing applications when running Windows version 3.x. You can copy the Windows 95 files to any other directory.
+
+Command Extensions
+Command Extensions are enabled by default in Windows NT version 4.0. However if you are upgraded from Windows NT version 4.0 Beta 1, you may be missing the required registry key, and Command Extensions will not be enabled, even if you run “cmd /x.” To correct this problem, add the following to your registry:
+
+HKEY_CURRENT_USER\Software\Microsoft\Command ProcessorValue: En

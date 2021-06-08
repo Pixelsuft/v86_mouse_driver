@@ -1,0 +1,106 @@
+
+	  Shell  $(UtilInf), AddValueList, $(AtkNetRuleKey), $(NewValueList)
+	  set RegistryErrorIndex = $($R0)
+	  Ifstr $(RegistryErrorIndex) != NO_ERROR
+		 CloseRegKey $(AtkVersKey)
+		 CloseRegKey $(AtkNetRuleKey)
+		 CloseRegKey $(AtkSvcKey)
+		 CloseRegKey $(AtkLinkageKey)
+		 CloseRegKey $(AtalkParameters)
+		 goto fatalregistry
+	  EndIf
+	  CreateRegKey $(AtkSvcKey), {"Adapters",0,GenericClass},+
+							  "", $(!ACCESS), "" , KeyAdapters
+    Set DesiredZone = ""
+    Set UnattendInstallMode = 0
+    Ifstr(i) $(!STF_UNATTENDED) == YES
+       set UnattendInstallMode = 1
+       Debug-Output "ATSETUP: UnattendInstallMode(1) = "$(UnattendInstallMode)
+    endif
+    Ifstr(i) $(!STF_GUI_UNATTENDED) == YES
+       set UnattendInstallMode = 1       	
+       Debug-Output "ATSETUP: UnattendInstallMode(2) = "$(UnattendInstallMode)
+    endif
+	  set NewValueList = +
+		 {{EnableRouter,0,$(!REG_VT_DWORD),0},+
+   		 {InitialInstall,0, $(!REG_VT_DWORD),1},+
+   		 {Unattended,0, $(!REG_VT_DWORD),$(UnattendInstallMode)},+
+         {DesiredZone,0,$(!REG_VT_SZ),$(DesiredZone)}}
+	  Shell  $(UtilInf), AddValueList, $(AtalkParameters), $(NewValueList)
+	  set RegistryErrorIndex = $($R0)
+	  Ifstr(i) $(RegistryErrorIndex) !=  NO_ERROR
+		 CloseRegKey $(KeyAdapters)
+		 goto fatalregistry
+	  EndIf
+	  Set WinAtalkDll = "%SystemRoot%\System32\"$(AtWinSockDll)
+	  Set MaxSockAddrLen      = 8
+	  Set MinSockAddrLen      = 6
+	  Shell $(UtilInf) AddWinsockInfo 	$(Product$(ThisOption)Name), +
+									$(WinAtalkDll), +
+									$(MaxSockAddrLen),+
+									$(MinSockAddrLen)
+	  ifstr(i) $($R0) != NO_ERROR
+		 read-syms AtalkString1$(!STF_LANGUAGE)
+		 Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorString)
+	  Endif
+      Shell "" CreatePerfKey $(AtkSvcKey) $(AtalkPerfLibraryName) +
+                          $(AtalkCounterFileName) $(AtalkPerfOpenFunction) +
+                          $(AtalkPerfCloseFunction) $(AtalkPerfCollectFunction)
+      Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+         Set RegistryErrorIndex = $($R1)
+         goto fatalregistry
+      EndIf
+      Shell "" CreateEventLogKey $(AtalkEventLogName) $(AtalkPerfLibraryName)
+      Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+         Set RegistryErrorIndex = $($R1)
+         goto fatalregistry
+      EndIf
+	  CloseRegKey $(AtkVersKey)
+	  CloseRegKey $(AtkNetRuleKey)
+	  CloseRegKey $(AtkSvcKey)
+	  CloseRegKey $(AtkLinkageKey)
+	  CloseRegKey $(AtalkParameters)
+	  CloseRegKey $(KeyAdapters)
+      Shell "" AddPrintMonitor $(!NTN_InstallMode)
+      Shell "utility.inf" AddRpcProtocol ncacn_at_dsp RpcLtCcm.Dll RpcLtScm.Dll
+   EndIf
+   goto successful
+Bindingssfm = +
+   Set DefaultPortRemoved = FALSE
+   Shell "" RemoveAllServiceDependencies "AppleTalk"
+   OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\AppleTalk\Linkage" $(!ACCESS) LinkageKey
+   Ifstr(i) $(LinkageKey) == $(!KeyNull)
+	  Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+	  Goto fatalregistry
+   Endif
+   OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\AppleTalk\Parameters" $(!ACCESS) BindParmKey
+   Ifstr(i) $(BindParmKey) == $(!KeyNull)
+	  Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+	  Goto fatalregistry
+   Endif
+   Set BindList = {}
+   Set ExportList = {}
+   Set RouteList  = {}
+   GetRegValue $(LinkageKey) "Bind" BindList
+   GetRegValue $(LinkageKey) "Export" ExportList
+   GetRegValue $(LinkageKey) "Route" RouteList
+   GetRegValue $(LinkageKey) "Exclude" ExcludeList
+   QueryListSize BindCount $(BindList)
+   IfInt $(BindCount) == 0
+	  Goto endbinding
+   Endif
+   set NewBindList = {}
+   set NewExportList = {}
+   set NewRouteList = {}
+   ForListDo *($(BindList),4)
+	  Split-String $($), "\", BindInfo
+	  set NewBindList = >($(NewBindList), *($(BindInfo),4))
+   EndForListDo
+   ForListDo *($(ExportList),4)
+	  set NewExportList = >($(NewExportList), $($))
+   EndForListDo
+   ForListDo *($(RouteList),4)
+	  set NewRouteList = >($(NewRouteList), $($))
+   EndForListDo
+   ForListDo *($(ExcludeList),4)
+	  set NewExcludeList = >($(NewExcl

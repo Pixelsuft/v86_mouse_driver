@@ -1,0 +1,87 @@
+
+             DeleteRegTree $(ProductKey) $(Product$($)Name)
+             CloseRegKey $(ProductKey)
+        else
+            Shell $(!UtilityInf), RemoveSoftwareComponent, $(!Manufacturer), $($)
+        endif
+    EndForListDo
+RemoveFiles = +
+    Install RemoveRasFiles
+    ifstr(i) $(DoServerOnly) == FALSE
+        Install RemoveRasGroup
+    endif
+    Shell "" RemoveInfFromReviewPrograms
+    shell "" RemoveNetGroupDependency
+RemoveRasOver = +
+    Debug-Output "OEMNSVRA.INF: Doing a forcible cleanup..."
+    OpenRegKey $(!REG_H_LOCAL) ""  $(!NTN_SoftwareBase)"\Microsoft" +
+               $(!MAXIMUM_ALLOWED) KeySoftware
+    ifstr $(KeySoftware) != $(KeyNull)
+        set SoftList = {"ASYNCMAC", "NDISWAN", "RAS", "RASMAN", +
+                        "RASAUTO", "REMOTEACCESS"}
+        ForListDo $(SoftList)
+            DeleteRegTree $(KeySoftware) $($)
+        EndForListDo
+        set NetworkCardKey = $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) +
+                   $(!MAXIMUM_ALLOWED) NetworkCardKey
+        Ifstr(i) $(NetworkCardKey) != $(KeyNull)
+            set NetcardsList = {}
+            EnumRegKey $(NetworkCardKey) NetcardsList
+            Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+              ForListDo $(NetcardsList)
+               set KeyName = *($($),1)
+               set Card = $(KeyNull)
+               OpenRegKey $(NetworkCardKey) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+               ifstr $(Card) == $(KeyNull)
+                   Debug-Output "RemoveRas: could not open netcard key "$(KeyName)
+               else
+                   GetRegValue $(Card), "ProductName" ProductNameInfo
+                   Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                      Debug-Output "RemoveRas: ProductName not found."
+                   else
+                      set CardProductName = *($(ProductNameInfo), 4)
+                      Debug-Output "RemoveRas: ProductName. "$(CardProductName)
+                      ifstr(i) $(CardProductName) == $(!ProductNDISWANName)
+                         DeleteRegTree $(NetworkCardKey) $(KeyName)
+                      endif
+	                  ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINName)
+                          DeleteRegTree $(NetworkCardKey) $(KeyName)
+                      endif
+		              ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALOUTName)
+                          DeleteRegTree $(NetworkCardKey) $(KeyName)
+                      endif
+		              ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINIPName)
+                          DeleteRegTree $(NetworkCardKey) $(KeyName)
+                      endif
+		              ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALOUTIPName)
+                          DeleteRegTree $(NetworkCardKey) $(KeyName)
+                      endif
+		              ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINOUTIPXName)
+                          DeleteRegTree $(NetworkCardKey) $(KeyName)
+                      endif
+                      ifstr(i) $(CardProductName) == $(ProductRASASYMACName)
+                          DeleteRegTree $(NetworkCardKey) $(KeyName)
+                      endif
+                   endif
+              EndForListDo
+            else
+              Debug-Output "RemoveRas: EnumRegKey failed."
+            endif
+        else
+            Debug-Output "RemoveRas: failed to open "$(!NetworkCardKeyName)
+        endif
+        CloseRegKey $(KeySoftware)
+    else
+        Debug-Output "RemoveRas: failed to open software key"
+    endif
+    OpenRegKey $(!REG_H_LOCAL) ""  $(!NTN_ServiceBase) +
+               $(!MAXIMUM_ALLOWED) KeyServices
+    ifstr $(KeyServices) != $(KeyNull)
+        set ServiceList = {"ASYNCMAC", "NDISWAN", "RASARP", "RASMAN", +
+                           "REMOTEACCESS", "RASACD", "RASAUTO"}
+        ForListDo $(ServiceList)
+            DeleteRegTree $(KeyServices) $($)
+        EndForListDo
+        EnumRegKey $(KeyServices) ServiceList
+        Ifint $(RegLastError) == $(!REG_E

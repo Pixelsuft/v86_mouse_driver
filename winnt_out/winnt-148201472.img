@@ -1,0 +1,67 @@
+valued data on the computer.</p>
+<blockquote>
+<p class="proclabel"><b>To disable Nagling in the registry</b>
+<ol>
+<li>Click <b>Start</b>, and then click <b>Run</b>.</li>
+<li> Type <b>regedt32</b>, and then click <b>OK</b>.</li>
+<li>In Registry Editor, open HKEY_LOCAL_MACHINE\Software\Microsoft\MSMQ\Parameters.</li>
+<li>Double-click <b>TcpNoDelay</b> to open <b>Dword Editor</b>.</li>
+<li>In <b>Data</b>, type <b>1</b> and then click <b>OK</b>.</li>
+<li>Close the Registry Editor.</li></ol>
+</blockquote>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p>
+<a name="3.4.4"><b>3.4.4 Receiving Messages Using MSMQ COM API</b></a></p>
+<p>You can now receive messages using MSMQ COM API with a sender certificate larger than 4096 bytes and with a sender ID larger than 32 bytes. The maximum sender ID is now 128 bytes.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name=3.4.5><b>3.4.5 Backing Up and Restoring MSMQ Messages</b></a></p>
+<p>Messages held by MSMQ service can be backed up and restored on a specific computer along with MSMQ registry settings. To perform this task, download the utility available from:<br>
+<a href="ftp://ftp.microsoft.com/bussys/distapps/Msmq/Public-Fixes/1.0/mqbkup">ftp://ftp.microsoft.com/bussys/distapps/Msmq/Public-Fixes/1.0/mqbkup/</a></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+
+<p><a name="3.4.6"><b>3.4.6 Using DIRECT Format Name for Reading from a Remote Queue</b></a>
+<p>Applications using MSMQ can address queues in three different ways using format names. Using DIRECT format name for reading from a remote queue failed in earlier versions of Windows&nbsp;NT&nbsp;4.0. This problem is fixed in SP6.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="3.4.7"><b>3.4.7 Using the MSMQ MQIS Update/Restore Wizard</b></a></p>
+<p>If you are using SQL&nbsp;6.5, you can use the MSMQ MQIS Update/Restore Wizard to restore or to update the MSMQ&nbsp;1.0 MQIS database. The wizard is located in \Support\Msmq.nt on the SP6 CD.</p>
+<p>To update or restore the MQIS database using SQL&nbsp;7.0, download the newer version of this wizard by visiting:
+<a href="ftp://ftp.microsoft.com/bussys/distapps/Msmq/Public-Fixes/1.0/mqis-restore">ftp://ftp.microsoft.com/bussys/distapps/Msmq/Public-Fixes/1.0/mqis-restore</a>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="3.5"><b>3.5 Obtaining Microsoft Data Access Components (MDAC)</b></a></p>
+<p>To download the latest version of MDAC, visit the Microsoft Universal Data Access Web site at:
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=MDAC">http://www.microsoft.com/data/default.htm</a></p>
+<p>To obtain information on MDAC year&nbsp;2000 compliance, visit the Microsoft Year&nbsp;2000 Resource Center Web site at:
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=Microsoft%20Year%202000">http://www.microsoft.com/year2000</a></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<P><a name="3.6"><b>3.6 Compaq Support Guidelines for Alpha-Based Systems</b></a></p>
+<p>Compaq has made the decision to move forward with SP6 support on specific Alpha-based systems. A list of systems that will be supported on SP6 is available at Compaq’s Web site at:<br>
+<a href="http://www.compaq.com/support/files/alphant"> http://www.compaq.com/support/files/alphant</p> 
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="4.0"><h2>4.0 Additional Fixes and Workarounds</h2></a></p>
+<p>
+This section contains additional fixes and workarounds for SP6.</p>
+<p>
+<a name="4.1"><b>4.1 Dual-Booting Between Versions of Windows&nbsp;NT&nbsp;4.0 and Windows&nbsp;2000</b></a></p>
+<p>
+If you dual-boot your computer to run both Windows&nbsp;NT&nbsp;4.0 and 

@@ -1,0 +1,90 @@
+ellCode) != $(!SHELL_CODE_OK)
+	    	          goto ShellCodeError
+	    	      endif
+	    	      set Error = $($R0)
+	    	      Goto fatal
+	          Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+	    	      Goto successful
+	          Endif
+	          Set SrcDir = $($R1)
+	          Split-String $(SrcDir) "\" JunkList
+	          QueryListSize JunkSize $(JunkList)
+	          Set JunkItem = *($(JunkList),$(JunkSize))
+	          set JunkItem2 = "foo"
+	          ifstr $(JunkItem2)$(JunkItem)$(JunkItem2) != $(JunkItem2)"\"$(JunkItem2)
+	    	      Debug-Output "In ifstr"
+	    	      set SrcDir = $(SrcDir)"\"
+	          endif
+	          Debug-Output "Reassigning SourceDirectory = "$(SrcDir)
+	       Endif
+	       install "Install-Option"
+	       ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                  goto filecopycancel
+	       endif
+	    endif
+    endif
+    Debug-Output "OEMNADDI.INF: RegBase "$(!NTN_RegBase)
+    LoadLibrary "x" $(!STF_CWDDIR)setupdll.dll !LIBHANDLE
+    Debug-Output "OEMNADDI.INF: LIBHANDLE is "$(!LIBHANDLE)
+    LoadLibrary "x" $(!STF_CWDDIR)digiinst.dll DIGIHANDLE
+    Debug-Output "OEMNADDI.INF: DIGIHANDLE is "$(DIGIHANDLE)
+    Shell "subroutn.inf" PopBillboard
+    set AlternateMemory = ""
+    set AlternateIO = ""
+    set AlternateIRQ = ""
+    ifstr(i) $(BusType) == "MCA"
+	    Ifstr(i) $(!NTN_InstallMode) == deinstall
+	        goto getcurrentconfig
+	    else-Ifstr(i) $(!NTN_InstallMode) == Update
+	        goto getcurrentconfig
+	    else-Ifstr(i) $(!NTN_InstallMode) == bind
+	        goto getcurrentconfig
+	    else-Ifstr(i) $(!NTN_InstallMode) == configure
+getcurrentconfig = +
+	        Ifstr $(!NTN_RegBase) != $(KeyNull)
+	    	    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(!MAXIMUM_ALLOWED) SoftwareKey
+	    	    Ifstr $(SoftwareKey) == $(KeyNull)
+	    	        Debug-Output "Unable to open "$(!NTN_RegBase)" key!!!!"
+	    	        goto cancel
+	    	    Else
+	    	        GetRegValue $(SoftwareKey), "ServiceName", ServiceNameList
+	    	        set AdapterServiceName = *($(ServiceNameList),4)
+	    	        set AdapterName = $(AdapterServiceName)
+	    	        CloseRegKey $(SoftwareKey)
+	    	    Endif
+	        Endif
+	        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(AdapterServiceName) $(!MAXIMUM_ALLOWED) BaseKey
+	        Ifstr $(BaseKey) == $(KeyNull)
+	            Debug-Output "Error opening BaseKey "$(!NTN_ServiceBase)"\"$(AdapterServiceName)
+	            CloseRegKey $(BaseKey)
+	            goto fatalregistry
+	        Endif
+	        OpenRegKey $(BaseKey) "" "Parameters" $(!MAXIMUM_ALLOWED) ParametersKey
+	        Ifstr $(ParametersKey) == $(KeyNull)
+	            goto cancel
+	        endif
+	        Debug-Output "Reading Parameters Key for current configuration"
+	        GetRegValue $(ParametersKey) "IOBaseAddress" IOBaseValueList
+	        set AlternateIO = {Slot*($(IOBaseValueList),4)}
+	        set AlternateMemory = {Slot*($(IOBaseValueList),4)}
+	        set AlternateIRQ = {Slot*($(IOBaseValueList),4)}
+	    else
+	        ForListDo $(AdapterHardwareAdapterID)
+	            Debug-Output "Calling MCAFindBus, "*($(AdapterIDByte1),$(#))", "*($(AdapterIDByte2),$(#))
+	            Shell $(UtilityInf), MCAFindBus, *($(AdapterIDByte1),$(#)), *($(AdapterIDByte2),$(#))
+	            Debug-Output "MCAFindBus returned "$($R1)
+	            set CardInfo = {}
+	            ifstr(i) $($R1) != {}
+	    	        set CardInfo = $($R1)
+	    	        Debug-Output "MCA controller found!"
+	    	        Debug-Output "CardInfo = "$(CardInfo)
+	    	        ForListDo $(CardInfo)
+	    	           Debug-Output "Current CardInfo Entry = "$($)
+	    	           set TmpBusNumber = *($($), 1)
+	    	           set SlotNumber = *($($), 2)
+	    	           set MCAPosId = *($($), 3)
+	    	           Debug-Output "Calling DoesControllerExist:"
+	    	           Debug-Output "    AdapterHardwareName = "$(AdapterHardwareName)
+	    	           Debug-Output "    BusNumber = "$(TmpBusNumber)
+	    	           Debug-Output "    Slot # = "$(SlotNumber)
+	    	   

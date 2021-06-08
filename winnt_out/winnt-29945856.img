@@ -1,0 +1,71 @@
+
+                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                            goto ShellCodeError
+                        endif
+                        set TempProdName = """"$(ProductHardwareName)$(AdapterNumber)""""
+                        set TempBindForm = $(TempProdName)$(NetRuleHardwareBindForm)
+                        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleHardware$(Option)Type)},+
+                                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)}, +
+                                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleHardware$(Option)Class)}, +
+                                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+                        Shell  $(UtilityInf), AddValueList, $(HardNetRuleKey), $(NewValueList)
+                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                            goto ShellCodeError
+                        endif
+                        CloseRegKey $(HardNetCardKey)
+                        CloseRegKey $(HardNetRuleKey)
+                        CloseRegKey $(HardParameterKey)
+                endif
+        else
+            Shell $(UtilityInf), IsNetCardAlreadyInstalled, $(BusNum), +
+                $(DeviceNum), $(ProductHardware$(Option)Description), $(ProductHardwareName) "YES"
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                goto ShellCodeError
+            endif
+            ifstr $($R0) != "NO_ERROR"
+                set Error = $($R0)
+                goto fatal
+            endif
+            ifstr(i) $($R1) != "YES"
+               Shell $(UtilityInf), AddHardwareComponent, $(ProductHardwareName),$(STF_CONTEXTINFNAME),$(ProductKeyName)
+               ifint $($R4) != -1
+                    Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards\"$($R4))
+               endif
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+               endif
+               set RegistryErrorIndex = $($R0)
+               Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+                    EndWait
+                    CloseRegKey $($R1)
+                    CloseRegKey $($R2)
+                    CloseRegKey $($R3)
+                    goto fatalregistry
+               endif
+               read-syms FileDependentDlg$(!STF_LANGUAGE)
+               SetHelpFile $(!STF_WINDOWSSYSPATH)"\"$(OptionHelpFile) $(MinHelpId) $(MaxHelpId) $(Help$(Option)Id)
+               ui start "InputDlg"
+               ifstr(i) $(DLGEVENT) == "CONTINUE"
+                  set ConnectionIndex = $(Combo1Out)
+                  ui pop 1
+               else-ifstr(i) $(DLGEVENT) == "BACK"
+                  set CommonStatus = STATUS_USERCANCEL
+                  ui pop 1
+                  goto end
+               else
+                  ui pop 1
+                  goto end
+               endif
+               set ConnectionValue = *($(ConnectionValues), ~($(ConnectionList),$(ConnectionIndex)))
+               Set HardNetCardKey      = $($R1)
+               Set HardNetRuleKey      = $($R2)
+               Set HardParameterKey    = $($R3)
+               set AdapterNumber = $($R4)
+               set NewValueList = {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(Manufacturer)},+
+                                   {Title,$(NoTitle),$(!REG_VT_SZ),"["$($R4)"] "$(ProductHardware$(Option)Title)},+
+                                   {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductHardware$(Option)Description)},+
+                                   {ProductName,$(NoTitle),$(!REG_VT_SZ),$(ProductHardwareName)},+
+                                   {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+                                   {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)},+
+                                   {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+               Shell  $(UtilityInf), AddValueList, $(HardNetCardKey), $(NewVal

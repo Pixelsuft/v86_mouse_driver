@@ -1,0 +1,136 @@
+
+    FOR a = 1 TO 19
+        IF Trim$(account(a).Title) = "" THEN
+            choice$(a) = RIGHT$(STR$(a), 2) + ". ------------------- "
+        ELSE
+            choice$(a) = RIGHT$(STR$(a), 2) + ". " + account(a).Title
+        END IF
+        menuRow(a) = a + 2
+        menuCol(a) = 19
+        help$(a) = RTRIM$(account(a).Desc)
+    NEXT a
+
+    subchoice = Menu(1, 19, choice$(), menuRow(), menuCol(), help$(), FALSE)
+
+    IF subchoice > 0 THEN
+        EditTrans (subchoice)
+    END IF
+    RETURN
+
+
+MenuSystemReport:
+    choice$(1) = " Net Worth Report       "
+    menuRow(1) = 3: menuCol(1) = 32
+    help$(1) = "View and print net worth report"
+
+    FOR a = 1 TO 19
+        IF Trim$(account(a).Title) = "" THEN
+            choice$(a + 1) = RIGHT$(STR$(a), 2) + ". ------------------- "
+        ELSE
+            choice$(a + 1) = RIGHT$(STR$(a), 2) + ". " + account(a).Title
+        END IF
+        menuRow(a + 1) = a + 3
+        menuCol(a + 1) = 32
+        help$(a + 1) = "Print " + RTRIM$(account(a).Title) + " transaction summary"
+    NEXT a
+
+    subchoice = Menu(1, 20, choice$(), menuRow(), menuCol(), help$(), FALSE)
+
+    SELECT CASE subchoice
+        CASE 1
+            NetWorthReport
+        CASE 2 TO 20
+            TransactionSummary (subchoice - 1)
+        CASE ELSE
+    END SELECT
+    RETURN
+
+MenuSystemColors:
+    choice$(1) = " Monochrome Scheme "
+    choice$(2) = " Cyan/Blue Scheme  "
+    choice$(3) = " Blue/Cyan Scheme  "
+    choice$(4) = " Red/Grey Scheme   "
+
+    menuRow(1) = 3: menuCol(1) = 41
+    menuRow(2) = 4: menuCol(2) = 41
+    menuRow(3) = 5: menuCol(3) = 41
+    menuRow(4) = 6: menuCol(4) = 41
+
+    help$(1) = "Color scheme for monochrome and LCD displays"
+    help$(2) = "Color scheme featuring cyan"
+    help$(3) = "Color scheme featuring blue"
+    help$(4) = "Color scheme featuring red"
+
+    subchoice = Menu(1, 4, choice$(), menuRow(), menuCol(), help$(), FALSE)
+
+    SELECT CASE subchoice
+        CASE 1 TO 4
+            ColorPref = subchoice
+            SaveState
+        CASE ELSE
+    END SELECT
+    RETURN
+
+
+END SUB
+
+'NetWorthReport:
+'  Prints net worth report to screen and printer
+SUB NetWorthReport
+    DIM assetIndex(19), liabilityIndex(19)
+
+    maxAsset = 0
+    maxLiability = 0
+
+    FOR a = 1 TO 19
+        IF account(a).AType = "A" THEN
+            maxAsset = maxAsset + 1
+            assetIndex(maxAsset) = a
+        ELSEIF account(a).AType = "L" THEN
+            maxLiability = maxLiability + 1
+            liabilityIndex(maxLiability) = a
+        END IF
+    NEXT a
+
+    'Loop until <F2> is pressed
+    finished = FALSE
+    DO
+        u1$ = "\                  \$$###,###,###.##"
+        u2$ = "\               \+$$#,###,###,###.##"
+
+        COLOR colors(5, ColorPref), colors(4, ColorPref)
+        LOCATE 1, 1: PRINT SPACE$(80);
+        LOCATE 1, 4: PRINT "Net Worth Report: " + DATE$;
+        PrintHelpLine "<F2=Exit>    <F3=Print Report>"
+
+        COLOR colors(7, ColorPref), colors(4, ColorPref)
+        Box 2, 1, 24, 40
+        Box 2, 41, 24, 80
+
+        LOCATE 2, 16: PRINT " ASSETS "
+        assetTotal# = 0
+        a = 1
+        count1 = 1
+        WHILE a <= maxAsset
+            file$ = "money." + Cvit$(assetIndex(a))
+            OPEN file$ FOR RANDOM AS #1 LEN = 84
+            FIELD #1, 11 AS valid$, 5 AS IoMaxRecord$, 8 AS IoBalance$
+            GET #1, 1
+            IF valid$ = "THISISVALID" THEN
+                LOCATE 2 + count1, 3: PRINT USING u1$; account(assetIndex(a)).Title; CVD(IoBalance$)
+                assetTotal# = assetTotal# + CVD(IoBalance$)
+                count1 = count1 + 1
+            END IF
+            CLOSE
+            a = a + 1
+        WEND
+
+        LOCATE 2, 55: PRINT " LIABILITIES "
+        liabilityTotal# = 0
+        a = 1
+        count2 = 1
+        WHILE a <= maxLiability
+            file$ = "money." + Cvit$(liabilityIndex(a))
+            OPEN file$ FOR RANDOM AS #1 LEN = 84
+            FIELD #1, 11 AS valid$, 5 AS IoMaxRecord$, 8 AS IoBalance$
+            GET #1, 

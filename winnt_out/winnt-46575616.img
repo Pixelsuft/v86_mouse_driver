@@ -1,0 +1,74 @@
+W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+
+[M1806Reg] ; Hayes 14400 Ultra
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 40,38,00,00
+
+[M1811Reg] ; Hayes 28800 Optima
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[M1812Reg] ; Hayes 2400 Optima & Accura
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, Compression_Off,, "&Q8S46=136"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+
+[M1823Reg] ; Hayes 14400 Optima PCMCIA and Accura 14.4
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[M1825Reg] ; Hayes V-series Smartmodem 9600
+HKR, Init, 2,, "AT&FE0V0W2&C1&D2<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 80,25,00,00
+
+[M1827Reg] ; Hayes 2400 - 9600 PCMCIA
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, Compression_Off,, "&Q8S46=136"
+
+[M1828Reg] ; Hayes 28800 Optima - no CCITT/Bell
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[M1831Reg] ; Hayes 28800 Optima PCMCIA - no CCITT/Bell or dial suffix
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, DialSuffix,, "" 
+
+[M1832Reg] ; Hayes Ultra 24 with Express 96
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+
+[M1837Reg] ; Hayes Accura 2400
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+
+[M1845Reg] ; Hayes 28800 Accura 288B + FAX
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT&FE0V0W2&C1&D2S95=47<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Responses, "19<cr>", 1, 02, 00, 00,C2,01,00, 00,00,00,00 ; CONNECT 115200
+HKR, Responses, "55<cr>", 1, 01, 00, 60,54,00,00, 00,00,00,00 ; CARRIER 21600
+HKR, Responses, "56<cr>", 1, 01, 00, c0,5d,00,00, 00,00,00,00 ; CARRIER 24000
+HKR, Responses, "57<cr>", 1, 01, 00, 20,67,00,00, 00,00,00,00 ; CARRIER 26400
+HKR, Responses, "58<cr>", 1, 01, 00, 80,70,00,00, 00,00,00,00 ; CARRIER 28800
+HKR, Responses, "63<cr>", 1, 02, 00, 20,67,00,00, 00,00,00,00 ; CONNECT 26400
+HKR, Responses, "64<cr>", 1, 02, 00, 80,70,00,00, 00,00,00,00 ; CONNECT 28800
+
+[M1846Reg] ; Hayes 28800 Accura
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[M1847Reg] ; Hayes 28800 Accura - no CCITT/Bell
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[M2100Reg] ; Megahertz C5144, C6144, T3144, Z5144, Z3144
+HKR, Init, 2,, "AT&F0E0V0W1&C1&D2\G0\J0\Q3\N7<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_Off

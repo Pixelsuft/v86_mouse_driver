@@ -1,0 +1,93 @@
+ndform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareBindForm)}, +
+                        {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+    Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(SoftProductKey)
+    CloseRegKey $(SoftNetRuleKey)
+    CloseRegKey $(SoftServiceKey)
+    CloseRegKey $(SoftParameterKey)
+    CloseRegKey $(SoftLinkageKey)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "Resgitry error: add value list."
+        goto fatalregistry
+    endif
+installhardware =+
+    Shell $(UtilityInf), AddHardwareComponent, $(ProductHardwareName),$(STF_CONTEXTINFNAME),$(ProductKeyName)
+    ifint $($R4) != -1
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards\"$($R4))
+    endif
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Cannot add hardware component"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "Registry error: add hardware component"
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        goto fatalregistry
+    endif
+    set KeyParameters = $($R3)
+    set KeyAdapterRules = $($R2)
+    set AdapterNumber = $($R4)
+    set NewValueList = {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(Manufacturer)},+
+                       {Title,$(NoTitle),$(!REG_VT_SZ),"["$($R4)"] "$(ProductHardwareTitle)},+
+                       {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductHardwareDescription)},+
+                       {ProductName,$(NoTitle),$(!REG_VT_SZ),$(ProductHardwareName)},+
+                       {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+                       {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)},+
+                       {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+    Shell  $(UtilityInf), AddValueList, $($R1), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error"
+        goto ShellCodeError
+    endif
+    CloseRegKey $($R1)
+    set TempProdName = """"$(ProductHardwareName)$(AdapterNumber)""""
+    set TempBindForm = $(TempProdName)$(NetRuleHardwareBindForm)
+    set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleHardwareType)},+
+                        {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)}, +
+                        {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleHardwareClass)}, +
+                        {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+    Shell  $(UtilityInf), AddValueList, $(KeyAdapterRules), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error."
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "Registry error: add value list."
+        CloseRegKey $(KeyParameters)
+        CloseRegKey $(KeyAdapterRules)
+        goto fatalregistry
+    endif
+    CloseRegKey $(KeyAdapterRules)
+    goto writeparameters
+writeparameters = +
+    ifstr(i) $(MediaChoice) == "802.5"
+        set MediaValue = 1
+    else-ifstr(i) $(MediaChoice) == "Fddi"
+        set MediaValue = 2
+    else
+        set MediaValue = 0
+    endif
+    Shell $(UtilityInf), GetBusTypeNum
+    set BusTypeNum = $($R1)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error."
+        goto ShellCodeError
+    endif
+    set-add MediaType = $(MediaValue),1
+    set NewValueList = {+
+                       {Medium,$(NoTitle),$(!REG_VT_DWORD),$(MediaValue)},+
+                       {MediaType,$(NoTitle),$(!REG_VT_DWORD),$(MediaType)},+
+                       {BusType,$(NoTitle),$(!REG_VT_DWORD),$(BusTypeNum)},+
+       

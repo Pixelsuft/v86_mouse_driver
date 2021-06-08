@@ -1,0 +1,132 @@
+
+; NTPRINT.INF (for SUR)
+;
+; List of supported printers, manufacturers
+;
+
+[Version]
+Signature="$Windows NT$"
+Provider=%MS%
+LayoutFile=layout.inf
+ClassGUID={4D36E979-E325-11CE-BFC1-08002BE10318}
+Class=Printer
+
+;
+; Manufacturer section.
+;
+; This section lists all of the manufacturers 
+; that we will display in the Dialog box
+;
+[Manufacturer]
+"Agfa"
+"Apple"
+"APS-PS"
+"AST"
+"AT&T"
+"Brother"
+"Bull"
+"C-Itoh"
+"Canon"
+"Citizen"
+"ColorAge"
+"Compaq"
+"Dataproducts"
+"Diconix"
+"Digital"
+"Epson"
+"Fujitsu"
+"GCC"
+"Generic"
+"Gestetner"
+"HP"
+"IBM"
+"Kodak"
+"Kyocera"
+"LaserMaster"
+"Lexmark"
+"Linotronic"
+"Mannesmann"
+"Microsoft"
+"Microtek"
+"Minolta"
+"Monotype"
+"NEC"
+"OceColor"
+"Oki"
+"Okidata"
+"Olivetti"
+"Panasonic"
+"QMS"
+"Quad"
+"Qume"
+"Radio Shack"
+"Ricoh"
+"Royal"
+"Schlumberger"
+"Scitex"
+"Seiko"
+"Seikosha"
+"Sharp"
+"Shinko"
+"Star"
+"Tandy"
+"Tegra"
+"Tektronix"
+"Texas Instruments"
+"Toshiba"
+"Unisys"
+"Varityper"
+"Wang"
+"Xante"
+"Xerox"
+
+;
+; Model sections. 
+; 
+; Each section here corresponds with an entry listed in the
+; [Manufacturer] section, above. The models will be displayed in the order
+; that they appear in the INF file.
+;
+
+[Agfa]
+"AGFA-AccuSet v52.3"                                   = AGACCST1.PPD
+"AGFA-AccuSetSF v52.3"                                 = AGACCSF1.PPD
+"AGFA-AccuSet 800"                                     = AGAC0800.PPD
+"AGFA-AccuSet 800SF v52.3"                             = AGAC8SF1.PPD
+"AGFA-AccuSet 800SF v2013.108"                         = AGAC8SF2.PPD
+"AGFA-AccuSet 1000"                                    = AGAC1000.PPD
+"AGFA-AccuSet 1000SF v52.3"                            = AGAC1SF1.PPD
+"AGFA-AccuSet 1000SF v2013.108"                        = AGAC1SF2.PPD
+"AGFA-AccuSet 1500"                                    = AGAC1500.PPD
+"AGFA-AccuSet 1500SF v2013.108"                        = AGAC5SF2.PPD
+"AGFA-Avantra 20 v2013.108"                            = AGAVA202.PPD
+"AGFA-Avantra 20SF v2013.108"                          = AGA20SF2.PPD
+"AGFA-Avantra 25 v2013.108"                            = AGAVA252.PPD
+"AGFA-Avantra 25SF v2013.108"                          = AGA25SF2.PPD
+"AGFA-Avantra 36SF v2013.108"                          = AGA36SF2.PPD
+"AGFA-Avantra 44 v2013.108"                            = AGAVA442.PPD
+"AGFA-Avantra 44SF v2013.108"                          = AGA44SF2.PPD
+"AGFA-Elan 500"                                        = AGELAN50.PPD
+"AGFA-Elan 500SF v2013.108"                            = AGEL5SF2.PPD
+"AGFA-ProSet 9400"                                     = AGPR9400.PPD
+"AGFA-ProSet 9400 v52.3"                               = AGPRO941.PPD
+"AGFA-ProSet 9400SF v52.3"                             = AGP94SF1.PPD
+"AGFA-ProSet 9400SF v2013.108"                         = AGP94SF2.PPD
+"AGFA-ProSet 9550"                                     = AGPR9550.PPD
+"AGFA-ProSet 9550 v52.3"                               = AGPR9551.PPD
+"AGFA-ProSet 9550SF v52.3"                             = AGP95SF1.PPD
+"AGFA-ProSet 9550SF v2013.108"                         = AGP95SF2.PPD
+"AGFA-ProSet 9600 v52.3"                               = AGPRS961.PPD
+"AGFA-ProSet 9600SF v52.3"                             = AGP96SF1.PPD
+"AGFA-ProSet 9700 v52.3"                               = AGPRO971.PPD
+"AGFA-ProSet 9700SF v52.3"                             = AGP97SF1.PPD
+"AGFA-ProSet 9800"                                     = AGPR9800.PPD
+"AGFA-ProSet 9800 v52.3"                               = AGPRO981.PPD
+"AGFA-ProSet 9800SF v52.3"                             = AGP98SF1.PPD
+"AGFA-ProSet 9800SF v2013.108"                         = AGP98SF2.PPD
+"AGFA-ProSet 9836"                                     = AGPR9836.PPD
+"AGFA-ProSet 9836SF v52.3"                             = AGP36SF1.PPD
+"AGFA-ProSet 9836SF v2013.108"                         = AGP36SF2.PPD
+"AGFA-SelectSet 5000"                                  = AGSS5000.PPD
+"AGFA-SelectSet 5000 v52.3"                            = AGSELS51.PPD
+"AGFA-SelectSet 5000SF v52.3"        

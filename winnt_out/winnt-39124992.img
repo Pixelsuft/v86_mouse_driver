@@ -1,0 +1,145 @@
+ESSION: MNP4<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+;Stray char (0xFF) appears from time to time.
+CONNECT=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf><hFF>
+
+CONNECT=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: MNP<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: MNP<cr><lf>\
+<cr><lf>COMPRESSION: CLASS 5<cr><lf><cr>\
+<lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: MNP<cr><lf>\
+<cr><lf>COMPRESSION: MNP5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: MNP<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+;Next connect response occasionally occurs on Practical Peripherals 9600SA
+CONNECT=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROT<hFF>OCOL: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V.42/LAPM<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAPM<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V.42/LAPM<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf><cr>\
+<lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V.42/LAPM<cr><lf>\
+<cr><lf>COMPRESSION: CLASS 5<cr><lf><cr>\
+<lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V.42/LAPM<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf><cr>\
+<lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>COMPRESSION: CLASS 5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+;megahertz pcmcia r

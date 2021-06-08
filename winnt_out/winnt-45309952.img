@@ -1,0 +1,106 @@
+0, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W1 \V1<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, ErrorControl_On,,"\N5"          
+HKR, Settings, ErrorControl_Forced,, "\N4"
+
+[Rockwell22.AddReg] ; E-Tech PCMCIA 14400, cirrus chipset 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V2 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,,"\N3-J1"          
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4-J1"
+
+[Rockwell24.AddReg] ; Cirrus Data Fax Voice MDK1414UN
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V2<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3-J1"          
+HKR, Settings, ErrorControl_Forced,, "\N4-J1"
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q2 *H1 ""M1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N4 -K1 )M1 -Q2 *H1 ""M1"
+
+[Rockwell25.AddReg] ; Prometheus (Sierra chipset)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W2 \V1<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, ErrorControl_On,,"\N6"          
+HKR, Settings, ErrorControl_Forced,, "\N4"
+
+[Strings]
+
+Calcom  = "Calcom"
+Calcom1 = "Calcom 14.4 Data Fax, 1442EX"
+Calcom2 = "Calcom 28.8 Data Fax, 2842EX"
+Calcom3 = "Calcom 28.8 Data Fax, 2842I"
+Calcom4 = "Calcom 14.4 Data Fax, 1442F"
+Calcom5 = "Calcom 14.4 Data Fax Voice, 1442VF"
+Calcom6 = "Calcom 2400-9600 Data Fax, 9624i"
+Calcom7 = "Calcom 2400-9600 Data Fax Voice, 9624VF"
+Calcom8 = "2400-9600 Data Fax Voice Modem"
+
+Epson  = "Epson"
+Epson1 = "Epson Data Fax 24-96 PCMCIA"
+Epson2 = "Data Fax 24-96 PCMCIA"   
+
+Acer   = "Acer"
+Acer1  = "Acer 2400 Bps Data, 96-48 Fax, FM9648HR"
+Acer2  = "Acer 2400 Bps Data, M24H-R1"
+Acer3  = "Acer 2400 Bps Data Fax Voice, VF9924H-C1"
+Acer4  = "Acer 28.8, V.34 Data Fax, F1128HV-R6"
+Acer5  = "Acer 14.4 Data Fax, F1114HV-R2"
+Acer6  = "Acer 14.4 Data Fax Voice, VF1114HV-C1"
+
+Victory  = "Victory"
+Victory1 = "Victory 14.4 Data Fax"
+
+SierraWireless = "Sierra Wireless"
+SierraWireless1 = "Sierra Wireless PocketPlus 210 Wireline"
+
+DataRace  = "Data Race"
+DataRace1 = "Data Race RediCARD Data 14.4 Fax 9600"
+DataRace2 = "Data Race RediCARD Data 2400 Fax 9600"
+DataRace3 = "Data Race RediCARD Data 14.4 Fax 14.4"
+DataRace4 = "Data Race RediCARD Data 14.4 Fax"
+
+Mitsubishi  = "Mitsubishi"
+Mitsubishi2 = "Mitsubishi Melfax 14.4 PCMCIA"
+
+Diamond  = "Diamond Multimedia"
+Diamond1 = "TeleCommander 2500 Voice"
+Diamond2 = "TeleCommander 3500"
+Diamond3 = "28.8 Data Fax Modem"
+
+GDC  = "General DataComm"
+GDC1 = "General DataComm V.F 28.8"
+GDC2 = "General DataComm FastPro"
+GDC3 = "General DataComm FastPro or V.F 28.8"
+
+ETECH  = "E-Tech/Bullet Telecom"
+
+Etech1 = "E-Tech Bullet 100E 28.8 V.34 Data Fax"
+Etech2 = "E-Tech Bullet PC288MX 28.8 V.34 Data Fax"
+Etech3 = "E-Tech Bullet PC1414UX 14.4 Data Fax"
+Etech4 = "E-Tech Bullet C1414CX 14.4 Data Fax PCMCIA"
+
+Cirrus  = "Cirrus Logic"
+Cirrus1 = "Cirrus Data Fax Voice MDK1414UN"
+
+Prometheus = "Prometheus"
+Prometheus1 = "Prometheus CyberPhone PC144evsp"
+Prometheus2 = "Prometheus Cyb

@@ -1,0 +1,67 @@
+             = PCL5MS.DLL
+"Canon LBP-430"                                        = PCL5MS.DLL
+"Canon LBP-860"                                        = PCL5EMS.DLL
+"Canon LBP-1260"                                       = PCL5EMS.DLL
+"Canon LBP-1260 PS"                                    = CN1260E1.PPD
+"Canon LBP-1260 Plus"                                  = PCL5EMS.DLL
+"Canon LBP-1260 Plus PS"                               = CN126PE1.PPD
+"Canon LBP-1260C"                                      = CANONLBP.DLL
+"Canon LBP-1260C PS"                                   = CN1260E1.PPD
+"Canon PS-IPU Color Laser Copier v52.3"                = CN_500_1.PPD
+"Canon PS-IPU Kanji Color Laser Copier v52.3"          = CN_500J1.PPD
+
+[Citizen]
+"Citizen 120D"                                         = CIT9US.DLL
+"Citizen 120D+"                                        = CIT9US.DLL
+"Citizen 124D"                                         = CIT24US.DLL
+"Citizen 180D"                                         = CIT9US.DLL
+"Citizen 200GX"                                        = CIT9US.DLL
+"Citizen 200GX/15"                                     = CIT9US.DLL
+"Citizen 224"                                          = CIT24US.DLL
+"Citizen ABC ESC/P 2"                                  = ESCP2MS.DLL
+"Citizen GSX-130"                                      = CIT24US.DLL
+"Citizen GSX-140"                                      = CIT24US.DLL
+"Citizen GSX-140+"                                     = CIT24US.DLL
+"Citizen GSX-145"                                      = CIT24US.DLL
+"Citizen GSX-220 ESC/P 2"                              = ESCP2MS.DLL
+"Citizen GSX-230"                                      = CIT24US.DLL
+"Citizen GSX-240 ESC/P 2"                              = ESCP2MS.DLL
+"Citizen GSX 240 Scalable Font"                        = ESCP2E.DLL
+"Citizen HSP-500"                                      = CIT9US.DLL
+"Citizen HSP-550"                                      = CIT9US.DLL
+"Citizen PN48"                                         = CIT24US.DLL
+"Citizen Prodot 24"                                    = CIT24US.DLL
+"Citizen Prodot 9"                                     = CIT9US.DLL
+"Citizen Prodot 9x"                                    = CIT9US.DLL
+"Citizen PROjet"                                       = JP350.DLL
+"Citizen PROjet II"                                    = JP350.DLL
+"Citizen ProLaser 6000"                                = PCL5MS.DLL
+"Citizen Swift 9"                                      = CIT9US.DLL
+"Citizen Swift 9x"                                     = CIT9US.DLL
+"Citizen Swift 24"                                     = CIT24US.DLL
+"Citizen Swift 24e"                                    = CIT24US.DLL
+"Citizen Swift 24x"                                    = CIT24US.DLL
+"Citizen Swift 200"                                    = CIT24US.DLL
+"Citizen Swift 240 ESC/P 2"                            = ESCP2MS.DLL
+"Citizen Swift 240 Scalable Font"                      = ESCP2E.DLL
+
+[ColorAge]
+"ColorAge ColorQ"                                      = COLORQ.PPD
+
+[Compaq]
+"Compaq PageMarq 15"                                   = PCL5MS.DLL
+"COMPAQ PAGEMARQ 15 v2012.015"                         = CPPMQ151.PPD
+"Compaq PageMarq 20"                                   = PCL5MS.DLL
+"COMPAQ PAGEMARQ 20 v2012.015"                         = CPPMQ201.PPD
+
+[Dataproducts]
+"Dataproducts JOLT PS"                                 = DPJOLT04.PPD
+"Dataproducts LZR 855 v1.0"                            = DPL85501.PPD
+"Dataproducts LZR 960 v2010.106"                       = DPL9605.PPD
+"Dataproducts LZR 965 v2011.113"                       = DPL9654.PPD
+"Dataproducts LZR 1260 v47.0"                          = DPL12602.PPD
+"Dataproducts LZR 1560 v2010.127"                      = DPL15606.PPD
+"Dataproducts LZR 1580 v2011.113"                      = DPL15804.PPD
+"Dataproducts LZR 2080 v2011.113"                      = DPL20804.PPD
+"Dataproducts LZR-2665 v46.2"                          = DPLZ2665.PPD
+"Dataproducts Typhoon 8 PS"  

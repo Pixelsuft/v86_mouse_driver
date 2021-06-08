@@ -1,0 +1,94 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Computer Peripherals Inc
+                           
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%CPI%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEME150170D  ; Viva+Zoltrix combo
+ExcludeFromSelect=UNIMODEM798B889B  ; Zoltrix+Best Data combo
+ExcludeFromSelect=UNIMODEM535147EF  ; Zoltrix+Best Data combo
+ExcludeFromSelect=UNIMODEM636D232A  ; GVC, Viva Pocket
+
+[Manufacturer]
+%Zoltrix% = Zoltrix
+%CPI% = CPI
+%Xircom%  = Xircom
+%GVC% = GVC
+%Phoebe%     = Phoebe
+
+;Modem models
+
+[Phoebe]
+%Phoebe1% = Modem23, CPI_Phoebe1, UNIMODEM16E3BF9F
+
+[Zoltrix]
+%Zoltrix1% = Modem3,  CPI_Zoltrix1, UNIMODEME150170D ; Zoltrix 14.4
+%Zoltrix2% = Modem3,  UNIMODEME150170D               ; Zoltrix+Viva+CompUSA Nuvotel combo
+%Zoltrix3% = Modem18, CPI_Zoltrix3, UNIMODEM798B889B ; Zoltrix ZX-144 (ZX144ATI) external
+%Zoltrix4% = Modem18, UNIMODEM798B889B               ; Zoltrix and Best Data combo
+%Zoltrix5% = Modem19, CPI_Zoltrix5, UNIMODEMA3EEEF33 ; Zoltrix ZX-288 (ZX288aci) external
+%Zoltrix6% = Modem20, CPI_Zoltrix6, UNIMODEM535147EF ; Zoltrix FM144ATI, 14.4 internal
+%Zoltrix7% = Modem20, UNIMODEM535147EF               ; Zoltrix and Best Data combo
+%Zoltrix8% = Modem21, CPI_Zoltrix8, UNIMODEM733C4E29 ; Zoltrix FM288SI internal
+
+[CPI]
+%Modem23% = Modem23,  CPI_Modem23, UNIMODEM16E3BF9F
+%Modem17% = Modem17,  CPI_Modem17, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874
+%Modem17% = Modem17,  CPI_Modem17, UNIMODEM16E3BF9F
+%Modem16% = Modem16,  CPI_Modem16, UNIMODEM8FC45DA6  ; Viva 14.4 internal
+%Modem15% = Modem15,  CPI_Modem15, UNIMODEM1C445CDD  ; Viva V.34 internal
+%Modem14% = Modem14,  CPI_Modem14, UNIMODEMCC96FDC7  ; Viva V.34 external
+%Modem13% = Modem13,  CPI_Modem13, UNIMODEMD209269F  ; Viva 300-1200-2400 
+%Modem12% = Modem12,  CPI_Modem12, UNIMODEM8A085313  ; Viva Hookup 2400SE 
+%Modem11% = Modem11,  CPI_Modem11, UNIMODEM24FFB24B  ; Viva 2400 Data/Fax External
+%Modem10% = Modem10,  CPI_Modem10, UNIMODEMF17C76B0  ; Viva Hookup 2400 internal
+%Modem9%  = Modem9,   CPI_Modem9, UNIMODEMF17C76B0   ; Viva 24i internal 
+%Modem8%  = Modem8,   CPI_Modem8, UNIMODEMBEFF8E53   ; Viva Message Center
+%Modem7%  = Modem7,   CPI_Modem7, UNIMODEM9F2BBC58   ; Viva 2400 Data Fax Internal (same as Intel 24-96i)
+%Modem6%  = Modem6,   UNIMODEMDEF38453               ; Viva modem 24 external 
+%Modem5%  = Modem5,   CPI_Modem5, UNIMODEM636D232A   ; Viva 2496p Pocket
+%Modem4%  = Modem4,   UNIMODEMFC3CA1B5               ; Viva 2442if  Internal 
+%Modem3%  = Modem3,   CPI_Modem3, UNIMODEME150170D   ; Viva 14.4i Data FAX
+%Modem3%  = Modem3,   UNIMODEM59C444F9               ; Viva 14.4i Data FAX
+%Modem2%  = Modem2,   UNIMODEM27EDA87E               ; Viva 14.4 FAX-P
+%Modem1%  = Modem1,   UNIMODEM297744D7               ; 14.4 Data Fax External (older)
+%Modem1%  = Modem1,   UNIMODEMA44754EB               ; 14.4 Data Fax External (newer)
+%Modem1%  = Modem1,   CPI_Modem1, UNIMODEM2D08133E   ; 14.4 Data Fax External (newer)
+
+[Xircom]
+%Xircom1% = Modem22, MF\XIRCOMCEM_DEV0
+
+[GVC]
+%Modem24% = Modem5,   CPI_Modem24, UNIMODEM636D232A  ; GVC Pocket
+%Modem25% = Modem5,   UNIMODEM636D232A               ; Viva, GVC Pocket
+
+
+; Installation sections
+
+[Modem23]       ; Viva 14.4 Data FAX Voice internal
+AddReg=All, MfgAddReg, highspeed, Modem17.AddReg, INTERNAL
+
+[Modem22]       ; Xircom Net+Modem PCMCIA
+AddReg=All, MfgAddReg, highspeed, Modem22.AddReg, PCMCIA
+
+[Modem21]       ; Zoltrix FM288SI 
+AddReg=All, MfgAddReg, highspeed, Modem19.AddReg, INTERNAL
+
+[Modem20]       ; Zoltrix FM144ATI, 14.4 
+AddReg=All, MfgAddReg, highspeed, Modem20.AddReg, INTERNAL 
+
+[Modem19]       ; Zoltrix ZX-288 (ZX288aci) 
+AddReg=All, MfgAddReg, highspeed, Modem19.AddReg, EXTERNAL
+
+[Modem18]       ; Zoltrix ZX-144 (ZX144ATI)
+AddReg=All, MfgAddReg, highspeed, Modem18.AddReg, EXTERNAL
+
+[Modem17]       ; Viva 14.4 PCMCIA
+AddReg=All, MfgAddReg, highspeed, Modem17.AddReg, PCMCIA
+
+[Modem16]       ; Viva 14.

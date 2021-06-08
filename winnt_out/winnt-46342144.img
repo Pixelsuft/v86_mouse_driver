@@ -1,0 +1,127 @@
+; Windows Modem Setup File
+; Copyright 1995-1996 Microsoft Corp.
+; Manufacturer:   KORTEX International
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem17% = Modem17, UNIMODEM906CB001
+%Modem16% = Modem16, UNIMODEMF65B52BD
+%Modem15% = Modem15, Kortex_Modem15
+%Modem14% = Modem14, UNIMODEMD05BA4A0
+%Modem13% = Modem13, UNIMODEM4F32C3DF
+%Modem12% = Modem12, UNIMODEMDD87DED1
+%Modem11% = Modem11, UNIMODEM25AB1772
+%Modem10% = Modem10, UNIMODEMA2712C92
+%Modem9% = Modem9, PCMCIA\RIPICAA-RC9624AC-7E29
+%Modem9% = Modem9, UNIMODEMB596C5FA
+%Modem8% = Modem8, UNIMODEMA7A3B9D3
+%Modem8% = Modem8, UNIMODEM39166726
+%Modem7% = Modem7, UNIMODEM36B6CC12
+%Modem6% = Modem6, PCMCIA\KORTEX_INTERNATIONAL-KXPRO_144_FAX-1181
+%Modem6% = Modem6, Kortex_Modem6, PCMCIA\RIPICAA-RC144ACL-845A
+%Modem5% = Modem5, UNIMODEMEC53C7D5
+%Modem5% = Modem5, UNIMODEM26AC557F
+%Modem5% = Modem5, UNIMODEMB99FCC34
+%Modem5% = Modem5, UNIMODEM579B6B97
+%Modem5% = Modem5, UNIMODEMC1B1FB3F
+%Modem5% = Modem5, UNIMODEM7C1EE94E
+%Modem5% = Modem5, UNIMODEM02CC60D0
+%Modem5% = Modem5, UNIMODEMFF2B4678
+%Modem4% = Modem4, UNIMODEM828ED1C8
+%Modem4% = Modem4, UNIMODEM5F69F760
+%Modem4% = Modem4, UNIMODEM628ED1C8
+%Modem4% = Modem4, UNIMODEMA4C2E541
+%Modem4% = Modem4, UNIMODEM2797756C
+%Modem3% = Modem3, PCMCIA\KORTEX_INTERNATIONAL-KXPRO_288_FAX-2A5D
+%Modem2% = Modem2, UNIMODEM3D6D197D
+%Modem2% = Modem2, UNIMODEM42BA591B
+%Modem1% = Modem1, UNIMODEM1E7C5E3C
+
+
+; Installation sections
+
+[Modem17]   ; KORTEX NUMERIS 288 Externe
+AddReg=All, MfgAddReg, Modem17.AddReg, EXTERNAL
+
+[Modem16]   ; KORTEX NUMERIS 288 Interne
+AddReg=All, MfgAddReg, Modem16.AddReg, INTERNAL
+
+[Modem15]   ; KORTEX NUMERIS 144 Externe
+AddReg=All, MfgAddReg, Modem15.AddReg, EXTERNAL
+
+[Modem14]   ; KORTEX NUMERIS 144 Interne
+AddReg=All, MfgAddReg, Modem14.AddReg, INTERNAL
+
+[Modem13]   ; KORTEX NUMERIS Externe
+AddReg=All, MfgAddReg, Modem13.AddReg, EXTERNAL
+
+[Modem12]   ; KORTEX NUMERIS Interne
+AddReg=All, MfgAddReg, Modem12.AddReg, INTERNAL
+
+[Modem11]   ; KORTEX 2400 LECAM Externe
+AddReg=All, MfgAddReg, Modem11.AddReg, EXTERNAL
+
+[Modem10]   ; KORTEX 2400 LECAM Interne
+AddReg=All, MfgAddReg, Modem10.AddReg, INTERNAL
+
+[Modem9]    ; KORTEX 2400 PCMCIA
+AddReg=All, MfgAddReg, Modem9.AddReg, PCMCIA
+
+[Modem8]    ; KORTEX 2400 et MINITEL FAX Externe
+AddReg=All, MfgAddReg, Modem8.AddReg, EXTERNAL
+
+[Modem7]    ; KORTEX 2400 et MINITEL FAX Interne
+AddReg=All, MfgAddReg, Modem7.AddReg, INTERNAL
+
+[Modem6]    ; KORTEX 14400 PCMCIA
+AddReg=All, MfgAddReg, Modem6.AddReg, PCMCIA
+
+[Modem5]    ; KORTEX 14400 Externe
+AddReg=All, MfgAddReg, Modem5.AddReg, EXTERNAL
+
+[Modem4]    ; KORTEX 14400 Interne
+AddReg=All, MfgAddReg, Modem4.AddReg, INTERNAL
+
+[Modem3]    ; KORTEX 28800 PCMCIA
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem2]    ; KORTEX 28800 Externe
+AddReg=All, MfgAddReg, Modem2.AddReg, EXTERNAL
+
+[Modem1]    ; KORTEX 28800 Interne
+AddReg=All, MfgAddReg, Modem1.AddReg, INTERNAL
+
+
+; AddReg sections
+
+[Modem17.AddReg]   ; KORTEX NUMERIS 288 Externe
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,05,00,00, 00,E1,00,00, 00,FA,00,00
+HKR,, FClass, 1, 07,00,00,00
+HKR, Init,      2,, "AT &O3<cr>"
+HKR, Init,      3,, "AT E0 S0=0 S95=45<cr>"
+HKR, Init,      4,, "AT &O6<cr>"
+HKR, Init,      5,, "AT S0=0 S95=45<cr>"
+HKR, Init,      6,, "AT &O7<cr>"
+HKR, Init,      7,, "AT S0=0 S95=45<cr>"
+HKR, Init,      8,, "AT &O1<cr>"
+HKR, Init,      9,, "AT S112=32<cr>"
+HKR, Init,      10,, "AT S111=7<cr>"
+HKR, Init,      11,, "AT S0=0 S95=45 \N3 %%C3<cr>"
+HKR, Init,      12,, "AT &O0<cr>"
+HKR, Hangup,    1,, "AT<cr>"
+HKR,, Reset,, "AT<cr>"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, Modulation_CCITT,, "B0 +MS=11,1,300,28800"
+HKR, Settings, Modulation_Bell,, "B1 +MS=11,1,300,28800"
+HKR, Settings, Modulation_CCITT_V23,, "B0 +MS=3,0,1200,1200"
+HKR, Fax, FixSerialSpeed,, "19200"

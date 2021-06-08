@@ -1,0 +1,95 @@
+) != NO_ERROR
+        Debug-Output "InstallNdisWanBHAdapter:Registry error: add hardware component"
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        goto InstallNdisWanBHAdapterEnd
+    endif
+    set KeyNetcard    = $($R1)
+    set KeyParameters = $($R3)
+    set KeyAdapterRules = $($R2)
+    set AdapterNumber = $($R4)
+    set NewValueList = +
+        {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(!Manufacturer)},+
+         {Title,$(NoTitle),$(!REG_VT_SZ),+
+          "["$($R4)"] "$(!Product$(ThisOption)Title)},+
+         {Description,$(NoTitle),$(!REG_VT_SZ),+
+          $(!Product$(ThisOption)Description)},+
+         {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+          $(!Product$(ThisOption)Name)},+
+         {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+         {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(!CurrentDate),1)},+
+         {Hidden,$(NoTitle),$(!REG_VT_DWORD),1}}
+    Shell  "utility.inf", AddValueList, $(KeyNetcard), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "InstallNdisWanBHAdapter: ShellCode error"
+        goto InstallNdisWanBHAdapterEnd
+    endif
+    CloseRegKey $(KeyNetcard)
+    set TempProdName = """"$(!Product$(ThisOption)Name)$(AdapterNumber)""""
+    set TempBindForm = $(TempProdName)$(!NetRuleHardwareBHBindForm)
+    set NewValueList = +
+        {{type,$(NoTitle),$(!REG_VT_SZ),+
+          $(!NetRuleHardwareBHType)},+
+         {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)}, +
+         {class,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+          $(!NetRuleHardwareBHClass)}, +
+         {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+         {Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)}}
+    Shell  "utility.inf", AddValueList, $(KeyAdapterRules), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "InstallNdisWanBHAdapter: ShellCode error"
+        goto InstallNdisWanBHAdapterEnd
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "InstallNdisWanBHAdapter:Registry error: add hardware component"
+        CloseRegKey $(KeyParameters)
+        CloseRegKey $(KeyAdapterRules)
+        goto InstallNdisWanBHAdapterEnd
+    endif
+    CloseRegKey $(KeyAdapterRules)
+    CloseRegKey $(KeyParameters)
+    set Status = STATUS_SUCCESSFUL
+InstallNdisWanBHAdapterEnd =+
+    Debug-Output "InstallNdisWanBHAdapter exit"
+    return $(Status)
+[InstallRasArpService]
+    set Status = STATUS_SUCCESSFUL
+    set KeyNull = ""
+    Debug-Output "InstallRasArpService entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!RasArpKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) == $(KeyNull)
+        Shell "utility.inf", CreateService, $(!ProductRASARPName), +
+            $(!ProductRASARPDisplayName), +
+            $(!ProductRASARPImagePath), +
+            "kernelautostart", "PNP_TDI", {"TCPIP"}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVRA.INF: InstallRasArpService : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) == SERVICE_ALREADY_EXISTS
+           return $(Status)
+        EndIf
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNSVRA.INF: InstallRasArpService: Registry error create service"
+            return STATUS_FAILED
+        endif
+    endif
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        CloseRegKey $(KeyService)
+    endif
+    Debug-Output "InstallRasArpService exit"
+    return $(Status)
+[RemoveRasArpService]
+    set Status = STATUS_SUCCESSFUL
+    set KeyNull = ""
+    Debug-Output "RemoveRasArpService entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!RasArpKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        Shell "utility.inf", RemoveService $(!ProductRASARPName) "YES"
+        ifint $($ShellCode) !=

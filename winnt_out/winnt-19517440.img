@@ -1,0 +1,113 @@
+7vga.drv,    "Video 7 1Mb, 1024x768 256 colors (Small fonts)","100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   2:v7vdd.386,    2:v7vga.3gr,,            3:vgalogo.rle, v7f
+xga16    = 3:vga.drv,      "XGA (640x480, 16 colors)",                      "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   1:vddvga30.386, 3:vga30.3gr,,            3:vgalogo.rle
+xgasm    = 1:xga.drv,      "XGA (Small fonts)",                             "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   2:vddxga.386,   2:v7vga.3gr,,            3:vgalogo.rle, xgasm
+xgalg    = 1:xga.drv,      "XGA (Large fonts)",                             "100,120,120", 1:vgacolor.2gr, 2:vgalogo.lgo,   2:vddxga.386,   2:v7vga.3gr,,            3:vgalogo.rle, xgalg
+xgalo    = 1:xga.drv,      "XGA (640x480, 256 colors)",                     "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   2:vddxga.386,   2:v7vga.3gr,,            3:vgalogo.rle, xgalo
+
+;
+; Optional sections listed in field 9 of the display secton are intrpreted as follows:
+;
+; File, Destination, .ini file, Section, LHS, RHS
+;
+; Where:    x:File      = Optional; file to be copied, may be left null.
+;           Destination = 0: for windows root or 0:system for system subdir
+;                          where file is to be copied.
+;           .ini file   = Optional; .ini file to be modified or created.
+;                          Must be included if following parameters specified.
+;           Section     = Section of .ini file to be modified.
+;           OldLine     = Optional; old line to be removed from the .ini file.
+;                          Only one occurence of the specified string is removed.
+;           NewLine     = New text line to be written to the .ini file.
+;
+;[v7vga]
+;x:v7vga.vxd, 0:system, system.ini, 386enh, "v7device=", "display=v7vdd.386"
+
+[vgamono]
+,,system.ini,386enh,"vgamono=","vgamono=TRUE"
+
+[8514]
+,,system.ini,8514.DRV,"dpi=","dpi=120"
+
+[8514s]
+,,system.ini,8514.DRV,"dpi=","dpi=96"
+
+[tiga1]
+2:tigawin.rlm,0:system,system.ini,"tiga.drv","tigafont=","tigafont=1"
+
+[tiga2]
+2:tigawin.rlm,0:system,system.ini,"tiga.drv","tigafont=","tigafont=0"
+
+[v7b]
+,,system.ini,v7vga.drv,"WidthXHeight=","WidthXHeight=640x480"
+,,system.ini,v7vga.drv,"FontSize=","FontSize=small"
+
+[v7c]
+,,system.ini,v7vga.drv,"WidthXHeight=","WidthXHeight=720x512"
+,,system.ini,v7vga.drv,"FontSize=","FontSize=small"
+
+[v7d]
+,,system.ini,v7vga.drv,"WidthXHeight=","WidthXHeight=800x600"
+,,system.ini,v7vga.drv,"FontSize=","FontSize=small"
+
+[v7e]
+,,system.ini,v7vga.drv,"WidthXHeight=","WidthXHeight=1024x768"
+,,system.ini,v7vga.drv,"FontSize=","FontSize=large"
+
+[v7f]
+,,system.ini,v7vga.drv,"WidthXHeight=","WidthXHeight=1024x768"
+,,system.ini,v7vga.drv,"FontSize=","FontSize=small"
+
+[xgasm]
+,,system.ini,XGA_Display,"XGA_Resolution=",
+,,system.ini,XGA_Display,"XGA_Resources=","XGA_Resources=1"
+
+[xgalg]
+,,system.ini,XGA_Display,"XGA_Resolution=",
+,,system.ini,XGA_Display,"XGA_Resources=","XGA_Resources=2"
+
+[xgalo]
+,,system.ini,XGA_Display,"XGA_Resolution=","XGA_Resolution=1"
+,,system.ini,XGA_Display,"XGA_Resources=","XGA_Resources=1"
+
+; copy these fonts depending on the 386 grabber being used
+[VGA.3gr]
+2:CGA40WOA.FON,2:CGA40850.FON
+2:CGA80WOA.FON,2:CGA80850.FON
+2:EGA40WOA.FON,2:EGA40850.FON
+2:EGA80WOA.FON,2:EGA80850.FON
+
+[VGA30.3gr]
+2:CGA40WOA.FON,2:CGA40850.FON
+2:CGA80WOA.FON,2:CGA80850.FON
+2:EGA40WOA.FON,2:EGA40850.FON
+2:EGA80WOA.FON,2:EGA80850.FON
+
+[V7VGA.3gr]
+2:CGA40WOA.FON,2:CGA40850.FON
+2:CGA80WOA.FON,2:CGA80850.FON
+2:EGA40WOA.FON,2:EGA40850.FON
+2:EGA80WOA.FON,2:EGA80850.FON
+
+[EGA.3gr]
+2:CGA40WOA.FON,2:CGA40850.FON
+2:CGA80WOA.FON,2:CGA80850.FON
+2:EGA40WOA.FON,2:EGA40850.FON
+2:EGA80WOA.FON,2:EGA80850.FON
+
+[vgadib.3gr]
+2:CGA40WOA.FON,2:CGA40850.FON
+2:CGA80WOA.FON,2:CGA80850.FON
+2:EGA40WOA.FON,2:EGA40850.FON
+2:EGA80WOA.FON,2:EGA80850.FON
+
+[PLASMA.3gr]
+2:EGA40WOA.FON,2:EGA40850.FON
+2:EGA80WOA.FON,2:EGA80850.FON
+
+[HERC.3gr]
+2:HERCWOA.FON,2:HERC850.FON
+
+[TIGA.3GR]
+2:CGA40WOA.FON,2:CGA40850.FON
+2:CGA80WOA.FON,2:CGA80850.FON
+2:EGA40WOA.FO

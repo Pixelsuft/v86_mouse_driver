@@ -1,0 +1,155 @@
+; MDMGEN.INF
+;
+; This is the INF file for modems supported using generic 
+; command set information.  Specific models are moved to
+; MDM*.INF when correct command set information is available.
+;
+; Copyright (c) 1993-1996 Microsoft Corporation
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%MS%
+
+[ControlFlags]
+ExcludeFromSelect=MDMGEN,UNIMODEM9F2BBC58,UNIMODEM8A085313,UNIMODEM901DD6E5
+ExcludeFromSelect=*PNPC100,*PNPC101,*PNPC102,*PNPC103,*PNPC104,*PNPC105
+ExcludeFromSelect=*PNPC106,*PNPC107,*PNPC108,*PNPC109,*PNPC10A,*PNPC10B
+ExcludeFromSelect=*PNPC10C,*PNPC10D,*PNPC10E,*PNPC10F,*PNPC200
+
+; --------------------------------------------------
+; Manufacturers
+
+[Manufacturer]
+%Generic%     = Generic
+%MagicRam%    = MagicRam
+%Exar%        = Exar
+%Apex%        = Apex
+%Intel%       = Intel
+%SMART%       = SMART
+%NewMedia%    = NewMedia
+%GVC%         = GVC
+%Boca%        = Boca
+%Piiceon%     = Piiceon
+
+%Rockwell%    = Rockwell
+%IBM%         = IBM
+
+; --------------------------------------------------
+; Driver sections
+
+[Generic]
+%Gen%    = Gen,    MDMGEN
+%Gen3%   = Gen3,   MDMGEN3
+%Gen12%  = Gen12,  MDMGEN12
+%Gen24%  = Gen24,  MDMGEN24
+%Gen96%  = Gen96,  MDMGEN96
+%Gen144% = Gen144, MDMGEN144
+%Gen192% = Gen192, MDMGEN192
+%Gen288% = Gen288, MDMGEN288
+%Gen2496I% = Gen24I, UNIMODEM9F2BBC58
+%PNPC100% = PNPC100, *PNPC100
+%PNPC101% = PNPC101, *PNPC101
+%PNPC102% = PNPC102, *PNPC102
+%PNPC103% = PNPC103, *PNPC103
+%PNPC104% = PNPC104, *PNPC104
+%PNPC105% = PNPC105, *PNPC105
+%PNPC106% = PNPC106, *PNPC106
+%PNPC107% = PNPC107, *PNPC107
+%PNPC108% = PNPC108, *PNPC108
+%PNPC109% = PNPC109, *PNPC109
+%PNPC10A% = PNPC10A, *PNPC10A
+%PNPC10B% = PNPC10B, *PNPC10B
+%PNPC10C% = PNPC10C, *PNPC10C
+%PNPC10D% = PNPC10D, *PNPC10D
+%PNPC10E% = PNPC10E, *PNPC10E
+%PNPC10F% = PNPC10F, *PNPC10F
+%PNPC200% = PNPC200, *PNPC200
+
+[MagicRam]
+%MagicRam1% = Gen96P, PCMCIA\FAX_MODEM_VOICE-CFMV-9624C-252D
+
+[Exar]
+%Exar1% = Gen96P, PCMCIA\RCS-XM-2496_Fax/Data_MODEM_CARD-8729
+
+[Apex]
+%Apex1% = Gen144P, GEN_Apex1, PCMCIA\RIPICAA-RC144ACL-08E5 ; Same as Rockwell2
+
+[Intel]
+%Intel1% = Gen24P, PCMCIA\INTEL-MODEM_2400+-BC95
+%Intel2% = Gen144P, GEN_Intel2, "PCMCIA\INTEL-PCMCIA_Faxmodem_14.4/14.4-121B"
+
+[SMART]
+%SMART1% = Gen144P, PCMCIA\SMART_MODULAR_TECHNOLOGIES-ST1414-79C9
+%SMART2% = Gen24P, PCMCIA\SMART_MODULAR_TECHNOLOGIES-ST9624-6F3C
+%SMART3% = Gen24P, PCMCIA\SMART_MODULAR_TECHNOLOGIES-ST9624E-F38E
+
+[NewMedia]
+%NewMedia1% = Gen144P, GEN_NewMedia1, PCMCIA\RIPICAA-RC144ACL-845A         ; Same as Rockwell1
+%NewMedia1% = Gen144P, GEN_NewMedia1, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874
+
+[GVC]
+%GVC1% = Gen24NFC, UNIMODEM901DD6E5
+%GVC1% = Gen24, UNIMODEM8A085313
+
+[Boca]
+%Boca1% = Gen144P, PCMCIA\RIPICAA-RC144ACL-A0E5 ; Same as Rockwell1
+
+[Piiceon]
+%Piiceon1% = Gen144P, GEN_Piiceon1, PCMCIA\RIPICAA-RC144ACL-845A  ; Same as Rockwell1
+
+[Rockwell]
+%Rockwell1% = Gen144P, PCMCIA\RIPICAA-RC144ACL-845A
+%Rockwell2% = Gen144P, PCMCIA\RIPICAA-RC144ACL-08E5
+
+[IBM]
+%IBM1% = Gen144P, "PCMCIA\IBM-PUSH/POP_MODEM(14.4K)-DD48"
+
+; --------------------------------------------------
+; Generic modem install sections
+
+[Gen]
+AddReg=All, GenericAddReg, GenReg, EXTERNAL
+
+[Gen3]
+AddReg=All, GenericAddReg, Gen3Reg, EXTERNAL
+
+[Gen12]
+AddReg=All, GenericAddReg, Gen12Reg, EXTERNAL
+
+[Gen24]
+AddReg=All, GenericAddReg, Gen24Reg, EXTERNAL
+
+[Gen24NFC]
+AddReg=All, GenericAddReg, Gen24NFCReg, EXTERNAL
+
+[Gen24I]
+AddReg=All, GenericAddReg, Gen24Reg, INTERNAL
+
+[Gen24P]
+AddReg=All, GenericAddReg, Gen24Reg, PCMCIA
+
+[Gen96]
+AddReg=All, GenericAddReg, Gen96Reg, EXTERNAL
+
+[Gen96I]
+AddReg=All, GenericAddReg, Gen96Reg, INTERNAL
+
+[Gen96P]
+AddReg=All, GenericAddReg, Gen96Reg, PCMCIA
+
+[Gen144]
+AddReg=All, GenericAddReg, Gen144Reg, EXTERNAL
+
+[Gen144I]
+AddReg=All, GenericAddReg, Gen144Reg, INTERNAL
+
+[Gen144P]
+AddReg=All, GenericAddReg, Gen144Reg, PCMCIA
+
+[Gen192]
+AddReg=All, GenericAddReg, Gen192Reg, EXTERNAL
+
+[Gen288]

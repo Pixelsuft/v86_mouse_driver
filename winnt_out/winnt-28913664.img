@@ -1,0 +1,96 @@
+artLabel = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set StartLabel = configureadapter
+    else
+        set StartLabel = installadapter
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+configureadapter = +
+    ifstr(i) $(Option) == "RPCBANYAN"
+        Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVBH.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+        Set CommonStatus = STATUS_USERCANCEL
+        Set Severity = STATUS
+        set from = "end"
+        set to = "end"
+        goto nonfatal
+    endif
+    set CommonStatus = STATUS_REBOOT
+    OpenRegKey $(!REG_H_LOCAL) "" $(NameServiceKeyName) $(MAXIMUM_ALLOWED) KeyNameService
+    Ifstr(i) $(KeyNameService) == ""
+        Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+        Goto fatalregistry
+    Endif
+    Set OldVersionExisted = $(TRUE)
+    GetRegValue $(KeyNameService),"Protocol", ProtocolNameValue
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        CloseRegKey $(KeyNameService)
+        Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+        Goto fatalregistry
+    Endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(SecurityKeyName) $(MAXIMUM_ALLOWED) KeySecurity
+    Ifstr $(KeySecurity) == ""
+        Set RegistryErrorIndes = UNABLE_ACCESS_SOFTWARE_REG
+        Goto fatalregistry
+    Endif
+    GetRegValue $(KeySecurity), "DefaultProvider", ProviderNameValue
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        CloseRegKey $(KeyNameService)
+        CloseRegKey $(KeySecurity)
+        Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+        Goto fatalregistry
+    Endif
+    GetRegValue $(KeySecurity), "11", DCEProviderDllValue
+    read-syms SecurityNames$(!STF_LANGUAGE)
+    Ifstr $(DCEProviderDllValue) == ""
+       Set SecurityChoiceList = {"SecurityWINNT"}
+       Set SecurityDllList = {"security.dll"}
+       Set SecurityListboxNames = {$(SecName1)}
+       Set DCEProviderDll = ""
+    Else
+       Set DCEProviderDll = *($(DCEProviderDllValue),4)
+       Set SecurityChoiceList = {"SecurityWINNT","SecurityDCE"}
+       Set SecurityDllList = {"security.dll",$(DCEProviderDll)}
+       Set SecurityListboxNames = {$(SecName1),$(SecName2)}
+    Endif
+    Debug-Output "OEMNSVRP.INF: Configure Name Services"
+configureretry = +
+    read-syms LocatorNames$(!STF_LANGUAGE)
+    Set LocatorListboxNames = {$(LocName1),$(LocName2)}
+    Set ProtocolName = *($(ProtocolNameValue),4)
+    Set LocatorIndex = ~($(LocatorProtocolList),$(ProtocolName))
+    Set LocatorInUse = *($(LocatorChoiceList),$(LocatorIndex))
+    Set LocatorChosen = $(LocatorInUse)
+    Set LocatorChosenName = *($(LocatorListboxNames),$(LocatorIndex))
+    GetRegValue $(KeyNameService),"NetworkAddress", NetAddrValue
+    Set NetworkAddress = *($(NetAddrValue),4)
+    Set NetworkAddressInUse = $(NetworkAddress)
+    Ifstr(i) $(LocatorChosen) == "LocatorWINNT"
+        Set NetworkAddressDCE = ""
+    Else
+        Set NetworkAddressDCE = $(NetworkAddress)
+    Endif
+    Set SecurityProviderName = *($(ProviderNameValue),4)
+    Set SecurityProviderIndex = ~($(SecurityDllList),$(SecurityProviderName))
+    Set SecurityProviderInUse = *($(SecurityChoiceList),$(SecurityProviderIndex))
+    Set SecurityChosen = $(SecurityProviderInUse)
+    Set SecurityChosenName = *($(SecurityListboxNames),$(SecurityProviderIndex))
+reinitdialog = +
+    Set LocatorLastChosen = $(LocatorChosen)
+    Ifstr(i) $(LocatorChosen) == "LocatorWINNT"
+        Set NetworkAddress = ""
+    Else
+        Set NetworkAddress = $(NetworkAddressDCE)
+    Endif
+    read-syms RpcProviderDlg$(!STF_LANGUAGE)
+    ui start "System"
+    Ifstr(i) $(DLGEVENT) == "NOTIFY"
+        Set LocatorIndex  = ~($(LocatorListboxNames),$(Combo1Out))
+        Set LocatorChosen = *($(LocatorChoiceList),$(LocatorIndex))
+        Set LocatorChosenName = *($(LocatorListboxNames),$(

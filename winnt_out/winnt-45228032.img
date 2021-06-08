@@ -1,0 +1,46 @@
+CONNECT 9600/ARQ<cr><lf>",   1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ<cr><lf>",   1, 02, 02, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ<cr><lf>",  1, 02, 02, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ<cr><lf>",  1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ<cr><lf>",  1, 02, 02, 00,00,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ<cr><lf>",  1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/ARQ<cr><lf>",  1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000/ARQ<cr><lf>",  1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/ARQ<cr><lf>",  1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/ARQ<cr><lf>",  1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/ARQ<cr><lf>",  1, 02, 02, 00,00,00,00, 00,96,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/ARQ<cr><lf>",  1, 02, 02, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/ARQ<cr><lf>", 1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/ARQ<cr><lf>",1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "<cr><lf>CONNECT 230400/ARQ<cr><lf>", 1, 02, 02, 00,00,00,00, 00,84,03,00
+
+HKR, Responses, "<cr><lf>CONNECT REL/MNP5<cr><lf>",        1, 02, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 300 REL/MNP5<cr><lf>",    1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 REL/MNP5<cr><lf>",    1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 REL/MNP5<cr><lf>",   1, 02, 03, B0,04,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 2400 REL/MNP5<cr><lf>",   1, 02, 03, 60,09,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 4800 REL/MNP5<cr><lf>",   1, 02, 03, C0,12,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 7200 REL/MNP5<cr><lf>",   1, 02, 03, 20,1C,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 9600 REL/MNP5<cr><lf>",   1, 02, 03, 80,25,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 12000 REL/MNP5<cr><lf>",  1, 02, 03, E0,2E,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 14400 REL/MNP5<cr><lf>",  1, 02, 03, 40,38,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 16800 REL/MNP5<cr><lf>",  1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 REL/MNP5<cr><lf>",  1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600 REL/MNP5<cr><lf>",  1, 02, 03, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000 REL/MNP5<cr><lf>",  1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 REL/MNP5<cr><lf>",  1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 REL/MNP5<cr><lf>",  1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 REL/MNP5<cr><lf>",  1, 02, 03, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 REL/MNP5<cr><lf>",  1, 02, 03, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 REL/MNP5<cr><lf>", 1, 02, 03, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX REL/MNP5<cr><lf>", 1, 03, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX REL/MNP5<cr><lf>", 1, 03, 02, B0,04,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CARRIER 300/VFC<cr><lf>",       1, 01, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200/VFC<cr><lf>",      1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200/75/VFC<cr><lf>",   1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75/1200/VFC<cr><lf>",   1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 2400/VFC<cr><lf>",      1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 4800/VFC<cr><lf>",      1, 01, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 7200/VFC<cr><lf>",      1, 01, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 9600/VFC<

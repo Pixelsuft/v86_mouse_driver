@@ -1,0 +1,65 @@
+LL
+"Brother M-1824L"                                      = BROTHR24.DLL
+"Brother M-1909"                                       = BROTHER9.DLL
+"Brother M-1918"                                       = BROTHER9.DLL
+"Brother M-1924L"                                      = BROTHR24.DLL
+
+[Bull]
+"Bull Compuprint PageMaster 1025"                      = PCL5MS.DLL
+"Bull Compuprint PageMaster 413"                       = PCL5MS.DLL
+"Bull Compuprint PageMaster 815"                       = PCL5MS.DLL
+"Bull Compuprint PageMaster 825"                       = PCL5MS.DLL
+"Bull Compuprint PM 100"                               = JP350.DLL
+"Bull Compuprint PM 200"                               = JP350.DLL
+"Bull Compuprint PM 201"                               = JP350.DLL
+"Bull Compuprint PM 300 (B/W)"                         = JP350.DLL
+"Bull Compuprint PM 300 (Color)"                       = JP350.DLL
+
+[C-Itoh]
+"C-Itoh 8510"                                          = CITOH.DLL
+
+[Canon]
+"Canon Bubble-Jet BJ-10e"                              = CANON330.DLL
+"Canon Bubble-Jet BJ-10ex"                             = CANON330.DLL
+"Canon Bubble-Jet BJ-10sx"                             = CANON330.DLL
+"Canon Bubble-Jet BJ-20"                               = CANON330.DLL
+"Canon Bubble-Jet BJ-30"                               = CANON800.DLL
+"Canon Bubble-Jet BJ-100"                              = CANON800.DLL
+"Canon Bubble-Jet BJ-130"                              = CANON330.DLL
+"Canon Bubble-Jet BJ-130e"                             = CANON330.DLL
+"Canon Bubble-Jet BJ-200"                              = CANON800.DLL
+"Canon Bubble-Jet BJ-200e"                             = CANON800.DLL
+"Canon Bubble-Jet BJ-200ex"                            = CANON800.DLL
+"Canon Bubble-Jet BJ-230"                              = CANON800.DLL
+"Canon Bubble-Jet BJ-300"                              = CANON330.DLL
+"Canon Bubble-Jet BJ-330"                              = CANON330.DLL
+"Canon Bubble-Jet BJC-70"                              = CANON800.DLL
+"Canon Bubble-Jet BJC-210"                             = CANON800.DLL
+"Canon Bubble-Jet BJC-600"                             = CANON800.DLL
+"Canon Bubble-Jet BJC-600e"                            = CANON800.DLL
+"Canon Bubble-Jet BJC-800"                             = CANON800.DLL
+"Canon Bubble-Jet BJC-4000"                            = CANON800.DLL
+"Canon Bubble-Jet BJC-4100"                            = CANON800.DLL
+"Canon C LBP 360 PS"                                   = CLBP3601.PPD
+"Canon LBP-4"                                          = CANONLBP.DLL
+"Canon LBP-4 PS-2 v51.4"                               = CNLBP4_1.PPD
+"Canon LBP-4 Lite"                                     = CANONLBP.DLL
+"Canon LBP-4 Lite PS-2 v51.4"                          = CNLBP4_1.PPD
+"Canon LBP-4 Plus"                                     = CANONLBP.DLL
+"Canon LBP-4 Plus PS-2 v51.4"                          = CNLBP4_1.PPD
+"Canon LBP-4i"                                         = PCL5MS.DLL
+"Canon LBP-4sx"                                        = PCL5MS.DLL
+"Canon LBP-4U"                                         = CANONLBP.DLL
+"Canon LBP-8 II"                                       = CANONLBP.DLL
+"Canon LBP-8 IIR"                                      = CANONLBP.DLL
+"Canon LBP-8 IIT"                                      = CANONLBP.DLL
+"Canon LBP-8 III"                                      = CANONLBP.DLL
+"Canon LBP-8III PS-1 v51.4"                            = CNLBP8_1.PPD
+"Canon LBP-8 III Plus"                                 = CANONLBP.DLL
+"Canon LBP-8III Plus PS-1 v51.4"                       = CNLBP8R1.PPD
+"Canon LBP-8 IIIR"                                     = CANONLBP.DLL
+"Canon LBP-8IIIR PS-1 v51.4"                           = CNLBP8R1.PPD
+"Canon LBP-8 IIIT"                                     = CANONLBP.DLL
+"Canon LBP-8IIIT PS-1 v51.4"                           = CNLBP8T1.PPD
+"Canon LBP-8 IV"                                       = CANONLBP.DLL
+"Canon LBP-8sx"                           

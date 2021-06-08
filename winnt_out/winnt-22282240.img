@@ -1,0 +1,36 @@
+obile system has ESS audio functionality available using Windows NTHQ
+1. Insert the Windows NT compact disc in the CD-ROM drive.
+2. From the command prompt, run Makedisk.bat from <compact disc drive letter>:\Support\HQTool
+3. Insert the floppy disk that you created into drive A:
+4. Restart the computer.
+5. Once the NTHQ tool has analyzed your computer, you can click Other to determine if your system has ESS audio functionality implemented.
+
+If your computer has this audio functionality implemented, obtain the ESS driver from the \Drvlib\audio\ess\<platform> where <platform> is Alpha, I386, Mips, or Ppc.
+
+Application Notes
+The following sections provide general information about running applications on Windows NT version 4.0 that were created for MS-DOS, Windows version 3.1, Windows 95, or Windows NT version 3.x. Windows NT version 4.0 has excellent support for those applications. If you do encounter a problem, this section provides some solutions. In addition, this section lists specific applications that have known problems with Windows NT version 4.0. The companies have been notified of these problems.
+
+Error Dialogs Naming "ReinitializeCriticalSection"
+Some applications attempt to replace the URL.DLL file that ships with Windows NT. If the applications are successful, the replacement .DLL file may be an older version specific to the Windows 95 operating system. When any application attempts to initialize the replacement URL.DLL, the following error dialog will appear:
+"The procedure entry point ReinitializeCriticalSection could not be located in the dynamic link library KERNEL32.dll."
+
+This does not necessarily represent an error in the application you are launching when the dialog appears. Another unrelated application has most likely replaced the URL.DLL file. In most cases, you can click OK in the dialog box and your application will continue as expected.
+
+To reinstall the correct URL.DLL file
+1. In the %systemroot%\system32 folder, rename URL.DLL to URL.OLD.
+2. Copy URL.DLL from the \ie20\i386 folder on the Windows NT compact disc to %systemroot%\system32 (substitute your platform folder for "i386" on RISC machines).
+3. Reboot to initialize the copied URL.DLL.
+
+Error Dialogs From Win32s Applications
+Windows NT version 4.0 has been thoroughly tested with Win32s applications and most users will not experience any difficulties. After upgrading from Windows 3.x to Windows NT version 4.0, some Win32s applications may not run. You may see error dialogs stating that the wrong .DLLs were installed. Reinstall the applications to reinstall the Win32s DLLs.  Contact the application vendor if problems persist.
+
+Long Printer Names
+Several Windows version 3.x applications cannot print to a printer if the printer name contains more than a specified number of characters. Some applications will generate a General Protection Fault if this is attempted. Other applications may not print to any printer, even printers with short names, if the default printer has a "long" name. To resolve these problems, rename the printers used with the applications to shorter names and make one of those printers the default printer. See "General Printing Issues" in the Printer.wri file.
+
+Screen Appearance
+Dialog and listbox areas are incorrectly proportioned in some cases. You may be able to control some system-wide size specifications in Control Panel.
+
+Windows 95 Applications and Microsoft Foundation Class Libraries
+Many Windows 95 applications use Microsoft Foundation Class (MFC) version 3.0 libraries. Some of these applications do not install the libraries they require. If the libraries they require are not installed, these applications may not install or may not run after installation. If other applications have installed the MFC DLLs, installation will complete and the application will run as expected.
+
+To obtain the correct files, copy MFCxx.DLL (from the Windows 95 systemroot\system directory, or from a disk supplied by the manufacturer) to the Windows NT systemroot\system directory (typically c:\winnt\system

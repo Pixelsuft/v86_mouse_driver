@@ -1,0 +1,125 @@
+; MDMVV.INF
+;
+; This is the INF file for modems supported using generic 
+; VoiceView command set information.
+;
+; Copyright (c) 1993-1996 Microsoft Corporation
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%MS%
+
+[ControlFlags]
+ExcludeFromSelect=*PNPC110,*PNPC111,*PNPC112,*PNPC113,*PNPC114,*PNPC115
+ExcludeFromSelect=*PNPC116,*PNPC117,*PNPC118,*PNPC119,*PNPC11A,*PNPC11B
+ExcludeFromSelect=*PNPC11C,*PNPC11D,*PNPC11E,*PNPC11F
+
+[Manufacturer]
+%VoiceView% = VoiceView
+
+[DestinationDirs]
+Register.Copy    = 17     ;LDID_INF
+VV_Sys           = 11           
+VV_Sock_Sys      = 11     ;LDID_SYS \Windows\system dir
+VV_App           = 10
+VV_Help          = 18     ;LDID_HELP
+
+[VoiceView]
+%VVGen96%  = VVGen96,  MDMVVGEN96
+%VVGen144% = VVGen144, MDMVVGEN144
+%VVGen192% = VVGen192, MDMVVGEN192
+%VVGen288% = VVGen288, MDMVVGEN288
+%PNPC110% = PNPC110, *PNPC110
+%PNPC111% = PNPC111, *PNPC111
+%PNPC112% = PNPC112, *PNPC112
+%PNPC113% = PNPC113, *PNPC113
+%PNPC114% = PNPC114, *PNPC114
+%PNPC115% = PNPC115, *PNPC115
+%PNPC116% = PNPC116, *PNPC116
+%PNPC117% = PNPC117, *PNPC117
+%PNPC118% = PNPC118, *PNPC118
+%PNPC119% = PNPC119, *PNPC119
+%PNPC11A% = PNPC11A, *PNPC11A
+%PNPC11B% = PNPC11B, *PNPC11B
+%PNPC11C% = PNPC11C, *PNPC11C
+%PNPC11D% = PNPC11D, *PNPC11D
+%PNPC11E% = PNPC11E, *PNPC11E
+%PNPC11F% = PNPC11F, *PNPC11F
+
+[VVGen96]       
+AddReg      = All, GenericAddReg, Gen96Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[VVGen144]
+AddReg      = All, GenericAddReg, Gen144Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[VVGen192]       
+AddReg      = All, GenericAddReg, Gen192Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[VVGen288]       
+AddReg      = All, GenericAddReg, Gen288Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC110]
+AddReg      = All, GenericAddReg, Gen96Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC111]
+AddReg      = All, GenericAddReg, Gen144Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC112]
+AddReg      = All, GenericAddReg, Gen288Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC113]
+AddReg      = All, GenericAddReg, GenAnyReg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC114]
+AddReg      = All, GenericAddReg, EnhancedAddReg, Enh96Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC115]
+AddReg      = All, GenericAddReg, EnhancedAddReg, Enh144Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC116]
+AddReg      = All, GenericAddReg, EnhancedAddReg, Enh288Reg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC117]
+AddReg      = All, GenericAddReg, EnhancedAddReg, EnhAnyReg, EXTERNAL, VoiceView_Modem, VoiceView_Socket
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[PNPC118]
+AddReg      =

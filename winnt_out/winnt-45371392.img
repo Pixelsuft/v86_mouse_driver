@@ -1,0 +1,75 @@
+operties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C3"
+
+[Rockwell3.AddReg] ; (external 14400) - Best Data
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C3"
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Rockwell4.AddReg] ; (internal 14400) - Best Data
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C3"
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Rockwell5.AddReg] ; (internal 28.8) - Best Data
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, Compression_On,, "%%C3"
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Rockwell6.AddReg] ; (internal 28.8) - Best Data and Zoom combo
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, Compression_On,, "%%C3"
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Rockwell9.AddReg] ; (external 14400) - Best Data 1442FX (FTX, RPI model)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Rockwell10.AddReg] ; (internal 14400) - Best Data 1442FX (FT, RPI model)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Rockwell11.AddReg] ; (internal 2400) - Best Data 9624FQ 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S0=0<cr>"
+HKR, Settings, DialSuffix,, ""
+
+[Rockwell12.AddReg] ; (external 2400) - Best Data 9648Fx, 2400B, 2400X and other modems
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S0=0<cr>"
+HKR, Settings, DialSuffix,, ""
+
+[Rockwell13.AddReg] ; Smart V.34 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W2 S95=47 S0=0<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q1 *H1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H1"
+HKR, Settings, Compression_On,, "%%C3"    
+
+[Rockwell14.AddReg] ; SMART ST1414 PCMCIA with cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W2 S95=47 S0=0<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q1 *H1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H1"
+HKR, Settings, Compression_On,, "%%C3"    
+
+[Rockwell15.AddReg] ; Apex V.34 PCMCIA and Tosh combo. 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W2 S95=47 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N7 -K1 )M1 -Q1 *H1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6 -K1 )M1 -Q1 *H1"
+HKR, Settings, Compression_On,, "%%C1"    
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Rockwell16.AddReg] ; PCMCIA 2400 bps, 19.2 max dte, no cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init, 2,, "AT&FE0V1&D2&C1S95=47S0=0&C1&D2<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+
+[Rockwell17.AddReg] ; Com1 by AT&T (Keep in Touch PCMCIA)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00

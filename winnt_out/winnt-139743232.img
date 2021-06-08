@@ -1,0 +1,100 @@
+         ifstr(i) $(!STF_INSTALL_MODE) != EXPRESS
+               read-syms InstallLoopback$(!STF_LANGUAGE)
+               Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "STATUS", $(Message)
+            else
+               set AddCopy  = YES
+               set DoCopy   = YES
+               set DoConfig = YES
+               set SaveNTN_InstallMode = $(!NTN_InstallMode)
+               set !NTN_InstallMode = install
+               Shell "oemnadlb.inf" InstallOption $(!STF_LANGUAGE) "LOOP" $(!STF_SRCDIR) $(AddCopy) $(DoCopy) $(DoConfig)
+               set !NTN_InstallMode = $(SaveNTN_InstallMode)
+               Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   Debug-Output "OEMNSVRA.INF: INF oemnadlb.inf SHELL ERROR!"
+                   read-syms InstallLoopback$(!STF_LANGUAGE)
+                   Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "STATUS", $(Error)
+               Endif
+            EndIf
+        endif
+    endif
+    goto CommonCode
+CommonCode = +
+    ifstr(i) $(OldVersionExisted) == $(TRUE)
+        ifstr(i) $(!NTN_InstallMode) == configure
+           goto WriteParameters
+        endif
+    endif
+    QueryListSize ListCount $(RasComponentsList)
+    ifint $(ListCount) == 0
+        goto FirstTimeInstall
+    else
+        ifstr(i) $(DoServer) == TRUE
+            ifstr(i) $(ClientInstalled) == FALSE
+                ifstr(i) $(AdminInstalled) == FALSE
+                   set DoRas    = TRUE
+                endif
+                set DoRasSvr     = TRUE
+                set DoRasMan     = TRUE
+                set DoNdisWan    = TRUE
+                set DoRasAsyMac  = TRUE
+            else
+                set DoRasSvr     = TRUE
+            endif
+            set RasComponentsList = >($(RasComponentsList), $(RasServerOption))
+        endif
+        ifstr(i) $(DoClient) == TRUE
+            ifstr(i) $(ServerInstalled) == FALSE
+                ifstr(i) $(AdminInstalled) == FALSE
+                    set DoRas    = TRUE
+                endif
+                set DoRasMan     = TRUE
+                set DoNdisWan    = TRUE
+                set DoRasAsyMac  = TRUE
+            endif
+            set RasComponentsList = >($(RasComponentsList), $(RasClientOption))
+        endif
+        ifstr(i) $(DoAdmin) == TRUE
+            ifstr(i) $(ServerInstalled) == FALSE
+                ifstr(i) $(ClientInstalled) == FALSE
+                    set DoRas = TRUE
+                endif
+            endif
+            set RasComponentsList = >($(RasComponentsList), $(RasAdminOption))
+        endif
+        shell "" UpdateComponentsInstalled $(RasComponentsList) $(ProductKeyName)
+        goto FirstTimeInstall-1
+    endif
+FirstTimeInstall =+
+    ifstr(i) $(DoServer) == TRUE
+        set DoRas             = TRUE
+        set DoRasSvr          = TRUE
+        set DoRasMan          = TRUE
+        set DoRasAutodial     = TRUE
+        set DoNdisWan         = TRUE
+        set DoRasAsyMac       = TRUE
+        set RasComponentsList = >($(RasComponentsList), $(RasServerOption))
+    endif
+    ifstr(i) $(DoClient) == TRUE
+        set DoRas             = TRUE
+        set DoRasMan          = TRUE
+        set DoRasAutodial     = TRUE
+        set DoNdisWan         = TRUE
+        set DoRasAsyMac       = TRUE
+        set RasComponentsList = >($(RasComponentsList), $(RasClientOption))
+    endif
+    ifstr(i) $(DoAdmin) == TRUE
+        set DoRas             = TRUE
+        set RasComponentsList = >($(RasComponentsList), $(RasAdminOption))
+    endif
+FirstTimeInstall-1 = +
+    ifstr(i) $(DoRas) == TRUE
+        StartWait
+        read-syms StatusUpdatingRegistry$(!STF_LANGUAGE)
+        shell $(subroutninf) PushBillBoard NETSTATUSDLG $(CreatingRas)
+        Set BillboardVisible = 1
+        set ThisOption = RAS
+        Shell $(!UtilityInf), InstallSoftwareProduct, $(!Manufacturer),+
+              $(Product$(ThisOption)Name), $(!RasInfName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+              Debug-Output "InstallSoftware bombed out."
+              goto ShellCodeErro

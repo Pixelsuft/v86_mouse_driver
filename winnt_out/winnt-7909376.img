@@ -1,0 +1,100 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1998 Microsoft Corporation \\MS-IRL\\
+; Manufacturer:   CPV, AXOS, CTK, ESCOM, TKR, VOBIS
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM9ED90380
+ExcludeFromSelect=UNIMODEM5DFCE1D3
+ExcludeFromSelect=UNIMODEMEEB1858C
+ExcludeFromSelect=UNIMODEM3F3754A3
+ExcludeFromSelect=UNIMODEM56E1413F
+ExcludeFromSelect=Mix_Modem9
+ExcludeFromSelect=UNIMODEM037F8A52
+ExcludeFromSelect=Mix_Modem6
+ExcludeFromSelect=UNIMODEM94C60CBF
+ExcludeFromSelect=UNIMODEMAA652351
+ExcludeFromSelect=UNIMODEM0003EB23
+ExcludeFromSelect=Mix_Modem2
+ExcludeFromSelect=UNIMODEM9E71D935
+ExcludeFromSelect=UNIMODEM25E1881B
+ExcludeFromSelect=UNIMODEM1B8A5013
+ExcludeFromSelect=UNIMODEM9240CB7B
+
+; Modem models
+
+[Models]
+%Modem15% = Modem15, UNIMODEM9ED90380		; HIGHSCREEN, SAT1, 14400 extern (BOCA)
+%Modem15% = Modem15, UNIMODEM5DFCE1D3		; HIGHSCREEN, SAT1, 14400 intern (BOCA)
+%Modem14% = Modem14, UNIMODEMEEB1858C		; HIGHSCREEN, SAT1, 14400 intern, extern (ACEEX)
+
+%Modem13% = Modem13, UNIMODEM3F3754A3		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 14.4 PC-CARD
+%Modem12% = Modem12, UNIMODEM56E1413F		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 28.8 PC-CARD
+%Modem9% = Modem1, Mix_Modem9, UNIMODEM35128D02 ; CPV, AXOS, CTK, ESCOM, TKR, VOBIS V.34
+%Modem6% = Modem6, UNIMODEM037F8A52		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 2.400 extern
+%Modem6% = Modem6, Mix_Modem6, UNIMODEME121B63B	; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 2.400 extern
+%Modem6% = Modem6, UNIMODEM94C60CBF		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 2.400 extern
+%Modem2% = Modem2, UNIMODEMAA652351		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 14.4 extern
+%Modem2% = Modem2, UNIMODEM0003EB23		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS externes 14.4 Modem
+%Modem2% = Modem2, Mix_Modem2, UNIMODEMA74E9121	; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 14.4 extern
+%Modem2% = Modem2, UNIMODEM9E71D935		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 14.4 extern
+%Modem1% = Modem1, UNIMODEM25E1881B		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 28.8 extern
+%Modem1% = Modem1, UNIMODEM1B8A5013		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 28.8 extern
+%Modem1% = Modem1, UNIMODEM9240CB7B		; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 28.8 extern
+
+
+; Installation sections
+
+[Modem15]	;HIGHSCREEN, SAT1, 14400 intern (BOCA)
+AddReg=All, MfgAddReg, Modem15.AddReg, Internal
+
+[Modem14]         ;   HIGHSCREEN, SAT1, 14400 intern, extern (ACEEX)
+AddReg=All, MfgAddReg, Modem14.AddReg, External
+
+[Modem13]	;CPV, AXOS, CTK, ESCOM, TKR, VOBIS 14.4 PC-CARD
+AddReg=All, MfgAddReg, Modem13.AddReg, Internal
+
+[Modem12]	;CPV, AXOS, CTK, ESCOM, TKR, VOBIS 28.8 PC-CARD
+AddReg=All, MfgAddReg, Modem12.AddReg, Internal
+
+[Modem6]	; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 2.400 extern
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem2]	; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 14.4
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]	; CPV, AXOS, CTK, ESCOM, TKR, VOBIS 28.8
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+
+; AddReg sections
+
+[Modem15.AddReg]	; HIGHSCREEN, SAT1, 14400 intern (BOCA)
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, 37,03,00,00, 00,E1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0b,00,00,00
+HKR, Init,      3,, "AT E0 V1 &D2 &C1 W0 S0=0 S95=249<cr>"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+
+[Modem14.AddReg]		;HIGHSCREEN, SAT1, 14400 intern, extern (ACEEX)
+HKR,, Properties, 1, 40,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 33,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0d,00,00,00
+HKR, Init,      3,, "AT E0 Q0 V1 W1 \V1 \J1 S95=249 S10=5 &D2 &C1<cr>"
+HKR, Settings, FlowControl_Off,, "

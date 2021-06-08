@@ -1,0 +1,109 @@
+),1},+
+                       {EnableTcpChargen,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableUdpChargen,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableTcpDaytime,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableUdpDaytime,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableTcpQotd,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {EnableUdpQotd,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {QotdFileName,$(NoTitle),$(!REG_VT_EXPAND_SZ),"%SystemRoot%\system32\drivers\etc\quotes"},+
+                       {MaxTcpClients,$(NoTitle),$(!REG_VT_DWORD),16},+
+                       {MaxIdleTicks,$(NoTitle),$(!REG_VT_DWORD),600000},+
+                       {SelectTimeout,$(NoTitle),$(!REG_VT_DWORD),300},+
+                       {IoBufferSize,$(NoTitle),$(!REG_VT_DWORD),8192}}
+    Shell  $(UtilityInf), AddValueList, $(STParamKey), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVSP.INF: ShellCode error, add value list"
+        CloseRegKey $(STParamKey)
+        goto ShellCodeError
+    endif
+    CloseRegKey $(STParamKey)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OEMNSVSP.INF: Registry error: add value list."
+        goto fatalregistry
+    Endif
+    EndWait
+    Shell $(UtilityInf) SetMasterComponent Microsoft Tcpip $(STF_CONTEXTINFNAME) STCPIP
+    goto successful
+configureadapter = +
+    goto end
+bindingadapter =+
+    goto end
+removeadapter = +
+    ForListDo  $(OEM_ABANDON_SOFTWARE)
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $(Product$($)Name)
+    EndForListDo
+    goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(Option)Description)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyProduct)
+    else
+        goto fatalregistry
+    endif
+    goto end
+successful = +
+    goto end
+infomsg =+
+   read-syms InfoDlg
+   ui start "Warning"
+   set CommonStatus = STATUS_USERCANCEL
+   goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatalinfo = +
+    Set CommonStatus = STATUS_USERCANCEL
+    Set Severity = STATUS
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError

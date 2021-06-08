@@ -1,0 +1,166 @@
+.
+?
+?
+?
+?
+?
+?
+?
+IThe system detected an internal processing
+error at location %1.
+%2
+
+The system is stopped. Record the location number of the error
+and contact your service representative.
+IThe system detected a user error at location %1.
+%2
+I%1 supports Extended Hardware Buffering.
+?
+EThe file "%3" specified in the %2 command on
+line %1 of the CONFIG.SYS file does not contain a valid
+program. Line %1 is ignored.
+?
+?
+?
+?
+EThe application called the system with the
+interrupts off. The application has ended.
+
+%1
+
+Arguments used in system call (high to low):
+%2
+
+EThe file "%1" does not contain a valid program.
+IThe system detected a general protection
+fault (trap D) in a system call.
+
+%1
+
+Arguments used in system call (high to low):
+%2
+EA DOS mode
+program changed an interrupt vector that
+is owned by the system. The program was ended.
+EThe system does not have enough storage
+to reload a code or data segment.
+?
+EA program caused a divide error.
+The program was stopped.
+
+%1
+EA program caused a single-step error.
+The program was ended.
+
+%1
+IThe system detected a hardware memory error.
+
+Run the diagnostics supplied with your system to
+determine the cause of the problem.
+
+%1
+EA program caused a breakpoint error.
+The program was ended.
+
+%1
+EA program caused an overflow error.
+The program was ended.
+
+%1
+EA program caused a bound range error.
+The program was ended.
+
+%1
+EA program started an invalid instruction.
+The program was ended.
+
+%1
+EA program started a numeric coprocessor
+instruction, but there is no coprocessor present. The program
+was ended.
+
+%1
+EA system error occurred.
+
+%1
+EA program ran a numeric coprocessor instruction
+that attempted to reference storage past the end of a
+storage segment.  The program was ended.
+
+%1
+EA system error occurred.
+
+%1
+EA program tried to reference a storage segment that
+is not in storage. The program was ended.
+
+%1
+EA program attempted to reference storage outside the
+limits of a stack segment.  The program was ended.
+
+%1
+EA program caused a protection violation.
+
+%1
+IThe system detected an interrupt that cannot be masked.
+IThe system detected a hardware memory error
+on the system board.
+
+The system stopped.
+
+Run the diagnostics supplied with your system to
+determine the cause of the problem.
+IThe system detected a hardware memory error
+on an option card.
+
+The system stopped.
+
+Run the diagnostics supplied with your system to
+determine the cause of the problem.
+IThe system detected a timeout on the DMA channel
+of the hardware.
+
+The system stopped.
+
+Run the diagnostics supplied with your system to
+determine the cause of the problem.
+IThe system detected a timeout by the watchdog
+timer on the system board.
+
+The system stopped.
+
+Run the diagnostics supplied with your system to
+determine the cause of the problem.
+?
+EA program ran a numeric coprocessor
+instruction with an incorrect operand. The program was
+ended.  The error occurred at address %1.
+EA program started a numeric coprocessor
+instruction with an incorrect operand. The program was
+ended.  The error occurred at address %1.
+EA program instruction caused the numeric coprocessor
+to try to divide a number by zero. The program was
+ended.  The error occurred at address %1.
+EA program ran a numeric coprocessor
+instruction that generated a result that exceeds the
+capacity of the coprocessor. The program was
+ended.  The error occurred at address %1.
+EA program ran a numeric coprocessor
+instruction that generated a result that is too small
+for the coprocessor. The program was
+ended.  The error occurred at address %1.
+EA program ran a numeric coprocessor
+instruction that caused a rounding error.  The program
+was ended.  The error occurred at address %1.
+?
+?
+?
+?
+IThe installation aid cannot be run concurrently.
+EThe Installation Aid does not
+recognize the command specified in the
+program file: %1
+
+Check the spelling and the command
+name and retry the command.
+EThe Installation Aid cannot 

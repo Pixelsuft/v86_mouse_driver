@@ -1,0 +1,142 @@
+ULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+<speaker_on>=M1
+<speaker_off>=M0
+;Pas de compression ni correction pour ce modem.
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT:W1&C1&D2 S0=2 S2=43 S7=55<cr>
+COMMAND_INIT=AT<speaker><cr>
+OK=<lf>OK<cr><lf>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<lf>CONNECT <cr><lf>
+CONNECT=<lf>CONNECT <connectbps><cr><lf>
+CONNECT=<lf>CONNECT <connectbps> TREILLIS<cr><lf>
+CONNECT=<lf>CONNECT <connectbps> TCM<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<lf>CONNECT <cr><lf>
+CONNECT=<lf>CONNECT <connectbps><cr><lf>
+CONNECT=<lf>CONNECT <connectbps> TREILLIS<cr><lf>
+CONNECT=<lf>CONNECT <connectbps> TCM<cr><lf>
+
+[ATTEL MX 144_14400bps - FRN]
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=14400
+<speaker_on>=M1
+<speaker_off>=M0
+;Pas de compression ni correction pour ce modem.
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT:W1&C1&D2 S0=2 S2=43 S7=55<cr>
+COMMAND_INIT=AT<speaker><cr>
+OK=<lf>OK<cr><lf>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<lf>CONNECT <cr><lf>
+CONNECT=<lf>CONNECT <connectbps><cr><lf>
+CONNECT=<lf>CONNECT <connectbps> TREILLIS<cr><lf>
+CONNECT=<lf>CONNECT <connectbps> TCM<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<lf>CONNECT <cr><lf>
+CONNECT=<lf>CONNECT <connectbps><cr><lf>
+CONNECT=<lf>CONNECT <connectbps> TREILLIS<cr><lf>
+CONNECT=<lf>CONNECT <connectbps> TCM<cr><lf>
+
+
+
+;*************************** QUATERNAIRE **********************************
+[QUATERNAIRE V32.BIS - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+;<hwflowcontrol_on>=  Keep the default value
+;<hwflowcontrol_off>=  Keep the default value
+<hwflowcontrol_on>=
+<hwflowcontrol_off>=
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Quaternaire
+COMMAND_INIT=AT&F&C1&D2 V1 X1 S0=0 S2=43 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+
+
+
+;******************* Modems SAT *******************************
+
+[SAT 14402 - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+;<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+;<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=TELSAT 14402
+
+; probl‚me de connexion si 0 compression activ‚e !.
+
+COMMAND_INIT=ATF0&C1&D2L3V1W0N0X4S0=2S2=43S7=55S95=34<cr>
+COMMAND_INIT=AT<hwflowcontrol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr>

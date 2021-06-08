@@ -1,0 +1,45 @@
+<lf>COMPRESSION: MNP5<cr><lf>",     1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42BIS<cr><lf>",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V42BIS<cr><lf>",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42 BIS<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42bis<cr><lf>",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42 bis<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: ADC<cr><lf>",      1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: NONE<cr><lf>",     1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "PROTOCOL: NONE",                   1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ERROR-CONTROL/LAPB",     1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ERROR-CONTROL/LAPB/HDX", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ERROR-CONTROL/LAPB/AFT", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: X.25/LAPB",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: X.25/LAPB/HDX",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: X.25/LAPB/AFT",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM/HDX",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M/HDX",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM/AFT",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M/AFT",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT-CELLULAR",           1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP2",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP3",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP4",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>PROTOCOL: NONE<cr><lf>",                   1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB<cr><lf>",     1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB/HDX<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB/AFT<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB/HDX<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB/AFT<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM<cr><lf>",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M<cr><lf>",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP_M<cr><lf>",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM/HDX<cr><lf>",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM/AFT<cr><lf>",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M/AFT<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT<cr><lf>",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>",           1, 01, 0A, 00,00,00,00, 00,0

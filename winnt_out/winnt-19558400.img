@@ -1,0 +1,86 @@
+=Arial"
+  win.ini   , "Microsoft Word 2.0", "HPDSKJET="   ,   "HPDSKJET=+1"             ,noclobber
+  ;
+  ; Remove these Win 3.0 font entries from win.ini because they have either
+  ; been replaced or removed for Win 3.1
+  ;
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (CGA res)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (EGA res)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (60 dpi)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (120 dpi)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (VGA res)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (8514/a res)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (CGA res)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (EGA res)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (60 dpi)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (120 dpi)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (VGA res)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (8514/a res)="
+  ;
+  ; Remove these font entries if they exist because these .ini entries
+  ; are obsolete. We use "TrueType" rather than "Scalable"
+  ;
+  win.ini, Fonts, "Arial (Scalable)="
+  win.ini, Fonts, "Arial Bold (Scalable)="
+  win.ini, Fonts, "Arial Bold Italic (Scalable)="
+  win.ini, Fonts, "Arial Italic (Scalable)="
+  win.ini, Fonts, "Courier (Scalable)="
+  win.ini, Fonts, "Courier Bold (Scalable)="
+  win.ini, Fonts, "Courier Italic (Scalable)="
+  win.ini, Fonts, "Courier Bold Italic (Scalable)="
+  win.ini, Fonts, "Courier (TrueType)"
+  win.ini, Fonts, "Courier Bold (TrueType)"
+  win.ini, Fonts, "Courier Bold Italic (TrueType)"
+  win.ini, Fonts, "Courier Italic (TrueType)"
+  win.ini, Fonts, "Times New Roman (Scalable)="
+  win.ini, Fonts, "Times New Roman Bold (Scalable)="
+  win.ini, Fonts, "Times New Roman Bold Italic (Scalable)="
+  win.ini, Fonts, "Times New Roman Italic (Scalable)="
+  win.ini, Fonts, "Symbol PS (Scalable)="
+  win.ini, Fonts, "Symbol (Scalable)="
+  ;
+  ; Remove these font entries if they exist because these .ini entries
+  ; are obsolete. We use "Plotter" rather than "All res" Also, 8 point was
+  ; added to the EGA res courier so we remove the old "Courier 10,12,15" font.
+  ;
+  win.ini, Fonts, "Roman (All res)="
+  win.ini, Fonts, "Script (All res)="
+  win.ini, Fonts, "Modern (All res)="
+  win.ini, Fonts, "Courier 10,12,15 (EGA res)="
+  ;
+  ; The following lines will cause the MS-DOS half of setup to effectivly
+  ; rename the [Fonts] section in win.ini. Setup does this by adding the
+  ; [wt4gpi8s56bz] string to the [Fonts] section and then deleting the
+  ; [Fonts] section string. Later, in the windows half of setup, it will
+  ; rename [wt4gpi8s56bz] back to [Fonts]. Do not change these names!
+  ;
+  win.ini, Fonts,              , "[wt4gpi8s56bz]"
+  win.ini, Fonts,   "[Fonts]"  ,
+
+  ; The following line makes USER skip persistent net connections
+  ; USER immediately deletes the entry so it is a onetime thing.
+  win.ini, windows,, "SetupWin=1"
+
+  ; The following lines fix problems with APPS
+  win.ini, Compatibility,"NOTSHELL=", "NOTSHELL=0x0001"
+  win.ini, Compatibility,"WPWINFIL=", "WPWINFIL=0x0006"
+  win.ini, Compatibility,"CCMAIL=", "CCMAIL=0x0008"
+  win.ini, Compatibility,"AMIPRO=", "AMIPRO=0x0010"
+  win.ini, Compatibility,"REM=", "REM=0x8022"
+  win.ini, Compatibility,"PIXIE=", "PIXIE=0x0040"
+  win.ini, Compatibility,"CP=", "CP=0x0040"
+  win.ini, Compatibility,"JW=", "JW=0x42080"
+  win.ini, Compatibility,"TME=", "TME=0x0100"
+  win.ini, Compatibility,"VB=", "VB=0x0200"
+  win.ini, Compatibility,"WIN2WRS=", "WIN2WRS=0x1210"
+  win.ini, Compatibility,"PACKRAT=", "PACKRAT=0x0800"
+  win.ini, Compatibility,"VISION=", "VISION=0x0040"
+  win.ini, Compatibility,"MCOURIER=", "MCOURIER=0x0800"
+  win.ini, Compatibility,"_BNOTES=", "_BNOTES=0x24000"
+  win.ini, Compatibility,"MILESV3=", "MILESV3=0x1000"
+  win.ini, Compatibility,"PM4=", "PM4=0x2000"
+  win.ini, Compatibility,"DESIGNER=", "DESIGNER=0x2000"
+  win.ini, Compatibility,"PLANNER=", "PLANNER=0x2000"
+  win.ini, Compatibility,"DRAW=", "DRAW=0x2000"
+  win.ini, Compatibility,"WINSIM=", "WINSIM=0x2000"
+  win.ini, Compatibili

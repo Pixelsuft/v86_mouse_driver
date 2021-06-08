@@ -1,0 +1,106 @@
+Msg.dll;%SystemRoot%\System32\drivers\avga.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+;
+; Software Installation
+;
+
+[avga.SoftwareSettings]
+AddReg = avga_SoftwareDeviceSettings
+
+[avga_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga, vga256
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+
+
+
+
+;
+; Driver information
+;
+
+[Manufacturer]
+%trident% = trident.Mfg
+
+[trident.Mfg]
+%trident% Video Accelerator = tgiul40
+
+;
+; General installation section
+;
+
+[tgiul40]
+CopyFiles=tgiul40.Miniport, tgiul40.Display
+
+;
+; File sections
+;
+
+[tgiul40.Miniport]
+tgiul40.sys
+
+[tgiul40.Display]
+tgiul40.dll
+
+
+;
+; Service Installation
+;
+
+[tgiul40.Services]
+AddService = tgiul40, 0x00000002, tgiul40_Service_Inst, tgiul40_EventLog_Inst
+
+[tgiul40_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\tgiul40.sys
+
+[tgiul40_EventLog_Inst]
+AddReg = tgiul40_EventLog_AddReg
+
+[tgiul40_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\tgiul40.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+;
+; Software Installation
+;
+
+[tgiul40.SoftwareSettings]
+AddReg = tgiul40_SoftwareDeviceSettings
+
+[tgiul40_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga, tgiul40, framebuf
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+
+
+
+
+;                                                                                                                      
+; Driver information                                                                                                   
+;                                                                                                                      
+                                                                                                                       
+[Manufacturer]                                                                                                         
+%NeoMagic%   = NeoMagic.Mfg                                                                                                      
+                                                                                                                       
+[NeoMagic.Mfg]                                                                                                               
+%NeoMagic% MagicGraph 128/Z/ZV = neomagic
+                                                                                                                       
+                                                                                                                       
+;                                                                                                                      
+; General installation section                                                                                         
+;                                                                                                                      
+                                                                                                                       
+[neomagic]                                                                                                                   
+CopyFiles=neomagic.Miniport, neomagic.Display                                                                                      
+                                                                                                                       
+;                                                                                                                      
+; File sections                                                                                                        
+;                                                                                                                      
+                 

@@ -1,0 +1,111 @@
+!= $(!SHELL_CODE_OK)
+            set ShellErrorSection = UtilityInf:GetFileNameFromRegistry
+            goto ShellCodeError
+         endif
+         set !UG_Filename = $($R0)
+         ifstr(i) $(!UG_Filename) != ""
+            install "Install-Update"
+            ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+               goto FatalError
+            endif
+         endif
+         SetRegValue $(Key_Product) {MajorVersion, $(NoTitle), $(!REG_VT_SZ), $(SoftwareMajorVersion)}
+         SetRegValue $(Key_Product) {MinorVersion, $(NoTitle), $(!REG_VT_SZ), $(SoftwareMinorVersion)}
+         ifint $(Version) != $(SoftwareVersion)
+            Debug-Output "$(STF_CONTEXTINFNAME): Version .$(Version). != SoftwareVersion .$(SoftwareVersion)."
+         endif
+         CloseRegKey $(Key_Product)
+      else
+         goto FatalRegistryError
+      endif
+   else
+      OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) NetworkCardKey
+      Ifstr(i) $(NetworkCardKey) != $(Key_Null)
+         GetRegValue $(NetworkCardKey),"ServiceName", ServiceNameInfo
+         set ServiceName = *($(ServiceNameInfo), 4)
+         OpenRegKey $(NetworkCardKey) "" "NetRules" $(MAXIMUM_ALLOWED) NetRuleKey
+         Ifstr(i) $(NetRuleKey) != $(Key_Null)
+            Debug-Output "$(STF_CONTEXTINFNAME): NetRuleKey .$(NetRuleKey). != Key_Null .$(Key_Null)."
+         else
+            goto FatalRegistryError
+         endif
+         CloseRegKey $(NetRules)
+         CloseRegKey $(NetworkCardKey)
+      else
+         goto FatalRegistryError
+      endif
+      OpenRegKey $(!REG_H_LOCAL) +
+                 "" $(!NTN_ServiceBase)"\"$(ServiceName) +
+                 $(MAXIMUM_ALLOWED) +
+                 ServiceKey
+      Ifstr(i) $(ServiceKey) != $(Key_Null)
+         CloseRegKey $(ServiceKey)
+      else
+         goto FatalRegistryError
+      endif
+   endif
+    set iSearch = 1
+nextnetcard = +
+    Shell $(UtilityInf), FindNextNetworkCard, $(TccBaseName), $(iSearch)
+    set KeyNetcard = $($R0)
+    set iSearch = $($R1)
+    Debug-Output "OemNadEp.Inf: FindNextNetworkCard "$(KeyNetcard)","$(iSearch)
+    Ifstr $(KeyNetcard) != $(KeyNull)
+        Debug-Output "OemNadEp.Inf: Setting OperationsSupport value"
+        SetRegValue $(KeyNetcard) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyNetcard)
+        goto nextnetcard
+    Endif
+   goto InstallOptionExit
+ProcessSuccessExit = +
+   goto InstallOptionExit
+ProcessAbandonInstall = +
+   ForListDo $(OEM_ABANDON_OPTIONS)
+      Shell $(UtilityInf), +
+            RemoveHardwareComponent, +
+            $(Manufacturer), +
+            $(TccBaseName), +
+            $($)
+      ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         set ShellErrorSection = UtilityInf:RemoveHardwareComponent
+         goto ShellCodeError
+      endif
+      set RegistryErrorIndex = $($R0)
+      Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+         goto FatalRegistryError
+      endif
+   EndForListDo
+   Ifstr(i) $(OEM_ABANDON_SOFTWARE) == TRUE
+      Shell $(UtilityInf), +
+            RemoveSoftwareComponent, +
+            $(Manufacturer), +
+            $(TccBaseName), +
+            FALSE
+      ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         set ShellErrorSection = UtilityInf:RemoveSoftwareComponent
+         goto ShellCodeError
+      endif
+      set RegistryErrorIndex = $($R0)
+      Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+         goto FatalRegistryError
+      endif
+   endif
+   goto InstallOptionExit
+ProcessWarningMessage = +
+   Shell $(SubroutineInf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+      set ShellErrorSection = SubroutineInf:SetupMessage
+      goto ShellCodeError
+   endif
+   ifstr(i) $($R1) == "OK"
+      goto $(to)
+   else-ifstr(i) $($R1) == "CANCEL"
+      goto $(from)
+   else
+      goto "InstallOptionExit"
+   endif
+SetNonFatalInfo = +
+   Set CommonStatus = STATUS_USERCANCEL
+   Set Severity = STATUS
+   goto ProcessNonFatalMessage
+ProcessNonFatalMessage 

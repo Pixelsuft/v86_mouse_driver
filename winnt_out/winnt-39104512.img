@@ -1,0 +1,140 @@
+   = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\qic117.sys
+LoadOrderGroup = Primary Disk
+
+[qic117_EventLog_Inst]
+AddReg = qic117_EventLog_AddReg
+
+[qic117_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\qic117.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+[qic157_Inst]
+CopyFiles = @qic157.sys
+
+[qic157_Inst.Services]
+AddService = qic157, %SPSVCINST_ASSOCSERVICE%, qic157_Service_Inst, qic157_EventLog_Inst
+
+[qic157_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\qic157.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[qic157_EventLog_Inst]
+AddReg = qic157_EventLog_AddReg
+
+[qic157_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\qic157.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+
+;********************************
+;Archive-manufacturer device list
+[Archive]
+%archqic.DeviceDesc% = archqic_Inst, ARCHQIC_TAPE
+
+[archqic_Inst]
+CopyFiles = @archqic.sys
+
+[archqic_Inst.Services]
+AddService = archqic, %SPSVCINST_ASSOCSERVICE%, archqic_Service_Inst, archqic_EventLog_Inst
+
+[archqic_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\archqic.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[archqic_EventLog_Inst]
+AddReg = archqic_EventLog_AddReg
+
+[archqic_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\archqic.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+
+;********************************
+;Digital-manufacturer device list
+[Digital]
+%dlttape.DeviceDesc%       = dlttape_Inst,    DLTTAPE_TAPE
+%dec_dlttape.DeviceDesc%   = dlttape_Inst,    DEC_DLTTAPE_TAPE
+
+
+
+%dec_dlttapeSP.DeviceDesc% = dlttape_SP_Inst, DEC_DLTTAPE_TAPE_SP
+
+
+[dlttape_SP_Inst]
+CopyFiles = dlttape_SP_Inst.CopyFiles
+
+[dlttape_SP_Inst.CopyFiles]
+
+
+
+dlttape.sys, _dlttape.sys
+
+
+[dlttape_SP_Inst.Services]
+AddService = dlttape, %SPSVCINST_ASSOCSERVICE%, dlttape_Service_Inst, dlttape_EventLog_Inst
+
+;********************************
+;Quantum-manufacturer device list
+[Quantum]
+%quantum_dlttape.DeviceDesc% = dlttape_Inst, QUANTUM_DLTTAPE_TAPE
+
+[dlttape_Inst]
+CopyFiles = @dlttape.sys
+
+[dlttape_Inst.Services]
+AddService = dlttape, %SPSVCINST_ASSOCSERVICE%, dlttape_Service_Inst, dlttape_EventLog_Inst
+
+[dlttape_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\dlttape.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[dlttape_EventLog_Inst]
+AddReg = dlttape_EventLog_AddReg
+
+[dlttape_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\dlttape.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+
+;********************************
+;Exabyte-manufacturer device list
+[Exabyte]
+%exabyte1.DeviceDesc% = exabyte1_Inst, EXABYTE1_TAPE
+%exabyte2.DeviceDesc% = exabyte2_Inst, EXABYTE2_TAPE
+;%mammoth.DeviceDesc%  = mammoth_Inst,  MAMMOTH_TAPE
+
+[exabyte1_Inst]
+CopyFiles = @exabyte1.sys
+
+[exabyte1_Inst.Services]
+AddService = exabyte1, %SPSVCINST_ASSOCSERVICE%, exabyte1_Service_Inst, exabyte1_EventLog_Inst
+
+[exabyte1_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\exabyte1.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[exabyte1_EventLog_Inst]
+AddReg = exabyte1_EventLog_AddReg
+
+[exabyte1_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\exabyte1.sys"
+HKR,,TypesSup

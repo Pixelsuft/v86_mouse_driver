@@ -1,0 +1,103 @@
+ation"
+   OpenRegKey $(!REG_H_LOCAL) "" $(KeyName_Software) $(MAXIMUM_ALLOWED) Key_Product
+   Ifstr $(Key_Product) != $(Key_Null)
+      CloseRegKey $(Key_Product)
+      ifstr(i) $(!NTN_RegBase) == $(KeyName_Software)
+         Shell $(UtilityInf), VerExistedDlg, $(SoftwareTitle), $(SoftwareVersion)
+         ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            set ShellErrorSection = UtilityInf:VerExistedDlg
+            goto ShellCodeError
+         endif
+         goto end
+      else
+         Shell $(UtilityInf), CardExistedDlg
+         ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            set ShellErrorSection = UtilityInf:CardExistedDlg
+            goto ShellCodeError
+         endif
+         ifstr(i) $($R1) == "OK"
+            set OldVersionExisted = $(TRUE)
+         else
+            goto InstallOptionExit
+         endif
+      endif
+   endif
+CopyAdapterFiles = +
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering CopyAdapterFiles"
+   ifint $(OldVersionExisted) == $(TRUE)
+      ifstr(i) $(!NTN_InstallMode) == configure
+         goto GetAdapterConfigFromUser
+      endif
+   endif
+   StartWait
+   ifint $(OldVersionExisted) == $(FALSE)
+      ifstr(i) $(!NTN_InstallMode) == "install"
+         Ifstr(i) $(DoCopy) == "YES"
+            Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+            Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               set ShellErrorSection = UtilityInf:DoAskSource
+               Goto ShellCodeError
+            Else-Ifstr(i) $($R0) == STATUS_FAILED
+               Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  set ShellErrorSection = UtilityInf:RegistryErrorString
+                  goto ShellCodeError
+               endif
+               set Error = $($R0)
+               Goto FatalError
+            Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+               Goto ProcessSuccessExit
+            Endif
+            Set SrcDir = $($R1)
+         Endif
+         install "Install-Option"
+         ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               set ShellErrorSection = UtilityInf:RegistryErrorString
+               goto ShellCodeError
+            endif
+            set Error = $($R0)
+            goto FatalError
+         endif
+      endif
+   endif
+GetAdapterConfigFromRegistry = +
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering GetAdapterConfigFromRegistry"
+   ifstr(i) $(!NTN_InstallMode) == "install"
+      goto GetAdapterConfigFromUser
+   else
+      Ifstr $(Key_Product) == $(Key_Null)
+         OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) Key_Product
+         Ifstr $(Key_Product) == $(Key_Null)
+            set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+            Debug-Output $(STF_CONTEXTINFNAME)": Cannot find component product key"
+            goto FatalRegistryError
+         Endif
+      Endif
+      Shell $(UtilityInf) FindService, $(Key_Product)
+      Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         set ShellErrorSection = UtilityInf:FindService
+         Goto ShellCodeError
+      Endif
+      Ifstr(i) $($R0) != NO_ERROR
+         Debug-Output "$(STF_CONTEXTINFNAME): Utility:FindService error: $($R0)"
+         Goto FatalRegistryError
+      endif
+      set Key_HardwareParameters = $($R2)
+      CloseRegKey $($R1)
+      Ifstr $(Key_HardwareParameters) == $(Key_Null)
+         set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+         Debug-Output $(STF_CONTEXTINFNAME)": Cannot find component service"
+         goto FatalRegistryError
+      endif
+      set OldVersionExisted = $(TRUE)
+      set ValueName = ""
+      set ValueData = ""
+      set ValueStr  = ""
+      set ValueList = {}
+      EnumRegValue $(Key_HardwareParameters) ValueList
+      ForListDo $(ValueList)
+         set ValueItem = $($)
+         set ValueName = *($(ValueItem),1)
+         set ValueData = *

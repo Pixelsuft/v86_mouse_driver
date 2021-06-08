@@ -1,0 +1,22 @@
+etected but can be installed manually during setup.
+
+· Some adapters may quit functioning if you upgrade from an earlier version to the Windows NT version 4.0 final release.  This can be caused by changes in the registry, such as adapter driver name changes, service dependency changes, or an obsolete network adapter driver. Removing the old driver and installing it again from the menu will fix the startup problem for adapters listed on the Hardware Compatibility List (HCL).  Xircom IIPS and Eicon ISDN are examples of adapters that will have to be reinstalled.
+
+· Some adapters generate errors during Setup because the configuration settings cannot be verified.  This can be caused by conflicting settings for interrupt and I/O addresses.   The error can also be displayed if Setup calls an executable helper which sets up the configuration.  If the adapter driver starts and connects to the network, the error can be ignored.  If not, the error is an indication of resource conflicts which will have to be fixed.  The Intel E100B and IBM Streamer adapters are examples of drivers that use their own executable setup routines.
+
+· The original Intel EtherExpress PRO/100 EISA and PCI adapters (E100A) are not supported in this release. These adapters have been replaced by the E100B PCI model which is not available for the EISA bus.
+
+· During Setup, selecting any Eicon WAN or the USR WAN (non-ISDN) adapters will result in a dialog box that cannot be exited.  This will cause the installation to fail because rebooting is necessary to recover.  This tradeoff was made to save several megabytes of disk space on the target machine during Setup.  For these adapters, complete the installation and add the adapter later. 
+Microsoft does not recommend the use of 8-bit network adapters with Windows NT Workstation or Windows NT Server. Support for these adapters is included in some cases due to customer requirements, but older hardware represented by this technology does not provide good performance or reliability.
+
+· PnP mode is not supported for network adapters. Network adapters that support PnP mode must be reconfigured with a software setup utility provided by the manufacturer. This includes some system board mounted network adapters, 3Com 3C509B, SMC 8416, IBM Auto TR, Madge PnP, and Eicon DIVA PRO.
+
+· Bus-Master adapters are not supported on Motorola Power PC computers. The adapters include the Proteon p1390, p1392, p1392plus, and IBM 4/16 Token Ring Adapter II. IBM Power PC systems do support these adapters.
+
+· If your PCMCIA adapter does not start or operates incorrectly, try using a different interrupt for the network adapter. Interrupts 2, 5, and 10 are often reserved on portable computers. In these cases, Microsoft recommends changing the interrupt to 3, 11, or 15. If the settings are changed during installation, the adapter will not start until installation is completed and the system is rebooted. If you know the settings presented by Setup will cause a conflict, you can change them, but the adapter will not start until installation is completed and the computer is rebooted.  Additionally, during Express mode installation, if a conflicting interrupt is the default, the network will not start and the value will need to be changed manually after Setup completes.  Rebooting an additional time will be necessary to start the PCMCIA adapter driver.
+
+· If you install Windows NT version 4.0 from a network drive and you have both an Intel EtherExpress PRO/10P PCI LAN Adapter driver and a PCI SCSI controller installed, Setup may indicate one or more files are corrupt when it verifies the copy from the temporary directory to the %systemroot%\system32\drivers directory. This problem occurs because the network adapter is not reset correctly when Setup warm boots the computer. You can turn the computer off and then back on and Setup will restart and not encounter the problem.
+
+· Use of the Socket EA PCMCIA Ethernet adapter BNC port is not supported.
+
+· Digiboard PCIMAC and PCIMAC/4 ISDN adapters may not work correctly in some mach

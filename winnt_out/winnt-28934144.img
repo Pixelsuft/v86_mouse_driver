@@ -1,0 +1,78 @@
+ll)
+            Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+            Goto fatalregistry
+        endif
+        DeleteRegValue $(KeyProduct) "ncacn_vns_spp"
+        CloseRegKey $(KeyProduct)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcSoftKeyName)$(ClientProto) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNull)
+            Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+            Goto fatalregistry
+        endif
+        DeleteRegValue $(KeyProduct) "ncacn_vns_spp"
+        CloseRegKey $(KeyProduct)
+        Goto successful
+    endif
+    Debug-Output "OEMNSVRP.INF: Remove component "$(RpcSrvNameLocator)
+    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $(RpcSrvNameLocator), FALSE
+    Debug-Output "OEMNSVRP.INF: Remove service "$(RpcSrvNameSSP)
+    Shell $(UtilityInf), RemoveService, $(RpcSrvNameSSP), "YES"
+    goto end
+UpgradeSoftware = +
+    ifstr(i) $(Option) == "RPCBANYAN"
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcBanyanSoftKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) != $(KeyNull)
+            SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+            SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+            SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductRPCBanyanSoftDescription)}
+            SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupportRPCBANYAN)}
+            CloseRegKey $(KeyProduct)
+    	endif
+        Goto successful
+    endif
+	set RpcLocatorService = "SYSTEM\CurrentControlSet\Services\"$(RpcSrvNameLocator)
+	OpenRegKey $(!REG_H_LOCAL) "" $(RpcLocatorService) $(MAXIMUM_ALLOWED) KeyService
+	ifstr $(KeyService) != $(KeyNull)
+		SetRegValue $(KeyService) +
+				{"DependOnService",$(NoTitle),$(!REG_VT_MULTI_SZ),$(RpcSrvDepend) }
+	endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescription)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupportRPC)}
+        OpenRegKey $(!REG_H_LOCAL) "" $(SecurityKeyName) $(MAXIMUM_ALLOWED) KeySecurity
+        Ifstr $(KeySecurity) == ""
+           Shell $(UtilityInf), CreateService, $(RpcSrvNameSSP), +
+                  $(RpcSrvDisplayNameSSP), $(RpcSrvExeSSP), "serviceshare", +
+                  "", {}, "", ""
+           Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "OEMNSVRP.INF: ShellCode error creating RPCSS service: "$($ShellCode)
+               goto ShellCodeError
+           endif
+           Set RegistryErrorIndex = $($R0)
+           CloseRegKey $($R1)
+           CloseRegKey $($R2)
+           CloseRegKey $($R3)
+           Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+              EndWait
+              Debug-Output "OEMNSVRP.INF: Registry error: creating RPCSS service"
+              Goto fatalregistry
+           Endif
+           OpenRegKey $(!REG_H_LOCAL) "" $(RpcSoftKeyName) $(MAXIMUM_ALLOWED) RpcKey
+           Ifstr(i) $(RpcKey) == $(KeyNull)
+             Debug-Output "OEMNSVRP.INF: Error opening RPC key"
+             Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+             Goto fatalregistry
+           Endif
+           CreateRegKey $(RpcKey) {"SecurityService",$(NoTitle),GenericClass}     "" $(MAXIMUM_ALLOWED) "" KeySecurity
+           Ifstr(i) $(KeySecurity) == $(KeyNull)
+               OpenRegKey $(!REG_H_LOCAL) "" $(RpcSecurityKeyName) $(MAXIMUM_ALLOWED) KeySecurity
+           Endif
+           CloseRegKey $(RpcKey)
+           If

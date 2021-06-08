@@ -1,0 +1,119 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   E.Y.P. Telecomunicación.
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem9% = Modem9, EYP_Modem9		; BV32B
+%Modem8% = Modem8, EYP_Modem8		; PCVOX
+%Modem7% = Modem7, EYP_Modem7		; PCMNP
+%Modem6% = Modem6, EYP_Modem6		; MVMNP
+%Modem5% = Modem5, EYP_Modem5		; PCMUL
+%Modem4% = Modem4, EYP_Modem4		; MVMUL
+%Modem3% = Modem3, EYP_Modem3		; MV32 Plus
+%Modem2% = Modem2, UNIMODEM07474619	; microV32B
+%Modem1% = Modem1, UNIMODEM3B5036FF 	; MV32B#
+
+; Installation sections
+
+[Modem9]	; BV32B
+AddReg=All, MfgAddReg, Modem9.AddReg, External
+
+[Modem8]	; PCVOX
+AddReg=All, MfgAddReg, Modem8.AddReg, Internal
+
+[Modem7]	; PCMNP
+AddReg=All, MfgAddReg, Modem7.AddReg, Internal
+
+[Modem6]	; MVMNP
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem5]	; PCMUL
+AddReg=All, MfgAddReg, Modem5.AddReg, Internal
+
+[Modem4]	; MVMUL
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem3]	; MV32 Plus
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem2]	; microV32B
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]	; MV32B#
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+
+; AddReg sections
+
+[Modem9.AddReg]	; BV32B
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F V1 S0=0 S95=47<cr>"
+HKR, Hangup,    1,, "ATH<cr>"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, CallSetupFailTimer,, "S7=40"
+
+[Modem8.AddReg]	; PCVOX
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 50,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, CallSetupFailTimer,, "S7=30"
+
+[Modem7.AddReg]	; PCMNP
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 73,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, ErrorControl_On,, "&Q5S36=7S46=136S48=128"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "&Q5S36=7S46=138S48=7"
+HKR, Settings, Compression_Off,, "&Q6"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, Blind_On,, "X0"
+HKR, Settings, CallSetupFailTimer,, "S7=30"
+
+[Modem6.AddReg]	; MVMNP
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, ErrorControl_On,, "&K5S36=7S46=136S48=138"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "&Q5S36=7S46=138S48=7"
+HKR, Settings, Compression_Off,, "&Q6"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, CallSetupFailTimer,, "S7=30"
+
+[Modem5.AddReg]	; PCMUL
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 50,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Settings, CallSetupFailTimer,, "S7=30"
+
+[Modem4.AddReg]	; MVMUL
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 70,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem3.AddReg]	; MV32 Plus
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 03,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 80,25,00,00
+HKR, Hangup,    1,, "ATH<cr>"
+HKR, Settings, FlowControl_Soft,, "&K1"
+HKR, Settings, ErrorControl_On,, "\N5"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, SpeedNegotiation_On,, "F0"
+HKR, Settings, Blind_On,, "X0"
+
+[Modem2.AddReg]	; microV32B
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 01,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, ErrorControl_Cellular,, ")M1"
+
+[Modem1.AddReg]	; MV32B#
+HKR,

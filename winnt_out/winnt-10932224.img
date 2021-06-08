@@ -1,0 +1,117 @@
+ "TDI", {}, "",+
+            "%SystemRoot%\System32\IoLogMsg.dll"
+        Set Result = $($R0)
+    else
+        CloseRegKey $(BS_KeyServices)
+    endif
+AddAFDReturn = +
+    return $(Result)
+[UpgradeAFD]
+    read-syms InitBaseVars
+    Set Result = NO_ERROR
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName)"\AFD" $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) != $(KeyNull)
+		SetRegValue $(BS_KeyServices) {Group,$(NoTitle),$(!REG_VT_SZ),"TDI"}
+        CloseRegKey $(BS_KeyServices)
+    endif
+    return $(Result)
+[GetBusTypeNum]
+    read-syms InitBaseVars
+    set DetCard = $(!p:DetectedCard)
+    ifstr(i) $(DetCard) == ""
+        set DetCard = FALSE
+    endif
+    ifstr(i) $(DetCard) == FALSE
+        set BusType = 1
+        ifstr(i) $(!STF_BUSTYPE) == "ISA"
+            set BusType = 1
+        else-ifstr(i) $(!STF_BUSTYPE) == "EISA"
+            set BusType = 2
+        else-ifstr(i) $(!STF_BUSTYPE) == "Jazz-Internal Bus"
+            set BusType = 0
+        else-ifstr(i) $(!STF_BUSTYPE) == "MCA"
+            set BusType = 3
+        else-ifstr(i) $(!STF_BUSTYPE) == "TCChannel"
+            set BusType = 4
+        else-ifstr(i) $(!STF_BUSTYPE) == "PCI"
+            set BusType = 5
+        else-ifstr(i) $(!STF_BUSTYPE) == "PCMCIA"
+            set BusType = 1
+        else
+            debug-output "Utility.inf: Unknown bus type"
+        endif
+    else
+        set BusType = *($(!STF_NCDETINFO),5)
+    endif
+    return NO_ERROR, $(BusType)
+[AddRpcProtocol]
+    Set ARP_Protocol = $($0)
+    Set ARP_ClientDll = $($1)
+    Set ARP_ServerDll = $($2)
+    read-syms InitBaseVars
+    Set ARP_KeyRpc = $(KeyNull)
+    Set ARP_KeyRpcServer = $(KeyNull)
+    Set ARP_KeyRpcClient = $(KeyNull)
+    Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+    OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft\Rpc" $(MAXIMUM_ALLOWED) ARP_KeyRpc
+    Ifstr(i) $(ARP_KeyRpc) == $(KeyNull)
+       Goto ARP_Return
+    Endif
+    OpenRegKey $(ARP_KeyRpc) "" "ClientProtocols" $(MAXIMUM_ALLOWED) ARP_KeyClient
+    Ifstr(i) $(ARP_KeyClient) == $(KeyNull)
+       Goto ARP_Return
+    Endif
+    OpenRegKey $(ARP_KeyRpc) "" "ServerProtocols" $(MAXIMUM_ALLOWED) ARP_KeyServer
+    Ifstr(i) $(ARP_KeyServer) == $(KeyNull)
+       Goto ARP_Return
+    Endif
+    SetRegValue $(ARP_KeyClient) {$(ARP_Protocol),$(NoTitle),$(!REG_VT_SZ),$(ARP_ClientDll)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Goto ARP_Return
+    Endif
+    SetRegValue $(ARP_KeyServer) {$(ARP_Protocol),$(NoTitle),$(!REG_VT_SZ),$(ARP_ServerDll)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Goto ARP_Return
+    Endif
+    Set RegistryErrorIndex = NO_ERROR
+ARP_Return = +
+    Ifstr(i) $(ARP_KeyServer) != $(KeyNull)
+        CloseRegKey $(ARP_KeyServer)
+    Endif
+    Ifstr(i) $(ARP_KeyClient) != $(KeyNull)
+        CloseRegKey $(ARP_KeyClient)
+    Endif
+    Ifstr(i) $(ARP_KeyRpc) != $(KeyNull)
+        CloseRegKey $(ARP_KeyRpc)
+    Endif
+    Return  $(RegistryErrorIndex)
+[AddClientRpcProtocol]
+    Set ARP_Protocol = $($0)
+    Set ARP_ClientDll = $($1)
+    read-syms InitBaseVars
+    Set ARP_KeyRpc = $(KeyNull)
+    Set ARP_KeyRpcClient = $(KeyNull)
+    Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+    OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft\Rpc" $(MAXIMUM_ALLOWED) ARP_KeyRpc
+    Ifstr(i) $(ARP_KeyRpc) == $(KeyNull)
+       Goto ARP_Return
+    Endif
+    OpenRegKey $(ARP_KeyRpc) "" "ClientProtocols" $(MAXIMUM_ALLOWED) ARP_KeyClient
+    Ifstr(i) $(ARP_KeyClient) == $(KeyNull)
+       Goto ARP_Return
+    Endif
+    SetRegValue $(ARP_KeyClient) {$(ARP_Protocol),$(NoTitle),$(!REG_VT_SZ),$(ARP_ClientDll)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Goto ARP_Return
+    Endif
+    Set RegistryErrorIndex = NO_ERROR
+ARP_Return = +
+    Ifstr(i) $(ARP_KeyClient) != $(KeyNull)
+        CloseRegKey $(ARP_KeyClient)
+    Endif
+    Ifstr(i) $(ARP_KeyRpc) != $(KeyNull)
+        CloseRegKey $(ARP_KeyRpc)
+    Endif
+    Return  $(RegistryErrorIndex)
+[AddServerRpcProtocol]
+    Set 

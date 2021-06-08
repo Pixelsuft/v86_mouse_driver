@@ -1,0 +1,94 @@
+ShellCode error: cannot get an error string."
+	    goto ShellCodeError
+    endif
+    set Error = $($R0)
+    Goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+	    Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        goto ShellCodeError
+	    endif
+	    set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = "Error: "$(FunctionTitle)
+    set STF_MB_TEXT  = "Shell Code Error"
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+	    set OEM_ABANDON_ON = FALSE
+	    goto end
+    endif
+    goto end
+filecopycancel = +
+    set CommonStatus = STATUS_NO_EFFECT
+    goto end
+cancel = +
+	set CommonStatus = STATUS_USERCANCEL
+	goto term
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+    exit
+[DebugConfiguration]
+    Set InfName = "OEMNADDI.INF"
+    Debug-Output $(InfName)" **CONFIGURATION STATE: "$($0)
+    return
+[Install-Option]
+    set STF_VITAL = NO
+    ifstr(i) $(AddCopy) == "YES"
+	    ifint $(CopyFirmwareOnly) == $(FALSE)
+	        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+	        AddSectionFilesToCopyList Files-Dll $(SrcDir) $(!STF_WINDOWSSYSPATH)
+	    endif
+	    LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\common\isdnhelp.hlp
+	    ifstr(i) $(FilePresent) != "YES"
+	        LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\common\isdnhelp.hl_
+	        ifstr(i) $(FilePresent) != "YES"
+	    	    Debug-Output "Retrieving images from "$(SrcDir)
+	    	    AddSectionFilesToCopyList Files-$(Option)-firmware $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+	    	    ifint $(CopyFirmwareOnly) == $(FALSE)
+	    	        AddSectionFilesToCopyList Files-common-system32 $(SrcDir) $(!STF_WINDOWSSYSPATH)
+	    	    endif
+	        else
+	    	    Debug-Output "Retrieving images from "$(SrcDir)"..\common"
+	    	    AddSectionFilesToCopyList Files-$(Option)-firmware $(SrcDir)..\common $(!STF_WINDOWSSYSPATH)\drivers
+	    	    ifint $(CopyFirmwareOnly) == $(FALSE)
+	    	        AddSectionFilesToCopyList Files-common-system32 $(SrcDir)..\common $(!STF_WINDOWSSYSPATH)
+	    	    endif
+	        endif
+	    else
+	        Debug-Output "Retrieving images from "$(SrcDir)"..\common"
+	        AddSectionFilesToCopyList Files-$(Option)-firmware $(SrcDir)..\common $(!STF_WINDOWSSYSPATH)\drivers
+	        ifint $(CopyFirmwareOnly) == $(FALSE)
+	    	    AddSectionFilesToCopyList Files-common-system32 $(SrcDir)..\common $(!STF_WINDOWSSYSPATH)
+	        endif
+	    endif
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    else
+	   LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\common\isdnhelp.hlp
+	   ifstr(i) $(FilePresent) != "YES"
+	      LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\common\isdnhelp.hl_
+	      ifstr(i) $(FilePresent) != "YES"
+             LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\DIGIINST.DLL $(!STF_WINDOWSSYSPATH)\DIGIINST.DLL
+             LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\ISDNHELP.CNT $(!STF_WINDOWSSYSPATH)\ISDNHELP.CNT
+             LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\ISDNHELP.HLP $(!STF_WINDOWSSYSPATH)\ISDNHELP.HLP
+	      else
+             LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\DIGIINST.DLL $(!STF_WINDOWSSYSPATH)\DIGIINST.DLL
+             LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\..\common\ISDNHELP.HLP $(!STF_WI

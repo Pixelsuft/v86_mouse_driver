@@ -1,0 +1,105 @@
+HELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    Ifstr(i) $(DetectedCard) != TRUE
+        Goto adaptersetup
+    Endif
+CheckForISA = +
+    Debug-Output "At CheckForISA"
+    Shell $(ParamInf) Param_QueryCard $(!STF_NCDETCARD)
+    EndWait
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "OEMNADEP.INF: Calling Param_QueryCard returned an error!"
+        Goto adaptersetup
+    Endif
+    Set DetectedParams = $($R1)
+    Debug-Output "OEMNADEP.INF: Calling Param_SetDefaults to merge detected params"
+    Shell $(ParamInf) Param_SetDefaults $(DetectedParams)
+    set IOAddrCBI = ~($(IOAddrValues),$(IOAddrValue))
+    set IRQCBI = ~($(IRQList),$(IRQValue))
+    set IOReadyValue = *($(IOReadyList), $(IOReadyCBI))
+    set TransceiverValue = *($(TransceiverList), $(TransceiverCBI))
+    goto adaptersetup
+configureadapter = +
+    Debug-Output "At configureadapter"
+    SetHelpFile "eepro.hlp" 1 6
+    Ifstr $(KeyProduct) == $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNull)
+            set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+            Debug-Output "Cannot find component product key"
+            goto fatalregistry
+        Endif
+    Endif
+    Debug-Output "INF: Shelling to FindService"
+    Shell $(UtilityInf) FindService, $(KeyProduct)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "INF: FindService shell failure"
+        Goto ShellCodeError
+    Endif
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "INF: FindService Shell error: "$($R0)
+        Goto fatalregistry
+    endif
+    Set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Ifstr $(KeyParameters) == $(KeyNull)
+        set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+        Debug-Output "Cannot find component service"
+        goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE)
+    set OldIOAddrValue = "0"
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+        set ValueItem = $($)
+        set ValueName = *($(ValueItem),1)
+        set ValueData = *($(ValueItem),4)
+        Ifstr(i) $(ValueName) == "INTERRUPT"
+            set IRQValue = $(ValueData)
+            Debug-Output "OEMNADEP.INF: Registry IRQ: "$(IRQValue)
+        else-ifstr(i) $(ValueName) == "IOADDRESS"
+            set IOAddrValue = $(ValueData)
+            Debug-Output "OEMNADEP.INF: Registry IOAddr: "$(IOAddrValue)
+        else-ifstr(i) $(ValueName) == "IoChannelReady"
+            set IOReadyCBI = $(ValueData)
+            Debug-Output "OEMNADEP.INF: Registry IOChannelReady: "$(IOReadyCBI)
+        else-ifstr(i) $(ValueName) == "Transceiver"
+            set TransceiverCBI = $(ValueData)
+            Debug-Output "OEMNADEP.INF: Registry Transceiver: "$(TransceiverCBI)
+        else-ifstr(i) $(ValueName) == "BusType"
+            set BusInterfaceType = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumber = $(ValueData)
+        else-ifstr(i) $(ValueName) == "OLDIOADDRESS"
+            set OldIOAddrValue = $(ValueData)
+        endif
+    EndForListDo
+    ifstr(i) $(IRQValue) == ""
+        set IRQCBI = 2
+        set IRQValue = *($(IRQList), $(IRQCBI))
+        Debug-Output "OEMNADEP.INF: Setting Default IRQ"
+    else
+        set IRQCBI = ~($(IRQList),$(IRQValue))
+    endif
+    ifstr(i) $(IOAddrValue) == ""
+        set IOAddrCBI = 1
+        set IOA

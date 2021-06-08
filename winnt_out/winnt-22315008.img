@@ -1,0 +1,62 @@
+ileMakerPro 3.0's communication with WINSPOOL,  the application can fail when performing a wide variety of operations, which include printing, using the clipboard, and opening and closing files.  FileMaker Pro 3.0 version 3 fixes this problem. The updated version is available at www.claris.com.
+
+Filewalk
+FILEWALK.EXE (version 1.0A CDRM 566200), included on the Microsoft Multimedia Development Kit compact disc, attempts direct disk access and is not supported. A working version (S/B 1.0, CDRM 837500) of this application is available from Microsoft.
+
+Flight Simulator (RISC only) 
+Will not run if sound is enabled.
+
+FlowModel
+FlowModel 2.0 does not recognize network printers. Unless a local printer is installed, FlowModel 2.0 may present an error message when started or when printer operations are chosen. 
+
+FlowModel does not let you link a FlowModel diagram to a another FlowModel diagram when run under Window NTversion 4.0.
+Contact Arcland at (610) 993-9904 for upgrade information.
+
+Framemaker versions 4.0 and 5.0
+Framemaker cannot use printer names over 32 characters. Make sure that the printer name is less than 32 characters.
+
+Harvard Graphics 4.0 for Windows 95
+When you install Harvard Graphics 4.0 for Windows 95 under Windows NT Workstation or Window NT Server version 4.0, a 5-minute tour dialog box is displayed while online registration is running. This dialog box should not appear until the registration program has completed. To work around this problem, switch back to the registration program by pressing ALT+TAB.
+
+This problem might also occur with other programs that use the InstallShield 3.0 setup engine and start programs during setup. A newer version  of InstallShield that fixes this problem is available to developers.
+
+HiJaak for Windows 95
+HiJaak for Windows 95 does not install or run under Windows NT.
+
+HiJaak Graphics Suite 95 
+HiJaak Graphics Suite 95 does not install or run under Windows NT.
+
+Ice & Fire
+Ice & Fire does not install or run under Windows NT.
+
+Intergraph G91 Display Adapters
+The Weitek-compatible display driver included with Windows NT version 4.0 does not work with the Intergraph G91 display adapters. Contact Intergraph for an updated driver.
+
+Intergraph Voxel Analyst 2.0
+
+· After creating legends, the colors in the legend may appear masked (or turned) as white.
+
+· If a dialog box in this application has pull-down list boxes,  you will see the list box tabs as two very tiny vertical gray bars. The drop-down list box displays only the file in the list box's primary selection area.
+
+· Legends cannot be moved unless the full drag option is not selected in Windows NT version 4.0. 
+To clear this option, double-click the Display icon in Control Panel. Click the Plus! tab. Clear the Show window contents while dragging option.
+
+· Using the Design Elements dialog box may cause an Access Violation in the application .
+
+Imagineer Technical
+Access violations may occur when printing. Opening the Display Manager on the Tools menu may cause an access violation. Contact Micrografx at (214) 234-2694 or online at http://www.micrografx.com for upgrade information.
+
+Instant 3D
+Instant 3D fails to save files because it interprets the Windows NT 4.0 version number incorrectly. Contact Micrografx at (214) 234-2694 or online at http://www.micrografx.com for upgrade information.
+
+Janna Contact 95
+In some versions of Janna Contact 95, Help buttons and menu selections do not open help files. Double-clicking the Janna .HLP files in Explorer opens them as expected.
+
+Janna Contact requires MFC DLLs, but early versions do not install them. MFC DLLs will be present on your system only if other applications have installed them. If other applications have installed the MFC DLLs, Janna Contact 95 will install as expected.
+
+Early versions might create access violations when exiting the tutorial. 
+
+Contact Janna Systems (3080 Yonge St., Suite 6060, Toronto ON, M4N 3N1, CANADA) for upgrade information.
+
+Kai's Power Tools
+Drop-down menus may not display correctly although 

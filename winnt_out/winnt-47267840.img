@@ -1,0 +1,101 @@
+ 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "84<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "85<cr>", 1, 02, 03, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "00<cr>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "01<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "02<cr>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "03<cr>", 1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "04<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "05<cr>", 1, 02, 00, 00,00,00,00, b0,04,00,00
+HKR, Responses, "06<cr>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "07<cr>", 1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "08<cr>", 1, 07, 00, 00,00,00,00, 00,00,00,00
+
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 00,00,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, FClass, 1, 0a,00,00,00
+HKR, Init, 2,, "AT&FF0E0Q0V0<cr>"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Responses, "16<cr>", 1, 02, 00, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "63<cr>", 1, 02, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "64<cr>", 1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "16<cr>66<cr>", 1, 02, 03, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "16<cr>67<cr>", 1, 02, 03, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "16<cr>69<cr>", 1, 02, 02, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "63<cr>66<cr>", 1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "63<cr>67<cr>", 1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "63<cr>69<cr>", 1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "64<cr>66<cr>", 1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "64<cr>67<cr>", 1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "64<cr>69<cr>", 1, 02, 02, 80,70,00,00, 00,00,00,00
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 00,00,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0a,00,00,00
+HKR, Init, 2,, "AT&FF0E0Q0V0<cr>"
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 00,00,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, FClass, 1, 0a,00,00,00
+HKR, Init, 2,, "AT&FF0E0Q0V0<cr>"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Responses, "16<cr>", 1, 02, 00, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "63<cr>", 1, 02, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "64<cr>", 1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "16<cr>66<cr>", 1, 02, 03, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "16<cr>67<cr>", 1, 02, 03, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "16<cr>69<cr>", 1, 02, 02, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "63<cr>66<cr>", 1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "63<cr>67<cr>", 1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "63<cr>69<cr>", 1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "64<cr>66<cr>", 1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "64<cr>67<cr>", 1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "64<cr>69<cr>", 1, 02, 02, 80,70,00,00, 00,00,00,00
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 00,00,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0a,00,00,00
+
+; Strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Digicom S.p.A."
+
+; Model strings
+
+Modem7="Digicom Leonardo"
+Modem6="Digicom Raffaello"
+Modem5="Digicom CCI 05"
+Modem4="Digicom CCM 44 F"
+Modem3="Digicom CCM 44 P"
+Modem2="Digicom SNM 46 F"
+Modem1="Digicom SNM 46 SR"
+
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+
+[MfgAddReg]
+HKR,, InactivityScale, 1, 3c,00,00,00

@@ -1,0 +1,94 @@
+","FIXEDFON.FON",,8514fixg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,8514sysg.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,8514oemg.fon
+
+[Font.CP437.Ini]
+system.ini,386enh,,"woafont=dosapp.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40WOA.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80WOA.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40WOA.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80WOA.FON"
+
+[Font.CP737.Ini]
+system.ini,386enh,,"woafont=dos737.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40737.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80737.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40737.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80737.FON"
+
+[Font.CP775.Ini]
+system.ini,386enh,,"woafont=app775.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40850.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80850.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40850.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80850.FON"
+
+[Font.CP850.Ini]
+system.ini,386enh,,"woafont=app850.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40850.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80850.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40850.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80850.FON"
+
+[Font.CP852.Ini]
+system.ini,386enh,,"woafont=app852.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40852.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80852.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40852.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80852.FON"
+
+[Font.CP857.Ini]
+system.ini,386enh,,"woafont=app857.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40857.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80857.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40857.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80857.FON"
+
+[Font.CP866.Ini]
+system.ini,386enh,,"woafont=app866.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40866.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80866.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40866.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80866.FON"
+
+[Font.CP869.Ini]
+system.ini,386enh,,"woafont=app869.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40869.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80869.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40869.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80869.FON"
+
+[Font.CP874.Ini]
+system.ini,386enh,,"woafont=app850.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40850.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80850.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40850.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80850.FON"
+
+
+[Font.CP1258.Ini]
+system.ini,386enh,,"woafont=app850.FON"
+system.ini,386enh,,"CGA40WOA.FON=CGA40850.FON"
+system.ini,386enh,,"CGA80WOA.FON=CGA80850.FON"
+system.ini,386enh,,"EGA40WOA.FON=EGA40850.FON"
+system.ini,386enh,,"EGA80WOA.FON=EGA80850.FON"
+
+;
+; Per-ANSI-Codepage stuff.
+;
+[Font.CP1250.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (VGA res)",,COUREE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (VGA res)",,SERIFEE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (VGA res)",,SSERIFEE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (VGA res)",,SMALLEE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,96
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,96
+
+[Font.CP1251.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (VGA res)",,COURER.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (VGA res)",,SERIFER.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (VGA res)",,SSERIFER.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (VGA res)",,SMALLER.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\M

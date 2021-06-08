@@ -1,0 +1,103 @@
+ configureadmin
+   else-Ifstr(i) $(!NTN_InstallMode) == bind
+	  	 goto BindingsSfm
+   else-Ifstr(i) $(!NTN_InstallMode) == install
+	  set StartLabel = InstallAdmin
+   else
+	   Set StartLabel = end
+   endif
+   goto $(StartLabel)
+InstallAdmin = +
+   StartWait
+   Set FLibraryErrCtl = 1
+   Set ProductTextName = $(Product$(Option)Name)
+   OpenRegKey $(!REG_H_LOCAL) "" $(SFMKeyName) $(!ACCESS) KeyProduct
+   Ifstr $(KeyProduct) != $(!KeyNull)
+	  GetRegValue $(KeyProduct) "MajorVersion" VersionInfo
+	  set VersionMajor = *($(VersionInfo), 4)
+	  GetRegValue $(KeyProduct) "MinorVersion" VersionInfo
+	  set VersionMinor = *($(VersionInfo), 4)
+	  set InstalledVersion = $(VersionMajor)"."$(VersionMinor)
+	  ifstr(i) $(ProductVersion) == $(InstalledVersion)
+		 read-syms SfmAlreadyInstalled$(!STF_LANGUAGE)
+		 Set Text = $(Version)$(ProductVersion)
+		 Shell $(SubInf), SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Text)$(ErrorString)
+		 goto end
+	  EndIf
+   EndIf
+   OpenRegKey $(!REG_H_LOCAL) "" $(ATALKKeyName) $(!ACCESS) KeyProduct
+   Ifstr $(KeyProduct) != $(!KeyNull)
+	  GetRegValue $(KeyProduct) "MajorVersion" VersionInfo
+	  set VersionMajor = *($(VersionInfo), 4)
+	  GetRegValue $(KeyProduct) "MinorVersion" VersionInfo
+	  set VersionMinor = *($(VersionInfo), 4)
+	  set InstalledVersion = $(VersionMajor)"."$(VersionMinor)
+	  ifstr(i) $(ProductVersion) == $(InstalledVersion)
+		 read-syms MiscErrorString1$(!STF_LANGUAGE)
+		 Set Text = $(Version)$(ProductVersion)$(OF)$(ProductTextName)
+		 Shell $(SubInf), SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Text)$(ErrorString)
+		 goto end
+	  EndIf
+   EndIf
+   ifstr(i) $(!NTN_InstallMode) == "install"
+      Ifstr(i) $(!DoCopy) == "YES"
+         Shell $(UtilInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+         Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Goto ShellCodeError
+         Else-Ifstr(i) $($R0) == STATUS_FAILED
+            Shell $(UtilInf) RegistryErrorString "ASK_SOURCE_FAIL"
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+            endif
+            set Error = $($R0)
+            Goto end
+         Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+            Goto end
+         Endif
+         Set SrcDir  = $($R1)
+      Endif
+   Endif
+CopyAdminFiles = +
+   install "Install-Initial"
+   ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+      Shell "" RemoveAdminFiles "INSTALL"
+      goto usercancel
+   endif
+StartInstall = +
+   Set REMOVE_FLAG = TRUE
+   Set REMOVE_SOFTWARE = {}
+   Ifstr(i) $(Option) == "SFMADM"
+   	  Set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE),$(Product$(Option)Name))
+	  Shell $(UtilInf), InstallSoftwareProduct, $(Manufacturer),$(Product$(Option)Name), $(ProductInfName)
+	  ifint $(ShellCode) != 0
+		 goto ShellCodeError
+	  endif
+	  set RegistryErrorIndex = $($R0)
+	  Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+		 CloseRegKey $($R1)
+		 CloseRegKey $($R2)
+		 goto fatalregistry
+	  Endif
+	  Set AdminProductKey       = $($R1)
+	  Set AdminNetRuleKey       = $($R2)
+	  set NewValueList = +
+                   {{Infname,0,$(!REG_VT_SZ),$(ProductInfName)},+
+                   {Title,0,$(!REG_VT_SZ), $(Product$(Option)Title)},+
+                   {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(Option)Description)},+
+                   {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)},+
+                   {MajorVersion,0,$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                   {MinorVersion,0,$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                   {InstallDate,0,$(!REG_VT_DWORD),*($(Now),1)}}
+	  Shell $(UtilInf), AddValueList, $(AdminProductKey), $(NewValueList)
+	  ifint $(ShellCode) != 0
+		 goto ShellCodeError
+	  endif
+	  set RegistryErrorIndex = $($R0)
+	  Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+		 CloseRegKey $(AdminProductKey)
+		 CloseRegKey $(AdminNetRuleKey)
+		 goto fatalregistry
+	  endif
+	  Set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}, +
+						 {Infname,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+	 

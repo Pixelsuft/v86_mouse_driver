@@ -1,0 +1,114 @@
+INF: Failed in SetCurrentLocale function"
+            goto finish_ConfigureHardware
+        endif
+    endif
+finish_ConfigureHardware = +
+    Return $(Status)
+[InitOptionVars]
+    set Status           = STATUS_FAILED
+    set OurINFOptions    = {}
+    set OemINFOptions    = {}
+    set MergedINFOptions = {}
+    set SpecialOption    = {}
+    set CurrentOption    = {}
+    set OurINFFile = $($1)".inf"
+    shell "other.inf", GetOptionsFromINF $($0) $($1) $(OurINFFile)
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set OurINFOptions = {{$(OurINFFile), $($R1), $($R2)}}
+    else
+        EndWait
+        read-syms Strings$(!STF_LANGUAGE)
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error7)
+        StartWait
+        goto finish_InitOptionVars
+    endif
+    shell "other.inf" ReturnOemOptions $($0) $($1)
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set OemINFOptions = $($R1)
+    endif
+    shell "" MergeOptions $(OurINFOptions) $(OemINFOptions)
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set MergedINFOptionList     = $($R1)
+        set MergedINFOptionTextList = $($R2)
+        set MergedINFOptions        = {$($R1), $($R2)}
+    else
+        goto finish_InitOptionVars
+    endif
+    set SubOptionList = {Video}
+    set Detected      = $($2)
+    ifcontains(i) $($1) in $(SubOptionList)
+        ifcontains(i) $(Detected) in $(MergedINFOptionList)
+        else
+            shell $(OurINFFile) MapToSupportedOption $(Detected)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "Shelling MapToSupportedOption in "$(OurINFFile)" failed"
+            else-ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                set Detected = $($R1)
+            endif
+        endif
+    endif
+    ifstr(i) $(!STF_UPGRADE) == "YES"
+        set Option = ""
+        ifstr(i) $($3) != ""
+            set Option = $($3)
+        else
+            ifstr(i) $(Detected) != ""
+                set Option = $(Detected)
+            else
+                set Option = $($4)
+            endif
+        endif
+    else
+        set Option = ""
+        ifstr(i) $(Detected) != ""
+            set Option = $(Detected)
+        else-ifstr(i) $($3) != ""
+            set Option = $($3)
+        else
+            set Option = $($4)
+        endif
+    endif
+    ifcontains(i) $(Option) in $(MergedINFOptionList)
+        set OptionText = *($(MergedINFOptionTextList), ~($(MergedINFOptionList), $(Option)))
+    else
+        set OptionText    = "Oem Installed Option"
+        set Option        = $(Option)
+        set SpecialOption = {$(Option), $(OptionText)}
+    endif
+    set CurrentOption = {$(Option), $(OptionText)}
+    set Status = STATUS_SUCCESSFUL
+finish_InitOptionVars = +
+    Return $(Status) $(OurINFOptions) $(OemINFOptions) $(MergedINFOptions) $(SpecialOption) $(CurrentOption)
+[InitListBoxVars]
+    set Status         = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    ifstr(i) $($1) != {}
+        set OptionList     = *($($1), 1)
+        set OptionTextList = *($($1), 2)
+    endif
+    ifstr(i) $($2) != {}
+        set OptionList     = >($(OptionList),     *($($2), 1))
+        set OptionTextList = >($(OptionTextList), *($($2), 2))
+    endif
+    set OptionTextList = >($(OptionTextList), $($3))
+    set Status = STATUS_SUCCESSFUL
+    Return $(Status) $(OptionList) $(OptionTextList)
+[MergeOptions]
+    set Status               = STATUS_FAILED
+    set MergedOptionList     = {}
+    set MergedOptionTextList = {}
+    ForListDo $($0)
+        set OptionList     = *($($), 2)
+        set OptionTextList = *($($), 3)
+        ForListDo $(OptionList)
+            Ifcontains $($) in $(MergedOptionList)
+            else
+                set MergedOptionList     = >($(MergedOptionList), $($))
+                set MergedOptionTextList = >($(MergedOptionTextList), *($(OptionTextList), $(#)))
+            endif
+        EndForListDo
+    EndForListDo
+    ForListDo $($1)
+        set OptionList     = *($($), 2)
+        set OptionTextList = *($($),

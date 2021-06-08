@@ -1,0 +1,121 @@
+$(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatalinfo = +
+    Set CommonStatus = STATUS_USERCANCEL
+    Set Severity = STATUS
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+   goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    freeLibrary $(!TCPCFG_HANDLE)
+    goto term
+term = +
+    Return $(CommonStatus)
+[CreateEventLog]
+    read-syms GeneralConstants
+    set NameOfService = $($0)
+    set EventFile     = $($1)
+    set TypeSupported = $($2)
+    OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\EventLog\System" $(MAXIMUM_ALLOWED) KeyEventLog
+    Ifstr $(KeyEventLog) != ""
+        OpenRegKey $(KeyEventLog) "" $(NameOfService) $(MAXIMUM_ALLOWED) KeyService
+           ifstr(i) $(KeyService) == ""
+               CreateRegKey $(KeyEventLog) {$(NameOfService),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyService
+           endif
+           Ifstr $(KeyService) != ""
+               SetRegValue $(KeyService) {EventMessageFile,$(NoTitle),$(!REG_VT_EXPAND_SZ),$(EventFile)}
+               SetRegValue $(KeyService) {TypesSupported,$(NoTitle),$(!REG_VT_DWORD),$(TypeSupported)}
+           endif
+        Endif
+    endif
+CreateEventLogEnd = +
+    return NO_ERROR
+[GetFilesSize]
+    set FileSizeList = >(>(>(^(Files-TC,3),^(Files-TCPIPEXE,3)),^(Files-ETC,3)),^(Files-LMHOST,3))
+    set TotalSize = 0
+    ForListDo $(FileSizeList)
+        ForListDo $($)
+            Split-String $($) "=" SplitString
+            set Size = *($(SplitString),3)
+            set-add TotalSize = $(TotalSize) $(Size)
+        EndForListDo
+    EndForListDo
+    set-div SizeInK = $(TotalSize) 1024
+    return $(SizeInK)
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-TC $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+        AddSectionFilesToCopyList Files-TCPIPEXE $(SrcDir) $(!STF_WINDOWSSYSPATH)
+        AddSectionFilesToCopyList Files-ETC $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers\etc
+        AddSectionFilesToCopyList Files-LMHOST $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers\etc
+    endif
+    ifstr(i) $(Do

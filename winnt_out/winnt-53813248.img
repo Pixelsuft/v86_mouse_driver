@@ -1,0 +1,238 @@
+ys.fon
+coure.fon
+serife.fon
+smalle.fon
+sserife.fon
+
+[Font.CP861.Files.120]
+8514oem.fon
+8514fix.fon
+8514sys.fon
+courf.fon
+seriff.fon
+smallf.fon
+sseriff.fon
+
+[Font.CP861.96]
+CopyFiles = Font.CP861.Files,Font.CP861.Files.96
+DelReg = Font.CP1252.Reg.120
+AddReg = Font.CP1252.Reg.96
+AddReg = Font.CP861.Reg.96
+UpdateInis=Font.CP850.Ini
+
+[Font.CP861.120]
+CopyFiles = Font.CP861.Files,Font.CP861.Files.120
+DelReg = Font.CP1252.Reg.96
+AddReg = Font.CP1252.Reg.120
+AddReg = Font.CP861.Reg.120
+UpdateInis=Font.CP850.Ini
+
+;
+; CP 863/1252
+;
+[Font.CP863.Files]
+app850.fon
+cga40850.fon
+cga80850.fon
+ega40850.fon
+ega80850.fon
+
+[Font.CP863.Files.96]
+vga863.fon
+vgafix.fon
+vgasys.fon
+coure.fon
+serife.fon
+smalle.fon
+sserife.fon
+
+[Font.CP863.Files.120]
+8514oem.fon
+8514fix.fon
+8514sys.fon
+courf.fon
+seriff.fon
+smallf.fon
+sseriff.fon
+
+[Font.CP863.96]
+CopyFiles = Font.CP863.Files,Font.CP863.Files.96
+DelReg = Font.CP1252.Reg.120
+AddReg = Font.CP1252.Reg.96
+AddReg = Font.CP863.Reg.96
+UpdateInis=Font.CP850.Ini
+
+[Font.CP863.120]
+CopyFiles = Font.CP863.Files,Font.CP863.Files.120
+DelReg = Font.CP1252.Reg.96
+AddReg = Font.CP1252.Reg.120
+AddReg = Font.CP863.Reg.120
+UpdateInis=Font.CP850.Ini
+
+;
+; CP 865/1252
+;
+[Font.CP865.Files]
+app850.fon
+cga40850.fon
+cga80850.fon
+ega40850.fon
+ega80850.fon
+
+[Font.CP865.Files.96]
+vga865.fon
+vgafix.fon
+vgasys.fon
+coure.fon
+serife.fon
+smalle.fon
+sserife.fon
+
+[Font.CP865.Files.120]
+8514oem.fon
+8514fix.fon
+8514sys.fon
+courf.fon
+seriff.fon
+smallf.fon
+sseriff.fon
+
+[Font.CP865.96]
+CopyFiles = Font.CP865.Files,Font.CP865.Files.96
+DelReg = Font.CP1252.Reg.120
+AddReg = Font.CP1252.Reg.96
+AddReg = Font.CP865.Reg.96
+UpdateInis=Font.CP850.Ini
+
+[Font.CP865.120]
+CopyFiles = Font.CP865.Files,Font.CP865.Files.120
+DelReg = Font.CP1252.Reg.96
+AddReg = Font.CP1252.Reg.120
+AddReg = Font.CP865.Reg.120
+UpdateInis=Font.CP850.Ini
+
+;
+; CP 866/1251
+;
+[Font.CP866.Files]
+app866.fon
+cga40866.fon
+cga80866.fon
+ega40866.fon
+ega80866.fon
+
+[Font.CP866.Files.96]
+vga866.fon
+vgafixr.fon
+vgasysr.fon
+courer.fon
+serifer.fon
+smaller.fon
+sserifer.fon
+
+[Font.CP866.Files.120]
+8514oemr.fon
+8514fixr.fon
+8514sysr.fon
+courfr.fon
+seriffr.fon
+smallfr.fon
+sseriffr.fon
+
+[Font.CP866.96]
+CopyFiles = Font.CP866.Files,Font.CP866.Files.96
+DelReg = Font.CP1251.Reg.120
+AddReg = Font.CP1251.Reg.96
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP866.Reg.96
+UpdateInis=Font.CP866.Ini
+
+[Font.CP866.120]
+CopyFiles = Font.CP866.Files,Font.CP866.Files.120
+DelReg = Font.CP1251.Reg.96
+AddReg = Font.CP1251.Reg.120
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP866.Reg.120
+UpdateInis=Font.CP866.Ini
+
+;
+; CP 869/1253
+;
+[Font.CP869.Files]
+app869.fon
+cga40869.fon
+cga80869.fon
+ega40869.fon
+ega80869.fon
+
+[Font.CP869.Files.96]
+vga869.fon
+vgafixg.fon
+vgasysg.fon
+coureg.fon
+serifeg.fon
+smalleg.fon
+sserifeg.fon
+
+[Font.CP869.Files.120]
+8514oemg.fon
+8514fixg.fon
+8514sysg.fon
+courfg.fon
+seriffg.fon
+smallfg.fon
+sseriffg.fon
+
+[Font.CP869.96]
+CopyFiles = Font.CP869.Files,Font.CP869.Files.96
+DelReg = Font.CP1253.Reg.120
+AddReg = Font.CP1253.Reg.96
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP869.Reg.96
+UpdateInis=Font.CP869.Ini
+
+[Font.CP869.120]
+CopyFiles = Font.CP869.Files,Font.CP869.Files.120
+DelReg = Font.CP1253.Reg.96
+AddReg = Font.CP1253.Reg.120
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP869.Reg.120
+UpdateInis=Font.CP869.Ini
+
+;
+; CP 874/874 Thai
+;
+[Font.CP874.Files]
+app850.fon
+cga40850.fon
+cga80850.fon
+ega40850.fon
+ega80850.fon
+
+[Font.CP874.Files.96]
+vga850.fon
+vgafix.fon
+vgasys.fon
+coure.fon
+serife.fon
+smalle.fon
+sserife.fon
+
+[Font.CP874.Files.120]
+8514oem.fon
+8514fix.fon
+8514sys.fon
+courf.fon
+seriff.fon
+smallf.fon
+sseriff.fon
+
+[Font.CP874.96]
+CopyFiles = Font.CP874.Files,Font.CP874.Files.96
+DelReg = Font.CP874.Reg.120
+AddReg = Font.CP874.Reg.96
+UpdateInis=Font.CP874.Ini
+
+[Font.CP874.120]
+CopyFiles = Font.CP874.Files,Font.CP874.Files.120
+DelReg = Font.C

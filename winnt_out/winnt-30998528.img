@@ -1,0 +1,65 @@
+       = U1200XL4.PPD
+"Unity 1800PM-R"                                       = U1800PMR.PPD
+"Unity 1800XL"                                         = U1800XL.PPD
+"Unity 1800XL-O"                                       = U1800XLO.PPD
+
+[Lexmark]
+"Lexmark 2380 Plus"                                    = IBM238X.DLL
+"Lexmark 2381 Plus"                                    = IBM238X.DLL
+"Lexmark 2390 Plus"                                    = IBM239X.DLL
+"Lexmark 2391 Plus"                                    = IBM239X.DLL
+"Lexmark 4039 Plus PS"                                 = LEX4039P.PPD
+"Lexmark 4039 LaserPrinter Plus"                       = PCL5EMS.DLL
+"Lexmark Color 4079 plus PS"                           = LEX4079P.PPD
+"Lexmark ExecJet IIc"                                  = HPDSKJET.DLL
+"Lexmark Optra"                                        = OPTRA.DLL
+"Lexmark Optra PS"                                     = LEXOPTRA.PPD
+"Lexmark Optra Plus"                                   = OPTRA.DLL
+"Lexmark Optra Plus PS"                                = LOPTRAP.PPD
+"Lexmark Optra L Series"                               = OPTRA.DLL
+"Lexmark Optra L Series PS"                            = LEXOPTRA.PPD
+"Lexmark Optra L Plus Series"                          = OPTRA.DLL
+"Lexmark Optra L Plus Series PS"                       = LOPTRAP.PPD
+"Lexmark Optra R Series"                               = OPTRA.DLL
+"Lexmark Optra R Series PS"                            = LEXOPTRA.PPD
+"Lexmark Optra R Plus Series"                          = OPTRA.DLL
+"Lexmark Optra R Plus Series PS"                       = LOPTRAP.PPD
+"Lexmark Optra C"                                      = OPTRA.DLL
+"Lexmark Optra C PS"                                   = LOPTRAC.PPD
+"Lexmark Optra E"                                      = OPTRA.DLL
+"Lexmark Optra Ep"                                     = OPTRA.DLL
+"Lexmark Optra Ep PS"                                  = LOPTRAEP.PPD
+"Lexmark Optra N"                                      = OPTRA.DLL
+"Lexmark Optra N PS"                                   = LOPTRAN.PPD
+"Lexmark ValueWriter 300"                              = IBMPPDSL.DLL
+"Lexmark ValueWriter 600"                              = PCL5MS.DLL
+
+[Linotronic]
+"Linotronic 100 v42.5"                                 = L100_425.PPD
+"Linotronic 200 v49.3"                                 = L200_493.PPD
+"Linotronic 230 v49.3"                                 = L200_493.PPD
+"Linotronic 230 v52.3"                                 = LH230__1.PPD
+"Linotronic 260 v52.3"                                 = LH260__1.PPD
+"Linotronic 300 v47.1"                                 = L300_471.PPD
+"Linotronic 300 v49.3"                                 = L300_493.PPD
+"Linotronic 300 v52.3"                                 = LH300__1.PPD
+"Linotronic 330 v52.3"                                 = LH330__1.PPD
+"Linotronic 330-RIP 30 v52.3"                          = LH330__1.PPD
+"Linotronic 500 v49.3"                                 = L500_493.PPD
+"Linotronic 500 v52.3"                                 = LH500__1.PPD
+"Linotronic 530 v52.3"                                 = LH530__1.PPD
+"Linotronic 530-RIP 30 v52.3"                          = LH530__1.PPD
+"Linotronic 630 v52.3"                                 = LH630__1.PPD
+"Linotronic 830 v52.3"                                 = LH830__1.PPD
+"Linotronic 930 v52.3"                                 = LH930__1.PPD
+"Linotronic Pr60 v52.3"                                = LHPR60_1.PPD
+"HerkulesPMv2013"                                      = LHHERK_1.PPD
+"Quasar v2013"                                         = LHQUAS_1.PPD
+
+[Mannesmann]
+"Mannesmann Tally MT 82"                               = MANTAL24.DLL
+"Mannesmann Tally MT 90"                               = MANTAL90.DLL
+"Mannesmann Tally MT 91"                               = CANON330.DLL
+"Mannesmann Tally MT 92"                               = HPDSKJET.DLL
+"Mannesmann Tally MT 92C"                              = HPDSKJET.DLL
+"Mannesmann Tally MT 93"

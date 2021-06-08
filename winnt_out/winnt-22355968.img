@@ -1,0 +1,67 @@
+
+Symantec C++ 7.2
+· The 16-bit IDE interprets the Windows NT version incorrectly and displays user interface elements incorrectly. The 32-bit IDE interprets the Windows NT version number incorrectly and looks for the wrong filenames when you chose a Help menu option or click a Help button in a dialog box. You can add the necessary help files by following the "Instructions for users running NT 3.50 only" in the Using Symantec C++ Help on Windows NT section of the Readme.txt file located on the Symantec C++ CD in the \sc\readme directory.
+
+· When setting the colors using the Color tab in the Settings dialog box in the 16-bit IDE, many of the color changes in the color selection boxes are not accurately reflected in the color boxes of the dialog boxes or in the 16-bit IDE itself. (The Settings dialog box is accessed by clicking Environment Setting on the Environment menu.)
+
+
+TabWorks
+TabWorks shows all available drives as icons. Although each icon is associated with the correct drive, TabWorks displays the icons with the same label.  TabWorks may not recognize local or network printers and print options might not be available. 
+
+TabWorks detects applications only in the current user's groups, not in common groups.
+
+Contact Xsoft at 1(800) 909-4446 for update information.
+
+TapCIS
+The installation command window does not resize correctly. Change your command window size to 80 x 25.
+
+TelcomFax 3.0 
+Installing the Print-to-Fax driver in this application can cause problems with the Windows NT Printers folder. For more information, contact Telcom at http://www.ltc.com.
+
+Thinkin' Things Collection 1
+See "Software Applications by Edmark" earlier in this document. 
+
+US Atlas 3.1.0, The Software Toolworks
+The application may fail when printing to a printer whose port name contains more than 12 characters. To avoid this problem, make sure that the printer name is less than 12 characters.
+
+Viewer 95
+Viewer 95 installs but does not run. Viewer 95 requires MFC version 3.0 DLL files but does not install them. For more information, see “Windows 95 Applications and Microsoft Foundation Class Libraries” earlier in this document. The application might terminate unexpectedly after viewing several files or after scrolling through a large file. Contact Mastersoft at (602) 948-4888 for upgrade information.
+
+Visio 3.0 & 4.0
+A 32-bit version of Visio 3.0 was released in limited distribution. When started under Windows NT version 4.0, it displays an error box saying that Windows 95 or Windows NT version 3.5 or higher is required.
+
+VISIO 4.0 32-bit will not install on RISC platforms. You can install the 16-bit version of Visio 4.0. From the command line type,
+setup /16
+
+The Visio 4.0 Unistall program does not list itself in Add/Remove Programs in the Control Panel folder.
+
+Summary of Visio Installation options
+
+
+Visio 3.0
+16-bit on x86 compatible >yes
+16-bit on RISC >yes
+32-bit on x86 compatible >no
+32-bit on RISC >no
+Visio 4.0	
+16-bit on x86 compatible >yes
+16-bit on RISC >yes
+32-bit on x86 compatible >yes 
+32-bit on RISC >no
+	
+Visual Slick Edit
+Visual Slick Edit may terminate unexpectedly when updating its Help files index. It may appear to create a help file index during installation, then report that no index exists when you access Help. Older versions of Visual Slick Edit cannot index the version 4.0 Help files found in some applications, such as the Win32 SDK. Contact MicroEdge at www.slickedit.com for upgrade information.
+
+Visual Staff Scheduler
+Printing a list of legends (abbreviations) may cause the program to stop unexpectedly.
+
+WinZip
+Early versions of WinZip may exhibit control problems and may not recognize long filenames or directory names. Contact Nico Mak Computing for upgrade information.
+
+WordPerfect 6.0a for Windows 
+In order for the tutorial to select the correct menu items, the menu font should be the default style and size.
+
+WordPerfect 6.1 for Windows 
+The tutorial is not supported.
+
+WordPerfect's "high" Print Quality selection found under the Print, Document Se

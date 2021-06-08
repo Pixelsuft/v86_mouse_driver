@@ -1,0 +1,175 @@
+protocol_on>=&Q6
+<protocol_off>=&Q0
+<autodial_on>=ATDT
+<autodial_off>=AT X3 D
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=960
+
+COMMAND_INIT=AT&F&C1&D2 W1 X4 V1 S0=0 S2=128 S7=55 <cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[AT&T 2224 CEO]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=AT X3 D
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><speaker><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[AT&T Comsphere 3810]
+ALIAS=AT&T Comsphere 3820
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=3810
+
+;----------------------------------------
+[AT&T Comsphere 3811]
+ALIAS=AT&T Comsphere 3820
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=3811
+
+;----------------------------------------
+[AT&T Comsphere 3820]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1"H3
+<compression_off>=%C0"H0
+<protocol_on>=\\N5
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=3820
+
+COMMAND_INIT=AT&F&C1&D2 V1 X7 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[AT&T Comsphere 3810 Plus 288]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1"H3
+<compression_off>=%C0"H0
+<protocol_on>=\\N5
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=3980-A1-401
+
+COMMAND_INIT=AT&F&C1&D2 V1 X7 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+;----------------------------------------
+[AT&T Comsphere 3830]
+ALIAS=AT&T Comsphere 3820
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=3830
+
+;----------------------------------------
+[AT&T Dataport]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N5
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=3710
+DETECT_RESPONSE=3721
+
+COMMAND_INIT=AT&F&C1&D2 V1 X7 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[AT&T Dataport Express]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=FW Level 091394
+
+COMMAND_INIT=AT&F&C1&D2 V1 X7 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[AT&T Dataport 288]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=1

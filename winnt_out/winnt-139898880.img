@@ -1,0 +1,91 @@
+                                      $(NewValueList)
+                    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                        Debug-Output "UpdateCPList:AddValueList bombed out"
+                        goto UpdateCPListEnd
+                    endif
+                    set RegistryErrorIndex = $($R0)
+                    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+                        goto UpdateCPListEnd
+                    endif
+                    CloseRegKey $(KeyCp)
+                else
+                    Debug-Output "UpdateCPList:error creating key"
+                endif
+            endif
+        endforlistdo
+        CloseRegKey $(KeyRasManPPP)
+    else
+        Debug-Output "UpdateCPList:error opening RASMAN\PPP key"
+        goto UpdateCPListEnd
+    endif
+    set Status = STATUS_SUCCESSFUL
+UpdateCPListEnd =+
+    Debug-Output "UpdateCPList: exit"
+    return $(Status)
+[UpdateSoftwareType]
+    Debug-Output "UpdateSoftwareType: entry"
+    set ProductKeyName = $(!NTN_SoftwareBase)"\Microsoft\RAS\CurrentVersion"
+    set Status = STATUS_FAILED
+    set KeyCurrentVersion = ""
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(!MAXIMUM_ALLOWED) KeyCurrentVersion
+    ifstr $(KeyCurrentVersion) == ""
+       Debug-Output "OEMNSVRA.INF:UpdateSoftwareType: couldn't open "$(ProductKeyName)
+       goto UpdateSoftwareTypeEnd
+    endif
+    SetRegValue $(KeyCurrentVersion) {SoftwareType, 0, $(!REG_VT_SZ), "service" }
+    CloseRegKey $(KeyCurrentVersion)
+    set Status = STATUS_SUCCESSFUL
+UpdateSoftwareTypeEnd=+
+    Debug-Output "UpdateSoftwareType: exit"
+    return $(Status)
+[UpdateLLInterface]
+    Debug-Output "UpdateLLInterface: entry"
+    set Status = STATUS_FAILED
+    set KeyNull = ""
+    set LLInterface = "\Device\RASARP"
+    set IPLinkageKeyName = $(!NTN_ServiceBase)"\TCPIP\Linkage"
+    OpenRegKey $(!REG_H_LOCAL) "" $(IPLinkageKeyName) $(!MAXIMUM_ALLOWED) KeyIpLinkage
+    ifstr $(KeyIpLinkage) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF:UpdateLLInterface: couldn't open IP Linkage key"
+       goto UpdateLLInterfaceEnd
+    endif
+    set NdisWanList = {}
+    GetRegValue    $(KeyIpLinkage) "Bind" TmpList
+    ForListDo *($(TmpList),4)
+        Split-String $($), "\", BindList
+        QueryListSize ListSize $(BindList)
+        set ServiceName = *($(BindList), $(ListSize))
+        LibraryProcedure Result $(!LIBHANDLE) SetupStrncmp $(ServiceName) "NdisWan" 7
+        ifint $(Result) == 0
+            set NdisWanList = >($(NdisWanList), $(ServiceName))
+        endif
+    EndForListDo
+    CloseRegKey $(KeyIpLinkage)
+    QueryListSize ListSize $(NdisWanList)
+    ifint $(ListSize) >= 1
+	ForListDo $(NdisWanList)
+        set ServiceKeyName = $(!NTN_ServiceBase)"\"$($)"\Parameters\TCPIP"
+	    OpenRegKey $(!REG_H_LOCAL) "" $(ServiceKeyName) $(!MAXIMUM_ALLOWED) KeyNdisWan
+	    ifstr $(KeyNdisWan) != $(KeyNull)
+		    SetRegValue $(KeyNdisWan) {IPAddress, 0, +
+                              $(!REG_VT_MULTI_SZ), {"0.0.0.0"}}
+		    SetRegValue $(KeyNdisWan) {SubnetMask, 0, +
+                              $(!REG_VT_MULTI_SZ), {"0.0.0.0"}}
+		    SetRegValue $(KeyNdisWan) {DefaultGateway, 0, +
+                              $(!REG_VT_MULTI_SZ), {""}}
+		    SetRegValue $(KeyNdisWan) {LLInterface, 0,+
+                                         $(!REG_VT_SZ), $(LLInterface)}
+		    SetRegValue $(KeyNdisWan) {EnableDHCP, 0, +
+                                          $(!REG_VT_DWORD), 0}
+        else
+            CreateRegKey $(!REG_H_LOCAL) +
+                         {$(ServiceKeyName),0,GenericClass} "" +
+		                  $(!MAXIMUM_ALLOWED) "" KeyNdisWan
+		    ifstr $(KeyNdisWan) != $(KeyNull)
+		        SetRegValue $(KeyNdisWan) {IPAddress, 0, +
+                                      $(!REG_VT_MULTI_SZ), {"0.0.0.0"}}
+		        SetRegValue $(KeyNdisWan) {SubnetMask, 0, +
+                              $(!REG_VT_MULTI_SZ), {"0.0.0.0"}}
+		        SetRegValue $(KeyNdisWan) {DefaultGateway, 0, +
+                              $(!REG_VT_MULTI_SZ), {""}}
+		 

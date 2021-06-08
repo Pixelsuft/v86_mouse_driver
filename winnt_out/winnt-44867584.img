@@ -1,0 +1,48 @@
+ 02, A0,41,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 19200 REL/V42<cr><lf>", 1, 02, 02, 00,4B,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200 REL/V42BIS<cr><lf>",  1, 02, 03, B0,04,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 2400 REL/V42BIS<cr><lf>",  1, 02, 03, 60,09,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 4800 REL/V42BIS<cr><lf>",  1, 02, 03, C0,12,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 7200 REL/V42BIS<cr><lf>",  1, 02, 03, 20,1C,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 9600 REL/V42BIS<cr><lf>",  1, 02, 03, 80,25,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 12000 REL/V42BIS<cr><lf>", 1, 02, 03, E0,2E,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 14400 REL/V42BIS<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 16800 REL/V42BIS<cr><lf>", 1, 02, 03, A0,41,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 19200 REL/V42BIS<cr><lf>", 1, 02, 03, 00,4B,00,00, 00,00,00,00   
+
+HKR, Responses, "<cr><lf>CONNECT 4800/REL-LAPM<cr><lf>",  1, 02, 02, C0,12,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 7200/REL-LAPM<cr><lf>",  1, 02, 02, 20,1C,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 9600/REL-LAPM<cr><lf>",  1, 02, 02, 80,25,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 12000/REL-LAPM<cr><lf>", 1, 02, 02, E0,2E,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 14400/REL-LAPM<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 16800/REL-LAPM<cr><lf>", 1, 02, 02, A0,41,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 19200/REL-LAPM<cr><lf>", 1, 02, 02, 00,4B,00,00, 00,00,00,00   
+
+HKR, Responses, "<cr><lf>CONNECT 4800/REL-LAPM V.42 BIS<cr><lf>",  1, 02, 03, C0,12,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 7200/REL-LAPM V.42 BIS<cr><lf>",  1, 02, 03, 20,1C,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 9600/REL-LAPM V.42 BIS<cr><lf>",  1, 02, 03, 80,25,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 12000/REL-LAPM V.42 BIS<cr><lf>", 1, 02, 03, E0,2E,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 14400/REL-LAPM V.42 BIS<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 16800/REL-LAPM V.42 BIS<cr><lf>", 1, 02, 03, A0,41,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 19200/REL-LAPM V.42 BIS<cr><lf>", 1, 02, 03, 00,4B,00,00, 00,00,00,00   
+
+HKR, Responses, "<cr><lf>CARRIER 300<cr><lf>",    1, 01, 00, 2C,01,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>CARRIER 1200<cr><lf>",   1, 01, 00, B0,04,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>CARRIER 2400<cr><lf>",   1, 01, 00, 60,09,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>CARRIER 4800<cr><lf>",   1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 7200<cr><lf>",   1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 9600<cr><lf>",   1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 12000<cr><lf>",  1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 14400<cr><lf>",  1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 16800<cr><lf>",  1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 19200<cr><lf>",  1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 21600<cr><lf>",  1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 24000<cr><lf>",  1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 26400<cr><lf>",  1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 28800<cr><lf>",  1, 01, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200TX/75RX V.23<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>CARRIER 75TX/1200RX V.23<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00    
+
+HKR, Responses, "<cr><lf>COMPRESSION: CLASS 5<cr><lf>",  1, 01, 01, 00,00,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>COMPRESSION:CLASS 5<cr><lf>",   1, 01, 01, 00,00,00,00, 00,00,00,00 

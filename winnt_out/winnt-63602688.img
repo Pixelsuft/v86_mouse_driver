@@ -1,0 +1,101 @@
+e
+        set DlgTemplate = "MDGISA"
+    endif
+    Debug-Output "MADGE: DlgTemplate = "$(DlgTemplate)
+    ifstr(i) $(Option) == "MSMDGMPPCI"
+        set Combo8Label = $(PciCombo8Label)
+    endif
+    LoadLibrary "x" $(DialogDllName) MdgDialog
+    EndWait
+    ui start "InputDlg" $(MdgDialog)
+    StartWait
+    ifstr(i) $(DLGEVENT) == "EXIT"
+	    set CommonStatus = STATUS_USERCANCEL
+	    ui pop 1
+	    FreeLibrary $(MdgDialog)
+	    goto End
+    else-ifstr(i) $(DLGEVENT) != "CONTINUE"
+	    ui pop 1
+	    FreeLibrary $(MdgDialog)
+	    goto End
+    endif
+    set IrqNumber    = $(Combo1Out)
+    set IoLocation   = $(Combo2Out)
+    set DmaChannel   = $(Combo3Out)
+    set RxTxSlots    = $(Combo4Out)
+    set StatsFlag    = $(Combo5Out)
+    set MpFlag       = $(Combo7Out)
+    set SlotNumber   = $(Combo8Out)
+    set SpeedFlag    = $(Combo9Out)
+    set MaxFrameSize = *($(EditTextOut), 1)
+    set LAA          = *($(EditTextOut), 2)
+    ui pop 1
+    FreeLibrary $(MdgDialog)
+    Debug-Output "MADGE: SlotNumber = "$(SlotNumber)
+    Debug-Output "MADGE: IoLocation = "$(IoLocation)
+    Debug-Output "MADGE: IrqNumber  = "$(IrqNumber)
+    Debug-Output "MADGE: DmaChannel = "$(DmaChannel)
+    Debug-Output "MADGE: MpFlag     = "$(MpFlag)
+    Debug-Output "MADGE: RxTxSlots  = "$(RxTxSlots)
+    Debug-Output "MADGE: StatsFlag  = "$(StatsFlag)
+    ifcontains(i) $(Option) not-in $(SlotNumberAdapters)
+        set IoLocation    = *($(IoRawList),~($(IoUserList),$(IoLocation)))
+        set OldIoLocation = *($(IoRawList),~($(IoUserList),$(OldIoLocation)))
+        set IrqNumber     = *($(IrqRawList),~($(IrqUserList),$(IrqNumber)))
+        set OldIrqNumber  = *($(IrqRawList),~($(IrqUserList),$(OldIrqNumber)))
+    else
+        set SlotNumber    = *($(SlotRawList),~($(SlotUserList),$(SlotNumber)))
+        set OldSlotNumber = *($(SlotRawList),~($(SlotUserList),$(OldSlotNumber)))
+    endif
+    set DmaChannel    = *($(DmaRawList),~($(DmaUserList),$(DmaChannel)))
+    set OldDmaChannel = *($(DmaRawList),~($(DmaUserList),$(OldDmaChannel)))
+    set MpFlag        = *($(MpRawList),~($(MpUserList),$(MpFlag)))
+    set OldMpFlag     = *($(MpRawList),~($(MpUserList),$(OldMpFlag)))
+    set StatsFlag     = *($(StatsRawList),~($(StatsUserList),$(StatsFlag)))
+    set RxTxSlots     = *($(RxTxRawList),~($(RxTxUserList),$(RxTxSlots)))
+    set SpeedFlag     = *($(SpeedRawList),~($(SpeedUserList),$(SpeedFlag)))
+    Debug-Output "MADGE: SlotNumber = "$(SlotNumber)
+    Debug-Output "MADGE: IoLocation = "$(IoLocation)
+    Debug-Output "MADGE: IrqNumber  = "$(IrqNumber)
+    Debug-Output "MADGE: DmaChannel = "$(DmaChannel)
+    Debug-Output "MADGE: MpFlag     = "$(MpFlag)
+    Debug-Output "MADGE: RxTxSlots  = "$(RxTxSlots)
+    Debug-Output "MADGE: StatsFlag  = "$(StatsFlag)
+    EndWait
+Adapter_Verify = +
+    StartWait
+    ifstr $(LAA) != ""
+        LoadLibrary "x" $(DialogDllName) MdgDialog
+	    set FLibraryErrCtl = 1
+	    LibraryProcedure MdgResult $(MdgDialog) MadgeLAACheck $(LAA)
+	    set FLibraryErrCtl = 0
+        FreeLibrary $(MdgDialog)
+    	ifstr $(MdgResult) != "MADGE_STATUS_SUCCESS"
+	        set Error = $(MdgResult)
+	        goto Non_Fatal 
+	    endif
+    endif
+    ifint $(MaxFrameSize) > 17839
+	    set MaxFrameSize = 17839
+	    set Error        = $(TRIMMED_MFS)
+	    set From         = Update_Registry
+	    goto Non_Fatal_Info
+    endif
+    ifstr(i) $(!STF_NCDETINFO) == {}
+        Shell $(UtilityInf), GetBusTypeDialog, $(ProductHardware$(Option)Description) $(BusNumber)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    	    goto Shell_Code_Error
+        endif
+        set BusInterfaceType = $($R1)
+        set BusNumber = $($R2)
+    else
+        set BusInterfaceType = *($(!STF_NCDETINFO),5)
+        set BusNumber = *($(!STF_NCDETINFO),6)
+    endif
+adapterverify = +
+    Debug-Output "At adapterverify"
+    Shell "" DebugConfiguration "after running dialog"
+    Ifstr(i) $(AdapterDetected) != TRUE
+        Goto Update_Registry
+    Endif
+    Debug-Output "OEMNADMA.INF: Calling Param_Verify

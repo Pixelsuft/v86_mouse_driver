@@ -1,0 +1,114 @@
+                   = ""
+    ExitCodeOk              = 0
+    ExitCodeCancel          = 1
+    ExitCodeFatal           = 2
+    KeyNull                 = ""
+    MAXIMUM_ALLOWED         = 33554432
+    SERVICE_NO_CHANGE       = 4294967295
+    RegistryErrorIndex      = NO_ERROR
+    KeyProduct              = ""
+    KeyParameters           = ""
+    TRUE                    = 1
+    FALSE                   = 0
+    NoTitle                 = 0
+    ExitState               = "Active"
+    OldVersionExisted       = $(FALSE)
+    DriverPath              = $(!STF_NTPATH)\drivers
+[Date]
+    Now                     = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    Read-Syms Identification
+    Set Status      = STATUS_SUCCESSFUL
+    Set Identifier  = $(OptionType)
+    Set Media       = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    Set Status          = STATUS_FAILED
+    Set OptionList      = {}
+    Set OptionTextList  = {}
+    Set LanguageList    = ^(LanguagesSupported, 1)
+    IfContains(i) $($0) in $(LanguageList)
+        IfStr(i) $($1) == ""
+            GoTo SetOptions
+        EndIf
+        Set PlatformList = ^(PlatformsSupported, 1)
+        IfContains(i) $($1) in $(PlatformList)
+            GoTo SetOptions
+        Else
+            Set Status = STATUS_NOTSUPPORTED
+            GoTo ExitReturnOptions
+        EndIf
+    Else
+        Set Status = STATUS_NOLANGUAGE
+        GoTo ExitReturnOptions
+    EndIf
+SetOptions = +
+    Set OptionList     = ^(Options, 1)
+    Set OptionTextList = ^(OptionsText$($0), 1)
+    Set Status         = STATUS_SUCCESSFUL
+ExitReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    Set Status   = STATUS_FAILED
+    Set Option   = $($1)
+    Set SrcDir   = $($2)
+    Set RasDir   = $($2)
+    Set AddCopy  = $($3)
+    Set DoCopy   = $($4)
+    Set DoConfig = $($5)
+    Set LanguageList = ^(LanguagesSupported, 1)
+    IfContains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    EndIf
+    Set-Subst LF = "\n"
+    Read-Syms GeneralConstants
+    Read-Syms FileConstants
+    Read-Syms DialogConstants$(!STF_LANGUAGE)
+    Read-Syms SMANFileConstants
+    IfStr(i) $(!NTN_Origination) == "NCPA"
+        Set Continue = $(OK)
+    EndIf
+    Read-Syms FileConstants$(!STF_LANGUAGE)
+    Detect Date
+    Set-Title  $(FunctionTitle)$(Option)
+    Read-Syms SMANFileConstants$(!STF_LANGUAGE)
+    Set to   = Begin
+    Set from = Begin
+    Set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Set ActivateDetection = FALSE
+    IfStr(i) $(!NTN_InstallMode) == deinstall
+        Set StartLabel = RemoveAdapter
+    Else-IfStr(i) $(!NTN_InstallMode) == Update
+        Set StartLabel = UpgradeSoftware
+    Else-IfStr(i) $(!NTN_InstallMode) == bind
+        Set StartLabel = BindingAdapter
+    Else-IfStr(i) $(!NTN_InstallMode) == configure
+        Set StartLabel = ConfigureAdapter
+        Set ActivateDetection = TRUE
+        Set CommonStatus = STATUS_REBOOT
+        IfStr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output $(InfName)": Cannot configure the EtherWORKS 3 driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output $(InfName)": ShellCode error: cannot get an error string."
+                GoTo ShellCodeError
+            EndIf
+            Set Error = $($R0)
+            Set from = end
+            Set to = end
+            GoTo NonFatalInfo
+        EndIf
+    Else
+        Set StartLabel = InstallAdapter
+        Set ActivateDetection = TRUE
+        Set OEM_ABANDON_OPTIONS = {}
+        Set OEM_ABANDON_SOFTWARE = FALSE
+        Set OEM_ABANDON_ON = TRUE
+        Set OEM_ABANDON_PPTP_SOTWARE = FALSE
+    EndIf
+    Debug-Output $(InfName)": =================================================="
+    Debug-Output $(InfName)": STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output $(InfName)": STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    D

@@ -1,0 +1,56 @@
+OEMFONT.FON",,vga866.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafixr.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasysr.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga866.fon
+
+[Font.CP857.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafixt.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasyst.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga857.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafixt.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasyst.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga857.fon
+
+[Font.CP860.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga860.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga860.fon
+
+[Font.CP861.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga861.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga861.fon
+
+[Font.CP863.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga863.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga863.fon
+
+[Font.CP865.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga865.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga865.fon
+
+[Font.CP866.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafixr.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasysr.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga866.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafixr.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasysr.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga866.fon
+
+[Font.CP869.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafixg.fon
+HKLM,"Software\Microsoft

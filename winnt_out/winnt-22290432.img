@@ -1,0 +1,42 @@
+.dll to the Windows NT \system32 directory (typically c:\winnt\system32).
+
+Running MS-DOS–based Multimedia Applications
+All MS-DOS-based multimedia applications directly access the computer hardware. Windows NT does not allow applications to directly access hardware. Consequently, any application (including 16-bit Windows-based applications) that attempts to directly access the hardware might fail. Typically the application will run without the multimedia features, but the application may be slow.
+
+
+Disk Compression Programs
+If you compress files using the Microsoft DriveSpace® or Microsoft DoubleSpace® disk compression tool on Windows 95 or MS-DOS, you will not be able to access the files by using Windows NT version 4.0. To avoid this situation, do not compress files using these tools.
+
+MS-DOS Issues
+
+MS-DOS Undelete Sentry Blocks
+Windows NT cannot recognize free space that was created on a FAT partition by using the undelete sentry feature in MS-DOS version 6.2. With the sentry method, MS-DOS reserves part of the hard drive to remember deleted files, then compensates during MS-DOS queries about free space. Because Windows NT doesn't understand sentry, it reports the space on the FAT partition as used.
+
+Using MS-DOS–Based Disk Tools
+Using MS-DOS-based disk tools on FAT partitions used by Windows NT version 4.0 can cause files to be deleted or long filenames to be lost. Microsoft recommends that you run only disk tools specifically designed for Windows NT version 4.0, or, when running MS-DOS, the chkdsk or scandisk tools.
+
+To prevent the Windows NT version 4.0 FAT file system from using long names, set the following Registry entry to 1, using Registry Editor:
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet  \Control\FileSystem\Win31FileSystem
+
+After changing the entry, double-click on the entry, and then replace “0” displayed in DWORD Editor with “1.” Then restart your computer for the change to take effect.
+
+Caution
+If you use MS-DOS--based disk tools on a FAT disk partition used by Windows NT, the tool can cause the loss of long filenames or delete files on the FAT partition. If you dual boot to Windows 95 and Windows NT and use the Norton Utilities for Windows 95, the Norton DiskFix tool could delete any files created by Windows NT on the FAT partition. You should back up the FAT partition before running any disk tool other than chkdsk.
+
+MS–DOS Applications Requiring a PIF File
+If you are accustomed to using a PIF (Program Information File) with your MS-DOS programs, you can continue doing so on Windows NT version 4.0. To change settings, change the .PIF or .EXE file properties, do not edit the .PIF file. For instructions on how to do this, on the Start menu, click Help, click the Contents tab, double-click How To..., double-click Run Programs, and then double-click “Optimizing MS-DOS Programs.”
+
+
+Running MS-DOS–Based Remote Control Applications
+Remote control applications control a remote computer from a local computer through a serial connection. The local computer runs a program that sends keystrokes to the remote computer while displaying a copy of its screen. The remote computer runs a memory-resident program that allows the local computer to control it. If the remote computer is running Windows NT, you must create custom startup files and a custom PIF to set up the MS-DOS environment for the memory-resident program.
+
+To create the startup files
+1. Edit the files AUTOEXEC.NT and CONFIG.NT files, and then save the files under new names:
+2. In the custom AUTOEXEC file, add the name of the memory-resident program if you want to start it when you run the PIF.
+3. In the custom CONFIG file, add the commands dosonly and echoconfig. The dosonly command ensures that no programs can be started that can disable the memory-resident program.
+
+To create a .PIF file for MS-DOS Remote Control Applications
+1. In Windows NT Explorer, click the %ystemroot% folder, and then right-click the file _DEFAULT.PIF.
+2.  On the context menu, click Properties.
+3. Click the _default button Properties, clic

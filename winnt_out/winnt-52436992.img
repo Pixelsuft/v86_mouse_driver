@@ -1,0 +1,121 @@
+  LINE (x - Scl(8), y + Scl(13))-(x + Scl(8), y - Scl(13)), SUNATTR
+
+  LINE (x - Scl(18), y - Scl(5))-(x + Scl(18), y + Scl(5)), SUNATTR
+  LINE (x - Scl(18), y + Scl(5))-(x + Scl(18), y - Scl(5)), SUNATTR
+
+  'mouth
+  IF Mouth THEN  'draw "o" mouth
+    CIRCLE (x, y + Scl(5)), Scl(2.9), 0
+    PAINT (x, y + Scl(5)), 0, 0
+  ELSE           'draw smile
+    CIRCLE (x, y), Scl(8), 0, (210 * pi# / 180), (330 * pi# / 180)
+  END IF
+
+  'eyes
+  CIRCLE (x - 3, y - 2), 1, 0
+  CIRCLE (x + 3, y - 2), 1, 0
+  PSET (x - 3, y - 2), 0
+  PSET (x + 3, y - 2), 0
+
+END SUB
+
+'DrawBan:
+'  Draws the banana
+'Parameters:
+'  xc# - Horizontal Coordinate
+'  yc# - Vertical Coordinate
+'  r - rotation position (0-3). (  \_/  ) /-\
+'  bc - if TRUE then DrawBan draws the banana ELSE it erases the banana
+SUB DrawBan (xc#, yc#, r, bc)
+
+SELECT CASE r
+  CASE 0
+    IF bc THEN PUT (xc#, yc#), LBan&, PSET ELSE PUT (xc#, yc#), LBan&, XOR
+  CASE 1
+    IF bc THEN PUT (xc#, yc#), UBan&, PSET ELSE PUT (xc#, yc#), UBan&, XOR
+  CASE 2
+    IF bc THEN PUT (xc#, yc#), DBan&, PSET ELSE PUT (xc#, yc#), DBan&, XOR
+  CASE 3
+    IF bc THEN PUT (xc#, yc#), RBan&, PSET ELSE PUT (xc#, yc#), RBan&, XOR
+END SELECT
+
+END SUB
+
+'DrawGorilla:
+'  Draws the Gorilla in either CGA or EGA mode
+'  and saves the graphics data in an array.
+'Parameters:
+'  x - x coordinate of gorilla
+'  y - y coordinate of the gorilla
+'  arms - either Left up, Right up, or both down
+SUB DrawGorilla (x, y, arms)
+  DIM i AS SINGLE   ' Local index must be single precision
+
+  'draw head
+  LINE (x - Scl(4), y)-(x + Scl(2.9), y + Scl(6)), OBJECTCOLOR, BF
+  LINE (x - Scl(5), y + Scl(2))-(x + Scl(4), y + Scl(4)), OBJECTCOLOR, BF
+
+  'draw eyes/brow
+  LINE (x - Scl(3), y + Scl(2))-(x + Scl(2), y + Scl(2)), 0
+
+  'draw nose if ega
+  IF Mode = 9 THEN
+    FOR i = -2 TO -1
+      PSET (x + i, y + 4), 0
+      PSET (x + i + 3, y + 4), 0
+    NEXT i
+  END IF
+
+  'neck
+  LINE (x - Scl(3), y + Scl(7))-(x + Scl(2), y + Scl(7)), OBJECTCOLOR
+
+  'body
+  LINE (x - Scl(8), y + Scl(8))-(x + Scl(6.9), y + Scl(14)), OBJECTCOLOR, BF
+  LINE (x - Scl(6), y + Scl(15))-(x + Scl(4.9), y + Scl(20)), OBJECTCOLOR, BF
+
+  'legs
+  FOR i = 0 TO 4
+    CIRCLE (x + Scl(i), y + Scl(25)), Scl(10), OBJECTCOLOR, 3 * pi# / 4, 9 * pi# / 8
+    CIRCLE (x + Scl(-6) + Scl(i - .1), y + Scl(25)), Scl(10), OBJECTCOLOR, 15 * pi# / 8, pi# / 4
+  NEXT
+
+  'chest
+  CIRCLE (x - Scl(4.9), y + Scl(10)), Scl(4.9), 0, 3 * pi# / 2, 0
+  CIRCLE (x + Scl(4.9), y + Scl(10)), Scl(4.9), 0, pi#, 3 * pi# / 2
+
+  FOR i = -5 TO -1
+    SELECT CASE arms
+      CASE 1
+        'Right arm up
+        CIRCLE (x + Scl(i - .1), y + Scl(14)), Scl(9), OBJECTCOLOR, 3 * pi# / 4, 5 * pi# / 4
+        CIRCLE (x + Scl(4.9) + Scl(i), y + Scl(4)), Scl(9), OBJECTCOLOR, 7 * pi# / 4, pi# / 4
+        GET (x - Scl(15), y - Scl(1))-(x + Scl(14), y + Scl(28)), GorR&
+      CASE 2
+        'Left arm up
+        CIRCLE (x + Scl(i - .1), y + Scl(4)), Scl(9), OBJECTCOLOR, 3 * pi# / 4, 5 * pi# / 4
+        CIRCLE (x + Scl(4.9) + Scl(i), y + Scl(14)), Scl(9), OBJECTCOLOR, 7 * pi# / 4, pi# / 4
+        GET (x - Scl(15), y - Scl(1))-(x + Scl(14), y + Scl(28)), GorL&
+      CASE 3
+        'Both arms down
+        CIRCLE (x + Scl(i - .1), y + Scl(14)), Scl(9), OBJECTCOLOR, 3 * pi# / 4, 5 * pi# / 4
+        CIRCLE (x + Scl(4.9) + Scl(i), y + Scl(14)), Scl(9), OBJECTCOLOR, 7 * pi# / 4, pi# / 4
+        GET (x - Scl(15), y - Scl(1))-(x + Scl(14), y + Scl(28)), GorD&
+    END SELECT
+  NEXT i
+END SUB
+
+'ExplodeGorilla:
+'  Causes gorilla explosion when a direct hit occurs
+'Parameters:
+'  X#, Y# - shot location
+FUNCTION ExplodeGorilla (x#, y#)
+  YAdj = Scl(12)
+  XAdj = Scl(5)
+  SclX# = ScrWidth / 320
+  SclY# = ScrHeight / 200
+  IF x# < ScrWidth / 2 THEN PlayerHit = 1 ELSE PlayerHit = 2
+  PLAY "MBO0L16EFGEFDC"
+
+  FOR i = 1 TO 8 * SclX#
+    CIRCLE (GorillaX(PlayerHit) + 3.5 * SclX# + XAdj, GorillaY(PlayerHit) + 7 * SclY# + YAdj), i, ExplosionColor, , , -1.57
+    LINE (GorillaX(PlayerHit) + 7 * SclX#, GorillaY(PlayerHit) + 9 * SclY# - i)-

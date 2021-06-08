@@ -1,0 +1,55 @@
+message appears:
+
+Call to undefined dynalink.
+
+This problem occurs because Microsoft Visual C++ 2.0 Setup installs a Windows 95 version of a Windows Help extension DLL file (Msvcbook.dll) when you install Microsoft Visual C++ 2.0 under Windows NT. This problem has been corrected in Microsoft Visual C++ 2.1 and 2.2.
+
+To work around this problem, copy Msvcbook.dll from the \msvc20\bin directory on the Visual C++ 2.0 compact disc to your %systemroot%\system32 directory (for example, c:\winnt\system32).
+
+Microsoft Visual C++ 4.0 and 4.1 
+The Visual C++ 4.0 and 4.1 Help Compiler (Hcw.exe) on RISC machines requires Cfm30.dll to run. If this .dll file is not present on your computer, or you experience other problems with this executable, please retrieve a later version of Hcw.exe, which does not require Cfm30.dll, from the Windows NT version 4.0 SDK found on the August 1996 MSDN compact disc.
+
+Microsoft Windows 95 Plus! Pack
+The Windows 95 Plus! Pack does not install under Windows NT.
+
+Microsoft Windows Messaging 4.0
+Dragging a window over a message being composed in Windows Messaging version 4.0 may cause screen refresh or display problems, particularly on multiprocessor systems. Contact Microsoft Product Service Support.
+
+Microsoft Word for Windows version 6.0a
+Windows NT does not support computer-based tutorial (CBT) files. The Help files use CBT files for the Examples, Demos, and Quick Previews. When you view sections of Help that use the CBT files, the following error appears:
+
+You cannot run the CBT with this operating system” or “CBT directory not found.
+
+Microsoft Word 5.5 for MS-DOS
+When using Word with a foreign language keyboard, start the application using the forcedos command. This enables you to compose accented characters with two keystrokes. For more information, see the forcedos topic in the Command Reference section of Windows NT Help.
+
+MS-DOS-based applications can set only standard VGA modes directly under Windows NT Workstation and Windows NT Server version 4.0. The higher graphics modes (30 lines, 80 columns, 16 color and higher) offered by Word are not supported. The 25 line, 80 column, 16 color graphics mode is supported.
+
+Microsoft Works 3.0
+Windows NT does not support computer-based tutorial (CBT) files. The Help files use CBT files for the Examples, Demos, and Quick Previews. When you view sections of Help that use the CBT files, the following error appears:
+
+You cannot run the CBT with this operating system” or, “CBT directory not found.
+
+Milestones, Etc
+Closing multiple windows quickly may prevent the desktop from responding to the keyboard and mouse. Close Milestones windows individually.
+
+Millie's Math House
+This application requires MFC version 3.0 DLLs, but does not install them. For more information, see “Windows 95 Applications and Microsoft Foundation Class Libraries” earlier in this document.
+
+If the files are present, an error message referring to the Windows 95 operating system may appear. Contact Edmark, (206) 556-8475 for more information.
+
+See "Software Applications by Edmark" earlier in this document.
+
+Morph
+This application does not run on Windows NT.
+
+Name-It
+Name-It fails to install on Windows NT.
+
+Netscape Navigator
+Netscape Navigator 2.0 is available in several Beta versions. Do not install one version over another. Registry entries from one version conflict with earlier versions. Remove earlier versions before installing a new version.
+
+Norton Utilities for Windows 95
+The programs in Norton Utilities for Windows 95 do not run under Windows NT Workstation or Windows NT Server version 4.0. You can use the programs from Windows 95 on dual boot systems to operate on FAT-formatted drives created or modified by Windows NT.
+ 
+Because of differences in the way Windows NT and Windows 95 generate short filenames, the Norton Utilities programs may incorrectly report that short filenames created by Windows NT are no longer associated with their original files. If the programs attempt to "fix" the Windows NT filenames, the files may no lo

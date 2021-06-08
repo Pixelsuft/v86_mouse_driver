@@ -1,0 +1,98 @@
+erPhone PC144ev"
+Prometheus3 = "Prometheus 14.4 Data Fax Modem"
+Prometheus4 = "Prometheus CyberPort PC144e"
+Prometheus5 = "Prometheus CyberStereo PC144ivspa"
+Prometheus6 = "Prometheus CyberStereo PC144iva"
+Prometheus7 = "Prometheus 14.4 Data Fax Modem"
+Prometheus8 = "Prometheus CyberPhone PC144ivsp"
+Prometheus9 = "14.4 Data Fax Modem, Plug & Play"
+Prometheus10 = "Prometheus CyberPhone PC144iv"
+Prometheus11 = "Prometheus CyberPort PC144i"
+
+; VoiceView 
+
+APPS_DESC        = "Accessories"     ; Name of Accessories menu
+StartUp_DESC     = "StartUp"
+SendTo_DESC      = "SendTo"          ; Name of SendTo folder in the Windows dir
+FileXfer_DESC    = "File Transfer"   ; Name of file tranfer app in Accessories menu
+SendToPhone_DESC = "Person On Phone" ; Name for file transfer app in SendTo menu
+StartXfer_DESC   = "VoiceView Auto Detection"   ; Name for auto start feature
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[Rock_Voice]
+HKR,,Enumerator,,serwave.vxd
+HKR,, VoiceProfile,         1, 27,03,08,00
+HKR,, VoiceManufacturerID,  1, 01,00
+HKR,, VoiceProductIDWaveIn, 1, 80,00
+HKR,, VoiceProductIDWaveOut,1, 81,00
+HKR,, VoiceProductIDHandsetWaveOut,1, 82,00
+HKR,, VoiceProductIDHandsetWaveOut,1, 83,00
+HKR,, VoiceMixerMid,        1,02,00
+HKR,, VoiceMixerPid,        1,99,01
+HKR,, VoiceMixerLineID,     1,00,00,05,00
+
+HKR,, SpeakerPhoneSpecs,       1, 00,00,00,00,  0f,00,00,00,  03,00,00,00,  00,00,00,00
+HKR, SpeakerPhoneEnable,      1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneDisable,     1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneDisable,     2,, "at#spk=0,15,,<cr>"
+HKR, SpeakerPhoneDisable,     3,, "at#vls=0<cr>"
+HKR, SpeakerPhoneMute,        1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneMute,        2,, "at#spk=0,,,<cr>"
+HKR, SpeakerPhoneUnMute,      1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneUnMute,      2,, "at#spk=1,,,<cr>"
+HKR, SpeakerPhoneSetVolumeGain,  1,, "at#vls=6<cr>"
+HKR, SpeakerPhoneSetVolumeGain,  2,, "at#spk=,<Vol>,<Gain><cr>"
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, EnableDistinctiveRing, 1,, "at-sdr=7<cr>"
+HKR,, HandsetCloseDelay,         1, 1e,00,00,00
+HKR, StartPlay,               1,, "at#vtx<cr>"
+HKR, StopPlay,                1,, "None"
+HKR, StopPlay,                2,, "NoResponse"
+HKR, StartRecord,             1,, "at#vrx<cr>"
+HKR, StopRecord,              1,, "None"
+HKR, StopRecord,              2,, "NoResponse"
+HKR,, TerminateRecord,,      "<h10>E<cr>at<cr>"
+HKR,, TerminatePlay,,        "<h10><h03>at<cr>"
+HKR,, AbortPlay,,            "<h10><h18>at<cr>"
+HKR, LineSetPlayFormat,       1,, "at#vls=0<cr>"
+HKR, LineSetRecordFormat,     1,, "None"
+HKR, LineSetRecordFormat,     2,, "NoResponse"
+HKR, HandsetSetRecordFormat,   1,,"at#vsr=7200<cr>"
+HKR, HandsetSetRecordFormat,   2,,"at#vbs=4<cr>"
+HKR, HandsetSetPlayFormat,     1,,"at#vsr=7200<cr>"
+HKR, HandsetSetPlayFormat,     2,,"at#vbs=4<cr>"
+HKR, OpenHandset,               1,, "at#cls=8<cr>"
+HKR, OpenHandset,               2,, "at#vls=1<cr>"
+HKR,, ForwardDelay,            1,88,13    
+HKR, CloseHandset,                   1,, "at#cls=0<cr>"
+HKR, VoiceToDataAnswer,         1,, "at#cls=0<cr>"
+HKR, VoiceToDataAnswer,         2,, "ata<cr>"
+HKR, VoiceAnswer,               1,, "at#cls=8<cr>"
+HKR, VoiceAnswer,               2,, "at#vls=0<cr>"
+HKR, VoiceAnswer,               3,, "at#vbt=1<cr>"
+HKR, VoiceAnswer,               4,, "at#vsr=7200<cr>"
+HKR, VoiceAnswer,               5,, "at#vbs=4<cr>"
+HKR, VoiceAnswer,               6,, "ats30=60<cr>"
+HKR, VoiceAnswer,               7,, "ata<cr>"
+HKR, VoiceDialNumberSetup,               1,, "at#cls=8<cr>"
+HKR, VoiceDialNumberS

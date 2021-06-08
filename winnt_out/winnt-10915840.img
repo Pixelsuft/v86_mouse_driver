@@ -1,0 +1,97 @@
+OCAL) "" "SYSTEM\CurrentControlSet\Services" +
+        $(MAXIMUM_ALLOWED) ServiceKey
+        Ifstr $(ServiceKey) == $(KeyNull)
+           Debug-Output "UTILITY.INF: could not open SYSTEM Service key "$(RS_SvcName)
+           set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+           goto RemoveService_Return
+        endif
+        DeleteRegTree $(ServiceKey) $(RS_SvcName)
+        CloseRegKey $(ServiceKey)
+    endif
+RemoveService_Return = +
+    return $(RegistryErrorIndex)
+[IsNetCardAlreadyInstalled]
+    read-syms InitBaseVars
+    set AlreadyExisted  = "NO"
+    set BusNum  = $($0)
+    set SlotNum = $($1)
+    set Description = $($2)
+    set Product = $($3)
+    set SkipDescriptionCheck = $($4)
+    ifstr(i) $(SkipDescriptionCheck) == ""
+        set SkipDescriptionCheck = "NO"
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(MAXIMUM_ALLOWED) IE_KeyNetcards
+    Ifstr $(IE_KeyNetcards) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+       goto IE_Return
+    endif
+    EnumRegKey $(IE_KeyNetcards) IE_KeyNameList
+    ForListDo  $(IE_KeyNameList)
+        set IE_KeyName = *($($),1)
+        OpenRegKey $(IE_KeyNetcards) "" $(IE_KeyName) $(MAXIMUM_ALLOWED) IE_Card
+        Ifstr $(IE_Card) == $(KeyNull)
+           set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+           goto IE_Return
+        endif
+        GetRegValue $(IE_Card),"Description", DescriptionInfo
+        GetRegValue $(IE_Card),"ProductName", ProductNameInfo
+        set CardDescription     = *($(DescriptionInfo), 4)
+        set CardProductName     = *($(ProductNameInfo), 4)
+        ifstr(i) $(SkipDescriptionCheck) == "YES"
+            set CardDescription = $(Description)
+            set CardProductName = $(Product)
+        endif
+        ifstr(i) $(CardDescription) == $(Description)
+            ifstr(i) $(CardProductName) == $(Product)
+                GetRegValue $(IE_Card), "ServiceName", ServiceNameInfo
+                set ServiceName = *($(ServiceNameInfo), 4)
+                OpenRegKey $(!REG_H_LOCAL) "" +
+                   $(ServicesBaseName)"\"$(ServiceName)"\Parameters" +
+                   $(MAXIMUM_ALLOWED) IE_KeyService
+                Ifstr $(IE_KeyService) == $(KeyNull)
+                   set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+                   goto IE_Return
+                endif
+                GetRegValue $(IE_KeyService), "BusNumber", BusInfo
+                GetRegValue $(IE_KeyService), "SlotNumber", SlotInfo
+                set CardBusNum = *($(BusInfo), 4)
+                set CardSlotNum = *($(SlotInfo), 4)
+                ifint $(CardBusNum) == $(BusNum)
+                    ifint $(CardSlotNum) == $(SlotNum)
+                        set AlreadyExisted = "YES"
+                    endif
+                endif
+            endif
+        endif
+    EndForListDo
+IE_Return = +
+    return $(RegistryErrorIndex) $(AlreadyExisted)
+[CopyRegTreeAs]
+    read-syms InitBaseVars
+    Set RegistryErrorIndex = NO_ERROR
+    set CRTA_SrcKey = $($0)
+    set CRTA_BaseDestKey = $($1)
+    set CRTA_DestName = $($2)
+    set CRTA_DestKey = $($1)
+    ifstr(i) $(CRTA_DestName) != ""
+        CreateRegKey $(CRTA_BaseDestKey) {$(CRTA_DestName),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CRTA_DestKey
+        Ifstr(i) $(CRTA_DestKey) == $(KeyNull)
+           Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+           Goto CRTA_Return
+        Endif
+    endif
+    Set FLibraryErrCtl = 1
+    LibraryProcedure CRTA_CopyResult $(!NCPA_HANDLE), RegCopyTree, $(CRTA_SrcKey), $(CRTA_DestKey) 
+    Set FLibraryErrCtl = 0
+    Set CRTA_CopyError = *($(CRTA_CopyResult),1)
+    Ifint $(CRTA_CopyError) != 0
+        Debug-Output "UTILITY.INF: [CopyRegTreeAs] RegCopyTree returned "$(CRTA_CopyError)
+        Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+        Goto CRTA_Return
+    Endif
+CRTA_Return = +
+    return $(RegistryErrorIndex) $(CRTA_DestKey)
+[UpdateWinsockService]
+    read-syms InitBaseVars
+    Set UW

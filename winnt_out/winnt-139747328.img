@@ -1,0 +1,88 @@
+r
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "REGISTRY GOODAL"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)SvcType)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ), $(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMinorVersion)},+
+             {RasComponents,$(NoTitle),$(!REG_VT_MULTI_SZ),$(RasComponentsList)},+
+             {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(!CurrentDate),1)}}
+        Shell $(!UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+           CloseRegKey $(SoftNetRuleKey)
+           goto fatalregistry
+        endif
+        set NewValueList = +
+            {{class, $(NoTitle), $(!REG_VT_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            goto fatalregistry
+        endif
+    endif 
+    ifstr(i) $(DoRasSvr) == TRUE
+        set ThisOption = RASSVR
+        set RasSpecificString = $(Product$(ThisOption)Name)
+        Shell $(!UtilityInf), AddSoftwareComponent, $(!Manufacturer), +
+              $(Product$(ThisOption)Name), $(Product$(ThisOption)Name), +
+              $(Product$(ThisOption)DisplayName), +
+              $(!RasInfName), $(Product$(ThisOption)ImagePath),+
+              "service", "Network", {"LanmanServer","RasMan"}, "", +
+              $(!RasMsgDll), $(!RasEventTypeSupported)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "DoRasSvr: AddSoftware bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "DoRasSvr: Registry Error "$(RegistryErrorIndex)
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        set SoftServiceKey    = $($R3)
+        Set SoftParamsKey     = $($R4)
+        Set SoftLinkageKey    = $($R5)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)SvcType)},+
+             {Title,$(NoTitle),$(!

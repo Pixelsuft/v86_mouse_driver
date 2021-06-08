@@ -1,0 +1,96 @@
+  CloseRegKey $(AdaptersKey)
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(NBTProductKey)
+        CloseRegKey $(NBTNetRuleKey)
+        CloseRegKey $(NBTServiceKey)
+        CloseRegKey $(NBTParameterKey)
+        CloseRegKey $(NBTLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+    Endif
+    Ifstr(i) $(DoAFD) == TRUE
+        Shell $(UtilityInf) AddAFD
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\Afd" $(MAXIMUM_ALLOWED) AfdKey
+        ifstr(i) $(AfdKey) != ""
+            GetRegValue $(AfdKey) "DependOnGroup" GroupList
+            debug-output "DependOnGroup:"$(GroupList)
+            set GroupValues = *($(GroupList),4)
+            debug-output "DependOnGroup:"$(GroupValues)
+            set NewGroupValues = {}
+            ForListDo $(GroupValues)
+                ifstr(i) $($) != "TDI"
+                    ifstr(i) $(NewGroupValues) == {}
+                        Set NewGroupValues = {$($)}
+                    else
+                        Set NewGroupValues = >($(NewGroupValues), $($))
+                    endif
+                endif
+            EndForListDo
+            SetRegValue $(AfdKey) {"DependOnGroup",$(NoTitle),$(!REG_VT_MULTI_SZ),$(NewGroupValues)}
+            CloseRegKey $(AfdKey)
+        endif
+    Endif
+    Shell $(UtilityInf), AddNameSpaceProvider, +
+            $(ProviderDisplayName), +
+            $(Winsock20Provider), +
+            $(ProductProviderNameSpaces), +
+            FALSE, +
+            $(ProductProviderGUID)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OEMNXPTC.INF: Registry error: add name space provider"
+        goto fatalregistry
+    endif
+    Shell $(UtilityInf), AddServiceProvider, $(ProviderName), +
+        $(Winsock11Provider), $(ProviderDisplayName), 8
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+        goto fatalregistry
+    endif
+    ifstr(i) $(!STF_GUI_UNATTENDED) != YES
+        ifstr(i) $(InstallFromRas) != "YES"
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\RASMan" $(MAXIMUM_ALLOWED) RASKey
+            ifstr(i) $(RASKey) != ""
+                Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(RASRebindError)
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+                endif
+                CloseRegKey $(RASKey)
+                ifstr(i) $($R1) == "OK"
+                    set SaveNTN_InstallMode = $(!NTN_InstallMode)
+                    set !NTN_InstallMode = configure
+                    Shell "oemnsvra.inf" InstallOption $(!STF_LANGUAGE) "RAS" $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) 
+                    set !NTN_InstallMode = $(SaveNTN_InstallMode)
+                endif
+            endif
+        endif
+    endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    EndWait
+    goto successful
+configureadapter = +
+    ifstr(i) $(Option) == "TC"
+        OpenRegKey $(!REG_H_LOCAL) "" $(ParametersKeyName) $(MAXIMUM_ALLOWED) ParametersKey
+        GetRegValue $(ParametersKey) "EnableDHCP" EnableDHCPInfo
+        Set FirstTimeBinding = 0
+        set EnableDHCPFlag = 0
+        ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            Set FirstTimeBinding = 1
+            set EnableDHCPFlag = *($(EnableDHCPInfo),4)
+            DeleteRegValue $(ParametersKey) "EnableDHCP"
+            ifint $(FirstTimeBinding) == 1
+                ifint $(EnableDHCPFlag) == 0
+                    Shell $(IPINFOINF), GetIPInfo
+                    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    Else
+                        set DefaultGateway = $($R0)
+                        set IP

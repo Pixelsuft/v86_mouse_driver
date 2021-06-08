@@ -1,0 +1,67 @@
+BH non non 100",+
+	       "ndisWanTransport ndisWanAdapterDialIn non non 100",+
+	       "ndisWanTransport ndisWanAdapterDialOut non non 100",+
+	       "ndisWanTransport ndisWanAdapterDialInIP non non 100",+
+	       "ndisWanTransport ndisWanAdapterDialOutIP non non 100",+
+	       "ndisWanTransport ndisWanAdapterDialInOutIPX non non 100"}
+    ProductRASASYMACName      = "AsyncMac"
+    ProductRASASYMACImagePath = "\SystemRoot\system32\drivers\asyncmac.sys"
+    ProductRASASYMACType      = "driver"
+    ProductRASASYMACSvcType   = "kernel"
+    NetRuleRASASYMACType      = "rasAsyMacDrv rasAsyMacDriver"
+    NetRuleRASASYMACClass      = {"rasAsyMacDriver basic"}
+    NetRuleRASASYMACUse      = $(ProductRASASYMACType)
+    NetRuleRASASYMACBindForm  = """RasAsyMac"" yes no container"
+    !NetRuleRASASYMACBindable  = +
+                       {"rasAsyMacDriver rasAsyMacAdapter non non 100"}
+    !ProductRASHUBDIALINName	    = "RasHubDialin"
+    !ProductRASHUBDIALOUTName	    = "RasHubDialout"
+    !ProductRASHUBDIALINIPName      = "RasHubDialinIp"
+    !ProductRASHUBDIALOUTIPName     = "RasHubDialoutIp"
+    !ProductRASHUBDIALINOUTIPXName  = "RasHubDialinoutIpx"
+    !ProductNDISWANDIALINName	      = "NdisWanDialin"
+    !ProductNDISWANDIALOUTName	      = "NdisWanDialout"
+    !ProductNDISWANDIALINIPName       = "NdisWanDialinIp"
+    !ProductNDISWANDIALOUTIPName      = "NdisWanDialoutIp"
+    !ProductNDISWANDIALINOUTIPXName   = "NdisWanDialinoutIpx"
+    !NetRuleHardwareBHType      = "ndisWanBH ndisWanAdapterBH"
+    !NetRuleHardwareBHClass     = {"ndisWanAdapterBH basic"}
+    !NetRuleHardwareBHBindForm  = " yes yes container"
+    !NetRuleHardwareNDISWANBindForm = " yes yes container"
+    !NetRuleHardwareDIALINType	  = "ndiswandialin ndisWanAdapterDialIn"
+    !NetRuleHardwareDIALINClass	  = {"ndisWanAdapterDialIn basic"}
+    !NetRuleHardwareDIALINBlock    = {"lanmanServer ndisWanAdapterDialIn",+
+				     "tcpipTransport ndisWanAdapterDialIn",+
+				     "netbtTransport ndisWanAdapterDialIn",+
+				     "ipxTransport ndisWanAdapterDialin",+
+				     "lanmanWorkstation ndisWanAdapterDialIn"}
+    !NetRuleHardwareDIALINIPType     = "ndiswandialinIP ndisWanAdapterDialInIP"
+    !NetRuleHardwareDIALINIPClass    = {"ndisWanAdapterDialInIP basic"}
+    !NetRuleHardwareDIALINIPBlock    = {"lanmanServer ndisWanAdapterDialInIP",+
+				      "nbfTransport ndisWanAdapterDialinIP",+
+				      "ipxTransport ndisWanAdapterDialinIP",+
+				      "lanmanWorkstation ndisWanAdapterDialInIP"}
+    !NetRuleHardwareDIALOUTType	   = "ndiswandialout ndisWanAdapterDialOut"
+    !NetRuleHardwareDIALOUTClass    = {"ndisWanAdapterDialOut basic"}
+    !NetRuleHardwareDIALOUTBlock    = {"ipxTransport ndisWanAdapterDialOut"}
+    !NetRuleHardwareDIALOUTIPType     = "ndiswandialoutIP ndisWanAdapterDialOutIP"
+    !NetRuleHardwareDIALOUTIPClass    = {"ndisWanAdapterDialOutIP basic"}
+    !NetRuleHardwareDIALOUTIPBlock    = {"ipxTransport ndisWanAdapterDialOutIP",+
+					"nbfTransport ndisWanAdapterDialOutIP"}
+    !NetRuleHardwareDIALINOUTIPXType = "ndiswandialinoutIPX ndisWanAdapterDialInOutIPX"
+    !NetRuleHardwareDIALINOUTIPXClass = {"ndisWanAdapterDialInOutIPX basic"}
+    !NetRuleHardwareDIALINOUTIPXBlock = {"nbfTransport ndisWanAdapterDialInOutIPX",+
+					"tcpipTransport ndisWanAdapterDialInOutIPX",+
+					"netbtTransport ndisWanAdapterDialInOutIPX"}
+    NetRuleHardwareRASASYMACType     = "rasAsyMac rasAsyMacAdapter"
+    NetRuleHardwareRASASYMACBindForm = " yes yes container"
+    NetRuleHardwareRASASYMACClass     = {"rasAsyMacAdapter basic"}
+    !ProductNDISTAPIName        = "NdisTapi"
+    !ProductNDISTAPIImagePath   = "\SystemRoot\system32\drivers\ndistapi.sys"
+    !RasPerfKeyName             = "Performance"
+    !RasPerfLibraryName         = "rasctrs.dll"
+    !RasPerfOpenFunction        = "OpenRasPerformanceData"
+    !RasPerfCloseFunction       = "CloseRasPerformanceData"
+    !RasPerfCollectFunction     = "CollectRasPerformanceData"
+    !RasCounterFileName         = "rasctrs.ini"
+    ProductKeyBase  = $(!NTN_SoftwareBase)"\

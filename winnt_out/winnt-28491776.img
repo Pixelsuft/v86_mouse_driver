@@ -1,0 +1,89 @@
+eList, $(SoftNetRuleKey), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(KeyParameters)
+            goto fatalRegistry
+        endif
+        Set NewValueList = {{NbProvider,$(NoTitle),$(!REG_VT_SZ),"_nb"}}
+        Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(SoftLinkageKey)
+            goto fatalRegistry
+        endif
+        CreateRegKey $(SoftServiceKey) {"Performance",$(NoTitle),GenericClass} "" +
+                $(MAXIMUM_ALLOWED) "" KeyPerformance
+        set NewValueList = {{Library,$(NoTitle),$(!REG_VT_SZ),"Perfctrs.dll"},+
+                           {Open,$(NoTitle),$(!REG_VT_SZ),"OpenNbfPerformanceData"},+
+                           {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectNbfPerformanceData"},+
+                           {Close,$(NoTitle),$(!REG_VT_SZ),"CloseNbfPerformanceData"}}
+        Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(KeyParameters)
+            goto fatalRegistry
+        endif
+        CloseRegKey $(KeyPerformance)
+        CloseRegKey $(SoftProductKey)
+        CloseRegKey $(SoftNetRuleKey)
+        CloseRegKey $(SoftServiceKey)
+        CloseRegKey $(SoftLinkageKey)
+    endif
+    Shell $(UtilityInf) AddMixRpcProtocol "Netbios" "nbf" "ncacn_nb_nb" "rpcltccm.dll" "RpcLtScm.Dll"
+    goto writeparameters
+writeparameters = +
+    CloseRegKey $(KeyParameters)
+    EndWait
+    goto successful
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_nb"
+    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+        $(ProductSoftwareName)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto fatalregistry
+    endif
+    goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescription)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        Shell $(UtilityInf) AddMixRpcProtocol "Netbios" "nbf" "ncacn_nb_nb" "rpcltccm.dll" "RpcLtScm.Dll"
+        OpenRegKey $(!REG_H_LOCAL) "" $(ServiceKeyName) $(MAXIMUM_ALLOWED) KeyService
+        Ifstr $(KeyService) != $(KeyNull)
+            SetRegValue $(KeyService) {Group,$(NoTitle),$(!REG_VT_SZ),"PNP_TDI"}
+            CloseRegKey $(KeyService)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(NetRuleKeyName) $(MAXIMUM_ALLOWED) KeyNetRules
+        Ifstr $(KeyNetRules) != $(KeyNull)
+            SetRegValue $(KeyNetRules) {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareUse)}
+            CloseRegKey $(KeyNetRules)
+        endif
+        CloseRegKey $(KeyProduct)
+    else
+        goto fatalregistry
+    

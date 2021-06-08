@@ -1,0 +1,119 @@
+ additional diskette drive(s) did not install.
+EThere are too many parameters specified in the
+%2 command on line %1 of the CONFIG.SYS file. Line %1
+is ignored.
+IAdditional diskette drive installed as drive %1
+E"%3" was found where "%4" was expected
+in the %2 command on line %1 of the CONFIG.SYS file.
+Line %1 is ignored.
+?
+EThe system cannot accept the option selected.
+EThe system cannot accept the combination
+of parameters entered.
+?
+?
+EThe system cannot print the file
+to the device specified.
+?
+EThe spooler is not running.
+EDOS mode cannot accept the /C or /T parameter.
+E%1 file not found.
+IPersonal Computer
+Fixed Disk Setup Program Version 1.3
+IFDISK options
+
+
+
+Choose one of the following:
+
+    1.  Create an OS/2 partition or a logical drive
+    2.  Change the active partition
+    3.  Delete an OS/2 partition or a logical drive
+        or a logical drive
+    4.  Display the partition data
+
+
+
+
+
+
+
+Press Enter to continue or
+Esc to return to the operating system I5.  Select the other fixed disk drive
+PEnter choice: IThe partition cannot be made active.
+IThe current primary partition is %1.
+IPartition %1 is now active.
+IThere are no partitions to make active.
+IPartition %1 is already active.
+PEnter the number of the partition you
+want to make active................: IChange the active partition.
+IThe primary OS/2 partition is created.
+IThere is not enough space for %1 cylinders.
+IThere is not enough space for a %1 cylinder partition
+starting at cylinder %2.
+INo space is available to create an
+OS/2 partition.
+IThe primary OS/2 partition already exists.
+PEnter partition size............: IThe maximum capacity of the fixed disk is %1 cylinders.
+PEnter starting cylinder number..: ICreate an OS/2 partition.
+PDo you want to create an active OS/2
+partition of the maximum size (Y/N)..........? IThe Primary OS/2 Partition is deleted.
+IThere is no primary OS/2 partition to delete.
+PWarning! Data in the Primary OS/2 partition
+will be lost.  Are you sure you want to continue.......? IDelete OS/2 Partition
+IMaximum capacity of the fixed disk is %1 cylinders.
+INo partitions are defined.                  IPartition Status  Type   Start  End Size
+IDisplay partition information
+P%1 is not a correct choice. Enter a correct choice.
+P%1 is not a correct choice. Enter Y or N
+INo fixed disks are present.
+IAn error occurred when reading data from the fixed disk.
+IAn error occurred when writing data to the fixed disk.
+Run the Hardware Diagnostics program diskette.
+IThe current fixed disk drive is: %1
+PPress Esc to return to the FDISK Options. IThe fixed disk has been updated. The system should
+now be restarted. Press Ctrl+Alt+Del.
+IThe fixed disk is in use.
+No partitions can be created or deleted.
+EYou used an invalid FDISK parameter.
+?
+?
+EThe PATCH parameters are incorrect.
+EThe data specified in the patch
+control file was incomplete.
+?
+?
+IPatching %1
+PDo you want to continue patching %1? (Y/N) INo patches applied.
+IPatches entered for %1
+PDo you want these patches applied to %1? (Y/N) IPatches applied to %1
+INo patches applied to %1
+IEnd of file is at %1
+PEnter the hexadecimal offset of patch: EThe offset is beyond the end of the file.
+EThe number of patches exceeds the
+limit of PATCH.
+WNo file specified to patch in
+patch instruction file %1
+EA %1 command was found without a %2 command.
+E%1 is not a valid offset for %2.
+E%1 is not a correct hexadecimal string for %2.
+EOffset %1 for %2 is too close
+or beyond offset %3 (end of file) to verify %4
+bytes.
+EThe verification failed for %1.
+?
+EOffset %1 for %2 is
+beyond offset %3 (end of file).
+EPATCH detected an unknown
+patch instruction file command: %1
+EPATCH cannot open %1 to
+append to %2.
+ENo patches were specified for %1.
+EThe MODE parameters are incorrect.
+ICharacters per line has been set.
+ILines per inch has been set.
+IInfinite retry has been set.
+I-- More --IInfinite retry has been reset
+?
+IMODE is unable to set the ReadBack function for the diskette.
+The process has ended.

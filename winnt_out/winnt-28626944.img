@@ -1,0 +1,79 @@
+MNXPTC.INF: Registry error: add value list."
+        CloseRegKey $(LPDVersKeyHandle)
+        CloseRegKey $(LPDRulesKeyHandle)
+        CloseRegKey $(LPDSvcKeyHandle)
+        CloseRegKey $(LPDParmKeyHandle)
+        CloseRegkey $(LPDLinkageHandle)
+        goto fatalregistry
+    Endif
+    set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),TCPPRINT},+
+                        {type,$(NoTitle),$(!REG_VT_SZ),"tcppint tcpprinting"},+
+                        {bindform,$(NoTitle),$(!REG_VT_SZ),{"tcpprinting nothing non non 100"}}+
+                        }
+    Shell  $(UtilityInf), AddValueList, $(LPDRulesKeyHandle), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVTP.INF: ShellCode error."
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(LPDVersKeyHandle)
+    CloseRegKey $(LPDRulesKeyHandle)
+    set NewValueList = {{AllowJobRemoval,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {AllowPrinterResume,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {MaxConcurrentUsers,$(NoTitle),$(!REG_VT_DWORD),100}}
+    Shell  $(UtilityInf), AddValueList, $(LPDParmKeyHandle), $(NewValueList)
+    CloseRegKey $(LPDParmKeyHandle)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        CloseRegKey $(LPDLinkageHandle)
+        CloseRegKey $(LPDSvcKeyHandle)
+        EndWait
+        Debug-Output "OEMNSVTP.INF: Registry error: add value list."
+        goto fatalregistry
+    endif
+    CloseRegKey $(LPDLinkageHandle)
+    EndWait
+    Shell $(UtilityInf) SetMasterComponent Microsoft Tcpip $(STF_CONTEXTINFNAME) TCPPRINT
+    goto successful
+configureadapter = +
+    goto end
+bindingadapter =+
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\"$(Manufacturer)"\lpdsvc\CurrentVersion" $(MAXIMUM_ALLOWED) CurrentVersionKey
+    DeleteRegValue $(CurrentVersionKey) "Review"
+    CloseRegKey $(CurrentVersionKey)
+    LoadLibrary "x" $(!STF_CWDDIR)\tcpcfg.dll !TCPCFG_HANDLE
+    LibraryProcedure Result, $(!TCPCFG_HANDLE), CPlAddMonitor, $(MonitorName), "lprmon.dll"
+    freeLibrary $(!TCPCFG_HANDLE)
+    goto end
+removeadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\"$(Manufacturer) $(MAXIMUM_ALLOWED) ProductKey
+    ifstr(i) $(ProductKey) != ""
+        DeleteRegTree $(ProductKey) $(ProductTCPPRINTName)
+    endif
+    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $(ProductLPDName) 
+    LoadLibrary "x" $(!STF_CWDDIR)\tcpcfg.dll !TCPCFG_HANDLE
+    LibraryProcedure Result, $(!TCPCFG_HANDLE), CPlDeleteMonitor, $(MonitorName)
+    freeLibrary $(!TCPCFG_HANDLE)
+    goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductLPDSVCKeyName) $(MAXIMUM_ALLOWED) LPDSVCKeyProduct
+        Ifstr(i) $(LPDSVCKeyProduct) != $(KeyNull)
+            SetRegValue $(LPDSVCKeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+            SetRegValue $(LPDSVCKeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+            SetRegValue $(LPDSVCKeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductLPDDescription)}
+            SetRegValue $(LPDSVCKeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+            CloseRegKey $(LPDSVCKeyProduct)
+        endif
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\LPDSVC" $(MAXIMUM_ALLOWED) LPDKey
+        Ifstr $(LPDKey) != $(KeyNull)
+            SetRegValue $(LPDKey) {DisplayName,$(NoTitle),$(!REG_VT_SZ),$(ProductLPDDisplayName)}
+            CloseRegKey $(LPDKey)
+        endif
+        OpenRegKey $(!REG_H

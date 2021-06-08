@@ -1,0 +1,132 @@
+rect.
+EThe parameters specified for VioGetPhysBuf are
+not correct.
+?
+?
+?
+?
+EThe display mode requested is not correct, or the
+VIO function requested is not valid for the current display
+mode.
+EThe cursor width parameter specified for
+VioSetCurType is not correct.
+?
+EThe row parameter specified is not correct.
+EThe column parameter specified is not correct.
+?
+?
+?
+?
+?
+?
+EThe wait flag parameter specified is not correct.
+EThe call to VioScrUnlock is not valid.
+?
+EThe specified session ID is not correct.
+?
+EThe requested session was not found.
+EThe session title cannot be changed.
+EA parameter passed to a keyboard API function
+is not correct.
+?
+EAn IOWAIT parameter that is not correct was
+passed to a keyboard API function.
+EA length parameter that is not valid was passed to a
+keyboard API function.
+EA bitmask parameter that is not correct was passed
+to a keyboard API function.
+?
+EThe specified parameter for the monitor API call
+is not correct.
+EThe system cannot find the device specified for
+the DosMonOpen call.
+EThe system cannot find the specified device
+handle for the monitor API call.
+EThe monitor buffer length parameter is too small.
+ENo data has been transferred.
+EThe bytecount parameter is too large. No data has
+been transferred.
+EThe attempted mouse API function is not allowed
+because no MOUSE$ and POINTER$ device drivers are installed.
+EThe handle parameter passed to MouClose is not correct.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+EThe system cannot find the COUNTRY.SYS file.
+EOS/2 cannot open the COUNTRY.SYS file.
+EThe system cannot find the country code or
+code page.
+EThe specified buffer length is too small, causing
+the returned NLS table to truncate.
+IRecord this message number and contact your
+service representative.
+IRecord this message number and contact your
+service representative.
+IA segment of your application was temporarily moved
+out of main storage to a swap file on the hard disk and the
+the system cannot swap the segment back in.
+For additional information key in: help sys%1
+IA segment of your application was temporarily
+moved out of main storage to a swap file on the hard disk.
+The system does not have enough memory to reload the segment.
+For additional information key in: help sys%1
+EThe call to VioDeRegister is not valid.
+EThe call to VioEndPopup is not valid.
+WRequest for a VIO pop-up with no wait is denied.
+EThe keyboard API function cannot be called from
+this process.
+EAn ASCIIZ string of incorrect length was passed to
+KbdRegister.
+EA function mask parameter that is not correct was
+passed to KbdRegister.
+EThe attempt to register keyboard API functions
+for the current session is not allowed.
+EKbdDeRegister was issued to undo a KbdRegister
+that is not registered.
+EThe mouse API function cannot be called from this
+process.
+EAn ASCIIZ string of incorrect length was passed to
+the MouRegister.
+EA function mask parameter that is not correct was
+passed to MouRegister.
+EThe attempt to register mouse API functions for
+the current session is not allowed.
+EMouDeRegister was issued to undo a MouRegister that
+is not registered.
+EThe requested Session Manager action is not valid.
+EThe call to DosSMRegisterDD is not allowed.
+?
+?
+EThe parameter(s) specified to the VIO call are
+not correct.
+EThe save or restore request for mode or save redraw
+is not allowed in the current screen group.
+?
+?
+?
+EThe VioRegister or VioGlobalReg call is not allowed.
+?
+EThe call to VioSaveRedrawUndo is not valid.
+EAn attempt to obtain a selector to the video buffer
+was made while the process was executing in a background
+screen group.
+EThe VIO call issued is not allowed while the
+current VIO pop-up is executing.
+EThe request for the Session Manager function is
+not valid.
+EThe request for the Session Manager status is not
+valid.
+?
+EThe call to VioScrLock is not allowed.
+EAn IOWAIT parameter that is not correct was
+passed to a mouse API function.
+EAn invalid VIO handle was found.
+?
+EThe length parameter specified is not valid.
+EThe

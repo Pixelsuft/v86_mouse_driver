@@ -1,0 +1,84 @@
+                ifstr(i) $(KeyUseRef) == ""
+                    ifstr(i) $(KeyParams) != ""
+                       CreateRegKey $(KeyParams) {"UseRef", 0, GenericClass} +
+                                          "" $(!MAXIMUM_ALLOWED) "" KeyUseRef
+                       CloseRegKey $(KeyParams)
+                    endif
+                endif
+                ifstr(i) $(KeyUseRef) != ""
+                    SetRegValue $(KeyUseRef) {"RAS" , 0, $(!REG_VT_SZ), "1"}
+                    CloseRegKey $(KeyUseRef)
+                endif
+                CloseRegKey $(KeyService)
+            endif
+            OpenRegKey $(!REG_H_LOCAL) "" $(SapAgentName) +
+                                          $(!MAXIMUM_ALLOWED) KeyService
+            ifstr $(KeyService) == ""
+                OpenRegKey $(!REG_H_LOCAL) "" $(!RasIsnSapKeyName) +
+                                              $(!MAXIMUM_ALLOWED) KeySap
+                Ifstr(i) $(KeySap) != ""
+                    Shell "utility.inf", RemoveService +
+                                         $(!ProductRASISNSAPName) "YES"
+                    Shell "" InstallIsnSapService
+                endif
+                CloseRegKey $(KeySap)
+            else
+                CloseRegKey $(KeyService)
+            endif
+            OpenRegKey $(!REG_H_LOCAL) "" $(NwlnkRipName) +
+                                          $(!MAXIMUM_ALLOWED) KeyService
+            ifstr $(KeyService) == ""
+                OpenRegKey $(!REG_H_LOCAL) "" $(!RasIsnRipKeyName) +
+                                              $(!MAXIMUM_ALLOWED) KeyRip
+                Ifstr(i) $(KeyRip) != ""
+                    Shell "" InstallNwlnkRipService
+                CloseRegKey $(KeyRip)
+            else
+                CloseRegKey $(KeyService)
+            endif
+            OpenRegKey $(!REG_H_LOCAL) ""  +
+                       $(!NTN_ServiceBase)"\NWLNKIPX\Parameters"  +
+                       $(!MAXIMUM_ALLOWED) KeyIpxParameters
+            ifstr $(KeyIpxParameters) != $(KeyNull)
+                GetRegValue $(KeyIpxParameters), "SingleNetworkActive"  +
+                            SingleNetworkActive
+                ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                    SetRegValue $(KeyIpxParameters) +
+                                {SingleNetworkActive, 0, $(!REG_VT_DWORD), 1}
+                endif
+                GetRegValue $(KeyIpxParameters), "DisableDialoutSap"  +
+                            DisableDialoutSap
+                ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                    SetRegValue $(KeyIpxParameters) +
+                                {DisableDialoutSap, 0, $(!REG_VT_DWORD), 1}
+                endif
+                GetRegValue $(KeyIpxParameters), "DisableDialinNetbios"  +
+                            DisableDialinNetbios
+                ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                    SetRegValue $(KeyIpxParameters) +
+                                {DisableDialinNetbios, 0, $(!REG_VT_DWORD), 1}
+                endif
+                CloseRegKey $(KeyIpxParameters)
+            Endif
+            else
+                Debug-Output "OEMNSVRA.INF: error opening NWLNKIPX\Parameters key"
+            endif
+        endif
+        CloseRegKey $(KeyProtocols)
+    else
+        Debug-Output "UpgradeIpxInfo: error opening RAS\Protocols key"
+    endif
+    Debug-Output "UpgradeIpxInfo: exit"
+    return
+[SaveTcpipInfo]
+    Debug-Output "SaveTcpipInfo: entry - AddIpInfo = "$($0)
+    set AddTcpInfo = $($0)
+    set Status     = STATUS_FAILED
+    Set KeyNull    = ""
+    set RasIpKeyName =  $(!NTN_SoftwareBase)"\Microsoft\Ras\Protocols\Ip"
+    set RasSvrParamKeyName = $(!NTN_ServiceBase)"\RemoteAccess\Parameters"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasIpKeyName) $(!MAXIMUM_ALLOWED) RasIpKey
+    ifstr $(RasIpKey) != $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasSvrParamKeyName) $(!MAXIMUM_ALLOWED) KeySrvParams
+        ifstr $(KeySrvParams) == $(KeyNull)
+           Debug-Output "SaveTcpipInfo: could not op

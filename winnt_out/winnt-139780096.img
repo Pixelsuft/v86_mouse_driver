@@ -1,0 +1,91 @@
+allMode) == configure
+          Debug-Output "OEMNSVRA.INF: could not open AsyncMac Params key"
+          set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+          goto fatalregistry
+       endif
+       goto WriteNdisWan1
+    endif
+    GetRegValue $(KeyMacParams), "Ports" PortsInfo
+    GetRegValue $(KeyMacParams), "DialinNBF" DialinNBFInfo
+    GetRegValue $(KeyMacParams), "DialoutNBF" DialoutNBFInfo
+    GetRegValue $(KeyMacParams), "DialinIP" DialinIPInfo
+    GetRegValue $(KeyMacParams), "DialoutIP" DialoutIPInfo
+    GetRegValue $(KeyMacParams), "DialinoutIPX" DialinoutIPXInfo
+    set PrevNumPorts         = *($(PortsInfo), 4)
+    set PrevNumDialinNBF     = *($(DialinNBFInfo), 4)
+    set PrevNumDialoutNBF    = *($(DialoutNBFInfo), 4)
+    set PrevNumDialinIP      = *($(DialinIPInfo), 4)
+    set PrevNumDialoutIP     = *($(DialoutIPInfo), 4)
+    set PrevNumDialinoutIPX  = *($(DialinoutIPXInfo), 4)
+    Debug-Output "Ports currently configured "$(PrevNumPorts)
+    Debug-Output "Ports currently dialin NBF "$(PrevNumDialinNBF)
+    Debug-Output "Ports currently dialout NBF "$(PrevNumDialoutNBF)
+    Debug-Output "Ports currently dialin IP "$(PrevNumDialinIP)
+    Debug-Output "Ports currently diaout IP "$(PrevNumDialoutIP)
+    Debug-Output "Ports currently diainout IPX "$(PrevNumDialinoutIPX)
+    CloseRegKey $(KeyMacParams)
+WriteNdisWan1 =+
+    set ThisOption = NDISWAN
+    set RasSpecificString = $(!Product$(ThisOption)Name)
+    OpenRegKey $(!REG_H_LOCAL) "" $(NdisWanParamKeyName) $(!MAXIMUM_ALLOWED) KeyHubParams
+    ifstr $(KeyHubParams) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF: could not open NdisWan Params key"
+       set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+       goto fatalregistry
+    endif
+    set NewValueList = +
+        {{EndPoints, $(NoTitle), $(!REG_VT_MULTI_SZ), $(NewNumPortsList)}}
+    Shell  $(!UtilityInf), AddValueList, $(KeyHubParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(KeyHubParams)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+    ifint $(PrevNumDialinNBF) == $(NewNumDialinNBF)
+      ifint $(PrevNumDialoutNBF) == $(NewNumDialoutNBF)
+        ifint $(PrevNumDialinIP) == $(NewNumDialinIP)
+          ifint $(PrevNumDialoutIP) == $(NewNumDialoutIP)
+            ifint $(PrevNumDialinoutIPX) == $(NewNumDialinoutIPX)
+              set CommonStatus = STATUS_USERCANCEL
+              goto WriteRasAsyMac
+            endif
+          endif
+        endif
+      endif
+    endif
+    set NumAddDialinNBF      = 0
+    set NumAddDialoutNBF     = 0
+    set NumRemoveDialinNBF   = 0
+    set NumRemoveDialoutNBF  = 0
+    set NumAddDialinIP       = 0
+    set NumAddDialoutIP      = 0
+    set NumRemoveDialinIP    = 0
+    set NumRemoveDialoutIP   = 0
+    ifint $(PrevNumDialinNBF) > $(NewNumDialinNBF)
+        set-sub NumRemoveDialinNBF = $(PrevNumDialinNBF), $(NewNumDialinNBF)
+    else
+        set-sub NumAddDialinNBF = $(NewNumDialinNBF), $(PrevNumDialinNBF)
+    endif
+    ifint $(PrevNumDialoutNBF) > $(NewNumDialoutNBF)
+        set-sub NumRemoveDialoutNBF = $(PrevNumDialoutNBF), $(NewNumDialoutNBF)
+    else
+        set-sub NumAddDialoutNBF = $(NewNumDialoutNBF), $(PrevNumDialoutNBF)
+    endif
+    ifint $(PrevNumDialinIP) > $(NewNumDialinIP)
+        set-sub NumRemoveDialinIP = $(PrevNumDialinIP), $(NewNumDialinIP)
+    else
+        set-sub NumAddDialinIP = $(NewNumDialinIP), $(PrevNumDialinIP)
+    endif
+    ifint $(PrevNumDialoutIP) > $(NewNumDialoutIP)
+        set-sub NumRemoveDialoutIP = $(PrevNumDialoutIP), $(NewNumDialoutIP)
+    else
+        set-sub NumAddDialoutIP = $(NewNumDialoutIP), $(PrevNumDialoutIP)
+    endif
+    ifint $(PrevNumDialinoutIPX) > $(NewNumDialinoutIPX)
+        set-sub NumRemoveDialinoutIPX = $(PrevNumDialinoutIPX), $(NewNumDialinoutIPX)
+    else
+        set-sub NumAddDialinoutIPX = $(NewNumDialinoutIPX), 

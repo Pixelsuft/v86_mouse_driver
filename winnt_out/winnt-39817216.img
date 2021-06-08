@@ -1,0 +1,95 @@
+uPopup\Musica0,,,"%25%\media\%MUSICA_MENUPOPUP%.wav"
+
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,MMCheckForOFN,,"Rundll32.exe mmsys.cpl,mmseRunOnce CHECK_OFN"
+HKCU,AppEvents\Schemes\NewSchemes\Musica,,,
+
+[musica.remove.reg]
+HKLM,%KEY_OPTIONAL%\Musica,Installed,,"0"
+
+[musica.remove.DelReg]
+HKCU,AppEvents\Schemes\Names\Musica0
+HKCU,AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\Musica0
+HKCU,%KEY_DEFSCH%\.Default\Musica0
+HKCU,%KEY_DEFSCH%\SystemStart\Musica0
+HKCU,%KEY_DEFSCH%\SystemExit\Musica0
+HKCU,%KEY_DEFSCH%\SystemHand\Musica0
+HKCU,%KEY_DEFSCH%\SystemQuestion\Musica0
+HKCU,%KEY_DEFSCH%\SystemExclamation\Musica0
+HKCU,%KEY_DEFSCH%\SystemAsterisk\Musica0
+HKCU,%KEY_DEFSCH%\Open\Musica0
+HKCU,%KEY_DEFSCH%\Close\Musica0
+HKCU,%KEY_DEFSCH%\Maximize\Musica0
+HKCU,%KEY_DEFSCH%\Minimize\Musica0
+HKCU,%KEY_DEFSCH%\RestoreDown\Musica0
+HKCU,%KEY_DEFSCH%\RestoreUp\Musica0
+HKCU,%KEY_DEFSCH%\AppGPFault\Musica0
+HKCU,%KEY_DEFSCH%\MenuCommand\Musica0
+HKCU,%KEY_DEFSCH%\MenuPopup\Musica0
+;-----------------------------------------------
+
+;--- Jungle Sound Scheme Install Sections ------
+[jungle.files]
+%JUNGLE_RECYCLE%.WAV     ,junglere.wav
+%JUNGLE_DEFAULT%.WAV     ,junglede.wav
+%JUNGLE_WINDOWSSTART%.WAV,junglewi.wav
+%JUNGLE_WINDOWSEXIT%.WAV ,jungle~1.wav
+%JUNGLE_CRITICALSTOP%.WAV,junglecr.wav
+%JUNGLE_QUESTION%.WAV    ,junglequ.wav
+%JUNGLE_EXCLAMATION%.WAV ,jungleex.wav
+%JUNGLE_ASTERISK%.WAV    ,jungleas.wav
+%JUNGLE_OPEN%.WAV        ,jungleop.wav
+%JUNGLE_CLOSE%.WAV       ,junglecl.wav
+%JUNGLE_MAXIMIZE%.WAV    ,junglema.wav
+%JUNGLE_MINIMIZE%.WAV    ,junglemi.wav
+%JUNGLE_RESTOREDOWN%.WAV ,jungle~3.wav
+%JUNGLE_RESTOREUP%.WAV   ,jungle~4.wav
+%JUNGLE_ERROR%.WAV       ,jungleer.wav
+%JUNGLE_MENUCOMMAND%.WAV ,jungleme.wav
+%JUNGLE_MENUPOPUP%.WAV   ,jungle~2.wav
+
+[jungle.reg]
+HKLM,%KEY_OPTIONAL%\Jungle,Installed,,"1"
+
+HKCU,AppEvents\Schemes\Names\Jungle0,,,"%V_JUNGLE%"
+HKCU,AppEvents\Schemes\Apps\Explorer,,,"%V_EXPLORER%"
+HKCU,AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\Jungle0,,,%25%\media\%JUNGLE_RECYCLE%.wav
+HKCU,%KEY_DEFSCH%\.Default\Jungle0,,,"%25%\media\%JUNGLE_DEFAULT%.wav"
+HKCU,%KEY_DEFSCH%\SystemStart\Jungle0,,,"%25%\media\%JUNGLE_WINDOWSSTART%.wav"
+HKCU,%KEY_DEFSCH%\SystemExit\Jungle0,,,"%25%\media\%JUNGLE_WINDOWSEXIT%.wav"
+HKCU,%KEY_DEFSCH%\SystemHand\Jungle0,,,"%25%\media\%JUNGLE_CRITICALSTOP%.wav"
+HKCU,%KEY_DEFSCH%\SystemQuestion\Jungle0,,,"%25%\media\%JUNGLE_QUESTION%.wav"
+HKCU,%KEY_DEFSCH%\SystemExclamation\Jungle0,,,"%25%\media\%JUNGLE_EXCLAMATION%.wav"
+HKCU,%KEY_DEFSCH%\SystemAsterisk\Jungle0,,,"%25%\media\%JUNGLE_ASTERISK%.wav"
+HKCU,%KEY_DEFSCH%\Open\Jungle0,,,
+HKCU,%KEY_DEFSCH%\Close\Jungle0,,,
+HKCU,%KEY_DEFSCH%\Maximize\Jungle0,,,"%25%\media\%JUNGLE_MAXIMIZE%.wav"
+HKCU,%KEY_DEFSCH%\Minimize\Jungle0,,,"%25%\media\%JUNGLE_MINIMIZE%.wav"
+HKCU,%KEY_DEFSCH%\RestoreDown\Jungle0,,,"%25%\media\%JUNGLE_RESTOREDOWN%.wav"
+HKCU,%KEY_DEFSCH%\RestoreUp\Jungle0,,,"%25%\media\%JUNGLE_RESTOREUP%.wav"
+HKCU,%KEY_DEFSCH%\AppGPFault\Jungle0,,,"%25%\media\%JUNGLE_ERROR%.wav"
+HKCU,%KEY_DEFSCH%\MenuCommand\Jungle0,,,"%25%\media\%JUNGLE_MENUCOMMAND%.wav"
+HKCU,%KEY_DEFSCH%\MenuPopup\Jungle0,,,"%25%\media\%JUNGLE_MENUPOPUP%.wav"
+
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,MMCheckForOFN,,"Rundll32.exe mmsys.cpl,mmseRunOnce CHECK_OFN"
+HKCU,AppEvents\Schemes\NewSchemes\Jungle,,,
+
+[jungle.remove.reg]
+HKLM,%KEY_OPTIONAL%\Jungle,Installed,,"0"
+
+[jungle.remove.DelReg]
+HKCU,AppEvents\Schemes\Names\Jungle0
+HKCU,AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\Jungle0
+HKCU,%KEY_DEFSCH%\.Default\Jungle0
+HKCU,%KEY_DEFSCH%\SystemStart\Jungle0
+HKCU,%KEY_DEFSCH%\SystemExit\Jungle0
+HKCU,%KEY_DEFSCH%\SystemHand\Jungle0
+HKCU,%KEY_DEFSCH%\SystemQuestion\Jungle0
+HKCU,%KEY_DEFSCH%\SystemExclamation\Jungle0
+HKCU,%KEY_DEFSCH%\SystemAsterisk\Jungle0
+HKCU,%KEY_DEFSCH%\Open\Jungle0
+HKCU,%KEY_DEFSCH%\Close\Jungle0
+HKCU,%KEY_DEFSCH%\Maximize\Jungle0
+HKCU,%KEY_DEFSCH%\Minimize\Jungle0
+HKCU,%KEY_DEFSCH%\RestoreDown\Jungle0
+HKCU,%KEY_DEFSCH%\RestoreUp\Jungle0
+HKCU,%KEY_DEFSCH

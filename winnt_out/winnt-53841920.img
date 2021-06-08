@@ -1,0 +1,51 @@
+,0x00010001,96
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga850.fon
+
+[Font.CP1258.Reg.96]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (VGA res)",,COURE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (VGA res)",,SERIFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (VGA res)",,SSERIFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (VGA res)",,SMALLE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,96
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,vgafix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,vgasys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,vga850.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,96
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,vgafix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,vgasys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,vga850.fon
+
+[Font.CP1250.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (8514a res)",,COURFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (8514a res)",,SERIFFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (8514a res)",,SSERIFFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (8514a res)",,SMALLFE.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,120
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,120
+
+[Font.CP1251.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (8514a res)",,COURFR.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (8514a res)",,SERIFFR.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (8514a res)",,SSERIFFR.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (8514a res)",,SMALLFR.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,120
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,120
+
+[Font.CP1252.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (8514a res)",,COURF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (8514a res)",,SERIFF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (8514a res)",,SSERIFF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (8514a res)",,SMALLF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,120
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,120
+
+[Font.CP1253.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (8514a res)",,COURFG.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (8514a res)",,SERIFFG.FON
+HKLM,

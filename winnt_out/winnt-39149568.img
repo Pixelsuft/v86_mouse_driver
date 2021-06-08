@@ -1,0 +1,176 @@
+0
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=FW Level 030695
+
+COMMAND_INIT=AT&F&C1&D2 V1 X7 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[AT&T Paradyne PCMCIA]
+ALIAS=AT&T Dataport
+DETECT_STRING=ATI7<cr>
+DETECT_RESPONSE=Credit Card
+DETECT_RESPONSE=CREDIT CARD
+
+;----------------------------------------
+[AT&T KeepInTouch Express PCMCIA]
+ALIAS=AT&T Dataport
+DETECT_STRING=ATI7<cr>
+DETECT_RESPONSE=Credit Card
+DETECT_RESPONSE=CREDIT CARD
+
+;----------------------------------------
+[AT&T 4024]
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=24
+
+COMMAND_INIT=ATE1Q0V1X4Y0S0=0 S7=15 &D2&C1&M0 <speaker><cr>
+COMMAND_LISTEN=ATS0=2<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[Bocamodem M1440 Alt]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+;use both %C and appropriate S46 settings to work correctly
+<compression_on>=%C1S46=138
+<compression_off>=%C0S46=136
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=TR14
+
+COMMAND_INIT=AT&F&C1&D2&R1Q0V1E1X4 S0=0 S7=55 S2=128<cr>
+
+;to get short responses
+;COMMAND_INIT=ATW0S95=0<cr>
+;to get long responses
+COMMAND_INIT=ATW1S95=44<cr>
+
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+[Boca Modem V.Fast Class]
+ALIAS=Hayes Optima 28800
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=VFC
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=28800
+
+;----------------------------------------
+[Cardinal 2400e]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=249
+DETECT_RESPONSE=248
+DETECT_RESPONSE=242
+
+;----------------------------------------
+[Cardinal 9600]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&H1&I1
+<hwflowcontrol_off>=&H0&I0
+<compression_on>=&M6
+<compression_off>=&M4
+<protocol_on>=&M4
+<protocol_off>=&M0&B0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=9600
+DETECT_RESPONSE=AT&T V.32bis
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<speaker><cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Cardinal 14400]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<speaker><cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Cardinal 14400 Internal]
+;Compression turned off for stability.
+;Maximum DTE speed set to 19200
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C0
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=V1.<?><?> TR14
+DETECT_RESPONSE=U8
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=144
+DETECT_RESPONSE=AT&T V.32
+
+CALLBACKTIME=10
+DEFAULTOFF=compression protocol hwflowcontrol
+CLIENTDEFAULTOFF=compression protocol hwflowcontrol
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<speaker><cr>

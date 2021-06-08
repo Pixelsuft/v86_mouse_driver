@@ -1,0 +1,53 @@
+ Service Pack. Otherwise, the Update program is unable to replace system files that are in use. If a file is in use when you install SP6, a dialog box appears prompting you to cancel the installation or skip the file copy. You should cancel the installation and then uninstall SP6. To uninstall SP6, see <a href="#2.5">Service Pack Uninstall</a>, later in this document.</p>
+<p>
+Also, to maximize recovery of the computer in the event of installation failure, you should do the following before installing SP6:
+</p>
+<ul>
+<li>Update the system Emergency Repair Disk by using the Rdisk.exe command with the <b>/s</b> switch enabled.</li>
+<li>Perform a full backup of the computer, including the registry files.</li>
+<li>Disable any nonessential third-party drivers and services (that is, drivers and services that aren't required to start the computer).</li>
+<li> For the updated versions of the file(s), contact the OEM that provided the driver or service.</li>
+</ul></p>
+<p>
+To enable the uninstall option, run Update.exe. A subfolder named Uninstall is created in your Windows&nbsp;NT folder. This requires at least 120 megabytes (MB) of free space on the disk on which Windows&nbsp;NT&nbsp;4.0 is installed, 60 MB for the uninstall folder, and 60 MB for the Service Pack-updated system files.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="2.2.1">2.2.1</a> Advanced Power Management</b></p>
+<p>
+Advanced Power Management is not supported by Windows&nbsp;NT&nbsp;4.0. As a result, you should remove Advanced Power Management features before installing SP6.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="2.2.2">2.2.2</a> Power Management Utilities</b></p>
+<p>
+Power Management Utilities may not work on Windows&nbsp;NT&nbsp;4.0 SP6. Contact the vendor of your Power Management Utilities for an updated version that is compatible with Windows&nbsp;NT&nbsp;4.0 SP6.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><b><a name="2.2.3">2.2.3</a> 3Com EtherLink 905B NIC Driver</b></p>
+There is a known issue with the 3Com EtherLink 905B network adapter driver prior to version 3.38.40.0. If an earlier version of the driver is detected during SP6 installation, it will be replaced with version 3.40.40.0. If you have an EtherLink 905B network adapter and need to reinstall the drivers, you can obtain the latest drivers from 3Com’s Web site at:<br>
+<a href="http://www.3com.com">http://www.3com.com</a></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p>
+<b><a name="2.3">2.3</a> Service Pack Install Order Documentation</b></p>
+<p>
+<b>Important:</b> If you are installing Service Packs for multiple Microsoft products, the order in which you install the Service Packs may have an effect on stability. To view the documentation about the recommended installation order, visit the Microsoft&nbsp;Windows&nbsp;NT Server Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=ServicePacks">http://www.microsoft.com/windows/servicepacks</a></p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="2.4">2.4</a> Installing the Service Pack</b></p>
+<p><blockquote>
+<b>To install SP6 from the CD</b></p>
+<ol>
+<li>Insert the Service Pack CD into your CD-ROM drive.</li>
+<li>If a Web page opens in your browser after you insert the CD, click <b>Install Service Pack&nbsp;6</b>, and then click <b>Install Service Pack&nbsp;6 for Intel-based systems</b> or <b>Install Service Pack&nbsp;6 for Alpha-based systems</b> (depending upon whether you have an Intel-based or an Alpha-based computer).</li>
+<li>When prompted to download Update.exe or to save it to disk, click <b>Run this program from its current location</b>, and then click <b>OK</b>. Follow the instructions that appear.<br>
+<b>Note:</b> To use the uninst

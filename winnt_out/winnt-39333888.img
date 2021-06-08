@@ -1,0 +1,138 @@
+EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+; ************** CARTES KORTEX *********************
+
+[KORTEX NFX 144 CARTES - FRN]
+alias=KORTEX KXPRO 144 CARTES - FRN
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=KORTEX KXPRO 144
+
+
+[KORTEX KXPRO 144 CARTES - FRN]
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0\\G1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=KORTEX KXPRO 144
+
+
+COMMAND_INIT=AT&FL3W0X4S0=2S95=40<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+
+
+;******************************** Modems PNB ********************************
+
+[PNB Baby RIO 14400 - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=14400
+<speaker_on>=M1
+<speaker_off>=M0
+;<hwflowcontrol_on>=  Keep the default value
+;<hwflowcontrol_off>=  Keep the default value
+<hwflowcontrol_on>=
+<hwflowcontrol_off>=
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=43 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+[PNB AMAZONE 2400 - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+<speaker_on>=M1
+<speaker_off>=M0
+;<hwflowcontrol_on>=  Keep the default value
+;<hwflowcontrol_off>=  Keep the default value
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2V1S0=0 S2=43S7=55 \\V1<cr>
+;OK=<cr><lf>Direc

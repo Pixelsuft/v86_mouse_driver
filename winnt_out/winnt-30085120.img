@@ -1,0 +1,81 @@
+tworkCard, $(ProductHardwareName), $(iSearch)
+            set KeyNetcard = $($R0)
+            set iSearch = $($R1)
+            Debug-Output "OemNadEp.Inf: FindNextNetworkCard "$(KeyNetcard)","$(iSearch)
+            Ifstr $(KeyNetcard) != $(KeyNull)
+                Debug-Output "OemNadEp.Inf: Setting OperationsSupport value"
+                SetRegValue $(KeyNetcard) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+                CloseRegKey $(KeyNetcard)
+                goto nextnci
+            Endif
+        endif
+	    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        Debug-Output "OEMNADDI.INF: Error Shelling the RAS INF file oemnsvra.inf"
+	        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS",  +
+	    	  $(InvokeRasError)
+	        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    	goto ShellCodeError
+	        endif
+	        goto successful
+	    Endif
+skipRAS = +
+	    goto successful
+    else-Ifstr(i) $(Result) == Cancel
+	    goto cancel
+    else-Ifstr(i) $(Result) == Error
+	    goto fatal
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    Debug-Output "OEMNADDI.INF: RegBase "$(!NTN_RegBase)
+    LoadLibrary "x" $(!STF_CWDDIR)setupdll.dll !LIBHANDLE
+    Debug-Output "OEMNADDI.INF: LIBHANDLE is "$(!LIBHANDLE)
+    LoadLibrary "x" $(!STF_CWDDIR)digiinst.dll DIGIHANDLE
+    Debug-Output "OEMNADDI.INF: DIGIHANDLE is "$(DIGIHANDLE)
+    LibraryProcedure Result, $(DIGIHANDLE), DigiEntry, $(!STF_HWND) $(Option) $(!NTN_InstallMode) $(!NTN_RegBase) $(BusTypeNum)
+    goto end
+UpgradeSoftware = +
+    Debug-Output "OEMNADDI:   ****   Entering UpgradeSoftware   ****"
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+	    CloseRegKey $(KeyProduct)
+	    set NetworkCardKeyName = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+	    OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(!MAXIMUM_ALLOWED) IE_KeyNetcards
+	    ifstr(i) $(IE_KeyNetcards) != ""
+	        Debug-Output "OEMNADDI:  Enumerating all NetworkCard keys"
+	        EnumRegKey $(IE_KeyNetcards) IE_KeyNameList
+	        ForListDo $(IE_KeyNameList)
+	    	    set Detected31 = FALSE
+	    	    OpenRegKey $(IE_KeyNetcards) "" *($($),1) +
+	    	          $(!MAXIMUM_ALLOWED) NetworkCardKey
+	    	    Ifstr(i) $(NetworkCardKey) != $(KeyNull)
+	    	        GetRegValue $(NetworkCardKey),"Manufacturer", ManufacturerInfo
+	    	        set ManufacturerName = *($(ManufacturerInfo), 4)
+	    	        Debug-Output "   Manufacturer = "$(ManufacturerName)
+	    	        Ifstr $(ManufacturerName) != $(Manufacturer)
+	    	    	goto nextnetcard
+	    	        endif
+	    	        GetRegValue $(NetworkCardKey),"ProductName", ProductNameInfo
+	    	        set ProductName = *($(ProductNameInfo), 4)
+	    	        Debug-Output "   ProductName = "$(ProductName)
+	    	        Ifstr(i) $(ProductName) != "PCIMAC"
+	    	    	goto nextnetcard
+	    	        endif
+	    	        GetRegValue $(NetworkCardKey),"ServiceName", ServiceNameInfo
+	    	        set ServiceName = *($(ServiceNameInfo), 4)
+	    	        Debug-Output "   ServiceName = "$(ServiceName)
+	    	        OpenRegKey $(NetworkCardKey) "" "NetRules" +
+	    	    	$(!MAXIMUM_ALLOWED) NetRuleKey
+	    	        Ifstr $(NetRuleKey) != $(KeyNull)
+	    	           GetRegValue $(NetRuleKey),"InfOption", InfOptionInfo
+	    	           set InfOption = *($(InfOptionInfo), 4)
+	    	           Debug-Output "   InfOption = "$(InfOption)
+	    	           Ifstr(i) $(InfOption) == "PCIMAC/4"
+                          Debug-Output "Resetting InfOption to PCIMAC4"
+                          SetRegValue $(NetRuleKey) {InfOption,$(NoTitle),$(!REG_VT_SZ),"PCIMAC4"}
+                          set InfOption = "PCIMAC4"
+	    	           Else-Ifstr(i) $(InfOption) == "PCIMAC"
+	    	    	   Debug-Output "OEMNADDI: Updating config which started as NT 3.1"
+	    	    	   OpenRegKey $(!REG_H_LOCAL) "" +
+	    	    		 $(!NTN_Service

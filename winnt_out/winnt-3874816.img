@@ -1,0 +1,109 @@
+yInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    Ifstr(i) $(DetectedCard) != TRUE
+        Goto adaptersetup
+    Endif
+    StartWait
+    Shell $(ParamInf) Param_QueryCard $(!STF_NCDETCARD)
+    EndWait
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Goto adaptersetup
+    Endif
+    Set DetectedParams = $($R1)
+    Debug-Output "OEMNADE1.INF: Calling Param_SetDefaults to merge detected params"
+    Shell $(ParamInf) Param_SetDefaults $(DetectedParams)
+    goto adaptersetup
+configureadapter = +
+    Ifstr $(KeyProduct) == $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNull)
+            set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+            Debug-Output "Cannot find component product key"
+            goto fatalregistry
+        Endif
+    Endif
+    Debug-Output "INF: Shelling to FindService"
+    Shell $(UtilityInf) FindService, $(KeyProduct)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "INF: FindService shell failure"
+        Goto ShellCodeError
+    Endif
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "INF: FindService Shell error: "$($R0)
+        Goto fatalregistry
+    endif
+    set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Ifstr $(KeyParameters) == $(KeyNull)
+        set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+        Debug-Output "Cannot find component service"
+        goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE )
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+        set ValueItem = $($)
+        set ValueName = *($(ValueItem),1)
+        set ValueData = *($(ValueItem),4)
+        Ifstr(i) $(ValueName) == "Transceiver"
+            set TransceiverValue = $(ValueData)
+        else-ifstr(i) $(ValueName) == "ZeroWaitState"
+            set WaitStateValue = $(ValueData)
+        else-ifstr(i) $(ValueName) == "InterruptNumber"
+            set IRQ_Level = $(ValueData)
+        else-ifstr(i) $(ValueName) == "IoBaseAddress"
+            set IOBaseAddrValue = $(ValueData)
+        else-ifstr(i) $(ValueName) == "MemoryMappedBaseAddress"
+            set MemAddrDec = $(ValueData)
+        else-ifstr(i) $(ValueName) == "MemoryMappedSize"
+            set MemAddrLength = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusType"
+            set BusInterfaceType = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumber = $(ValueData)
+        endif
+    EndForListDo
+adaptersetup = +
+    Shell "" DebugConfiguration "before displaying dialog"
+    Set from = adapteroptions
+    Set IOADDR_Hex_Value = *($(IOADDR_Hex_List), ~($(IOADDR_Addr_List),$(IOBaseAddrValue)))
+    Set MemAddrHexValue = *($(MemAddrHexList), ~($(MemAddrDecList),$(MemAddrDec)))
+    Ifint $(TransceiverValue) == 1
+        Set RadioIn = {1}
+    Else
+        Set RadioIn = {2}
+    Endif
+    Ifint $(WaitStateValue) == 0
+        Set CheckItemsIn = {"OFF"}
+    Else
+        Set CheckItemsIn = {"ON"}
+    Endif
+    Shell $(ParamInf) Param_ParameterConfidence
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "OEMNADE2.INF: parameter confidence too low to bypass configuration"
+        Goto adapteroptions
+    Endif
+    Ifstr(i) $(DetectedCard) == TRUE
+        Ifstr(i) $(!STF_INSTALL_MODE) != CUSTOM
+            Goto adapterverify
+        Endif
+    Endif
+adapteroptions = +
+    set from = adapteroptions
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusInterfaceType = $(!AutoNe

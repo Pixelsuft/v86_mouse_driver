@@ -1,0 +1,74 @@
+
+                goto fatalregistry
+            endif
+        endif
+    endif
+    LibraryProcedure Result $(!NWCFG_HANDLE), SetupRegistryForNWCS
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\NWCWorkstation\networkprovider" $(MAXIMUM_ALLOWED) ProviderKey
+    ifstr(i) $(ProviderKey) != ""
+        SetRegValue $(ProviderKey) {Devicename,$(NoTitle),$(!REG_VT_SZ),"\Device\nwrdr"}
+        SetRegValue $(ProviderKey) {Name,$(NoTitle),$(!REG_VT_SZ),$(ProductProviderDisplayName)}
+        CloseRegKey $(ProviderKey)
+    endif
+    LibraryProcedure Status1, $(!LIBHANDLE), CheckFileExistance, $(!STF_WINDOWSSYSPATH)"\novell.cpl"
+    ifstr(i) $(Status1) == "YES"
+        LibraryProcedure Status2, $(!LIBHANDLE), RenFile, $(!STF_WINDOWSSYSPATH)"\novell.cpl", $(!STF_WINDOWSSYSPATH)"\novell.bak"
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\WOW" $(MAXIMUM_ALLOWED) WowKey
+    ifstr(i) $(WowKey) != ""
+        GetRegValue $(WowKey),"KnownDLLS", KnownDLLsInfo
+        Split-String *($(KnownDLLsInfo),4), " ", KnownDLLsList
+        Ifcontains(i) "netware.drv" not-in $(KnownDLLsList)
+            ifstr(i) *($(KnownDLLsInfo),4) == ""
+                set KnownDLLs = "netware.drv"
+            else
+                set KnownDLLs = *($(KnownDLLsInfo),4)" netware.drv"
+            endif
+            SetRegValue $(WowKey) {"KnownDLLS",$(NoTitle),$(!REG_VT_SZ),$(KnownDLLs)}
+        endif
+        CloseRegKey $(WowKey)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\LanmanServer\Parameters" $(MAXIMUM_ALLOWED) ServerParmKey
+    ifstr(i) $(ServerParmKey) != ""
+        SetRegValue $(ServerParmKey) {"EnableSharedNetDrives",$(NoTitle),$(!REG_VT_DWORD),1}
+        CloseRegKey $(ServerParmKey)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "Software\Microsoft\NWCWorkstation\CurrentVersion" $(MAXIMUM_ALLOWED) CurrentVersionKey
+    ifstr(i) $(CurrentVersionKey) != ""
+        SetRegValue $(CurrentVersionKey) {"Title",$(NoTitle),$(!REG_VT_SZ),$(NWType)}
+        CloseRegKey $(CurrentVersionKey)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\NWCWorkstation" $(MAXIMUM_ALLOWED) nwcKey
+    ifstr(i) $(nwcKey) != ""
+        SetRegValue $(nwcKey) {"DisplayName",$(NoTitle),$(!REG_VT_SZ),$(NWType)}
+        SetRegValue $(nwcKey) {"ImagePath",$(NoTitle),$(!REG_VT_EXPAND_SZ),$(ProductNWWKSTAImagePath)}
+        CloseRegKey $(nwcKey)
+    endif
+    Set FLibraryErrCtl = 1
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\Print\Providers" $(MAXIMUM_ALLOWED) PrintProviderKey
+    ifstr(i) $(PrintProviderKey) != ""
+        GetRegValue $(PrintProviderKey) "Order" OrderInfo
+        ifcontains(i) $(OldPrintProviderName) in *($(OrderInfo),4)
+            set oldname = $(OldPrintProviderName)
+            goto changePrintProvider
+        endif
+        ifcontains(i) $(OldPrintProviderName2) in *($(OrderInfo),4)
+            set oldname = $(OldPrintProviderName2)
+            goto changePrintProvider
+        endif
+        goto nochangePrintProvider
+changePrintProvider = +
+        DeleteRegKey $(PrintProviderKey) $(oldname)
+        OpenRegKey $(PrintProviderKey) "" $(ProductPrintProviderName) $(MAXIMUM_ALLOWED) ProductProviderKey
+        ifstr $(ProductProviderKey) == $(KeyNull)
+            CreateRegKey $(PrintProviderKey) {$(ProductPrintProviderName),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" ProductProviderKey
+        endif
+        ifstr $(ProductProviderKey) != $(KeyNull)
+            SetRegValue $(ProductProviderKey) {"Name",$(NoTitle),$(!REG_VT_SZ),"nwprovau.dll"}
+            SetRegValue $(ProductProviderKey) {"DisplayName",$(NoTitle),$(!REG_VT_SZ),$(ProductPrintProviderName)}
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\Print\Providers" $(MAXIMUM_ALLOWED) PrintProviderKey
+        Ifstr $(PrintProviderKey) != $(KeyNull)
+            GetRegValue $(PrintProviderKey),"Order",OrderInfo
+            set OrderList = *($(OrderInfo),4)
+            set NewOrderList =

@@ -1,0 +1,96 @@
+[SystemInformationClasses]
+    Language
+[InitialHardwareInstall]
+    StartWait
+    set Status = STATUS_FAILED
+    set !STF_LANGUAGE_HACK = NO
+    set ConfigureOptions = {}
+    read-syms OemOptionDiskettes$(!STF_LANGUAGE)
+    read-syms Strings$(!STF_LANGUAGE)
+    shell "subroutn.inf" PushBillboard STATUSDLG $(Error6)
+    set OptionTypeList = {Language}
+    ForListDo $(OptionTypeList)
+        read-syms $($)Vars
+        detect    $($)Vars
+    EndForListDo
+    ForListDo $(OptionTypeList)
+        shell "" InitOptionVars $(!STF_LANGUAGE) $($) $($($)HardwareDetected) $($($)SystemSet) $($($)Default)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set $($)OurINFOptions = $($R1)
+            set $($)OemINFOptions = $($R2)
+            set $($)MergedOptions = $($R3)
+            set $($)SpecialOption = $($R4)
+            set $($)CurrentOption = $($R5)
+            set $($)Option        = *($($R5), 1)
+        else
+            shell "subroutn.inf" PopBillboard
+            EndWait
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error1)
+            StartWait
+            goto finish_system
+        endif
+    EndForListDo
+    ForListDo $(OptionTypeList)
+        shell "" InitListBoxVars $(!STF_LANGUAGE) $($($)MergedOptions) $($($)SpecialOption) $(Other)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set $($)OptionList     = $($R1)
+            set $($)OptionTextList = $($R2)
+        else
+            shell "subroutn.inf" PopBillboard
+            EndWait
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error2)
+            StartWait
+            goto  finish_system
+        endif
+    EndForListDo
+    shell "subroutn.inf" PopBillboard
+system = +
+    read-syms SystemDlg$(!STF_LANGUAGE)
+    EndWait
+    ui start "System"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        ForListDo $(OptionTypeList)
+            set $($)Option = *($($($)OptionList), ~($(Combo$(#)List), $(Combo$(#)Out)))
+        EndForListDo
+        ui pop 1
+        goto install_system
+    else-ifstr(i) $(DLGEVENT) == "NOTIFY"
+        set OptionNum = $(ButtonChecked)
+        set Option    = *($(OptionTypeList), $(ButtonChecked))
+        set ReInit    = YES
+        ifstr(i) $(Combo$(OptionNum)Out) != $(Other)
+            set $(Option)Option = *($($(Option)OptionList), ~($(Combo$(OptionNum)List), $(Combo$(OptionNum)Out)))
+            set ReInit = NO
+        else
+            shell "other.inf" GetNewOEMOption $(!STF_LANGUAGE) $($(Option)OemINFOptions) $(Option) $($(Option)DisketteSrc)
+            ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                set $(Option)OemINFOptions  = $($R1)
+                set $(Option)Option         = $($R2)
+                set $(Option)DisketteSrc    = $($R4)
+                shell "" MergeOptions $($(Option)OurINFOptions) $($(Option)OemINFOptions)
+                ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                    set $(Option)MergedOptions = {$($R1), $($R2)}
+                else
+                    shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error4)
+                    ui pop 1
+                    StartWait
+                    goto finish_system
+                endif
+                shell "" InitListBoxVars $(!STF_LANGUAGE) $($(Option)MergedOptions) $($(Option)SpecialOption) $(Other)
+                ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+                    set $(Option)OptionList     = $($R1)
+                    set $(Option)OptionTextList = $($R2)
+                else
+                    shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error2)
+                    ui pop 1
+                    StartWait
+                    goto  finish_system
+                endif
+                set ReInit = YES
+                goto system
+            else-ifstr(i) $($R0) == "STATUS_USERCANCEL"
+                set ReInit = YES
+                goto system
+            else
+                shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Error3)
+                set ReInit =

@@ -1,0 +1,128 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1998 Microsoft Corporation \\MS-IRL\\
+; Manufacturer:   Martignoni Electronics AG
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem1% = Modem1,UNIMODEMF13D8588		; Bullet E1414 MX-DX
+%Modem2% = Modem2,UNIMODEMEB359D62		; Bullet 100E 28800
+%Modem3% = Modem3,PCMCIA\E-TECH-C1414AX-0839	; Bullet PCMCIA 14
+%Modem4% = Modem4,UNIMODEMC3C3BED2		; Martignoni Cash Com
+%Modem5% = Modem1,UNIMODEM17054A5F		; Bullet PC 192 MX
+%Modem6% = Modem1,UNIMODEMFC12BBBA		; Bullet ModemMan V.terbo
+%Modem7% = Modem1,Mart_Modem7			; Bullet ModemMan Plus
+%Modem8% = Modem1,Mart_Modem8			; Bullet ModemMan
+%Modem9% = Modem9,UNIMODEMDDB3B812		; SpiderMan
+
+; Installation sections
+
+[Modem1]	; E1414MX-DX
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+[Modem2]	; Bullit 100E 28800
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem3]	; E-Tech C1414AX PCMCIA
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem4]	; E-Tech Cash Com
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem9]	; SpiderMan
+AddReg=All, MfgAddReg, Modem9.AddReg, External
+
+
+; AddReg sections
+
+[Modem1.AddReg]	; E1414 MX-DX
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, INIT,3,,"AT $X3 &D2<cr>"
+
+[Modem2.AddReg]	;Bullit 100E 28800
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, INIT,3,,"AT $X3 &D2<cr>"
+
+[Modem3.AddReg]	; Bullit PCMCIA 14
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, INIT,3,,"AT $X3 &D2<cr>"
+
+[Modem4.AddReg]	; Martignoni Cash Com
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, INIT,3,,"AT S95=122<cr>"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem9.AddReg]	; SpiderMan
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, INIT,3,,"AT W1 V1 &D2<cr>"
+HKR, Settings, InactivityTimeout,, "S40=<#>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, Blind_On,, "X1"
+
+; User visible strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Martignoni Electronics AG"
+
+; Model strings
+
+Modem1="Martignoni E1414 MX"
+Modem2="Martignoni Bullet 100E"
+Modem3="Martignoni Bullet PCMCIA 14"
+Modem4="Martignoni Cash Com"
+Modem5="Martignoni Bullet PC 192 MX"
+Modem6="Martignoni Bullet ModemMan V.terbo"
+Modem7="Martignoni Bullet ModemMan Plus"
+Modem8="Martignoni Bullet ModemMan"
+Modem9="Martignoni SpiderMan"
+
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init,      1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddReg]
+HKR,, InactivityScale, 01,00,00,00
+HKR, Init,      2,, "AT &F <cr>"
+HKR, Monitor,   1,, "None"
+HKR, Hangup,    1,, "ATH<cr>"
+HKR, Answer,    1,, "A

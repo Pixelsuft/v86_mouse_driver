@@ -1,0 +1,95 @@
+dif
+        Shell $(!UtilityInf), AddHardwareComponent, +
+              $(Product$(ThisOption)Name),$(!RasInfName),+
+              $(Product$(ThisOption)KeyName)
+        ifint $($R4) != -1
+            Set !NETCARD_LIST = >($(!NETCARD_LIST), +
+                                 {$(Product$(ThisOption)Name),+
+                                 $(!NetworkCardKeyName)"\"$($R4)})
+        endif
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+           Debug-Output "Cannot add hardware component"
+           goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "Registry error: add hardware component"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            goto fatalregistry
+        endif
+        set KeyNetcard    = $($R1)
+        set KeyParameters = $($R3)
+        set KeyAdapterRules = $($R2)
+        set AdapterNumber = $($R4)
+        set NewValueList = +
+            {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(!Manufacturer)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),+
+              "["$($R4)"] "$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(!CurrentDate),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(!HideComponent)}}
+        Shell  $(!UtilityInf), AddValueList, $(KeyNetcard), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+        endif
+        CloseRegKey $(KeyNetcard)
+        set TempProdName = """"$(Product$(ThisOption)Name)$(AdapterNumber)""""
+        set TempBindForm = $(TempProdName)$(NetRuleHardware$(ThisOption)BindForm)
+        set NewValueList = +
+            {{type,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRuleHardware$(ThisOption)Type)},+
+             {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)}, +
+             {class,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              $(NetRuleHardware$(ThisOption)Class)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)}}
+        Shell  $(!UtilityInf), AddValueList, $(KeyAdapterRules), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "Resgitry error: add value list."
+            CloseRegKey $(KeyParameters)
+            CloseRegKey $(KeyAdapterRules)
+            goto fatalregistry
+        endif
+        CloseRegKey $(KeyAdapterRules)
+        CloseRegKey $(KeyParameters)
+    endif 
+    Shell "" InstallNdisTapiService
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "Error shelling InstallNdisTapiService "
+         goto ShellCodeError
+    endif
+    ifstr(i) $($R0) != STATUS_SUCCESSFUL
+         set RegistryErrorIndex = $($R0)
+         Debug-Output "Error installing NdisTapi Service"
+         goto fatalregistry
+    endif
+    goto WriteParameters
+WriteParameters = +
+    ifstr(i) $(DoAdminOnly) == TRUE
+        goto WriteParametersOver
+    endif
+    StartWait
+    read-syms StatusUpdatingRegistry$(!STF_LANGUAGE)
+    shell $(subroutninf) PushBillBoard NETSTATUSDLG $(WritingRasParams)
+    Set BillboardVisible = 1
+    Debug-Output "Writing Registry Parameters."
+    ifstr(i) $(DoServer) != TRUE
+        goto WriteRasMan
+    endif
+    Debug-Output "OEMNSVRA.INF: Product type "$(!STF_PRODUCT)
+    Debug-Output "OEMNSVRA.INF: Total dialin ports "$(NewNumDialin)
+    set RasStartValue = 3
+    ifstr(i) $(!STF_PRODUCT) != "WINNT"
+        ifint

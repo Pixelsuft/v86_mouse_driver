@@ -1,0 +1,161 @@
+e - BHeight), BuildingColor, BF
+
+    'Draw the windows
+    c = x + 3
+    DO
+      FOR i = BHeight - 3 TO 7 STEP -WDifV
+        IF Mode <> 9 THEN
+          WinColr = (FnRan(2) - 2) * -3
+        ELSEIF FnRan(4) = 1 THEN
+          WinColr = 8
+        ELSE
+          WinColr = WINDOWCOLOR
+        END IF
+        LINE (c, BottomLine - i)-(c + WWidth, BottomLine - i + WHeight), WinColr, BF
+      NEXT
+      c = c + WDifh
+    LOOP UNTIL c >= x + BWidth - 3
+
+    x = x + BWidth + 2
+
+    CurBuilding = CurBuilding + 1
+
+  LOOP UNTIL x > ScrWidth - HtInc
+
+  LastBuilding = CurBuilding - 1
+
+  'Set Wind speed
+  Wind = FnRan(10) - 5
+  IF FnRan(3) = 1 THEN
+    IF Wind > 0 THEN
+      Wind = Wind + FnRan(10)
+    ELSE
+      Wind = Wind - FnRan(10)
+    END IF
+  END IF
+
+  'Draw Wind speed arrow
+  IF Wind <> 0 THEN
+    WindLine = Wind * 3 * (ScrWidth \ 320)
+    LINE (ScrWidth \ 2, ScrHeight - 5)-(ScrWidth \ 2 + WindLine, ScrHeight - 5), ExplosionColor
+    IF Wind > 0 THEN ArrowDir = -2 ELSE ArrowDir = 2
+    LINE (ScrWidth / 2 + WindLine, ScrHeight - 5)-(ScrWidth / 2 + WindLine + ArrowDir, ScrHeight - 5 - 2), ExplosionColor
+    LINE (ScrWidth / 2 + WindLine, ScrHeight - 5)-(ScrWidth / 2 + WindLine + ArrowDir, ScrHeight - 5 + 2), ExplosionColor
+  END IF
+END SUB
+
+'PlaceGorillas:
+'  PUTs the Gorillas on top of the buildings.  Must have drawn
+'  Gorillas first.
+'Parameters:
+'  BCoor() - user-defined TYPE array which stores upper left coordinates
+'  of each building.
+SUB PlaceGorillas (BCoor() AS XYPoint)
+    
+  IF Mode = 9 THEN
+    XAdj = 14
+    YAdj = 30
+  ELSE
+    XAdj = 7
+    YAdj = 16
+  END IF
+  SclX# = ScrWidth / 320
+  SclY# = ScrHeight / 200
+    
+  'Place gorillas on second or third building from edge
+  FOR i = 1 TO 2
+    IF i = 1 THEN BNum = FnRan(2) + 1 ELSE BNum = LastBuilding - FnRan(2)
+
+    BWidth = BCoor(BNum + 1).XCoor - BCoor(BNum).XCoor
+    GorillaX(i) = BCoor(BNum).XCoor + BWidth / 2 - XAdj
+    GorillaY(i) = BCoor(BNum).YCoor - YAdj
+    PUT (GorillaX(i), GorillaY(i)), GorD&, PSET
+  NEXT i
+
+END SUB
+
+'PlayGame:
+'  Main game play routine
+'Parameters:
+'  Player1$, Player2$ - player names
+'  NumGames - number of games to play
+SUB PlayGame (Player1$, Player2$, NumGames)
+  DIM BCoor(0 TO 30) AS XYPoint
+  DIM TotalWins(1 TO 2)
+
+  J = 1
+  
+  FOR i = 1 TO NumGames
+    
+    CLS
+    RANDOMIZE (TIMER)
+    CALL MakeCityScape(BCoor())
+    CALL PlaceGorillas(BCoor())
+    DoSun SUNHAPPY
+    Hit = FALSE
+    DO WHILE Hit = FALSE
+      J = 1 - J
+      LOCATE 1, 1
+      PRINT Player1$
+      LOCATE 1, (MaxCol - 1 - LEN(Player2$))
+      PRINT Player2$
+      Center 23, LTRIM$(STR$(TotalWins(1))) + ">Score<" + LTRIM$(STR$(TotalWins(2)))
+      Tosser = J + 1: Tossee = 3 - J
+
+      'Plot the shot.  Hit is true if Gorilla gets hit.
+      Hit = DoShot(Tosser, GorillaX(Tosser), GorillaY(Tosser))
+
+      'Reset the sun, if it got hit
+      IF SunHit THEN DoSun SUNHAPPY
+
+      IF Hit = TRUE THEN CALL UpdateScores(TotalWins(), Tosser, Hit)
+    LOOP
+    SLEEP 1
+  NEXT i
+
+  SCREEN 0
+  WIDTH 80, 25
+  COLOR 7, 0
+  MaxCol = 80
+  CLS
+
+  Center 8, "GAME OVER!"
+  Center 10, "Score:"
+  LOCATE 11, 30: PRINT Player1$; TAB(50); TotalWins(1)
+  LOCATE 12, 30: PRINT Player2$; TAB(50); TotalWins(2)
+  Center 24, "Press any key to continue"
+  SparklePause
+  COLOR 7, 0
+  CLS
+END SUB
+
+'PlayGame:
+'  Plots banana shot across the screen
+'Parameters:
+'  StartX, StartY - starting shot location
+'  Angle - shot angle
+'  Velocity - shot velocity
+'  PlayerNum - the banana thrower
+FUNCTION PlotShot (StartX, StartY, Angle#, Velocity, PlayerNum)
+
+  Angle# = Angle# / 180 * pi#  'Convert degree angle to radians
+  Radius = Mode MOD 7
+
+  InitXVel# = COS(Angle#) * Velocity
+  InitYVel# = SIN(Angle#) * Velocity
+
+  oldx# = StartX
+  oldy# = StartY
+
+  'draw gorilla toss
+  IF PlayerNum = 1 THEN
+    PUT (StartX, StartY), GorL&, PSET
+  ELSE
+    PUT (StartX, StartY), GorR&, PSET
+  END IF
+  
+  'throw sound
+  PLAY "MBo0L32A-L64CL16BL64A+"
+  Rest .1
+
+  'redraw 

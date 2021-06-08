@@ -1,0 +1,59 @@
+indicates a clearing due to the remote client's dial-up PAD service.  Contact the remote client's X.25 service provider to determine the problem.
+
+If the X.25 network disconnects, the following warning message will appear in the system event log.
+
+"Network cleared the X.25 call on XPADxxx, X.25 Return Codes: Cause yy (hex) Diagnostic yy (hex)"
+
+The "XPADxxx" is the port name defined in the XPAD configuration.  "yy" is a hex string.  For a network clearing the cause value will always be a non-zero value.  The diagnostic code in the cause can be any value. Consult your local X.25 service provider with the cause and diagnostic value to determine the exact reason for the network disconnect.
+
+
+=================================================
+FREQUENTLY ASKED QUESTIONS
+=================================================
+This section contains questions and answers from public bulletin boards, such as CompuServe. It is included to help customers with similiar questions.
+You can find more information in the RAS online Help file or in Microsoft's whitepaper on RAS located on ftp.microsoft.com or www.microsoft.com.
+
+QUESTION:
+I had my DHCP server configured for an address pool.  I then
+changed it to a different pool.  Now all my RAS clients continue to get addresses from the initial pool.  Why?
+
+ANSWER:
+See the section, "Resetting DHCP Leases on RAS Servers" earlier in this file.
+
+---------------------------------------------------
+QUESTION:
+My site has a Shiva network modem which I can use to call into and 
+establish a connection on the Novell network. Can I use the RAS client software to dial in and establish a connection directly with Shiva, without having to setup a Windows NT Server computer as a RAS server? If so, how would I go about doing this?
+
+ANSWER:
+The Windows NT RAS client will dial into a Shiva network modem.  You
+need to install RAS on the Windows NT client.  Then dial in using a valid username and password.  
+
+If you have problems, there are many things to check.  You can check to see if the client is requesting its own IP address, but the server is not configured to supply one.  Also, you must select PPP protocols that are supported on the server; for example, IP or IPX.
+
+------------------------------------------
+QUESTION:
+I have an internal Intel SatisFAXtion/400 modem, which is installed on COM4.
+When I try to setup RAS for this modem, it only lists Port 2 and Port 3 as
+options.  It says if I want to access other ports to get a driver from the
+manufacturer.  Does this mean that I need a SatisFAXtion driver for Windows NT from Intel?
+
+ANSWER:
+This means you probably do not have the modem configured correctly for COM4. The system is not recognizing a device on COM4, so COM4 is not being offered in RAS setup.  Try using Terminal to dial out through COM4. If the modem is correctly configured for COM4, you may have an IRQ conflict that is causing the problem.  Check the Windows NT Event Viewer to see if there are any
+problems listed there.
+
+---------------------------------------------------
+QUESTION:
+Does anyone have a fix for the SMC 16550 UART.... I get error messages when using RAS to connect to a computer above 19200. Is there a fix besides changing my serial card or going to an internal modem?
+
+ANSWER: You can try setting the port speed a bit lower.  This is the speed at which the machine talks to the modem,
+rather than the speed of the modem.  By default it is 38400.  Try setting it to the same speed as his modem.  To set this, edit the
+phone book entry and choose the Modem button at the bottom of the
+dialog.  Select a speed in the Initial Speed (bps) box.
+
+----------------------------------------------------
+QUESTION:
+How, on a Windows NT Server version 3.5 network, do I provide primary DNS service?  Do I need to put a UNIX box on my LAN just to provide DNS?  Or is there a DNS Server that will run under the Windows NT Services system?
+
+ANSWER:
+Windows NT Server version 3.5 does not have a DNS service. A DNS server for Windows NT is available in the Win

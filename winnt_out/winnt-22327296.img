@@ -1,0 +1,48 @@
+cess Product Support for more information.
+
+Microsoft Bookshelf '94
+Bookshelf '94 may exhibit unexpected behavior when you click some of the options on the main menu bar.  An example of this behavior  is when you click the Tools menu. The menu title displayed as "ls Books" instead of "Tools" as expected.  This can be solved by changing  MENUPATTERN=1  to  MENUPATTERN=0  in the [OPTIONS] section of BS94.ini.
+
+Microsoft C/C++ 7.0a
+CodeView for Windows (CVW.EXE) is not supported. To debug 16-bit Windows-based applications, use the Windows NT debugger, WINDBG.EXE or the character-mode version of CodeView.
+
+Microsoft Dinosaurs
+Microsoft Dinosaurs does not install the Macromind Multimedia Player (MMP) when installed on Windows NT. You must copy MMCMMP.DRV and MMP.DLL from the \XFILES\DRIVERS folder on the Microsoft Dinosaurs compact disc to the \systemroot\SYSTEM directory. After copying the files you must add the following entries to the Registry by using Registry Editor:
+
+Add the REG_SZ value MMMovie=MCIMMP.DRV to the key:
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MCI
+
+Add the REG_SZ value mmm=MMMOVIE.DRV to the key:
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MCI Extensions
+
+Microsoft Encarta 95
+There are known problems printing from Encarta 95 to PCL printers in 24bpp when metafile spooling is turned on. You can work around this problem by either turning off metafile spooling or by switching to 8 color or 256 color depth in the printer's document properties dialog box. To change the settings, click Start, point to Settings, and then click Printers. Right-click the printer, then click Document Defaults. If necessary, click the Advanced tab. Click Document Options to disable metafile spooling. 
+
+Microsoft Entertainment Pack, Idlewild
+To use Idlewild screen savers with Windows NT, the full path to the screen savers must be added to the system path. You can either add the screen savers directory to the path in your AUTOEXEC.BAT file or use the System icon in Control Panel to add an environment variable containing the path.
+
+Microsoft Excel 5.0
+A General Protection Fault occurs when saving a file with an embedded PowerPoint® object.
+The RISC version of Excel returns different function values than values returned by x86 compatible versions.
+
+Microsoft Excel 5.0 for Windows NT
+The RISC versions of Microsoft Excel 5.0c for Windows NT for DEC Alpha, MIPS, and PowerPC return different function values than values returned by x86 compatible version.
+
+Windows NT version 4.0 allows you to compress NTFS drives. If you use the File Open dialog box in Excel 5.0c for Windows NT to view files on a compressed  NTFS drive, files will not be displayed. This might also affect any macro commands designed to open or read files. This situation occurs only on the x86 platform. The Digital Alpha, MIPS, PowerPC, and 16-bit versions of Microsoft Excel are not affected. Excel 5.0c for Windows NT reads non-compressed NTFS or FAT drives correctly.
+
+There are two ways to view your Excel 5.0c for Windows NT spreadsheet files on a compressed drive:
+· From the File Open dialog box in Excel 5.0c for Windows NT, type the name of the file you want to open in the File Name box, and then press ENTER
+– Or –
+· From Explorer, double click the spreadsheet file you want to open.
+
+Microsoft Explorapedia 
+The Readme file included with Microsoft Explorapedia states that non-intel ( MIPS, Alpha,  PPC, or RISC processors ) running Windows NT are not supported. Windows NT version 4.0 now supports these processors.  You must have administrator privileges to install this software application. 
+
+
+Microsoft Money for Windows 95
+Under Windows NT, the Microsoft Money 95 application experiences problems with online banking and online stock quotes. This will be fixed in a future release of Money 95.
+
+Microsoft Money for Windows 95, version 4.0 or 4.0a
+To use online banking and online stock quotes in Money for Windows 95 on a computer running Windows NT Workstation, you must be able to dial out

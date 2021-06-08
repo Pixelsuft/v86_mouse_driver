@@ -1,0 +1,92 @@
+ex = $(index),1
+    EndForListDo
+    CloseRegKey $(KeyMultiAdapter)
+GetPCIInformation_return = +
+    return $(InfoList)
+[AddNetworkProvider]
+    read-syms InitBaseVars
+    set RegistryErrorIndex = NO_ERROR
+    set ProviderDeviceName = $($3)
+    ifstr(i) $(ProviderDeviceName) == ""
+        set ProviderDeviceName = $($0)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(CurrentControlSet)"\control\NetworkProvider\order" $(MAXIMUM_ALLOWED) OrderKey
+    ifstr(i) $(OrderKey) == $(KeyNull)
+                  CreateRegKey $(!REG_H_LOCAL) {$(CurrentControlSet)"\control\NetworkProvider\order",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" OrderKey
+    endif
+    GetRegValue $(OrderKey) "ProviderOrder" OrderValue
+    set Order = *($(OrderValue), 4 )
+    ifstr(i) $(OrderValue) == $(KeyNull)
+                goto AddFirstProvider
+    else-ifstr(i) $(Order) == $(KeyNull)
+                goto AddFirstProvider
+    else
+                goto AddProvider
+    endif
+AddFirstProvider = +
+    SetRegValue $(OrderKey) {ProviderOrder,$(NoTitle),$(!REG_VT_SZ),$($0)}
+    goto WriteProviderInfo
+AddProvider = +
+    Split-String $(Order) "," OrderList
+    ifContains(i) $($0) in $(OrderList)
+    else
+        set Order = $(Order)","$($0)
+        SetRegValue $(OrderKey) {ProviderOrder,$(NoTitle),$(!REG_VT_SZ),$(Order)}
+    endif
+    goto WriteProviderInfo
+WriteProviderInfo = +
+    CloseRegKey $(OrderKey)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName)"\"$($0)"\networkprovider" $(MAXIMUM_ALLOWED) ProviderKey
+    Ifstr(i) $(ProviderKey) == $(KeyNull)
+        CreateRegKey $(!REG_H_LOCAL) {$(ServicesBaseName)"\"$($0)"\networkprovider",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" ProviderKey
+    endif
+    set NewValueList = {{Devicename,$(NoTitle),$(!REG_VT_SZ),"\Device\"$(ProviderDeviceName)},+
+                        {ProviderPath, $(NoTitle), $(!REG_VT_EXPAND_SZ), $($1)},+
+                        {Name, $(NoTitle), $(!REG_VT_SZ), $($2)}}
+    Shell "" AddValueList $(ProviderKey) $(NewValueList)
+    CloseRegKey $(ProviderKey)
+AddNetworkProvider_return = +
+    return $(RegistryErrorIndex)
+[AddServiceProvider]
+    read-syms InitBaseVars
+    set RegistryErrorIndex = NO_ERROR
+    set ClassNum = $($3)
+    ifstr(i) $(ClassNum) == ""
+        set ClassNum = 8
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(CurrentControlSet)"\control\ServiceProvider\order" $(MAXIMUM_ALLOWED) OrderKey
+    ifstr(i) $(OrderKey) == $(KeyNull)
+        CreateRegKey $(!REG_H_LOCAL) {$(CurrentControlSet)"\control\ServiceProvider\Order",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" OrderKey
+        SetRegValue $(OrderKey) {ExcludedProviders,$(NoTitle),$(!REG_VT_MULTI_SZ),{}}
+    endif
+    GetRegValue $(OrderKey) "ProviderOrder" OrderValue
+    set Order = *($(OrderValue), 4 )
+    ifstr(i) $(OrderValue) == $(KeyNull)
+                goto AddFirstProvider
+    else-ifstr(i) $(Order) == $(KeyNull)
+                goto AddFirstProvider
+    else
+                goto AddProvider
+    endif
+AddFirstProvider = +
+    SetRegValue $(OrderKey) {ProviderOrder,$(NoTitle),$(!REG_VT_MULTI_SZ),{$($0)}}
+    goto WriteProviderInfo
+AddProvider = +
+    ifContains(i) $($0) in $(Order)
+    else
+        set Order = >($(Order),$($0))
+        SetRegValue $(OrderKey) {ProviderOrder,$(NoTitle),$(!REG_VT_MULTI_SZ),$(Order)}
+    endif
+    goto WriteProviderInfo
+WriteProviderInfo = +
+    CloseRegKey $(OrderKey)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName)"\"$($0)"\Serviceprovider" $(MAXIMUM_ALLOWED) ProviderKey
+    Ifstr(i) $(ProviderKey) == $(KeyNull)
+        CreateRegKey $(!REG_H_LOCAL) {$(ServicesBaseName)"\"$($0)"\Serviceprovider",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" ProviderKey
+    endif
+    set NewValueList = {{Class,$(NoTitle),$(!REG_VT_DWORD),$(ClassNum)},+
+                        {ProviderPath, $(NoTitle), $(!REG_VT_EXPAND_SZ), $($1)},+
+                        {Name, $(NoTitle), $(!REG_VT_SZ), $($2)}}
+    Shell "" AddValueList $(ProviderKey) $(NewValueList)
+    CloseRegKey $(ProviderKey)
+AddProv

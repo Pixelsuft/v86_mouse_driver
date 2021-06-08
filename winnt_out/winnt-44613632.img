@@ -1,0 +1,84 @@
+, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, ErrorControl_Cellular,, "\N7 -K1 -C0 -J1 -K1 -Q1 *H2"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6 -K1 -C0 -J1 -K1 -Q1 *H2"
+
+[Modem13.AddReg] ;Toshiba UK PCMCIA modem 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Init, 2,, "AT &F E0 V1 W2 &D2 &C1 S0=0 S95=47<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+
+[Modem12.AddReg] ; T24DX  based on T24D/F
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S0=0 \V1<cr>"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, Compression_On,, "S46=138"
+HKR, Settings, Compression_Off,, "S46=136"
+
+[Modem11.AddReg] ; T24SL
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1 \V1 &D2 &C1 S0=0<cr>"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+
+[Modem10.AddReg] ; T144nw  Toshiba Noteworthy T144NW PC Card
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Init, 2,, "AT &F E0 V1 W2 &D2 &C1 S0=0 S95=47<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+ 
+[Modem9.AddReg]  ; T24NW
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1 W2 &D2 &C1 S0=0 S95=47<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, InactivityTimeout,, "S30=<#>" 
+
+[Modem8.AddReg]  ; T144PF4
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 W2 &D2 &C1 S0=0 \V2<cr>"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem7.AddReg]  ; BC 14.400  - Canadian
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 W2 \V2 &D2 &C1 S0=0<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem6.AddReg]  ; T24M
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1 \V1 &D2 &C1 S0=0<cr>"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+
+[Modem5.AddReg]  ; TPCV32BF (Psion Dacom)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Init, 2,, "AT &F E0 V1 W2 &D2 &C1 S0=0 S95=47<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 %%C3 -Q0 S46=138"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 %%C3 -Q0 S46=138"
+
+[Modem4.AddReg]  ; T24D/F
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S0=0 \V1<cr>"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, Compression_On,, "S46=138"
+HKR, Settings, Compression_Off,, "S46=136"
+
+[Modem3.AddReg]  ; T144D/F
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 47,03,00,00, 00,e1,00,00, 40,38,00,00
+H

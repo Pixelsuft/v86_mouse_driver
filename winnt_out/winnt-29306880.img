@@ -1,0 +1,89 @@
+      Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(BhServiceKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(KeyParameters)
+            goto fatalRegistry
+        endif
+        set NewValueList = {{type    ,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareType)}, +
+                            {use     ,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareUse)}, +
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareClass)}, +
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareBindForm)}, +
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(BhServiceKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(KeyParameters)
+            goto fatalRegistry
+        endif
+        CloseRegKey $(SoftProductKey)
+        CloseRegKey $(SoftNetRuleKey)
+        CloseRegKey $(SoftLinkageKey)
+        set NewValueList = {{Nal,$(NoTitle),$(!REG_VT_MULTI_SZ),{"NDIS30","RNAL"}}}
+        Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(BhServiceKey)
+            goto fatalRegistry
+        endif
+        CloseRegKey $(KeyParameters)
+        CreateRegKey $(BhServiceKey) {"Performance",$(NoTitle),GenericClass} "" +
+                $(MAXIMUM_ALLOWED) "" KeyPerformance
+        set NewValueList = {{Library,$(NoTitle),$(!REG_VT_SZ),bhmon.dll}, +
+                            {Open,$(NoTitle),$(!REG_VT_SZ),"BhOpenPerformanceData"}, +
+                            {Close,$(NoTitle),$(!REG_VT_SZ),"BhClosePerformanceData"}, +
+                            {Collect,$(NoTitle),$(!REG_VT_SZ),"BhCollectPerformanceData"}}
+        Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(KeyPerformance)
+            CloseRegKey $(BhServiceKey)
+            goto fatalRegistry
+        endif
+        CloseRegKey $(KeyPerformance)
+        Shell $(UtilityInf), CreateService, $(ProductNMAgentName),+
+            $(ProductNMAgentDisplayName),+
+            $(ProductNMAgentImagePath),+
+            $(ProductNMAgentSvcType), "",+
+            {"bh"}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVBH.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVBH.INF: Registry error creating Network Monitor Agent service"
+            goto fatalregistry
+        endif
+    endif
+    ifstr(i) $(Option) == "NETMONTOOLS"
+        read-syms IconInfo$(!STF_LANGUAGE)
+        Install Install-Shortcuts
+    endif
+    goto successful
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    ifstr(i) $(Option) == "NETMONTOOLS"
+        read-syms IconInfo$(!STF_LANGUAGE)
+        Install Remove-Shortcuts
+        LibraryProcedure ResultList, $(!LIBHANDLE), Delnode, $(!STF_WINDOWSSYSPATH)"\netmon"
+    endif
+    AddfileToDeleteList $(!STF_WINDOWSSYSPATH)"\BHCTRL.CPL"
+    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+        $(ProductSoftwareName)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error"
+     

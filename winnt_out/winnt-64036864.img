@@ -1,0 +1,126 @@
+for dialogs
+Parent                  = AccessTop
+InstallType             = 14 ;Typical, Portable, Custom
+CopyFiles               = ObjectPkgCopyFilesSys, ObjectPkgCopyFilesHelp
+AddReg                  = ObjectPkgAddReg
+UpdateInis              = ObjectPkgInis
+Uninstall               = ObjectPkgUninstall
+Upgrade                 = ObjectPkgUpgrade
+Detect                  = %11%\packager.exe
+
+
+[ObjectPkgUninstall]
+DelFiles                = ObjectPkgCopyFilesSys, ObjectPkgCopyFilesHelp
+AddReg                  = ObjectPkgUninstallAddReg
+UpdateInis              = ObjectPkgUninstallInis
+
+
+[ObjectPkgUpgrade]
+CopyFiles               = ObjectPkgCopyFilesSys, ObjectPkgCopyFilesHelp
+AddReg                  = ObjectPkgAddReg
+
+
+[ObjectPkgInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%ObjectPkg_DESC%"",""""""%11%\packager.exe"""""",,,,""%11%"""
+
+
+[ObjectPkgUninstallInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%ObjectPkg_DESC%"""
+
+
+[Paint]
+OptionDesc              = %Paint_DESC%
+Tip                     = %Paint_TIP%
+IconIndex               = 37 ;Windows mini-icon for dialogs
+Parent                  = AccessTop
+InstallType             = 10 ;Typical, Custom
+CopyFiles               = PaintCopyFilesSys, PaintCopyFilesHelp
+AddReg                  = PaintInstallAddReg, PaintAddReg
+UpdateInis              = PaintInis
+Uninstall               = PaintUninstall
+Upgrade                 = PaintUpgrade
+Detect                  = %11%\mspaint.exe
+
+
+[PaintUninstall]
+DelFiles                = PaintCopyFilesSys, PaintCopyFilesHelp
+AddReg                  = PaintUninstallAddReg
+DelReg                  = PaintAddReg
+UpdateInis              = PaintUninstallInis
+
+
+[PaintUpgrade]
+CopyFiles               = PaintCopyFilesSys, PaintCopyFilesHelp
+AddReg                  = PaintInstallAddReg
+
+
+[PaintInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Paint_DESC%"",""""""%11%\mspaint.exe"""""",,,,""%11%"""
+
+
+[PaintUninstallInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Paint_DESC%"""
+
+
+[QuickView]
+OptionDesc              = %QuickView_DESC%
+Tip                     = %QuickView_TIP%
+IconIndex               = 28 ;QuickView mini-icon for dialogs
+Parent                  = AccessTop
+InstallType             = 10 ;Typical, Custom
+CopyFiles               = QuickViewCopyFilesViewers
+AddReg                  = QuickViewAddReg
+Uninstall               = QuickViewUninstall
+Upgrade                 = QuickViewUpgrade
+Detect                  = %21%\quikview.exe
+
+
+[QuickViewUninstall]
+DelFiles                = QuickViewCopyFilesViewers
+AddReg                  = QuickViewUninstallAddReg
+
+
+[QuickViewUpgrade]
+CopyFiles               = QuickViewCopyFilesViewers
+AddReg                  = QuickViewAddReg
+
+
+[ScreenSave]
+OptionDesc              = %ScreenSave_DESC%
+Tip                     = %ScreenSave_TIP%
+IconIndex               = 38 ;Monitor mini-icon for dialogs
+Parent                  = AccessTop
+
+
+[SSOpenGL]
+OptionDesc              = %SSOpenGL_DESC%
+Tip                     = %SSOpenGL_TIP%
+IconIndex               = 38 ;Monitor mini-icon for dialogs
+Parent                  = ScreenSave
+InstallType             = 10 ;Typical, Custom
+CopyFiles               = SSOpenGLCopyFilesSys, SSOpenGLCopyFilesHelp
+AddReg                  = SSOpenGLAddReg
+Uninstall               = SSOpenGLUninstall
+Upgrade                 = SSOpenGLUpgrade
+Detect                  = %11%\ss3dfo.scr
+
+
+[SSOpenGLUninstall]
+DelFiles                = SSOpenGLCopyFilesSys, SSOpenGLCopyFilesHelp
+AddReg                  = SSOpenGLUninstallAddReg
+
+
+[SSOpenGLUpgrade]
+CopyFiles               = SSOpenGLCopyFilesSys, SSOpenGLCopyFilesHelp
+AddReg                  = SSOpenGLAddReg
+
+
+[SSStandard]
+OptionDesc              = %SSStandard_DESC%
+Tip                     = %SSStandard_TIP%
+IconIndex               = 38 ;Monitor mini-icon for dialogs
+Pare

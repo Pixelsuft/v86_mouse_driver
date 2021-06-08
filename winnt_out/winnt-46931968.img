@@ -1,0 +1,86 @@
+,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 00,4b,00,00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Init, 3,, "AT E0 V1 &C1 &D2 W2 \V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, ErrorControl_Cellular,, "\N7 )M1 *H1 -K1 -Q1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6 )M1 *H1 -K1 -Q1"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, Modulation_CCITT,, "B0B15"
+HKR, Settings, Modulation_Bell,, "B1B16"
+
+[Modem11.AddReg]    ; Angia Netherlands + USA combo PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 3,, "AT E0 V1 &C1 &D2 W2<cr>"
+
+[Modem10.AddReg]    ; Angia 14.4 PCMCIA (PCM144) - USA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 3,, "AT E0 V1 &C1 &D2 W2<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+
+[Modem9.AddReg]     ; Angia 14.4 PCMCIA (FAX-PCM2-NL) - Netherlands
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 3,, "AT E0 V1 &C1 &D2 W2<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, ErrorControl_Cellular,, "\N7 )M1 *H1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6 )M1 *H1"
+
+[Modem8.AddReg]     ; EXP 1414CL Fax-Data PCMCIA Modem - cirrus chipset
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 3,, "AT E0 V1 &C1 &D2 S0=0 \V2<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3 -J1"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem7.AddReg]     ; EXP 144i Fax-Data PCMCIA Modem
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 4,, "AT F0 &C1 &D2<cr>"
+HKR, Settings, ErrorControl_Cellular,, "\N3 )M1 -K1 -Q1 *H1 :E0"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 )M1 -K1 -Q1 *H1 :E0"
+
+[Modem6.AddReg]     ; EXP 28.8 Fax-Data PCMCIA Modem
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 4,, "AT F0 &C1 &D2<cr>"
+HKR, Settings, ErrorControl_Cellular,, "\N3 )M1 -K1 -Q1 *H1 :E0"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 )M1 -K1 -Q1 *H1 :E0"
+
+[Modem5.AddReg]     ; EXP 14400-14400 Fax-Data PCMCIA Modem
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 4,, "AT F0 N1 &C1 &D2 \N3<cr>"
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 80,25,00,00
+HKR, Init, 4,, "AT F0 N1 &C1 &D2 \N3<cr>"
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 4,, "AT F0 N1 &C1 &D2 \N3<cr>"
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 3,, "AT E0 V1 <cr>"
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 60,09,00,00, 60,09,00,00
+
+; Strings
+
+[Strings]
+
+ANGIA  ="Angia"
+Modem14="Angia Safejack 28.8, V.34 PCMCIA"
+Modem13="Angia Saf

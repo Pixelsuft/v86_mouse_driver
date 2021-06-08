@@ -1,0 +1,104 @@
+  set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[Install-Shortcuts]
+    ShowCommonProgManGroup $(NetAdminGroupName), 1
+    RemoveCommonProgManItem $(NetAdminGroupName), $(NetMonitor)
+    CreateCommonProgManItem $(NetAdminGroupName), $(NetMonitor), "netmon\netmon.exe" ""  0
+    ShowCommonProgManGroup $(NetAdminGroupName), 6
+    exit
+[Remove-Shortcuts]
+    ShowCommonProgManGroup $(NetAdminGroupName), 1
+    RemoveCommonProgManItem $(OldNetAdminGroupName), $(NetMonitor)
+    RemoveCommonProgManItem $(NetAdminGroupName), $(NetMonitor)
+    ShowCommonProgManGroup $(NetAdminGroupName), 6
+    exit
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        ifstr(i) $(Option) == "NETMONTOOLS"
+            CreateDir $(!STF_WINDOWSSYSPATH)\Netmon
+            CreateDir $(!STF_WINDOWSSYSPATH)\Netmon\Parsers
+            CreateDir $(!STF_WINDOWSSYSPATH)\Netmon\Captures
+            AddSectionFilesToCopyList Files-TOOLS $(SrcDir)"netmon" $(!STF_WINDOWSSYSPATH)\Netmon
+            AddSectionFilesToCopyList Files-PARSERS $(SrcDir)"netmon" $(!STF_WINDOWSSYSPATH)\Netmon\Parsers
+            AddSectionFilesToCopyList Files-CAPTURES $(SrcDir)"netmon" $(!STF_WINDOWSSYSPATH)\Netmon\Captures
+        endif
+        AddSectionFilesToCopyList Files-NETMON $(SrcDir) $(!STF_WINDOWSSYSPATH)
+        AddSectionFilesToCopyList Files-DRIVERS $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    else
+        ifstr(i) $(Option) == "NETMONTOOLS"
+            LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\netmon\netmon.exe $(!STF_WINDOWSSYSPATH)\Netmon\netmon.exe
+        endif
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+    ifstr(i) $(Option) == "NETMONTOOLS"
+        AddSectionFilesToCopyList Files-TOOLS $(SrcDir)"netmon" $(!STF_WINDOWSSYSPATH)\Netmon
+        AddSectionFilesToCopyList Files-PARSERS $(SrcDir)"netmon" $(!STF_WINDOWSSYSPATH)\Netmon\Parsers
+        AddSectionFilesToCopyList Files-CAPTURES $(SrcDir)"netmon" $(!STF_WINDOWSSYSPATH)\Netmon\Captures
+    endif
+   AddSectionFilesToCopyList Files-NETMON $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-DRIVERS $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-DRIVERS]
+1,BHNT.SYS , SIZE=999
+[Files-NETMON]
+1,BHCTRL.CPL , SIZE=999
+1,BHMON.DLL , SIZE=999
+1,BHNETB.DLL , SIZE=999
+1,BHSUPP.DLL , SIZE=999
+1,NAL.DLL , SIZE=999
+1,NDIS30.DLL , SIZE=999
+1,NMAGENT.EXE , SIZE=999
+1,RNAL.DLL , SIZE=999
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    NETMON      = "Network Monitor Agent"
+    NETMONTOOLS = "Network Monitor Tools and Agent"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+ProductNMAgentDisplayName  = "Network Monitor Agent"
+NETMONTOOLSSoftwareTitle  = "Network Monitor Tools and Agent"
+NETMONSoftwareTitle       = "Network Monitor Agent"
+[NETMONConstantsENG]
+ProductSoftwareTitle       = $(NETMONSoftwareTitle)
+ProductSoftwareDescription = "Informs monitoring programs, such as Performance Monitor and Network Monitor, of networ

@@ -1,0 +1,48 @@
+. Before you can dial out using TAPI services, replace the Xsnpc.dll file in the system folder of MSMONEY with the Windows NT version 4.0 release of the Microsoft FAST Xsnpc.dll file dated March 29, 1996.
+
+This file can be found at www.microsoft.com and this file will be included in the next release of  Money for Windows 95.
+
+Microsoft Office 95 Applications
+Changing window focus with any Microsoft Office 95 application open may cause screen refresh or display problems, particularly on multiprocessor systems. Contact Microsoft Product Service Support for a new version of mso95.dll which resolves the problem.
+
+Microsoft Office Standard for Windows 95 version 7.0 
+If you install Microsoft Office Standard for Windows '95 version 7.0 onto a machine running Windows NT version 4.0, you will receive an error stating "Failure to load expression service" when using the Access ODBC driver from Office applications such as Excel or Word.  
+
+To correct this problem you need to obtain the Microsoft Office for Windows '95 version 7.0b release from Microsoft Product Support.  You can obtain a copy of this release by calling the Microsoft Order Desk at (800) 360-7561. If you are outside of the United States, contact the Microsoft Subsidiary in your area. To locate your subsidiary, call the Microsoft International Sales Information Center at 206-936-8661.
+
+Microsoft ODBC SDK 2.1
+The setup program for Microsoft ODBC SDK 2.1 does not correctly identify Windows NT as the current operating system and displays the following message:
+
+“This application uses CTL3D32.DLL which is not the correct version. This version of CTL3D32.DLL is designed only for WIN32s or Windows 95 systems?
+
+Rename the file %SYSTEMROOT%\SYSTEM32\CTL3D32.DLL and copy the file \ODBCSDK\REDIST32\WINNT\CTL3D32.DLL to %SYSTEMROOT%\SYSTEM32.
+The user interfaces for version 2.9 Microsoft ODBC 32-bit drivers, except for SQL Server, do not function properly under Windows NT.
+
+Microsoft PowerPoint 4.0 and PowerPoint for Windows 95
+The Genigraphics driver included with PowerPoint 4.0 is not supported.
+Under Microsoft Windows NT, Microsoft PowerPoint for Windows 95 may generate errors it can’t resolve, particularly when opening files or inserting clipart. For more information, contact Microsoft PowerPoint Product Support at (206) 635-7145.
+
+Microsoft Project for Windows 95
+Microsoft Project 95 does not run under Windows NT. To obtain an updated version, part number 098-63461, call the Microsoft Distribution Center at 1 (800) 426-9400.
+
+Microsoft Publisher for Windows 95
+When running Publisher under Windows NT, the text on some buttons is truncated.
+
+Microsoft Schedule+ 7.0
+When running under Windows NT, Schedule+ 7.0 requires the CTL3D32.DLL. This DLL is not installed by the Office 95 Setup Program, so you must copy it from the Office Pro compact disc #1. Copy the file OS\SYSTEM\CTL3D32.DLL to your systemroot\system32 directory.
+
+If you are upgrading from Windows NT 3.51 and have already installed Office for Windows 95 prior to upgrading, you will not need to copy this DLL.
+
+Microsoft SNA Server
+The SNA Administrator currently displays the wrong version number when you click About on the Help menu.
+On the MIPS platform only, SNA Server 2.11 and the SNA Server Windows NT client display incomplete text in dialog boxes. To obtain an update, contact:
+
+the MSSNA forum Lib #4 (unsupported third-party library)
+ftp.microsoft.com in /bussys/winnt/sna-unsup-ed/readme.txt (index file)
+
+Running SNA Server
+During the course of testing SNA Server 2.0 on Windows NT, two problems were discovered in SNA Server 2.0 as a result of the improved parameter checking and fault detection included in Windows NT. These do not affect the operation of SNA Server 2.0 on Windows NT 3.1.
+
+The symptoms include SDLC and X.25 SNA connections that will not activate and 802.2 SNA connections that cause an exception in SNALINK.EXE. Fixes for these problems are available in the Library 2 section of the MSSNA forum on CompuServe.
+
+If you have SNA Server 2.0 installed on your s

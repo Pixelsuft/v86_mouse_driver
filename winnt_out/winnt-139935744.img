@@ -1,0 +1,98 @@
+LSE
+        set fNetbeuiAllowedNew = FALSE
+    endif
+    ifstr(i) $(fTcpIpInstalled) == FALSE
+        set fTcpIpSelectedNew = FALSE
+        set fTcpIpAllowedNew = FALSE
+    endif
+    ifstr(i) $(fIpxInstalled) == FALSE
+        set fIpxSelectedNew = FALSE
+        set fIpxAllowedNew = FALSE
+    endif
+    ifstr(i) $(fNetbeuiSelectedNew) == $(fNetbeuiSelected)
+      ifstr(i) $(fTcpIpSelectedNew) == $(fTcpIpSelected)
+        ifstr(i) $(fIpxSelectedNew) == $(fIpxSelected)
+          ifstr(i) $(fNetbeuiAllowedNew) == $(fNetbeuiAllowed)
+            ifstr(i) $(fTcpIpAllowedNew) == $(fTcpIpAllowed)
+              ifstr(i) $(fIpxAllowedNew) == $(fIpxAllowed)
+                set Status = STATUS_SUCCESSFUL
+                Debug-Output "UpdateSelectedProtocols: Nothing changed"
+                goto UpdateSelectedProtocolsEnd
+              endif
+            endif
+          endif
+        endif
+      endif
+    endif
+    Shell "" SaveSelectedProtocols $(fNetbeuiSelectedNew) $(fTcpIpSelectedNew) +
+                                   $(fIpxSelectedNew) $(fNetbeuiAllowedNew) +
+                                   $(fTcpIpAllowedNew) $(fIpxAllowedNew)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "error shelling SaveSelectedProtocols."
+        goto UpdateSelectedProtocolsEnd
+    endif
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "error returned by SaveSelectedProtocols."
+        goto UpdateSelectedProtocolsEnd
+    endif
+    ifstr(i) $(fNetbeuiSelectedNew) == TRUE
+        set fNetbeuiChosen = TRUE
+    else
+        set fNetbeuiChosen = $(fNetbeuiAllowedNew)
+    endif
+    ifstr(i) $(fTcpIpSelectedNew) == TRUE
+        set fTcpIpChosen = TRUE
+    else
+        set fTcpIpChosen = $(fTcpIpAllowedNew)
+    endif
+    ifstr(i) $(fIpxSelectedNew) == TRUE
+        set fIpxChosen = TRUE
+    else
+        set fIpxChosen = $(fIpxAllowedNew)
+    endif
+    Shell "" UpdateNetCardInfo $(fNetbeuiChosen) $(fTcpIpChosen) +
+                               $(fIpxChosen)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "error shelling UpdateNetCardInfo."
+        goto UpdateSelectedProtocolsEnd
+    endif
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "error returned by UpdateNetCardInfo."
+        goto UpdateSelectedProtocolsEnd
+    endif
+    set Status = STATUS_SUCCESSFUL
+    ifstr(i) $(fNetbeuiAllowedNew) == FALSE
+        Debug-Output "UpdateSelectedProtocols: Removing RemoteAccess NBF dependency"
+        Shell "" RemoveServiceDependency "RemoteAccess" "NBF"
+    endif
+    ifstr(i) $(fTcpIpChosen) == FALSE
+        Debug-Output "UpdateSelectedProtocols: Removing RasArp service"
+        shell "" RemoveRasArpService
+    endif
+    ifstr(i) $(fIpxAllowedNew) == FALSE
+        Debug-Output "UpdateSelectedProtocols: Removing IPX router and SAP"
+        shell "" RemoveNwlnkRipService
+        shell "" RemoveIsnSapService
+        Shell "" RemoveServiceDependency "RemoteAccess" "NWLNKIPX"
+        ifstr(i) $($R0) == STATUS_FAILED
+            Debug-Output "UpdateSelectedProtocols: error removing service dependency of RemoteAccess on NWLNKIPX"
+        endif
+    endif
+UpdateSelectedProtocolsEnd = +
+    Debug-Output "UpdateSelectedProtocols: exit"
+    return $(Status) $(fNetbeuiChosen) $(fTcpIpChosen) $(fIpxChosen)
+[UpgradeIsdnInfo]
+    Debug-Output "UpgradeIsdnInfo entry."
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set RasKeyName      =  $(!NTN_SoftwareBase)"\Microsoft\Ras"
+    set TapiName        =  $(!NTN_SoftwareBase)"\Microsoft\Ras\Tapi Devices"
+    set RasIsdnName     =  $(!NTN_SoftwareBase)"\Microsoft\Ras\MEDIA\ISDN"
+    set RasManParamName =  $(!NTN_ServiceBase)"\RasMan\Parameters"
+    set PcimacName      =  "HARDWARE\DEVICEMAP\TAPI DEVICES\PCIMAC"
+    set KeyIsdn = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasIsdnName) $(!MAXIMUM_ALLOWED) KeyIsdn
+    ifstr $(KeyIsdn) != $(KeyNull)
+        EnumRegKey $(KeyIsdn) PortList
+        ifint $(RegLastError) != 0
+            Debug-Output "UpgradeIsdnInfo: error e

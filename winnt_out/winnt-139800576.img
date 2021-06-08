@@ -1,0 +1,98 @@
+
+        Debug-Output "OEMNSVRA.INF: could not open AsyncMac key"
+    else
+        SetRegValue $(KeyMac) {Start,$(NoTitle),$(!REG_VT_DWORD),$(AsyStartValue)}
+        CloseRegKey $(KeyMac)
+    endif
+    ifint $(PrevNumPorts) == $(NewNumPorts)
+      ifint $(PrevNumDialinNBF) == $(NewNumDialinNBF)
+        ifint $(PrevNumDialoutNBF) == $(NewNumDialoutNBF)
+          ifint $(PrevNumDialinIP) == $(NewNumDialinIP)
+            ifint $(PrevNumDialoutIP) == $(NewNumDialoutIP)
+              ifint $(PrevNumDialinoutIPX) == $(NewNumDialinoutIPX)
+                  EndWait
+                  Ifint $(BillboardVisible) != 0
+                      Shell "subroutn.inf" PopBillboard
+                      Set BillboardVisible = 0
+                  Endif
+                  goto WriteProtocolInfo
+              endif
+            endif
+          endif
+        endif
+      endif
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacParamKeyName) $(!MAXIMUM_ALLOWED) KeyMacParams
+    ifstr $(KeyMacParams) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF: could not open AsyncMac Params key"
+       set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+       goto fatalregistry
+    endif
+    set NewValueList = +
+        {{Ports, $(NoTitle), $(!REG_VT_DWORD), $(NewNumPorts)},+
+         {DialinNBF, $(NoTitle), $(!REG_VT_DWORD), $(NewNumDialinNBF)},+
+         {DialoutNBF, $(NoTitle), $(!REG_VT_DWORD), $(NewNumDialoutNBF)},+
+         {DialinIP, $(NoTitle), $(!REG_VT_DWORD), $(NewNumDialinIP)},+
+         {DialoutIP, $(NoTitle), $(!REG_VT_DWORD), $(NewNumDialoutIP)},+
+         {DialinoutIPX, $(NoTitle), $(!REG_VT_DWORD), $(NewNumDialinoutIPX)}}
+    Shell  $(!UtilityInf), AddValueList, $(KeyMacParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(KeyMacParams)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) $(!MAXIMUM_ALLOWED) KeyNetcards
+    ifstr $(KeyNetcards) == $(KeyNull)
+         Debug-Output "OEMNSVRA.INF: could not open Netcards key"
+         set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+         goto fatalregistry
+    endif
+    EnumRegKey $(KeyNetcards) NetcardsList
+    ForListDo $(NetcardsList)
+       set KeyName = *($($),1)
+       OpenRegKey $(KeyNetcards) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+       ifstr $(Card) == $(KeyNull)
+          Debug-Output "OEMNSVRA.INF: could not open netcard key"
+          set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+          goto fatalregistry
+       endif
+       GetRegValue $(Card), "ProductName" ProductNameInfo
+       set CardProductName = *($(ProductNameInfo), 4)
+       ifstr(i) $(CardProductName) == $(ProductRASASYMACName)
+           goto RasMacCardFound
+       endif
+       CloseRegKey $(Card)
+    EndForListDo
+    CloseRegKey $(KeyNetcards)
+RasMacCardFound = +
+    Debug-Output "Shelling to find AsyncMac Service."
+    Shell $(!UtilityInf) FindService, $(Card)
+    CloseRegKey $(Card)
+    ifint $($ShellCode)  != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVRA.INF: shell Findservice failed"
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "OEMNSVRA.INF: findservice failed."
+        goto fatalregistry
+    endif
+    set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Shell $(!UtilityInf), GetBusTypeNum
+    set BusTypeNum = $($R1)
+    set NewValueList = +
+        {{Ports, $(NoTitle), $(!REG_VT_DWORD), $(NewNumPorts)}, +
+         {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+    Shell  $(!UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(KeyParameters)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        g

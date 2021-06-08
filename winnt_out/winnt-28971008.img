@@ -1,0 +1,90 @@
+
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error."
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        CloseRegKey $(KeyProduct)
+        CloseRegKey $(SoftNetRulesKey)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output $(InfName)": Resgitry error: add value list."
+            GoTo FatalRegistry
+        EndIf
+        Shell "" AddServiceDependency $(ProductSoftwareName) $(PPTPProductSoftwareName)
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+            $(PPTPProductSoftwareName), +
+            $(PPTPProductSoftwareName), +
+            $(PPTPProductSoftwareTitle), $(STF_CONTEXTINFNAME), +
+            $(PPTPProductSoftwareImagePath), "kernelauto", "NDIS", {}, "",+
+            $(RASPPTPMsgDLL)
+        Set OEM_ABANDON_PPTP_SOFTWARE = TRUE
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error"
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        Set PPTPKeyProduct      = $($R1)
+        Set PPTPSoftNetRulesKey = $($R2)
+        CloseRegKey $($R3)
+        CloseRegKey $($R4)
+        CloseRegKey $($R5)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output $(InfName)": Registry error: add sman software components"
+            CloseRegKey $(PPTPKeyProduct)
+            CloseRegKey $(PPTPSoftNetRulesKey)
+            GoTo FatalRegistry
+        EndIf
+        Set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(PPTPProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(PPTPProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(PPTPProductSoftwareTitle)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(PPTPProductSoftwareDescription)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(PPTPProductSoftwareName)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(PPTPKeyProduct), $(NewValueList)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error."
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output $(InfName)": Registry error: add value list."
+            CloseRegKey $(PPTPKeyProduct)
+            CloseRegKey $(PPTPSoftNetRulesKey)
+            GoTo FatalRegistry
+        EndIf
+        Shell "" InstallRASPPTPFDriver
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "Error shelling InstallRASPPTPFDriver"
+             goto ShellCodeError
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+             Debug-Output "Error from InstallRASPPTPFDriver"
+             goto end
+        endif
+    EndIf
+    Shell $(UtilityInf), AddHardwareComponent, $(ProductHardwareName),$(STF_CONTEXTINFNAME),$(ProductKeyName)
+    IfInt $($R4) != -1
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards\"$($R4))
+    EndIf
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": Cannot add hardware component"
+        GoTo ShellCodeError
+    EndIf
+    Set RegistryErrorIndex = $($R0)
+    IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output $(InfName)": Registry error: add hardware component"
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        GoTo FatalRegistry
+    EndIf
+    Set KeyParameters = $($R3)
+    Set KeyAdapterRules = $($R2)
+    Set AdapterNumber = $($R4)
+    Set NewValueList = {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(Manufacturer)},+
+     

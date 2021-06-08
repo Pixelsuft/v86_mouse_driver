@@ -1,0 +1,70 @@
+menu, and then click Close from the pull down menu.
+
+Corel Draw 6.0
+· Corel Draw 6.0 produces an Access Violation, “closing Corel Draw,” when saving a file to a disk with less than 28K free. Make sure there is more than 28K free disk space, or you might lose all changes and possibly the file itself.
+
+· Moving an object off the screen in any direction can cause an access violation in Corel DRAW 6.0 (169). This also happens on Windows 95.
+ 
+· Corel Draw 6.0 can corrupt the heap when a user attempts multiple Save As commands of a typically graphic file in combination with different thumbnail sizes, and Corel versions.
+
+· When attempting to import .doc, .sam, .rtf, or other types of text documents, avoid the 'import method' options to the right of the File Type box or you will receive an Access Violation message.
+
+Corel Font Master 6.0
+The Create Group Icon command on the File menu does not work with Windows NT version  4.0.
+
+A Windows NT Access Violation occurs when the Browse button is pressed.
+The application interprets the Windows NT version 4.0 version incorrectly and fails to provide a File Open dialog.
+
+Corel Presents 6.0
+Occasionally, while editing the font type, color, etc, of a block of text for a slide, text from another block appears to merge with the active text block window. The merged text cannot be edited unless you access that block of text.
+
+Corel PrintHouse
+Some versions of Corel PrintHouse may have problems printing to network printers. Contact Corel for more information.
+
+Corel Script Editor 6.0
+If you open a sample file, run it by selecting Debug|Run, then exit without saving, an Access Violation occurs. Call Corel for an updated version.
+
+Corel Quattro Pro 7
+This application will not install on Windows NT. The next release of the application is expected to run on Windows NT.
+
+Corel Ventura for DOS
+When running Corel Ventura Publisher for DOS on RISC-based computers, the application can fail when attempting to open more than one document or when certain mathematical formulas are entered.
+
+Corel Web.Data
+An access violation may occur when using the Corel Uninstaller to remove Corel Web.Data. 
+
+Corel WordPerfect 7
+This application will not install on Windows NT. The next release of the application is expected to run on Windows NT.
+
+Corel WordPerfect 6.1 for Windows
+See  WordPerfect 6.1 for Windows later in the document.
+
+Crosstalk for MS-DOS
+The installation command window does not resize correctly. Change your command window size to 80 x 25.
+
+Crosstalk 2.2 for Windows
+An error message appears when you attempt to set the fonts for the specific printer using the Print Setup dialog box. To work around this problem, perform the following steps:
+
+To set fonts within Crosstalk 2.2 for Windows
+1. Click Start, point to Settings, and then click Printers.
+2. Right-click the desired printer, and then click Set As Default.
+3. Close the Printers window.
+4. Open CrossTalk.
+5. On the File menu, click Printer Setup.
+6. Select Default Printer, and then set the font for the default printer.
+
+Crystal Reports
+The Crystal Reports uninstaller shortcut created by Setup does not launch the Uninstaller program. To remove Crystal Reports from your system, use Add/Remove Programs in Control Panel or run Uninstall from the CRW folder.  
+
+CSC ChemDraw Pro
+A General Protection Fault might occur when closing early versions of this application. This problem has been corrected in version 3.5. Closing multiple windows may produce an access violation. Close each window separately.
+Contact Cambridge Software (875 Massachusetts Avenue, Cambridge, MA, 02139) for upgrade information.
+
+Cyberspeed
+Cyberspeed does not install or run under Windows NT.
+
+d-Time
+This application is specific to the Windows 95 operating system and is not intended for use on Windows NT. It correctly detects that Windows 95 is not present and does not install.
+
+dtSearch
+When you run dtSearch under Windows NT, all unavailable buttons are unreadable. This does not affect dtSearch functionali

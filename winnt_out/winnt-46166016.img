@@ -1,0 +1,127 @@
+com, TravelCard.AddReg, Modem11P.AddReg
+
+[Modem11]
+AddReg=All, Microcom, Modem11.AddReg
+
+[Modem10P]
+CopyFiles=@ppm.vxd
+AddReg=All, Microcom, Modem10P.AddReg
+
+[Modem10]
+AddReg=All, Microcom, Modem10.AddReg
+
+[Modem9]
+AddReg=All, Microcom, Modem9.AddReg
+
+[Modem8]
+AddReg=All, Microcom, Modem8.AddReg
+
+[Modem7]
+AddReg=All, Microcom, Modem7.AddReg
+
+[Modem6P]
+CopyFiles=@ppm.vxd
+AddReg=All, Microcom, Modem6P.AddReg
+
+[Modem6]
+AddReg=All, Microcom, Modem6.AddReg
+
+[Modem5P]
+CopyFiles=@ppm.vxd
+AddReg=All, Microcom, Modem5P.AddReg
+
+[Modem5]
+AddReg=All, Microcom, Modem5.AddReg
+
+[Modem4]
+AddReg=All, Microcom, ES, Modem4.AddReg
+
+[Modem3P]
+CopyFiles=@ppm.vxd
+AddReg=All, Microcom, Modem3P.AddReg
+
+[Modem3]
+AddReg=All, Microcom, Modem3.AddReg
+
+[Modem2P]
+CopyFiles=@ppm.vxd
+AddReg=All, Microcom, TravelCard.AddReg, Modem2P.AddReg
+
+[Modem2]
+AddReg=All, Microcom, Modem2.AddReg
+
+[Modem1]
+AddReg=All, Microcom, ES, Modem1.AddReg
+
+; AddReg sections
+
+[Modem17.AddReg]
+HKR,, DeviceType, 1, 02      ; Internal
+; add cell and speed negotiation
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem16.AddReg]
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, C0,01,00,00, FF,00,00,00, 5A,00,00,00, 07,00,00,00, 0F,00,00,00, 7F,03,00,00, 00,E1,00,00, 40,38,00,00
+
+[Modem15.AddReg] ; no BONG detection per IHV
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, 5A,00,00,00, 07,00,00,00, 0F,00,00,00, 7F,03,00,00, 00,E1,00,00, 40,38,00,00
+
+[Modem11P.AddReg]
+HKR,, DeviceType, 1, 03      ; PCMCIA
+HKR,,PortDriver,,ppm.vxd
+HKR,,Contention,,*vcd
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Responses, "<lf>",1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem11.AddReg]
+HKR,, DeviceType, 1, 03      ; PCMCIA
+HKR,,PortDriver,,serial.vxd
+HKR,,Contention,,*vcd
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem10P.AddReg]
+HKR,, DeviceType, 1, 05      ; External LPT
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, Override,,ppm.vxd
+HKR, Responses, "<lf>",1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem10.AddReg]
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem9.AddReg]
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,96,00,00, 40,38,00,00
+
+[Modem8.AddReg]
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem7.AddReg]
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem6P.AddReg]
+HKR,, DeviceType, 1, 05      ; External LPT
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, Override,,ppm.vxd
+HKR, Responses, "<lf>",1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem6.AddReg]
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem5P.AddReg]
+HKR,, DeviceType, 1, 05      ; External LPT
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, Override,,ppm.vxd
+HKR, Responses, "<lf>",1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem5.AddReg]
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem4.AddReg]
+H

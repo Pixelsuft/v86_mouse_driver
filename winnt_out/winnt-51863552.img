@@ -1,0 +1,148 @@
+; ImageVue.INF
+;
+; This is the Setup information file to install ImageVue
+; as an Optional Component.
+;
+
+[version]
+signature="$Windows NT$"
+ClassGUID={00000000-0000-0000-0000-000000000000}
+LayoutFile=layout.inf
+
+
+[DestinationDirs]
+ImageVueCopyFiles       = 24,%IMAGEVUE_DIR%     ; \Program Files\Accessories\ImageVue
+ImageVueCopyFiles_HELP  = 18                    ; LDID_HELP
+mfcdllsx.files          = 11                    ; LDID_SYS
+SharedCopyFiles         = 11                    ; System directory
+ImageOcxs               = 11                    ; System directory
+ImageVue.Win.Del        = 25                    ; LDID_SHARED
+SampleFiles             = 24,%IMAGEVUE_DIR%
+OldFiles                = 11
+
+
+[BaseWinOptions]
+Register_ImageVue
+
+[Register_ImageVue]
+AddReg=Register_ImageVue.AddReg
+
+[Register_ImageVue.AddReg]
+;Registers ImageVue so it shows up in Maint Mode Setup, set initial status to uninstalled:
+
+HKLM,%KEY_OPTIONAL%,"ImageVue",,"ImageVue"
+HKLM,%KEY_OPTIONAL%\ImageVue,INF,,"imagevue.inf"
+HKLM,%KEY_OPTIONAL%\ImageVue,Section,,"ImageVue"
+HKLM,%KEY_OPTIONAL%\ImageVue,Installed,,"0"
+
+
+[Optional Components]
+ImageVue
+
+[ImageVue]
+CopyFiles      = ImageVueCopyFiles, ImageVueCopyFiles_HELP, mfcdllsx.files, SharedCopyFiles, ImageOcxs, SampleFiles
+Delfiles       = ImageVue.Win.Del, OldFiles
+AddReg         = ImageVueReg, ImageVue.install.reg, mfcdllsx.register
+OptionDesc      = %IMAGEVUEOPT_DESC%
+Tip             = %IMAGEVUEOPT_TIP%
+Parent         = AccessTop
+UpdateInis     = ImageVueInis
+InstallType    = 10 ;Typical, Custom.
+IconIndex      = 65  ;Windows Logo mini-icon for dialogs.
+Uninstall      = ImageVue_remove
+Upgrade        = ImageVueUpgrade
+
+[ImageVue_remove]
+; note that if you install any shared MFC DLL's, you should NOT delete them when
+; uninstalling ImageVue
+DelFiles       = ImageVueCopyFiles, ImageVueCopyFiles_HELP, SharedCopyFiles, ImageOcxs, SampleFiles
+UpdateInis     = ImageVueInis.remove
+DelReg         = ImageVueDelReg
+AddReg         = ImageVue.remove.reg
+
+[ImageVueUpgrade]
+CopyFiles      = ImageVueCopyFiles, ImageVueCopyFiles_HELP, mfcdllsx.files, SharedCopyFiles, ImageOcxs, SampleFiles
+Delfiles       = ImageVue.Win.Del, OldFiles
+AddReg         = ImageVueReg, ImageVue.install.reg, mfcdllsx.register
+UpdateInis     = ImageVueInis
+
+
+[ImageVueCopyFiles]
+wangimg.exe
+
+[OldFiles]
+w16cmpex.dll
+w32cmpex.dll
+oicor400.dll
+
+[SampleFiles]
+imgsampl.vbp
+imgsamp.frm
+gotodlg.frm
+
+[ImageVueCopyFiles_HELP]
+wangocx.hlp
+wangocx.cnt
+wangocxd.hlp
+wangocxd.cnt
+wangimg.hlp
+wangimg.cnt
+wangshl.hlp
+wangshl.cnt
+
+;list of files to copy to the \windows\system directory goes here:
+[mfcdllsx.files]
+;mfc40.dll
+;mfco40.dll
+;msvcrt40.dll
+;olepro32.dll
+;awview32.dll
+;awcodc32.dll
+;awdcxc32.dll
+;awresx32.dll
+;awdenc32.dll
+xfilexr.dll
+
+
+[SharedCopyFiles]
+wangcmn.dll
+wangshl.dll                             ; Shell extension
+jpeg1x32.dll
+jpeg2x32.dll
+oigfs400.dll
+oiadm400.dll
+oidis400.dll
+oifil400.dll
+oicom400.dll
+oiprt400.dll
+oiui400.dll
+oissq400.dll
+oitwa400.dll
+oislb400.dll
+
+[ImageOcxs]
+imgadmin.ocx                            ; Admin ocx
+imgedit.ocx                             ; Edit and Annotation ocx
+imgthumb.ocx                            ; Thumb ocx
+imgscan.ocx                             ; Scan ocx
+
+[ImageVue.Win.Del]
+wangimg.exe
+
+
+
+[ImageVueInis]
+setup.ini, progman.groups,, "group4=%APPS_DESC%"                ;creates Accessories folder (if not already there
+setup.ini, group4,, """%IMAGEVUE_LINK%"", """"""%24%\%IMAGEVUE_DIR%\wangimg.exe"""""",,,wangimg,,%Wang_ShortDesc%"   ;creates link in Accessories folder
+setup.ini, group4,, """%OLDIMAGEVUE_LINK%"""             ;deletes old link
+
+;;setup.ini, group4,, """%IMAGEVUE_LINK%"",""""""%24%\%IMAGEVUE_DIR%\wangimg.exe"""""",,,,""%24%\%Hypertrm_DIR%"""
+
+[ImageVueInis.remove]
+setup.ini, progman.groups,, "group4=%APPS_DESC%"     ;creates Accessories folder (if not already there
+setup.ini, group4,, """%IMAGEVUE_LINK%"""             ;deletes link
+
+
+
+
+[mfcdllsx

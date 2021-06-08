@@ -1,0 +1,166 @@
+80=2 S190=1
+<compression_off>=S190=0
+<protocol_on>=S180=2 S190=0
+<protocol_off>=S180=0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D3 X11 S0=0 S2=128 S94=1 S92=1 S50=7<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker>Q0<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[UDS Motorola CELLect 144]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=AT%V<cr>
+DETECT_RESPONSE=UDS CELLect 14.4
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 \\V1 V3 S0=0 S2=128 S7=30<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[UDS Motorola FasTalk II]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=UDS-144VBIS
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 \\V1 V3 S0=0 S2=128 S7=30<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[UDS Motorola V.3225]
+
+;Advanced features disabled.
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=AT%V<cr>
+DETECT_RESPONSE=V3225
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55 %C0 \\N1<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[UDS Motorola V.3227]
+;Server:
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+;MAXCONNECTBPS set to 9600 for reasons of stability.
+MAXCONNECTBPS=9600
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=AT%V<cr>
+DETECT_RESPONSE=V.3227
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 \\V1 S0=0 S2=128 S7=30<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[UDS Motorola V.3229]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 \\V1 S0=0 S2=128 S50=7 <cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[UDS Motorola FasTalk V.32/42b]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+;Maxconnect set down to 9600 and advanced features disabled for stability.
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=AT%V<cr>
+DETECT_RESPONSE=FASTALK V.32/42b
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 \\V1 \\Q0 %C0 \\N0 S0=0 S2=128<cr>
+COMMAND_INIT=AT<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps

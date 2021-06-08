@@ -1,0 +1,100 @@
+o), 4)
+            else
+               SetRegValue $(KeyParam) {NetbiosRouting, $(NoTitle), $(!REG_VT_DWORD), 0}
+            endif
+        else
+            read-syms ConfigErrorTxt$(!STF_LANGUAGE)
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) WARNING $(Error)
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                goto ShellCodeError
+            endif
+            goto end
+        endif
+        read-syms EnableNetbiosRoutingDlg$(!STF_LANGUAGE)
+        ifint $(NetbiosRouting) == 0
+            set STF_MB_TEXT = $(Disabled)
+        else-ifint $(NetbiosRouting) == 2
+            set STF_MB_TEXT = $(Disabled)
+        else
+            set STF_MB_TEXT = $(Enabled)
+        endif
+        ui start "EnableNetbiosDlg"
+        ifstr(i) $(DLGEVENT) == "YES"
+            ifint $(NetbiosRouting) == 0
+               set NetbiosRouting = 1
+            else-ifint $(NetbiosRouting) == 1
+               set NetbiosRouting = 0
+            else-ifint $(NetbiosRouting) == 2
+               set NetbiosRouting = 3
+            else-ifint $(NetbiosRouting) == 3
+               set NetbiosRouting = 2
+            endif
+            ifstr(i) $(KeyParam) != $(KeyNull)
+                SetRegValue $(KeyParam) {NetbiosRouting, $(NoTitle), $(!REG_VT_DWORD), $(NetbiosRouting)}
+                CloseRegKey $(KeyParam)
+                set CommonStatus = STATUS_SUCCESSFUL
+            endif
+        endif
+    endif
+    goto end
+bindingadapter =+
+    goto end
+removeadapter = +
+    set NwlnkRipKeyName = "System\CurrentControlSet\Services\NwlnkRip"
+    set ProductNWLNKRIPName  = "NwlnkRip"
+    Shell "" RemoveNWLNKRIPUsed $(InstallFrom)
+    OpenRegKey $(!REG_H_LOCAL) "" $(NwlnkRipKeyName) $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) != $(KeyNull)
+        CloseRegKey $(BS_KeyServices)
+        Shell "" NumOfUsed
+        set NumOfUsed = $($R0)
+        ifint $(NumOfUsed) == 1
+            Shell "" FindUsed "RAS"
+            set RasUsing = $($R0)
+            ifstr(i) $(RasUsing) == TRUE
+                Shell "oemnsvra.inf" CheckRasInstalled
+                set RasInstalled = $($R0)
+                ifstr(i) $(RasInstalled) == FALSE
+                    Debug-Output "OEMNSVRR.INF: The only consumer RAS is not installed, so removing NWLNKRIP service"
+                    set NumOfUsed = 0
+                endif
+            endif
+            Shell "" FindUsed "NWLNKRIP"
+            ifstr(i) $($R0) == TRUE
+                set NumOfUsed = 0
+            endif
+        endif
+        ifint $(NumOfUsed) == 0
+            Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $(ProductNWLNKRIPName)
+            OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\NwLnkIpx\Parameters" $(MAXIMUM_ALLOWED) KeyIpx
+            IfStr(i) $(KeyIpx) != ""
+                GetRegValue $(KeyIpx), "RipTableSize", RipTableInfo
+                Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                   set RipTableSizeValue = *($(RipTableInfo), 4)
+                   ifint $(RipTableSizeValue) == 255
+                       DeleteRegValue $(KeyIpx) "RipTableSize"
+                   endif
+                endif
+                CloseRegKey $(KeyIpx)
+            EndIf
+        else
+            ifstr(i) $(InstallFrom) == "NWLNKRIP"
+                read-syms InUse$(!STF_LANGUAGE)
+                set from = end
+                set to = end
+                goto warning
+            endif
+        endif
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductSAPKeyName) $(MAXIMUM_ALLOWED) SAPKeyProduct
+    ifstr(i) $(SAPKeyProduct) != ""
+        set OldInstallMode = $(!NTN_InstallMode)
+        set !NTN_InstallMode = deinstall
+        Shell "oemnsvsa.inf" InstallOption $(!STF_LANGUAGE) "SAP"  +
+            $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) "NWLNKRIP"
+        set !NTN_InstallMode = $(OldInstallMode)
+    endif
+    goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(Key

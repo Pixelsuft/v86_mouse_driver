@@ -1,0 +1,103 @@
+     
+%Modem14% = Modem14, PCMCIA\COMPAQ-PCMCIA_28800_FAX/DATA_MODEM-C0B2 
+%Modem15% = Modem15, UNIMODEMF68194B0                              
+%Modem16% = Modem16, UNIMODEM1583E561                              
+%Modem17% = Modem17, CPQ_Modem17, UNIMODEM901DD6E5                              
+%Modem18% = Modem18, PCMCIA\COMPAQ-SPEEDPAQ_192S-1549              
+%Modem18% = Modem18, CPQ_Modem18, UNIMODEM882C325F                             
+%Modem19% = Modem18, UNIMODEM882C325F                              
+%Modem28% = Modem28, UNIMODEM5ABE3131
+
+[AST]
+%Modem15A% = Modem15A, CPQ_Modem15A, PCMCIA\INTEL-DATAFAX_14.4-7462
+%Modem16A% = Modem16A, PCMCIA\INTEL-DATAFAX_14.4-7462              
+%Modem20%  = Modem20, UNIMODEM63C2DD97      ; AST 14.4 Data FAX, Starbright 
+%Modem21%  = Modem20, CPQ_Modem21, UNIMODEM6A25C644      ; AST 14.4, speakerphone, Starbright SP
+%Modem21%  = Modem20, UNIMODEMBB7C5BB7      ; AST 14.4, speakerphone, Starbright SP
+%Modem22%  = Modem22, CPQ_Modem22, UNIMODEM914F8102      ; AST 2400-9600 Data FAX Voice, Starlight
+%Modem22a% = Modem22, UNIMODEM914F8102      ; AST 2400-9600 Data FAX Voice, Starlight
+%Modem23%  = Modem23, CPQ_Modem23, UNIMODEM535147EF      ; AST 14.4 Data FAX, RPI style
+%Modem24%  = Modem24, UNIMODEM07DBB56C      ; AST 14.4 Data FAX, Creatix International version
+%Modem24%  = Modem24, UNIMODEM8A014553      ; AST 14.4 Data FAX, Creatix International version
+%Modem25%  = Modem24, UNIMODEM084D31EE      ; AST 14.4 Data FAX (Pace international version)
+%Modem26%  = Modem24, CPQ_Modem26, UNIMODEM6FC2012E      ; AST 14.4 Data FAX (Banksia international version)
+%Modem31%  = Modem31, PCMCIA\INTEL-FAX_9600-BA53  ; EXCA PCMCIA
+%Modem31%  = Modem31, UNIMODEM648BEAE1            ; EXCA PCMCIA
+%Modem32%  = Modem32, PCMCIA\P.N.B-24/96_DATA/FAX_MODEM-0E11
+%Modem32%  = Modem32, UNIMODEM0671A79B
+
+[DEC]
+%Modem27% = Modem27, PCMCIA\DIGITAL-PCMCIA_14_400_V.32BIS_FAX-47D7 
+%Modem27% = Modem27, UNIMODEMB4F46AE7
+%Modem33% = Modem33, UNIMODEMDFCA9A98
+
+[Banksia]
+%Modem29% = Modem24, CPQ_Modem29, UNIMODEM6FC2012E      ; Banksia international version
+%Modem30% = Modem24, UNIMODEM6FC2012E      ; Banksia international version
+
+; Installation sections
+
+[Modem1]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem1.AddReg
+
+[Modem2]
+AddReg=All, MfgCompaq, PCMCIA, VerboseResultCodes, CELLULAR, Modem2.AddReg
+
+[Modem3]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, CELLULAR, Modem3.AddReg
+
+[Modem4]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem4.AddReg
+
+[Modem5]
+AddReg=All, MfgCompaq, PCMCIA, MfgIntel, VerboseResultCodes, Modem5.AddReg
+
+[Modem6]
+AddReg=All, MfgCompaq, PCMCIA, MfgIntel, VerboseResultCodes, Modem6.AddReg
+
+[Modem7]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem7.AddReg
+
+[Modem8]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem8.AddReg
+
+[Modem9]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem9.AddReg
+
+[Modem12]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem12.AddReg
+
+[Modem13]
+AddReg=All, MfgCompaq, PCMCIA, VerboseResultCodes, CELLULAR, Modem13.AddReg
+
+[Modem14]
+AddReg=All, MfgCompaq, PCMCIA, VerboseResultCodes, Modem14.AddReg
+
+[Modem15]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem15.AddReg
+
+[Modem15A]   ; AST PCMCIA
+AddReg=All, MfgCompaq, PCMCIA, MfgIntel, VerboseResultCodes, Modem15A.AddReg
+
+[Modem16]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem16.AddReg
+
+[Modem16A]   ; Generic for Compaq, Intel, AST
+AddReg=All, MfgCompaq, PCMCIA, MfgIntel, VerboseResultCodes, Modem16A.AddReg
+
+[Modem17]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem17.AddReg
+
+[Modem18]
+AddReg=All, MfgCompaq, PCMCIA, VerboseResultCodes, CELLULAR, Modem18.AddReg
+
+[Modem20]
+AddReg=All, MfgCompaq, VerboseResultCodes, Modem20.AddReg, INTERNAL
+
+[Modem22]
+AddReg=All, MfgCompaq, VerboseResultCodes, Modem22.AddReg, INTERNAL
+
+[Modem23]
+AddReg=All, MfgCompaq, VerboseResultCodes, Modem23.AddReg, INTERNAL
+
+[Modem24]   ; AST 14.4 Data FAX internationa

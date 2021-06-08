@@ -1,0 +1,99 @@
+ = $(BindingInfo)
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_Origination) == "NCPA"
+        set Continue = "OK"
+    endif
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        set StartLabel = removeadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set StartLabel = getAdapterSettings
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the DigiBoard FEP 5 driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+        Ifstr(i) $(ProductKeyNameHdwDriver) == $(!NTN_RegBase)
+            Debug-Output "This should not have happened!  Cannot configure the "$(AdapterHardwareName)" driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+        Debug-Output "We need to determine how to find out which adapter"
+        Debug-Output "  we should be configuring!!!!!!"
+        set from = writeparameters
+        Debug-Output "setting from = "$(from)
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+    endif
+    Debug-Output "OEMNADDS.INF: Option is: "$(Option)
+    set to = $(fatal)
+    Goto $(StartLabel)
+installadapter = +
+    Debug-Output "******************Entering installadapter******************"
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) $(!NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: Don't allow installation of software."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+            OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyNameHdwDriver) +
+                       $(MAXIMUM_ALLOWED) KeyProductHdwDriver
+            Ifstr $(KeyProductHdwDriver) != $(KeyNull)
+                CloseRegKey $(KeyProductHdwDriver)
+                Shell $(UtilityInf), CardExistedDlg
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    Debug-Output "ShellCode error: --One adapter all ready exists, install another-- FAILED."
+                    goto ShellCodeError
+                endif
+                ifstr(i) $($R1) != "OK"
+                    goto end
+                endif
+                set HdwDriverComponentExists = $(TRUE)
+            EndIf   
+            set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    goto skipoptions
+skipoptions = +
+    Debug-Output "******************Entering skipoptions******************"
+    ifint $(HdwDriverComponentExists) == $(TRUE)
+        ifstr(i) $(!NTN_InstallMode) == configure
+            goto getAdapterSettings
+        endif
+    endif
+    StartWait
+    ifint $(HdwDriverComponentExists) == $(FALSE)

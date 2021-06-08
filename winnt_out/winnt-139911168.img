@@ -1,0 +1,88 @@
+     SetRegValue $(Driver) {EnableWanRouter, 0,+
+                                    $(!REG_VT_DWORD), $(EnableRouter)}
+           CloseRegKey $(Driver)
+        EndForListDo
+        CloseRegKey $(KeyIpxNetConfig)
+        set Status = STATUS_SUCCESSFUL
+    else
+        Debug-Output "UpdateIPXRouterInfo: error opening ipx\netconfig key"
+    endif
+    Debug-Output "UpdateIPXRouterInfo exit"
+    return $(Status)
+[IsNetcardInstalled]
+    Set Status                = STATUS_FAILED
+    Set fNetcardInstalled     = FALSE
+    Set KeyNull               = ""
+    set ProductRASASYMACName     = "AsyncMac"
+    set NetworkCardKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) $(!MAXIMUM_ALLOWED) NetworkCardKey
+    Ifstr(i) $(NetworkCardKey) != $(KeyNull)
+        set NetcardsList = {}
+        EnumRegKey $(NetworkCardKey) NetcardsList
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+           Debug-Output "IsNetcardInstalled: EnumRegKey failed."
+           goto IsNetcardInstalledEnd
+        endif
+        ForListDo $(NetcardsList)
+           set KeyName = *($($),1)
+           set Card = $(KeyNull)
+           OpenRegKey $(NetworkCardKey) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+           ifstr $(Card) == $(KeyNull)
+               Debug-Output "IsNetcardInstalled: could not open netcard key "$(KeyName)
+           else
+               GetRegValue $(Card), "ProductName" ProductNameInfo
+               Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                  Debug-Output "IsNetcardInstalled: ProductName not found."
+               else
+                  set CardProductName = *($(ProductNameInfo), 4)
+                  Debug-Output "IsNetcardInstalled: ProductName. "$(CardProductName)
+		          ifstr(i) $(CardProductName) != $(!ProductNDISWANName)
+		           ifstr(i) $(CardProductName) != $(!ProductNDISWANDIALINName)
+		            ifstr(i) $(CardProductName) != $(!ProductNDISWANDIALOUTName)
+		             ifstr(i) $(CardProductName) != $(!ProductNDISWANDIALINIPName)
+		              ifstr(i) $(CardProductName) != $(!ProductNDISWANDIALOUTIPName)
+			           ifstr(i) $(CardProductName) != $(!ProductNDISWANDIALINOUTIPXName)
+                        ifstr(i) $(CardProductName) != $(ProductRASASYMACName)
+                         ifstr(i) $(CardProductName) != $(!ProductPCIMACName)
+                           GetRegValue $(Card), "Manufacturer" Manufacturer
+                           Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                             ifstr(i) *($(Manufacturer), 4) != "Digiboard"
+                               Debug-Output "found installed netcard"
+                               set fNetcardInstalled = TRUE
+                               set Status = STATUS_SUCCESSFUL
+                               CloseRegKey $(Card)
+                               goto IsNetcardInstalledEnd
+                             endif
+                           endif
+                         endif
+                        endif
+                       endif
+                      endif
+                     endif
+                    endif
+                   endif
+                  endif
+               endif
+               CloseRegKey $(Card)
+           endif
+        EndForListDo
+    else
+        Debug-Output "IsNetcardInstalled: failed to open "$(!NetworkCardKeyName)
+    endif
+IsNetcardInstalledEnd =+
+    ifstr(i) $(NetworkCardKey) != $(KeyNull)
+        CloseRegKey $(NetworkCardKey)
+    endif
+    Return $(Status) $(fNetcardInstalled)
+[IsNetworkConfigured]
+    set WkstaKeyName   = $(!NTN_ServiceBase)"\LanmanWorkstation"
+    set SrvrKeyName    = $(!NTN_ServiceBase)"\LanmanServer"
+    Set KeyNull        =    ""
+    Set status = STATUS_FAILED
+    Set WkstaConfigured  = FALSE
+    Set SrvrConfigured   = FALSE
+    Debug-Output "IsNetworkConfigured WkstaKeyName "$(WkstaKeyName)
+    set KeyProduct = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(WkstaKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        GetRegVa

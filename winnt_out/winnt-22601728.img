@@ -1,0 +1,65 @@
+===============
+ISDN
+=================================================
+
+
+
+Reinstalling RAS with ISDN
+--------------------------
+If you remove and then reinstall RAS on a computer that was previously configured with RAS and ISDN, you will not be able to add the ISDN ports in RAS setup. You must reconfigure the ISDN driver as follows before reinstalling and reconfiguring RAS with ISDN ports.
+
+Removing and Adding an ISDN Port to RAS Configuration
+-----------------------------------------------------
+If you remove any non-serial ports from RAS configuration, you must reconfigure the hardware before you add the port back into RAS configuration. For example, suppose you  have RAS configured with COM1 and PcimacISDN1 ports. You remove the PcimacISDN1 port which is the only ISDN port configured, and restart the computer. Now, when you configure RAS, you are not able to add the PcimacISDN1 port. 
+To add the ISDN port to RAS configuration, you must reconfigure the ISDN hardware adapter. This ensures that the port information is added back to the Registry and will  enable you to add the removed port to RAS configuration.
+
+
+Installing a PCIMAC ISDN Card on a Gateway 2000 Pentium
+-------------------------------------------------------
+You must disable BIOS Shadow RAM of 32K at d0000 on Gateway 2000 Pentium computers when a PCIMAC ISDN card is present and the card's base address is d0000. If you do not disable the BIOS Shadow RAM at d0000, the PCIMAC card appears to initialize correctly but does not work.
+
+To disable BIOS Shadow RAM of 32K at d0000, use the computer setup program by pressing F1 after the memory check, and then choosing Advanced Options. The Disable Shadow RAM and the Shadow RAM Base options appear in this screen.
+
+
+Installing New Modems with ISDN Cards
+-------------------------------------
+If you have a laptop computer that uses an ISDN card when plugged into a docking station and you install a new modem while away from the docking station, you must use RAS Setup to add the ISDN ports when you return to the docking station.
+
+
+
+=================================================
+X.25 NETWORKS
+=================================================
+
+
+Eicon Drivers
+-------------
+Contact Eicon Customer Services and request version V3R2a or later of WAN Services for Windows NT 3.51. Previous versions of Eicon's X.25 drivers do not work with Windows NT 3.51.
+
+US customers can reach Eicon Customer Service at: 214-490-3270, from 9AM to 5PM CST.
+
+Canadian customers can reach Eicon at: (514) 631-5246, from 8:30AM to 6PM EST. FAX: (514) 631-1006, 24 hours a day, 7 days a week
+
+NOTE: Outside of North America, contact your distributor for help.
+If you are a CompuServe member, type:   go eicon
+
+
+Eicon Technology's company names are printed incorrectly in Appendix A. The correct names are:
+
+Montreal:      Eicon Technology Corporation
+United States: Eicon Technology, Inc.
+Europe:        Eicon Technology Ltd.
+
+
+Configuring Null Modem Connections on X.25 Networks
+---------------------------------------------------
+When using a null-modem connection on X.25 networks, the server X.25 port must be set to DCE and the client should be set to DTE. If the port on both computers is set to DTE, you cannot connect.
+
+The X.25 null modem should be configured for DCE and internal clocking before an X.25 null-modem client can connect. To configure the X.25 null modem, in Control Panel choose Network. In the Network Settings dialog box, choose the X.25 card driver in the list of adapters, then choose Configure. Select the null modem port, choose X.25 and change the node type to DCE. Select X.25 and set the clocking to Internal. Save the configuration and restart the system.
+
+
+Creating Reliable Links Using Dial-up PADs
+------------------------------------------
+The following is recommended on all workstations that are going to access a dial-up PAD to connect through X.25 to a RAS server using an EiconCard.
+
+Establish all modem connections using a reliable link (either V.42, LAPM, or MNP4) and ena

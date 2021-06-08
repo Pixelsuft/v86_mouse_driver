@@ -1,0 +1,104 @@
+ShellCode) != $(!SHELL_CODE_OK)
+		Debug-Output "ShellCode error"
+		goto ShellCodeError
+	endif
+	CloseRegKey $($R1)
+	set TempProdName = """"$(ProductHardwareName)$(AdapterNumber)""""
+	set TempBindForm = $(TempProdName)$(NetRuleHardwareBindForm)
+	set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleHardwareType)},+
+			    {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)}, +
+			    {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleHardwareClass)}, +
+			    {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+	Shell  $(UtilityInf), AddValueList, $(KeyAdapterRules), $(NewValueList)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		Debug-Output "ShellCode error."
+		goto ShellCodeError
+	endif
+	set RegistryErrorIndex = $($R0)
+	Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+		EndWait
+		Debug-Output "Registry error: add value list."
+		CloseRegKey $(KeyParameters)
+		CloseRegKey $(KeyAdapterRules)
+		goto fatalregistry
+	endif
+	CloseRegKey $(KeyAdapterRules)
+	goto displaydialog
+returnpoint = +
+	goto writeparameters
+writeparameters = +
+	set NewValueList = {{CardType,$(NoTitle),$(!REG_VT_DWORD),5},+
+			    {BusType,$(NoTitle),$(!REG_VT_DWORD),5},+
+			    {MediaType,$(NoTitle),$(!REG_VT_DWORD),3},+
+			    {BusNumber,$(NoTitle),$(!REG_VT_DWORD),$(BusNum)},+
+                            {AdapterCFID,$(NoTitle),$(!REG_VT_DWORD),987153},+
+			    {SlotNumber,$(NoTitle),$(!REG_VT_DWORD),$(DeviceNum)},+
+			    {FunctionNumber,$(NoTitle),$(!REG_VT_DWORD),$(FunctionNumber)},+
+			    {CardInstance,$(NoTitle),$(!REG_VT_DWORD),$(CardInstanceIndex)},+
+			    {RcvBuffCnt,$(NoTitle),$(!REG_VT_DWORD),$(RcvBuffCntIndex)},+
+			    {BurstSize,$(NoTitle),$(!REG_VT_DWORD),$(BurstSizeIndex)},+
+			    {XmtBuffCnt,$(NoTitle),$(!REG_VT_DWORD),$(XmtBuffCntIndex)},+
+			    {FullDuplexEnable,$(NoTitle),$(!REG_VT_DWORD),$(FullDuplexEnableIndex)},+
+			    {RequestedTTRT,$(NoTitle),$(!REG_VT_DWORD),$(RequestedTTRTIndex)}}
+	Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+	ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+		Shell $(UtilityInf),AddDefaultNetCardParameters,$(KeyParameters)
+	endif
+	CloseRegKey $(KeyParameters)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		Debug-Output "ShellCode error. (Add Value List)"
+		goto ShellCodeError
+	endif
+	set RegistryErrorIndex = $($R0)
+	Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+		Debug-Output "Registry error: Add value list"
+		goto fatalregistry
+	endif
+    EndForListDo
+	EndWait
+	goto successful
+bindingadapter =+
+	set Error = "Binding: Sorry, not yet implemented."
+	goto fatal
+removeadapter = +
+	Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+		Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+			$(ProductSoftwareName)
+		ifint $($ShellCode) != $(!SHELL_CODE_OK)
+			Debug-Output "ShellCode error"
+			goto ShellCodeError
+		endif
+		set RegistryErrorIndex = $($R0)
+		Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+			goto fatalregistry
+		endif
+	else
+		Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+			$(ProductSoftwareName), $(!NTN_RegBase)
+		ifint $($ShellCode) != $(!SHELL_CODE_OK)
+			Debug-Output "ShellCode error"
+			goto ShellCodeError
+		endif
+		set RegistryErrorIndex = $($R0)
+		Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+			goto fatalregistry
+		endif
+	endif
+	goto end
+UpgradeSoftware = +
+	OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+	Ifstr $(KeyProduct) != $(KeyNull)
+		Shell $(UtilityInf), GetInfFileNameFromRegistry, $(KeyProduct)
+		ifint $($ShellCode) != $(!SHELL_CODE_OK)
+			Debug-Output "ShellCode error"
+			goto ShellCodeError
+		endif
+		set !UG_Filename = $($R0)
+		install "Install-Update"
+		ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+			goto fatal
+		endif
+		SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+		SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+		CloseRegKey $(KeyProduct)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ProductHardwareName)"\Linkage" $(MAXIMUM_ALLOWED)

@@ -1,0 +1,111 @@
+; Windows Modem Setup File
+; Copyright 1995-1996 Microsoft Corp.
+; Manufacturer:   LASAT COMMUNICATIONS A/S
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+
+[ControlFlags]
+ExcludeFromSelect=SERENUM\ROK0100
+ExcludeFromSelect=SERENUM\ROK4120
+
+[Modem2.NoResDup]
+UNIMODEM729EF760,UNIMODEMC1B1FB3F,UNIMODEM579B6B97,UNIMODEM26AC557F,UNIMODEMB99FCC34,UNIMODEM7C1EE94E,UNIMODEM02CC60D0,UNIMODEMFF2B4678,UNIMODEMEC53C7D5
+
+[Modem1.NoResDup]
+UNIMODEM3CCDE23D,UNIMODEM40795F6F
+
+[Manufacturer]
+%Mfg% = LASAT
+
+
+; Modem models
+
+[LASAT]
+%Modem12% = Modem12, LASAT_modem5, UNIMODEM2E6425E3   ;LASAT unique 640i
+%Modem11% = Modem11, LASAT_modem4, UNIMODEM2E6425E3   ;LASAT unique 640i
+%Modem10% = Modem10, LASAT_modem3, UNIMODEM2E6425E3   ;LASAT unique 640i
+%Modem9% = Modem9, LASAT_modem2, UNIMODEM2E6425E3   ;LASAT unique 640i
+%Modem8% = Modem8, LASAT_modem1, UNIMODEM2E6425E3   ;LASAT unique 640i
+%Modem7% = Modem7, UNIMODEM2E6425E3   ;LASAT unique 640i
+%Modem6% = Modem6, UNIMODEM63BCEE7B   ;LASAT CREDIT 288
+%Modem6% = Modem6, UNIMODEM9E96B9D1   ;LASAT CREDIT 288
+%Modem6% = Modem6, UNIMODEMD1F8B849   ;LASAT CREDIT 288
+%Modem6% = Modem6, PCMCIA\LASAT_COMMUNICATIONS_A/S-LASAT_CREDIT_288-BD1B   ;LASAT CREDIT 288
+%Modem6% = Modem6, PCMCIA\LASAT_COMMUNICATIONS_A/S-LASAT_CREDIT_288-0AFE   ;LASAT CREDIT 288
+%Modem5% = Modem5, UNIMODEM77AF074B   ;LASAT CREDIT 144
+%Modem5% = Modem5, UNIMODEM1F4CA49F   ;LASAT CREDIT 144
+%Modem5% = Modem5, PCMCIA\LASAT_COMMUNICATIONS_A/S-LASAT_CREDIT_144-7ABA   ;LASAT CREDIT 144
+%Modem5% = Modem5, PCMCIA\LASAT_COMMUNICATIONS_A/S-LASAT_CREDIT_144-F6FB   ;LASAT CREDIT 144
+%Modem5% = Modem5, PCMCIA\LASAT_COMMUNICATIONS_A/S-LASAT_CREDIT_144-602C   ;LASAT CREDIT 144
+%Modem5% = Modem5, PCMCIA\LASAT_COMMUNICATIONS_A/S-LASAT_CREDIT_144-2B36   ;LASAT CREDIT 144
+%Modem5% = Modem5, PCMCIA\LASAT_COMMUNICATIONS_A/S-LASAT_CREDIT_144-2E27   ;LASAT CREDIT 144
+%Modem4% = Modem4, UNIMODEM8C70D25B   ;LASAT PCM144 Fax
+%Modem3% = Modem3   ;LASAT unique 24/96
+%Modem2PNP% = Modem2, SERENUM\ROK0100    ;LASAT unique SAFIRE 144
+%Modem2% = Modem2, UNIMODEME07B8BCB   ;LASAT unique SAFIRE 144
+%Modem2% = Modem2, UNIMODEM729EF760   ;LASAT unique SAFIRE 144
+%Modem2% = Modem2, UNIMODEM3A7DE24C   ;LASAT unique SAFIRE 144
+%Modem2% = Modem2, UNIMODEM01729681   ;LASAT unique SAFIRE 144
+%Modem2% = Modem2, UNIMODEMD4593886   ;LASAT unique SAFIRE 144
+%Modem2% = Modem2, UNIMODEM3145524B   ;LASAT unique SAFIRE 144
+%Modem1PNP% = Modem1, SERENUM\ROK4120    ;LASAT unique SAFIRE 288
+%Modem1% = Modem1, UNIMODEM3CCDE23D   ;LASAT unique SAFIRE 288
+%Modem1% = Modem1, UNIMODEMC2DAB101   ;LASAT unique SAFIRE 288
+%Modem1% = Modem1, UNIMODEMF3535933   ;LASAT unique SAFIRE 288
+
+
+; Installation sections
+
+[Modem12]
+AddReg=All, MfgAddReg, u640i.shorthold, Modem7.AddReg, External
+
+[Modem11]
+AddReg=All, MfgAddReg, u640i.v110, Modem7.AddReg, External
+
+[Modem10]
+AddReg=All, MfgAddReg, u640i.v120, Modem7.AddReg, External
+
+[Modem9]
+AddReg=All, MfgAddReg, u640i.hdlc, Modem7.AddReg, External
+
+[Modem8]
+AddReg=All, MfgAddReg, u640i.x25, Modem7.AddReg, External
+
+[Modem7]
+AddReg=All, MfgAddReg, u640i.x75, Modem7.AddReg, External
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, PCMCIA
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, Internal
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+
+
+; AddReg sections
+[Modem7.AddReg]	; unique 640i
+HKR,, Properties, 1, 00,00,00,00, ff,00,00,00, 5a,00,00,00, 00,00,00,00, 00,00,00,00, 10,00,00,00, 00,c2,01,00, 00,fa,00,00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Init,      1,, "AT%%A<cr>"
+HKR, Settings, FlowControl_Off,, "&K2"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem6.AddReg] ; CREDIT 288
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,

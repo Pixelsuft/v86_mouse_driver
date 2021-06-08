@@ -1,0 +1,88 @@
+put "OEMNXPTC.INF: ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto fatalregistry
+    endif
+    ForListDo  $(OEM_ABANDON_SOFTWARE)
+        ifstr(i) $($) == "Tcpip"
+            OpenRegKey $(!REG_H_LOCAL) "" $(LinkageKeyName) $(MAXIMUM_ALLOWED) LinkageKey
+            GetRegValue $(LinkageKey) "Bind" BindList
+            ForListDo *($(BindList),4)
+                Split-String $($), "\", BindInfo
+                QueryListSize BindListSize $(BindInfo)
+                set CardName = *($(BindInfo),$(BindListSize))
+                OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"*($(BindInfo),$(BindListSize))"\Parameters" $(MAXIMUM_ALLOWED) CardParamKey
+                ifstr(i) $(CardParamKey) != ""
+                    DeleteRegTree $(CardParamKey) "Tcpip"
+                    CloseRegKey $(CardParamKey)
+                endif
+            EndForListDo
+            Shell $(UtilityInf), RemoveWinsockInfo, $(ProductTCName)
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                Debug-Output "OEMNXPTC.INF: Registry error: remove Winsock Info."
+            Endif
+        endif
+        debug-output "Remove component: "$($)
+        ifstr(i) $($) == "Streams"
+            Shell $(UtilityInf), RemoveStreams
+        else
+            Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $($)
+        endif
+    EndForListDo
+    ForListDo  $(OEM_ABANDON_OPTIONS)
+        debug-output "Remove component: "$($)
+        Ifstr(i) $($) == $(ProductLOOPName)
+            Set UseSvcctrl = "NO"
+        Else
+            Set UseSvcctrl = "YES"
+        Endif
+        ifstr(i) $($) == $(ProductLMHOSTSName)
+            debug-output "Remove "$($)"'s LMHOSTS dependency"
+            ForListDo {"Browser","NetLogon"}
+                OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$($) $(MAXIMUM_ALLOWED) ServicesKey
+                ifstr(i) $(ServicesKey) != ""
+                    GetRegValue $(ServicesKey) "DependOnService" ServicesList
+                    debug-output "DependOnService List:"$(ServicesList)
+                    set ServiceValues = *($(ServicesList),4)
+                    debug-output "ServiceValues: "$(ServiceValues)
+                    ifcontains(i) "LMHOSTS" in $(ServiceValues)
+                        set NewServiceValues = {}
+                        ForListDo $(ServiceValues)
+                            ifstr(i) $($) != "LmHosts"
+                                set NewServiceValues = >($(NewServiceValues), $($))
+                            endif
+                        EndForListDo
+                        debug-output "Final dependency list for "$($)": "$(NewServiceValues)
+                        LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(NewServiceValues), "", "", ""
+                    else
+                    endif
+                    CloseRegKey $(ServicesKey)
+                endif
+            EndForListDo
+        endif
+        Shell $(UtilityInf), RemoveService, $($), $(UseSvcctrl)
+    EndForListDo
+    goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\NetBT" $(MAXIMUM_ALLOWED) NBTParent
+    ifstr(i) $(NBTParent) != ""
+        DeleteRegKey $(NBTParent) "Performance"
+        CloseRegKey $(NBTParent)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(OldProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) == $(KeyNull)
+        goto end
+    endif
+    GetRegValue $(KeyProduct) "DefaultGateway" DefaultGatewayList
+    set DefaultGatewayValue = *($(DefaultGatewayList),4)
+    Ifstr(i) $(DefaultGatewayValue) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        CloseRegKey $(KeyProduct)
+        set FLibraryErrCtl = 1
+        i

@@ -1,0 +1,128 @@
+1%=Gen144, AUS_Intlnk21     ; Interlink FastBit IIbisCP
+
+[Maestro]
+%Maestro1%=Gen96,  AUS_Maestro1   ; Maestro Executive 96
+%Maestro2%=Gen144, AUS_Maestro2   ; Maestro Executive 144
+%Maestro3%=Gen288, AUS_Maestro3   ; Maestro Executive 288
+%Maestro4%=Gen144, AUS_Maestro4   ; Maestro Companion 144
+%Maestro5%=Gen288, AUS_Maestro5   ; Maestro Companion 288
+
+[Microfax]
+%Microfax1%=Gen24,  AUS_Microfax1 ; Microfax 9624
+%Microfax2%=Gen144, AUS_Microfax2 ; Microfax 144
+%Microfax3%=Gen288, AUS_Microfax3 ; Microfax 288 V.34
+%Microfax4%=Gen144, AUS_Microfax4 ; Microfax Synergy
+
+[NetComm]
+%NetComm1% =Gen24,  AUS_NetComm1  ; NetComm AutoFaxModem 24
+%NetComm2% =Gen144, AUS_NetComm2  ; NetComm AutoModem E34F
+%NetComm3% =Gen144, AUS_NetComm3  ; NetComm AutoModem E7
+%NetComm4% =Gen144, AUS_NetComm4  ; NetComm AutoModem V6
+%NetComm5% =Gen144, AUS_NetComm5  ; NetComm AutoModem V8
+%NetComm6% =Gen24,  AUS_NetComm6  ; NetComm CardModem 24
+%NetComm7% =Gen24,  AUS_NetComm7  ; NetComm InFaxModem 24
+%NetComm8% =Gen144, AUS_NetComm8  ; NetComm Pocket PA
+%NetComm9% =Gen24,  AUS_NetComm9  ; NetComm PocketFax 24
+%NetComm10%=Gen144, AUS_NetComm10 ; NetComm SmartModem E7
+%NetComm11%=Gen144, AUS_NetComm11 ; NetComm SmartModem M11F
+%NetComm12%=Gen144, AUS_NetComm12 ; NetComm SmartModem M34F
+%NetComm13%=Gen144, AUS_NetComm13 ; NetComm SmartModem M4F
+%NetComm14%=Gen144, AUS_NetComm14 ; NetComm SmartModem M5
+%NetComm15%=Gen144, AUS_NetComm15 ; NetComm SmartModem M7F
+%NetComm16%=Gen144, AUS_NetComm16 ; NetComm SmartModem V8
+%NetComm17%=Gen144, AUS_NetComm17 ; NetComm WorldBlazer
+%NetComm18%=Gen144, AUS_NetComm18 ; NetComm Automodem E11F
+%NetComm19%=Gen144, AUS_NetComm19 ; NetComm SmartModem E5
+%NetComm20%=Gen144, AUS_NetComm20 ; NetComm SmartModem E7F
+%NetComm21%=Gen144, AUS_NetComm21 ; NetComm SmartModem M4
+%NetComm22%=Gen144, AUS_NetComm22 ; NetComm SmartModem M7F
+%NetComm23%=Gen144, AUS_NetComm23 ; NetComm SmartModem V6
+
+[Schmidt]
+%Schmidt1%=Gen24, AUS_Schmidt1    ; Schmidt 1234AT
+%Schmidt2%=Gen24, AUS_Schmidt2    ; Schmidt 123AT
+%Schmidt3%=Gen24, AUS_Schmidt3    ; Schmidt Panther 4
+
+[Simple]
+%Simple1%=Gen24,   AUS_Simple1    ; Simplemodem 24f
+%Simple2%=Gen96,   AUS_Simple2    ; Simplemodem 96f
+%Simple3%=Gen144,  AUS_Simple3    ; Simplemodem 144f
+%Simple4%=Gen288,  AUS_Simple4    ; Simplemodem 288f
+%Simple5%=Gen144P, AUS_Simple5    ; Simplemodem 144p
+%Simple6%=Gen288P, AUS_Simple6    ; Simplemodem 288p
+%Simple7%=Gen144I, AUS_Simple7    ; Simplemodem 144fi
+%Simple8%=Gen288I, AUS_Simple8    ; Simplemodem 288fi
+%Simple9%=Gen144I, AUS_Simple9    ; Simplemodem 144vi
+%Simple10%=Gen288I,AUS_Simple10   ; Simplemodem 288vi
+
+
+; --------------------------------------------------
+; Generic modem install sections
+
+[Gen]
+AddReg=All, GenericAddReg, GenReg, EXTERNAL
+
+[Gen3]
+AddReg=All, GenericAddReg, Gen3Reg, EXTERNAL
+
+[Gen12]
+AddReg=All, GenericAddReg, Gen12Reg, EXTERNAL
+
+[Gen24]
+AddReg=All, GenericAddReg, Gen24Reg, EXTERNAL
+
+[Gen24NFC]
+AddReg=All, GenericAddReg, Gen24NFCReg, EXTERNAL
+
+[Gen24I]
+AddReg=All, GenericAddReg, Gen24Reg, INTERNAL
+
+[Gen24P]
+AddReg=All, GenericAddReg, Gen24Reg, PCMCIA
+
+[Gen96]
+AddReg=All, GenericAddReg, Gen96Reg, EXTERNAL
+
+[Gen96I]
+AddReg=All, GenericAddReg, Gen96Reg, INTERNAL
+
+[Gen96P]
+AddReg=All, GenericAddReg, Gen96Reg, PCMCIA
+
+[Gen144]
+AddReg=All, GenericAddReg, Gen144Reg, EXTERNAL
+
+[Gen144I]
+AddReg=All, GenericAddReg, Gen144Reg, INTERNAL
+
+[Gen144P]
+AddReg=All, GenericAddReg, Gen144Reg, PCMCIA
+
+[Gen192]
+AddReg=All, GenericAddReg, Gen192Reg, EXTERNAL
+
+[Gen288]
+AddReg=All, GenericAddReg, Gen288Reg, EXTERNAL
+
+[Gen288I]
+AddReg=All, GenericAddReg, Gen288Reg, INTERNAL
+
+[Gen288P]
+AddReg=All, GenericAddReg, Gen288Reg, PCMCIA
+
+
+; --------------------------------------------------
+; Common AddReg sections
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, Devi

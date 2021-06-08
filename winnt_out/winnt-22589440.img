@@ -1,0 +1,79 @@
+ Appendix C, in the IP Parameters section, you should change all the parameters in a RAS server's Registry, not a RAS client's Registry. In the NdisWan Parameters section,  disregard paragraphs two and three. In the AsyncMac Parameters section, the XonXoff parameter is no longer a valid parameter.
+
+The following Registry keys are not printed in Appendix C, "Modifying Registry Parameters". For information about each entry, see Remote Access Help.
+
+PPP Subkey IPCP entries:
+   AcceptVJCompression
+   PriorityBasedOnSubNetwork
+   RequestNameServerAddresses
+   RequestVJCompression
+
+RasArp Parameter
+   FilterBroadcasts
+
+Nbf Parameter
+   InitUIFrames
+
+NwlnkIpx Parameter
+   DisableDialinNetbios
+
+
+RAS Compression
+---------------
+Support for RAS software compression between Windows for Workgroups and Windows NT has been added.
+
+The formulas used for calculating compression statistics in the Port Status dialog box are different for Windows for Workgroups 3.11 and Windows NT 3.51.
+
+(1)	Bytes Transmitted/Received:
+	
+	On Windows for Workgroups, the values shown represent the
+	number of bytes of data actually transmitted on the wire.
+	Thus, 100K of user data that compressed by 40K will show
+	as 60K Bytes Transmitted/Received.
+
+	On Windows NT 3.51, the values shown represent the full
+	number of bytes transferred.  In this example, 100K.
+
+(2)	Percent of Compression:
+
+	On all platforms RAS compression predetermines what data
+	should or should not be compressed for optimal performance.
+
+	On Windows for Workgroups 3.11 the "Compression%" value
+	represents the ratio of compression achieved, accounting only
+	for that data on which compression was attempted.
+
+	On Windows NT 3.51, the "Compression%" accounts for all data,
+	including the data on which compression was not attempted.  As
+	a result, the reported "Compression%" figures for Windows NT 3.51
+	will run lower than those shown on Windows for Workgroups 3.11.
+
+
+Remote Access Support for Security Dynamics ACE Server ---------------------------------------------------------------------- 
+Windows NT 3.51 Remote Access has the capability to authenticate dial-in
+users using the Security Dynamics ACE Server. To enable authentication with the Security Dynamics ACE Server, you need to install a special module from Security Dynamics Inc. You can reach Security Dynamics Inc. at the following address:
+
+ Security Dynamics  
+ One AleWife Center
+ Cambridge, MA 02140-2312
+ Tel: (617) 547 7820
+ Fax: (617) 354 8836
+ 
+
+Shadow RAM Conflicts
+--------------------
+Computers that use Shadow RAM may experience problems with memory conflicts. You may need to disable BIOS Shadow RAM using the computer setup program provided by the computer manufacturer. See your computer documentation or manufacturer for more information.
+
+
+NetBEUI Bindings on Computers with Multiple Network Cards
+---------------------------------------------------------
+RAS installs NetBEUI by default. If a computer has two network cards, NetBEUI is bound to both cards. This will cause your workstation service not to start due to duplicate computer names on the network. 
+So, if your computer has more than one network card and you are installing RAS, during the installation process make sure NetBEUI is bound to only one of the network cards. You can change the bindings in the Network Control Panel icon by choosing the Bindings button in the Network Settings dialog box.
+During RAS installation, you can also choose not to install NetBEUI by choosing the Network button in the Remote Access Setup dialog box. In the Network Configuration dialog box, clear the NetBEUI check box. 
+
+
+Using RAS with PCMCIA Cards
+---------------------------
+If you are using RAS with a PCMCIA card and are experiencing difficulty with your computer, such as lock-ups or error messages about hardware failure, use the Terminal program in the Program Manager Accessories group to assure that the PCMCIA card is functioning properly. 
+If Terminal locks up, the problem could be one of the following:
+* The mod

@@ -1,0 +1,100 @@
+lMode = $(!NTN_InstallMode)
+       Set !NTN_InstallMode = configure
+    EndIf
+    Set PREV_SRCDIR = $(!STF_SRCDIR_OVERRIDE)
+    Set !STF_SRCDIR_OVERRIDE = $(SrcDir)
+    Shell "oemnsvra.inf" InstallOption $(!STF_LANGUAGE) "RAS" $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig)
+    set !STF_SRCDIR_OVERRIDE = $(PREV_SRCDIR)
+    IfStr(i) $(RasInstalled) == TRUE
+            Set !NTN_InstallMode = $(SaveNTN_InstallMode)
+    EndIf
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": Error Shelling the RAS INF file oemnsvra.inf"
+        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS",  +
+                $(InvokeRasError)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            GoTo ShellCodeError
+        EndIf
+        GoTo SuccessfulOption
+    EndIf
+    EndWait
+    GoTo SuccessfulOption
+BindingAdapter =+
+    Set Error = "Binding: Sorry, not yet implemented."
+    GoTo FatalError
+RemoveAdapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    IfStr $(KeyProduct) != $(KeyNull)
+        GetRegValue $(KeyProduct),"NetCard", NetCardInfo
+        Set NetCard = *($(NetCardInfo), 4)
+        Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), $(NetworkCardKeyName)"\"$(NetCard)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error"
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+            GoTo FatalRegistry
+        EndIf
+    EndIf
+    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+    	$(PPTPProductSoftwareName)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+    	Debug-Output $(InfName)": ShellCode error"
+        GoTo ShellCodeError
+    EndIf
+    Set RegistryErrorIndex = $($R0)
+    IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+	    GoTo FatalRegistry
+    EndIf
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyBase) +
+               $(MAXIMUM_ALLOWED) ProductKey
+    Ifstr $(ProductKey) == $(KeyNull)
+       Debug-Output "OEMNXPPP.INF: could not open Software product key"
+    else
+       DeleteRegTree $(ProductKey) $(ProductRASPPTPName)
+       CloseRegKey $(ProductKey)
+    endif
+    Shell "" RemoveRASPPTPFDriver
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "Error shelling RemoveRASPPTPFDriver"
+         goto ShellCodeError
+    endif
+    ifstr(i) $($R0) != STATUS_SUCCESSFUL
+         Debug-Output "Error from RemoveRASPPTPFDriver"
+         goto end
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft\TAPI DEVICES" $(MAXIMUM_ALLOWED) BaseKey
+    IfStr $(BaseKey) != $(KeyNull)
+        DeleteRegTree $(BaseKey) $(ProductSoftwareName)
+    EndIf
+    OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\TcpIp\Parameters" $(MAXIMUM_ALLOWED) TcpKey
+    IfStr(i) $(TcpKey) != ""
+        Debug-Output $(InfName)": removing tcpip\parameters\PPTPTcpMaxDataRetransmissions value"
+	DeleteRegValue $(TcpKey) "PPTPTcpMaxDataRetransmissions"
+        CloseRegKey $(TcpKey)
+    Else
+        Debug-Output $(InfName)": Registry error: can't open services\tcpip key"
+    EndIf
+    Read-Syms InvokeRasDlg$(!STF_LANGUAGE)
+    Shell "oemnsvra.inf" CheckRasInstalled
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": Error Shelling the RAS INF file oemnsvra.inf"
+        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE),  +
+                "STATUS", $(InvokeRasError)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            GoTo ShellCodeError
+        EndIf
+        GoTo RASSetup2
+    EndIf
+    Set RasInstalled = $($R0)
+    Debug-Output $(InfName)": Is RAS Installed? "$(RasInstalled)
+    IfStr(i) $(RasInstalled) == FALSE
+        goto end
+    Else
+        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS", +
+                $(InvokeRasConfigMsg2)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            GoTo RASSetup2
+        EndI

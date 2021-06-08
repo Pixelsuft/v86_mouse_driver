@@ -1,0 +1,65 @@
+Bell,,  "B1"
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S19=<#>"
+
+[Fast]
+HKR, Init, 2,, "AT&F1&B1&C1&D2E0Q0V1&A3S0=0<cr>"
+
+[Verbose]
+HKR, Responses, "<cr>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<lf>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "0<cr>",       1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK
+HKR, Responses, "2<cr>",       1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING
+HKR, Responses, "3<cr>",       1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER
+HKR, Responses, "4<cr>",       1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR
+HKR, Responses, "6<cr>",       1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE
+HKR, Responses, "7<cr>",       1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY
+HKR, Responses, "8<cr>",       1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+
+HKR,Responses,"<cr><lf>BUSY<cr><lf>",1,06,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>ERROR<cr><lf>",1,03,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>NO ANSWER<cr><lf>",1,07,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>NO CARRIER<cr><lf>",1,04,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>NO DIAL TONE<cr><lf>",1,05,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>NO DIALTONE<cr><lf>",1,05,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>OK<cr><lf>",1,00,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>RING<cr><lf>",1,08,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>RINGING<cr><lf>",1,01,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>VOICE<cr><lf>",1,01,00,00,00,00,00,00,00,00,00
+HKR,Responses,"<cr><lf>CONNECT<cr><lf>",1,02,00,00,00,00,00,00,00,00,00
+
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ<cr><lf>",1,2,2,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/LAPM<cr><lf>",1,2,2,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/V32/LAPM<cr><lf>",1,2,2,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/V34/LAPM<cr><lf>",1,2,2,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/LAPM/MNP5<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/MNP/MNP5<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/ARQ/MNP/V42BIS<cr><lf>",1,2,3,B0,04,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 1200/NONE<cr><lf>",1,2,0,B0,04,00,0,0,0,0,0
+
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/LAPM/MNP5<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/LAPM<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V32/LAPM<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/LAPM<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/LAPM/NONE<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/LAPM/V42BIS<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/MNP/MNP5<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/MNP/NONE<cr><lf>",1,2,2,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/ARQ/V34/MNP/V42BIS<cr><lf>",1,2,3,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/NONE<cr><lf>",1,2,0,60,09,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 2400/V34/NONE<cr><lf>",1,2,0,60,09,00,0,0,0,0,0
+
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/LAPM/MNP5<cr><lf>",1,2,3,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4800/ARQ/HST/LAPM/NONE<cr><lf>",1,2,2,C0,12,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 4

@@ -1,0 +1,55 @@
+igure button. In the Remote Access Setup dialog box, choose the Network button. In the Network Configuration dialog box, make sure the appropriate protocols are checked in the Dial Out Protocols box.
+---------------------------------------------------
+QUESTION:
+We would like to use RAS to administer a remote Windows NT Server computer version 3.5 at a client's site. What kind of software do we need to have on our side? Do we need to dial the server from our Windows NT Server computer version 3.5 or can we dial in from any computer?
+
+ANSWER:
+This is easiest if you dial them from a Windows NT Server computer. That way all you have to do is run the administrative tools already found on the Windows NT Server computer and point them at the remote client.
+
+You can also install the Windows NT Server tools found on the Windows NT Server CD on a Windows NT Workstation computer. Then you can use that workstation to dial in and manage Windows NT Server computers on the remote network.
+
+To install the Windows NT Server Tools on a computer running Windows NT Workstation, obtain a Windows NT Server CD and run the \CLIENT\SRVTOOLS\WINNT\SETUP.BAT batch file.
+
+There are also Windows NT Server tools for use on computers running MS-DOS 5.0 or later, Windows version 3.1x (with LAN Manager for MS-DOS), or Windows for Workgroups 3.1x.
+To install the Windows NT Server Tools obtain a Windows NT Server CD and follow the instructions in the README.TXT file in the \CLIENT\SRVTOOLS\WINDOWS directory.
+
+---------------------------------------------------
+QUESTION:
+Does anyone have any experience tying two Windows NT computers together via null modem?  
+I have two computers on my desk running Windows NT 3.5 and I have no other networking 
+hardware, so I'm trying to use RAS and my null modem cable to link them together. But, everytime
+I try to dial I get a message of hardware failure.
+I've checked my cable for continuity, and it matches the table supplied in the Windows NT Help file.  Also, I've tried it with all the modem options (things like "enable hardware flow control")
+turned off, as well as with a smattering of them turned on, but to no effect. 
+
+ANSWER:
+Are you using a 25-pin to 9-pin converter for either of the COM ports?
+If so, make sure it is not the 25-9 adapter that ships with the Microsoft Mouse.  That is not a true converter, and will cause this problem.
+
+If that is not the problem, double check that both client and server have the same speed Null Modem entry selected in the Configure Port dialog in RAS.
+Also, make sure you are not using a standard null modem cable. See the RAS on-line Help topic "Cabling Requirements" for details.
+
+---------------------------------------------------
+QUESTION:
+I was wondering how many RAS connections Windows NT Server version 3.5 supports, and what hardware for these connections was recommended (I.E. Dialogic, etc.).
+Also, do you have any additional information on the optimum server (hardware/system) for X+ users?
+
+ANSWER:
+The RAS server for Windows NT version 3.5 or later will support up to 256 clients per server. To do that I would recommend 2 Digiboard EPC controllers and a 4-processor RISC computer for your RAS server.
+
+Here are some very general guidelines for servers:
+    Up to 40 clients, 486/66 with 48M of RAM
+    Up to 64 clients, axp or MIPS with 64M of RAM, or P5 2-processor with 64M of RAM
+    Up to 100 clients, MIPS or axp 2-processor with 64M RAM  (Yields about 70% CPU utilization.)
+    More than 150 or so, use a 4-processor or better RISC computer.
+
+For COM hardware, the Digiboard C/X controller is good.  For large client loads (70+)
+on a single computer, I would recommend the Digiboard EPC controller, or two, to share
+the load.
+
+---------------------------------------------------
+QUESTION:
+RAS will not dial out. It shows on the screen that it is dialing out, but then returns an error stating that my modem and/or serial card is not functioning. This is strange since I can connect to CompuServe without errors. 
+
+ANSWER:
+COM software and

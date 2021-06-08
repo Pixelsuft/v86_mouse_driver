@@ -1,0 +1,172 @@
+                                                                               
+AddReg = neomagic_SoftwareDeviceSettings                                                                                     
+                                                                                                                       
+[neomagic_SoftwareDeviceSettings]                                                                                            
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, neo20xx                                                                
+HKR,, VgaCompatible,               %REG_DWORD%,    0                                                                
+                                                                                                                       
+                                                                                                                       
+NeoMagic      = "NeoMagic"                                                                                                       
+
+
+
+
+
+;
+; Driver information
+;
+
+[Manufacturer]
+%S3%      = S3.Mfg
+%Diamond% = Diamond.Mfg
+%#9%      = #9.Mfg
+%STB%     = STB.Mfg
+
+[S3.Mfg]
+%S3% Virge                       = s3virge
+
+[Diamond.Mfg]
+%Diamond% STEALTH64 3D 2000      = s3virge
+
+[#9.Mfg]
+%#9% 9FX REALITY 332 PCI         = s3virge
+
+[STB.Mfg]
+%STB% POWERGRAPH 64 3D PCI       = s3virge
+
+;
+; General installation section
+;
+
+[s3virge]
+CopyFiles=S3ViRGE.Miniport, S3ViRGE.Display
+
+;
+; File sections
+;
+
+[S3ViRGE.Miniport]
+S3ViRGE.sys
+
+[S3ViRGE.Display]
+S3ViRGE.dll
+
+
+;
+; Service Installation
+;
+
+[s3virge.Services]
+AddService = s3virge, 0x00000002, s3virge_Service_Inst, s3virge_EventLog_Inst
+
+[s3virge_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\S3ViRGE.sys
+
+[s3virge_EventLog_Inst]
+AddReg = s3virge_EventLog_AddReg
+
+[s3virge_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\S3ViRGE.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+;
+; Software Installation
+;
+
+[s3virge.SoftwareSettings]
+AddReg = s3virge_SoftwareDeviceSettings
+
+[s3virge_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, S3ViRGE
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+
+
+
+
+
+;
+; Driver information
+;
+
+[Manufacturer]
+%#9%     =  #9.Mfg
+
+[#9.Mfg]
+%#9% Imagine 128 II          = n9i128v2
+
+
+;
+; General installation section
+;
+
+[n9i128v2]
+CopyFiles=n9i128v2.Miniport, n9i128v2.Display
+
+;
+; File sections
+;
+
+[n9i128v2.Miniport]
+n9i128v2.sys
+
+[n9i128v2.Display]
+n9i128v2.dll
+
+
+;
+; Service Installation
+;
+
+[n9i128v2.Services]
+AddService = n9i128v2, 0x00000002, n9i128v2_Service_Inst, n9i128v2_EventLog_Inst
+
+[n9i128v2_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\n9i128v2.sys
+
+[n9i128v2_EventLog_Inst]
+AddReg = n9i128v2_EventLog_AddReg
+
+[n9i128v2_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\n9i128v2.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+;
+; Software Installation
+;
+
+[n9i128v2.SoftwareSettings]
+AddReg = n9i128v2_SoftwareDeviceSettings
+
+[n9i128v2_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, n9i128v2
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+
+;
+; Source file information
+;
+
+[SourceDisksNames.x86]
+1 = %DiskId%,,,""
+
+[SourceDisksFiles]
+chips.dll   = 1, \drvlib\video\x86\chips
+chips.sys   = 1, \drvlib\video\x86\chips
+
+n9i128.dll  = 1, \drvlib\video\x86\imagine
+n9i128.sys  = 1, \drvlib\video\x86\imagine
+
+avga.sys    = 1, \drvlib\video\x86\avga
+
+tgiu

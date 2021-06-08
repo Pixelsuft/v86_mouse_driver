@@ -1,0 +1,63 @@
+).
+
+Opening Files Created in Windows NT by Using Windows version 3.x
+If you create a file, using an MS-DOS- or Windows version 3.1-based application on Windows NT version 4.0, you may get the error “Cannot find WINSPOOL.DRV” when using the file in Windows version 3.x. This error occurs because some 16-bit applications attach drive location information to the files they create.
+
+Click Close in the error message dialog box and save the file to prevent this error while using the file in Windows version 3.x. To prevent the error for all applications and their files, create a file in the \WINDOWS\SYSTEM directory called WINSPOOL.DRV. The file is not used, so the content of the file does not matter.
+
+Connecting to the Internet by Using MSN
+You can use MSN, the Microsoft Network, as your Internet provider, only if you have already created an MSN account by using Windows 95. When you connect to the Internet through Windows NT by using MSN, proprietary online services such as mail or bulletin boards are not available.
+
+To connect to MSN
+1. In the Dial-Up Networking dialog box, click New.
+2. In the Basic tab, type a name for your entry - for example, MSN.
+3. Enter the phone number for the local MSN service that allows Internet access.
+4. Select a modem and use the default modem configurations.
+5. In the Server tab in the Dial-Up Server Type box, select PPP.
+6. In the Protocols box, select only TCP/IP.
+7. Clear the Enable PPP LCP Extensions box.
+8. In the Security tab, select the Accept Any Authentication Including Clear Text option, and then click OK.
+9. Click Dial.
+10. In the Authentication dialog box, supply your MSN user name by using this format:  MSN/username The format is case sensitive. 
+11 Type your MSN password, and then click OK.
+
+Running Serial Communications Applications
+For reliable data transfer at the highest baud rate, use communications protocols that support end-to-end flow control. If the protocol you use does not support flow control, you may need to reduce the serial port baud rate for reliable communication. The following table shows which protocols support flow control:
+
+Serial flow control protocol
+Flow control
+
+ASCII (Xon/Xoff)
+No
+XMODEM
+Yes
+XMODEM-1K
+Yes
+YMODEM
+Yes
+YMODEM-G1
+No
+ZMODEM2
+No
+Kermit
+Yes
+CompuServe B+
+Yes
+
+1  The -G option disables flow control
+2  Some applications allow flow control with ZMODEM. For example, you can enable flow control with Procomm Plus 2 by setting the Transmit Method to 4K WINDOW.
+
+Windows NT supports Windows version 3.x communications programs by using the communications driver COMM.DRV. Other communications drivers are not supported and may not function reliably. You can check or change the communications driver by using the Registry Editor. The value should be:
+comm.drv:REG_SZ:comm.drv
+
+The value is located in the following Registry key:
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WOW\boot
+
+To run multiple Windows version 3.x communications applications simultaneously, or to run a Windows version 3.x communications application in the background or minimized and still maintain a reliable connection, modify your system to Foreground And Background Applications Equally Responsive. To do this, click Start, point to Settings, then click Control Panel. Double-click the System icon. Click the Performance tab and set Application Performance Boost to None.
+
+Multimedia Applications
+Some older applications install an old version of the 16-bit Video for Windows runtimes. This may cause system problems with other 16-bit applications that play video. Your system may run out of virtual memory, resulting in warnings to that effect. 
+
+Start the Media Player on the Start menu, point to Programs, Accessories, Multimedia. It will tell you that the Registry has been changed, and give you the option to fix it. Accept that option.
+
+If an error message stating that Wing32.dll has incorrectly been placed in the c:\windows\system directory appears when you run multimedia applications from a CD-ROM drive, move Wing32

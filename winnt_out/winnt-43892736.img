@@ -1,0 +1,99 @@
+em.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>", 1, 02, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>", 1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR <cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>", 1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>", 1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RINGING<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[POTS.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,C2,01,00, 40,83,00,00
+HKR,, FClass, 1, 5f,00,00,00
+HKR, Init,     2,, "ATS11=90S57.4=1<cr>"
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+HKR, Settings, Blind_Off,, "S41.4=0"
+HKR, Settings, Blind_On,, "S41.4=1"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, Cellular_On,,  "S43.3=0"
+HKR, Settings, Cellular_Off,, "S43.3=1"
+HKR, Settings, ErrorControl_Cellular,, "S43.3=0S57.5=1&K3*E0"
+HKR, Settings, ErrorControl_Cellular_Forced,, "S43.3=0S57.5=1&K3*E1"
+HKR, Fax, SetupCommand,, "ATS7=255&D3S57.4=1"
+
+[ISDN.AddReg]
+HKR, Settings, Pulse,, "I"
+HKR, Settings, Tone,, "M"
+HKR, Settings, Blind_Off,, ""
+HKR, Settings, Blind_On,, ""
+HKR, Settings, Modulation_CCITT,, ""
+HKR, Settings, Modulation_Bell,, ""
+HKR, Settings, Compression_Off,, ""
+HKR, Settings, Compression_On,, "&K4&K44"
+HKR, Init,     4,, "AT&L1S43.3=1S48.2=1<cr>"
+HKR, Init,     5,, "ATS84.4=1S104=1S108=2<cr>"
+HKR, Fax, SetupCommand,, "ATS7=255&D3&O0&L1S57.4=1"
+
+[Mfg.AddReg]
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR,, Reset,, "ATZ<cr>"
+HKR, Init,      1,, "AT&FE0X7<cr>"
+HKR, Monitor,   1,, "ATS0=0<cr>"
+HKR, Monitor,   2,, "None"
+HKR, Hangup,    1,, "ATH0<cr>"
+HKR, Answer,    1,, "ATA<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, SpeakerVolume_Low,, "L1"
+HKR, Settings, SpeakerVolume_Med,, "L4"
+HKR, Settings, SpeakerVolume_High,, "L7"
+HKR, Settings, SpeakerMode_Off,, "M0"
+HKR, Settings, SpeakerMode_Dial,, "M1"
+HKR, Settings, SpeakerMode_On,, "M2"
+HKR, Settings, SpeakerMode_Setup,, "M3"
+HKR, Settings, FlowControl_Off,, "&H0"
+HKR, Settings, FlowControl_Hard,, "&H3"
+HKR, Settings, FlowControl_Soft,, "&H4"
+HKR, Settings, ErrorControl_Off,, "&K0"
+HKR, Settings, ErrorControl_On,, "&K3*E0"
+HKR, Settings, ErrorControl_Forced,, "&K3*E1"
+HKR, Settings, Compression_On,, "&K4"
+HKR, Settings, Compression_Off,, ""
+HKR, Settings, SpeedNegotiation_Off,, ""
+HKR, Settings, SpeedNegotiation_On,, ""
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S50=<#>"
+
+HKR, Fax, AnswerMode,,            "2"
+HKR, Fax, DialToneWait,,          "30"
+HKR, Fax, HangupDelay,,           "60"
+HKR, Fax, CommaDelay,,            "2"
+HKR, Fax, NumRings,,              "2"
+HKR, Fax, BlindDial,,             "2"
+HKR, Fax, Volume,,                "2"
+HKR, Fax, SpeakerMode,,           "1"
+HKR, Fax, DisableG3ECM,,          "1"
+HKR, Fax, DisableMRSend,,         "1"
+HKR, Fax, DisableMRRecv,,         "1"
+HKR, Fax, CopyQualityCheckLevel,, "1"
+HKR, Fax, DontPurge,,             "0"
+HKR, Fax, ModemFaxClasses,,       "14"       ; Fax Class: 0,1,2,2.0
+HKR, Fax, ModemIdCmd,,            "ATI1"
+HKR, Fax, ExitCommand,,           ""
+HKR, Fax, PreAnswerCommand,,      ""
+HKR, Fax, PreDialCommand,,        ""
+HKR, Fax, FixModemClass,,         "1"
+HKR, Fax, EnableV17Send,,         "1"
+HKR, Fax, EnableV17Recv,,         "1"
+HKR, Fax, FixSerialSpeed,,

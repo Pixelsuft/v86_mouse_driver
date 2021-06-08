@@ -1,0 +1,50 @@
+,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/V34/MNP/NONE<cr><lf>",1,2,2,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/V32/LAPM<cr><lf>",1,2,2,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/V34/LAPM<cr><lf>",1,2,2,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/V34/MNP/V42BIS<cr><lf>",1,2,3,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/VFC/LAPM/MNP5<cr><lf>",1,2,3,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/VFC/LAPM<cr><lf>",1,2,2,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/VFC/LAPM/NONE<cr><lf>",1,2,2,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/VFC/LAPM/V42BIS<cr><lf>",1,2,3,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/VFC/MNP/MNP5<cr><lf>",1,2,3,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/VFC/MNP/NONE<cr><lf>",1,2,2,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/ARQ/VFC/MNP/V42BIS<cr><lf>",1,2,3,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/V34/NONE<cr><lf>",1,2,0,C0,5D,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 24000/VFC/NONE<cr><lf>",1,2,0,C0,5D,00,0,0,0,0,0
+
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/V34/LAPM/MNP5<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ<cr><lf>",1,2,2,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/V34/LAPM/NONE<cr><lf>",1,2,2,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/V34/LAPM/V42BIS<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/V34/MNP/MNP5<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/V34/LAPM<cr><lf>",1,2,2,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/V32/LAPM<cr><lf>",1,2,2,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/V34/MNP/NONE<cr><lf>",1,2,2,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/V34/MNP/V42BIS<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/VFC/LAPM/MNP5<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/VFC/LAPM<cr><lf>",1,2,2,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/VFC/LAPM/NONE<cr><lf>",1,2,2,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/VFC/LAPM/V42BIS<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/VFC/MNP/MNP5<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/VFC/MNP/NONE<cr><lf>",1,2,2,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/ARQ/VFC/MNP/V42BIS<cr><lf>",1,2,3,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/V34/NONE<cr><lf>",1,2,0,20,67,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 26400/VFC/NONE<cr><lf>",1,2,0,20,67,00,0,0,0,0,0
+
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/V34/LAPM/MNP5<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/V34/LAPM/NONE<cr><lf>",1,2,2,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/V34/LAPM/V42BIS<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/V34/MNP/MNP5<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/V34/MNP/NONE<cr><lf>",1,2,2,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/V34/MNP/V42BIS<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/VFC/LAPM/MNP5<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/V32/LAPM<cr><lf>",1,2,2,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/VFC/LAPM/NONE<cr><lf>",1,2,2,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/VFC/LAPM<cr><lf>",1,2,2,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT

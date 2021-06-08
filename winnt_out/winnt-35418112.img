@@ -1,0 +1,225 @@
+ame NewExportString)
+    (assertz (bindstring Owner Interface Objectname NewAtomList NewBindString NewExportString))
+    (fail)
+)
+
+
+
+( (prunexclusive)
+    (not(pruneupper))
+    (not(prunelower))
+)
+( (pruneupper)
+    (binding From  To  exclusive _ Value)
+    (binding From  To2 Excl2	 _ Value2)
+    (not (eq To To2))
+    (printif (nl "Contention (U): " To "<->" To2 nl))
+    (pruneup From To To Value Value2)
+    (fail)
+)
+( (prunelower)
+    (binding From  To _ exclusive Value)
+    (binding From2 To _ Excl2	  Value2)
+    (not (eq From From2))
+    (printif (nl "Contention (L): " From "<->" From2 nl))
+    (prunelow From From2 To Value Value2)
+    (fail)
+)
+( (pruneup From To To2 Value Value2)
+    (iless Value2 Value)
+    (cut)
+    (printif (nl "Retracted: " From "->" To2 nl))
+    (retract (binding From To2 _ _ _))
+)
+( (pruneup From _ To _ _)
+    (printif (nl "Retracted: " From "->" To nl))
+    (retract (binding From To _ _ _))
+)
+( (prunelow _ From To Value Value2)
+    (iless Value2 Value)
+    (cut)
+    (printif (nl "Retracted: " From "->" To nl))
+    (retract (binding From To _ _ _))
+)
+( (prunelow From _ To _ _)
+    (printif (nl "Retracted: " From "->" To nl))
+    (retract (binding From To _ _ _))
+)
+
+  
+( (pruneblocked)
+  (printif (nl "Blocked checking begun..." nl))
+  (not (pruneblock))
+  (printif (nl "Blocked checking ended." nl))
+)
+
+  
+
+( (pruneblock)
+  (bindstring Owner Name Objname Devlist Bstr Estr)
+  (isblocked (Name|Devlist))
+  (printall (nl "Blocked: " Name " = " Bstr nl))
+  (retract (bindstring Owner Name Objname Devlist Bstr Estr))
+  (fail)
+)
+
+  
+
+  
+( (isblocked (Dev))
+   (atom Dev)
+   (cut)
+   (fail)
+)
+
+  
+( (isblocked (Dev Nextdev|Rest))
+  (isblockedpair Dev Nextdev)
+  (cut)  
+)
+
+  
+( (isblocked (Dev Nextdev|Rest))
+  (isblocked (Dev|Rest))
+  (printif (nl "Blocked pair: " Dev " and " Nextdev nl))
+  (cut)
+)
+
+  
+( (isblocked (Dev Nextdev|Rest))
+  (isblocked (Nextdev|Rest))
+)
+
+  
+
+( (isblockedpair Dev1 Dev2)
+    (block Lowclass Upclass)
+    (ifpresent lower Dev1 Type1 _ _)
+    (ifpresent upper Dev2 Type2 _ _)
+    (iflower Type1 Lower)
+    (ifupper Type2 Upper)
+    (devDerived Lower Lowclass)
+    (devDerived Upper Upclass)
+    (cut)
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+( (allbindstrings)
+    (not (allbindstrhelp))
+)
+
+( (allbindstrhelp)
+    (ifpresent _ Name _ _ _)
+    (assertbindstrings Name)
+    (fail)
+)
+
+( (assertbindstrings Name)
+    (not (retractbindstrs Name))
+    (getbinddevlists Name List)
+    (printif (nl "asserting binding for: " Name "..."))
+    (bindstrassert Name List)
+    (printif ("done" nl))
+)
+
+( (retractbindstrs Name)
+    (retract (bindstring _ Name _ _ _ _))
+    (fail)
+)
+
+( (getbinddevlists Name Strlist)
+    (allbinds Name Name (Name Bindlist))
+    (bindflatten () Bindlist () Strlist)
+)
+
+   
+( (isendpoint Name)
+    (ifpresent upper Name _ _ _)
+    (ifupper Name Upperclass)
+    (devClass Upperclass _ yes)
+)
+  
+( (isstream Name)
+    (ifpresent _ Name Type _ _)
+    (ifbind Type streams)
+)
+
+  
+
+
+
+
+
+
+
+
+  
+( (allbinds _ Name (Name))
+    (ifpresent _ Name Kind _ _)
+    (ifusage Kind adapter)
+    (cut)
+)
+
+  
+  
+  
+  
+  
+
+( (allbinds Basename Name (Name|((Stream))))
+    (not (eq Basename Name))
+    (isendpoint Name)
+    (ifpresent _ Name _ Owner _)
+    (binding Owner Stream _ _ _)
+    (cut)
+)
+
+  
+  
+
+( (allbinds Basename Name (Name))
+    (not (eq Basename Name))
+    (isendpoint Name)
+    (cut)
+)
+
+  
+
+( (allbinds Basename Name (Name Outlist))
+    (ifpresent _ Name _ Owner _)
+    (findall To (binding Owner To _ _ _) Tolist)
+    (allbindlist Basename Owner Tolist Outlist)
+)
+
+( (allbindlist _ _ () ()) )
+( (allbindlist Basename Name (Hto|Tto) (Hout|Tout))
+    (allbinds Basename Hto Hout)
+    (allbindlist Basename Hto Tto Tout)
+)
+
+  
+
+( (ownerlist () L L) )
+( (ownerlist (Dev|T) L Lout)
+    (devIf Owner Dev _ _ _)
+    (cut)
+    (append L (Owner) L2)
+    (ownerlist T L2 Lout)
+)
+( (ownerlist (Dev|T) L Lout)
+    (append 

@@ -1,0 +1,80 @@
+vices\NetBT\Parameters\DhcpScopeID"},+
+            {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_SZ)}}
+        CloseRegKey $(Key47)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(KeyOptions)
+        CloseRegKey $(DhcpParameterKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+    endif
+    ifstr(i) $(DoTC) == TRUE
+        set ThisOption = "TC"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductTCName))
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName), $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType),+
+            "PNP_TDI", {}, "", $(NetEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error, add software component"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set TcpVersKeyHandle  = $($R1)
+        Set TcpRulesKeyHandle = $($R2)
+        Set TcpSvcKeyHandle   = $($R3)
+        Set TcpParmKeyHandle  = $($R4)
+        Set TcpLinkageHandle  = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {Review,$(NoTitle),$(!REG_VT_DWORD),1},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(TcpVersKeyHandle), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error, add value list"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(TcpVersKeyHandle)
+            CloseRegKey $(TcpRulesKeyHandle)
+            CloseRegKey $(TcpSvcKeyHandle)
+            CloseRegKey $(TcpParmKeyHandle)
+            CloseRegkey $(TcpLinkageHandle)
+            goto fatalregistry
+        Endif
+        CreateRegKey $(TcpParmKeyHandle) {"PersistentRoutes",$(NoTitle),GenericClass} "" +
+                $(MAXIMUM_ALLOWED) "" KeyPersistentRoutes
+        CloseRegKey $(KeyPersistentRoutes)
+        CreateRegKey $(TcpSvcKeyHandle) {"Performance",$(NoTitle),GenericClass} "" +
+                $(MAXIMUM_ALLOWED) "" KeyPerformance
+        set NewValueList = {{Library,$(NoTitle),$(!REG_VT_SZ),"Perfctrs.dll"},+
+                           {Open,$(NoTitle),$(!REG_VT_SZ),"OpenTcpIpPerformanceData"},+
+                           {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectTcpIpPerformanceData"},+
+                           {Close,$(NoTitle),$(

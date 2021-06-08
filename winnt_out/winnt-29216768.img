@@ -1,0 +1,84 @@
+ROR
+            EndWait
+            Debug-Output "OEMNSVNW.INF: Registry error: add performance information"
+            goto fatalregistry
+        endif
+        Debug-Output "OEMNSVNW.INF: Add NetworkProvider"
+        Shell $(UtilityInf), AddNetworkProvider, $(ProviderName), +
+            $(ProductProviderImagePath), $(ProductProviderDisplayName), "nwrdr"
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVNW.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\NetworkProvider\Order" $(MAXIMUM_ALLOWED) NetProviderKey
+        Ifstr $(NetProviderKey) != $(KeyNull)
+            GetRegValue $(NetProviderKey),"ProviderOrder",OrderInfo
+            set OrderList = *($(OrderInfo),4)
+            Split-String $(OrderList), ",", ProviderList
+            set NewOrderList = $(ProductNWWKSTAName)
+            ForListDo  $(ProviderList)
+                ifstr(i) $($) != ","
+                    ifstr(i) $($) != $(ProductNWWKSTAName)
+                        set NewOrderList = $(NewOrderList)","$($)
+                    endif
+                endif
+            EndForListDo
+            SetRegValue $(NetProviderKey) {"ProviderOrder",$(NoTitle),$(!REG_VT_SZ),$(NewOrderList)}
+            CloseRegKey $(NetProviderKey)
+        endif
+        Shell "" AddShortName
+        Shell $(UtilityInf) AddServerRpcProtocol "ncadg_ipx" "RpcLtScm.Dll"
+        Shell $(UtilityInf) AddServerRpcProtocol "ncacn_spx" "RpcLtScm.Dll"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error adding RPC procotol"
+            goto ShellCodeError
+        Endif
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "OEMNXPTC.INF: ERROR adding RPC protocol data"
+            EndWait
+            goto fatalregistry
+        Endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ProviderName)"\networkprovider" $(MAXIMUM_ALLOWED) ProviderKey
+        ifstr(i) $(ProviderKey) != ""
+            set NewValueList = {{Class,$(NoTitle),$(!REG_VT_DWORD),11},+
+                                {NWCompatibleAuthentication,$(NoTitle),$(!REG_VT_DWORD),1}}
+            Shell $(UtilityInf) AddValueList $(ProviderKey) $(NewValueList)
+        endif
+        CloseRegKey $(ProviderKey)
+        LibraryProcedure Status1, $(!LIBHANDLE), CheckFileExistance, $(!STF_WINDOWSSYSPATH)"\novell.cpl"
+        ifstr(i) $(Status1) == "YES"
+            LibraryProcedure Status2, $(!LIBHANDLE), RenFile, $(!STF_WINDOWSSYSPATH)"\novell.cpl", $(!STF_WINDOWSSYSPATH)"\novell.bak"
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\WOW" $(MAXIMUM_ALLOWED) WowKey
+        ifstr(i) $(WowKey) != ""
+            GetRegValue $(WowKey),"KnownDLLS", KnownDLLsInfo
+            Split-String *($(KnownDLLsInfo),4), " ", KnownDLLsList
+            Ifcontains(i) "netware.drv" not-in $(KnownDLLsList)
+                ifstr(i) *($(KnownDLLsInfo),4) == ""
+                    set KnownDLLs = "netware.drv"
+                else
+                    set KnownDLLs = *($(KnownDLLsInfo),4)" netware.drv"
+                endif
+                SetRegValue $(WowKey) {"KnownDLLS",$(NoTitle),$(!REG_VT_SZ),$(KnownDLLs)}
+            endif
+            CloseRegKey $(WowKey)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\LanmanServer\Parameters" $(MAXIMUM_ALLOWED) ServerParmKey
+        ifstr(i) $(ServerParmKey) != ""
+            SetRegValue $(ServerParmKey) {"EnableSharedNetDrives",$(NoTitle),$(!REG_VT_DWORD),1}
+            CloseRegKey $(ServerParmKey)
+        endif
+    endif
+writeparameters = +
+    FreeLibrary $(!NWCFG_HANDLE)
+    EndWait
+    goto successful
+ConfigureBrowser = +
+    goto successful
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadap

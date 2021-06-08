@@ -1,0 +1,65 @@
+t Windows&nbsp;NT Server Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=servicepacks"> http://www.microsoft.com/windows/servicepacks</a></p>
+<p>The 128-bit CD can be ordered from the same Web site.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="1.6"><b>1.6 How to Order the Service Pack&nbsp;6 CD </b></a></p>
+<p>The Windows&nbsp;NT&nbsp;4.0 Service Pack CD contains supplemental and support files that you may find useful. To order the CD, visit the Microsoft Windows&nbsp;NT Server Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=servicepacks">http://www.microsoft.com/windows/servicepacks</a></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p><a name="1.6.1"><b>1.6.1 What is on the Service Pack&nbsp;6 CD </b></a></p>
+<p>The \Support and \ValueAdd folders on this CD contain additional Windows components that can be installed as you need them. These files are not part of the Service Pack 6 installation, but are included for installation and use at your discretion. They include:</p>
+<ul>
+<li> Internet Explorer&nbsp;5</li>
+<li> Microsoft Security Configuration Editor</li>
+<li> Files for debugging the Service Pack</li>
+<li> Fixes for Internet Mail Server&nbsp;2.0</li>
+<li> DCOM, Winsock, and MSMQ files for Windows&nbsp;95 and Windows&nbsp;98</li>
+<li> Updates to the MSMQ&nbsp;1.0 database for Windows&nbsp;NT&nbsp;4.0</li>
+<li> Tools and instructions for OEM preinstallation of SP6</li>
+<li> Files to install Routing and Remote Access Service (RRAS) in unattended Setup mode</li>
+<li> Additional printer files and drivers</li>
+<li> Transmission Control Protocol (TCP) files for Windows for Workgroups</li>
+<li> Files required for installing a new copy of Windows&nbsp;NT&nbsp;4.0</li>
+<li>Microsoft Certificate Server</li>
+<li>Updates to Microsoft Internet Authentication Service (IAS)</li>
+<li>A Package Definition File (PDF) for installing SP6 with Microsoft Systems Management Server (SMS)</li>
+</ul>
+
+<p>This CD also contain files in the \Alpha and \i386 folders that are not installed automatically. They are also not in the downloaded version of SP6. The files are used to install:</p>
+<ul>
+<li>RAS from the Service Pack CD on computers running Windows&nbsp;CE</li>
+<li>Sound Blaster Plug and Play (PnP) files</li>
+<li>Updated files for debugging</li>
+<li>Multimedia setup files</li>
+<li>Updated printer files and drivers</li>
+</ul>
+
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="2.0"><h2>2.0 Installation Instructions for Windows&nbsp;NT&nbsp;4.0 Service Pack&nbsp;6</h2></a></p>
+<p>
+Carefully read the installation instructions before you install Service Pack&nbsp;6, since they may have changed from previous Service Packs.</p>
+<p>
+<a name="2.1"><b>2.1 Downloading and Extracting the Service Pack</b></a></p>
+<p>
+If you have downloaded this Service Pack from an FTP site or a Web site, you should read the release notes completely before you extract and install the Service Pack. For this release, these self-extracting program files are also located at the root of the CD. They are SP6alpha.exe for Alpha-based computers and SP6i386.exe for Intel-based computers.</p>
+<p>
+Downloading the Service Pack saves a compressed program file on your hard disk. To extract this file and begin the installation process, for example, at the command prompt, type:
+<b>SP6i386.exe</b>
+or double-click the file in My Computer. You can also extract the file into the current folder without launching the installation program by using the command prompt <i>switch /x</i>. For example, at the command prompt, type:
+<b>SP6i386 /x</b></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="2.2">2.2</a> Before You Install the Service Pack</b></p>
+<p>
+Close all active debugging sessions before installing this

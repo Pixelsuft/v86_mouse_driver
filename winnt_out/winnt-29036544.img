@@ -1,0 +1,73 @@
+EMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: Create Service components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            goto fatalregistry
+        endif
+        CloseRegKey $($R1)
+        Set DhcpParameterKey = $($R2)
+        CloseRegKey $($R3)
+        CreateRegKey $(DhcpParameterKey) {"Options",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyOptions
+        CreateRegKey $(KeyOptions) {"1",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key1
+        Shell $(UtilityInf) AddValueList, $(Key1),+
+            {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Services\?\Parameters\Tcpip\DhcpSubnetMaskOpt"},+
+            {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_MULTI_SZ)}}
+        CloseRegKey $(Key1)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        CreateRegKey $(KeyOptions) {"3",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key3
+        Shell $(UtilityInf) AddValueList, $(Key3),+
+            {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Services\?\Parameters\Tcpip\DhcpDefaultGateway"},+
+            {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_MULTI_SZ)}}
+        CloseRegKey $(Key3)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        CreateRegKey $(KeyOptions) {"6",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key6
+        Shell $(UtilityInf) AddValueList, $(Key6),+
+            {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Services\Tcpip\Parameters\DhcpNameServer"},+
+            {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_SZ)}}
+        CloseRegKey $(Key6)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        CreateRegKey $(KeyOptions) {"15",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key15
+        Shell $(UtilityInf) AddValueList, $(Key15),+
+            {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Services\Tcpip\Parameters\DhcpDomain"},+
+            {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_SZ)}}
+        CloseRegKey $(Key15)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        CreateRegKey $(KeyOptions) {"44",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key44
+        Shell $(UtilityInf) AddValueList, $(Key44),+
+            {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Services\NetBT\Adapters\?\DhcpNameServer"},+
+            {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_SZ)}}
+        CloseRegKey $(Key44)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        CreateRegKey $(KeyOptions) {"46",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key46
+        Shell $(UtilityInf) AddValueList, $(Key46),+
+            {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Services\NetBT\Parameters\DhcpNodeType"},+
+            {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_DWORD)}}
+        CloseRegKey $(Key46)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        CreateRegKey $(KeyOptions) {"47",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key47
+        Shell $(UtilityInf) AddValueList, $(Key47),+
+            {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Ser

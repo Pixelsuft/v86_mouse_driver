@@ -1,0 +1,97 @@
+                           {MaxTerminate, 0, $(!REG_VT_DWORD), 2}, +
+                            {MaxFailure,   0, $(!REG_VT_DWORD), 10}. +
+                            {MaxReject,    0, $(!REG_VT_DWORD), 5}. +
+                            {NegotiateTime, 0, $(!REG_VT_DWORD), 150}, +
+                            {Logging, 0, $(!REG_VT_DWORD), 0}, +
+                            {RestartTimer, 0, $(!REG_VT_DWORD), 3}}
+    endif
+    forlistdo $(NewValueList)
+        SetRegValue $(KeyRasManPPP) $($)
+    endforlistdo
+    set ForceEncryptedPassword = 2
+    set ForceEncryptedData     = 0
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasProtocolsKeyName) $(!MAXIMUM_ALLOWED) KeyRasProtocols
+    ifstr $(KeyRasProtocols) != $(KeyNull)
+        GetRegValue $(KeyRasProtocols) "ForceEncryptedPassword" ForceValue
+        ifint $(RegLastError) == 0
+            set ForceEncryptedPassword = *($(ForceValue), 4)
+        endif
+        GetRegValue $(KeyRasProtocols) "ForceEncryptedData" ForceValue
+        ifint $(RegLastError) == 0
+            set ForceEncryptedData = *($(ForceValue), 4)
+        endif
+        SetRegValue $(KeyRasManPPP) {ForceEncryptedPassword, 0, +
+                                     $(!REG_VT_DWORD),$(ForceEncryptedPassword)}
+        SetRegValue $(KeyRasManPPP) {ForceEncryptedData, 0, +
+                                     $(!REG_VT_DWORD),$(ForceEncryptedData)}
+        CloseRegKey $(KeyRasProtocols)
+    endif
+    CloseRegKey $(KeyRasManPPP)
+    set Status = STATUS_SUCCESSFUL
+WritePPPParametersEnd =+
+    Debug-Output "WritePPPParameters: exit"
+    return $(Status)
+[UpdateCPList]
+    Debug-Output "UpdateCPList: entry"
+    Set Status = STATUS_FAILED
+    set KeyNull = ""
+    set RasManPPPKeyName =  $(!NTN_ServiceBase)"\RasMan\PPP"
+    Shell "" WritePPPParameters
+    Shell "" QuerySelectedProtocols
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set fNetbeuiSelected   = $($R1)
+        set fTcpIpSelected     = $($R2)
+        set fIpxSelected       = $($R3)
+        set fNetbeuiAllowed    = $($R4)
+        set fTcpIpAllowed      = $($R5)
+        set fIpxAllowed        = $($R6)
+    else
+        Debug-Output "UpdateCPList: error QuerySelectedProtocols"
+        goto UpdateCPListEnd
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasManPPPKeyName) $(!MAXIMUM_ALLOWED) KeyRasManPPP
+    ifstr $(KeyRasManPPP) != $(KeyNull)
+        EnumRegKey $(KeyRasManPPP) OldCPList
+        ifstr(i) $(fNetbeuiSelected) == TRUE
+            set fNetbeuiChosen = TRUE
+        else
+            set fNetbeuiChosen = $(fNetbeuiAllowed)
+        endif
+        ifstr(i) $(fTcpIpSelected) == TRUE
+            set fTcpIpChosen = TRUE
+        else
+            set fTcpIpChosen = $(fTcpIpAllowed)
+        endif
+        ifstr(i) $(fIpxSelected) == TRUE
+            set fIpxChosen = TRUE
+        else
+            set fIpxChosen = $(fIpxAllowed)
+        endif
+        set CPList = {"PAP", "CHAP", "SPAP", "CBCP", "COMPCP"}
+        ifstr(i) $(fNetbeuiChosen) == TRUE
+            set CPList = >($(CPList), "NBFCP")
+        endif
+        ifstr(i) $(fTcpIpChosen) == TRUE
+            set CPList = >($(CPList), "IPCP")
+        endif
+        ifstr(i) $(fIpxChosen) == TRUE
+            set CPList = >($(CPList), "IPXCP")
+        endif
+        set CurrentCPList = {}
+        ForListDo $(OldCPList)
+           set CPName = *($($),1)
+           ifcontains(i) $(CPName) not-in $(CPList)
+               DeleteRegTree $(KeyRasManPPP) $(CPName)
+           else
+               set CurrentCPList = >($(CurrentCPList), $(CPName))
+           endif
+        EndForListDo
+        forlistdo $(CPList)
+            ifcontains(i) $($) not-in $(CurrentCPList)
+                CreateRegKey $(KeyRasManPPP) +
+                         {$($),0,GenericClass} "" $(!MAXIMUM_ALLOWED) "" KeyCp
+                set path = #(CP-List, $($), 1)
+                set NewValueList = {{Path, 0, $(!REG_VT_EXPAND_SZ), $(path)}}
+                ifstr $(KeyCp) != $(KeyNull)
+                    Shell  "utility.inf", AddValueList, $(KeyCp), +
+                        

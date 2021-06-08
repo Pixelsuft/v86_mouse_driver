@@ -1,0 +1,59 @@
+ble hardware handshaking between your local modem and the workstation. Enable these settings by editing the Remote Access entry's modem settings. Select the check box for modem error correction and the check box for hardware flow control.
+
+Using this feature ensures that there is end-to-end flow control and no data will be lost between the dial-up PAD and the client workstation. You may encounter problems unless these modem settings are made.
+
+
+Configuring a RAS Server for X.25
+-----------------------------------
+When configuring a RAS Server to use X.25 over an EiconCard, several steps must be followed to define the number of clients that can connect to the server.
+
+ 1. Define the total number of virtual circuits that the EiconCard will be configured for.
+
+    a. Choose the Network option in Control Panel.
+
+    b. In the Network Settings dialog box, select the EiconCard driver in the Installed Adapter Cards box.
+
+    c. Choose the Configure button. 
+
+    d. Follow the instructions in your Eicon WAN Services for Windows NT System Guide on how to configure the total number of virtual circuits.
+
+       The sum of the two-way virtual circuits (TVC) and incoming virtual circuits (IVC) in the X.25 configuration screen must equal the number of incoming X.25 clients the server will support at one time. You may have to find out how many TVCs and IVCs your X.25 line has by contacting your X.25 vendor.
+
+ 2. Define the number of communication ports to be available for RAS in the XPAD 
+    configuration program.
+
+    a. Choose the Network option in Control Panel.
+
+    b. In the Network Settings dialog box, select the Eicon X.PAD Driver in the
+      Installed Network Software box.
+
+    c. Choose the Configure button. 
+
+    d. Configure the total number of COM ports by selecting the COM ports from the Available Ports list and then choosing the Add button.
+
+       It is recommended that the number of communication ports should be equal to the number of virtual circuits (TVC+IVC) configured.
+
+ 3. Configure the number of communication ports (Eicon XPAD's) in RAS using the Network option in Control Panel.
+
+
+X.25 Buffering
+--------------
+On each communication port in the Eicon PAD configuration, it is recommended that the packet length supported be left at the default of 128.  This will give optimum performance on the server.
+
+
+Server Bandwidth and the Total Number of Clients
+------------------------------------------------
+To obtain maximum performance in the RAS clients and to ensure reliable connections, ensure that the aggregate throughput of all clients does not exceed the bandwidth of the RAS server.
+
+For example, four clients running at 2400 bits per second (bps) can be connected to a server with a 9600 bps X.25 line. However, attaching a fifth client at 2400 bps will exceed the server's bandwidth. This will cause all clients to operate at speeds below 2400 bps.  If a virtual circuit, communication port, and RAS port are defined for five ports, then five clients can connect using X.25. However, connecting five clients at one time is not recommended since the throughput of each client will be very low and will cause time-outs in the network protocols running over RAS.
+
+
+Troubleshooting Remote Disconnections
+-------------------------------------
+When a client connection is cleared, the system event log of the RAS server running X.25 can be examined for an error message. The event log can record why the remote client or the remote network disconnected.
+
+If the remote client (through a dial-up PAD or local PAD) disconnects, the following warning message will appear in the system event log.
+
+"Remote DTE cleared the X.25 call on XPADxxx, X.25 Return Codes: Cause yy (hex) Diagnostic yy (hex)"
+
+The "XPADxxx" is the port name defined in the XPAD configuration.  "yy" is a hex string.  For DTE clearing the cause will always be 00.  The Diagnostic code can be 00--indicating that the remote client requested a disconnect--or another non-zero value.  When the diagnostic code is non-zero it 

@@ -1,0 +1,50 @@
+erver printer in the Printers folder. Right-click the printer, and click Properties. Click the Ports tab, and then click Configure Port.
+If you are not sure of the hardware address, check the Print Servers front panel after starting. The panel will display the hardware Ethernet address.
+ · The PrintServer printer and the Windows NT system must be in the same TCP/IP subnet to soft load the printer. You may print to a PrintServer printer from anywhere on your network, regardless of subnet.
+ · Check your network hardware. Some types of hardware (bridges, for example) may be configured to filter bootp packets. To resolve this problem, soft load the PrintServer printer from a Windows NT system that is on the same side of the bridge as the printer, or have your network administrator disable bootp packet filtering on that bridge.
+
+Printing from ThinkPad 7xx Computers
+If printing from the ThinkPad 7xx results in illegible output, you may need to change, in the BIOS setup program, parallel port arbitration in the computer's system setup to Disabled. This will force the parallel port to no-DMA ISA computer-compatible mode and it will resolve the data handshake error with some printers.
+
+To change parallel port arbitration in the computer's system setup to disabled
+
+1. Turn on the ThinkPad.
+2. Press CTRL+ALT+INS after memory check. Enter a password if required. 
+The IBM logo will appear.
+3. Press ENTER.
+4. Click Set Configuration, and then press ENTER.
+5. Click Change Configuration, and then press ENTER.
+6. Click Parallel Port Arbitration Level. Press F6 several times until Disabled appears.
+7. Press F10 to save the current setting. Press ENTER.
+8. Press F3 twice to exit the setup program, and then press ENTER to start the operating system.
+
+If this procedure does not resolve the problem, contact Xircom for a driver update.
+
+Printing Graphics on Canon Bubble-Jet BJ 10e or BJ 130e
+If you are printing in 360x360 dpi graphics mode and parts of the graphics images in your documents are missing, make sure the DIP switch to control graphics image density is set to HIGH.
+
+Fonts with Epson LQ 510, LQ 850, and LQ 1050 Printers
+The Epson LQ 510, LQ 850, and LQ 1050 printer drivers support the full set of fonts provided with the latest versions of these printer models. Earlier versions of these printer models only support the Roman and Sans Serif fonts.
+
+TrueType Fonts on Kyocera F-series Printers
+To print TrueType fonts on Kyocera F-series printers, make sure that the Download TrueType Fonts check box is cleared in the Advanced Document Properties dialog box when configuring your printer. Otherwise, TrueType fonts may not print correctly.
+
+Soft Fonts on Mannesmann Tally MT 92C
+Only HP LaserJet compatible fonts can be downloaded and only if the 256K memory card is fitted. HP DeskJet compatible fonts will not work.
+
+Cut-Sheet Feeder on NEC Pinwriter P7 Printer
+The Paper Source option, Cut Sheet Feeder, does not work properly with the NEC Pinwriter P7 printer. To use the cut-sheet feeder as the paper source, you must specify a left margin of about three inches for your document so that text prints correctly on the page.
+ 
+Feeding Paper on Fujitsu 9-Pin Dot-matrix Printers
+The manual-feed option is not supported on Fujitsu 9-pin dot-matrix printers. All paper is automatically fed to the printer from the roller.
+
+Changing Printer Settings with Bitstream Facelift Version 1.0
+With some applications, you can change the settings for your printer on a per-page basis. You cannot use this feature in Bitstream Facelift version 1.0 when printing multiple-page documents.
+
+Setting Fonts for a Specific Printer using Crosstalk 2.2 for Windows
+An error message appears when you attempt to set the fonts for the specific printer by using the Print Setup dialog box. To work around this problem, perform the following steps:
+
+To set fonts within CrossTalk 2.2 for Windows
+1. Click Start, point to Settings, and then click Printers.
+2. Right-click the desired printer, and then click Set As Default.
+3. Close the Printers 

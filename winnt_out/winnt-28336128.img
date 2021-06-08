@@ -1,0 +1,70 @@
+    set Option_1Byte = $(DURANGO_1BYTE)
+                set MediaType = 2
+            else-ifstr $(Option) == "BONSAI"
+                set Option_1Byte = $(BONSAI_1BYTE)
+                set MediaType = 1
+            else
+                set Option_1Byte = $(RODAN_1BYTE)
+                set MediaType = 2
+            endif
+            ifint $(MediaType) != 2
+                set OpSupport = $(ProductOtherOpSupport)
+            else
+                set OpSupport = $(ProductOpSupport)
+            endif
+            set NewValueList = {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(Manufacturer)},+
+                                   {Title,$(NoTitle),$(!REG_VT_SZ),"["$($R4)"] "$(ProductHardware$(Option)Title)},+
+                                   {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductHardware$(Option)Description)},+
+                                   {ProductName,$(NoTitle),$(!REG_VT_SZ),$(ProductHardwareName)},+
+                                   {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+                                   {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(OpSupport)},+
+                                   {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+            Shell  $(UtilityInf), AddValueList, $(HardNetCardKey), $(NewValueList)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                goto ShellCodeError
+            endif
+             ifint $(AddAdpCount) == 0
+                Shell $(UtilityInf), AssignAdapterNumber
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                     goto ShellCodeError
+                endif
+                set AdpNumber1 = $(AdapterNumber)
+                set AdpNumber2 = $($R1)
+             endif
+             ifstr(i) $(DualPort) == TRUE
+                ifint $(AddAdpCount) == 0
+                   set NewValueList = {{BusNumber,$(NoTitle),$(!REG_VT_DWORD),$(BusNum)},+
+                           {BusType,$(NoTitle),$(!REG_VT_DWORD),2},+
+                           {EisaCompressedId,$(NoTitle),$(!REG_VT_DWORD),$(Option_1Byte)},+
+                           {MediaType,$(NoTitle),$(!REG_VT_DWORD),$(MediaType)},+
+                           {SlotNumber,$(NoTitle),$(!REG_VT_DWORD),$(SlotNum)},+
+                           {PortNumber,$(NoTitle),$(!REG_VT_DWORD), 1},+
+                           {PairNumber,$(NoTitle),$(!REG_VT_DWORD), $(AdpNumber2) }}
+                else
+                   set NewValueList = {{BusNumber,$(NoTitle),$(!REG_VT_DWORD),$(BusNum)},+
+                           {BusType,$(NoTitle),$(!REG_VT_DWORD),2},+
+                           {EisaCompressedId,$(NoTitle),$(!REG_VT_DWORD),$(Option_1Byte)},+
+                           {MediaType,$(NoTitle),$(!REG_VT_DWORD),$(MediaType)},+
+                           {SlotNumber,$(NoTitle),$(!REG_VT_DWORD),$(SlotNum)},+
+                           {PortNumber,$(NoTitle),$(!REG_VT_DWORD), 2},+
+                           {PairNumber,$(NoTitle),$(!REG_VT_DWORD), $(AdpNumber1) }}
+                endif
+             else
+                set NewValueList = {{BusNumber,$(NoTitle),$(!REG_VT_DWORD),$(BusNum)},+
+                       {BusType,$(NoTitle),$(!REG_VT_DWORD),2},+
+                       {EisaCompressedId,$(NoTitle),$(!REG_VT_DWORD),$(Option_1Byte)},+
+                       {MediaType,$(NoTitle),$(!REG_VT_DWORD),$(MediaType)},+
+                       {SlotNumber,$(NoTitle),$(!REG_VT_DWORD),$(SlotNum)}}
+             endif
+             Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+             ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 goto ShellCodeError
+             endif
+             set NetworkAddress = ""
+             ifint $(MediaType) == 2
+                read-syms FileDependentDlg$(!STF_LANGUAGE)
+                ui start "NetworkAddress"
+                ifstr(i) $(DLGEVENT) == "CONTINUE"
+                    set NetworkAddress = *($(EditTextOut),1)
+                    SetRegValue $(HardParameterKey) {NetworkAddress,$(NoTitle),$(!REG_VT_SZ),$(NetworkAddress)}
+                  

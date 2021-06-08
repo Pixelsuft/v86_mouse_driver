@@ -1,0 +1,94 @@
+                    ForListDo *($(GrpList),4)
+                           set grp = "+"$($)
+                           set newDependList = >($(newDependList), $(grp))
+                        EndForListDo
+                    endif
+                    Debug-Output "OEMNSVRA.INF:RemoveServiceDependency: new DependOnService List "$(newDependList)
+                    LibraryProcedure Result, $(!LIBHANDLE), +
+                       SetupChangeServiceConfig, $(DependentName)  +
+                       $(!SERVICE_NO_CHANGE), $(!SERVICE_NO_CHANGE), +
+                       $(!SERVICE_NO_CHANGE), "", "",  +
+                       $(newDependList), "", "", ""
+                endif
+            endif
+        endif
+        CloseRegKey $(KeyService)
+    else
+        Debug-Output "RemoveServiceDependency: failed to open service linkage key"$(DependentService)
+    endif
+    Debug-Output "RemoveServiceDependency: exit"
+    return $(Status)
+[QueryUserQuit]
+    set Status     = STATUS_FAILED
+    set UserAction = CANCEL
+    set STF_MB_TEXT  = "The changes will not be saved. "+
+                       "Are you sure you want to exit Setup."
+    read-syms ExitWarningDlg$(!STF_LANGUAGE)
+    ui start "ExitWarning"
+    ifstr(i) $(DLGEVENT) == "YES"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "OK"
+    else-ifstr(i) $(DLGEVENT) == "NO"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "CANCEL"
+    else
+    endif
+fin_QueryUserQuit = +
+    Return $(Status) $(UserAction)
+[QueryRasUpgrade]
+    set Status     = STATUS_FAILED
+    set UserAction = CANCEL
+    read-syms RasUpgrade$(!STF_LANGUAGE)
+    set Text = $($0)$(Ver)$($1)$(Text1)$(Ver)$($2)$(Text2)$(Text3)
+    set STF_MB_TEXT  = $(Text)
+    read-syms ExitWarningDlg$(!STF_LANGUAGE)
+    ui start "RasUpgrade"
+    ifstr(i) $(DLGEVENT) == "YES"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "OK"
+    else-ifstr(i) $(DLGEVENT) == "NO"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "CANCEL"
+    else
+    endif
+fin_QueryRasUpgrade = +
+    Return $(Status) $(UserAction)
+[CP-List]
+NBFCP       = "%SystemRoot%\SYSTEM32\RASNBFCP.DLL"
+IPCP        = "%SystemRoot%\SYSTEM32\RASIPCP.DLL"
+IPXCP       = "%SystemRoot%\SYSTEM32\RASIPXCP.DLL"
+PAP         = "%SystemRoot%\SYSTEM32\RASPAP.DLL"
+CHAP        = "%SystemRoot%\SYSTEM32\RASCHAP.DLL"
+SPAP        = "%SystemRoot%\SYSTEM32\RASSPAP.DLL"
+CBCP        = "%SystemRoot%\SYSTEM32\RASCBCP.DLL"
+COMPCP      = "%SystemRoot%\SYSTEM32\RASCCP.DLL"
+[Files-RemoveList]
+RASADMINDLL    = $(!STF_WINDOWSSYSPATH)\RASADMIN.DLL
+RASGTWYDLL     = $(!STF_WINDOWSSYSPATH)\RASGTWY.DLL
+RASGPRXYDLL    = $(!STF_WINDOWSSYSPATH)\RASGPRXY.DLL
+RASSRVEXE      = $(!STF_WINDOWSSYSPATH)\RASSRV.EXE
+RASCTRSDLL     = $(!STF_WINDOWSSYSPATH)\RASCTRS.DLL
+RASCTRSINI     = $(!STF_WINDOWSSYSPATH)\RASCTRS.INI
+RASCTRNMH      = $(!STF_WINDOWSSYSPATH)\RASCTRNM.H
+RASSPRXYEXE    = $(!STF_WINDOWSSYSPATH)\RASSPRXY.EXE
+RASSAUTHDLL    = $(!STF_WINDOWSSYSPATH)\RASSAUTH.DLL
+RASDIALEXE     = $(!STF_WINDOWSSYSPATH)\RASDIAL.EXE
+RASPHONEHLP    = $(!STF_WINDOWSSYSPATH)\RASPHONE.HLP
+RASGLOSSHLP    = $(!STF_WINDOWSSYSPATH)\RASGLOSS.HLP
+RASAPI32DLL    = $(!STF_WINDOWSSYSPATH)\RASAPI32.DLL
+RASCAUTHDLL    = $(!STF_WINDOWSSYSPATH)\RASCAUTH.DLL
+RASADMINHLP    = $(!STF_WINDOWSSYSPATH)\RASADMIN.HLP
+RASMANDLL      = $(!STF_WINDOWSSYSPATH)\RASMAN.DLL
+RASMANEXE      = $(!STF_WINDOWSSYSPATH)\RASMAN.EXE
+RASMSGDLL      = $(!STF_WINDOWSSYSPATH)\RASMSG.DLL
+RASMXSDLL      = $(!STF_WINDOWSSYSPATH)\RASMXS.DLL
+RASSERDLL      = $(!STF_WINDOWSSYSPATH)\RASSER.DLL
+RASIPXCPDLL    = $(!STF_WINDOWSSYSPATH)\RASIPXCP.DLL
+RASPPPDLL      = $(!STF_WINDOWSSYSPATH)\RASPPP.DLL
+RASPPPENDLL    = $(!STF_WINDOWSSYSPATH)\RASPPPEN.DLL
+RASPAPDLL      = $(!STF_WINDOWSSYSPATH)\RASPAP.DLL
+RASCHAPDLL     = $(!STF_WINDOWSSYSPATH)\RASCHAP.DLL
+RASSPAPDLL     = $(!STF_WINDOWSSYSPATH)\RASSPAP.DLL
+RASIPCPDLL     = $(!STF_WINDOWSSYSPATH)\RASIPCP.DLL
+RASIPHLPDLL    = $(!STF_WINDOWSSYSPATH)\RASIPHLP.DLL
+RASNBFCPDLL    = $(!S

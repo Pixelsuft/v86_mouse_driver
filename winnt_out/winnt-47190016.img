@@ -1,0 +1,47 @@
+0<cr><lf>",   1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 9600<cr><lf>",   1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 12000<cr><lf>",  1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 14400<cr><lf>",  1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 16800<cr><lf>",  1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 19200<cr><lf>",  1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 21600<cr><lf>",  1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 24000<cr><lf>",  1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 26400<cr><lf>",  1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 28800<cr><lf>",  1, 01, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200TX/75RX V.23<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>CARRIER 75TX/1200RX V.23<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00    
+
+HKR, Responses, "<cr><lf>COMPRESSION: CLASS 5<cr><lf>",  1, 01, 01, 00,00,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>COMPRESSION:CLASS 5<cr><lf>",   1, 01, 01, 00,00,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>COMPRESSION: V.42BIS<cr><lf>",  1, 01, 01, 00,00,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>COMPRESSION:V.42BIS<cr><lf>",   1, 01, 01, 00,00,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>COMPRESSION: NONE<cr><lf>",     1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION:NONE<cr><lf>",      1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>",1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:ALT-CELLULAR<cr><lf>", 1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-FAX<cr><lf>",     1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:ALT-FAX<cr><lf>",      1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-+FCERROR<cr><lf>",1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:ALT-+FCERROR<cr><lf>", 1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-DATA<cr><lf>",    1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:ALT-DATA<cr><lf>",     1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: V42BIS<cr><lf>",      1, 01, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:V42BIS<cr><lf>",       1, 01, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: V.42BIS<cr><lf>",     1, 01, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:V.42BIS<cr><lf>",      1, 01, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: NONE<cr><lf>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:NONE<cr><lf>",         1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:LAPM<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M<cr><lf>",       1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:LAP-M<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:ALT<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:MNP<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP2<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:MNP2<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP3<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:MNP3<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HK

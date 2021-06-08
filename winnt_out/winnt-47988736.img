@@ -1,0 +1,145 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   3X
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem1%  = Modem1, UNIMODEME86BD8FA
+%Modem2%  = Modem2, 3X_Modem2
+%Modem4%  = Modem4, UNIMODEMB07C86C0
+%Modem5%  = Modem5, UNIMODEM04D19EE2
+%Modem6%  = Modem6, UNIMODEM6EF972F3
+%Modem8%  = Modem8, UNIMODEM0B5DFC99
+%Modem9%  = Modem9, 3X_Modem9
+%Modem10% = Modem10, UNIMODEM76705211
+%Modem11% = Modem11, UNIMODEM7DDACD69
+%Modem12% = Modem12, 3X_Modem12, UNIMODEMADDF16B2
+%Modem13% = Modem13, 3X_Modem13
+%Modem14% = Modem14, UNIMODEM90F8B251
+%Modem15% = Modem15, UNIMODEM70AD55C2
+%Modem16% = Modem16, UNIMODEM4E9E6F38
+%Modem17% = Modem17, UNIMODEM54D5E4E6
+%Modem18% = Modem18, UNIMODEM655CE017
+%Modem19% = Modem19, UNIMODEMF848E375
+%Modem20% = Modem20, 3X_Modem20
+%Modem21% = Modem21, 3X_Modem21
+%Modem22% = Modem22, 3X_Modem22
+%Modem23% = Modem23, 3X_Modem23
+%Modem24% = Modem24, UNIMODEM8455F942
+
+; Installation sections
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg,Internal
+
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, External
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, External
+
+[Modem11]
+AddReg=All, MfgAddReg, Modem11.AddReg, External
+
+[Modem12]
+AddReg=All, MfgAddReg, Modem12.AddReg, External
+
+[Modem13]
+AddReg=All, MfgAddReg, Modem13.AddReg, PCMCIA
+
+[Modem14]
+AddReg=All, MfgAddReg, Modem14.AddReg, PCMCIA
+
+[Modem15]
+AddReg=All, MfgAddReg, Modem15.AddReg, Internal
+
+[Modem16]
+AddReg=All, MfgAddReg, Modem16.AddReg, Internal
+
+[Modem17]
+AddReg=All, MfgAddReg, Modem17.AddReg, External
+
+[Modem18]
+AddReg=All, MfgAddReg, Modem18.AddReg, External
+
+[Modem19]
+AddReg=All, MfgAddReg, Modem19.AddReg, External
+
+[Modem20]
+AddReg=All, MfgAddReg, Modem20.AddReg, PCMCIA
+
+[Modem21]
+AddReg=All, MfgAddReg, Modem21.AddReg, PCMCIA
+
+[Modem22]
+AddReg=All, MfgAddReg, Modem22.AddReg, Internal
+
+[Modem23]
+AddReg=All, MfgAddReg, Modem23.AddReg, Internal
+
+[Modem24]
+AddReg=All, MfgAddReg, Modem24.AddReg, PCMCIA
+
+; AddReg sections
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 80,25,00,00
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,4b,00,00, b0,04,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem11.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem12.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem13.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem14.AddReg]
+HKR,

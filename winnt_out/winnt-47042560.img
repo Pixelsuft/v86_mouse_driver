@@ -1,0 +1,58 @@
+eedNegotiation_On,, ""
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+HKR, Responses, "<cr>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<lf>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "CARRIER 300",     1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 1200",    1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 1200/75", 1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 75/1200", 1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 2400",    1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 4800",    1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 7200",    1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 9600",    1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 12000",   1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 14400",   1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 16800",   1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 19200",   1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 21600",   1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 24000",   1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 26400",   1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 28800",   1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300<cr><lf>", 1, 02, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/REL<cr><lf>", 1, 02, 02, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/MNP<cr><lf>", 1, 02, 02, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/LAPM<cr><lf>", 1, 02, 02, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/LAPM/V42BIS<cr><lf>", 1, 02, 03, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/REL<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/MNP<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/LAPM<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/LAPM/V42BIS<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>", 1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/MNP<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/LAPM<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/LAPM/V42BIS<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>", 1, 02, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/REL<cr><lf>", 1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/MNP<cr><lf>", 1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/LAPM<cr><lf>", 1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/LAPM/V42BIS<cr><lf>", 1, 02, 03, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>", 1, 02, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<

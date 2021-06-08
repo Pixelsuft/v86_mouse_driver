@@ -1,0 +1,91 @@
+eg NO "USERCANCEL"
+            set NetInstallStatus = $($R0)
+            Goto netcopyescape
+        Endif
+        Split-String $($R1), "\", lSrcDirParts
+        QueryListSize cSrcDirParts $(lSrcDirParts)
+        ifstr(i) *($(lSrcDirParts),$(cSrcDirParts)) != "\"
+            Set SrcDir = $($R1)"\"
+        else
+            Set SrcDir = $($R1)
+        Endif
+        ifint $(cSrcDirParts) >= 3 
+            debug-output "NETBOND.INF: checking to remove platform"
+            ifstr(i) *($(lSrcDirParts),$(cSrcDirParts)) == "\"
+                set-sub iStopParts = $(cSrcDirParts), 2
+            else
+                set-sub iStopParts = $(cSrcDirParts), 1
+            endif
+            debug-output "NETBOND.INF: parts were "$(cSrcDirParts)" and stops at "$(iStopParts)
+            set SrcDirMin = ""
+            set SkipAppend = FALSE
+            ForListDo $(lSrcDirParts)
+                ifint $(#) > $(iStopParts)
+                    ifstr(i) $($) == $(!STF_PLATFORM)
+                        set SkipAppend = TRUE
+                        debug-output "NETBOND.INF: skipping appended"$($)
+                        goto skip_appending_list_item
+                    else
+                        ifstr(i) $(SkipAppend) == TRUE
+                            debug-output "NETBOND.INF: skipping appended"$($)
+                            goto skip_appending_list_item
+                        endif
+                    endif
+                endif
+                set NewSrcDir = $(SrcDirMin)$($)
+                set SrcDirMin = $(NewSrcDir)
+                debug-output "NETBOND.INF: appended items "$(SrcDirMin)
+    skip_appending_list_item = +            
+            EndForListDo
+        else
+            debug-output "NETBOND.INF: path to small to have platform"
+            set SrcDirMin = *($(lSrcDirParts),1)"\"
+        endif
+        debug-output "NETBOND.INF: SrcDirMin : "$(SrcDirMin)
+        debug-output "NETBOND.INF: SrcDir : "$(SrcDir)
+        set NtTagFile = "Disk1"
+        set NtSrc = $(SrcDir)
+        set Path1 = $(NtSrc)
+        LibraryProcedure STATUS,$(!LIBHANDLE), CheckFileExistance $(NtSrc)$(NtTagFile)
+        ifstr(i) $(STATUS) != "YES"
+            set NtSrc = $(SrcDirMin)
+            set Path2 = $(NtSrc)
+            LibraryProcedure STATUS,$(!LIBHANDLE), CheckFileExistance $(NtSrc)$(NtTagFile)
+            ifstr(i) $(STATUS) != "YES"
+                set NtSrc = $(SrcDirMin)$(!STF_PLATFORM)"\"
+                set Path3 = $(NtSrc)
+                LibraryProcedure STATUS,$(!LIBHANDLE), CheckFileExistance $(NtSrc)$(NtTagFile)
+                ifstr(i) $(STATUS) != "YES"
+                    read-syms ErrorMsg$(!STF_LANGUAGE)
+                    Shell "Subroutn.Inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(CannotFindNtFiles)
+                    goto reaskforsource
+                endif
+            endif
+        endif
+        Set !STF_SRCDIR = $(NtSrc)
+    endif
+    Set lInfStatus = {}
+    Set fRunCopy = FALSE
+    ifstr(i) $(!NTN_UPGRADEMODE) == "YES"
+        Debug-Output "NETBOND.INF: We are in Upgrade now"
+        set OldInstallMode = $(!NTN_InstallMode)
+        set  !NTN_InstallMode = "Update"
+    endif
+    read-syms MessageText$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_NOTIFY_HWND) != ""
+        read-syms NotifySyms
+        ifstr(i) $(!NTN_InstallMode) == "Update"
+            set NTN_PGI = $(!PGI_UPDATE)
+        else
+            set NTN_PGI = $(!PGI_INSTALL)
+        endif
+        QueryListSize cInfsToBeRun $(!NTN_InfsToBeRun)
+        LibraryProcedure STATUS, $(!NCPA_HANDLE), SendProgressMessage, $(!PWM_SETPROGRESSSIZE), $(!NTN_NOTIFY_HWND), "D", $(NTN_PGI), "D", $(cInfsToBeRun)
+        LibraryProcedure STATUS, $(!NCPA_HANDLE), SendProgressMessage, $(!PWM_SETPROGRESSTEXT), $(!NTN_NOTIFY_HWND), "D", $(NTN_PGI), "D", "-1"
+    endif
+    ForListDo $(!NTN_InfsToBeRun)
+        Set ThisInfName = $($)
+        Debug-Output "NETBOND.INF: Installing "$(ThisInfName)
+        ifstr(i) $(!NTN_InstallMode) == "Update"
+            set !NTN_RegBase = *($(!NTN_RegBases),$(#))
+      

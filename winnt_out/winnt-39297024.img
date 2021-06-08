@@ -1,0 +1,153 @@
+>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<compression_on>=%C1
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI9<cr>
+DETECT_RESPONSE=Compaq
+
+COMMAND_INIT=AT&F&C1&D2 V1 W2S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+
+;----------------------------------------
+; Creatix Polymedia Modems
+;----------------------------------------
+
+[Creatix LC144VF - GER]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=Creatix Polymedia GmbH  V1.41  29/11/93
+DETECT_RESPONSE=Creatix Polymedia GmbH  V1.5  27/05/94
+
+COMMAND_INIT=AT&F0 W1 S95=46 S7=55 S2=128<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+
+
+;----------------------------------------
+[Creatix LC288FC - GER]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=115200
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=Creatix Polymedia GmbH  V0.51  01/05/94
+
+COMMAND_INIT=AT&F0 W1 S95=46 S7=55 S2=128<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;==============
+; CTK - Modems
+;==============
+
+[CTK SHORTY 144 SL - GER]
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=FM-VBIS+/R1 V3.1s
+DETECT_RESPONSE=PICO T 14.4-<?><?><?><?><?><?>-D-LL
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F2X3&C1&D2Q0V1E1S0=0S2=128 S7=60 <cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP/COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+
+
+;----------------------------------------
+; Dr. Neuhaus Modems
+;
+; Alle folgenden Einstellungen haben in der INIT-Zeile
+; COMMAND_INIT den Parameter W0 eingetragen. Das bedeu-
+; tet, daá in der Connectmeldung immer die Datenrate
+; zwischen dem Modem und dem Rechner angegeben wird.
+; Hierdurch, und durch die Einstellung insgesamt, wird
+; immer der maximal m”gliche Transferrate (ohne Umschalten)
+; erreicht. Auch dann, wenn die Gegenstation evtl. nur mit
+; niedrigeren Raten arbeitet.
+;
+;----------------------------------------
+[Dr Neuhaus Fury 14400 TI - GER]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+<compression_on>=
+<compression_off>=
+<protocol_on>=\\N6
+<protocol_

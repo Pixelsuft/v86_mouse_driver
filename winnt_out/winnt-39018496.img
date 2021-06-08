@@ -1,0 +1,100 @@
+1
+            IF valid$ = "THISISVALID" THEN
+                LOCATE 2 + count2, 43: PRINT USING u1$; account(liabilityIndex(a)).Title; CVD(IoBalance$)
+                liabilityTotal# = liabilityTotal# + CVD(IoBalance$)
+                count2 = count2 + 1
+            END IF
+            CLOSE
+            a = a + 1
+        WEND
+        IF count2 > count1 THEN count1 = count2
+        LOCATE 2 + count1, 25: PRINT "--------------"
+        LOCATE 2 + count1, 65: PRINT "--------------"
+        LOCATE 3 + count1, 3: PRINT USING u2$; "Total assets"; assetTotal#;
+        LOCATE 3 + count1, 43: PRINT USING u2$; "Total liabilities"; liabilityTotal#
+
+        COLOR colors(5, ColorPref), colors(4, ColorPref)
+        LOCATE 1, 43: PRINT USING u2$; "    NET WORTH:"; assetTotal# - liabilityTotal#
+
+        DO: Kbd$ = INKEY$: LOOP UNTIL Kbd$ <> ""
+
+        SELECT CASE Kbd$                            'Handle Special keys
+            CASE CHR$(0) + "<"                      'F2
+                finished = TRUE
+            CASE CHR$(0) + "="                      'F3
+               GOSUB NetWorthReportPrint
+            CASE ELSE
+               BEEP
+        END SELECT
+    LOOP UNTIL finished
+    EXIT SUB
+
+NetWorthReportPrint:
+    PrintHelpLine ""
+   
+    Box 8, 20, 14, 62
+    Center 10, "Prepare printer on LPT1 for report"
+    Center 12, "Hit <Enter> to print, or <Esc> to abort"
+
+    DO: Kbd$ = INKEY$: LOOP WHILE Kbd$ <> CHR$(13) AND Kbd$ <> CHR$(27)
+
+    IF Kbd$ = CHR$(13) THEN
+        Box 8, 20, 14, 62
+        Center 11, "Printing report..."
+        u0$ = "                     \                  \ "
+        u1$ = "                        \                 \ $$###,###,###.##"
+        u2$ = "                                              --------------"
+        u3$ = "                                               ============="
+        u4$ = "                        \               \+$$#,###,###,###.##"
+        PrintErr = FALSE
+        ON ERROR GOTO ErrorTrap                 ' test if printer is connected
+        LPRINT
+        IF PrintErr = FALSE THEN
+            LPRINT : LPRINT : LPRINT : LPRINT : LPRINT
+            LCenter "Q B a s i c"
+            LCenter "M O N E Y   M A N A G E R"
+            LPRINT : LPRINT
+            LCenter "NET WORTH REPORT:  " + DATE$
+            LCenter "-------------------------------------------"
+            LPRINT USING u0$; "ASSETS:"
+            assetTotal# = 0
+            a = 1
+            WHILE a <= maxAsset
+                file$ = "money." + Cvit$(assetIndex(a))
+                OPEN file$ FOR RANDOM AS #1 LEN = 84
+                FIELD #1, 11 AS valid$, 5 AS IoMaxRecord$, 8 AS IoBalance$
+                GET #1, 1
+                IF valid$ = "THISISVALID" THEN
+                    LPRINT USING u1$; account(assetIndex(a)).Title; CVD(IoBalance$)
+                    assetTotal# = assetTotal# + CVD(IoBalance$)
+                END IF
+                CLOSE #1
+                a = a + 1
+            WEND
+            LPRINT u2$
+            LPRINT USING u4$; "Total assets"; assetTotal#
+            LPRINT
+            LPRINT
+            LPRINT USING u0$; "LIABILITIES:"
+            liabilityTotal# = 0
+            a = 1
+            WHILE a <= maxLiability
+                file$ = "money." + Cvit$(liabilityIndex(a))
+                OPEN file$ FOR RANDOM AS #1 LEN = 84
+                FIELD #1, 11 AS valid$, 5 AS IoMaxRecord$, 8 AS IoBalance$
+                GET #1, 1
+                IF valid$ = "THISISVALID" THEN
+                    LPRINT USING u1$; account(liabilityIndex(a)).Title; CVD(IoBalance$)
+                    liabilityTotal# = liabilityTotal# + CVD(IoBalance$)
+                END IF
+                CLOSE #1
+                a = a + 1
+            WEND
+            LPRINT u2$
+            LPRINT USING u4$; "Total liabilities"; liabilityTotal#
+            LPRINT
+
+            LPRINT
+            LPRINT u3$
+            LPRINT USING u4$; "NET WORTH"; assetTotal# - liabilityTotal#
+            LCenter "---------------------------------

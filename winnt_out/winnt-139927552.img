@@ -1,0 +1,104 @@
+ForceEncryptedData = 0
+        ifstr(i) $(fDownLevel) != TRUE
+            GetRegValue $(RasProtocolKey), "ForceEncryptedData", DataList
+            ifint $(RegLastError) != 0
+                GetRegValue $(RasProtocolKey), "ForceEncryptedPassword", PasswdList
+                ifint $(RegLastError) == 0
+                   set ForceEncryptedPassword = *($(PasswdList), 4)
+                   ifint $(ForceEncryptedPassword) == 1
+                       set ForceEncryptedPassword = 2
+                   endif
+                endif
+            else
+                goto  UpgradeSelectedProtocolsEnd
+            endif
+        endif
+        SetRegValue $(RasProtocolKey) {ForceEncryptedPassword, 0,+
+                                 $(!REG_VT_DWORD), $(ForceEncryptedPassword)}
+        SetRegValue $(RasProtocolKey) {ForceEncryptedData, 0,+
+                                 $(!REG_VT_DWORD), $(ForceEncryptedData)}
+UpgradeSelectedProtocolsEnd =+
+        CloseRegKey $(RasProtocolKey)
+        set Status = STATUS_SUCCESSFUL
+    else
+        Debug-Output "UpgradeSelectedProtocols: error opening Ras\protocols key"
+    endif
+    Debug-Output "UpgradeSelectedProtocols exit."
+    return $(Status)
+[SaveSelectedProtocols]
+    Debug-Output "SaveSelectedProtocols entry."
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    ifstr(i) $($0) == TRUE
+        set NetbeuiSelected = 1
+    else
+        set NetbeuiSelected = 0
+    endif
+    ifstr(i) $($1) == TRUE
+        set TcpIpSelected = 1
+    else
+        set TcpIpSelected = 0
+    endif
+    ifstr(i) $($2) == TRUE
+        set IpxSelected = 1
+    else
+        set IpxSelected = 0
+    endif
+    ifstr(i) $($3) == TRUE
+        set NetbeuiAllowed = 1
+    else
+        set NetbeuiAllowed = 0
+    endif
+    ifstr(i) $($4) == TRUE
+        set TcpIpAllowed = 1
+    else
+        set TcpIpAllowed = 0
+    endif
+    ifstr(i) $($5) == TRUE
+        set IpxAllowed = 1
+    else
+        set IpxAllowed = 0
+    endif
+    set RasKeyName =  $(!NTN_SoftwareBase)"\Microsoft\Ras"
+    set RasProtocolName =  $(!NTN_SoftwareBase)"\Microsoft\Ras\Protocols"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasProtocolName) $(!MAXIMUM_ALLOWED) RasProtocolKey
+    ifstr $(RasProtocolKey) == $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasKeyName) $(!MAXIMUM_ALLOWED) RasKey
+        CreateRegKey $(RasKey) {"Protocols",0,GenericClass} "" $(!MAXIMUM_ALLOWED) "" RasProtocolKey
+        OpenRegKey $(RasKey) "" "Protocols" $(!MAXIMUM_ALLOWED) RasProtocolKey
+        CloseRegKey $(RasKey)
+    endif
+    ifstr $(RasProtocolKey) != $(KeyNull)
+        SetRegValue $(RasProtocolKey) {fNetbeuiSelected, 0,+
+                                       $(!REG_VT_DWORD),$(NetbeuiSelected)}
+        SetRegValue $(RasProtocolKey) {fTcpIpSelected, 0,+
+                                       $(!REG_VT_DWORD),$(TcpIpSelected)}
+        SetRegValue $(RasProtocolKey) {fIpxSelected, 0,+
+                                       $(!REG_VT_DWORD),$(IpxSelected)}
+        SetRegValue $(RasProtocolKey) {fNetbeuiAllowed, 0,+
+                                       $(!REG_VT_DWORD),$(NetbeuiAllowed)}
+        SetRegValue $(RasProtocolKey) {fTcpIpAllowed, 0,+
+                                       $(!REG_VT_DWORD),$(TcpIpAllowed)}
+        SetRegValue $(RasProtocolKey) {fIpxAllowed, 0,+
+                                       $(!REG_VT_DWORD),$(IpxAllowed)}
+        CloseRegKey $(RasProtocolKey)
+        set Status = STATUS_SUCCESSFUL
+    else
+        Debug-Output "error opening Ras\protocols key"
+    endif
+    Debug-Output "SaveSelectedProtocols exit."
+    return $(Status)
+[QuerySelectedProtocols]
+    Debug-Output "QuerySelectedProtocols: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set fNetbeuiSelected = FALSE
+    set fTcpIpSelected   = FALSE
+    set fIpxSelected     = FALSE
+    set fNetbeuiAllowed  = FALSE
+    set fTcpIpAllowed    = FALSE
+    set fIpxAllowed      = FALSE
+    set NetbeuiSelected  = {}
+    set TcpIpSelected    = {}
+    set IpxSelected      = {}
+    set NetbeuiAl

@@ -1,0 +1,95 @@
+"\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem8.AddReg] ; Telebit QBlazer
+HKR, Init, 3,, "AT S59=3<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Settings, Blind_Off,, "X2"
+HKR, Settings, Blind_On,, "X1"
+
+[Modem7.AddReg] ; Telebit QBlazer Plus
+HKR, Init, 3,, "AT S59=3<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Blind_Off,, "X1"
+HKR, Settings, Blind_On,, "X0"
+
+[Modem6.AddReg] ; Telebit WorldBlazer
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 3,, "AT &F9 E0 V1 S92=1 S59=3<cr>"
+HKR,, Reset,, "AT&F9<cr>"
+HKR, Settings, ErrorControl_Off,, "S180=0S181=1"
+HKR, Settings, ErrorControl_On,, "S180=3S181=1"
+HKR, Settings, ErrorControl_Forced,, "S180=2S181=2"
+HKR, Settings, Blind_Off,, "X1" 
+HKR, Settings, Blind_On,, "X0"
+
+[Modem5.AddReg] ; Telebit TrailBlazer Plus
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR, Init, 3,, "AT W1<cr>"
+HKR, Settings, SpeakerVolume_Low,, "S61=50"
+HKR, Settings, SpeakerVolume_Med,, "S61=150"
+HKR, Settings, SpeakerVolume_High,, "S61=250"
+HKR, Settings, ErrorControl_Off,, "S106=0S97=0S95=0"
+HKR, Settings, ErrorControl_On,, "S106=1S95=2S97=0S66=2"
+HKR, Settings, ErrorControl_Forced,, "S106=0S97=1S95=1S66=1"
+HKR, Settings, Compression_Off,, "S198=0S96=0"
+HKR, Settings, Compression_On,, "S198=0S96=1S110=1"
+HKR, Settings, Blind_Off,, "X2" 
+HKR, Settings, Blind_On,, "X0"
+
+[Modem4.AddReg] ; Telebit T1600
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Init, 2,, "AT &F9<cr>"
+HKR, Init, 3,, "AT E0 V1 S59=7<cr>"
+HKR, Settings, ErrorControl_Off,, "S180=0"
+HKR, Settings, ErrorControl_On,, "S180=1 S181=1"
+HKR, Settings, ErrorControl_Forced,, "S180=1 S181=2"
+HKR, Settings, Blind_Off,, "X1" 
+HKR, Settings, Blind_On,, "X0" 
+HKR, Settings, SpeedNegotiation_Off,, "S94=0"
+HKR, Settings, SpeedNegotiation_On,, "S50=6S94=1"
+
+[Modem3.AddReg] ; Telebit T2500
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,e1,00,00, 80,25,00,00
+HKR, Init, 2,, "AT &F0<cr>"
+HKR, Init, 3,, "AT E0 V1 W1<cr>"
+HKR, Settings, SpeakerVolume_Low,, "S61=50"
+HKR, Settings, SpeakerVolume_Med,, "S61=150"
+HKR, Settings, SpeakerVolume_High,, "S61=250"
+HKR, Settings, FlowControl_Off,, "S58=0 S68=255"
+HKR, Settings, FlowControl_Hard,, "S58=2 S68=255"
+HKR, Settings, FlowControl_Soft,, "S58=3 S68=255"
+HKR, Settings, ErrorControl_Off,, "S95=0 S66=1 S97=0"
+HKR, Settings, ErrorControl_On,, "S106=1 S97=1 S66=2 S95=2"
+HKR, Settings, ErrorControl_Forced,, "S95=1"
+HKR, Settings, Compression_Off,, "S98=0 S96=0"
+HKR, Settings, Compression_On,, "S98=0 S96=0"
+HKR, Settings, Blind_Off,, "X3" 
+HKR, Settings, Blind_On,, "X1" 
+
+[Modem2.AddReg] ; Telebit T3000
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F9 E0 V1 S59=7<cr>"
+HKR, Settings, ErrorControl_On,, "S180=3S181=1"
+HKR, Settings, Blind_Off,, "X2" 
+HKR, Settings, Blind_On,, "X1" 
+
+[Modem1.AddReg] ; Telebit Trailblazer Plus 2400
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 80,25,00,00, 60,09,00,00
+
+[Strings]
+Mfg = "Telebit"
+
+Modem11="Telebit Xpresso 8396A"
+Modem10="Telebit Fastblazer 8840"
+Modem9 ="Telebit V.34  28800"
+Modem8 ="Telebit QBlazer"
+Modem7 ="Telebit QBlazer Pl

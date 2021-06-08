@@ -1,0 +1,85 @@
+ror
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $(SoftServiceKey)
+            goto fatalregistry
+        endif
+        OpenRegKey $(SoftParamsKey) "" "NetBiosGateway" $(!MAXIMUM_ALLOWED) KeyNetbiosGtwy
+        ifstr $(KeyNtbiosGtwy) == $(KeyNull)
+            CreateRegKey $(SoftParamsKey) {"NetBiosGateway",$(NoTitle),GenericClass} "" $(!MAXIMUM_ALLOWED) "" KeyNetbiosGtwy
+            OpenRegKey $(SoftParamsKey) "" "NetBiosGateway" $(!MAXIMUM_ALLOWED) KeyNetbiosGtwy
+        endif
+        set NewValueList = +
+            {{EnableBroadcast, $(NoTitle), $(!REG_VT_DWORD), 0},+
+            {EnableNetbiosSessionsAuditing, $(NoTitle), $(!REG_VT_DWORD), 0},+
+            {MaxDynMem, $(NoTitle), $(!REG_VT_DWORD), 655350},+
+            {MaxNames, $(NoTitle), $(!REG_VT_DWORD), 255},+
+            {MaxSessions, $(NoTitle), $(!REG_VT_DWORD), 255},+
+            {MulticastForwardRate, $(NoTitle), $(!REG_VT_DWORD), 5},+
+            {SizWorkbuf, $(NoTitle), $(!REG_VT_DWORD), 4500},+
+            {RemoteListen, $(NoTitle), $(!REG_VT_DWORD), 1},+
+            {NameUpdateTime, $(NoTitle), $(!REG_VT_DWORD), 120},+
+            {MaxDgBufferedPerGroupName, $(NoTitle), $(!REG_VT_DWORD), 10},+
+            {RcvDgSubmittedPerGroupName, $(NoTitle), $(!REG_VT_DWORD), 3},+
+            {DisableMcastFwdWhenSessionTraffic, $(NoTitle), $(!REG_VT_DWORD), 1},+
+            {MaxBcastDgBuffered, $(NoTitle), $(!REG_VT_DWORD), 32},+
+            {NumRecvQueryIndications, $(NoTitle), $(!REG_VT_DWORD), 3}}
+        Shell  $(!UtilityInf), AddValueList, $(KeyNetbiosGtwy), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "AddValueList bombed out"
+             goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $(SoftServiceKey)
+            goto fatalregistry
+        endif
+        CloseRegKey $(KeyNetbiosGtwy)
+        CloseRegKey $(SoftParamsKey)
+        Shell "" UpdatePerfmonInfoHelper $(SoftServiceKey)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "error shelling UpdatePerfmonInfoHelper."
+            goto ShellCodeError
+        endif
+        Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            Debug-Output "error returned by UpdatePerfmonInfoHelper."
+        endif
+        CloseRegKey $(SoftServiceKey)
+    endif 
+InstallRasMan = +
+    ifstr(i) $(DoRasMan) == TRUE
+        set ThisOption = RASMAN
+        set RasSpecificString = $(Product$(ThisOption)Name)
+        Shell $(!UtilityInf), AddSoftwareComponent, $(!Manufacturer), +
+              $(Product$(ThisOption)Name), $(Product$(ThisOption)Name), +
+              $(Product$(ThisOption)DisplayName), +
+              $(!RasInfName), $(Product$(ThisOption)ImagePath), "serviceshare",+
+              "Network", {}, "", $(!RasMsgDll), $(!RasEventTypeSupported)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddSoftware bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        CloseRegKey $($R3)
+        Set SoftParamsKey     = $($R4)
+        CloseRegKey $($R5)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)SvcType)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOpti

@@ -1,0 +1,141 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Prodem Technology Inc.
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM84D4DBA5, UNIMODEM5701CA7F, UNIMODEMF87216FA, UNIMODEM4736E3A8
+
+; Modem models
+
+[Models]
+%Modem24% = Modem12, UNIMODEM5701CA7F
+%Modem23% = Modem16, UNIMODEM84D4DBA5
+%Modem22% = Modem8, UNIMODEM4736E3A8
+%Modem21% = Modem11, UNIMODEMF87216FA
+%Modem20% = Modem20, Prodem_Modem20, UNIMODEMF87216FA
+%Modem19% = Modem19, Prodem_Modem19, UNIMODEM4736E3A8
+%Modem18% = Modem18, Prodem_Modem18, UNIMODEMD209269F
+%Modem17% = Modem17, Prodem_Modem17, UNIMODEM84D4DBA5
+%Modem16% = Modem16, Prodem_Modem16, UNIMODEM84D4DBA5
+%Modem15% = Modem15, UNIMODEMAE782C74
+%Modem14% = Modem14, Prodem_Modem14
+%Modem13% = Modem13, Prodem_Modem13, UNIMODEM5701CA7F
+%Modem12% = Modem12, Prodem_Modem12, UNIMODEM5701CA7F
+%Modem11% = Modem11, Prodem_Modem11, UNIMODEMF87216FA
+%Modem10% = Modem10, UNIMODEM6F7D0338
+%Modem9%  = Modem9, UNIMODEMC43F7105
+%Modem8%  = Modem8, Prodem_Modem8, UNIMODEM4736E3A8
+%Modem7%  = Modem7, UNIMODEM5F7A9B8B
+%Modem6%  = Modem6, UNIMODEM866B3772
+%Modem5%  = Modem5, UNIMODEM9D74F603
+%Modem4%  = Modem4, UNIMODEM212F15AA
+%Modem3%  = Modem3, UNIMODEMB7DBC930
+%Modem2%  = Modem2, UNIMODEM5229E530
+%Modem1%  = Modem1, UNIMODEMD8C8B4C3
+
+
+; Installation sections
+
+[Modem20]
+AddReg=All, MfgAddReg, Modem20.AddReg, External
+
+[Modem19]
+AddReg=All, MfgAddReg, Modem19.AddReg, External
+
+[Modem18]
+AddReg=All, MfgAddReg, Modem18.AddReg, External
+
+[Modem17]
+AddReg=All, MfgAddReg, Modem17.AddReg, Internal
+
+[Modem16]
+AddReg=All, MfgAddReg, Modem16.AddReg, External
+
+[Modem15]
+AddReg=All, MfgAddReg, Modem15.AddReg, External
+
+[Modem14]
+AddReg=All, MfgAddReg, Modem14.AddReg, Internal
+
+[Modem13]
+AddReg=All, MfgAddReg, Modem13.AddReg, Internal
+
+[Modem12]
+AddReg=All, MfgAddReg, Modem12.AddReg, External
+
+[Modem11]
+AddReg=All, MfgAddReg, Modem11.AddReg, External
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, External
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, Internal
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, Internal
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, External
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, Internal
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+
+; AddReg sections
+
+[Modem20.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      3,, "AT <cr>"
+
+[Modem19.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      3,, "AT <cr>"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem18.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, c0,12,00,00, 60,09,00,00
+HKR, Init,      3,, "AT\N3\Q3\V1\J0%%C1<cr>"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+
+[Modem17.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 00,00,00,00, 07,00,00,00, 0d,00,00,00, 40,03,00,00, b0,04,00,00, b0,04,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      3,, "AT <cr>"
+
+[Modem16.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 00,00,00,00, 07,00,00,00, 0d,00,00,00, 40,03,00,00, b0,04,00,00, b0,04,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      3,, "AT <cr>"
+
+[Modem15.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 00,00,00,00, 07,00,0

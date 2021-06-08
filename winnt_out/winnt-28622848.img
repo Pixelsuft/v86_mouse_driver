@@ -1,0 +1,88 @@
+f
+       set Error = $($R0)
+       Goto fatal
+    Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+       Goto successful
+    Endif
+    Set SrcDir = $($R1)
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        Debug-Output "OEMNSVCU.INF: installadapter: installing [Install-Option]"
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+    endif
+    set OEM_ABANDON_ON  = TRUE
+    StartWait
+    Shell $(UtilityInf) InstallSoftwareProduct $(Manufacturer) $(ProductTCPPRINTName) $(STF_CONTEXTINFNAME)
+    set VerKey = $($R1)
+    set NetRuleKey = $($R2)
+    Shell  $(UtilityInf), AddValueList, $(VerKey), {{Hidden,0,$(!REG_VT_DWORD),1}}
+    Shell  $(UtilityInf), AddValueList, $(NetRuleKey), {{InfOption,0,$(!REG_VT_SZ),"TCPPRINT"}}
+    CloseRegKey $(VerKey)
+    CloseRegKey $(NetRuleKey)
+    OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\EventLog\Application"$(CS_EventLogLocation) $(MAXIMUM_ALLOWED) CS_KeyEventLog
+    Ifstr $(CS_KeyEventLog) == $(KeyNull)
+       debug-output "Cannot open eventlog key"
+    else
+       CreateRegKey $(CS_KeyEventLog) {"LPR Print Monitor",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CS_KeyService
+       ifstr(i) $(CS_KeyService) == ""
+           OpenRegKey $(CS_KeyEventLog) "" "LPR Print Monitor" $(MAXIMUM_ALLOWED) CS_KeyService
+       endif
+       Ifstr $(CS_KeyService) != $(KeyNull)
+           SetRegValue $(CS_KeyService) {EventMessageFile,$(NoTitle),$(!REG_VT_EXPAND_SZ),"%SystemRoot%\System32\lprmon.dll"}
+           SetRegValue $(CS_KeyService) {TypesSupported,$(NoTitle),$(!REG_VT_DWORD),7}
+           CloseRegKey $(CS_KeyService)
+       endif
+    Endif
+    Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer),+
+            $(ProductLPDName),+
+            $(ProductLPDName),+
+            $(ProductLPDDisplayName), $(STF_CONTEXTINFNAME),+
+            $(ProductLPDImagePath),+
+            "serviceshare",+
+            "", {"Tcpip","Afd"}, "",+
+            "%SystemRoot%\System32\lpdsvc.dll"
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVTP.INF: ShellCode error, add software component"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OEMNSVTP.INF: Registry error: add software components"
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        CloseRegKey $($R4)
+        CloseRegKey $($R5)
+        goto fatalregistry
+    endif
+    Set LPDVersKeyHandle  = $($R1)
+    Set LPDRulesKeyHandle = $($R2)
+    Set LPDSvcKeyHandle   = $($R3)
+    Set LPDParmKeyHandle  = $($R4)
+    Set LPDLinkageHandle  = $($R5)
+    set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),"Service"},+
+                       {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                       {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                       {Review,$(NoTitle),$(!REG_VT_DWORD),1},+
+                       {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductLPDTitle)},+
+                       {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductLPDDescription)},+
+                       {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductLPDName)},+
+                       {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+                       {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+    Shell  $(UtilityInf), AddValueList, $(LPDVersKeyHandle), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVTP.INF: ShellCode error, add value list"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OE

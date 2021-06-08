@@ -1,0 +1,62 @@
+n of the driver. To obtain the latest driver:
+
+· Download the HASP device driver from Aladdin's FTP server at ftp.aks.com. The subdirectory is: /pub/hasp/enduser/. The file is called Win32drv.zip.
+· Contact Aladdin Knowledge Systems Inc HASP technical support. US and Canadian customers should call (212) 564-5678 or (800) 223-4277, or send email to support@us.aks.com. International customers should call +972-3-5375795 or send an e-mail message to techsup@aks.com.
+
+Aldus Persuasion
+Attempting to embed an AVI clip causes the application to crash. Audio clips will embed and play correctly, but not video.
+
+Alpha Five
+Alpha Five does not run under Windows NT version 4.0.
+
+Approach 3.0
+If you exit Approach soon after clicking SendMail on the File menu, Approach experiences a General Protection Fault. Do not close Approach while the mail client is loading. 
+
+ARCServe
+Backups may proceed very slowly on some hardware configurations. Contact Cheyenne at http://www.cheyenne.com for upgrade information.
+
+AutoCAD Release 11 286 and Release 12
+The Autolisp extensions (EXTLISP.EXE) for AutoCAD are not supported because they require Virtual Control Program Interface (VCPI).
+
+To correctly redraw and perform graphic operations such as cut and paste, you must use the correct AutoCAD video driver. The default AutoCAD video driver is Windows Accelerated Display Driver ADI 4.2 by Autodesk, Inc. (#1). If you use this driver you will have problems with cut and paste and with redraw operations. Use the Windows driver from Autodesk, Inc., and these operations will function correctly.
+
+AutoCAD Release 13
+AutoCAD Release 13 for MS-DOS is not supported by AutoCAD for use on Windows NT. Use AutoCAD for Windows NT instead. AutoCAD for Windows NT is available on the same compact disc as the MS-DOS version.
+
+Autodesk 3D Studio, Release 2
+3D Studio is not supported.
+
+Autodesk Generic CADD 6.0
+The Generic CADD 6.0 screen is limited to 640x480 VGA resolution on Windows NT. To use this application, select the IBM VGA (Video Graphics Array) & compatibles video graphics display from the Generic CADD 6.0 configuration tool (CONFIG.EXE).
+
+Bailey's Book House
+See "Software Applications by Edmark" earlier in this document.
+
+Banyan Enterprise Client for Windows NT
+If you wish to use the Banyan Enterprise Client for NT from Banyan Systems with this release of Windows NT, you will need to obtain version 5.56(30) or later of the client. You may obtain this by contacting your Banyan Channel Partner or Banyan Reseller.
+
+Borland C++ 4.5
+The 16-bit character-mode debugger (TD.EXE) is supported; however, the 16-bit Windows-based debugger (TDW.EXE) is not supported.
+
+Borland Pascal with Objects 7.0
+Turbo Debugger and WinSight are not supported.
+
+Borland Turbo Pascal for Windows
+The 16-bit character-mode debugger is supported; however, the 16-bit Windows-based debugger is not supported.
+
+A General Protection Fault may occur when printing to a printer that has a long filename . Create a short name local printer to print from Turbo Pascal.  See "General Printing Issues" in the Printer.wri file.
+
+Brief 3.1 for MS-DOS 
+At end of installation, Brief prompts you to reboot. If you respond "y" (yes), Brief appears to hang. Respond "n" (no).
+
+Broderbund KidPix for Windows 1.0
+The application may fail when printing to a printer whose name has greater than 12 characters. To avoid this problem, before you print, make sure that the printer name is fewer than 12 characters.
+
+Broderbund Myst
+Introductory videos don't play, and some movies within the game don't play either. This is a Myst problem which has been fixed by Broderbund. Please contact them for an updated copy.
+
+Calendar Creator
+Calendar Creator does not display or print graphics when run under Windows NT. If a network printer is installed, Calendar Creator may not be able to print. You can print to a local printer by removing any installed network printer and installing a local printer.
+
+Carmel Anti-Virus
+Some text is not displayed in early versions of Carmel Anti-Viru

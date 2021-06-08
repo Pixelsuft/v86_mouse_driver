@@ -1,0 +1,65 @@
+a
+For information on running Rumba, see Running Windows Mainframe Connectivity Software earlier in this chapter.
+
+Sammy's Science House
+See "Software Applications by Edmark" earlier in this document.
+
+Serif PagePlus Home/Office
+When Serif PagePlus Home/Office is installed, the program group icons "PagePlus Home Office Online Documentation", "PagePlus Home Office Readme" and "Serif PagePlus Home Office" icons are not added to the Start menu.  Normally, the icons would appear when you click Start, point to Programs, and then click Serif Applications/(missing filename). The icons do not appear because the application's install program creates a filename with a forward slash (/) in it ("...Home/Office").  Because Windows NT maintains POSIX compatibility, forward slashes are directory separators.
+
+
+Seattle Film Works Photoworks
+This application's depth of color cannot be converted to an optimized Indexed-256 Colors including the system colors. Any other depth of colors can be applied.
+
+The option to use the current picture as wallpaper does not work on Windows NT. To use the current picture as wallpaper, save it, then right click on the desktop and use the Browse button in Wallpaper to select the saved picture file.
+
+The Screen Saver slide show option does not work under Windows NT.
+
+
+Sidekick 95
+Sidekick 95 cannot be installed on Windows NT version 4.0. However, if you have a current version of Sidekick 95 running under Windows NT version 3.51 and you upgrade to Windows NT version 4.0, Sidekick will work as it does under Windows NT version 3.51. For more information, contact Starfish Technical Support. (On the Microsoft Network and other online services, GO Starfish.)
+
+SigmaPlot
+SigmaPlot cannot print charts on Windows NT version 4.0. No error dialogs appear. Data and other modes print as expected. Contact Jandel at http://www.jandel.com for upgrade information.
+
+Simply 3D
+Visual Software does not support this application on Windows NT version 4.0. Contact Visual Software for more information.
+
+Smartcom Windows Communication Software 1.0A
+Use the Smartcom custom tool program to configure Smartcom to use the Windows NT communications driver COMM.DRV.
+
+SmartSketch 95
+The installation utility does not create a program group. You must create the group manually:
+1. Right click on the Start button.
+2. Click Open to create a Personal Group or click Open All Users to create a Common Group.
+3. Double-click the Programs folder.
+4. On the File menu, point to New and then click Folder.
+5. Type SmartSketch 95 next to the folder icon..
+6. Double-click the new folder to open it. 
+7. Open the Windows NT Explorer .
+8. Open the SmartSketch folder. By default it is located in the Program Files folder.
+9. Copy the Sketch32.exe and Uninstlr.exe files into the new folder. Rename them to names such as SmartSketch 95 and SmartSketch 95 Uninstall.
+
+
+Software Toolworks Multimedia Encyclopedia
+Fullscreen videos do not play. Do not select the Fullscreen option; allow the videos to play in their normal mode.
+
+Solid Edge
+Access violations may occur when printing or when accessing some menu items. Contact Micrografx at (214) 234-2694 or online at http://www.micrografx.com for upgrade information.
+
+Stanford Graphics
+After previewing several different presentation styles, an Access Violation may occur. 
+
+The first slide may not appear when viewing a slide show, a blank white screen may appear instead. Press the Page Down key followed by the Page Up key to view the first slide.
+
+The Prime Time viewing utility may dislpay background colors incorrectly.
+
+Star Trek Interactive Technical Manual
+This application requires a directory labeled \WINDOWS\SYSTEM in which to place Quick Time Movie files. Before installing this application, create this directory so that the files can be copied to your computer.
+
+Strategy Games of the World
+See "Software Applications by Edmark" earlier in this document.
+
+SuperPrint 2.2
+The application is not supported because it relies on incompatible 16-bit device drivers.
+

@@ -1,0 +1,114 @@
+nt                  = ScreenSave
+InstallType             = 10 ;Typical, Custom
+CopyFiles               = SSStandardCopyFilesSys, SSStandardCopyFilesHelp
+AddReg                  = SSStandardAddReg
+Uninstall               = SSStandardUninstall
+Upgrade                 = SSStandardUpgrade
+Detect                  = %11%\scrnsave.scr
+
+
+[SSStandardUninstall]
+DelFiles                = SSStandardCopyFilesSys, SSStandardCopyFilesHelp
+AddReg                  = SSStandardUninstallAddReg
+
+
+[SSStandardUpgrade]
+CopyFiles               = SSStandardCopyFilesSys, SSStandardCopyFilesHelp
+AddReg                  = SSStandardAddReg
+
+
+[Templates]
+CopyFiles       = TemplatesCopyFiles
+AddReg          = Templates.AddReg, Templates.install.reg
+DelReg          = Templates.DelReg
+OptionDesc      = %Templates_DESC%
+Tip             = %Templates_TIP%
+Parent          = AccessTop
+InstallType     = 10 ;Typical, Custom.
+IconIndex       = 32  ;Windows Logo mini-icon for dialogs
+Uninstall       = TemplatesUninstall
+Upgrade         = TemplatesUpgrade
+
+[TemplatesUninstall]
+DelFiles        = TemplatesCopyFiles
+AddReg          = Templates.remove.reg
+DelReg          = Templates.AddReg
+
+[TemplatesUpgrade]
+CopyFiles       = TemplatesCopyFiles
+AddReg          = Templates.AddReg, Templates.install.reg
+DelReg          = Templates.DelReg
+
+
+[BaseAddReg]
+;Create entries for Maint Mode Setup, set all initially to uninstalled:
+
+HKLM,%KEY_OPTIONAL%,"AccessTop",,"AccessTop"
+HKLM,%KEY_OPTIONAL%\AccessTop,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\AccessTop,Section,,"AccessTop"
+HKLM,%KEY_OPTIONAL%\AccessTop,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Calc",,"Calc"
+HKLM,%KEY_OPTIONAL%\Calc,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\Calc,Section,,"Calc"
+HKLM,%KEY_OPTIONAL%\Calc,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"CharMap",,"CharMap"
+HKLM,%KEY_OPTIONAL%\CharMap,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\CharMap,Section,,"CharMap"
+HKLM,%KEY_OPTIONAL%\CharMap,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"ClipBook",,"ClipBook"
+HKLM,%KEY_OPTIONAL%\ClipBook,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\ClipBook,Section,,"ClipBook"
+HKLM,%KEY_OPTIONAL%\ClipBook,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Clock",,"Clock"
+HKLM,%KEY_OPTIONAL%\Clock,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\Clock,Section,,"Clock"
+HKLM,%KEY_OPTIONAL%\Clock,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Deskpaper",,"Deskpaper"
+HKLM,%KEY_OPTIONAL%\Deskpaper,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\Deskpaper,Section,,"Deskpaper"
+HKLM,%KEY_OPTIONAL%\Deskpaper,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"MousePoint",,"MousePoint"
+HKLM,%KEY_OPTIONAL%\MousePoint,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\MousePoint,Section,,"MousePoint"
+HKLM,%KEY_OPTIONAL%\MousePoint,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"ObjectPkg",,"ObjectPkg"
+HKLM,%KEY_OPTIONAL%\ObjectPkg,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\ObjectPkg,Section,,"ObjectPkg"
+HKLM,%KEY_OPTIONAL%\ObjectPkg,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Paint",,"Paint"
+HKLM,%KEY_OPTIONAL%\Paint,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\Paint,Section,,"Paint"
+HKLM,%KEY_OPTIONAL%\Paint,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"AccessTop",,"AccessTop"
+HKLM,%KEY_OPTIONAL%\AccessTop,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\AccessTop,Section,,"AccessTop"
+HKLM,%KEY_OPTIONAL%\AccessTop,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"QuickView",,"QuickView"
+HKLM,%KEY_OPTIONAL%\QuickView,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\QuickView,Section,,"QuickView"
+HKLM,%KEY_OPTIONAL%\QuickView,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"ScreenSave",,"ScreenSave"
+HKLM,%KEY_OPTIONAL%\ScreenSave,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\ScreenSave,Section,,"ScreenSave"
+HKLM,%KEY_OPTIONAL%\ScreenSave,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"SSOpenGL",,"SSOpenGL"
+HKLM,%KEY_OPTIONAL%\SSOpenGL,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\SSOpenGL,Section,,"SSOpenGL"
+HKLM,%KEY_OPTIONAL%\SSOpenGL,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"SSStandard",,"SSStandard"
+HKLM,%KEY_OPTIONAL%\SSStandard,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\SSStandard,Section,,"SSStandard"
+HKLM,%KEY_OPTIONAL%\SSStan

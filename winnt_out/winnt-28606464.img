@@ -1,0 +1,70 @@
+
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        set ProductOpSupport = $(ProductOpSupportWKSTA)
+        ifstr(i) $(!NTN_InfOption) == "BROWSER"
+          ifstr(i) $(!STF_PRODUCT) != "WINNT"
+            set ProductOpSupport = $(ProductOpSupportSERVER)
+          endif
+        endif
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(Option)Description)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyProduct)
+        LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, "Alerter", $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "%SystemRoot%\System32\services.exe", "", "", "", "", ""
+        LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, "Browser", $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "%SystemRoot%\System32\services.exe", "", "", "", "", ""
+        LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, "LanmanWorkstation", $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "%SystemRoot%\System32\services.exe", "", "", "", "", ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\DGRcvr" $(MAXIMUM_ALLOWED) DGRcvrKey
+        ifstr(i) $(DGRcvrKey) != ""
+            CloseRegKey $(DGRcvrKey)
+            LibraryProcedure RS_RemoveResult $(!NCPA_HANDLE), CPlSetup, +
+                $(!STF_HWND), DELETESVC, "DGRcvr"
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\LanmanWorkstation\Linkage" $(MAXIMUM_ALLOWED) LinkageKey
+        ifstr(i) $(LinkageKey) != ""
+            GetRegValue $(LinkageKey) "OtherDependencies" DependInfo
+            set Dependencies = *($(DependInfo),4)
+            ifcontains(i) "mup" in $(Dependencies) 
+                set newDependencies = {}
+                ForListDo $(Dependencies)
+                    ifstr(i) $($) != "mup"
+                        ifstr(i) $(newDependencies) == {}
+                            set newDependencies = {$($)}
+                        else
+                            set newDependencies = >($(newDependencies),$($))
+                        endif
+                    endif
+                EndForListDo
+                SetRegValue $(LinkageKey) {OtherDependencies,$(NoTitle),$(!REG_VT_MULTI_SZ),$(newDependencies)}
+            endif
+            CloseRegKey $(LinkageKey)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\Messenger" $(MAXIMUM_ALLOWED) KeyMessenger
+        ifstr(i) $(KeyMessenger) != ""
+            GetRegValue $(KeyMessenger) "Start" StartInfo
+            set StartValue = *($(StartInfo),4)
+		    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NetBios" $(MAXIMUM_ALLOWED) KeyNetBIOS
+		    ifstr(i) $(KeyNetBIOS) != ""
+		        set Dependencies = {"LanmanWorkstation", "Netbios"}
+		    else
+		        set Dependencies = {"LanmanWorkstation"}
+	    	endif
+            LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, "Messenger", $(SERVICE_NO_CHANGE), $(StartValue), $(SERVICE_NO_CHANGE), "%SystemRoot%\System32\services.exe", "", $(Dependencies), "", "", ""
+        endif
+	OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\"$(ProviderName)"\networkprovider" $(MAXIMUM_ALLOWED) ProviderKey
+	ifstr(i) $(ProviderKey) != ""
+	    SetRegValue $(ProviderKey) {Devicename,$(NoTitle),$(!REG_VT_SZ),"\Device\"$(ProviderDeviceName)}
+	    CloseRegKey $(ProviderKey)
+	endif
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+    else
+        goto fatalregi

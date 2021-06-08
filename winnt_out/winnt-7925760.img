@@ -1,0 +1,53 @@
+, Responses, "<cr><lf>CONNECT 75TX/1200RX<cr><lf>",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/ARQ<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/LAP-M<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>",            1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ<cr><lf>",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL<cr><lf>",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/LAP-M<cr><lf>",      1, 02, 02, 60,09,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>",            1, 02, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ<cr><lf>",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/REL<cr><lf>",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/LAP-M<cr><lf>",      1, 02, 02, C0,12,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>",            1, 02, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ<cr><lf>",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/REL<cr><lf>",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/LAP-M<cr><lf>",      1, 02, 02, 20,1C,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>",            1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ<cr><lf>",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/REL<cr><lf>",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/LAP-M<cr><lf>",      1, 02, 02, 80,25,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>",           1, 02, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ<cr><lf>",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL<cr><lf>",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/LAP-M<cr><lf>",     1, 02, 02, E0,2E,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>",           1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ<cr><lf>",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/REL<cr><lf>",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/LAP-M<cr><lf>",     1, 02, 02, 40,38,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>",           1, 02, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ<cr><lf>",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/REL<cr><lf>",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/LAP-M<cr><lf>",     1, 02, 02, A0,41,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>",           1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ<cr><lf>",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/REL<cr><lf>",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/LAP-M<cr><lf>",     1, 02, 02, 00,4B,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 21600<cr><lf>",           1, 02, 00, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600/ARQ<cr><lf>",       1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600/REL<cr><lf>",       1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600/LAP-M<cr><lf>",     1, 02, 02, 60,54,00,00, 00,00,00,00 
+
+HKR, Responses, "<cr><lf>CONNECT 24000<cr><lf>",           1, 02, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/ARQ<cr><lf>",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/RE

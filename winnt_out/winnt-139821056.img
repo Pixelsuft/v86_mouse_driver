@@ -1,0 +1,103 @@
+RROR_SUCCESS)
+           ForListDo $(ServiceList)
+               set ServiceName = *($($),1)
+               set Result = 1
+            LibraryProcedure Result $(!LIBHANDLE) SetupStrncmp +
+                                $(ServiceName) "NdisWan" 7
+               ifint $(Result) == 0
+                  Debug-Output "RemoveRas: Removing "$(ServiceName)
+	              DeleteRegTree $(KeyServices) $(ServiceName)
+               else
+	               LibraryProcedure Result $(!LIBHANDLE) SetupStrncmp +
+                                $(ServiceName) "AsyncMac" 8
+                   ifint $(Result) == 0
+                      Debug-Output "RemoveRas: Removing "$(ServiceName)
+	                  DeleteRegTree $(KeyServices) $(ServiceName)
+                   endif
+               endif
+           EndForListDo
+        endif
+        CloseRegKey $(KeyServices)
+    endif
+    EndWait
+    goto $(to)
+BindingsRas = +
+    Debug-Output "OEMNSVRA.INF:Review bindings is being called!!!."
+    Shell "" UpdateSelectedProtocols
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "error shelling UpdateSelectedProtocols."
+        goto ShellCodeError
+    endif
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "error returned by UpdateSelectedProtocols."
+    endif
+    set fNetbeuiChosen = $($R1)
+    set fTcpIpChosen   = $($R2)
+    set fIpxChosen     = $($R3)
+    ifstr(i) $(fNetbeuiChosen) == FALSE
+        ifstr(i) $(fTcpIpChosen) == FALSE
+            ifstr(i) $(fIpxChosen) == FALSE
+                read-syms NoProtocolsDlg$(!STF_LANGUAGE)
+                Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "STATUS", $(NoProtocolsWarning)
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+                endif
+                goto end
+            endif
+        endif
+    endif
+    set WkstaConfigured = FALSE
+    set SrvrConfigured  = FALSE
+    shell "" IsNetworkConfigured
+    Debug-Output "IsNetworkConfigured returned R0 "$($R0)
+    Debug-Output "IsNetworkConfigured returned R1 "$($R1)
+    Debug-Output "IsNetworkConfigured returned R2 "$($R2)
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set WkstaConfigured  = $($R1)
+        set SrvrConfigured   = $($R2)
+    else
+        read-syms NetworkConfigError$(!STF_LANGUAGE)
+        set Text = $(Text1)
+        shell $(subroutninf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(Text)
+        goto end
+    endif
+    ifstr(i) $(WkstaConfigured) == TRUE
+        ifstr(i) $(SrvrConfigured) == TRUE
+            goto ResetProgramList
+        else
+            goto InstallNetworkError
+        endif
+    else
+        goto InstallNetworkError
+    endif
+InstallNetworkError =+
+    set CommonStatus = STATUS_USERCANCEL
+    read-syms NetworkConfigError$(!STF_LANGUAGE)
+    set Text = $(Text2)
+    shell $(subroutninf) SetupMessage $(!STF_LANGUAGE) "STATUS" $(Text)
+ResetProgramList =+
+    OpenRegKey $(!REG_H_LOCAL) "" $(!RasManKeyName) $(!MAXIMUM_ALLOWED) KeyRasMan
+    ifstr $(KeyRasMan) != $(KeyNull)
+        GetRegValue $(KeyRasMan), "Review" ReviewInfo
+        set ReviewValue = *($(ReviewInfo), 4)
+        ifint $(ReviewValue) == 1
+            Debug-Output "BindingsRas: resetting Review to 0"
+            SetRegValue $(KeyRasMan) {Review,$(NoTitle),$(!REG_VT_DWORD), 0}
+            Shell "" AddInfToReviewProgramsList
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "error shelling AddInfToReviewProgramsList."
+                goto ShellCodeError
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "error returned by AddInfToReviewProgramsList."
+            endif
+        endif
+        CloseRegKey $(KeyRasMan)
+    else
+        Debug-Output "OEMNSVRA.INF: error opening SOFTWARE\RasMan\CurrentVersion key."
+    endif
+    shell "" QueryComponentsInstalled
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Set InstalledComps = $($R1)
+        Set InstalledFlags = $($R2)
+        Set DoServer      = *($(InstalledFl

@@ -1,0 +1,131 @@
+ault occurred on the network.
+EThe system cannot start another process at
+this time.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+EThe %1 device is already in use by
+another application.
+ECannot create another system semaphore.
+EThe exclusive semaphore is owned by another process.
+EThe semaphore is set and cannot be closed.
+EThe semaphore cannot be set again.
+ECannot request exclusive semaphores at interrupt time.
+IThe previous ownership of this semaphore has ended.
+PInsert the diskette for drive %1.
+PProgram stopped because alternate diskette was not inserted.
+EThe specified drive is being used by another
+process.
+EThe pipe has been ended.
+IThe system cannot open the
+device or file specified.
+EThe file name is too long.
+EThere is not enough space on the disk.
+INo more internal file identifiers available.
+IThe target internal file identifier is incorrect.
+?
+?
+IThe IOCTL call made by the application program is
+not correct.
+IThe verify-on-write switch parameter value is not
+correct.
+IThe system does not support the command requested.
+IThe Application Program Interface (API) entered
+will only work in OS/2 mode.
+IThe semaphore timeout period has expired.
+IThe data area passed to a system call is too
+small.
+EA file name or volume label contains an incorrect character.
+IThe system call level is not correct.
+IThe disk has no volume label.
+EThe specified module could not be found.
+EThe specified procedure could not be found.
+?
+IThis program cannot be run in DOS mode.
+Ida bf c0 d9 b3 b3 c4 c4 c3 b4 c2 c1 c5
+Ic9 bb c8 bc ba ba cd cd cc b9 cb ca ce
+I18 19 1b 1a
+IA JOIN or SUBST command
+cannot be used for a drive that
+contains previously joined drives.
+IAn attempt was made to use a
+JOIN or SUBST command on a drive that has
+already been joined.
+IAn attempt was made to use a
+JOIN or SUBST command on a drive that has
+already been substituted.
+IThe system tried to delete
+the JOIN of a drive that is not joined.
+IThe system tried to delete the
+substitution of a drive that is not substituted.
+IThe system tried to join a drive
+to a directory on a joined drive.
+IThe system tried to substitute a
+drive to a directory on a substituted drive.
+IThe system tried to join a drive to
+a directory on a substituted drive.
+IThe system tried to SUBST a drive
+to a directory on a joined drive.
+EThe system cannot perform a JOIN or SUBST at this time.
+IThe system cannot join or substitute a
+drive to or for a directory on the same drive.
+EThe directory is not a subdirectory of the root directory.
+EThe directory is not empty.
+EThe path specified is being used in
+a substitute.
+ENot enough resources are available to
+process this command.
+EThe path specified cannot be used at this time.
+IAn attempt was made to join
+or substitute a drive for which a directory
+on the drive is the target of a previous
+substitute.
+ESystem trace information was not specified in your
+CONFIG.SYS file, or tracing is disallowed.
+EThe number of specified semaphore events for
+DosMuxSemWait is not correct.
+EDosMuxSemWait did not execute; too many semaphores
+are already set.
+EThe DosMuxSemWait list is not correct.
+EThe volume label is too long.
+ECannot create another thread.
+EThe recipient process has refused the signal.
+IThe segment is already discarded and cannot be locked.
+IThe segment is already unlocked.
+EThe address for the thread ID is not correct.
+EThe argument string passed to DosExecPgm is not correct.
+?
+EA signal is already pending.
+?
+ENo more threads can be created in the system.
+?
+EThe network has not been installed.
+IThe system cannot lock the required segment in memory.
+IThe system experienced an error swapping in a segment.
+IThe system cannot swap in a segment.
+IThe segment is in use by another process.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+EThe system detected a segment number that was not correct.
+?
+EThe operating system cannot run %1.
+?
+?
+?
+EThe flag passed is not correct.
+EThe specified system semaphore name was not found.
+EThe operating system cannot run %1.
+EThe operating system cannot run 

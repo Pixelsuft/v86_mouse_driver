@@ -1,0 +1,179 @@
+n>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=PC192MX
+
+COMMAND_INIT=AT&F&C1&D2 $X1 V1 S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[M. Bullet 100E V.34 - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=115200
+
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=BULLET 100E
+
+COMMAND_INIT=AT&F&C1&D2 $X1 V1 S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[M. CashCom - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%&C0
+<protocol_on>=\\N3
+<protocol_off>=\\N1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=CashCom
+
+COMMAND_INIT=AT&FW0S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=2<cr>
+
+;----------------------------------------
+[M. SpiderMan - CH]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%&C0
+<protocol_on>=\\N3
+<protocol_off>=\\N1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=SpiderMan
+
+COMMAND_INIT=AT&FW0S0=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=2<cr>
+
+
+;----------------------------------------
+;AUSTRIAN MODEMS
+;----------------------------------------
+[ZyXEL U-1496A Plus - AUT]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496S  V.AUST P
+
+;----------------------------------------
+[ZyXEL U-1496EA Plus - AUT]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496E  V.AUST P
+
+;----------------------------------------
+[ZyXEL U-1496EA - AUT]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496E  V.AUST M
+
+;----------------------------------------
+[ZyXEL U-1496R Plus - AUT]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496R  V.AUST P
+
+;----------------------------------------
+[ZyXEL U-1496R - AUT]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496R  V.AUST M
+
+;----------------------------------------
+[ZyXEL U-1496RN - AUT]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496RN V.AUST M
+
+
+
+;----------------------------------------
+; FRENCH MODEMS
+;----------------------------------------
+
+[Codex 326x - FRN]
+ALIAS=Codex 3260
+
+DETECT_STRING=AT&I0<cr>
+DETECT_RESPONSE=6510
+
+[Codex 326x FAST - FRN]
+ALIAS=Codex 3260 Fast
+DETECT_STRING=AT&I0<cr>
+DETECT_RESPONSE=7061
+
+
+;********** BOITIERS KORTEX KXPRO  ****************
+
+[KORTEX KXPRO 9600 - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2 L3 V1 W1N0 X4 S0=0 S2=43 S7=55 S95=34<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/

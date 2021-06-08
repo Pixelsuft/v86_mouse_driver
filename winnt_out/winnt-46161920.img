@@ -1,0 +1,58 @@
+D   ; Microcom MicroPorte 4232bis
+%Modem9%   = Modem9, UNIMODEM3EFBD076   ; Microcom MicroPorte 4232bis
+%Modem8%   = Modem8, MDMMCOM_Modem8, UNIMODEMA7920CFE  ; Microcom DeskPorte
+%Modem7%   = Modem7, UNIMODEMCA1D000E   ; Microcom TravelPorte
+%Modem6%   = Modem6, UNIMODEMCC646872                                 ; Microcom DeskPorte FAST EP 28.8
+%Modem6%   = Modem6, UNIMODEMA4970248                                 ; Microcom DeskPorte FAST EP 28.8
+%Modem6%   = Modem6, UNIMODEMB6071C15                                 ; Microcom DeskPorte FAST EP 28.8
+%Modem6PNP% = Modem6, SERENUM\MNP0339
+%Modem6P% = Modem6P, MDMMCOM_Modem6P, LPTENUM\MICROCOMDESKPORTE_28D6EE ; Deskporte 28.8P parallel mode
+%Modem6and10P% = Modem6P, LPTENUM\MICROCOMDESKPORTE_28D6EE              ; Deskporte 28.8P parallel mode
+%Modem5Fast%   = Modem5, MDMMCOM_Modem5Fast, UNIMODEMC353466F                                    ; Microcom DeskPorte FAST
+%Modem5Fast%   = Modem5, MDMMCOM_Modem5Fast, UNIMODEMF2287246                                    ; Microcom DeskPorte FAST
+%Modem5Fast%   = Modem5, MDMMCOM_Modem5Fast, UNIMODEMD3036EEC                                    ; Microcom DeskPorte FAST
+%Modem5FastP%   = Modem5, MDMMCOM_Modem5FastP, UNIMODEMC353466F                                    ; Microcom DeskPorte FAST
+%Modem5FastP%   = Modem5, MDMMCOM_Modem5FastP, UNIMODEMF2287246                                    ; Microcom DeskPorte FAST
+%Modem5FastP%   = Modem5, MDMMCOM_Modem5FastP, UNIMODEMD3036EEC                                    ; Microcom DeskPorte FAST
+%Modem5%   = Modem5, UNIMODEMC353466F                                    ; Microcom DeskPorte FAST
+%Modem5%   = Modem5, UNIMODEMF2287246                                    ; Microcom DeskPorte FAST
+%Modem5%   = Modem5, UNIMODEMD3036EEC                                    ; Microcom DeskPorte FAST
+%Modem5PNP% = Modem5, SERENUM\MNP0336                                     ; Microcom DeskPorte FAST
+%Modem5P%  = Modem5P, LPTENUM\MICROCOMDESKPORTE_28AF67                    ; Microcom DeskPorte FAST Parallel
+%Modem4%   = Modem4, MDMMCOM_Modem4, UNIMODEMC9720A17 ; Microcom DeskPorte ES 14.4
+%Modem4%   = Modem4, UNIMODEM99EB2611                  ; Microcom DeskPorte ES 14.4
+%Modem4PNP% = Modem4, SERENUM\MNP0501                   ; Microcom DeskPorte ES 14.4
+%Modem3P%  = Modem3P, MDMMCOM_Modem3P   ; Microcom TravelPorte FAST parallel
+%Modem3%   = Modem3, UNIMODEMC93A08AB   ; Microcom TravelPorte FAST
+%Modem2P%  = Modem2P, PCMCIA\MICROCOM__INC.-TRAVELCARD_FAST_28.8_DATA/FAX_MODEM-2288                    ; V.34 travel card fast parallel
+%Modem2%   = Modem2, MDMMCOM_Modem2, PCMCIA\MICROCOM__INC.-TRAVELCARD_FAST_28.8_DATA/FAX_MODEM-2288   ; V.34 travel card fast serial
+%Modem2%   = Modem2, UNIMODEM352C2F38     ; V.34 travel card fast serial
+%Modem2%   = Modem2, UNIMODEM352C2F3A     ; V.34 travel card fast serial
+%Modem2%   = Modem2, UNIMODEM50FE98DE                                                                  ; V.FC travel card fast serrial 
+%Modem2P%  = Modem2P, PCMCIA\MICROCOM__INC.-TRAVELCARD_FAST_28.8K_DATA/FAX_MODEM-E5FD                   ; TravelCard FAST serial
+%Modem2%   = Modem2, MDMMCOM_Modem2, PCMCIA\MICROCOM__INC.-TRAVELCARD_FAST_28.8K_DATA/FAX_MODEM-E5FD  ; TravelCard FAST Parallel
+%Modem1PNP% = Modem1, SERENUM\MNP0500    ; Microcom DeskPorte FAST ES 28.8
+%Modem1%   = Modem1, MDMMCOM_Modem1, UNIMODEMA3EEEF33   ; Microcom DeskPorte FAST ES 28.8
+
+[TDK]
+%TDK1P% = Modem2P, PCMCIA\TDK-DF2814_DATA/FAX_MODEM-AC80
+%TDK1%  = Modem2,  MICROCOM_TDK1, PCMCIA\TDK-DF2814_DATA/FAX_MODEM-AC80
+%TDK2P% = Modem2P, PCMCIA\TDK-DF2814_DATA/FAX_MODEM-AD71
+%TDK2P% = Modem2P, PCMCIA\TDK-DF2814_DATA/FAX_MODEM-9C19
+%TDK2%  = Modem2,  MICROCOM_TDK2, PCMCIA\TDK-DF2814_DATA/FAX_MODEM-AD71
+%TDK2%  = Modem2,  MICROCOM_TDK2, PCMCIA\TDK-DF2814_DATA/FAX_MODEM-9C19
+
+; Installation sections
+
+[Modem17]
+AddReg=All, Microcom, ES_2, Modem17.AddReg
+
+[Modem16]
+AddReg=All, Microcom, Modem16.AddReg
+
+[Modem15]
+AddReg=All, Microcom, Modem15.AddReg
+
+[Modem11P]
+CopyFiles=@ppm.vxd
+AddReg=All, Micro

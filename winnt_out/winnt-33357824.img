@@ -1,0 +1,137 @@
+'
+'                         Q B a s i c   N i b b l e s
+'
+'                   Copyright (C) Microsoft Corporation 1990
+'
+' Nibbles is a game for one or two players.  Navigate your snakes
+' around the game board trying to eat up numbers while avoiding
+' running into walls or other snakes.  The more numbers you eat up,
+' the more points you gain and the longer your snake becomes.
+'
+' To run this game, press Shift+F5.
+'
+' To exit QBasic, press Alt, F, X.
+'
+' To get help on a BASIC keyword, move the cursor to the keyword and press
+' F1 or click the right mouse button.
+'
+
+'Set default data type to integer for faster game play
+DEFINT A-Z
+
+'User-defined TYPEs
+TYPE snakeBody
+    row AS INTEGER
+    col AS INTEGER
+END TYPE
+
+'This type defines the player's snake
+TYPE snaketype
+    head      AS INTEGER
+    length    AS INTEGER
+    row       AS INTEGER
+    col       AS INTEGER
+    direction AS INTEGER
+    lives     AS INTEGER
+    score     AS INTEGER
+    scolor    AS INTEGER
+    alive     AS INTEGER
+END TYPE
+
+'This type is used to represent the playing screen in memory
+'It is used to simulate graphics in text mode, and has some interesting,
+'and slightly advanced methods to increasing the speed of operation.
+'Instead of the normal 80x25 text graphics using chr$(219) "Û", we will be
+'using chr$(220)"Ü" and chr$(223) "ß" and chr$(219) "Û" to mimic an 80x50
+'pixel screen.
+'Check out sub-programs SET and POINTISTHERE to see how this is implemented
+'feel free to copy these (as well as arenaType and the DIM ARENA stmt and the
+'initialization code in the DrawScreen subprogram) and use them in your own
+'programs
+TYPE arenaType
+    realRow     AS INTEGER        'Maps the 80x50 point into the real 80x25
+    acolor      AS INTEGER        'Stores the current color of the point
+    sister      AS INTEGER        'Each char has 2 points in it.  .SISTER is
+END TYPE                          '-1 if sister point is above, +1 if below
+
+'Sub Declarations
+DECLARE SUB SpacePause (text$)
+DECLARE SUB PrintScore (NumPlayers%, score1%, score2%, lives1%, lives2%)
+DECLARE SUB Intro ()
+DECLARE SUB GetInputs (NumPlayers, speed, diff$, monitor$)
+DECLARE SUB DrawScreen ()
+DECLARE SUB PlayNibbles (NumPlayers, speed, diff$)
+DECLARE SUB Set (row, col, acolor)
+DECLARE SUB Center (row, text$)
+DECLARE SUB DoIntro ()
+DECLARE SUB Initialize ()
+DECLARE SUB SparklePause ()
+DECLARE SUB Level (WhatToDO, sammy() AS snaketype)
+DECLARE SUB InitColors ()
+DECLARE SUB EraseSnake (snake() AS ANY, snakeBod() AS ANY, snakeNum%)
+DECLARE FUNCTION StillWantsToPlay ()
+DECLARE FUNCTION PointIsThere (row, col, backColor)
+
+'Constants
+CONST TRUE = -1
+CONST FALSE = NOT TRUE
+CONST MAXSNAKELENGTH = 1000
+CONST STARTOVER = 1             ' Parameters to 'Level' SUB
+CONST SAMELEVEL = 2
+CONST NEXTLEVEL = 3
+
+'Global Variables
+DIM SHARED arena(1 TO 50, 1 TO 80) AS arenaType
+DIM SHARED curLevel, colorTable(10)
+
+    RANDOMIZE TIMER
+    GOSUB ClearKeyLocks
+    Intro
+    GetInputs NumPlayers, speed, diff$, monitor$
+    GOSUB SetColors
+    DrawScreen
+
+    DO
+      PlayNibbles NumPlayers, speed, diff$
+    LOOP WHILE StillWantsToPlay
+
+    GOSUB RestoreKeyLocks
+    COLOR 15, 0
+    CLS
+END
+
+ClearKeyLocks:
+    DEF SEG = 0                     ' Turn off CapLock, NumLock and ScrollLock
+    KeyFlags = PEEK(1047)
+    POKE 1047, &H0
+    DEF SEG
+    RETURN
+
+RestoreKeyLocks:
+    DEF SEG = 0                     ' Restore CapLock, NumLock and ScrollLock states
+    POKE 1047, KeyFlags
+    DEF SEG
+    RETURN
+
+SetColors:
+    IF monitor$ = "M" THEN
+        RESTORE mono
+    ELSE
+        RESTORE normal
+    END IF
+
+    FOR a = 1 TO 6
+        READ colorTable(a)
+    NEXT a
+    RETURN
+
+           'snake1     snake2   Walls  Background  Dialogs-Fore  Back
+mono:   DATA 15,         7,       7,     0,          15,            0
+normal: DATA 14,         13,      12,    1,          15,            4
+END
+
+'Center:
+'  Centers text on given row
+SUB Center (row, text$)
+    LOCATE row, 41 - LEN(text$) / 2
+    PR

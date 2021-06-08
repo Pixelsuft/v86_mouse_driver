@@ -1,0 +1,313 @@
+ = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.3c0a
+
+[0000400a]
+;
+; Spanish (Bolivia)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.010
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.400a
+
+[0000440a]
+;
+; Spanish (El Salvador)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.010
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.440a
+
+[0000480a]
+;
+; Spanish (Honduras)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.010
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.480a
+
+[00004c0a]
+;
+; Spanish (Nicaragua)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.010
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.4c0a
+
+[0000500a]
+;
+; Spanish (Puerto Rico)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.010
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.500a
+
+[0000081d]
+;
+; Swedish (Finland)
+;
+CopyFiles = NLS.Western,@c_865.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.081d
+
+[0000041e]
+;
+; Thai
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @c_874.nls,@c_850.nls,@c_437.nls,@c_10000.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Thai,NLS.Registry.OEMCP874
+AddReg = NLS.Setlang.041e
+
+[00000422]
+;
+; Ukrainian
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @c_866.nls,@c_855.nls,@c_1251.nls,@c_10017.nls,@c_10007.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Ukraine,NLS.Registry.OEMCP866
+AddReg = NLS.Setlang.0422,Font.NonCP1252.Substitutes
+
+[0000042a]
+;
+; Vietnamese
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @c_1258.nls,@c_850.nls,@c_437.nls,@c_10000.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Vietnamese,NLS.Registry.OEMCP1258
+AddReg = NLS.Setlang.042a
+
+[00000411]
+;
+; Japanese
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @xjis.nls
+CopyFiles = @c_932.nls,@c_10001.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Japanese
+AddReg = NLS.Setlang.0411
+
+[00000412]
+;
+; Korean
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @ksc.nls
+CopyFiles = @c_949.nls,@c_10002.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Korean
+AddReg = NLS.Setlang.0412
+
+[00000812]
+;
+; Korean (Johab)
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @ksc.nls
+CopyFiles = @c_949.nls,@c_1361.nls,@c_10002.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.KoreanJohab
+AddReg = NLS.Setlang.0812
+
+[00000c04]
+;
+; Hong Kong
+;
+CopyFiles = @l_intl.nls
+Copyfiles = @big5.nls
+CopyFiles = @c_950.nls,@c_10000.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.TraditionalChinese
+AddReg = NLS.Setlang.0c04
+
+[00000804]
+;
+; China
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @prc.nls
+CopyFiles = @c_936.nls,@c_10000.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.SimplifiedChinese
+AddReg = NLS.Setlang.0804
+
+[00001004]
+;
+; Singapore
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @prcp.nls
+CopyFiles = @c_936.nls,@c_10000.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.SimplifiedChinese
+AddReg = NLS.Setlang.1004
+
+[00000404]
+;
+; Taiwan
+;
+CopyFiles = @l_intl.nls
+Copyfiles = @big5.nls
+CopyFiles = @c_950.nls,@c_10000.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.TraditionalChinese
+AddReg = NLS.Setlang.0404
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+19_Voice.AddReg]
+HKR,, Enumerator,,serwave.vxd
+HKR,, VoiceProfile,           1, 25,12,00,00
+HKR,, ForwardDelay,           1, 88,13
+HKR,, SpeakerPhoneSpecs,      1, 89,00,00,00,  53,00,00,00,  ff,00,00,00,  01,00,00,00
+HKR, SpeakerPhoneEnable,      1,, "at#spk=1<cr>"
+HKR, SpeakerPhoneEnable,      2,, "ata<cr>"
+HKR, SpeakerPhoneEnable,      3,, "at#vdx=0<cr>"
+HKR, SpeakerPhoneDisable,     1,, "at#spk=0<cr>"
+HKR, SpeakerPhoneMute,        1,, "at#vgm=1<cr>"
+HKR, SpeakerPhoneUnMute,      1,, "at#vgm=128<cr>"
+HKR, SpeakerPhoneSetVolumeGain, 1,, "at#vgs=<Vol><cr>"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, EnableCallerID, 1,, "at#cid=1<cr>"
+HKR, GenerateDigit,           1,, "atdt<Digit><cr>"
+HKR, LineSetPlayFormat,       1,, "None"
+HKR, LineSetPlayFormat,       2,, "NoResponse"
+HKR, LineSetRecordFormat,     1,, "None"
+HKR, LineSetRecordFormat,     2,, "NoResponse"
+HKR, StartPlay,               1,, "at#spk=0<cr>"
+HKR, StartPlay,               2,, "ata<cr>"
+HKR, StartPlay,               3,, "at+vgt=134<cr>"
+HKR, StartPlay,               4,, "at#vtx<cr>"
+HKR, StopPlay,                1,, "None"
+HKR, StopPlay,                2,, "NoResponse"
+HKR, StartRecord,             1,, "at#spk=0<cr>"
+HKR, StartRecord,             2,, "ata<cr>"
+HKR, StartRecord,             3,, "at+vgr=134<cr>"
+HKR, StartRecord,             4,, "at#vrx<cr>"
+HKR, StopRecord,              1,, "None"
+HKR, StopRecord,              2,, "NoResponse"
+HKR,, TerminateRecord,,      "at<cr>"
+HKR,, TerminatePlay,,        "<h10><h03>at<cr>"
+HKR,, AbortPlay,,            "<h10><h18>at<cr>"
+HKR, VoiceToDataAnswer,       1,, "at#cls=0<cr>"
+HKR, VoiceToDataAnswer,       2,, "ata<cr>"
+HKR, VoiceAnswer,             1,, "at#cls=8<cr>"
+HKR, VoiceAnswer,             2,, "at#vls=0<cr>"
+HKR, VoiceAnswer,             3,, "at#vsr=7200<cr>"
+HKR, VoiceAnswer,             4,, "at#vbs=4<cr>"
+HKR, VoiceAnswer,             5,, "ats30=60<cr>"
+HKR, VoiceAnswer,             6,, "ata<cr>"
+HKR, VoiceDialNumberSetup,    1,, "at#cls=8<cr>"
+HKR, VoiceDialNumberSetup,    2,, "at#vls=0<cr>"
+HKR, VoiceDialNumberSetup,    3,, "at#vrn=0<cr>"
+HKR, VoiceDialNumberSetup,    4,, "at#vsr=7200<cr>"
+HKR, VoiceDialNumberSetup,    5,, "at#vbs=4<cr>"
+HKR, VoiceDialNumberSetup,    6,, "ats30=60<cr>"
+HKR,, CallerIDPrivate,,P
+HKR,, CallerIDOutSide,,O
+HKR,, VariableTerminator,,<cr><lf>
+
+HKR, Responses, "<cr><lf>VCON<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATE = ", 1, 93, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "TIME = ", 1, 94, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NMBR = ", 1, 95, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NAME = ", 1, 96, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "MESG = ", 1, 97, 00, 00,00,00,00, 00,00,00,00
+
+[CIRRUS_VOICE_ALL]    ; Cirrus voice
+HKR,,Enumerator,,serwave.vxd
+HKR,, VoiceProfile,    1,E3,10,20,00
+HKR,, HandsetCloseDelay,         1, 05,00,00,00
+HKR, StartPlay,               1,, "at#vpy<cr>"
+HKR, StopPlay,                1,, "None"
+HKR, StopPlay,                2,, "NoResponse"
+HKR, StartRecord,             1,, "at#vrd<cr>"
+HKR, StopRecord,              1,, "None"
+HKR, StopRecord,              2,, "NoResponse"
+HKR,, TerminateRecord,,      "<h1A><cr>at<cr>"
+HKR,, TerminatePlay,,        "<h10><h03>at<cr>"
+HKR,, AbortPlay,,            "<h10>Aat<cr>"
+HKR, OpenHandset,             1,, "at#vcl=1<cr>"
+HKR, OpenHandset,             2,, "at#vln=2<cr>"
+HKR, LineSetPlayFormat,       1,,  "at#vsr=9600<cr>"
+HKR, LineSetPlayFormat,       2,,  "at#vsm=AD4<cr>"
+HKR, LineSetRecordFormat,     1,,  "at#vsr=9600<cr>"
+HKR, LineSetRecordFormat,     2,,  "at#vsm=AD4<cr>"
+HKR, HandsetSetRecordFormat,  1,,  "at#vsr=9600<cr>"
+HKR, HandsetSetRecordFormat,  2,,  "at#vsm=AD4<cr>"
+HKR, HandsetSetPlayFormat,    1,,  "at#vsr=9600<cr>"
+HKR, HandsetSetPlayFormat,    2,,  "at#vsm=AD4<cr>"
+HKR,, ForwardDelay,            1,88,13  
+HKR, CloseHandset,                   1,, "at#vcl=0<cr>"
+HKR, VoiceToDataAnswer,         1,, "at#vcl=0<cr>"
+HKR, VoiceToDataAnswer,         2,, "ata<cr>"
+H

@@ -1,0 +1,151 @@
+
+; TAPE.INF -- This file contains descriptions of all the Tape
+;             Drives supported in Windows NT
+
+; Copyright (c) 1993-1996, Microsoft Corporation
+
+[version]
+signature="$Windows NT$"
+Class=TapeDrive
+ClassGUID={6D807884-7D21-11CF-801C-08002BE10318}
+Provider=%Msft%
+
+
+
+LayoutFile=splayout.inf, layout.inf
+
+
+[DestinationDirs]
+DefaultDestDir = 12 ; DIRID_DRIVERS
+
+[ControlFlags]
+;
+; Exclude the following devices from Select Device list.
+; These represent 'combination' driver nodes, for which there are separate 
+; items presented to the user.  These combination nodes are only used when 
+; figuring out what driver node to associate with a pre-existing service.
+;
+ExcludeFromSelect = DLTTAPE_TAPE
+
+; Exclude QIC-40/QIC-80 floppy tape drives on RISC platforms
+ExcludeFromSelect.NTAlpha = QIC117_TAPE
+ExcludeFromSelect.NTMIPS  = QIC117_TAPE
+ExcludeFromSelect.NTPPC   = QIC117_TAPE
+
+
+; Exclude SP-provided tape support from select list on all platforms.  Otherwise,
+; we get duplicate entries in the Select Device dialog.  (We use platform-specific
+; ExcludeFromSelect entries to avoid any confusion about these being 'combination'
+; driver nodes.)
+ExcludeFromSelect.NTx86   = 4MMDAT_TAPE_SP, DEC_DLTTAPE_TAPE_SP, MINIQIC_TAPE_SP
+ExcludeFromSelect.NTAlpha = 4MMDAT_TAPE_SP, DEC_DLTTAPE_TAPE_SP, MINIQIC_TAPE_SP
+ExcludeFromSelect.NTMIPS  = 4MMDAT_TAPE_SP, DEC_DLTTAPE_TAPE_SP, MINIQIC_TAPE_SP
+ExcludeFromSelect.NTPPC   = 4MMDAT_TAPE_SP, DEC_DLTTAPE_TAPE_SP, MINIQIC_TAPE_SP
+
+
+[Manufacturer]
+%StdMfg%=StdMfg
+"Archive"
+"Digital"
+"Exabyte"
+"Tandberg"
+"Wangtek"
+%HP%=HP
+"Quantum"
+
+
+;********************************
+;Standard tape drives device list
+[StdMfg]
+%4mmdat.DeviceDesc%  = 4mmdat_Inst, 4MMDAT_TAPE
+
+
+
+%4mmdatSP.DeviceDesc%  = 4mmdat_SP_Inst, 4MMDAT_TAPE_SP
+
+%miniqic.DeviceDesc% = miniqic_Inst, MINIQIC_TAPE
+
+
+
+%miniqicSP.DeviceDesc% = miniqic_SP_Inst, MINIQIC_TAPE_SP
+
+%qic117.DeviceDesc%  = qic117_Inst, QIC117_TAPE   ; made-up ID for now, so we can exclude for RISC
+%qic157.DeviceDesc%  = qic157_Inst, QIC157_TAPE
+
+[4mmdat_Inst]
+CopyFiles = @4mmdat.sys
+
+[4mmdat_Inst.Services]
+AddService = 4mmdat, %SPSVCINST_ASSOCSERVICE%, 4mmdat_Service_Inst, 4mmdat_EventLog_Inst
+
+[4mmdat_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\4mmdat.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[4mmdat_EventLog_Inst]
+AddReg = 4mmdat_EventLog_AddReg
+
+[4mmdat_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\4mmdat.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+[4mmdat_SP_Inst]
+CopyFiles = 4mmdat_SP_Inst.CopyFiles
+
+[4mmdat_SP_Inst.CopyFiles]
+
+
+
+4mmdat.sys, _4mmdat.sys
+
+
+[4mmdat_SP_Inst.Services]
+AddService = 4mmdat, %SPSVCINST_ASSOCSERVICE%, 4mmdat_Service_Inst, 4mmdat_EventLog_Inst
+
+[miniqic_Inst]
+CopyFiles = @miniqic.sys
+
+[miniqic_Inst.Services]
+AddService = miniqic, %SPSVCINST_ASSOCSERVICE%, miniqic_Service_Inst, miniqic_EventLog_Inst
+
+[miniqic_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\miniqic.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[miniqic_EventLog_Inst]
+AddReg = miniqic_EventLog_AddReg
+
+[miniqic_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\miniqic.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+[miniqic_SP_Inst]
+CopyFiles = miniqic_SP_Inst.CopyFiles
+
+[miniqic_SP_Inst.CopyFiles]
+
+
+
+miniqic.sys, _miniqic.sys
+
+
+[miniqic_SP_Inst.Services]
+AddService = miniqic, %SPSVCINST_ASSOCSERVICE%, miniqic_Service_Inst, miniqic_EventLog_Inst
+
+[qic117_Inst]
+CopyFiles = @qic117.sys
+Reboot
+
+[qic117_Inst.Services]
+AddService = qic117, %SPSVCINST_ASSOCSERVICE%, qic117_Service_Inst, qic117_EventLog_Inst
+
+[qic117_Service_Inst]
+ServiceType 

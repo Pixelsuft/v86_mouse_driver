@@ -1,0 +1,70 @@
+2,00,00,00
+HKCR,"tn3270","URL Protocol",2,""
+HKCR,"tn3270\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"tn3270\shell\open\command",,2,"rundll32.exe url.dll,TelnetProtocolHandler %l"
+
+HKCR,"gopher",,2,"%URLGOPHER%"
+HKCR,"gopher","EditFlags",3,02,00,00,00
+HKCR,"gopher","URL Protocol",2,""
+HKCR,"gopher\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"gopher\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"gopher\shell\open\ddeexec",,2,"""%1"",,-1,,,,,"
+HKCR,"gopher\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"gopher\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,"mailto",,2,"%URLMAILTO%"
+HKCR,"mailto","EditFlags",3,02,00,00,00
+HKCR,"mailto","URL Protocol",2,""
+HKCR,"mailto\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"mailto\shell\open\command",,2,"rundll32.exe url.dll,MailToProtocolHandler %l"
+
+HKCR,"news",,2,"%URLNEWS%"
+HKCR,"news","EditFlags",3,02,00,00,00
+HKCR,"news","URL Protocol",2,""
+HKCR,"news\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"news\shell\open\command",,2,"rundll32.exe url.dll,NewsProtocolHandler %l"
+
+
+HKCR,"file",,2,"%URLFILE%"
+HKCR,"file","EditFlags",3,02,00,00,00
+HKCR,"file","URL Protocol",2,""
+HKCR,"file\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"file\shell\open\command",,2,"rundll32.exe url.dll,FileProtocolHandler %l"
+
+HKCR,"CLSID\{FBF23B40-E3F0-101B-8488-00AA003E56F8}",,2,"Internet Shortcut"
+HKCR,"CLSID\{FBF23B40-E3F0-101B-8488-00AA003E56F8}\InProcServer32",,2,"url.dll"
+HKCR,"CLSID\{FBF23B40-E3F0-101B-8488-00AA003E56F8}\InProcServer32","ThreadingModel",2,"Apartment"
+
+HKCR,"CLSID\{FBF23B41-E3F0-101B-8488-00AA003E56F8}",,2,"MIME and Internet Property Sheet Hook"
+HKCR,"CLSID\{FBF23B41-E3F0-101B-8488-00AA003E56F8}\InProcServer32",,2,"url.dll"
+HKCR,"CLSID\{FBF23B41-E3F0-101B-8488-00AA003E56F8}\InProcServer32","ThreadingModel",2,"Apartment"
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\NewShortcutHandlers","{FBF23B40-E3F0-101B-8488-00AA003E56F8}",2,""
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Explorer\NewShortcutHandlers","{FBF23B40-E3F0-101B-8488-00AA003E56F8}",2,""
+
+HKCR,"CLSID\{FBF23B42-E3F0-101B-8488-00AA003E56F8}",,2,"%THENET%"
+HKCR,"CLSID\{FBF23B42-E3F0-101B-8488-00AA003E56F8}\DefaultIcon",,2,"%24%\%LONG_INET_PROGRAMS%\iexplore.exe,0"
+HKCR,"CLSID\{FBF23B42-E3F0-101B-8488-00AA003E56F8}\InProcServer32",,2,"url.dll"
+HKCR,"CLSID\{FBF23B42-E3F0-101B-8488-00AA003E56F8}\InProcServer32","ThreadingModel",2,"Apartment"
+HKCR,"CLSID\{FBF23B42-E3F0-101B-8488-00AA003E56F8}\Shell\Open\Command",,2,"%24%\%LONG_INET_PROGRAMS%\iexplore.exe"
+HKCR,"CLSID\{FBF23B42-E3F0-101B-8488-00AA003E56F8}\ShellEx\PropertySheetHandlers\{FBF23B42-E3F0-101B-8488-00AA003E56F8}",,2,""
+HKCR,"CLSID\{FBF23B42-E3F0-101B-8488-00AA003E56F8}\ShellFolder",,2,""
+HKCR,"CLSID\{FBF23B42-E3F0-101B-8488-00AA003E56F8}\ShellFolder","Attributes",3,70,00,00,00
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{FBF23B42-E3F0-101B-8488-00AA003E56F8}",,2,"The Internet"
+
+HKCR,".url",,2,"InternetShortcut"
+HKCR,"InternetShortcut",,2,"%ISHORTCUT%"
+HKCR,"InternetShortcut","EditFlags",3,02,00,01,00
+HKCR,"InternetShortcut","IsShortcut",2,""
+HKCR,"InternetShortcut","NeverShowExt",2,""
+HKCR,"InternetShortcut\ClsID",,2,"{FBF23B40-E3F0-101B-8488-00AA003E56F8}"
+HKCR,"InternetShortcut\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"InternetShortcut\shell\open\command",,2,"rundll32.exe url.dll,OpenURL %l"
+HKCR,"InternetShortcut\shellex\IconHandler",,2,"{FBF23B40-E3F0-101B-8488-00AA003E56F8}"
+HKCR,"InternetShortcut\shellex\PropertySheetHandlers\InternetShortcutProperties",,2,"{FBF23B40-E3F0-101B-8488-00AA003E56F8}"
+
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\NewShortcutHandlers","{FBF23B40-E3F0-101B-8488-00AA003E56F8}",2,""
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellExecuteHooks","{FBF23B40-E3F0-101B-8488-00AA003E56F8}",2,""
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Explorer\FileTypesPropertySheetHook",,2,"{FBF23B41-E3F0-101B-8488-00AA003E56F8}"
+
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\URL\DefaultPrefix",,2,"http://"
+HK

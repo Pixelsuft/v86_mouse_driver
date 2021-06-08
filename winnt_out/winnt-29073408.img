@@ -1,0 +1,84 @@
+aryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(ServiceValues), "", "", ""
+                else-ifstr(i) $(ServiceValues) == ""
+                    Set ServiceValues = {"LmHosts"}
+                    LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(ServiceValues), "", "", ""
+                else-ifcontains(i) "LMHOSTS" in $(ServiceValues)
+                else
+                    Set ServiceValues = >($(ServiceValues), "LmHosts")
+                    LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(ServiceValues), "", "", ""
+                endif
+                CloseRegKey $(ServicesKey)
+            endif
+        EndForListDo
+        debug-output "binding for NetBT"
+        OpenRegKey $(!REG_H_LOCAL) "" $(NetBTLinkageKeyName) $(MAXIMUM_ALLOWED) LinkageKey
+        GetRegValue $(LinkageKey) "Bind" BindList
+        set CombineBindInfo = *($(BindList),4)
+        CloseRegKey $(LinkageKey)
+        Shell "nbinfo.inf" CheckMixRpcProtocol "NetBT" 5 "tcpip" "ncacn_nb_tcp" "rpcltccm.dll" "RpcLtScm.Dll"
+        OpenRegKey $(!REG_H_LOCAL) "" $(NetBTLinkageKeyName)"\Disabled" $(MAXIMUM_ALLOWED) LinkageKey
+        GetRegValue $(LinkageKey) "Bind" BindList
+        ForListDo *($(BindList),4)
+            set CombineBindInfo = >($(CombineBindInfo), $($))
+        EndForListDo
+        CloseRegKey $(LinkageKey)
+        OpenRegKey $(!REG_H_LOCAL) "" $(AdaptersKeyName) $(MAXIMUM_ALLOWED) AdaptersKey
+        EnumRegKey $(AdaptersKey) AdaptersListInfo
+        set AdaptersList = {}
+        ForListDo $(AdaptersListInfo)
+            ifstr(i) $(AdaptersList) == {}
+                set AdaptersList = {*($($),1)}
+            else
+                set AdaptersList = >($(AdaptersList),*($($),1))
+            endif
+        EndForListDo
+        set CardList = {}
+        set CreateCardList = {}
+        ForListDo $(CombineBindInfo)
+            Split-String $($), "\", BindInfo
+            QueryListSize BindListSize $(BindInfo)
+            set CardName = *($(BindInfo),$(BindListSize))
+            ifstr(i) $(CardList) == {}
+                set CardList = {$(CardName)}
+            else
+                set CardList = >($(CardList),$(CardName))
+            endif
+            ifContains(i) $(CardName) not-in $(AdaptersList)
+                ifstr(i) $(CreateCardList) == {}
+                    set CreateCardList = {$(CardName)}
+                else
+                    set CreateCardList = >($(CreateCardList),$(CardName))
+                endif
+            endif
+        EndForListDo
+        set DeleteCardList = {}
+        ForListDo $(AdaptersList)
+            ifcontains(i) $($) not-in $(CardList)
+                ifstr(i) $(DeleteCardList) == {}
+                    set DeleteCardList = {$($)}
+                else
+                    set DeleteCardList = >($(DeleteCardList),$($))
+                endif
+            endif
+        EndForListDo
+        ForListDo $(CreateCardList)
+            CreateRegKey $(AdaptersKey) {$($),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CardKey
+            CloseRegKey $(CardKey)
+        EndForListDo
+        ForListDo $(DeleteCardList)
+            DeleteRegKey $(AdaptersKey) $($)
+        EndForListDo
+        CloseRegKey $(AdaptersKey)
+        debug-output "binding for TC"
+        goto configureadapter
+    endif
+    goto successful
+removeadapter = +
+    Shell $(UtilityInf) RemoveDependentComponents Microsoft TCPIP
+    Shell $(UtilityInf) RemoveRpcProtocol "ncadg_ip_udp"
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_ip_tcp"
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_tcp"
+    Shell $(UtilityInf) RemoveServiceProvider $(ProviderName)
+    Shell $(UtilityInf), RemoveNameSpaceProvider, $(ProductProviderGUID)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Out

@@ -1,0 +1,112 @@
+[InitGlobals]
+!STF_NCDETECT         = "NO"
+!STF_NCOPTION         = ""
+!STF_NCDETCARD        = 0
+!STF_NCDETINFO        = {}
+[Param_SetGlobals]
+   Read-syms InitGlobals
+   return
+[Param_ControlDetection]
+    Set DtMode = $($0)
+    Debug-Output "NCPARAM.INF: calling "$(DtMode)" wrapper"
+    Set FLibraryErrCtl = 1
+    LibraryProcedure StartResult $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), $(DtMode)
+    Set FLibraryErrCtl = 0
+    Set StartStatus = *($(StartResult),1)
+    Debug-Output "NCPARAM.INF: "$(DtMode)" status was: "$(StartStatus)
+    Ifint $(StartStatus) == 0
+        Set ReturnStatus = STATUS_SUCCESSFUL
+    Else
+        Set ReturnStatus = STATUS_FAILED
+    Endif
+    Return $(ReturnStatus)
+[Param_DetectCard]
+    Debug-Output "NCPARAM.INF: calling DTCARD wrapper"
+    Set FLibraryErrCtl = 1
+    LibraryProcedure DetectResult $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), DTCARD
+    Set FLibraryErrCtl = 0
+    Set Status = *($(DetectResult),1)
+    Debug-Output "NCPARAM.INF: DTCARD status was: "$(Status)
+    Ifint $(DetectStatus) == 0
+        Set DtOption  = *($(DetectResult),2)
+        Set DtIndex   = *($(DetectResult),3)
+        Debug-Output "NCPARAM.INF: card found is type "$(DtOption)", index "$(DtIndex)
+    Endif
+    Return $(DetectResult)
+:               $1:  Parameter control list of the form:
+[Param_BuildTypeLists]
+    Set Option = $($0)
+    Set OptList = $($1)
+    Set Result1 = {}
+    Set Result2 = {}
+    Set !STF_NC_PARAMS = {}
+    Set !STF_NC_PNAMES = {}
+    Set Status = STATUS_FAILED
+    Debug-Output "NCPARAM.INF: Querying parameters for netcard type: "$(Option)
+    Set FLibraryErrCtl = 1  
+    LibraryProcedure NcpaResult $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), DTPARAMS, $(Option)
+    Set FLibraryErrCtl = 0
+    Set ErrorStatus = *($(NcpaResult),1)
+    Debug-Output "NCPARAM.INF: DTPARAMS status was: "$(ErrorStatus)
+    Ifint $(ErrorStatus) != 0
+        Goto PMTL_Return
+    Endif
+    Set DllList = *($(NcpaResult),2)
+    Debug-Output "NCPARAM.INF: DLL param type list is: "$(DllList)
+    Set NbrOptions = 0
+    Set NbrFound = 0
+    ForListDo $(OptList)
+        Set-add NbrOptions = $(NbrOptions),1
+        Set Found = 0
+        Set Plist = $($)
+        Set Pname = *($(Plist),1)
+        Set PlistVar = *($(Plist),2)
+        Set Pvar = *($(Plist),3)
+        Set Dentry = {}
+        ForListDo $(DllList)
+            Set Dlist = $($)
+            Set Dname = *($(Dlist),1)
+            Set Dvlist = *($(Dlist),4)
+            Ifstr(i) $(Dname) == $(Pname)
+                Set Found = 1
+                Set Dvalue = *($(Dvlist),1)
+                Set Dentry = $(Dlist)
+                Ifstr(i) $(PlistVar) != NONE
+                    Set !p:$(PlistVar) = $(Dvlist)
+                    Debug-Output "NCPARAM.INF: DLL param "$(Pname)" list var "$(PlistVar)" set"
+                Endif
+            Endif
+        EndForListDo
+        Set-add NbrFound = $(NbrFound),$(Found)
+        Ifint $(Found) == 1
+            Set Result1 = >($(Result1),$(Dentry))
+            Set Result2 = >($(Result2),{$(Pname),$(Pvar),$(Dvalue)})
+        Else
+            Debug-Output "NCPARAM.INF: parameter "$(Pname)" not in DLL for "$(Option)
+        Endif
+    EndForListDo
+    Ifint $(NbrOptions) == $(NbrFound)
+        Set Status = STATUS_SUCCESSFUL
+        Set !STF_NC_PARAMS = $(Result1)
+        Set !STF_NC_PNAMES = $(Result2)
+        Debug-Output "NCPARAM.INF: Netcard list STF_NC_PARAMS for "$(Option)" is: "$(Result1)
+        Debug-Output "NCPARAM.INF: Netcard list STF_NC_PNAMES for "$(Option)" is: "$(Result2)
+    Endif
+PMTL_Return =+
+    Return $(Status)
+[Param_SaveValues]
+   Set Plist = {}
+   ForListDo $(!STF_NC_PNAMES)
+       Set Pelem = $($)
+       Set Name = *($(Pelem),1)
+       Set Qvar = *($(Pelem),2)
+       Set Qvalue = *($(Pelem),3)
+       Ifstr(i) $(Qvar) != "NONE"
+           Set Qvalue = $(!p:$(Qvar))
+           Set Plist = >($(Plist),{$(Name),$(Qvar),$(Qvalue)})
+       Endif
+   EndForListDo
+   Return $(Plist)
+[Param_DiffValues]
+   Set Plist = {}
+   ForListDo $(

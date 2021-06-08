@@ -1,0 +1,68 @@
+                               = CANON330.DLL
+"Mannesmann Tally MT 94"                               = CANON330.DLL
+"Mannesmann Tally MT 98/99"                            = HPDSKJET.DLL
+"Mannesmann Tally MT 130/24"                           = MANTAL24.DLL
+"Mannesmann Tally MT 131/24"                           = MANTAL24.DLL
+"Mannesmann Tally MT 150/24"                           = MANTAL24.DLL
+"Mannesmann Tally MT 151/24"                           = MANTAL24.DLL
+"Mannesmann Tally MT 230/24"                           = MANTAL24.DLL
+"Mannesmann Tally MT 330"                              = MANTAL24.DLL
+"Mannesmann Tally MT 350"                              = MANTAL24.DLL
+"Mannesmann Tally MT 360"                              = MANTAL24.DLL
+"Mannesmann Tally MT 730/735"                          = MT735.DLL
+"Mannesmann Tally MT 904 Plus"                         = PCL5MS.DLL
+"Mannesmann Tally MT 908"                              = PCL5MS.DLL
+"Mannesmann Tally T9005 Plus"                          = PCL5MS.DLL
+"Mannesmann Tally T7010"                               = JP350.DLL
+"Mannesmann Tally T7018"                               = JP350.DLL
+"Mannesmann Tally T7040 (Colour)"                      = JP350.DLL
+"Mannesmann Tally T7040 (Mono)"                        = JP350.DLL
+"Mannesmann Tally T9008"                               = PCL5EMS.DLL
+"Mannesmann Tally T9017"                               = PCL5MS.DLL
+
+[Microsoft]
+"Windows 3.1 Compatible Fax Driver"                    = WOWFAX.DLL, 2369
+
+[Microtek]
+"Microtek TrueLaser"                                   = MT_TI101.PPD
+
+[Minolta]
+"Minolta SP 3000"                                      = PCL5MS.DLL
+"Minolta SP 3500"                                      = PCL5MS.DLL
+
+[Monotype]
+"Monotype ImageMaster 1200 v52.3"                      = MOIM1201.PPD
+"Monotype Imagesetter v52.2"                           = MONO_522.PPD
+
+[NEC]
+"Colormate PS v51.9"                                   = NCOL_519.PPD
+"NEC Colormate PS/40 v51.9"                            = NCCPS401.PPD
+"NEC Colormate PS/80 v51.9"                            = NCCPS801.PPD
+"NEC Jetmate 400"                                      = JP350.DLL
+"NEC Jetmate 800"                                      = JP350.DLL
+"NEC Pinwriter CP6"                                    = NEC24PIN.DLL
+"NEC Pinwriter CP7"                                    = NEC24PIN.DLL
+"NEC Pinwriter P20"                                    = NEC24PIN.DLL
+"NEC Pinwriter P2200"                                  = NEC24PIN.DLL
+"NEC Pinwriter P2plus"                                 = NEC24PIN.DLL
+"NEC Pinwriter P30"                                    = NEC24PIN.DLL
+"NEC Pinwriter P3200"                                  = NEC24PIN.DLL
+"NEC Pinwriter P3300"                                  = NEC24PIN.DLL
+"NEC Pinwriter P5200"                                  = NEC24PIN.DLL
+"NEC Pinwriter P5300"                                  = NEC24PIN.DLL
+"NEC Pinwriter P5XL"                                   = NEC24PIN.DLL
+"NEC Pinwriter P6"                                     = NEC24PIN.DLL
+"NEC Pinwriter P60"                                    = NEC24PIN.DLL
+"NEC Pinwriter P6200"                                  = NEC24PIN.DLL
+"NEC Pinwriter P6300"                                  = NEC24PIN.DLL
+"NEC Pinwriter P6plus"                                 = NEC24PIN.DLL
+"NEC Pinwriter P7"                                     = NEC24PIN.DLL
+"NEC Pinwriter P70"                                    = NEC24PIN.DLL
+"NEC Pinwriter P7plus"                                 = NEC24PIN.DLL
+"NEC Pinwriter P90"                                    = NEC24PIN.DLL
+"NEC Pinwriter P9300"                                  = NEC24PIN.DLL
+"NEC Pinwriter P9XL"                                   = NEC24PIN.DLL
+"NEC SilentWriter 95 v2010.119"                        = NCSW_951.PPD
+"NEC Silentwriter 95 v2011.111"                        = NC95FAX1.PPD
+"NEC Silentwriter 97 v2011.111"                        = NC97FAX1.PPD
+"NEC Silentwriter 1097 PS"            

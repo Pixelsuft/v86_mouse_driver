@@ -1,0 +1,150 @@
+       = s3
+ %#9% 9FX MOTION 771 PCI                       = s3
+ %#9% 9FX VISION 330 PCI                       = s3
+ %#9% GXE 64 PCI                               = s3
+ %#9% GXE 64 PRO PCI                           = s3
+ %#9% GXE ISA                                  = s3
+ %#9% GXE VLB                                  = s3
+ %#9% GXE PCI                                  = s3
+
+
+
+
+
+[Orchid.Mfg]
+ %Orchid% Fahrenheit 1280                      = s3
+ %Orchid% Fahrenheit 1280 plus ISA             = s3
+ %Orchid% Fahrenheit 1280 plus VLB             = s3
+ %Orchid% Fahrenheit VA                        = s3
+ %Orchid% Fahrenheit VA/VLB                    = s3
+ %Orchid% Kelvin 64 ISA                        = cirrus
+ %Orchid% Kelvin 64 VLB                        = cirrus
+ %Orchid% Kelvin EZ                            = cirrus
+ %Orchid% Orchid ProDesigner 2                 = et4000
+ %Orchid% ProDesigner IIs ISA                  = et4000
+ %Orchid% ProDesigner IIs EISA                 = et4000
+
+
+
+
+[Paradise.Mfg]
+ %Paradise% WINDOWS GRAPHICS ACCELERATOR VLB   = wdvga
+ %Paradise% WINDOWS GRAPHICS ACCELERATOR       = wdvga
+
+
+
+[ProLink.Mfg]
+ %ProLink% Image Sharpener                     = cirrus
+
+
+
+
+
+[S3.Mfg]
+ %S3% %CompatAdap%                             = s3, S3_COMPAT
+ %S3% 911/924/928/964/968 %CompatAdap%         = s3
+ %S3% 801/805/864/868 %CompatAdap%             = s3
+ %S3% 732/764/765 %CompatAdap%                 = s3
+
+
+
+[Siemens.Mfg]
+
+
+
+[SixGraph.Mfg]
+ %SixGraph% Wizard 9000                        = weitekp9
+
+
+
+[%STB%.Mfg]
+ %STB% HORIZON+ 1.1                            = cirrus
+ %STB% HORIZON VIDEO                           = cirrus
+ %STB% LIGHTSPEED PCI                          = et4000
+ %STB% LIGHTSPEED VLB                          = et4000
+ %STB% LIGHTSPEED 128 PCI                      = et4000
+ %STB% NITRO PCI                               = cirrus
+ %STB% POWERGRAPH 64 PCI                       = s3
+ %STB% POWERGRAPH 64 VIDEO PCI                 = s3
+ %STB% POWERGRAPH 64 VIDEO VLB                 = s3
+ %STB% VELOCITY 64 PCI                         = s3
+ %STB% VELOCITY 64 VLB                         = s3
+
+
+
+
+
+[Tseng.Mfg]
+ %Tseng% ET4000 %CompatAdap%                   = et4000, ET4000_COMPAT
+ %Tseng% W32 %CompatAdap%                      = et4000
+ %Tseng% W32p %CompatAdap%                     = et4000
+ %Tseng% W32i %CompatAdap%                     = et4000
+ %Tseng% ET6000 %CompatAdap%                   = et4000
+
+
+
+[Trident.Mfg]
+ %Trident% 9000                                = trident
+ %Trident% 8900C                               = trident
+; third-party @i: %Trident% 9400CXi               = trident
+; third-party @i: %Trident% Trident 9440          = trident
+; third-party @i: %Trident% Trident 9660          = trident
+
+
+
+[V7.Mfg]
+ %V7% VRAM                                     = v7vram, V7VRAM_COMPAT
+ %V7% VRAM II                                  = v7vram
+ %V7% VRAM II ERGO                             = v7vram
+
+
+
+[WD.Mfg]
+ %WD% 90C24                                    = wdvga, WDVGA_COMPAT
+ %WD% 90C24A                                   = wdvga
+ %WD% 90C30                                    = wdvga
+ %WD% 90C31-LR                                 = wdvga
+ %WD% 90C31-ZS                                 = wdvga
+ %WD% 90C33 VLB                                = wdvga
+
+
+
+[Weitek.Mfg]
+ %Weitek% P9000 %CompatAdap%                   = P9000
+ %Weitek% P9100 %CompatAdap%                   = weitekp9, WEITEKP9_COMPAT
+
+;
+; Matching section.  Provides some mappings for some names that don't
+; show up in the above manufacturer \ models list.
+; This is basically to handle backwards compatibility with some drivers
+; or boards we can't list for some reason.
+;
+
+[Models Matching]
+
+
+
+
+
+;
+; List of drivers that are provided, which each model has a reference to
+;
+;
+; ati
+; cirrus
+; dell_dgx
+; et4000
+; jazzg300
+; jazzg364
+; jzvxl484
+; mga
+; mga_mil
+; ncr77c22
+; psidisp
+; qv
+; s3
+; tga
+; v7vram
+; wd90c24a
+; wdvga
+; wei

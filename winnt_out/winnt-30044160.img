@@ -1,0 +1,92 @@
+  = $($1)
+    set KeyNull         = ""
+    set MAXIMUM_ALLOWED   = 33554432
+    Debug-Output "ExCreateRegKey - ECR_BaseKeyHandle = "$(ECR_BaseKeyHandle)
+    Debug-Output "                 ECR_NewPath = "$(ECR_NewPath)
+    Debug-Output "                 MAXIMUM_ALLOWED = "$(MAXIMUM_ALLOWED)
+    Debug-Output "                 KeyNull = "$(KeyNull)
+    OpenRegKey $(ECR_BaseKeyHandle) "" $(ECR_NewPath) $(MAXIMUM_ALLOWED) +
+               ECR_BaseKey
+    Debug-Output "ECR_BaseKey = "$(ECR_BaseKey)
+    Debug-Output "    OpenRegKey returned "$($R0)
+    Ifstr $(ECR_BaseKey) == $(KeyNull)
+        Debug-Output "ECR_BaseKey == KeyNull"
+    Else
+        Debug-Output "ECR_BaseKey != KeyNull"
+        set ECR_KeyHandle = $(ECR_BaseKey)
+        goto  ECR_Return
+    Endif
+    set ECR_TmpPath = ""
+    Split-String $(ECR_NewPath) "\" ECR_PList
+    Debug-Output "ECR_PList = "$(ECR_PList)
+    ForListDo $(ECR_PList)
+        Ifstr(i) $($) != "\"
+            Ifint $(#) == 1
+                set ECR_TmpPath = $($)
+            Else
+                set ECR_TmpPath = $(ECR_TmpPath)"\"$($)
+            Endif
+            Debug-Output "Determining if "$(ECR_TmpPath)" exists"
+            OpenRegKey $(ECR_BaseKeyHandle) "" $(ECR_TmpPath) $(MAXIMUM_ALLOWED) ECR_BaseKey
+            Ifstr $(ECR_BaseKey) == $(KeyNull)
+                Debug-Output "Creating "$(ECR_TmpPath)
+                CreateRegKey $(ECR_BaseKeyHandle)  {$(ECR_TmpPath),0,GenericClass} "" $(MAXIMUM_ALLOWED) "" ECR_KeyHandle
+                Ifstr(i) $(ECR_KeyHandle) == $(KeyNull)
+                    set ECR_Result = $($R0)
+                    goto ECR_Return
+                Endif
+            Endif
+        Endif
+    EndForListDo
+ECR_Return = +
+    return $(ECR_Result) $(ECR_KeyHandle)
+[DebugExternalGlobals]
+    Set InfName = "OEMNADDS.INF"
+    Debug-Output $(InfName)" NTN_Origination = "$(!NTN_Origination)
+    Debug-Output $(InfName)" NTN_InstallMode = "$(!NTN_InstallMode)
+    Debug-Output $(InfName)" NTN_RegBase = "$(!NTN_RegBase)
+    Debug-Output $(InfName)" NTN_SoftwareBase = "$(!NTN_SoftwareBase)
+    Debug-Output $(InfName)" NTN_ServiceBase = "$(!NTN_ServiceBase)
+    Debug-Output $(InfName)" STF_NTPATH = "$(!STF_NTPATH)
+    Debug-Output $(InfName)" STF_NTWINDOWSSYSPATH = "$(!STF_WINDOWSSYSPATH)
+    Debug-Output $(InfName)" STF_CWDIR = "$(!STF_CWDIR)
+    Debug-Output $(InfName)" STF_LANGUAGE = "$(!STF_LANGUAGE)
+    Debug-Output $(InfName)" STF_NCDETECT  = "$(!STF_NCDETECT)
+    Debug-Output $(InfName)" STF_NCOPTION  = "$(!STF_NCOPTION)
+    Debug-Output $(InfName)" STF_NCDETCARD = "$(!STF_NCDETCARD)
+    Debug-Output $(InfName)" STF_NCDETINFO = "$(!STF_NCDETINFO)
+    Debug-Output $(InfName)" STF_INSTALL_MODE = "$(!STF_INSTALL_MODE)
+    Debug-Output $(InfName)" STF_CONTEXTINFNAME = "$(!STF_CONTEXTINFNAME)
+    return
+[DebugConfiguration]
+    Set InfName = "OEMNADDS.INF"
+    Debug-Output $(InfName)" **CONFIGURATION STATE: "$($0)
+    Debug-Output $(InfName)" IRQ_Level is "$(!p:IRQ_Level)
+    Debug-Output $(InfName)" IOBaseAddrValue is "$(!p:IOBaseAddrValue)
+    Debug-Output $(InfName)" TransceiverValue is "$(!p:TransceiverValue)
+    Debug-Output $(InfName)" MemBaseAddrDec is "$(!p:MemBaseAddrDec)
+    Debug-Output $(InfName)" MappedValue is "$(!p:MappedValue)
+    return
+[AdapterSettings-ntcx]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","C8000","D0000","D8000","E0000","E8000"}
+IORangeList = {"108","118","128","208","228","308","328"}
+IRQDefault = 0
+MemoryDefault = 2
+IODefault = 6
+[AdapterSettings-ntepc]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","C8000","D0000","D8000","E0000","E8000"}
+IORangeList = {"108","118","128","208","228","308","328"}
+IRQDefault = 0
+MemoryDefault = 2
+IODefault = 6
+[AdapterSettings-ntxem]
+IRQRangeList = {$(IRQDisableLabel)}
+MemoryRangeList = {"C0000","C8000","D0000","D8000","E0000","E8000"}
+IORangeList = {"104","114","124","204","224","304","324"}
+IRQDefault = 0
+MemoryDefault = 2
+IODefault = 6
+[AdapterSettings-nt8r]
+IRQRangeList = {$(IRQDisableLabe

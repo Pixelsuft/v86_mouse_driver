@@ -1,0 +1,66 @@
+ons of setup
+; for temporarily renaming profile strings during setup. THE RENAME
+; OPERATION WILL ONLY TAKE PLACE IF THE ORIGINAL PROFILE STRING EXISTS AND HAS
+; A RIGHT HAND SIDE STRING.
+;
+; .ini file,  section name, temporary profile name, Original profile name.
+;
+[ini.upd.patches]
+  system.ini, Boot,    "olddrivers"    ,"drivers"
+  win.ini   , Desktop, "oldwallpaper"  ,"wallpaper"
+  system.ini, Boot,    "oldtaskman"    ,"taskman.exe"
+  system.ini, Boot,    "oldshell"      ,"shell"
+
+; Used by the windows half to shrink the memory needed to hold this pig.
+;
+[blowaway]
+   this line needed
+
+[ini.upd.31]
+;
+; WARNING: This section only works on win.ini or system.ini !!
+;
+; .ini file,  section,  old line to be replaced,  new line,  rename operater.
+;
+; If the "old line to be replaced" field is empty, setup will assume that
+; the new line is to be added. The rename operater tells setup to retain the RHS
+; of the profile. This is used as a renaming mechanism during upgrades.
+; Nb : Simple string substitution is implemented :
+;     ?P means any valid MS-DOS path
+;
+  system.ini, Boot,                               ,   "taskman.exe="
+  system.ini, mci,     "waveaudio="               ,   "WaveAudio=mciwave.drv"
+  system.ini, mci,     "sequencer="               ,   "Sequencer=mciseq.drv"
+  system.ini, mci,     "cdaudio="                 ,   "CDAudio=mcicda.drv"                      
+  system.ini, drivers,                            ,   "timer=timer.drv"
+  system.ini, drivers,         "midimapper="      ,   "midimapper=midimap.drv"
+  system.ini, drivers, "midi=adlib.drv"           ,   "midi=msadlib.drv"          ,rename
+  system.ini, drivers, "midi1=adlib.drv"          ,   "midi1=msadlib.drv"         ,rename
+  system.ini, drivers, "midi2=adlib.drv"          ,   "midi2=msadlib.drv"         ,rename
+  system.ini, drivers, "midi3=adlib.drv"          ,   "midi3=msadlib.drv"         ,rename
+  system.ini, drivers, "midi4=adlib.drv"          ,   "midi4=msadlib.drv"         ,rename
+  system.ini, 386Enh,       "keyboard=?Pbpvkd.386",
+  system.ini, 386Enh,          "keyboard="        ,   "keyboard=*vkd"             ,noclobber
+  system.ini, 386Enh,          "device=vpicda.386",   "device=*vpicd"
+  system.ini, 386Enh,          "device=*vhd"      ,   "device=*blockdev"
+  system.ini, 386Enh,          "device=*vpd"      ,
+  system.ini, 386Enh,          "device=vdmad.386" ,   "device=*vdmad"
+  system.ini, 386Enh,          "device=vdmadx.386",   "device=*vdmad"
+  system.ini, 386Enh,                             ,   "device=*pagefile"
+  system.ini, 386Enh,       "device=?Pvtdapi.386" ,   "device=vtdapi.386"
+  system.ini, NonWindowsApp,"localtsrs="          ,   "localtsrs=dosedit,ced"  ,noclobber
+  win.ini   , Sounds,  "SystemDefault="           ,   "SystemDefault=ding.wav, Default Beep"      ,noclobber
+  win.ini   , Sounds,  "SystemExclamation="       ,   "SystemExclamation=chord.wav, Exclamation"  ,noclobber
+  win.ini   , Sounds,  "SystemStart="             ,   "SystemStart=tada.wav, Windows Start"       ,noclobber
+  win.ini   , Sounds,  "SystemExit="              ,   "SystemExit=chimes.wav, Windows Exit"       ,noclobber
+  win.ini   , Sounds,  "SystemHand="              ,   "SystemHand=chord.wav, Critical Stop"       ,noclobber
+  win.ini   , Sounds,  "SystemQuestion="          ,   "SystemQuestion=chord.wav, Question"        ,noclobber
+  win.ini   , Sounds,  "SystemAsterisk="          ,   "SystemAsterisk=chord.wav, Asterisk"        ,noclobber
+  win.ini   , "mci extensions",                   ,   "wav=waveaudio"
+  win.ini   , "mci extensions",                   ,   "mid=sequencer"
+  win.ini   , "mci extensions",                   ,   "rmi=sequencer"
+  win.ini   , FontSubstitutes,                    ,   "Helv=MS Sans Serif"
+  win.ini   , FontSubstitutes,                    ,   "Tms Rmn=MS Serif"
+  win.ini   , FontSubstitutes, "Courier=Courier New" ,
+  win.ini   , FontSubstitutes,                    ,   "Times=Times New Roman"
+  win.ini   , FontSubstitutes,                    ,   "Helvetica

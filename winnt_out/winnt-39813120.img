@@ -1,0 +1,108 @@
+a.reg
+InstallType     = 0                     ;Manual Only
+IconIndex       = 61                    ;Speaker mini-icon for dialogs
+Uninstall       = utopia_remove
+Upgrade         = utopia_upgrade
+
+[utopia_remove]
+DelFiles        = utopia.files
+AddReg          = utopia.remove.reg
+DelReg          = utopia.remove.DelReg
+
+[utopia_upgrade]
+CopyFiles       = utopia.files
+
+
+
+;--- Sound and Video Clips Install Sections ------------
+[mediaopt.delfiles]
+canyon.mid,,,1
+passport.mid,,,1
+chimes.wav,,,1
+chord.wav,,,1
+ding.wav,,,1
+tada.wav,,,1
+
+[mediaopt.files]
+canyon.mid
+passport.mid
+chimes.wav
+chord.wav
+ding.wav
+tada.wav
+%BACHSB_RMI%.RMI,BACHSB~1.RMI
+%BEETHO_RMI%.RMI,BEETHO~2.RMI
+%CLAIRE_RMI%.RMI,CLAIRE~1.RMI
+%DANCEO_RMI%.RMI,DANCEO~2.RMI
+%FURELI_RMI%.RMI,FURELI~1.RMI
+%HALLOF_RMI%.RMI,HALLOF~2.RMI
+%MOZART_RMI%.RMI,MOZART~2.RMI
+
+
+[mediaopt.reg]
+HKLM,%KEY_OPTIONAL%\Clips,Installed,,"1"
+
+;Event Schemes
+HKCU,%KEY_APPS%\Explorer\EmptyRecycleBin\.Default,,,%25%\media\ding.wav
+HKCU,%KEY_DEFSCH%\.Default\.Default,,,%25%\media\ding.wav
+HKCU,%KEY_DEFSCH%\SystemExit\.Default,,,%25%\media\tada.wav
+HKCU,%KEY_DEFSCH%\SystemHand\.Default,,,%25%\media\chord.wav
+HKCU,%KEY_DEFSCH%\SystemQuestion\.Default,,,%25%\media\chord.wav
+HKCU,%KEY_DEFSCH%\SystemExclamation\.Default,,,%25%\media\chord.wav
+HKCU,%KEY_DEFSCH%\SystemAsterisk\.Default,,,%25%\media\chord.wav
+
+HKCU,%KEY_APPS%\Explorer\EmptyRecycleBin\.Current,,2,%25%\media\ding.wav
+HKCU,%KEY_DEFSCH%\.Default\.Current,,2,%25%\media\ding.wav
+HKCU,%KEY_DEFSCH%\SystemExit\.Current,,2,%25%\media\tada.wav
+HKCU,%KEY_DEFSCH%\SystemHand\.Current,,2,%25%\media\chord.wav
+HKCU,%KEY_DEFSCH%\SystemQuestion\.Current,,2,%25%\media\chord.wav
+HKCU,%KEY_DEFSCH%\SystemExclamation\.Current,,2,%25%\media\chord.wav
+HKCU,%KEY_DEFSCH%\SystemAsterisk\.Current,,2,%25%\media\chord.wav
+
+[mediaopt.remove.reg]
+HKLM,%KEY_OPTIONAL%\Clips,Installed,,"0"
+
+;-------------------------------------------------
+
+;--- Musica Sound Scheme Install Sections --------
+[musica.files]
+%MUSICA_RECYCLE%.WAV     ,musicare.wav
+%MUSICA_DEFAULT%.WAV     ,musicade.wav
+%MUSICA_WINDOWSSTART%.WAV,musicawi.wav
+%MUSICA_WINDOWSEXIT%.WAV ,musica~1.wav
+%MUSICA_CRITICALSTOP%.WAV,musicacr.wav
+%MUSICA_QUESTION%.WAV    ,musicaqu.wav
+%MUSICA_EXCLAMATION%.WAV ,musicaex.wav
+%MUSICA_ASTERISK%.WAV    ,musicaas.wav
+%MUSICA_OPEN%.WAV        ,musicaop.wav
+%MUSICA_CLOSE%.WAV       ,musicacl.wav
+%MUSICA_MAXIMIZE%.WAV    ,musicama.wav
+%MUSICA_MINIMIZE%.WAV    ,musicami.wav
+%MUSICA_RESTOREDOWN%.WAV ,musica~3.wav
+%MUSICA_RESTOREUP%.WAV   ,musica~4.wav
+%MUSICA_ERROR%.WAV       ,musicaer.wav
+%MUSICA_MENUCOMMAND%.WAV ,musicame.wav
+%MUSICA_MENUPOPUP%.WAV   ,musica~2.wav
+
+[musica.reg]
+HKLM,%KEY_OPTIONAL%\Musica,Installed,,"1"
+
+HKCU,AppEvents\Schemes\Names\Musica0,,,"%V_MUSICA%"
+HKCU,AppEvents\Schemes\Apps\Explorer,,,"%V_EXPLORER%"
+HKCU,AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\Musica0,,,%25%\media\%MUSICA_RECYCLE%.wav
+HKCU,%KEY_DEFSCH%\.Default\Musica0,,,"%25%\media\%MUSICA_DEFAULT%.wav"
+HKCU,%KEY_DEFSCH%\SystemStart\Musica0,,,"%25%\media\%MUSICA_WINDOWSSTART%.wav"
+HKCU,%KEY_DEFSCH%\SystemExit\Musica0,,,"%25%\media\%MUSICA_WINDOWSEXIT%.wav"
+HKCU,%KEY_DEFSCH%\SystemHand\Musica0,,,"%25%\media\%MUSICA_CRITICALSTOP%.wav"
+HKCU,%KEY_DEFSCH%\SystemQuestion\Musica0,,,"%25%\media\%MUSICA_QUESTION%.wav"
+HKCU,%KEY_DEFSCH%\SystemExclamation\Musica0,,,"%25%\media\%MUSICA_EXCLAMATION%.wav"
+HKCU,%KEY_DEFSCH%\SystemAsterisk\Musica0,,,"%25%\media\%MUSICA_ASTERISK%.wav"
+HKCU,%KEY_DEFSCH%\Open\Musica0,,,
+HKCU,%KEY_DEFSCH%\Close\Musica0,,,
+HKCU,%KEY_DEFSCH%\Maximize\Musica0,,,"%25%\media\%MUSICA_MAXIMIZE%.wav"
+HKCU,%KEY_DEFSCH%\Minimize\Musica0,,,"%25%\media\%MUSICA_MINIMIZE%.wav"
+HKCU,%KEY_DEFSCH%\RestoreDown\Musica0,,,"%25%\media\%MUSICA_RESTOREDOWN%.wav"
+HKCU,%KEY_DEFSCH%\RestoreUp\Musica0,,,"%25%\media\%MUSICA_RESTOREUP%.wav"
+HKCU,%KEY_DEFSCH%\AppGPFault\Musica0,,,"%25%\media\%MUSICA_ERROR%.wav"
+HKCU,%KEY_DEFSCH%\MenuCommand\Musica0,,,"%25%\media\%MUSICA_MENUCOMMAND%.wav"
+HKCU,%KEY_DEFSCH%\Men

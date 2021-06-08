@@ -1,0 +1,89 @@
+on)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMinorVersion)},+
+             {Review, $(NoTitle), $(!REG_VT_DWORD), $(fReviewBindings)}, +
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(!CurrentDate),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(!HideComponent)}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftParamsKey)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+            {{class, $(NoTitle), $(!REG_VT_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {bindform,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)BindForm)}, +
+             {bindable,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)Bindable)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            goto fatalregistry
+        endif
+        set NewValueList = {{Logging, $(NoTitle), $(!REG_VT_DWORD), 0}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftParamsKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "AddValueList bombed out"
+             goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            goto fatalregistry
+        endif
+        CloseRegKey $(SoftParamsKey)
+        Shell "" AddServiceDependency "RasMan" "tapisrv"
+    endif 
+    ifstr(i) $(DoRasAutodial) == TRUE
+        set ThisOption = RASAUTODIAL
+        set RasSpecificString = $(!Product$(ThisOption)Name)
+        Shell "" InstallSoftwareAndService $(ThisOption)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "Error shelling InstallSoftwareAndService for "$(ThisOption)
+             goto ShellCodeError
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+             Debug-Output "Error from InstallSoftwareAndService for"$(ThisOption)
+             goto end
+        endif
+        set DisableAutoDial = FALSE
+        ifint $(NewNumDialout) == 0
+           set DisableAutoDial = TRUE
+        endif
+        ifstr(i) $(DisableAutoDial) == TRUE
+           OpenRegKey $(!REG_H_LOCAL) "" $(!RasAutodialKeyName) $(!MAXIMUM_ALLOWED) KeyAutodial
+           ifstr $(KeyAutodial) == $(KeyNull)
+             Debug-Output "OEMNSVRA.INF: could not open RasAuto key"
+           else
+             SetRegValue $(KeyAutodial) {Start, $(NoTitle), $(!REG_VT_DWORD), 4}
+             CloseRegKey $(KeyAutodial)
+           endif
+        endif
+        Shell "" InstallRasAcdService
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "Error shelling InstallRasAcdService"
+             goto ShellCodeError
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+             Debug-Output "Error from InstallRasAcdService"
+             goto end
+        endif
+        Shell "" AddServiceDependency "RasAuto" "RasMan"
+  

@@ -1,0 +1,125 @@
+[Identification]
+    OptionType = NetProvider
+[Options]
+    NETBIOS
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+subroutineinf   = "SUBROUTN.INF"
+SoftwareType    = "driver"
+Exit_Code       = 0
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)$(ProductHardwareName)"\Parameters"
+NbProviderField = "NbProvider"
+EndPointField   = "EndPoint"
+RouteField      = "Route"
+ExportField     = "Export"
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Status   = STATUS_FAILED
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    Shell "" CommonSection $(Option) $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig)
+    set Status = $($R0)
+    Return $(Status)
+[BindingsReview]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    Shell "" CommonSection $(Option) $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig)
+    set Status = $($R0)
+    Return $(Status)
+[CommonSection]
+    StartWait
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+Begin = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase) $(MAXIMUM_ALLOWED) ServiceKey
+    Ifstr $(ServiceKey) == $(KeyNull)
+        set RegistryErrorIndex = $($R0)
+        goto fatalregistry
+    endif
+    Set RouteInformationList = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NetBIOS\Linkage" $(MAXIMUM_ALLOWED) NbKey
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "NBINFO.INF: could not open CurrentControlSet\Services\NetBIOS\Linkage key"
+        goto successful
+    Endif
+    GetRegValue $(NbKey) Route RouteListValue
+    Ifint $(RegLastError) != 0
+        Debug-Output "NBINFO.INF: Error reading NetBIOS\Linkage:Route value: "$(RegLastError)
+        Set RouteList = {}
+    Else
+        Set RouteList = *($(RouteListValue),4)
+    Endif
+    set ActiveRouteList = $(RouteList)
+    ForListDo $(RouteList)
+        Debug-

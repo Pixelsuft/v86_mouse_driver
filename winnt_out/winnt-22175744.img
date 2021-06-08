@@ -1,0 +1,38 @@
+Platform is Alpha, I386, Mips, or Ppc.
+
+You must have a Web browser (such as Microsoft Internet Explorer) to view this documentation. You can print chapters by using your Internet browser’s Print command. You will obtain the best printing results by using your browser’s default font size for text; for example, Medium in Internet Explorer and 12 points in Netscape Navigator.
+
+Information about Peer Web Services is included in the Start Here book provided with Windows NT Workstation version 4.0.
+
+Removing TCP/IP
+If you remove the TCP/IP protocol, Peer Web Services cannot be removed by using the Peer Web Services Setup icon  To work around the problem and remove Peer Web services, reinstall the TCP/IP protocol, and then remove Peer Web Services.
+
+
+Support for Private Communication Technology (PCT)
+Peer Web Services supports the PCT 2.0 specification, which is designed to secure general-purpose business and personal communications on the Internet and includes features such as privacy, authentication, and mutual identification. PCT enhances Secure Sockets Layer (SSL) with technology developed for Secure Transaction Technology (STT), particularly in authentication and protocol efficiency. By separating authentication from encryption, PCT enables applications to use authentication that is significantly stronger than the 40-bit key limit for encryption allowed by the U.S. government for export. Microsoft's implementation of PCT is backward compatible with SSL.
+
+Changes to User Configuration
+If changes to user configurations (such as adding or removing users from a group, changing passwords, or changing NTFS permissions) do not take affect immediately, try stopping and restarting the Internet services (WWW, FTP, and gopher).  Peer Web Services caches security tokens for all users.  Changes to user configurations will not appear until the security-token cache is cleared and the new tokens are cached.  The default caching interval is 15 minutes. 
+
+Product Home Page
+The HTML samples include a product home page (Default.htm) for Peer Web Services that contains links to the product documentation, the Web-based server administration tool, and to the Microsoft Web site.
+
+If you already have a file named Default.htm in the Wwwroot directory, the setup program will not replace your file with the product’s default home page. You can view the product home page by typing the following URL:
+
+     http://computername/Samples/Default.htm
+
+If you do not have a file named Default.htm in the Wwwroot directory, Setup copies the file to the Wwwroot directory.  
+
+Publishing from Network Drives
+The FTP, gopher, and WWW services cannot publish from redirected network drives (that is, from drive letters assigned to network shared folders). 
+
+To use network drives, you must use the server and share name (for example, \\Computername\Sharename\Wwwfiles). If you require a user name and password to connect to a network drive, all requests from remote users to access that drive must be made with the user name and password you specified, not the anonymous IUSR_computername account or another account you may have specified.
+
+Choosing a Logon Method
+This release of Peer Web Services provides three logon methods for the WWW, FTP, and gopher services.
+
+· Local means that the user is logged on as though he or she had actually walked up to the computer and logged on interactively. The user must have the Log on locally access right set in User Manager.
+
+· Batch means the user is logged on locally (as with the Local logon method) but must have the Log on as a batch job access right set in User Manager. This logon method enables the user to access the server from a Web browser but does not give the user the right to log on locally.
+
+· Network means the user is logged on as a remote network user. The user must have the Access this computer from network access right set in User Manager. This logon method enables the user to access the server from a Web browser but does not give the user the right to log on locally. Users logged on wit

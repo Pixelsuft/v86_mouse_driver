@@ -1,0 +1,97 @@
+em3]	; MicroLink 24oooTL
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem2]	; MicroLink 14.4TL
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]	; MicroLink 288ooTL
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+
+; AddReg sections
+
+[Modem24.AddReg]	; MicroLink ISDN TD
+HKR,, Properties, 1, 00,01,00,00, 00,00,00,00, ff,00,00,00, 07,00,00,00, 00,00,00,00, 37,03,00,00, 00,c2,01,00, 00,fa,00,00
+HKR,, FClass, 1, 01,00,00,00
+HKR, Init,      2,, "AT &F \N6 -M0 Q0 V1 \V1<cr>"
+HKR, Settings, CallSetupFailTimer,, " "
+HKR, Settings, InactivityTimeout,, " "
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem23.AddReg]	; MicroLink ISDN TL PRO
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 07,00,00,00, 01,00,00,00, b0,00,00,00, 00,c2,01,00, 00,fa,00,00
+HKR,, FClass, 1, 01,00,00,00
+HKR, Init,      2,, "AT &F \N6 <cr>"
+HKR, Settings, CallSetupFailTimer,, " "
+HKR, Settings, InactivityTimeout,, " "
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem22.AddReg]	; MicroLink ISDN TL
+HKR,, Properties, 1, 00,01,00,00, 00,00,00,00, ff,00,00,00, 07,00,00,00, 00,00,00,00, 37,03,00,00, 40,5e,02,00, 00,fa,00,00
+HKR,, FClass, 1, 01,00,00,00
+HKR, Init,      2,, "AT &F \N6 -M0 Q0 V1 \V1<cr>"
+HKR, Settings, CallSetupFailTimer,, " "
+HKR, Settings, InactivityTimeout,, " "
+HKR, Settings, Compression_On,, ""
+HKR, Settings, Compression_Off,, ""
+
+[Modem20.AddReg]	; ELISA 144V
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0d,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F S95=44 <cr>"
+HKR,, FClass, 1, 09,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+
+[Modem19.AddReg]	; ELISA 144
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0d,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F S95=44 <cr>"
+HKR,, FClass, 1, 09,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+
+[Modem18.AddReg]	; ZIFF 144
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0d,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F S95=44 <cr>"
+HKR,, FClass, 1, 09,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+
+[Modem17.AddReg]	; MicroLink 14.4MC
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F S95=0 <cr>"
+HKR,, FClass, 1, 19,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+
+[Modem16.AddReg]	; MicroLink 28.8TQV
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, FClass, 1, 5f,00,00,00
+
+[Modem15.AddReg]	; MicroLink 28.8TQ
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, FClass, 1, 1f,00,00,00
+
+[Modem14.AddReg]	; MicroLink 14.4TQV
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 5f,00,00,00
+
+[Modem13.AddReg]	; MicroLink 14.4TQ
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 1f,00,00,00
+
+[Modem12.AddReg]	; MicroLink 2460MC
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0d,00,00,00, 37,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR,, FClass, 1, 1f,00,00,00
+
+[Modem11.AddReg]	; MicroLink 2460PC
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0d,00,00,00, 37,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR,, FClass, 1, 1f,00,00,00
+
+[Modem10.AddReg]	; MicroLink 2460TL
+HKR,, Properties, 1, 0

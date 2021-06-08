@@ -1,0 +1,98 @@
+ ECR_BaseKey = "$(ECR_BaseKey)
+    Debug-Output $(InfName)":     OpenRegKey returned "$($R0)
+    IfStr $(ECR_BaseKey) == $(KeyNull)
+        Debug-Output $(InfName)": ECR_BaseKey == KeyNull"
+    Else
+        Debug-Output $(InfName)": ECR_BaseKey != KeyNull"
+        Set ECR_KeyHandle = $(ECR_BaseKey)
+        GoTo  ECR_Return
+    EndIf
+    Set ECR_TmpPath = ""
+    Split-String $(ECR_NewPath) "\" ECR_PList
+    Debug-Output $(InfName)": ECR_PList = "$(ECR_PList)
+    ForListDo $(ECR_PList)
+        IfStr(i) $($) != "\"
+            IfInt $(#) == 1
+                Set ECR_TmpPath = $($)
+            Else
+                Set ECR_TmpPath = $(ECR_TmpPath)"\"$($)
+            EndIf
+            Debug-Output $(InfName)": Determining if "$(ECR_TmpPath)" exists"
+            OpenRegKey $(ECR_BaseKeyHandle) "" $(ECR_TmpPath) $(MAXIMUM_ALLOWED) ECR_BaseKey
+            IfStr $(ECR_BaseKey) == $(KeyNull)
+                Debug-Output $(InfName)": Creating "$(ECR_TmpPath)
+                CreateRegKey $(ECR_BaseKeyHandle)  {$(ECR_TmpPath),0,GenericClass} "" $(MAXIMUM_ALLOWED) "" ECR_KeyHandle
+                IfStr(i) $(ECR_KeyHandle) == $(KeyNull)
+                    Set ECR_Result = $($R0)
+                    GoTo ECR_Return
+                EndIf
+            EndIf
+        EndIf
+    EndForListDo
+ECR_Return = +
+    Return $(ECR_Result) $(ECR_KeyHandle)
+[InstallTCPIPIfNotInstalled]
+    Debug-Output $(InfName)"InstallTCPIPIfNotInstalled entry "
+    Debug-Output $(InfName)"!NTN_ServiceBase is "$(!NTN_ServiceBase)
+    set SrcDir   = $($0)
+    set AddCopy  = $($1)
+    set DoCopy   = $($2)
+    set DoConfig = $($3)
+    Read-Syms InvokeTCPIPDlg$(!STF_LANGUAGE)
+    set TcpIpKeyName      = $(!NTN_ServiceBase)"\TcpIp"
+    Set KeyNull        =    ""
+    Set status = STATUS_FAILED
+    Set TcpIpInstalled   = FALSE
+	Set MAXIMUM_ALLOWED = 33554432
+    set Protocol = "TCPIP"
+    set KeyService = $(KeyNull)
+    set DeleteFlag = 0
+    set DeleteFlagInfo = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(TcpIpKeyName) $(MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        GetRegValue $(KeyService),"DeleteFlag", DeleteFlagInfo
+        set DeleteFlag = *($(DeleteFlagInfo), 4)
+        ifint $(DeleteFlag) != 1
+            set TcpIpInstalled = TRUE
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    Debug-Output $(InfName)"TCP/IP Installed? "$(TcpIpInstalled)
+    Ifstr(i) $(TcpIpInstalled) == "FALSE"
+        Debug-Output $(InfName)"Installing TCP/IP"
+        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS", +
+            $(InvokeTCPSetupMsg)
+        set InvokedByRas = FALSE
+    	Debug-Output $(InfName)": resetting stf_srcdir_override flag"
+    	Set PREV_SRCDIR = $(!STF_SRCDIR_OVERRIDE)
+    	Set !STF_SRCDIR_OVERRIDE = $(SrcDir)
+        Shell "oemnxptc.inf" InstallOption $(!STF_LANGUAGE) "TC" $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) $(InvokedByRas)
+    	set !STF_SRCDIR_OVERRIDE = $(PREV_SRCDIR)
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)"SHELL ERROR! during TCP/IP installation"
+            Goto InstallTCPEscape
+        Endif
+        Set status = $($R0)
+        Ifstr(i) $(status) != STATUS_SUCCESSFUL
+            Ifstr(i) $(status) != STATUS_USERCANCEL
+                Debug-Output $(InfName)"oemnxptc.inf  returned "$(status)
+                Goto InstallTCPEscape
+            Endif
+        Endif
+    Else
+    	set status = STATUS_SUCCESSFUL
+    Endif
+InstallTCPEscape = +
+    set RetStatus = $(status)
+    return $(RetStatus)
+[AddUSRMediaGroupToServiceGroupOrder]
+    Debug-Output $(InfName)": Entering [AddUSRMediaGroupToServiceGroupOrder]"
+    Set MAXIMUM_ALLOWED     = 33554432
+    Set KeyNull             = ""
+    Read-Syms SMANFileConstants
+    set GroupOrderName = "SYSTEM\CurrentControlSet\Control\ServiceGroupOrder"
+    OpenRegKey $(!REG_H_LOCAL) "" $(GroupOrderName) $(MAXIMUM_ALLOWED) KeyGroup
+    set OldList = {}
+    Ifstr(i) $(KeyGroup) != $(KeyNull)
+        GetRegValue  $(KeyGroup) "List" TmpList
+     

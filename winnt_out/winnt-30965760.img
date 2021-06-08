@@ -1,0 +1,63 @@
+                          = DP4TYP81.PPD
+"Dataproducts Typhoon 8PM PS"                          = DPTY8PM1.PPD
+"Dataproducts Typhoon 16 PS"                           = DP4TY161.PPD
+"Dataproducts Typhoon 20 PS"                           = DP4TY201.PPD
+"Dataproducts Typhoon 30 PS"                           = T30V4.PPD
+"Dataproducts Typhoon 40 PS"                           = T40V4.PPD
+"Dataproducts Typhoon 60 PS"                           = T60V4.PPD
+
+[Diconix]
+"Diconix 150 Plus"                                     = DICONIX.DLL
+
+[Digital]
+"Digital Colormate PS v51.9"                           = DECCOLOR.PPD
+"Digital DECcolorwriter 120ic"                         = JP350.DLL
+"Digital DECcolorwriter 520ic"                         = JP350.DLL
+"Digital DECcolorwriter 1000 17"                       = DCLF02_1.PPD
+"Digital DECcolorwriter 1000 39"                       = DCLF02F1.PPD
+"Digital DEClaser 1100 (LJ)"                           = HPPCL.DLL
+"Digital DEClaser 1100"                                = DEC3200.DLL
+"Digital DEClaser 1150 v51.4"                          = DCD11501.PPD
+"Digital DEClaser 1152  17 fonts"                      = DC1152_1.PPD
+"Digital DEClaser 1152  43 fonts"                      = DC1152F1.PPD
+"Digital DEClaser 1800 (PCL)"                          = PCL5MS.DLL
+"Digital DEClaser 2100"                                = DEC3200.DLL
+"Digital DEClaser 2100plus (LJ)"                       = HPPCL.DLL
+"Digital DEClaser 2150 plus v51.4"                     = DC2150P1.PPD
+"Digital DEClaser 2150 v51.4"                          = DCD21501.PPD
+"Digital DEClaser 2200"                                = DEC3200.DLL
+"Digital DEClaser 2200plus (LJ)"                       = HPPCL.DLL
+"Digital DEClaser 2250 plus v51.4"                     = DC2250P1.PPD
+"Digital DEClaser 2250 v51.4"                          = DCD22501.PPD
+"Digital DEClaser 3200 (LJ)"                           = HPPCL.DLL
+"Digital DEClaser 3200"                                = DEC3200.DLL
+"Digital DEClaser 3250 v47"                            = DEC3250.PPD
+"Digital DEClaser 3500"                                = DC3500_1.PPD
+"Digital DEClaser 3500 (PCL)"                          = PCL5MS.DLL
+"Digital DEClaser 5100"                                = DC5100N1.PPD
+"Digital DEClaser 5100 (PCL)"                          = PCL5EMS.DLL
+"Digital DECmultiJET 1000"                             = JP350.DLL
+"Digital DECmultiJET 1500"                             = JP350.DLL
+"Digital DECmultiJET 2000"                             = JP350.DLL
+"Digital DECwriter 65"                                 = ESCP2MS.DLL
+"Digital DECwriter 95"                                 = ESCP2MS.DLL
+"Digital DECwriter 100i"                               = JP350.DLL
+"Digital DECwriter 110i"                               = JP350.DLL
+"Digital DECwriter 195"                                = ESCP2MS.DLL
+"Digital DECwriter 500i"                               = JP350.DLL
+"Digital LA70"                                         = DEC9PIN.DLL
+"Digital LA75 Plus"                                    = DEC24PIN.DLL
+"Digital LA75"                                         = DEC9PIN.DLL
+"Digital LA310"                                        = DEC9PIN.DLL
+"Digital LA324"                                        = DEC24PIN.DLL
+"Digital LA424"                                        = DEC24PIN.DLL
+"Digital LN03R ScriptPrinter"                          = DCLN03R1.PPD
+"Digital PrintServer 17/600"                           = DCPS1761.PPD
+"Digital PrintServer 17 12mb/L2"                       = DCPS1721.PPD
+"Digital PrintServer 17 v48.3"                         = DCLPS171.PPD
+"Digital PrintServer 20 v48.3"                         = DCLPS201.PPD
+"Digital PrintServer 32 Kanji v48.3"                   = DCKPS321.PPD
+"Digital PrintServer 32 v48.3"                         = DCLPS321.PPD
+"Digital PrintServer 40 Plus Kanji v48.3"              = DCKPS401.PPD
+"Digital PrintServer 40 Plus v48.3"                    = DCLPS401.PPD
+"Digital turbo PrintServer 20"             

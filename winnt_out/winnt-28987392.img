@@ -1,0 +1,85 @@
+f
+    EndIf
+    EndWait
+    GoTo RASSetup2
+RASSetup2 =+
+    Set AddCopy  = NO
+    Set DoCopy   = NO
+    Set DoConfig = NO
+    Set SaveNTN_InstallMode = $(!NTN_InstallMode)
+    Set !NTN_InstallMode = configure
+    Shell "oemnsvra.inf" InstallOption $(!STF_LANGUAGE) "RAS" $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig)
+    Set !NTN_InstallMode = $(SaveNTN_InstallMode)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": Error Shelling the RAS INF file oemnsvra.inf"
+        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS",  +
+                $(InvokeRasError)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            GoTo ShellCodeError
+        EndIf
+        GoTo end
+    EndIf
+    GoTo end
+UpgradeSoftware = +
+        Debug-Output $(InfName)": comes into 1st part of upgrade"
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+        IfStr $(KeyProduct) != $(KeyNull)
+            GetRegValue $(KeyProduct),"MajorVersion", VersionInfo
+            Set Version = *($(VersionInfo), 4)
+            Shell $(UtilityInf), GetInfFileNameFromRegistry, $(KeyProduct)
+            IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output $(InfName)": ShellCode error"
+                GoTo ShellCodeError
+            EndIf
+            Set !UG_Filename = $($R0)
+            IfStr(i) $(!UG_Filename) != ""
+                Debug-Output $(InfName)": starts to install"
+                install "Install-Update"
+                IfStr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                    GoTo FatalError
+                EndIf
+                LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $(!PPTPFProductName) +
+                                         $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), +
+                                         "", "TDI", "", "", "", ""
+            EndIf
+            SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)}
+            SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)}
+            IfInt $(Version) != $(ProductVersion)
+            EndIf
+            CloseRegKey $(KeyProduct)
+        Else
+            GoTo FatalRegistry
+        EndIf
+        Debug-Output $(InfName)": comes into PPTPE part of upgrade"
+        OpenRegKey $(!REG_H_LOCAL) "" $(PPTPProductKeyName) $(MAXIMUM_ALLOWED) PPTPKeyProduct
+        IfStr $(PPTPKeyProduct) != $(KeyNull)
+            SetRegValue $(PPTPKeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(PPTPProductMajorVersion)}
+            SetRegValue $(PPTPKeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(PPTPProductMinorVersion)}
+            CloseRegKey $(PPTPKeyProduct)
+        Else
+            GoTo FatalRegistry
+        EndIf
+        Debug-Output $(InfName)": comes into PPTP part of upgrade"
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductRASPPTPKeyName) $(MAXIMUM_ALLOWED) PPTPKeyProduct
+        IfStr $(PPTPKeyProduct) != $(KeyNull)
+            SetRegValue $(PPTPKeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(PPTPProductMajorVersion)}
+            SetRegValue $(PPTPKeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(PPTPProductMinorVersion)}
+            SetRegValue $(PPTPKeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductRASPPTPDescription)}
+            SetRegValue $(PPTPKeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+            CloseRegKey $(PPTPKeyProduct)
+        Else
+            GoTo FatalRegistry
+        EndIf
+    GoTo end
+SuccessfulOption = +
+    GoTo end
+Abandon = +
+    ForListDo $(OEM_ABANDON_OPTIONS)
+        Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), $($)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error"
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR

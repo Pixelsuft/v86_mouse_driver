@@ -1,0 +1,118 @@
+er to display the active code page number.
+[Displays the name of or changes the current directory.
+
+CHDIR [drive:][path]
+CHDIR[..]
+bCD [drive:][path]
+CD[..]
+
+  ..   Specifies that you want to change to the parent directory.
+
+‘Type CD drive: to display the current directory in the specified drive.
+Type CD without parameters to display the current drive and directory.
+Clears the screen.
+
+CLS
+‘Copies one or more files to another location.
+
+COPY [/A | /B] source [/A | /B] [+ source [/A | /B] [+ ...]] [destination
+  [/A | /B]] [/V]
+
+h  source       Specifies the file or files to be copied.
+  /A           Indicates an ASCII text file.
+v  /B           Indicates a binary file.
+  destination  Specifies the directory and/or filename for the new file(s).
+A  /V           Verifies that new files are written correctly.
+
+‡To append files, specify a single file for destination, but multiple files
+for source (using wildcards or file1+file2+file3 format).
+ŠChanges the terminal device used to control your system.
+
+CTTY device
+
+  device   The terminal device you want to use, such as COM1.
+-Displays or sets the date.
+
+DATE [date]
+
+ƒType DATE without parameters to display the current date setting and
+a prompt for a new one.  Press ENTER to keep the same date.
+dDeletes one or more files.
+
+DEL [drive:][path]filename [/P]
+ERASE [drive:][path]filename [/P]
+
+ƒ  [drive:][path]filename  Specifies the file(s) to delete.  Specify multiple
+                          files by using wildcards.
+O  /P                      Prompts for confirmation before deleting each file.
+¢Displays a list of files and subdirectories in a directory.
+
+DIR [drive:][path][filename] [/P] [/W] [/A[[:]attributes]]
+  [/O[[:]sortorder]] [/S] [/B] [/L]
+
+]  [drive:][path][filename]
+              Specifies drive, directory, and/or files to list.
+a  /P          Pauses after each screenful of information.
+  /W          Uses wide list format.
+z  /A          Displays files with specified attributes.
+  attributes   D  Directories                R  Read-only files
+¿               H  Hidden files               A  Files ready for archiving
+               S  System files               -  Prefix meaning "not"
+  /O          List by files in sorted order.
+›  sortorder    N  By name (alphabetic)       S  By size (smallest first)
+               E  By extension (alphabetic)  D  By date & time (earliest first)
+–               G  Group directories first    -  Prefix to reverse order
+  /S          Displays files in specified directory and all subdirectories.
+f  /B          Uses bare format (no heading information or summary).
+  /L          Uses lowercase.
+
+’Switches may be preset in the DIRCMD environment variable.  Override
+preset switches by prefixing any switch with - (hyphen)--for example, /-W.
+>Quits the COMMAND.COM program (command interpreter).
+
+EXIT
+=Creates a directory.
+
+MKDIR [drive:]path
+MD [drive:]path
+]Displays or sets a search path for executable files.
+
+PATH [[drive:]path[;...]]
+PATH ;
+
+kType PATH ; to clear all search-path settings and direct MS-DOS to search
+only in the current directory.
+;Type PATH without parameters to display the current path.
+7Changes the MS-DOS command prompt.
+
+PROMPT [text]
+
+|  text    Specifies a new command prompt.
+
+Prompt can be made up of normal characters and the following special codes:
+
+/  $Q   = (equal sign)
+  $$   $ (dollar sign)
+*  $T   Current time
+  $D   Current date
+=  $P   Current drive and path
+  $V   MS-DOS version number
+4  $N   Current drive
+  $G   > (greater-than sign)
+,  $L   < (less-than sign)
+  $B   | (pipe)
+y  $H   Backspace (erases previous character)
+  $E   Escape code (ASCII code 27)
+  $_   Carriage return and linefeed
+
+LType PROMPT without parameters to reset the prompt to the default setting.
+GRemoves (deletes) a directory.
+
+RMDIR [drive:]path
+RD [drive:]path
+Renames a file or files.
+
+SRENAME [drive:][path]filename1 filename2
+REN [drive:][path]filename1 filename2
+
+MNote that you cannot specify a new drive or path for y

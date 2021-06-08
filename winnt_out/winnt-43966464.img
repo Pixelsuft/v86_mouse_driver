@@ -1,0 +1,51 @@
+, Responses, "<cr><lf>CONNECT 14400/ARQ/MNP5<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ/V42b<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>", 1, 02, 00, a0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ/MNP4<cr><lf>", 1, 02, 02, a0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ/V42 <cr><lf>", 1, 02, 02, a0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, a0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ/MNP5<cr><lf>", 1, 02, 03, a0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ/V42b<cr><lf>", 1, 02, 03, a0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, a0,41,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>", 1, 02, 00, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ/MNP4<cr><lf>", 1, 02, 02, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ/V42 <cr><lf>", 1, 02, 02, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ/V42 /SREJ<cr><lf>", 1, 02, 02, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ/MNP5<cr><lf>", 1, 02, 03, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ/V42b<cr><lf>", 1, 02, 03, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ/V42b/SREJ<cr><lf>", 1, 02, 03, 00,4b,00,00, 00,00,00,00
+;
+;
+;               CONNECT Responses if S57.5=1
+;
+;
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22  /MNP4<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22  /V42 <cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22  /V42 /SREJ<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22  /MNP5<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22  /V42b<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22  /V42b/SREJ<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22b /MNP4<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22b /V42 <cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22b /V42 /SREJ<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22b /MNP5<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22b /V42b<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V22b /V42b/SREJ<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V22b /MNP4<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V22b /V42 <cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V22b /V42 /SREJ<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V22b /MNP5<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V22b /V42b<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ/V22b /V42b/SREJ<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+;
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V32  /MNP4<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V32  /V42 <cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V32  /V42 /SREJ<cr><lf>", 1, 02, 02, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V32  /MNP5<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V32  /V42b<cr><lf>", 1, 02, 03, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ/V32  /V42b/SREJ<cr><lf>", 1

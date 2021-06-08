@@ -1,0 +1,90 @@
+oseRegKey $(RW_KeyServices)
+    Endif
+    Return $(RegistryErrorIndex)
+[BindingInfo-DEC]
+BindingInfo     = {+
+                  "lanceDriver dec100Adapter non exclusive 100",+
+                  "lanceDriver dec101Adapter non exclusive 100",+
+                  "lanceDriver decetherworksturboAdapter non exclusive 100",+
+                  "lanceDriver dec422Adapter non exclusive 100",+
+                  "lanceDriver decpcAdapter non exclusive 100",+
+                  "lanceDriver decstatAdapter non exclusive 100"+
+                  }
+[BindingInfo-WD]
+BindingInfo     = {+
+                          "smc8000nDriver smcisaAdapter non exclusive 100",+
+                          "smc8000nDriver wd8003eaAdapter non exclusive 100",+
+                          "smc8000nDriver wd8003waAdapter non exclusive 100",+
+                          "smc8000nDriver wd8013epaAdapter non exclusive 100",+
+                          "smc8000nDriver wd8013wpaAdapter non exclusive 100"+
+                          }
+[BindingInfo-PROTEON]
+BindingInfo     = {+
+                           "proteonDriver p1990Adapter non exclusive 100",+
+                           "proteonDriver p1390Adapter non exclusive 100"+
+                          }
+[BindingInfo-PRONET16]
+BindingInfo     = {+
+                           "pronet16Driver p199XAdapter non exclusive 100",+
+                           "pronet16Driver p139XAdapter non exclusive 100"+
+                          }
+[BindingInfo-IBMTOK2E]
+BindingInfo     = {+
+                           "ibmtok2eDriver ibmtok2eAdapter non exclusive 100"+
+                          }
+[BindingInfo-IBM]
+BindingInfo     = {"ibmtokDriver ibmtokAdapter non exclusive 100",+
+                   "ibmtokDriver ibmtokmcAdapter non exclusive 100"}
+[GetBindingInfo]
+    set BindingInfo = {}
+    read-syms BindingInfo-$($0)
+    return "NO_ERROR", $(BindingInfo)
+[AddStreams]
+    read-syms InitBaseVars
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName)"\streams" $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) == $(KeyNull)
+        set OldOption = $(!NTN_InfOption)
+        set !NTN_InfOption = STREAMS
+        Shell "oemnxpst.inf" InstallOption $(!STF_LANGUAGE) "STREAMS" $(!STF_SRCDIR) $(!NtLmAddCopy) $(!NtLmDoCopy) $(!NtLmDoConfig)
+        set !NTN_InfOption = $(OldOption)
+    else
+        CloseRegKey $(BS_KeyServices)
+        Debug-Output "UTILITY.INF: streams already installed"
+    endif
+    Shell "", IncrementRefCount, "Software\Microsoft\streams\CurrentVersion"
+AddStreamsReturn = +
+    return NO_ERROR
+[RemoveStreams]
+    read-syms InitBaseVars
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName)"\streams" $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) != $(KeyNull)
+        CloseRegKey $(BS_KeyServices)
+        Shell "", DecrementRefCount, "Software\Microsoft\streams\CurrentVersion"
+        Shell "", IsRefCountEqualZero, "Software\Microsoft\streams\CurrentVersion"
+        Ifstr(i) $($R0) != NO_ERROR
+            Debug-Output "UTILITY.INF: [RemoveSoftwareComponent] IsRefCountEqualZero returned "$($R0)
+            goto RemoveStreamsReturn
+        endif
+        Ifint $($R1) != 1
+            goto RemoveStreamsReturn
+        endif
+        set OldOption = $(!NTN_InfOption)
+        set OldInstallMode = $(!NTN_InstallMode)
+        set !NTN_InfOption = STREAMS
+        set !NTN_InstallMode = deinstall
+        Shell "oemnxpst.inf" InstallOption $(!STF_LANGUAGE) "STREAMS" $(!STF_SRCDIR) $(!NtLmAddCopy) $(!NtLmDoCopy) $(!NtLmDoConfig)
+        set !NTN_InfOption = $(OldOption)
+        set !NTN_InstallMode = $(OldInstallMode)
+    endif
+RemoveStreamsReturn = +
+    return NO_ERROR
+[AddAFD]
+    read-syms InitBaseVars
+    read-syms AFDVars
+    Set Result = NO_ERROR
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName)"\AFD" $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) == $(KeyNull)
+        Shell "", CreateService, $(ProductAFDName),+
+            $(ProductAFDTitle),+
+            $(ProductAFDImagePath),+
+            $(ProductAFDSvcType),

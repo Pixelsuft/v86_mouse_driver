@@ -1,0 +1,91 @@
+ceKey)
+        CloseRegKey $(SoftParameterKey)
+        CloseRegKey $(SoftLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+    endif
+    ifstr(i) $(DoNETLOGON) == TRUE
+        Debug-Output "OEMNSVWK.INF: Install NETLOGON registry."
+        Debug-Output "OEMNSVWK.INF: Product type is "$(!STF_PRODUCT)
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductNETLOGONName))
+        ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+            Set NL_DependList = {"LanmanWorkstation", "LanmanServer"}
+        else
+            Set NL_DependList = {"LanmanWorkstation"}
+        endif
+        Shell $(UtilityInf), CreateService, $(ProductNETLOGONName), +
+            $(ProductNETLOGONDisplayName), $(ProductNETLOGONImagePath), +
+            "autoserviceshare", "RemoteValidation", $(NL_DependList), +
+            "", $(NetMsgDLL), "", "", 1, "", $(Kernel32DLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add software components"
+            CloseRegKey $($R2)
+            goto fatalregistry
+        endif
+        set NL_ParmKey = $($R2)
+        set NewValueList = {{Update,$(NoTitle),$(!REG_VT_SZ),"no"},+
+                           {Scripts,$(NoTitle),$(!REG_VT_EXPAND_SZ),"%SystemRoot%\system32\repl\import\scripts"},+
+                           {DBFlag,$(NoTitle),$(!REG_VT_SZ),0}}
+        Shell  $(UtilityInf), AddValueList, $(NL_ParmKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(NL_ParmKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: registry error: add value list."
+            goto fatalregistry
+        endif
+    endif
+    ifstr(i) $(DoALERTER) == TRUE
+        Debug-Output "OEMNSVWK.INF: Install Alerter registry"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductALERTERName))
+        ifstr(i) $(!STF_PRODUCT) == "WINNT"
+            set StartType = "serviceshare"
+        else
+            set StartType = "autoserviceshare"
+        endif
+        Shell $(UtilityInf), CreateService, $(ProductALERTERName), +
+            $(ProductALERTERDisplayName), $(ProductALERTERImagePath), +
+            $(StartType), "", +
+            {"LanmanWorkstation"}, "", $(NetMsgDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R3)
+        set ParametersKey = $($R2)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVWK.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+            LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), SECUREKEY, $(ParametersKey), 1
+        endif
+        set NewValueList = {{AlertNames,$(NoTitle),$(!REG_VT_MULTI_SZ),{}}}
+        Shell  $(UtilityInf), AddValueList, $(ParametersKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        CloseRegKey $(ParametersKey)
+    endif
+    ifstr(i) $(DoBROWSER) == TRUE
+        Debug-Output "OEMNSVWK.INF: Install Browser registry"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductBROWSER

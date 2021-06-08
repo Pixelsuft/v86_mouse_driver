@@ -1,0 +1,119 @@
+'False
+      End
+   End
+   Begin VB.Menu mnuAnnotation 
+      Caption         =   "&Annotation"
+      Enabled         =   0   'False
+      Begin VB.Menu mnuHideAnnotation 
+         Caption         =   "&Hide Annotation"
+      End
+      Begin VB.Menu mnuBurnIn 
+         Caption         =   "B&urn in Annotation"
+      End
+      Begin VB.Menu mnuSep15 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuNoTool 
+         Caption         =   "&No Tool"
+      End
+      Begin VB.Menu mnuSelectPointer 
+         Caption         =   "Selection &Pointer"
+      End
+      Begin VB.Menu mnuFreeHand 
+         Caption         =   "&Freehand Line"
+      End
+      Begin VB.Menu mnuHiLight 
+         Caption         =   "H&ighlight Line"
+      End
+      Begin VB.Menu mnuStraightLine 
+         Caption         =   "Straight &Line"
+      End
+      Begin VB.Menu mnuHollowRect 
+         Caption         =   "Hollow &Rectangle"
+      End
+      Begin VB.Menu mnuFillRect 
+         Caption         =   "Filled Rectan&gle"
+      End
+      Begin VB.Menu mnuTypedText 
+         Caption         =   "Typed Text"
+      End
+      Begin VB.Menu mnuAttachNote 
+         Caption         =   "Atta&ch-a-note"
+      End
+      Begin VB.Menu mnuTextFromFile 
+         Caption         =   "Te&xt from File"
+      End
+      Begin VB.Menu mnuStamp 
+         Caption         =   "Ru&bber Stamps"
+      End
+      Begin VB.Menu mnuSep16 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuShowTools 
+         Caption         =   "Show Toolbox"
+      End
+   End
+   Begin VB.Menu mnuHelp 
+      Caption         =   "&Help"
+      Enabled         =   0   'False
+      Begin VB.Menu mnuAbout 
+         Caption         =   "&About..."
+         Enabled         =   0   'False
+      End
+   End
+End
+Attribute VB_Name = "frmSample"
+Attribute VB_Creatable = False
+Attribute VB_Exposed = False
+' ------------------------------------------------------------------------
+'               Copyright (C) 1995 Wang
+'
+' You have a royalty-free right to use, modify, reproduce and distribute
+' the Sample Application Files (and/or any modified version) in any way
+' you find useful, provided that you agree that Wang has no warranty,
+' obligations or liability for any Sample Application Files.
+'
+' This application is intended as an example of how to use the Wang
+' Imaging OLE Controls.  As such, we have kept refinements such as
+' disabling and enabling menu items, elaborate error handling, etc. to
+' a minimum so as not to obscure the code that actually deals with the
+' Wang Imaging OLE controls.  There are items on the menus that have
+' not been implemented.  These items, in general, would involve creating
+' dialog boxes and other UI that are best left to the user.  Once the user
+' has an understanding of how to use the Wang Imaging Controls, these
+' items should be fairly simple to implement.
+' ------------------------------------------------------------------------
+
+Dim Selection As Boolean 'Selection = True, selection rect drawn.
+Dim Annot8Visible As Boolean 'Annot8Visible = True, annotation toolbox is
+                            'visible
+Dim CurrentPage As Integer 'CurPage = currently displayed image page
+Dim LastPage As Integer 'LastPage = last page viewed before current page
+Dim TotalPages As Integer 'TotalPages = image document page count
+Dim numbits As Integer 'number of bits per pixel supported by this device
+
+'Const defines
+Const NoTool = 0
+Const AnnoSelection = 1
+Const AnnoFreehand = 2
+Const AnnoHiLight = 3
+Const AnnoStraightLine = 4
+Const AnnoHollowRect = 5
+Const AnnoFilledRect = 6
+Const AnnoText = 7
+Const AnnoAttachNote = 8
+Const AnnoTextFromFile = 9
+Const AnnoRubberStamp = 10
+Const BestFit = 0
+Const FitWidth = 1
+Const FitHeight = 2
+Const InchToInch = 3
+Const ErrCancel = 32755
+Const ZoomMax = 6554
+Const ZoomMin = 2
+Const TiffImage = 1
+Const AwdImage = 2
+Const BmpImage = 3
+Const ImageChanged = "Image has changed.  Do you want to save changes?"
+
+'Win API to 

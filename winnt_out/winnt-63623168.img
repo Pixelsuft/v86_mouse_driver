@@ -1,0 +1,116 @@
+oto Set_Failed
+Set_Failed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+	set OEM_ABANDON_ON = FALSE
+	goto Abandon
+    endif
+    goto End
+End = +
+    goto Term
+Term = +
+    Return $(CommonStatus)
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-Helper $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-Driver $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   exit
+[Install-Option]
+    set STF_VITAL        = ""
+    AddSectionFilesToCopyList Files-Helper $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    AddSectionFilesToCopyList Files-Driver $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+    ifstr(i) $(DoCopy) == "YES"
+        set !STF_NCPA_FLUSH_COPYLIST = TRUE
+        CopyFilesInCopyList
+    else
+        LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\mdgmpdlg.DLL $(!STF_WINDOWSSYSPATH)\mdgmpdlg.DLL
+        LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\mdgmpdlg.HLP $(!STF_WINDOWSSYSPATH)\mdgmpdlg.HLP
+    Endif
+    exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-Driver]
+1,MDGMPORT.BIN , SIZE=57142
+1,MDGMPORT.SYS , SIZE=47632
+[Files-Helper]
+1,MDGMPDLG.DLL , SIZE=15632
+1,MDGMPDLG.HLP , SIZE=18350
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    MSMDGMPISA   = "Madge Smart 16/4 AT Ringnode"
+    MSMDGMPATP   = "Madge Smart 16/4 AT Plus Ringnode"
+    MSMDGMPISAC  = "Madge Smart 16/4 ISA Client Ringnode"
+    MSMDGMPISACP = "Madge Smart 16/4 ISA Client Plus Ringnode"
+    MSMDGMPPC    = "Madge Smart 16/4 PC Ringnode"
+    MSMDGMPSM16  = "Madge Smart 16 Ringnode"
+    MSMDGMPPNP   = "Madge Smart 16/4 ISA Client PnP Ringnode"
+    MSMDGMPMCA   = "Madge Smart 16/4 MC Ringnode"
+    MSMDGMPMC32  = "Madge Smart 16/4 MC32 Ringnode"
+    MSMDGMPEISA  = "Madge Smart 16/4 EISA Ringnode"
+    MSMDGMPPCI   = "Madge Smart 16/4 PCI Ringnode and BM2"
+    MSMDGMPPCIBM = "Madge Smart 16/4 PCI Ringnode BM"
+    MSMDGMPPCMCIA = "Madge Smart 16/4 PCMCIA Ringnode"
+[OptionsTextISAENG]
+    MSMDGMPISA   = "Madge Smart 16/4 AT Ringnode"
+    MSMDGMPATP   = "Madge Smart 16/4 AT Plus Ringnode"
+    MSMDGMPISAC  = "Madge Smart 16/4 ISA Client Ringnode"
+    MSMDGMPISACP = "Madge Smart 16/4 ISA Client Plus Ringnode"
+    MSMDGMPPC    = "Madge Smart 16/4 PC Ringnode"
+    MSMDGMPSM16  = "Madge Smart 16 Ringnode"
+    MSMDGMPPNP   = "Madge Smart 16/4 ISA Client PnP Ringnode"
+[OptionsTextMCAENG]
+    MSMDGMPMCA   = "Madge Smart 16/4 MC Ringnode"
+    MSMDGMPMC32  = "Madge Smart 16/4 MC32 Ringnode"
+[OptionsTextEISAENG]
+    MSMDGMPEISA  = "Madge Smart 16/4 EISA Ringnode"
+    MSMDGMPISA   = "Madge Smart 16/4 AT Ringnode"
+    MSMDGMPATP   = "Madge Smart 16/4 AT Plus Ringnode"
+    MSMDGMPISAC  = "Madge Smart 16/4 ISA Client Ringnode"
+    MSMDGMPISACP = "Madge Smart 16/4 ISA Client Plus Ringnode"
+    MSMDGMPPC    = "Madge Smart 16/4 PC Ringnode"
+    MSMDGMPSM16  = "Madge Smart 16 Ringnode"
+    MSMDGMPPNP   = "Madge Smart 16/4 ISA Client PnP Ringnode"
+[OptionsTextPCIENG]
+    MSMDGMPPCI   = "Madge Smart 16/4 PCI Ringnode and BM2"
+    MSMDGMPPCIBM = "Madge Smart 16/4 PCI Ringnode BM"
+[OptionsTextPCMCIAENG]
+    MSMDGMPPCMCIA = "Madge Smart 16/4 PCMCIA Ringnode"
+[IoLocationChoices]
+    "0x0300",768
+    "0x0a20",2592
+    "0x1a20",6688
+    "0x2a20",10784
+    "0x3a20",14880
+    "0x4a20",18976
+    "0x4e20",20000
+    "0x5a20",23072
+    "0x5e20",24096
+    "0x6a20",27168
+    "0x6e20",28192
+    "0x7a20",31264
+    "0x7e20",32288
+    "0x0140",320
+    "0x0920",2336
+    "0x0940",2368
+    "0x0960",2400
+    "0x0980",2432
+    "0x0a40",2624
+    "0x0a60",2656
+    "0x0a80",2688
+    "0x0aa0",2720
+    "0x0b20",2848
+    "0x0b40",2880
+    "0x0b60",2912
+    "0

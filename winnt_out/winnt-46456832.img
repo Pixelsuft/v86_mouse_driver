@@ -1,0 +1,98 @@
+on Modem/400e combo
+%Modem27% = Modem2,   INTEL_Modem27, UNIMODEMEB77762B ; SatisFAXtion Modem/200
+%Modem27% = Modem2,   INTEL_Modem27, UNIMODEM9729BF96 ; SatisFAXtion Modem/200
+%Modem28% = Modem2,   UNIMODEMEB77762B                ; Intel and Puredata SatisFAXtion Modem/200 combo
+%Modem28% = Modem2,   UNIMODEM9729BF96                ; Intel and Puredata SatisFAXtion Modem/200 combo
+%Modem29% = Modem1,   INTEL_Modem29, UNIMODEM1308F3EC ; SatisFAXtion Modem/400
+
+; Installation sections
+
+[Modem20]        ; Intel 300 and Viva 14.4 combo
+AddReg=All, MfgAddReg, Modem20.AddReg, EXTERNAL
+
+[Modem19]       ; SatisFAXtion Modem/400e
+AddReg=All, MfgAddReg, Modem19.AddReg, EXTERNAL
+
+[Modem18]       ; Intel Faxmodem 144/144i v2.28
+AddReg=All, MfgAddReg, Modem7.AddReg, INTERNAL
+
+[Modem14]       ; Intel Faxmodem 24/96i
+AddReg=All, MfgAddReg, Modem14.AddReg, INTERNAL
+
+[Modem13]       ; Intel Faxmodem 24v/96i
+AddReg=All, MfgAddReg, Modem13.AddReg, INTERNAL
+
+[Modem12]       ; Intel Faxmodem 24v/96e
+AddReg=All, MfgAddReg, Modem12.AddReg, EXTERNAL
+
+[Modem11]       ; Intel 2400e V.42bis Modem
+AddReg=All, MfgAddReg, Modem11.AddReg, EXTERNAL
+
+[Modem10]       ; Intel Faxmodem 96/96i
+AddReg=All, MfgAddReg, Modem9.AddReg, INTERNAL
+
+[Modem9]        ; Intel Faxmodem 96/96e
+AddReg=All, MfgAddReg, Modem9.AddReg, EXTERNAL
+
+[Modem7]        ; Intel Faxmodem 144/144e v1.43, v1.70
+AddReg=All, MfgAddReg, Modem7.AddReg, EXTERNAL
+
+[Modem6]        ; 9600EX
+AddReg=All, MfgAddReg, Modem6.AddReg, EXTERNAL
+
+[Modem5]        ; 14.4EX
+AddReg=All, MfgAddReg, Modem5.AddReg, EXTERNAL
+
+[Modem4]        ; SatisFAXtion Modem/300
+AddReg=All, MfgAddReg, Modem4.AddReg, INTERNAL
+
+[Modem3]        ; SatisFAXtion Classic
+AddReg=All, MfgAddReg, Modem3.AddReg, INTERNAL
+
+[Modem2]        ; SatisFAXtion Modem/200
+AddReg=All, MfgAddReg, Modem2.AddReg, INTERNAL
+
+[Modem1]        ; SatisFAXtion Modem/400
+AddReg=All, MfgAddReg, Modem1.AddReg, INTERNAL
+
+; AddReg sections
+
+[Modem20.AddReg]        ; Intel 300 and Viva 14.4 combo
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem19.AddReg]        ; SatisFAXtion Modem/400e
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem14.AddReg]        ; Intel Faxmodem 24/96i
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 50,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem13.AddReg]        ; Intel Faxmodem 24v/96i
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR, Settings, ErrorControl_On,,"\N7"         
+HKR, Settings, Compression_On,, "\N7%%C1"        
+
+[Modem12.AddReg]        ; Intel Faxmodem 24v/96e
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR, Settings, ErrorControl_On,, "\N7"      
+HKR, Settings, ErrorControl_Forced,, "\N4"     
+HKR, Settings, Compression_On,, "%%C1"      
+HKR, Settings, Compression_Off,, "%%C0"        
+
+[Modem11.AddReg]        ; Intel 2400e V.42bis Modem
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, ErrorControl_On,,"\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C1"        
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem9.AddReg]         ; Intel Faxmodem 96/96e or i
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 59,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 80,25,00,00
+HKR, Init, 2,, "AT &F E0 V1 \V2<cr>"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+
+[Modem7.AddReg]         ; Intel Faxmodem 144/144e or i
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 59,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Forced,, "\N2"
+
+[Modem6.AddReg]         ; 9600EX
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,0

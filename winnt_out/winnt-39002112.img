@@ -1,0 +1,161 @@
+ CurrTopline + CurrRow - 1
+        MaxRecord = MaxRecord - 1
+        a = CurrRecord
+        WHILE a <= MaxRecord
+            GET #1, a + 2
+            PUT #1, a + 1
+            Balance#(a) = Balance#(a + 1) - CurrFig#(4) + CurrFig#(5)
+            a = a + 1
+        WEND
+        
+        LSET valid$ = "THISISVALID"
+        LSET IoMaxRecord$ = Cvit$(MaxRecord)
+        PUT #1, 1
+        GOSUB EditTransPrintWholeScreen
+        CurrRecord = CurrTopline + CurrRow - 1
+        IF CurrRecord > MaxRecord THEN
+            GOSUB EditTransMoveUp
+        END IF
+        GOSUB EditTransGetLine
+        GOSUB EditTransWriteBalance
+    END IF
+    RETURN
+
+EditTransAddRecord:
+    CurrRecord = CurrTopline + CurrRow - 1
+    a = MaxRecord
+    WHILE a > CurrRecord
+        GET #1, a + 1
+        PUT #1, a + 2
+        Balance#(a + 1) = Balance#(a)
+        a = a - 1
+    WEND
+    Balance#(CurrRecord + 1) = Balance#(CurrRecord)
+    MaxRecord = MaxRecord + 1
+    LSET IoDate$ = ""
+    LSET IoRef$ = ""
+    LSET IoDesc$ = ""
+    LSET IoFig1$ = MKD$(0)
+    LSET IoFig2$ = MKD$(0)
+    PUT #1, CurrRecord + 2
+
+    LSET valid$ = "THISISVALID"
+    LSET IoMaxRecord$ = Cvit$(MaxRecord)
+    PUT #1, 1
+    GOSUB EditTransPrintWholeScreen
+    GOSUB EditTransGetLine
+    RETURN
+
+EditTransPrintWholeScreen:
+    temp = CurrRow
+    FOR CurrRow = 1 TO 19
+        CurrRecord = CurrTopline + CurrRow - 1
+        IF CurrRecord <= MaxRecord THEN
+            GOSUB EditTransGetLine
+        END IF
+        GOSUB EditTransPrintLine
+    NEXT CurrRow
+    CurrRow = temp
+    RETURN
+
+EditTransWriteBalance:
+    GET #1, 1
+    LSET IoBalance$ = MKD$(Balance#(MaxRecord))
+    PUT #1, 1
+    RETURN
+
+EditTransPutLine:
+    CurrRecord = CurrTopline + CurrRow - 1
+    LSET IoDate$ = CurrString$(1)
+    LSET IoRef$ = CurrString$(2)
+    LSET IoDesc$ = CurrString$(3)
+    LSET IoFig1$ = MKD$(CurrFig#(4))
+    LSET IoFig2$ = MKD$(CurrFig#(5))
+    PUT #1, CurrRecord + 1
+    RETURN
+
+EditTransGetLine:
+    CurrRecord = CurrTopline + CurrRow - 1
+    GET #1, CurrRecord + 1
+    CurrString$(1) = IoDate$
+    CurrString$(2) = IoRef$
+    CurrString$(3) = IoDesc$
+    CurrFig#(4) = CVD(IoFig1$)
+    CurrFig#(5) = CVD(IoFig2$)
+    RETURN
+END SUB
+
+'FancyCls:
+'  Clears screen in the right color, and draws nice dots.
+SUB FancyCls (dots, Background)
+
+    VIEW PRINT 2 TO 24
+    COLOR dots, Background
+    CLS 2
+
+    FOR a = 95 TO 1820 STEP 45
+        row = a / 80 + 1
+        col = a MOD 80 + 1
+        LOCATE row, col
+        PRINT CHR$(250);
+    NEXT a
+
+    VIEW PRINT
+
+END SUB
+
+'GetString$:
+'  Given a row and col, and an initial string, edit a string
+'  VIS is the length of the visible field of entry
+'  MAX is the maximum number of characters allowed in the string
+FUNCTION GetString$ (row, col, start$, end$, Vis, Max)
+    curr$ = Trim$(LEFT$(start$, Max))
+    IF curr$ = CHR$(8) THEN curr$ = ""
+
+    LOCATE , , 1
+
+    finished = FALSE
+    DO
+        GOSUB GetStringShowText
+        GOSUB GetStringGetKey
+
+        IF LEN(Kbd$) > 1 THEN
+            finished = TRUE
+            GetString$ = Kbd$
+        ELSE
+            SELECT CASE Kbd$
+                CASE CHR$(13), CHR$(27), CHR$(9)
+                    finished = TRUE
+                    GetString$ = Kbd$
+                
+                CASE CHR$(8)
+                    IF curr$ <> "" THEN
+                        curr$ = LEFT$(curr$, LEN(curr$) - 1)
+                    END IF
+
+                CASE " " TO "}"
+                    IF LEN(curr$) < Max THEN
+                        curr$ = curr$ + Kbd$
+                    ELSE
+                        BEEP
+                    END IF
+
+                CASE ELSE
+                    BEEP
+            END SELECT
+        END IF
+
+    LOOP UNTIL finished
+
+    end$ = curr$
+    LOCATE , , 0
+    EXIT FUNCTION
+    
+
+GetStringShowText:
+    LOCATE row, col
+    IF LEN(curr$) > Vis THEN
+        PRINT RIGHT$(curr$, Vis);
+    ELSE
+        PRINT curr$; SPACE$(Vis - LEN(curr$));
+        LOCATE row, col + LE

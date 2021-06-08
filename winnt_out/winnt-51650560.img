@@ -1,0 +1,78 @@
+3,NoItalic,NoUnderline"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Styles","SerifLargest_Address_font",2,"Times New Roman,NoBold,16,Italic,NoUnderline"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Styles","SerifLargest_BlockQuote_font",2,"Times New Roman,NoBold,16,NoItalic,NoUnderline"
+
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Document Caching","Number",3,04,00,00,00
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Image Caching","Number",3,04,00,00,00
+
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Enable_Disk_Cache",2,"yes"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","History_Directory",2,"%24%\%LONG_INET_PROGRAMS%\%HISTORY%"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","History_Num_Places",3,2C,01,00,00
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Cache_Directory",2,"%24%\%LONG_INET_PROGRAMS%\%CACHE%"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Cache_Percent_of_Disk",3,0A,00,00,00
+
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Delete_Temp_Files_On_Exit",2,"yes"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","History_Expire_Days",3,FF,FF,FF,FF
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Anchor_Visitation_Horizon",3,01,00,00,00
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Use_Async_DNS",2,"yes"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Placeholder_Width",3,1A,00,00,00
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Placeholder_Height",3,1A,00,00,00
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Default_Page_URL",2,"%WWW_MSN_COM%"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Main","Default_Search_URL",2,"%WWW_ALLINONE%"
+
+
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\PageSetup","margin_left",2,"0.750000"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\PageSetup","margin_top",2,"0.750000"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\PageSetup","margin_right",2,"0.750000"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\PageSetup","margin_bottom",2,"0.750000"
+
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\SecurityProtocols","Basic",2,"Basic_Load,secbasic.dll"
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\SecurityProtocols","MSN",2,"Ssp_Load,secsspi.dll"
+
+;
+; All of these are noclobber because when upgrading we don't want
+; to mess with any other browser that might be installed.
+; On fresh installs it's not an issue since the entries aren't there.
+;
+
+HKCR,"http",,2,"%URLHTTP%"
+HKCR,"http","EditFlags",3,02,00,00,00
+HKCR,"http","URL Protocol",2,""
+HKCR,"http\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"http\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"http\shell\open\ddeexec",,2,"""%1"",,-1,,,,,"
+HKCR,"http\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"http\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,"https",,2,"%URLHTTPS%"
+HKCR,"https","EditFlags",3,02,00,00,00
+HKCR,"https","URL Protocol",2,""
+HKCR,"https\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"https\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"https\shell\open\ddeexec",,2,"""%1"",,-1,,,,,"
+HKCR,"https\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"https\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,"ftp",,2,"%URLFTP%"
+HKCR,"ftp","EditFlags",3,02,00,00,00
+HKCR,"ftp","URL Protocol",2,""
+HKCR,"ftp\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"ftp\shell\open\command",,2,"""%24%\%LONG_INET_PROGRAMS%\IExplore.exe"" -nohome"
+HKCR,"ftp\shell\open\ddeexec",,2,"""%1"",,-1,,,,,"
+HKCR,"ftp\shell\open\ddeexec\Application",,2,"IExplore"
+HKCR,"ftp\shell\open\ddeexec\Topic",,2,"WWW_OpenURL"
+
+HKCR,"telnet",,2,"%URLTELNET%"
+HKCR,"telnet","EditFlags",3,02,00,00,00
+HKCR,"telnet","URL Protocol",2,""
+HKCR,"telnet\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"telnet\shell\open\command",,2,"rundll32.exe url.dll,TelnetProtocolHandler %l"
+
+HKCR,"rlogin",,2,"%URLRLOGIN%"
+HKCR,"rlogin","EditFlags",3,02,00,00,00
+HKCR,"rlogin","URL Protocol",2,""
+HKCR,"rlogin\DefaultIcon",,2,"%11%\url.dll,0"
+HKCR,"rlogin\shell\open\command",,2,"rundll32.exe url.dll,TelnetProtocolHandler %l"
+
+HKCR,"tn3270",,2,"%URLTN3270%"
+HKCR,"tn3270","EditFlags",3,0

@@ -1,0 +1,161 @@
+
+%Modem19% = Modem19, UNIMODEMD5359C7A
+%Modem19% = Modem19, UNIMODEM4727CE54
+%Modem19% = Modem19, UNIMODEMF1C27AA9
+%Modem19% = Modem19, UNIMODEMFCE36771
+%Modem19% = Modem19, UNIMODEM87C44D7B
+%Modem18% = Modem18, UNIMODEMAD764EBE
+%Modem17% = Modem17, UNIMODEM12759384
+%Modem16% = Modem16, UNIMODEM736F2417
+%Modem15% = Modem15, UNIMODEM846F55B0
+%Modem14% = Modem14, UNIMODEM9F47CF67
+%Modem13% = Modem13, PRACTICAL_Modem13
+%Modem12% = Modem12, PRACTICAL_Modem12
+%Modem11% = Modem11, PRACTICAL_Modem11
+%Modem10% = Modem10, UNIMODEME7A90C66
+%Modem9% = Modem9, UNIMODEMA9455F98    ; PM2400FX
+%Modem8% = Modem8, UNIMODEM3B0F2779    ; PM14400FX PKT
+%Modem7% = Modem7, PRACTICAL_Modem7
+%Modem6% = Modem6, UNIMODEM306EED8E
+%Modem5% = Modem5, PCMCIA\PRACTICAL_PERIPHERALS__INC.-PRACTICARD_144-6957
+%Modem4% = Modem4, UNIMODEM60A7A0BA
+%Modem3% = Modem3, UNIMODEMBB2D2D41
+%Modem2% = Modem2, PRACTICAL_Modem2
+%Modem1% = Modem1, UNIMODEM81751F20
+
+[Modem47]
+AddReg=All, MfgAddReg, Modem47.AddReg, EXTERNAL
+
+[Modem46]
+AddReg=All, MfgAddReg, Modem38.AddReg, INTERNAL
+
+[Modem38]
+AddReg=All, MfgAddReg, Modem38.AddReg, EXTERNAL
+
+[Modem37]
+AddReg=All, MfgAddReg, Modem37.AddReg, EXTERNAL
+
+[Modem36]
+AddReg=All, MfgAddReg, Modem36.AddReg, PCMCIA
+
+[Modem35]
+AddReg=All, MfgAddReg, Modem35.AddReg, PCMCIA
+
+[Modem33]
+AddReg=All, MfgAddReg, Modem14.AddReg, EXTERNAL
+
+[Modem31]
+AddReg=All, MfgAddReg, Modem31.AddReg, EXTERNAL
+
+[Modem30]
+AddReg=All, MfgAddReg, Modem30.AddReg, INTERNAL
+
+[Modem29]
+AddReg=All, MfgAddReg, Modem29.AddReg, EXTERNAL
+
+[Modem28]
+AddReg=All, MfgAddReg, Modem28.AddReg, INTERNAL
+
+[Modem27]
+AddReg=All, MfgAddReg, Modem27.AddReg, EXTERNAL
+
+[Modem26]
+AddReg=All, MfgAddReg, Modem26.AddReg, INTERNAL
+
+[Modem25]
+AddReg=All, MfgAddReg, Modem25.AddReg, EXTERNAL
+
+[Modem24]
+AddReg=All, MfgAddReg, Modem24.AddReg, EXTERNAL
+
+[Modem23]
+AddReg=All, MfgAddReg, Modem23.AddReg, EXTERNAL
+
+[Modem22]
+AddReg=All, MfgAddReg, Modem22.AddReg, INTERNAL
+
+[Modem21]
+AddReg=All, MfgAddReg, Modem21.AddReg, EXTERNAL
+
+[Modem20]
+AddReg=All, MfgAddReg, Modem20.AddReg, EXTERNAL
+
+[Modem19]
+AddReg=All, MfgAddReg, Modem19.AddReg, EXTERNAL
+
+[Modem18]
+AddReg=All, MfgAddReg, Modem18.AddReg, EXTERNAL
+
+[Modem17]
+AddReg=All, MfgAddReg, Modem17.AddReg, INTERNAL
+
+[Modem16]
+AddReg=All, MfgAddReg, Modem16.AddReg, INTERNAL
+
+[Modem15]
+AddReg=All, MfgAddReg, Modem15.AddReg, INTERNAL
+
+[Modem14]
+AddReg=All, MfgAddReg, Modem14.AddReg, INTERNAL
+
+[Modem13]
+AddReg=All, MfgAddReg, Modem13.AddReg, INTERNAL
+
+[Modem12]
+AddReg=All, MfgAddReg, Modem12.AddReg, EXTERNAL
+
+[Modem11]
+AddReg=All, MfgAddReg, Modem11.AddReg, INTERNAL
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, EXTERNAL
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, INTERNAL
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, EXTERNAL
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, INTERNAL
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, EXTERNAL
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, EXTERNAL
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, EXTERNAL
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, INTERNAL
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, EXTERNAL
+
+
+; AddReg sections
+
+[Modem47.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem38.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT&FE0V0&D2&C1S0=0<cr>"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem37.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT&FE0V0&D2&C1<cr>"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem36.AddReg]
+HKR,, Properties,

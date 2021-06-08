@@ -1,0 +1,137 @@
+INT text$;
+END SUB
+
+'DrawScreen:
+'  Draws playing field
+SUB DrawScreen
+
+    'initialize screen
+    VIEW PRINT
+    COLOR colorTable(1), colorTable(4)
+    CLS
+
+    'Print title & message
+    Center 1, "Nibbles!"
+    Center 11, "Initializing Playing Field..."
+    
+    'Initialize arena array
+    FOR row = 1 TO 50
+        FOR col = 1 TO 80
+            arena(row, col).realRow = INT((row + 1) / 2)
+            arena(row, col).sister = (row MOD 2) * 2 - 1
+        NEXT col
+    NEXT row
+END SUB
+
+'EraseSnake:
+'  Erases snake to facilitate moving through playing field
+SUB EraseSnake (snake() AS snaketype, snakeBod() AS snakeBody, snakeNum)
+
+    FOR c = 0 TO 9
+        FOR b = snake(snakeNum).length - c TO 0 STEP -10
+            tail = (snake(snakeNum).head + MAXSNAKELENGTH - b) MOD MAXSNAKELENGTH
+            Set snakeBod(tail, snakeNum).row, snakeBod(tail, snakeNum).col, colorTable(4)
+        NEXT b
+    NEXT c
+    
+END SUB
+
+'GetInputs:
+'  Gets player inputs
+SUB GetInputs (NumPlayers, speed, diff$, monitor$)
+
+    COLOR 7, 0
+    CLS
+
+    DO
+        LOCATE 5, 47: PRINT SPACE$(34);
+        LOCATE 5, 20
+        INPUT "How many players (1 or 2)"; num$
+    LOOP UNTIL VAL(num$) = 1 OR VAL(num$) = 2
+    NumPlayers = VAL(num$)
+
+    LOCATE 8, 21: PRINT "Skill level (1 to 100)"
+    LOCATE 9, 22: PRINT "1   = Novice"
+    LOCATE 10, 22: PRINT "90  = Expert"
+    LOCATE 11, 22: PRINT "100 = Twiddle Fingers"
+    LOCATE 12, 15: PRINT "(Computer speed may affect your skill level)"
+    DO
+        LOCATE 8, 44: PRINT SPACE$(35);
+        LOCATE 8, 43
+        INPUT gamespeed$
+    LOOP UNTIL VAL(gamespeed$) >= 1 AND VAL(gamespeed$) <= 100
+    speed = VAL(gamespeed$)
+  
+    speed = (100 - speed) * 2 + 1
+
+    DO
+        LOCATE 15, 56: PRINT SPACE$(25);
+        LOCATE 15, 15
+        INPUT "Increase game speed during play (Y or N)"; diff$
+        diff$ = UCASE$(diff$)
+    LOOP UNTIL diff$ = "Y" OR diff$ = "N"
+
+    DO
+        LOCATE 17, 46: PRINT SPACE$(34);
+        LOCATE 17, 17
+        INPUT "Monochrome or color monitor (M or C)"; monitor$
+        monitor$ = UCASE$(monitor$)
+    LOOP UNTIL monitor$ = "M" OR monitor$ = "C"
+
+    startTime# = TIMER                          ' Calculate speed of system
+    FOR i# = 1 TO 1000: NEXT i#                 ' and do some compensation
+    stopTime# = TIMER
+    speed = speed * .5 / (stopTime# - startTime#)
+
+END SUB
+
+'InitColors:
+'Initializes playing field colors
+SUB InitColors
+    
+    FOR row = 1 TO 50
+        FOR col = 1 TO 80
+            arena(row, col).acolor = colorTable(4)
+        NEXT col
+    NEXT row
+
+    CLS
+   
+    'Set (turn on) pixels for screen border
+    FOR col = 1 TO 80
+        Set 3, col, colorTable(3)
+        Set 50, col, colorTable(3)
+    NEXT col
+
+    FOR row = 4 TO 49
+        Set row, 1, colorTable(3)
+        Set row, 80, colorTable(3)
+    NEXT row
+
+END SUB
+
+'Intro:
+'  Displays game introduction
+SUB Intro
+    SCREEN 0
+    WIDTH 80, 25
+    COLOR 15, 0
+    CLS
+
+    Center 4, "Q B a s i c   N i b b l e s"
+    COLOR 7
+    Center 6, "Copyright (C) Microsoft Corporation 1990"
+    Center 8, "Nibbles is a game for one or two players.  Navigate your snakes"
+    Center 9, "around the game board trying to eat up numbers while avoiding"
+    Center 10, "running into walls or other snakes.  The more numbers you eat up,"
+    Center 11, "the more points you gain and the longer your snake becomes."
+    Center 13, " Game Controls "
+    Center 15, "  General             Player 1               Player 2    "
+    Center 16, "                        (Up)                   (Up)      "
+    Center 17, "P - Pause                " + CHR$(24) + "                      W       "
+    Center 18, "                     (Left) " + CHR$(27) + "   " + CHR$(26) + " (Right)   (Left) A   D (Right)  "
+    Center 19, "                         " + CHR$(25) + "                      S       "
+    Center 20, "                       (Down)                 (Down)     "
+    Center 24, "Press any key to continue"
+
+    PL

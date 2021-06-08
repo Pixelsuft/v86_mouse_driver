@@ -1,0 +1,112 @@
+:Base winfile.hlp
+:Title File Manager Help
+:Index File Manager Help=winfile.hlp
+1 File Manager Overview
+2 What Is File Manager?=what_is_fm
+2 Starting and Quitting File Manager=sqfm_how_fm
+2 Customizing the Toolbar=ctt_how_fm
+1 Work with Directory Windows
+2 Opening and Closing Directory Windows=ocdw_how_fm
+2 Selecting and Arranging Directory Windows and Icons=sadwi_how_fm
+2 Displaying the Directory Tree or Contents=ddtoc_how_fm
+2 Changing the Font in File Manager=cfifm_how_fm
+1 Navigate Drives and Directories
+2 Changing Disk Drives=cdd_how_fm
+2 Changing Directories=cd_how_fm
+2 Expanding and Collapsing the Directory Tree=ecdt_how_fm
+2 Showing Which Directories Expand=swde_how_fm
+2 Connecting to and Disconnecting from a Network Drive=cdnd_how_fm
+1 Work with Directory Information
+2 Displaying Information on Files=diof_how_fm
+2 Sorting the Contents of a Directory=scod_how_fm
+2 Limiting the Files to Display=lftd_how_fm
+1 Work with Files and Directories
+2 Naming a File or Directory=nfod_how_fm
+2 Selecting Files Using a Mouse=select_mouse_how_fm
+2 Selecting Files Using the Keyboard=select_keyboard_how_fm
+2 Selecting Files Using the Select Files Command=select_set_selection_how_fm
+2 Creating a Directory=cad_how_fm
+2 Moving and Copying Files and Directories Using a Mouse=mcfd_how_fm
+2 Moving and Copying Files and Directories Using Commands=mcfd_how_commands_fm
+2 Copying a File to the Clipboard=cftc_how_fm
+2 Deleting a File or Directory=dfod_how_fm
+2 Renaming a File or Directory=rfod_how_fm
+2 Searching for a File or Directory=sffod_how_fm
+2 Associating Files with an Application=afwa_how_fm
+2 Working with File Types=wwft_how_fm
+2 Starting an Application from File Manager=saffm_how_fm
+2 Printing a File from File Manager=pfffm_how_fm
+2 Turning Off Confirmation Messages=tocm_how_fm
+2 Setting File Attributes=sfa_how_fm
+1 Work with Shared Directories and Files
+2 Sharing a Directory=sad_how_fm
+2 Stopping Directory Sharing=sds_how_fm
+2 Changing Share Properties=csp_how_fm
+2 Viewing or Closing Shared Files=vcsf_how_fm
+1 Secure Directories and Files
+2 Setting Directory Permissions=sdp_how_fm
+2 Setting File Permissions=sfp_how_fm
+2 Setting Special Access Permissions=ssap_how_fm
+2 Setting Permissions Through Shared Directories=sposd_how_fm
+2 Auditing Files and Directories=afad_how_fm
+2 Adding Users and Groups to Permissions and Auditing Lists=add_users_perms_audit_lists
+2 Taking Ownership of Files or Directories=tofd_how_fm
+1 Maintain Disks
+2 Formatting a Floppy Disk=fafd_how_fm
+2 Copying a Floppy Disk=cafd_how_fm
+2 Labeling a Disk=lad_how_fm
+1 File Menu Commands
+2 Open=IDH_OPEN
+2 Move=IDH_MOVE
+2 Copy=IDH_COPY
+2 Copy To Clipboard=IDH_COPYTOCLIPBOARD
+2 Delete=IDH_DELETE
+2 Rename=IDH_RENAME
+2 Properties=IDH_ATTRIBS
+2 Compress=IDH_COMPRESS
+2 Uncompress=IDH_UNCOMPRESS
+2 Run=IDH_RUN
+2 Print=IDH_PRINT
+2 Associate=IDH_ASSOCIATE
+2 Create Directory=IDH_MAKEDIR
+2 Search=IDH_SEARCH
+2 Select Files=IDH_SELECT
+2 Exit=IDH_EXIT
+1 Disk Menu Commands
+2 Copy Disk=IDH_DISKCOPY
+2 Label Disk=IDH_LABEL
+2 Format Disk=IDH_FORMAT
+2 Connect Network Drive=IDH_CONNECT
+2 Disconnect Network Drive=IDH_DISCONNECT
+2 Share As=IDH_SHAREAS
+2 Stop Sharing=IDH_STOPSHARE
+2 Select Drive=IDH_DRIVESMORE
+1 Tree Menu Commands
+2 Expand One Level=IDH_EXPONE
+2 Expand Branch=IDH_EXPSUB
+2 Expand All=IDH_EXPALL
+2 Collapse Branch=IDH_COLLAPSE
+2 Indicate Expandable Branches=IDH_ADDPLUSES
+1 View Menu Commands
+2 Tree and Directory=IDH_BOTH
+2 Tree Only=IDH_TREEONLY
+2 Directory Only=IDH_DIRONLY
+2 Split=IDH_SPLIT
+2 Name=IDH_VNAME
+2 All File Details=IDH_VDETAILS
+2 Partial Details=IDH_VOTHER
+2 Sort by Name=IDH_BYNAME
+2 Sort by Type=IDH_BYTYPE
+2 Sort by Size=IDH_BYSIZE
+2 Sort by Date=IDH_BYDATE
+2 By File Type=IDH_VINCLUDE
+1 Options Menu Commands
+2 Confirmation=IDH_CONFIRM
+2 Font=IDH_FONT
+2 Customize Toolbar=IDH_TOOLBARCUST
+2 Toolbar=IDH_TOOLBAR
+2 Drivebar=IDH_DRIVEBAR
+2 Status Bar=IDH_STATUSBAR
+2 Open New Window on Connect=IDH_ONWOCON
+2 Minimize on Use=IDH_MINONRUN
+2 Save Settings on Exit=IDH_S

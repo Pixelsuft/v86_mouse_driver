@@ -1,0 +1,168 @@
+\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS MNP5<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+
+;----------------------------------------
+[Ven-Tel Pocket 24 V.42bis FAX]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=&Q5
+<protocol_off>=&Q0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=9600
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=TR00
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=AT V1 X4 S0=0 S2=128 S7=55 S95=44<cr>
+;COMMAND_INIT=AT<speaker><hwflowcontrol><cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><protocol><compression><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+
+;----------------------------------------
+[Ven-Tel 14400 Fax]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=&Q5
+<protocol_off>=&Q0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=TR14
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=AT V1 X4 W0 S0=0 S2=128 S7=55 S95=44<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Ven-Tel 14400 Fax Internal]
+ALIAS=Ven-Tel 14400 Fax
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=TR14
+
+;----------------------------------------
+[Ven-Tel ECV 32bis II]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=%F0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=ECV.32bis II
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=AT V1 X4 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+CONNECT=<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+
+CONNECT=\
+<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>~<h0
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> TRELLIS/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS MNP5<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+
+CONNECT=\
+<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>~<h0
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> TRELLIS/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><appen

@@ -1,0 +1,182 @@
+
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @c_852.nls,@c_1250.nls,@c_10029.nls,@c_10010.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Romania,NLS.Registry.OEMCP852
+AddReg = NLS.Setlang.0418,Font.NonCP1252.Substitutes
+
+[0000041b]
+;
+; Slovak
+;
+CopyFiles = NLS.EasternEurope
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.EasternEurope,NLS.Registry.OEMCP852
+AddReg = NLS.Setlang.041b,Font.NonCP1252.Substitutes
+
+[00000424]
+;
+; Slovenian
+;
+CopyFiles = NLS.EasternEurope
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.EasternEurope,NLS.Registry.OEMCP852
+AddReg = NLS.Setlang.0424,Font.NonCP1252.Substitutes
+
+[00000408]
+;
+; Greek
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @c_737.nls,@c_869.nls,@c_875.nls,@c_1253.nls,@c_10006.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Greek,NLS.Registry.OEMCP737
+AddReg = NLS.Setlang.0408,Font.NonCP1252.Substitutes
+
+[0000040f]
+;
+; Icelandic
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @c_037.nls,@c_500.nls,@c_850.nls,@c_861.nls,@c_865.nls,@c_1026.nls
+CopyFiles = @c_1252.nls,@c_10079.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Icelandic,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.040f
+
+[0000041f]
+;
+; Turkish
+;
+CopyFiles = @l_intl.nls
+CopyFiles = @c_850.nls,@c_852.nls,@c_857.nls,@c_1026.nls
+CopyFiles = @c_1254.nls,@c_10081.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Turkish,NLS.Registry.OEMCP857
+AddReg = NLS.Setlang.041f,Font.NonCP1252.Substitutes
+
+[00000436]
+;
+; Afrikaans
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0436
+
+[0000041c]
+;
+; Albanian
+;
+CopyFiles = NLS.EasternEurope
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.EasternEurope,NLS.Registry.OEMCP852
+AddReg = NLS.Setlang.041c,Font.NonCP1252.Substitutes
+
+[0000042d]
+;
+; Basque
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.042d
+
+[00000423]
+;
+; Belarusian
+;
+CopyFiles = NLS.Cyrillic
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Cyrillic,NLS.Registry.OEMCP866
+AddReg = NLS.Setlang.0423,Font.NonCP1252.Substitutes
+
+[00000403]
+;
+; Catalan
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0403
+
+[00001c09]
+;
+; English (South Africa)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.1c09
+
+[00002009]
+;
+; English (Jamaica)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.2009
+
+[00002409]
+;
+; English (Caribbean)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.2409
+
+[00002809]
+;
+; English (Belize)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.2809
+
+[00002c09]
+;
+; English (Trinidad)
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.2c09
+
+[00000425]
+;
+; Estonian
+;
+CopyFiles = NLS.Baltic
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Baltic,NLS.Registry.OEMCP775
+AddReg = NLS.Setlang.0425,Font.NonCP1252.Substitutes
+
+[00000438]
+;
+; Faeroese
+;
+CopyFiles = NLS.Western,@c_865.nls
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850

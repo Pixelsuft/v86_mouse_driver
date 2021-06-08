@@ -1,0 +1,80 @@
+Output "********************* Inside Install-Option *************************"
+    Debug-Output "   AddCopy = "$(AddCopy)
+    Debug-Output "   DoCopy = "$(DoCopy)
+    Debug-Output "   DoConfig = "$(DoConfig)
+    Debug-Output "   NTN_InstallPhase = "$(!NTN_InstallPhase)
+    set STF_VITAL = ""
+    set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-Resource $(SrcDir) $(!STF_WINDOWSSYSPATH)
+        AddSectionFilesToCopyList Files-DigiFEP5 $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+        LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\images\fxfep.bin
+        ifstr(i) $(FilePresent) != "YES"
+           LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\images\fxfep.bi_
+           ifstr(i) $(FilePresent) != "YES"
+              Debug-Output "Retrieving images from "$(SrcDir)
+              AddSectionFilesToCopyList Files-$(Option)-images $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+           else
+              Debug-Output "Retrieving images from "$(SrcDir)"..\images"
+              AddSectionFilesToCopyList Files-$(Option)-images $(SrcDir)..\images $(!STF_WINDOWSSYSPATH)\drivers
+           endif
+        else
+           Debug-Output "Retrieving images from "$(SrcDir)"..\images"
+           AddSectionFilesToCopyList Files-$(Option)-images $(SrcDir)..\images $(!STF_WINDOWSSYSPATH)\drivers
+        endif
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    else
+        LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\dgconfig.DLL $(!STF_WINDOWSSYSPATH)\dgconfig.DLL
+        LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\dgconfig.CNT $(!STF_WINDOWSSYSPATH)\dgconfig.CNT
+        LibraryProcedure STATUS,$(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\dgconfig.HLP $(!STF_WINDOWSSYSPATH)\dgconfig.HLP
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Upgrade]
+    Debug-Output "********************* Inside Install-Upgrade *************************"
+    Debug-Output "   AddCopy = "$(AddCopy)
+    Debug-Output "   DoCopy = "$(DoCopy)
+    Debug-Output "   DoConfig = "$(DoConfig)
+    Debug-Output "   NTN_InstallPhase = "$(!NTN_InstallPhase)
+    set STF_VITAL = ""
+    set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+    AddSectionFilesToCopyList Files-Resource $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    AddSectionFilesToCopyList Files-DigiFEP5 $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+    AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+    LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\images\fxfep.bin
+    ifstr(i) $(FilePresent) != "YES"
+       LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(SrcDir)..\images\fxfep.bi_
+       ifstr(i) $(FilePresent) != "YES"
+          Debug-Output "Retrieving images from "$(SrcDir)
+          AddSectionFilesToCopyList Files-$(Option)-images $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+       else
+          Debug-Output "Retrieving images from "$(SrcDir)"..\images"
+          AddSectionFilesToCopyList Files-$(Option)-images $(SrcDir)..\images $(!STF_WINDOWSSYSPATH)\drivers
+       endif
+    else
+       Debug-Output "Retrieving images from "$(SrcDir)"..\images"
+       AddSectionFilesToCopyList Files-$(Option)-images $(SrcDir)..\images $(!STF_WINDOWSSYSPATH)\drivers
+    endif
+    set !STF_NCPA_FLUSH_COPYLIST = TRUE
+    CopyFilesInCopyList
+    Exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-DigiBoard16e-images]
+1,XABIOS.BIN , SIZE=999 , NODELETESOURCE
+1,XAC

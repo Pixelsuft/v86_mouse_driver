@@ -1,0 +1,83 @@
+allSoftwareError =+
+   read-syms ShellCodeErrorMsg$(!STF_LANGUAGE)
+   ui start "Error Message"
+   return STATUS_FAILED
+InstallSoftwareEnd =+
+   return $(Status)
+[AddInfToReviewProgramsList]
+    Debug-Output "AddInfToReviewPrograms: entry"
+    set Status  = STATUS_FAILED
+    set KeyNull = ""
+    set NcpaKeyName = $(!NTN_SoftwareBase)"\Microsoft\Ncpa\CurrentVersion"
+    set newList = {"OEMNSVRA.INF"}
+    OpenRegKey $(!REG_H_LOCAL) "" $(NcpaKeyName) $(!MAXIMUM_ALLOWED) KeyNcpa
+    Ifstr(i) $(KeyNcpa) != $(KeyNull)
+        GetRegValue    $(KeyNcpa) "ReviewPrograms" TmpList
+        ifint $(RegLastError) == 0
+            Debug-Output "AddInf: old List "*($(TmpList), 4)
+            ForListDo *($(TmpList),4)
+                ifstr(i) $($) != "OEMNSVRA.INF"
+                    set newList = >($(newList), $($))
+                endif
+            EndForListDo
+            Debug-Output "OEMNSVRA.INF: AddInf: new List "$(newList)
+            SetRegValue $(KeyNcpa) {ReviewPrograms, 0, +
+                                    $(!REG_VT_MULTI_SZ),$(newList)}
+            CloseRegKey $(KeyNcpa)
+            Set Status = STATUS_SUCCESSFUL
+        endif
+    else
+        Debug-Output "AddInfToReviewPrograms: error opening ncpa key."
+    endif
+    Debug-Output "AddInfToReviewPrograms: exit"
+    return $(Status)
+[RemoveInfFromReviewPrograms]
+    Debug-Output "RemoveInfFromReviewPrograms: entry"
+    set Status  = STATUS_FAILED
+    set KeyNull = ""
+    set NcpaKeyName = $(!NTN_SoftwareBase)"\Microsoft\Ncpa\CurrentVersion"
+    set newList = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(NcpaKeyName) $(!MAXIMUM_ALLOWED) KeyNcpa
+    Ifstr(i) $(KeyNcpa) != $(KeyNull)
+        GetRegValue    $(KeyNcpa) "ReviewPrograms" TmpList
+        ifint $(RegLastError) == 0
+            Debug-Output "RemoveInf: old List "*($(TmpList), 4)
+            ForListDo *($(TmpList),4)
+                ifstr(i) $($) != "OEMNSVRA.INF"
+                    set newList = >($(newList), $($))
+                endif
+            EndForListDo
+            Debug-Output "AddInf: new List "$(newList)
+            SetRegValue $(KeyNcpa) {ReviewPrograms, 0, +
+                                    $(!REG_VT_MULTI_SZ),$(newList)}
+            CloseRegKey $(KeyNcpa)
+            Set Status = STATUS_SUCCESSFUL
+        endif
+    else
+        Debug-Output "RemoveInfFromReviewPrograms: error opening ncpa key."
+    endif
+    Debug-Output "RemoveInfFromReviewPrograms: exit"
+    return $(Status)
+[InstallResources]
+    set STF_VITAL = NO    
+    Debug-Output  "In Copying Files"
+    ifstr(i) $(AddCopy) == "YES"
+        CreateDir $(RasDir)
+        AddSectionFilesToCopyList Files-Resource $(SourceDir) $(!STF_WINDOWSSYSPATH)
+        AddSectionKeyFileToCopyList Files-Ras-Inf "rasico" $(SourceDir) $(ProductPath)
+        AddSectionKeyFileToCopyList Files-Ras-Inf "rasread" $(SourceDir) $(ProductPath)
+        ifstr(i) $(!NTN_InstallMode) == "Install"
+            AddSectionKeyFileToCopyList Files-Ras-Inf "modem" $(SourceDir) $(ProductPath)
+            AddSectionKeyFileToCopyList Files-Ras-Inf "pad" $(SourceDir) $(ProductPath)
+            AddSectionKeyFileToCopyList Files-Ras-Inf "switch" $(SourceDir) $(ProductPath)
+            AddSectionKeyFileToCopyList Files-Ras-Scp "cis" $(SourceDir) $(ProductPath)
+            AddSectionKeyFileToCopyList Files-Ras-Scp "slip" $(SourceDir) $(ProductPath)
+            AddSectionKeyFileToCopyList Files-Ras-Scp "slipmenu" $(SourceDir) $(ProductPath)
+            AddSectionKeyFileToCopyList Files-Ras-Scp "pppmenu" $(SourceDir) $(ProductPath)
+            AddSectionKeyFileToCopyList Files-Ras-Scp "scriptdoc" $(SourceDir) $(ProductPath)
+        else-Ifstr(i) $(!NTN_InstallMode) == "Update"
+            forlistdo {modem.new, pad.new, switch.new, cis.new, slip.new, slipmenu.new, pppmenu.new, script.doc}
+                   LibraryProcedure Status, $(!LIBHANDLE), DelFile +
+                                            $(!STF_WINDOWSSYSPATH)"\RAS\"$($)
+            set STF_RENAME = "MODEM.NEW"
+            AddSectionKeyFileToCopyList Fi

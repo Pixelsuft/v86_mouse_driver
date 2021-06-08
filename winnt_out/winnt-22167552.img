@@ -1,0 +1,106 @@
+em exist when using an administrative account?
+
+Before you call for support on a file system or fault tolerance issue
+First, gather the following information. All of the information below may not be needed for each case. The more information you have ready to provide to support personnel, the quicker the resolution to your problem will be. 
+• Version of Windows NT 
+• Service Packs, hotfixes, and third-party drivers applied 
+• Exact error messages displayed on screen and in Event Viewer 
+• Computer make/model 
+• Disk controller(s) in use 
+• Has CHKDSK been run? If so, what was the result? 
+• Is an Emergency Repair Disk available? 
+• Have recent backups been made? 
+• Are low-level disk editing programs available for use? 
+
+Disk information: 
+• Number of disks in the system 
+• Size of each disk 
+• Partition layout of each disk 
+• File format used on each disk 
+• SCSI ID of each disk if applicable 
+• How are the disks displayed in Disk Administrator? 
+
+For fault tolerance set issues: 
+• Fault tolerance set in use (volume set, stripe set, stripe set with parity, mirror set) 
+• Is fault tolerance done at the hardware or software level? 
+
+For file system performance problems: 
+• Are long file names in use? 
+• Directory structure (number of files and directories) 
+
+For backup issues: 
+• Tape drive make/model 
+• Adapter that tape drive is connected to 
+• Firmware version of tape unit 
+• SCSI ID and placement in chain (if applicable) 
+• Was a new blank tape tried?
+
+Before you call for support on a Blue STOP Screen Issue
+First, gather the following information:
+• Version of Windows NT 
+• Service Packs and hotfixes applied 
+• Top four lines of the blue screen 
+• How does the trap occur, and to what frequency 
+• Third-party drivers/services installed 
+• Detailed hardware list, including configuration information: 
+• Computer make/model 
+• Disk/type/size 
+• Disk controllers 
+• Memory 
+• Tape/model 
+• CD-ROM/model 
+• Network adapter 
+• Serial ports 
+• Other adapters
+
+Microsoft Press
+Microsoft Press is the source for up-to-date, technically accurate books and training materials about Microsoft products and related technologies.  Titles range from self-paced tutorials for the first-time computer users to advanced technical reference and programming guides.
+
+Microsoft Press® products are available worldwide wherever quality computer books are sold.  For more information contact your book retailer, computer reseller, or local Microsoft Sales Office.
+
+To locate your nearest source for Microsoft Press products, reach us at: 
+www.microsoft.com/mspress/ 
+1-800-MSPRESS in the U.S. (In Canada: 1-800-667-1115 or 416-293-8464)
+
+To order Microsoft Press products contact:
+1-800-MSPRESS in the U.S. (In Canada: 1-800-667-1115 or 416-293-8464)
+Compuserve's Electronic Mall at GO MSP
+Prices and availability dates are subject to change.
+
+
+New and Improved Accessories
+
+Microsoft WordPad
+This release of WordPad cannot process Unicode characters, so it is not possible to edit some ranges of characters in the WordPad editing window. Both .doc and .wri files can be opened and edited by using WordPad.
+
+When you upgrade a previous version of Windows NT Workstation or Windows NT Server to Windows NT Workstation or Windows NT Server version 4.0, WordPad is not added to the Start menu. Also, Write is not removed from the Start menu. When you click Start, point to Programs, point to Accessories, and click Write, WordPad starts.
+
+Microsoft Paint
+Microsoft Paintbrush has been replaced by MS Paint.
+
+
+New and Improved Control Panel
+The Control Panel folder includes new and updated programs to control settings and hardware. 
+
+New Control Panel items include:
+
+PC Card (PCMCIA)
+Telephony
+Add/Remove Programs
+Multimedia
+Tape Devices
+Modems
+SCSI Adapters
+Display
+
+Improved Control Panel items include:
+
+Mouse
+Sounds (replaces Sound Mapper)
+Network
+Fonts
+Regional Settings (replaces International)
+Keyboard
+
+To access the Control Panel folder
+On the Start menu, point to Setting

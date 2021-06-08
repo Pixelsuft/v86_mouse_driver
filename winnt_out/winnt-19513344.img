@@ -1,0 +1,30 @@
+e what
+; !!! driver is installed and whether a new, upgraded driver is provided
+; !!! with this version of Windows.
+; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+;
+
+[display]
+;profile = driver,         Description of driver,                           resolution,    286 grabber,    logo code,       VDD,            386grabber,   ega.sys,   logo data,    optional work section
+;
+8514     = 1:8514.drv,     "8514/a",                                        "100,120,120", 1:vgacolor.2gr, 2:vgalogo.lgo,   2:vdd8514.386,  2:vgadib.3gr,,           3:vgalogo.rle, 8514
+8514s    = 1:8514.drv,     "8514/a (Small fonts)",                          "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   2:vdd8514.386,  2:vgadib.3gr,,           3:vgalogo.rle, 8514s
+plasma   = 2:plasma.drv,   "Compaq Portable Plasma",                        "100,96,96",   2:cga.2gr,      3:cgalogo.lgo,   2:vddcga.386,   2:plasma.3gr,,           3:cgalogo.rle
+egahires = 2:ega.drv,      "EGA",                                           "133,96,72",   2:egacolor.2gr, 2:egalogo.lgo,   2:vddega.386,   1:ega.3gr,    2:ega.SYS, 2:egalogo.rle
+egahibw  = 2:egahibw.drv,  "EGA black and white (286 only)",                "133,96,72",   2:egacolor.2gr, 3:cgalogo.lgo,,,                               2:ega.SYS, 3:cgalogo.rle
+egamono  = 2:egamono.drv,  "EGA Monochrome (286 only)",                     "133,96,72",   2:egamono.2gr,  2:egamono.lgo,,,                               2:ega.SYS, 3:egamono.rle
+hercules = 2:hercules.drv, "Hercules Monochrome",                           "133,96,72",   2:hercules.2gr, 2:herclogo.lgo,  2:vddherc.386,  2:herc.3gr,,             2:herclogo.rle
+mcga     = 2:vgamono.drv,  "IBM MCGA (286 only)",                           "100,96,96",   1:vgacolor.2gr, 3:cgalogo.lgo,,,,                                         3:cgalogo.rle, vgamono
+olibw    = 2:olibw.drv,    "Olivetti/AT&T Monochrome or PVC Display",       "120,96,80",   2:oligrab.2gr,  3:cgalogo.lgo,   2:vddcga.386,   2:plasma.3gr,,           3:cgalogo.rle
+ct441    = 3:vga.drv,      "QuadVGA, ATI VIP VGA, 82C441 VGAs",             "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   1:vddct441.386, 3:vga30.3gr,,            3:vgalogo.rle
+tiga1    = 2:tiga.drv,     "TIGA (Small fonts)",                            "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   1:vddtiga.386,  2:vgadib.3gr,,           3:vgalogo.rle, tiga1
+tiga2    = 2:tiga.drv,     "TIGA (Large fonts)",                            "100,120,120", 1:vgacolor.2gr, 2:vgalogo.lgo,   1:vddtiga.386,  2:vgadib.3gr,,           3:vgalogo.rle, tiga2
+vga      = 3:vga.drv,      "VGA",                                           "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   x:*vddvga,      1:vga.3gr,,              3:vgalogo.rle
+vga30    = 3:vga.drv,      "VGA (Version 3.0)",                             "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   1:vddvga30.386, 3:vga30.3gr,,            3:vgalogo.rle
+vgamono  = 2:vgamono.drv,  "VGA with Monochrome display",                   "100,96,96",   2:vgamono.2gr,  2:egamono.lgo,   x:*vddvga,      2:vgadib.3gr,,           3:egamono.rle, vgamono
+svga     = 2:supervga.drv, "Super VGA (800x600, 16 colors)",                "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   x:*vddvga,      1:vga.3gr,,              3:vgalogo.rle
+v7vga    = 2:v7vga.drv,    "Video 7 512K, 640x480 256 colors",              "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   2:v7vdd.386,    2:v7vga.3gr,,            3:vgalogo.rle, v7b
+v7c      = 2:v7vga.drv,    "Video 7 512K, 720x512 256 colors",              "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   2:v7vdd.386,    2:v7vga.3gr,,            3:vgalogo.rle, v7c
+v7d      = 2:v7vga.drv,    "Video 7 1Mb,  800x600 256 colors",              "100,96,96",   1:vgacolor.2gr, 2:vgalogo.lgo,   2:v7vdd.386,    2:v7vga.3gr,,            3:vgalogo.rle, v7d
+v7e      = 2:v7vga.drv,    "Video 7 1Mb, 1024x768 256 colors (Large fonts)","100,120,120", 1:vgacolor.2gr, 2:vgalogo.lgo,   2:v7vdd.386,    2:v7vga.3gr,,            3:vgalogo.rle, v7e
+v7f      = 2:v

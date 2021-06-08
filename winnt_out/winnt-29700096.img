@@ -1,0 +1,112 @@
+T_FIND_COMPONENT_SERVICE
+      goto fatalregistry
+   Endif
+   Shell $(UtilInf) FindService, $(KeyProduct)
+   Ifint $($ShellCode) != 0
+          Goto ShellCodeError
+   Endif
+   Ifstr(i) $($R0) != NO_ERROR
+        Goto fatalregistry
+   endif
+   set KeyParameters = $($R2)
+   CloseRegKey $($R1)
+   Ifstr $(KeyParameters) == $(KeyNull)
+          set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+      goto fatalregistry
+   endif
+   set ValueName = ""
+   set ValueData = ""
+   set ValueStr  = ""
+   set ValueList = {}
+   EnumRegValue $(KeyParameters) ValueList
+   ForListDo $(ValueList)
+          set ValueItem = $($)
+          set ValueName = *($(ValueItem),1)
+          set ValueData = *($(ValueItem),4)
+          ifstr(i) $(ValueName) == "IOBaseAddress"
+                 set IOBaseAddrIndex = $(ValueData)
+          endif
+   EndForListDo
+   set IOBaseAddrValue = *($(IOBaseAddrList), ~($(IOBaseAddrValues),$(IOBaseAddrIndex)))
+   ifstr(i) $(IOBaseAddrValue) == ""
+          set IOBaseAddrValue = *($(IOBaseAddrList), 1)
+   endif
+cfgoptions = +
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusType = $(!AutoNetInterfaceType)
+        else
+            set BusType = 1    
+        endif
+        ifstr(i) $(!AutoNetBusNumber) != ""
+            set BusNumber = $(!AutoNetBusNumber)
+        else
+            set BusNumber = 0
+        endif
+        goto writeparameters_1
+    endif
+   read-syms FileDependentDlg$(!STF_LANGUAGE)
+   ui start "InputDlg"
+   ifstr(i) $(DLGEVENT) == "CONTINUE"
+          set CommonStatus = STATUS_REBOOT
+      set IOBaseAddrIndex = $(Combo1Out)
+      ui pop 1
+   else-ifstr(i) $(DLGEVENT) == "EXIT"
+          ui pop 1
+      goto usercancel
+   else
+      ui pop 1
+      goto usercancel
+   endif
+writeparameters = +
+   Shell $(UtilInf),GetBusTypeDialog,$(ProductHardwareDescription) "1" "0"
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "ShellCode error."
+       goto ShellCodeError
+   endif
+   set BusType = $($R1)
+   set BusNumber = $($R2)
+writeparameters_1 = +
+   set IOBaseAddrValue = *($(IOBaseAddrValues), +
+                          ~($(IOBaseAddrList),$(IOBaseAddrIndex)))
+   set NewValueList = {{MediaType,0,$(!REG_VT_DWORD),5},+
+                       {InterruptNumber,0,$(!REG_VT_DWORD),0},+
+                       {BusType,0,$(!REG_VT_DWORD),$(BusType)},+
+                       {BusNumber,0,$(!REG_VT_DWORD),$(BusNumber)},+
+                       {IOBaseAddress,0,$(!REG_VT_DWORD),$(IOBaseAddrValue)}}
+   Shell  $(UtilInf), AddValueList, $(KeyParameters), $(NewValueList)
+   ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+       Shell $(UtilityInf),AddDefaultNetCardParameters,$(KeyParameters)
+   endif
+   CloseRegKey $(KeyParameters)
+   ifint $($ShellCode) != 0
+          Debug-Output "ShellCode error."
+      goto ShellCodeError
+   endif
+   set RegistryErrorIndex = $($R0)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+          Debug-Output "Registry error: Add value list"
+      goto fatalregistry
+   endif
+   goto end
+removeadapter = +
+   Set FLibraryErrCtl = 1
+   Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+          Shell $(UtilInf), RemoveSoftwareComponent, $(Manufacturer),+
+                                                $(ProductSoftwareName)
+          ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         goto ShellCodeError
+      endif
+      set RegistryErrorIndex = $($R0)
+      Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                 goto fatalregistry
+      endif
+   else
+          Debug-Output "Registry Base = "$(!NTN_RegBase)
+          Debug-Output "Product Name  = "$(ProductSoftwareName)
+          Shell $(UtilInf), RemoveHardwareComponent, $(Manufacturer),+
+                                                                 $(ProductSoftwareName), +
+                                                                 $(!NTN_RegBase)
+      ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 Debug-Output "ShellCode error"
+         goto ShellCod

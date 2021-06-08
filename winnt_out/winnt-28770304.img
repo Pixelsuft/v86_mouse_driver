@@ -1,0 +1,99 @@
+ Shell   $(UtilInf), AddValueList, $(AdminNetRuleKey), $(NewValueList)
+	  ifint $(ShellCode) != 0
+		 goto ShellCodeError
+	  endif
+	  set RegistryErrorIndex = $($R0)
+	  Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+		 CloseRegKey $(AdminProductKey)
+		 CloseRegKey $(AdminNetRuleKey)
+		 goto fatalregistry
+	  Endif
+	  CloseRegKey $(AdminProductKey)
+	  CloseRegKey $(AdminRuleKey)
+	  LoadLibrary "x" $(!STF_CWDDIR)sfmutil.dll !UTILHANDLE
+	  Debug-Output "Load Util Library"
+	  Set IniFile = $(NtNetIniFileName)
+	  Set IniString = $(AfpMgrCplFile)
+	  Set IniSection = $(SrvMgrIniSection)
+	  Debug-Output "Ini File = "$(IniFile)
+	  Debug-Output "Ini String = "$(IniString)
+	  Debug-Output "Ini Section = "$(IniSection)
+	  Set FLibraryErrCtl = 1
+	  LibraryProcedure IniStatus $(!UTILHANDLE) WriteAfpMgrIniStrings, $(IniSection), $(IniString), $(IniFile)
+	  Set FLibraryErrCtl = 0
+	  ifstr(i) $(IniStatus) == "FAILED"
+		 read-syms AFPString3$(!STF_LANGUAGE)
+		 shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorString)
+	  EndIf
+	  Set IniFile = $(WinFileIniFileName)
+	  Set IniString = $(AfpMgrCplFile)
+	  Set IniSection = $(WinFileIniSection)
+	  Set FLibraryErrCtl = 1
+	  LibraryProcedure IniStatus $(!UTILHANDLE) WriteAfpMgrIniStrings, $(IniSection), $(IniString), $(IniFile)
+	  Set FLibraryErrCtl = 0
+	  ifstr(i) $(IniStatus) == "FAILED"
+		 read-syms AFPString2$(!STF_LANGUAGE)
+		 shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorString)
+	  EndIf
+	  FreeLibrary $(!UTILHANDLE)
+   EndIf
+   Ifstr(i) $(Option) == "ATALK"
+	  Set ThisOption = ATALK
+	  Set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(Product$(ThisOption)Name))
+	  LoadLibrary "x" $(!STF_CWDDIR)sfmutil.dll !UTILHANDLE
+	  Set Atalk_DependList = {""}
+	  Set FLibraryErrCtl = 1
+	  Shell $(UtilInf), AddSoftwareComponent,+
+					 $(Manufacturer), +
+					 $(Product$(ThisOption)Name),+
+					 $(Product$(ThisOption)Name), +
+					 $(Product$(ThisOption)DisplayName), +
+                     $(ProductInfName),+
+					 $(Product$(ThisOption)ImagePath),+
+                     "kernelautostart", "PNP_TDI",+
+					 $(Atalk_DependList), "",+
+					 $(Product$(ThisOption)EventDll)
+	  Set FLibraryErrCtl = 0
+	  Set RegistryErrorIndex = $($R0)
+	  Ifstr(i) $(RegistryErrorIndex) !=  NO_ERROR
+		 CloseRegKey $($R1)
+		 CloseRegKey $($R2)
+		 CloseRegKey $($R3)
+		 CloseRegKey $($R4)
+		 CloseRegKey $($R5)
+		 goto fatalregistry
+	  EndIf
+	  Set AtkVersKey          = $($R1)
+	  Set AtkNetRuleKey       = $($R2)
+	  Set AtkSvcKey           = $($R3)
+	  Set AtalkParameters = $($R4)
+	  Set AtkLinkageKey       = $($R5)
+	  set NewValueList = +
+		 {{SoftwareType,0,$(!REG_VT_SZ),$(Product$(ThisOption)Type)},+
+		 {Title,0,$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+		 {Description,0,$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+         {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)},+
+		 {PathName,0,$(!REG_VT_SZ),$(!STF_WINDOWSSYSPATH)},+
+		 {ServiceName,0,$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+		 {MajorVersion, 0, $(!REG_VT_DWORD),$(ProductMajorVersion)},+
+		 {MinorVersion, 0, $(!REG_VT_DWORD),$(ProductMinorVersion)},+
+		 {Review,0,$(!REG_VT_DWORD),1},+
+		 {InstallDate,0,$(!REG_VT_DWORD),*($(Now),1)}}
+	  Shell  $(UtilInf), AddValueList, $(AtkVersKey), $(NewValueList)
+	  set RegistryErrorIndex = $($R0)
+	  Ifstr $(RegistryErrorIndex) != NO_ERROR
+		 CloseRegKey $(AtkVersKey)
+		 CloseRegKey $(AtkNetRuleKey)
+		 CloseRegKey $(AtkSvcKey)
+		 CloseRegKey $(AtkLinkageKey)
+		 CloseRegKey $(AtalkParameters)
+		 goto fatalregistry
+	  EndIf
+	  set NewValueList = +
+		 {{type,0,$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)}, +
+         {use,0,$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+         {bindform,0,$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)}, +
+         {class,0, $(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)Class)}, +
+         {bindable,0, $(!REG_VT_MULTI_SZ), $(NetRule$(ThisOption)BindList)},+
+         {InfOption,0,$(!REG_VT_SZ),$(Option)}, +
+         {Infname,0,$(!REG_VT_SZ),$(ProductInfName)} }

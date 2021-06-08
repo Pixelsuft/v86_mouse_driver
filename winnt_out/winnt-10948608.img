@@ -1,0 +1,118 @@
+   CloseRegKey $(KeyFrom)
+    Endif
+    Ifstr(i) $(KeyTo) != $(KeyNull)
+       CloseRegKey $(KeyTo)
+    Endif
+    Ifstr(i) $(KeySvc) != $(KeyNull)
+       CloseRegKey $(KeySvc)
+    Endif
+    Return $(Status)
+[SortListIndex]
+    Set List = $($0)
+    Set BoolAscend = $($1)
+    Set BoolCaseSens = $($2)
+    LibraryProcedure IndexList, $(!LIBHANDLE), GenerateSortedIndexList, $(List), $(BoolAscend), $(BoolCaseSens)
+    Return $(IndexList)
+[SortByIndex]
+   Set List = $($0)
+   Set IndexList = $($1)
+   Set NewList = {}
+   ForListDo $(IndexList)
+      Set Index = $($)
+      Set Item = *($(List),$(Index))
+      Set NewList = >($(NewList),$(Item))
+   EndForListDo
+   Return $(NewList)
+[SortList]
+    Set List = $($0)
+    Shell "" SortListIndex $(List) $($1) $($2)
+    Set IndexList = $($R0)
+    Shell "" SortByIndex $(List) $(IndexList)
+    Set ResultList = $($R0)
+    return $(ResultList)
+[DetectionDllFiles]
+    DetectionDllsFound = {} ? $(!LIBHANDLE) FindFileInstances $(!STF_WINDOWSSYSPATH)"\???ncdet.dll"
+[UpdateDetectionDllNames]
+    Set Status = STATUS_FAILED
+    read-syms InitBaseVars
+    Detect DetectionDllFiles
+    Set DllValueName = "NetcardDlls"
+    OpenRegKey $(!REG_H_LOCAL) "" "System\Setup" $(MAXIMUM_ALLOWED) KeySetup
+    Ifstr(i) $(KeySetup) == $(KeyNull)
+        Debug-Output "UTILITY.INF: [UpdateDetectionDllNames] cant open System\Setup key"
+        Goto UDDN_Return
+    Endif
+    Set NewDllList = {"MSNCDET.DLL"}
+    ForListDo $(DetectionDllsFound)
+        Set NewDllList = >($(NewDllList),$($))
+    EndForListDo
+    Set UpdateRequired = 1
+    GetRegValue $(KeySetup) $(DllValueName) DllNamesValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set DllNames = *($(DllNamesValue),4)
+        Debug-Output "UTILITY.INF: [UpdateDetectionDllNames] DllNames = "$(DllNames)
+        Set UpdateRequired = 0
+        ForListDo $(NewDllList)
+            Set DllIndex = ~($(DllNames),$($))
+            Ifint $(DllIndex) == 0
+                Set UpdateRequired = 1
+            Endif
+        EndForListDo
+    Endif
+    Set Status = STATUS_SUCCESSFUL
+    Ifint $(UpdateRequired) == 1
+        Debug-Output "UTILITY.INF: [UpdateDetectionDllNames] new DLL names = "$(NewDllList)
+        Set ValueInfo = {$(DllValueName), $(NoTitle), $(!REG_VT_MULTI_SZ), $(NewDllList)}
+        SetRegValue $(KeySetup) $(ValueInfo)
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            Set Status = STATUS_FAILED
+        Else
+            Shell "NCPARAM.INF" Param_ControlDetection DTEND
+            Shell "NCPARAM.INF" Param_ControlDetection DTSTART
+        Endif
+    Else
+        Set Status = STATUS_USERCANCEL
+    Endif
+    CloseRegKey $(KeySetup)
+UDDN_Return = +
+    Return $(Status)
+[CheckIfCopyNecessary]
+    Set Status = STATUS_SUCCESSFUL
+    Set PathList = $($0)
+    Set NamesList = $($1)
+    Set Index = 0
+    Set Found = 1
+    ForListDo $(PathList)
+        Set ThisPath = $($)
+        Set-add Index = Index,1
+        Set NameList = *($(NamesList),$(Index))
+        ForListDo $(NameList)
+            Set FileToCheck = $(ThisPath)\$($)
+            LibraryProcedure FilePresent,$(!LIBHANDLE), CheckFileExistance $(FileToCheck)
+            Ifstr(i) $(FilePresent) != "YES"
+                Set Found = 0
+            Endif
+        EndForListDo
+    EndForListDo
+    Ifint $(Found) != 1
+        Set Status = STATUS_FAILED
+    Endif
+    Return $(Status)
+[GetBusTypeDialog]
+    set CardName = $($0)
+    set BusInterfaceType = $($1)
+    set BusNumber = $($2)
+    set DlgReturn = ""
+    ifstr(i) $(BusInterfaceType) == ""
+        set BusInterfaceType = 1        
+    endif
+    ifstr(i) $(BusNumber) == ""
+        set BusNumber = 0               
+    endif
+    set FLibraryErrCtl = 1
+    LibraryProcedure BusInfo $(!NCPA_HANDLE), GetBusTypeDialog, $(!STF_HWND), $(CardName), $(BusInterfaceType), $(BusNumber)
+    set FLibraryErrCtl = 0
+    ifint *($(BusInfo),1) == 0
+        set ReturnValue = NO_ERROR
+        set BusInterfaceType = *($(BusInfo),2)
+        set BusNumber = *($

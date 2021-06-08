@@ -1,0 +1,44 @@
+0,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300/V42<cr><lf>",     1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/V42<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/V42<cr><lf>",    1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/V42<cr><lf>",    1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/V42<cr><lf>",    1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/V42<cr><lf>",    1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/V42<cr><lf>",   1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/V42<cr><lf>",   1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/V42<cr><lf>",   1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/V42<cr><lf>",   1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/V42<cr><lf>",   1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000/V42<cr><lf>",   1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/V42<cr><lf>",   1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/V42<cr><lf>",   1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/V42<cr><lf>",   1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/V42<cr><lf>",   1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/V42<cr><lf>",  1, 02, 02, 00,C2,01,00, 00,00,00,00
+
+[Supra_Numeric_Responses]
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK - Command executed
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR - Invalid command, checksum, error in command line or command line too long
+HKR, Responses, "0<cr>",  1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK - Command executed
+HKR, Responses, "1<cr>",  1, 02, 00, 2C,01,00,00, 00,00,00,00 ; CONNECT - Connection at 300 bps
+HKR, Responses, "2<cr>",  1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING - Ring signal indicated
+HKR, Responses, "3<cr>",  1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER - Carrier signal not detected, or lost, or inactivity caused hang up
+HKR, Responses, "4<cr>",  1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR - Invalid command, checksum, error in command line or command line too long
+HKR, Responses, "5<cr>",  1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 1200 - Connection at 1200 bps
+HKR, Responses, "6<cr>",  1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE - No dial tone detected
+HKR, Responses, "7<cr>",  1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY - Engaged (busy) signal or number unobtainable signal detected
+HKR, Responses, "8<cr>",  1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER - No silence detected when dialing a system not providing a dial tone
+HKR, Responses, "9<cr>",  1, 02, 00, 58,02,00,00, 00,00,00,00 ; CONNECT 600 - Connection at 600 bps
+HKR, Responses, "10<cr>", 1, 02, 00, 60,09,00,00, 00,00,00,00 ; CONNECT 2400 - Connection at 2400 bps
+HKR, Responses, "11<cr>", 1, 02, 00, C0,12,00,00, 00,00,00,00 ; CONNECT 4800 - Connection at 4800 bps
+HKR, Responses, "12<cr>", 1, 02, 00, 80,25,00,00, 00,00,00,00 ; CONNECT 9600 - Connection at 9600 bps
+HKR, Responses, "13<cr>", 1, 02, 00, 20,1C,00,00, 00,00,00,00 ; CONNECT 7200 - Connection at 7200 bps
+HKR, Responses, "14<cr>", 1, 02, 00, 00,4B,00,00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps
+HKR, Responses, "15<cr>", 1, 02, 00, 40,38,00,00, 00,00,00,00 ; CONNECT 14400 - Connection at 14400 bps
+HKR, Responses, "16<cr>", 1, 02, 00, 00,4B,00,00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps
+HKR, Responses, "17<cr>", 1, 02, 00, 00,96,00,00, 00,00,00,00 ; CONNECT 38400 - Connection at 38400 bps
+HKR, Responses, "18<cr>", 1, 02, 00, 00,E1,00,00, 00,00,00,00 ; CONNECT 57600 - Connection at 57600 bps
+HKR, Responses, "19<cr>", 1, 02, 00, 00,C2,01,00, 00,00,00,00 ; CONNECT 115200 - Connection at 115200 bps
+HKR, Responses, "22<cr>

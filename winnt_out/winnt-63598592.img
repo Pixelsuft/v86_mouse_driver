@@ -1,0 +1,96 @@
+set OldIrqNumber  = $(IrqNumber)
+    set OldDmaChannel = $(DmaChannel)
+    set OldMpFlag     = $(MpFlag)
+    set OldValueTitle = $(OldValueTitleConfigure)
+    EndWait
+Get_Adapter_Options = +
+    Debug-Output "OEMNADMA.INF: Get_Adapter_Options"
+    StartWait
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!STF_NCDETINFO) == {}
+            ifstr(i) $(!AutoNetInterfaceType) != ""
+                set BusInterfaceType = $(!AutoNetInterfaceType)
+            else
+                set BusInterfaceType = 1    
+            endif
+            ifstr(i) $(!AutoNetBusNumber) != ""
+                set BusNumber = $(!AutoNetBusNumber)
+            else
+                set BusNumber = 0
+            endif
+        else
+            ifstr(i) $(!AutoNetInterfaceType) != ""
+                set BusInterfaceType = $(!AutoNetInterfaceType)
+            else
+                set BusInterfaceType = *($(!STF_NCDETINFO),5)
+            endif
+            ifstr(i) $(!AutoNetBusNumber) != ""
+                set BusNumber = $(!AutoNetBusNumber)
+            else
+                set BusNumber = *($(!STF_NCDETINFO),6)
+            endif
+        endif
+        goto adapterverify
+    endif
+    set OldLAA       = $(LAA)
+    set OldStatsFlag = $(StatsFlag)
+    set OldSpeedFlag = $(SpeedFlag)
+    set SpeedRawList  = $(SpeedRawList$(Option))
+    set SpeedUserList = $(SpeedUserList$(Option))
+    ifstr(i) $(MappedRawParameters) == FALSE
+        ifcontains(i) $(Option) not-in $(SlotNumberAdapters)
+            set TempList = $(IoList)
+            set IoList   = {}
+            ForListDo $(TempList)
+                set IoList = >($(IoList), *($(IoUserList),~($(IoRawList),$($))))
+            EndForListDo
+            set TempList = $(IrqList)
+            set IrqList  = {}
+            ForListDo $(TempList)
+                set IrqList = >($(IrqList), *($(IrqUserList),~($(IrqRawList),$($))))
+            EndForListDo
+        else
+            set TempList = $(SlotList)
+            set SlotList  = {}
+            ForListDo $(TempList)
+                set SlotList = >($(SlotList), *($(SlotUserList),~($(SlotRawList),$($))))
+            EndForListDo
+        endif
+        set TempList = $(DmaList)
+        set DmaList  = {}
+        ForListDo $(TempList)
+            set DmaList = >($(DmaList), *($(DmaUserList),~($(DmaRawList),$($))))
+        EndForListDo
+        set TempList = $(MpList)
+        set MpList   = {}
+        ForListDo $(TempList)
+            set MpList = >($(MpList), *($(MpUserList),~($(MpRawList),$($))))
+        EndForListDo
+        set MappedRawParameters = TRUE
+    endif
+    EndWait
+Get_Adapter_Options_Restart = +
+    StartWait
+    set From = Get_Adapter_Options_Restart
+    ifcontains(i) $(Option) not-in $(SlotNumberAdapters)
+        set IoLocation    = *($(IoUserList),~($(IoRawList),$(IoLocation)))
+        set OldIoLocation = *($(IoUserList),~($(IoRawList),$(OldIoLocation)))
+        set IrqNumber     = *($(IrqUserList),~($(IrqRawList),$(IrqNumber)))
+        set OldIrqNumber  = *($(IrqUserList),~($(IrqRawList),$(OldIrqNumber)))
+    else
+        set SlotNumber    = *($(SlotUserList),~($(SlotRawList),$(SlotNumber)))
+        set OldSlotNumber = *($(SlotUserList),~($(SlotRawList),$(OldSlotNumber)))
+    endif
+    set DmaChannel    = *($(DmaUserList),~($(DmaRawList),$(DmaChannel)))
+    set OldDmaChannel = *($(DmaUserList),~($(DmaRawList),$(OldDmaChannel)))
+    set MpFlag        = *($(MpUserList),~($(MpRawList),$(MpFlag)))
+    set OldMpFlag     = *($(MpUserList),~($(MpRawList),$(OldMpFlag)))
+    set StatsFlag     = *($(StatsUserList),~($(StatsRawList),$(StatsFlag)))
+    set RxTxSlots     = *($(RxTxUserList),~($(RxTxRawList),$(RxTxSlots)))
+    set SpeedFlag     = *($(SpeedUserList),~($(SpeedRawList),$(SpeedFlag)))
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    Debug-Output "MADGE: Option             = "$(Option)
+    Debug-Output "MADGE: SlotNumberAdapters = "$(SlotNumberAdapters)
+    ifcontains(i) $(Option) in $(SlotNumberAdapters)
+	    set DlgTemplate = "MDGEISA"
+    els

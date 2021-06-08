@@ -1,0 +1,87 @@
+         Debug-Output "AddServiceDependency: old DependOnGroup List "*($(GrpList), 4)
+            ForListDo *($(GrpList),4)
+               set grp = "+"$($)
+               set newDependList = >($(newDependList), $(grp))
+            EndForListDo
+        endif
+        Debug-Output "OEMNSVRA.INF: AddServiceDependency: new Dependency List "$(newDependList)
+        LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $(DependentName) $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(newDependList), "", "", ""
+        CloseRegKey $(KeyService)
+    else
+        Debug-Output "AddServiceDependency: failed to open service linkage key"$(DependentService)
+    endif
+    Debug-Output "AddServiceDependency: exit"
+    return $(Status)
+[DebugConfiguration]
+    Debug-Output $(!p:InfName)": **CONFIGURATION STATE: "$($0)
+    Debug-Output $(!p:InfName)": InterruptNumber is "$(!p:InterruptNumber)
+    Debug-Output $(!p:InfName)": RamBaseAddress  is "$(!p:RamBaseAddress)
+    Return
+[DebugGlobalFlags]
+    Debug-Output $(InfName)": **CONFIGURATION STATE: "$($0)
+    Debug-Output $(InfName)": !STF_SRCDIR_USED value is "$(!STF_SRCDIR_USED)
+    Debug-Output $(InfName)": !STF_SRCDIR_KEYED value is "$(!STF_SRCDIR_KEYED)
+    Debug-Output $(InfName)": !STF_SRCDIR_OVERRIDE value is "$(!STF_SRCDIR_OVERRIDE)
+    Return
+[Install-Option]
+    Set STF_VITAL = ""
+    IfStr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-RASPPTPDLL $(SrcDir) $(!STF_WINDOWSSYSPATH)
+        AddSectionFilesToCopyList Files-RASPPTPDRV $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+    EndIf
+    IfStr(i) $(DoCopy) == "YES"
+       Set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    Else
+       LibraryProcedure STATUS, $(!NCPA_HANDLE), CopySingleFile $(!STF_HWND) $(SrcDir)\RASPPTPC.DLL $(!STF_WINDOWSSYSPATH)\RASPPTPC.DLL
+    EndIf
+    Exit
+[Install-Update]
+   Set STF_VITAL        = ""
+   Set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-RASPPTPDLL $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-RASPPTPDRV $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   Set !STF_NCPA_FLUSH_COPYLIST = TRUE
+   CopyFilesInCopyList
+   Exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-RASPPTPDLL]
+1,RASPPTPC.DLL , SIZE=19728
+1,RASPPTPL.DLL , SIZE=11024
+[Files-RASPPTPDRV]
+1,RASPPTPE.SYS , SIZE=41392
+1,RASPPTPF.SYS , SIZE=5488
+1,RASPPTPM.SYS , SIZE=13104
+1,RASPPTPU.SYS , SIZE=18672
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    RASPPTP             = "Point To Point Tunneling Protocol"
+[FileConstantsENG]
+    ProCaption          = "Windows NT Setup"
+    ProCancel           = "Cancel"
+    ProCancelMsg        = "Windows NT Networking is not correctly installed.  "+
+                          "Are you sure you want to cancel copying files?"
+    ProCancelCap        = "Network Setup Message"
+    ProText1            = "Copying:"
+    ProText2            = "To:"
+    FunctionTitleRASPPTP                = "PPTP Card Setup"
+    ProductSoftwareDescription          = "PPTP Miniport Driver"
+    ProductHardwareRASPPTPDescription   = "PPTP Adapter"
+    ProductSoftwareTitle                = "PPTP Miniport Driver"
+    ProductHardwareRASPPTPTitle         = "PPTP Adapter"
+    ProductRASPPTPDescription           = "This is a protocol for tunneling secure remote network communications across Point to Point (PPP) connections to the Internet. "+
+                                          "It will allow remote and mobile users to dial into the Internet, using local points of presence and Internet service providers (ISPs) to gain access to corporate networks."
+    ProductRASPPTPTitle                 = "Point To Point Tunneling Protocol"
+    ShellCodeErrorTitle                 = 

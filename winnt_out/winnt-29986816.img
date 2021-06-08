@@ -1,0 +1,79 @@
+
+        ifstr(i) $(!NTN_InstallMode) == "install"
+           shell $(UtilityInf) AssignAdapterNumber
+           set AdapterName = $(ProductHardwareName)$($R1)
+           Ifstr(i) $(DoCopy) == "YES"
+              Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+              Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  Debug-Output"Shell code error: DoAskSource"
+                  Goto ShellCodeError
+              Else-Ifstr(i) $($R0) == STATUS_FAILED
+                  Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                  ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                      goto ShellCodeError
+                  endif
+                  set Error = $($R0)
+                  Goto fatal
+              Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                  set CommonStatus = STATUS_USERCANCEL
+                  Goto successful
+              Endif
+              Set SrcDir = $($R1)
+              Split-String $(SrcDir) "\" JunkList
+              QueryListSize JunkSize $(JunkList)
+              Set JunkItem = *($(JunkList),$(JunkSize))
+              set JunkItem2 = "foo"
+              ifstr $(JunkItem2)$(JunkItem)$(JunkItem2) != $(JunkItem2)"\"$(JunkItem2)
+                  Debug-Output "In ifstr"
+                  set SrcDir = $(SrcDir)"\"
+              endif
+              Debug-Output "Reassigning SourceDirectory = "$(SrcDir)
+           Endif
+           install "Install-Option"
+           ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+              Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+              ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  goto ShellCodeError
+              endif
+              set Error = $($R0)
+              goto fatal
+           endif
+        endif
+    endif
+    set from = addDigiFEP5Component
+    goto getAdapterSettings
+addDigiFEP5Component = +
+    Debug-Output "******************Entering addDigiFEP5Component******************"
+    Ifint $(OldVersionExisted) == $(TRUE)
+        goto addHdwDriverComponent
+    Endif
+    Debug-Output "OEMNADDS.INF: Adding DigiFEP5Component"
+        set DigiSpecificString = $(ProductSoftwareName)
+        set TypeofService = "kernelautostart"
+        set ServiceOrderGroup = "Extended base"
+        set Dependencies = {}
+        set ObjectName = ""
+        set TypeSupported = "7"
+        set EventLogLocation = "System"
+        set ErrorControlValue = 1
+        Debug-Output "OEMNADDS.INF: [InstallOption]:skipoptions: About to call AddSoftwareComponent"
+        Debug-Output "OEMNADID.INF:     Paramters passed in:"
+        Debug-Output "OEMNADDS.INF:         Manufacturer = "$(Manufacturer)
+        Debug-Output "OEMNADDS.INF:         Product = "$(ProductSoftwareName)
+        Debug-Output "OEMNADDS.INF:         Service = "$(ProductSoftwareName)
+        Debug-Output "OEMNADDS.INF:         Display name = "$(ProductSoftwareTitle)
+        Debug-Output "OEMNADDS.INF:         INFfile = "$(STF_CONTEXTINFNAME)
+        Debug-Output "OEMNADDS.INF:         ImagePath = "$(ProductSoftwareImagePath)
+        Debug-Output "OEMNADDS.INF:         Type of software = "$(TypeofService)
+        Debug-Output "OEMNADDS.INF:         Service Order group = "$(ServiceOrderGroup)
+        Debug-Output "OEMNADDS.INF:         Dependencies = "$(Dependencies)
+        Debug-Output "OEMNADDS.INF:         ObjectName = "$(ObjectName)
+        Debug-Output "OEMNADDS.INF:         EventMessageFile = "$(IoLogMsgDLL)";"$(ProductSoftwareImagePath)
+        Debug-Output "OEMNADDS.INF:         TypeSupported = "$(TypeSupported)
+        Debug-Output "OEMNADDS.INF:         Event log location = "$(EventLogLocation)
+        Debug-Output "OEMNADDS.INF:         Error control value = "$(ErrorControlValue)
+        Shell $(UtilityInf), AddSoftwareComponent, +
+                                    $(Manufacturer), +
+                                    $(ProductSoftwareName), +
+                                    $(ProductSoftwareName), +
+                                   

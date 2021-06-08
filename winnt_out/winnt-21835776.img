@@ -1,0 +1,110 @@
+l" $(MaskAllAccess) ControlKey
+    ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "REGISTRY.INF: Failed to open services key"
+        goto finish_MakeSetupKey
+    endif
+    set KeyPath   = { +
+                     {"Setup", $(NoTitle), $(MaskAllAccess)} +
+                    }
+    set KeyValues = {}
+    shell "" CreateKey $(ControlKey) $(KeyPath) $(KeyValues)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        CloseRegKey $(ControlKey)
+        goto finish_MakeSetupKey
+    endif
+    ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        CloseRegKey $(ControlKey)
+        goto finish_MakeSetupKey
+    endif
+    CloseRegKey $($R1)
+    CloseRegKey $(ControlKey)
+    set Status = STATUS_SUCCESSFUL
+finish_MakeSetupKey = +
+    Return $(Status)
+[CheckSetupModify]
+    set Status = STATUS_FAILED
+    read-syms  RegistryConstants
+    LibraryProcedure STATUS, $(!LIBHANDLE), TestAdmin
+    ifstr(i) $(STATUS) == "YES"
+        set Status = STATUS_SUCCESSFUL
+    endif
+    Return $(Status)
+[MakeSetupOptionEntry]
+    set Status = STATUS_FAILED
+    read-syms  RegistryConstants
+    OpenRegKey $(!REG_H_LOCAL) "" "system\"$(!STF_CONTROLSET)"\control" $(MaskAllAccess) ControlKey
+    ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "REGISTRY.INF: Failed to open services key"
+        goto finish_MakeSetupOptionEntry
+    endif
+    set KeyPath   = { +
+                     {"Setup", $(NoTitle), $(MaskAllAccess)} +
+                    }
+    set KeyValues = { +
+                      {$($0), $(NoTitle), $(!REG_VT_SZ), $($1)} +
+                    }
+    shell "" CreateKey $(ControlKey) $(KeyPath) $(KeyValues)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        CloseRegKey $(ControlKey)
+        goto finish_MakeSetupOptionEntry
+    endif
+    ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        CloseRegKey $(ControlKey)
+        goto finish_MakeSetupOptionEntry
+    endif
+    CloseRegKey $($R1)
+    CloseRegKey $(ControlKey)
+    set Status = STATUS_SUCCESSFUL
+finish_MakeSetupOptionEntry = +
+    Return $(Status)
+[ModifyServicesEntry]
+    read-syms RegistryConstants
+    set Status = STATUS_FAILED
+    set StartValue = $($1)
+    LibraryProcedure STATUS, $(!LIBHANDLE), SetupChangeServiceStart $($0) $(StartValue)
+    ifstr(i) $(STATUS) != "SUCCESS"
+        Debug-Output "REGISTRY.INF: ModifyServicesEntry: SetupChangeServiceStart function failed"
+        goto finish_ModifyServicesEntry
+    endif
+    set Status = STATUS_SUCCESSFUL
+finish_ModifyServicesEntry = +
+    Return $(Status)
+[CreateKey]
+    set Status = STATUS_FAILED
+    read-syms RegistryConstants
+    set BaseHandle = $($0)
+    set KeyHandle  = $(BaseHandle)
+    ForListDo $($1)
+        set KeyInfo = $($)
+        set KeyName = *($(KeyInfo), 1)
+        OpenRegKey $(BaseHandle) "" $(KeyName) $(MaskAllAccess) KeyHandle
+        ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            Debug-Output "REGISTRY.INF: Key"$(KeyName)"doesn't exist.  Will create key"
+            set RegLastError = 0
+            CreateRegKey $(BaseHandle) $(KeyInfo) "" $(MaskAllAccess) "" KeyHandle
+            ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                set Status = STATUS_ERROR_CREATEKEY
+                Debug-Output "REGISTRY.INF: Error in creating key"
+                goto endcreate
+            endif
+        endif
+        ifstr(i) $(BaseHandle) != $($0)
+            CloseRegKey $(BaseHandle)
+            ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                set Status = STATUS_ERROR_CREATEKEY
+                Debug-Output "REGISTRY.INF: Error in closing base handle"
+                goto endcreate
+            endif
+        endif
+        set BaseHandle = $(KeyHandle)
+    EndForListDo
+    ifstr(i) $($2) != {}
+        shell "" AddValueList $(KeyHandle) $($2)
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            set Status = STATUS_ERROR_CREATEVALUE
+            goto endcreate
+        endif
+    endif
+    set Status = STATUS_SUCCESSFUL
+endcreate = +
+    ifstr(i) $(Status) != STATUS_SUCCESSF

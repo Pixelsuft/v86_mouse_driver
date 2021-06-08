@@ -1,0 +1,88 @@
+riverName)" key."
+           endif
+           set ProviderKeyName = $(!NTN_ServiceBase)"\"$(ProviderName)
+           set ProviderLinkageKeyName = $(!NTN_ServiceBase)"\"$(ProviderName)"\Linkage"
+           Debug-Output "TAPI provider key name "$(ProviderKeyName)
+           set ProviderKey = $(KeyNull)
+           set ProviderLinkageKey = $(KeyNull)
+           OpenRegKey $(!REG_H_LOCAL) "" $(ProviderKeyName) $(!MAXIMUM_ALLOWED) ProviderKey
+           ifstr $(ProviderKey) == $(KeyNull)
+             Debug-Output "OEMNSVRA.INF: could not open key "$(ProviderKeyName)
+           else
+             set DeleteFlag = 0
+             set DeleteFlagInfo = {}
+             GetRegValue $(ProviderKey),"DeleteFlag", DeleteFlagInfo
+             set DeleteFlag = *($(DeleteFlagInfo), 4)
+             ifint $(DeleteFlag) != 1
+               set ProviderList = >($(ProviderList), $(ProviderName))
+               Shell "" AddServiceDependency $(ProviderName) "NdisTapi"
+               ForListDo $(tmpNdisWanParam)
+                 set NdisWanParam = >($(NdisWanParam), $($))
+                 set NdisWanEndPointsLst = >($(NdisWanEndPointsLst), *($(tmpNdisWanEndPointsLst), $(#)))
+               EndForListDo
+             endif
+             CloseRegKey $(ProviderKey)
+           endif
+       EndForListDo
+       CloseRegKey $(RasTapiDevicesKey)
+    else
+        Debug-Output "OEMNSVRA.INF: could not open RAS\TAPI DEVICES key"
+    endif
+    set NumBindings = 0
+    Debug-Output "NdisWan param Bind value = "$(NdisWanParam)
+    QueryListSize NumBindings $(NdisWanParam)
+    Debug-Output "Number of Ndiswan bindings = "$(NumBindings)
+    ifint $(NumBindings) == 0
+        Debug-Output "OEMNSVRA.INF: No ports are configured"
+        read-syms NoPortsConfigured$(!STF_LANGUAGE)
+        Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "STATUS", $(NoPortsError)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(NdisWanParamKeyName) $(!MAXIMUM_ALLOWED) NdisWanParamKey
+    ifstr $(NdisWanParamKey) == $(KeyNull)
+	Debug-Output "OEMNSVRA.INF: could not open NdisWanParamKey"
+        set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+        goto fatalregistry
+    endif
+    Debug-Output "Setting NdisWan param Bind to "$(NdisWanParam)
+    set NewValueList = {{Bind, $(NoTitle), $(!REG_VT_MULTI_SZ), $(NdisWanParam)}}
+    Shell $(!UtilityInf), AddValueList, $(NdisWanParamKey), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	CloseRegKey $(NdisWanParamKey)
+        goto ShellCodeError
+    endif
+    Debug-Output "Setting NdisWan param EndPoints to "$(NdisWanEndPointsLst)
+    set NewValueList = {{EndPoints, $(NoTitle), $(!REG_VT_MULTI_SZ), $(NdisWanEndPointsLst)}}
+    Shell $(!UtilityInf), AddValueList, $(NdisWanParamKey), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	CloseRegKey $(NdisWanParamKey)
+        goto ShellCodeError
+    endif
+    CloseRegKey $(NdisWanParamKey)
+    LoadLibrary "x" $(!STF_CWDDIR)rascfg.dll PORTSDLGHANDLE
+    LibraryProcedure Result, $(PORTSDLGHANDLE), InitRasmanSecurityDescriptor
+    Debug-Output "Result of setting Rasman security descriptor "$(Result)
+    LibraryProcedure Result, $(PORTSDLGHANDLE), InitRemoteSecurityDescriptor
+    Debug-Output "Result of setting Remote security descriptor "$(Result)
+    Shell "" UpdateCPList
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "error shelling UpdateCPList."
+        goto ShellCodeError
+    endif
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "error returned by UpdateCPList."
+    endif
+    ifstr(i) $(fTcpIpChosen) == TRUE
+        shell "" UpdateLLInterface
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "error shelling UpdateLLInterface."
+            goto ShellCodeError
+        endif
+        Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            Debug-Output "error returned by UpdateLLInterface."
+        endif
+    endif
+    Shell "" SetR

@@ -1,0 +1,73 @@
+ONNECT 9600 TRELLIS/REL - Connection at 9600 bps with MNP2-4
+HKR, Responses, "30<cr>", 1, 01, 00, 00, 00, 00, 00, 00,00,00,00 ; COMPRESSION NOT AVAILABLE
+HKR, Responses, "31<cr>", 1, 01, 01, 00, 00, 00, 00, 00,00,00,00 ; COMPRESSION LEVEL 5
+HKR, Responses, "32<cr>", 1, 01, 01, 00, 00, 00, 00, 00,00,00,00 ; COMPRESSION V.42bis
+HKR, Responses, "34<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "35<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "36<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "37<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "38<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "39<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "40<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "41<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "42<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "43<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "44<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "45<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "46<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "47<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "50<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "51<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "52<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "53<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00
+HKR, Responses, "60<cr>", 1, 02, 00, 20, 1C, 00, 00, 00,00,00,00 ; CONNECT 7200 TRELLIS - Connection at 7200 bps
+HKR, Responses, "61<cr>", 1, 02, 00, E0, 2E, 00, 00, 00,00,00,00 ; CONNECT 12000 TRELLIS - Connection at 12000 bps
+HKR, Responses, "62<cr>", 1, 02, 02, 20, 1C, 00, 00, 00,00,00,00 ; CONNECT 7200 TRELLIS/REL - Connection at 7200 bps with MNP2-4
+HKR, Responses, "63<cr>", 1, 02, 02, E0, 2E, 00, 00, 00,00,00,00 ; CONNECT 12000 TRELLIS/REL - Connection at 12000 bps with MNP2-4
+HKR, Responses, "64<cr>", 1, 02, 02, 00, 00, 00, 00, 00,00,00,00 ; CONNECT/LAPM
+HKR, Responses, "65<cr>", 1, 02, 02, B0, 04, 00, 00, 00,00,00,00 ; CONNECT 1200/LAPM
+HKR, Responses, "66<cr>", 1, 02, 02, 60, 09, 00, 00, 00,00,00,00 ; CONNECT 2400/LAPM
+HKR, Responses, "67<cr>", 1, 02, 02, B0, 04, 00, 00, 00,00,00,00 ; CONNECT V.22/LAPM 
+HKR, Responses, "68<cr>", 1, 02, 02, C0, 12, 00, 00, 00,00,00,00 ; CONNECT 4800/LAPM
+HKR, Responses, "69<cr>", 1, 02, 02, 20, 1C, 00, 00, 00,00,00,00 ; CONNECT 7200 TRELLIS/LAPM
+HKR, Responses, "70<cr>", 1, 02, 02, 80, 25, 00, 00, 00,00,00,00 ; CONNECT 9600/LAPM
+HKR, Responses, "71<cr>", 1, 02, 02, 80, 25, 00, 00, 00,00,00,00 ; CONNECT 9600 TRELLIS/LAPM
+HKR, Responses, "72<cr>", 1, 02, 02, E0, 2E, 00, 00, 00,00,00,00 ; CONNECT 12000 TRELLIS/LAPM
+
+[Strings]
+MS = "Microsoft"
+
+M18 = "Hayes"
+M1700 = "Hayes Smartmodem 1200"
+M1701 = "Hayes Compatible 2400"
+M1702 = "Hayes Compatible 9600"
+M1800 = "Hayes Pocket Modem 2400"
+M1801 = "Hayes Smartmodem 2400"   
+M1802 = "Hayes Smartmodem 9600"
+M1803 = "Hayes Optima 96 + FAX96"
+M1804 = "Hayes Optima 144 + FAX144"
+M1805 = "Hayes V-series Ultra Smartmodem 9600"
+M1806 = "Hayes V-series Ultra Smartmodem 14400"
+M1807 = "Hayes Accura 96 + FAX96"
+M1808 = "Hayes Accura 144 + FAX144"
+M1809 = "Hayes Accura 96B + FAX96"
+M1810 = "Hayes Accura 144B + FAX144"
+M1811 = "Hayes Optima 288 V.FC + FAX"
+M1811PNP = "Hayes 288, V.34 + FAX"
+M1812 = "Hayes 2400 Bps Modem"   
+M1813 = "Hayes Optima 24B + FAX96"
+M1814 = "Hayes Optima 96B + FAX96"
+M1815 = "Hayes Optima 144B + FAX144"
+M1816 = "Hayes Accura 24 EC + FAX96"
+M1817 = "Hayes Accura 24B EC + FAX96"
+M1818 = "Hayes Optima 144 + FAX144 Pocket Edition"
+M1819 = "Hayes Accura 288 V.FC + FAX"
+M1820 = "Hayes 9600 Bps Modem"
+M1821 = "Hayes 14.4 Kbps Modem"
+M1822 = "Hayes Optima 144"
+M1823 = "Hayes Optima 144 + FAX144 PCMCIA"
+M1824 = "Hayes 2400 Bps Modem"
+M1825 = "Hayes V-series Smartmodem 9600"
+M1826 = "Hayes Optima 288 V.34 + FAX"
+M1827 = "Hayes Optima 24 + FAX96 PCMCIA"
+M1828 = "Hayes Optima 288 V.FC + FAX (UK)"

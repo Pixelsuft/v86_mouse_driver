@@ -1,0 +1,95 @@
+[NotifySyms]
+    !PWM_SETPROGRESSTEXT = 2163 
+    !PWM_SETPROGRESSPOS  = 2162 
+    !PWM_SETPROGRESSSIZE = 2161 
+    !PWM_PROGRESSEND     = 2160 
+    !PGI_REMOVE          = 0
+    !PGI_INSTALL         = 1
+    !PGI_COPY            = 2
+    !PGI_UPDATE          = 3
+[SetStatusInReg]
+    set ClearReg = $($0)
+    set ErrorMsg = $($1)
+    Set SetupKeyName     = "SOFTWARE\Microsoft\NCPA"
+    Set ErrorValueName   = "InfReturn"
+    Set MaskAllAccess  = 33554432
+    OpenRegKey $(!REG_H_LOCAL) "" $(SetupKeyName) $(MaskAllAccess) SetupKey
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        ifstr(i) ClearReg == YES
+            DeleteRegValue $(SetupKey) $(ErrorValueName)                
+        else
+            SetRegValue $(SetupKey) {$(ErrorValueName),0,$(!REG_VT_SZ),$(ErrorMsg)}
+        endif
+        CloseRegKey $(SetupKey)
+    endif
+    return
+[IsNetCard]
+    set ThisInfName = $($0)
+    set NetCard = "NO"
+    Split-String $(ThisInfName) "\." SrcDirList
+    QueryListSize ListSize $(SrcDirList)
+    ifint $(ListSize) >= 3
+        set-sub Position = $(ListSize), 2
+        set InfName = *($(SrcDirList), $(Position))
+        Split-String $(InfName) "dD" CharList
+        QueryListSize ListSize $(CharList)
+        ifint $(ListSize) >= 2
+            ifstr(i) *($(CharList), 1) == "oemna"
+                ifstr(i) *($(CharList), 2) == "d"
+                    set NetCard = "YES"
+                endif
+            endif
+        endif
+    endif 
+    return $(NetCard)
+[PrepRegForNetOptions]
+    Debug-Output "Other.INF: Get options NTN_NETTYPE "$(!NTN_NETTYPE)
+    ForListDo $(!NTN_NETTYPE)
+        Debug-Output "Other.INF: Get options net type "$($)
+        shell "Other.inf" ReturnOemOptions $(!STF_LANGUAGE) $($) TRUE
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            Debug-Output "NETBOND.INF: Other OEM options found for type "$($)
+        endif
+    EndForListDo
+    set Status = STATUS_SUCCESSFUL
+    Return $(Status) 
+[InstallAndCopyNetComponents]
+    set UtilityInf = "Utility.inf"
+    set NcParamInf = "NCPARAM.INF"
+    set !STF_NETCANCELOVERIDE = "YES"
+    set !STF_NETDELETEOVERIDE = "YES"
+    set cDetectCount = 0
+    Debug-Output "The Glue That Keeps Us Installing"
+    Debug-Output "NetBond.INF: INFs to be run: "$(!NTN_InfsToBeRun)
+    Debug-Output "NetBond.INF: Options to install: "$(!NTN_OptionsToBeRun)
+    Debug-Output "NetBond.INF: Billboards to be shown: "$(!NTN_TextToBeShown)
+    Debug-Output "NetBond.INF: OemPaths to use: "$(!NTN_NETOEMPATHS)
+    Debug-Output "NetBond.INF: RegBases to pass: "$(!NTN_RegBases)
+    Debug-Output "NetBond.INF: STF_NCDETINFOs to be used: "$(!NTN_NCDETINFOS)
+    Debug-Output "NetBond.INF: NTN_NCDETECTED, items detected: "$(!NTN_NCDETECTED)
+    Debug-Output "NetBond.INF: NTN_NETSECTIONS, items detected: "$(!NTN_NETSECTIONS)
+    Debug-Output "NetBond.INF: Install Mode: "$(!NTN_STF_INSTALL_MODE)
+    Debug-Output "NetBond.INF: NTN_UPGRADEMODE: "$(!NTN_UPGRADEMODE)
+    Debug-Output "NetBond.INF: NTN_UPGRADEWARN: "$(!NTN_UPGRADEWARN)
+    Debug-Output "NetBond.INF: STF_UNATTENDED: "$(!STF_UNATTENDED)
+    Debug-Output "NetBond.INF: STF_GUI_UNATTENDED: "$(!STF_GUI_UNATTENDED)
+    Debug-Output "NetBond.INF: Notify Hwnd: "$(!NTN_NOTIFY_HWND)
+    ifstr(i) $(!NTN_STF_INSTALL_MODE) != ""
+        set !STF_INSTALL_MODE = $(!NTN_STF_INSTALL_MODE)        
+    endif
+    set !NTN_RegBase = ""
+    Shell "" SetStatusInReg YES ""
+    ifstr(i) $(!NTN_InstallPhase) != primary
+        Set !STF_SRCDIR_OVERRIDE = ""
+reaskforsource = +
+        Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(!STF_SRCDIR) YES
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Shell "" SetStatusInReg NO "SHELLASKSRCFAIL"
+            set NetInstallStatus = $($R0)
+            Goto netcopyescape
+        Else-Ifstr(i) $($R0) == STATUS_FAILED
+            Shell "" SetStatusInReg NO "ASKSRCFAIL"
+            set NetInstallStatus = $($R0)
+            Goto netcopyescape
+        Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+            Shell "" SetStatusInR

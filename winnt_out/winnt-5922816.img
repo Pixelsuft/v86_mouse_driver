@@ -1,0 +1,58 @@
+R,CLSID\{00020D09-0000-0000-C000-000000000046}\InprocServer32,,,wmsui32.dll
+HKCR,CLSID\{00020D09-0000-0000-C000-000000000046}\ProgID,,,MailMsgAtt
+HKCR,CLSID\{00020D09-0000-0000-C000-000000000046}\Verb\0,,,"%VERB_OPEN%, 0, 2"
+
+; add our new extensions in
+HKLM,"SOFTWARE\Microsoft\Exchange\Forms Registry",Provider,,wmsfr32.dll
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions",wmsfr,,"4.0;wmsfr32.dll;7;01010111111000;1110000000"
+
+; add wmsui apis
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Support",ChooseFolder,,"wmsui32.dll;112"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Support",Details,,"wmsui32.dll;9"
+
+; add the list of file types
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types",":TEXT",,".txt"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types",":APPL",,".exe"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types",":DEXE",,".exe"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types",":TIF ",,".tif"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types",":EPSF",,".eps"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWD:WDBN",,".doc"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWD:TEXT",,".txt"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:TEXT",,".txt"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLC ",,".xlc"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLM ",,".xlm"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLW ",,".xlw"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLC3",,".xlc"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLS3",,".xls"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLM3",,".xlm"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLW3",,".xlw"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLA ",,".xla"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:sLS ",,".XLT"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:sLC ",,".XLT"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:sLM ",,".XLT"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:LWKS",,".WK1"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:LWK3",,".WK3"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:F+DB",,".DBF"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLA4",,".XLA"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPP ",,".mpp"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPX ",,".mpx"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPC ",,".mpc"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPV ",,".mpv"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPW ",,".mpw"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","ALD2:PUBF",,".pub"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","ALD3:ALB3",,".pm3"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","ALD3:ALT3",,".pt3"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","ALD3:TIFF",,".tif"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MORE:TEXT",,".rdy"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOX+:F+DB",,".dbf"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","ARTZ:EPSF",,".eps"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","SIT!:SIT!",,".sit"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","WPC2:WPD1",,".doc"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWD:W6BN",,".doc"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOXX:FAPP",,".app"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOXX:FFXP",,".fxp"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOXX:F+PR",,".prg"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOXX:F+FR",,".scx"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOXX:FQPR",,".qpr"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOXX:F+RP",,".frx"
+HKLM,"Software\Microsoft\Exchange\

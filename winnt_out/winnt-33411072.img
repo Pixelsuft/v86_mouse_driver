@@ -1,0 +1,45 @@
+efault gateway>
+	route add -p 123.47.0.0 MASK 255.555.0.0 <default gateway>
+ 
+Dial-Up Networking and Autodial
+
+Text Corrections
+· In chapter 6 "Installing and Configuring Remote Access Service" in the Networking Supplement, the first paragraph in the section "Known Problems for this Release" under "RAS Automatic Dialing" is incorrect. Autodial does work over IPX connections.
+
+"Autodial does not yet work over IPX connections. Autodial works only with the TCP/IP and NetBEUI protocols. In Dial-Up Networking, select the entry for each RAS connection over which you expect to Autodial. Then click More and select Edit Entry and Modem Settings. In the Server tab, click to clear the IPX/SPX compatible check box."
+
+· In chapter 6 "Installing and Configuring Remote Access Service" in the Networking Supplement, the last paragraph in the section "Known Problems for this Release" under "RAS Automatic Dialing" is incorrect. Please disregard the following text:
+
+"The Registry configuration for Autodial has changed. It is recommended that you delete the Autodial registry key in:
+HKEY_CURRENT_USER\Software\Microsoft\RAS
+Autodial will then relearn your addresses."
+
+Autodial disabled without a Dial out port 
+·  If you install Dial-Up Networking on a Windows NT Server computer that does not have one or more ports configured for dialing out, Remote Access Autodial Manager will be installed in a disabled state. If you later change one or more ports to the Dial Out option, Remote Access Autodial Manager will still be disabled. You must manually select the Autodial service in the Control Panel Services icon and enable it.
+
+Setting addresses that will never cause an Autodial attempt
+· You can specify a list of addresses that will never cause an Autodial attempt even if Autodial is enabled for the current dialing location. The first time the Autodial service runs, the following registry key is created:
+HKEY_CURRENT_USER\Software\Microsoft\RAS Autodial\Control\DisabledAddresses.
+Once this value is created, it will not be changed by the Autodial system service, and you can modify the list however you wish.  All addresses in the list are case-insensitive.
+
+Disabling cached passwords
+· Dial-Up Networking caches passwords which can accumulate over time if you have many different phonebook entries. This might result in a slight delay after you type your credentials in the Connecting To... dialog box. You can clear cashed passwords for all Dial-Up Networking phonebook entries and prevent cached passwords from being saved in the future by adding the following Registry key to:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasMan\Parameters
+	DisableSavePassword
+	Data type = REG_DWORD
+	Range = 0 – 1
+	Default: 0
+Set the value to 1 to clear cached passwords and prevent cached passwords from being saved.
+
+Disabling Autodial for performance improvement
+· If a dial out port is configured on a Windows NT Server computer, the Autodial system service automatically enables client-side redial on link failure and Autodial services for the dial out port.  If Autodial is not required on the dial out port, you can gain a small performance improvement by disabling it.  
+To disable Autodial, in Dial-Up Networking, click More and select User preferences.  In the Enable auto-dial by location box, clear the box for each dialing location.
+
+The Redial on link failure option will still work even if Autodial is disabled. (There is no performance degradation for enabling redial on link failure.)
+
+Autodial requests when logging in 
+· If an icon in the Start menu is a shortcut to a remote network server or UNC path, the Explorer attempts to load the icon when you logon. If Autodial is enabled, this reference causes an Autodial attempt. You can determine which icons have references to a remote server by using the following command in the \system32 folder:
+ findstr /s /m /i /c:"string" *.lnk
+where string is the name of the remote server for which you are getting Autodial requests during logon.
+
+You can change your icon to reference a l

@@ -1,0 +1,47 @@
+00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 38400/MNP<cr><lf>",       1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 38400/LAP-M<cr><lf>",     1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 38400/V42BIS<cr><lf>",    1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 57600<cr><lf>",           1, 02, 00, 00,E1,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 57600/ARQ<cr><lf>",       1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 57600/REL<cr><lf>",       1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 57600/MNP<cr><lf>",       1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 57600/LAP-M<cr><lf>",     1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 57600/V42BIS<cr><lf>",    1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115200<cr><lf>",          1, 02, 00, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115200/ARQ<cr><lf>",      1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115200/REL<cr><lf>",      1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115200/MNP<cr><lf>",      1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115200/LAP-M<cr><lf>",    1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115200/V42BIS<cr><lf>",   1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115,200<cr><lf>",         1, 02, 00, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115,200/ARQ<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115,200/REL<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115,200/MNP<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115,200/LAP-M<cr><lf>",   1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 115,200/V42BIS<cr><lf>",  1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 230400<cr><lf>",          1, 02, 00, 00,84,03,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 230400/ARQ<cr><lf>",      1, 02, 02, 00,84,03,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 230400/REL<cr><lf>",      1, 02, 02, 00,84,03,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 230400/MNP<cr><lf>",      1, 02, 02, 00,84,03,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 230400/LAP-M<cr><lf>",    1, 02, 02, 00,84,03,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 230400/V42BIS<cr><lf>",   1, 02, 02, 00,84,03,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CARRIER 300<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200/75<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75/1200<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 2400<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 4800<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 7200<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 9600<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 14400<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 16800<cr><lf>",   1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 19200<cr><lf>",   1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 21600<cr><lf>",   1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 24000<cr><lf>",   1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 26400<cr><lf>",   1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 28800<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 14400/VFC<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 16800/VFC<cr><lf>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 19200/

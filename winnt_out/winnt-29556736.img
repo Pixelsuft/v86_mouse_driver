@@ -1,0 +1,80 @@
+ add software components"
+        CloseRegKey $(KeyProduct)
+        CloseRegKey $(SoftNetRulesKey)
+        goto fatalregistry
+       endif
+       set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                   {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                   {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                   {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftware$(Option)Title)},+
+                   {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftware$(Option)Description)},+
+                   {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareName)},+
+                   {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+       Shell  $(UtilityInf), AddValueList, $(KeyProduct), $(NewValueList)
+       ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error."
+        goto ShellCodeError
+       endif
+       set RegistryErrorIndex = $($R0)
+       Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "Registry error: add value list."
+        CloseRegKey $(KeyProduct)
+        CloseRegKey $(SoftNetRulesKey)
+        goto fatalregistry
+       endif
+       set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareType)},+
+                        {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareUse)}, +
+                        {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareBindForm)}, +
+                        {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareClass)}, +
+                        {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareBindable)}, +
+                        {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+       Shell  $(UtilityInf), AddValueList, $(SoftNetRulesKey), $(NewValueList)
+       ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error."
+        goto ShellCodeError
+       endif
+       set RegistryErrorIndex = $($R0)
+       CloseRegKey $(KeyProduct)
+       CloseRegKey $(SoftNetRulesKey)
+       Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "Resgitry error: add value list."
+        goto fatalregistry
+       endif
+    endif
+    Shell $(UtilityInf), AddHardwareComponent, $(ProductHardwareName),$(STF_CONTEXTINFNAME),$(ProductKeyName)
+    ifint $($R4) != -1
+                Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards\"$($R4))
+    endif
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "Cannot add hardware component"
+                goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "Registry error: add hardware component"
+                CloseRegKey $($R1)
+                CloseRegKey $($R2)
+                CloseRegKey $($R3)
+                goto fatalregistry
+    endif
+    set KeyParameters = $($R3)
+    set KeyAdapterRules = $($R2)
+    set AdapterNumber = $($R4)
+    set NewValueList = {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(Manufacturer)},+
+                       {Title,$(NoTitle),$(!REG_VT_SZ),"["$($R4)"] "$(ProductHardware$(Option)Title)},+
+                       {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductHardware$(Option)Description)},+
+                       {ProductName,$(NoTitle),$(!REG_VT_SZ),$(ProductHardwareName)},+
+                       {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+                       {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)},+
+                       {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+    Shell  $(UtilityInf), AddValueList, $($R1), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error"
+                goto ShellCodeError
+    endif
+    CloseRegKey $($R1)
+    set TempProdName = """"$(ProductHardwareName)$(AdapterNumber)""""
+    set TempBindForm 

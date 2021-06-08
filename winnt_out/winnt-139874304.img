@@ -1,0 +1,94 @@
+tewayEnabled" NetworkAccess
+       ifint $(RegLastError) == 0
+           set NbfNetAccess = *($(NetworkAccess), 4)
+       endif
+       CloseRegKey $(KeyProtocol)
+    else
+       Debug-Output "GetNetworkAccess:error opening key "$(ProtocolKeyName)
+    endif
+    set ProtocolKeyName = $(RasProtocolsKeyName)"\IP"
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProtocolKeyName) $(!MAXIMUM_ALLOWED) KeyProtocol
+    Ifstr(i) $(KeyProtocol) != $(KeyNull)
+       GetRegValue $(KeyProtocol), "AllowNetworkAccess" NetworkAccess
+       ifint $(RegLastError) == 0
+           set TcpIpNetAccess = *($(NetworkAccess), 4)
+       endif
+       CloseRegKey $(KeyProtocol)
+    else
+       Debug-Output "GetNetworkAccess:error opening key "$(ProtocolKeyName)
+    endif
+    set ProtocolKeyName = $(RasProtocolsKeyName)"\IPX"
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProtocolKeyName) $(!MAXIMUM_ALLOWED) KeyProtocol
+    Ifstr(i) $(KeyProtocol) != $(KeyNull)
+       GetRegValue $(KeyProtocol), "AllowNetworkAccess" NetworkAccess
+       ifint $(RegLastError) == 0
+           set IpxNetAccess = *($(NetworkAccess), 4)
+       endif
+       CloseRegKey $(KeyProtocol)
+    else
+       Debug-Output "GetNetworkAccess:error opening key "$(ProtocolKeyName)
+    endif
+    Debug-Output "GetNetworkAccess exit"
+    return $(Status) $(NbfNetAccess) $(TcpIpNetAccess) $(IpxNetAccess)
+[IsNdisWanBHAdapterInstalled]
+    set Status      = STATUS_FAILED
+    Set KeyNull     = ""
+    Debug-Output "IsNdisWanBHAdapterInstalled entry"
+    set NetworkCardKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) $(!MAXIMUM_ALLOWED) NetworkCardKey
+    Ifstr(i) $(NetworkCardKey) != $(KeyNull)
+        set NetcardsList = {}
+        EnumRegKey $(NetworkCardKey) NetcardsList
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+           Debug-Output "IsNdisWanBHAdapterInstalled: EnumRegKey failed."
+           goto IsNdisWanBHAdapterInstalledEnd
+        endif
+        ForListDo $(NetcardsList)
+           set KeyName = *($($),1)
+           set Card = $(KeyNull)
+           OpenRegKey $(NetworkCardKey) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+           ifstr $(Card) == $(KeyNull)
+               Debug-Output "IsNdisWanBHAdapterInstalled: could not open netcard key "$(KeyName)
+           else
+               GetRegValue $(Card), "ProductName" ProductNameInfo
+               Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                  Debug-Output "IsNdisWanBHAdapterInstalled: ProductName not found."
+               else
+                  set CardProductName = *($(ProductNameInfo), 4)
+                  Debug-Output "IsNdisWanBHAdapterInstalled: ProductName. "$(CardProductName)
+		          ifstr(i) $(CardProductName) == $(!ProductNDISWANName)
+                       set Status = STATUS_SUCCESSFUL
+                       CloseRegKey $(Card)
+                       goto IsNdisWanBHAdapterInstalledEnd
+                  endif
+               endif
+               CloseRegKey $(Card)
+           endif
+        EndForListDo
+    else
+        Debug-Output "IsNdisWanBHAdapterInstalled: failed to open "$(!NetworkCardKeyName)
+    endif
+IsNdisWanBHAdapterInstalledEnd =+
+    ifstr(i) $(NetworkCardKey) != $(KeyNull)
+        CloseRegKey $(NetworkCardKey)
+    endif
+    Debug-Output "IsNdisWanBHAdapterInstalled exit"
+    Return $(Status)
+[InstallNdisWanBHAdapter]
+    set Status = STATUS_FAILED
+    set ThisOption = NDISWAN
+    Debug-Output "InstallNdisWanBHAdapter entry"
+    Shell "utility.inf", AddHardwareComponent, +
+          $(!Product$(ThisOption)Name),$(!RasInfName),+
+          $(!Product$(ThisOption)KeyName)
+    ifint $($R4) != -1
+        Set !NETCARD_LIST = >($(!NETCARD_LIST), +
+                             {$(!Product$(ThisOption)Name),+
+                             $(!NetworkCardKeyName)"\"$($R4)})
+    endif
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "InstallNdisWanBHAdapter:Shell error"
+       goto InstallNdisWanBHAdapterEnd
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex

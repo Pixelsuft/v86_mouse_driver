@@ -1,0 +1,101 @@
+[Version]
+signature="$Windows NT$"
+ClassGUID={00000000-0000-0000-0000-000000000000}
+LayoutFile=layout.inf
+
+[DestinationDirs]
+Ohare.Copy.Files    = 24,%LONG_INET_PROGRAMS%
+Ohare.Help          = 18
+Ohare.Sys.Files     = 11
+Ohare.Doc.Files     = 24,%LONG_INET_PROGRAMS%\%DOCS_DIR%
+Ohare.Old.Files     = 24,%LONG_INET_PROGRAMS%
+Ohare.Old.Sys.Files = 11
+
+
+[DefaultInstall]
+CopyFiles=Ohare.Copy.Files,Ohare.Sys.Files,Ohare.Help,Ohare.Doc.Files
+DelFiles=Ohare.Old.Files,Ohare.Old.Sys.Files
+AddReg=Ohare.Add.Reg,DoNotRemove.Add.Reg,Ohare.Reg.Installed,Update.Reg
+UpdateInis=Ohare.Update.Ini
+DelReg=OCRemove.Reg
+
+[OCRemove.Reg]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\BaseWinOptions,iexplore.inf
+HKLM,%KEY_OPTIONAL%,InternetExplorer
+HKLM,%KEY_OPTIONAL%\InternetExplorer
+
+[Ohare.Copy.Files]
+iexplore.exe
+secbasic.dll
+
+[Ohare.Sys.Files]
+inetcpl.cpl,,,65536
+msnsspc.dll
+secsspi.dll
+url.dll,,,65536
+
+[Ohare.Help]
+iexplore.cnt
+iexplore.hlp
+msnauth.cnt
+msnauth.hlp
+
+[Ohare.Doc.Files]
+home.htm
+backgrnd.gif
+client.gif
+space.gif
+
+[Ohare.Old.Files]
+; Obsolete files
+wsock32.dll
+
+[Ohare.Old.Sys.Files]
+secbasic.dll
+
+[Ohare.Reg.Installed]
+; Don't let Plus! install
+HKLM,"SOFTWARE\Microsoft\Internet Explorer","IVer",0,"101"
+
+[Ohare.Update.Ini]
+; Create Shortcuts in Accessories/Internet Tools
+setup.ini, progman.groups,,"group100=%INET_DESC%"
+setup.ini, group100,,"""%IEXPLORE_DESC%"", %24%\%LONG_INET_PROGRAMS%\IEXPLORE.EXE,,,,,%IEXPLORE_SHORT_DESC%"
+
+
+[Ohare.Add.Reg]
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Internet Settings\Last Update\IEXPLOREV2","CurrentVerTimestamp",2,"Tue, 21 Nov 1995 01:00:00 GMT"
+HKCU,"Software\Microsoft\Internet Explorer\Document Windows","width",3,00,00,00,80
+HKCU,"Software\Microsoft\Internet Explorer\Document Windows","height",3,00,00,00,00
+HKCU,"Software\Microsoft\Internet Explorer\Document Windows","x",3,00,00,00,80
+HKCU,"Software\Microsoft\Internet Explorer\Document Windows","y",3,00,00,00,00
+HKCU,"Software\Microsoft\Internet Explorer\Document Windows","Maximized",2,"no"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Check_Associations",2,"yes"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Show_ToolBar",2,"yes"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Show_URLToolBar",2,"yes"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Show_StatusBar",2,"yes"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Show_URLinStatusBar",2,"yes"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Show_FullURL",2,"no"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Use_DlgBox_Colors",2,"yes"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Display Inline Images",2,"yes"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Anchor Underline",2,"yes"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Save_Session_History_On_Exit",2,"no"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Start Page",2,"file:%24%\%LONG_INET_PROGRAMS%\%DOCS_DIR%\home.htm"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Search Page",2,"%WWW_ALLINONE%"
+HKCU,"Software\Microsoft\Internet Explorer\Main","Cache_Update_Frequency",2,"Once_Per_Session"
+
+HKCU,"Software\Microsoft\Internet Explorer\Styles","Default_Style_Sheet",2,"SerifMedium"
+
+HKCU,"Software\Microsoft\Internet Explorer\Settings","Anchor Color",2,"0,0,255"
+HKCU,"Software\Microsoft\Internet Explorer\Settings","Anchor Color Visited",2,"128,0,128"
+HKCU,"Software\Microsoft\Internet Explorer\Settings","Background Color",2,"192,192,192"
+HKCU,"Software\Microsoft\Internet Explorer\Settings","Text Color",2,"0,0,0"
+
+HKCU,"Software\Microsoft\Internet Explorer\TypedURLs","url1",2,"file:%10%/itgfile.htm"
+HKCU,"Software\Microsoft\Internet Explorer\Services",,0,""
+HKCU,"Software\Microsoft\Internet Explorer\Security","Sending_Security",2,"Medium"
+HKCU,"Software\Microsoft\Internet Explorer\Security","Viewing_Security",2,"Low"
+
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Styles","Count_Style_Sheets",3,05,00,00,00
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Styles","StyleSheet_Name_1",2,"SerifSmallest"
+HKLM,"S

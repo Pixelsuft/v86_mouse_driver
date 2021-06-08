@@ -1,0 +1,130 @@
+[Identification]
+    OptionType = NetAdapter
+[PlatformsSupported]
+    ISA
+    EISA
+    "Jazz-Internal Bus"
+[Options]
+    P1390
+[IRQ_Level]
+IRQ_3 = "3"
+IRQ_4 = "4"
+IRQ_5 = "5"
+IRQ_6 = "6"
+IRQ_7 = "7"
+IRQ_9 = "9"
+IRQ_10 = "10"
+IRQ_11 = "11"
+IRQ_12 = "12"
+[IOAddrChoices]
+IOAddr_1 = "0x0A20", 2592
+IOAddr_2 = "0x1A20", 6688
+IOAddr_3 = "0x2A20", 10784
+IOAddr_4 = "0x3A20", 14880
+IOAddr_5 = "0x4A20", 18976
+IOAddr_6 = "0x5A20", 23072
+[DMAChoices]
+DMA_5 = 5
+DMA_6 = 6
+DMA_7 = 7
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+subroutineinf   = "SUBROUTN.INF"
+SoftwareType    = "driver"
+Exit_Code       = 0
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+IOBaseAddressList  = ^(IOAddrChoices, 1)
+IOBaseAddressValue = ^(IOAddrChoices, 2)
+IRQ_List = ^(IRQ_Level, 1)
+DMA_List = ^(DMAChoices, 1)
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductSoftwareName     = "Proteon"
+ProductSoftwareImagePath = "\SystemRoot\System32\drivers\pronet16.sys"
+NetRuleSoftwareType     = "proteonSys ndisDriver proteonDriver"
+NetRuleSoftwareUse      = $(SoftwareType)
+NetRuleSoftwareBindForm = """ProteonSys"" yes no container"
+NetRuleSoftwareClass    = {"proteonDriver basic"}
+ProductHardwareName     = "Proteon"
+NetRuleHardwareType     = "p1390 p1390Adapter"
+NetRuleHardwareBindForm = " yes yes container"
+NetRuleHardwareClass    = {"p1390Adapter basic"}
+ProductOpSupport     = 134 
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)"\"$(ProductHardwareName)"\Parameters"
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        ifstr(i) $($1) == ""
+           goto returnoptions
+        endif
+        set PlatformList = ^(PlatformsSupported, 1)
+        Ifcontains(i) $($1) in $(PlatformList)
+           goto returnoptions
+        else
+           set Status = STATUS_NOTSUPPORTED
+           goto finish_ReturnOptions
+        endif
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    Debug-Output "OEMNADP3.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNADP3.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    Shell $(UtilityInf), GetBindingInfo, "PROTEON"
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error: cannot get an error string."
+        goto ShellCodeError
+    endif
+    set NetRuleSoftwareBindable = $($R1)
+    read-syms DialogConstants$(!STF_LANGUAGE)

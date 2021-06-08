@@ -1,0 +1,51 @@
+0, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+HKR, Responses, "OK",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RING",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO CARRIER",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "ERROR",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO DIALTONE", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO DIAL TONE",1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "BUSY",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO ANSWER",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "FAX",         1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DATA",        1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "VOICE",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RINGING",     1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DELAYED",     1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "BLACKLISTED", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "+FCERROR",    1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>", 1, 02, 00, 2c,01,00,00, 2c,01,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 00, b0,04,00,00, b0,04,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>", 1, 02, 00, 60,09,00,00, 60,09,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>", 1, 02, 00, c0,12,00,00, c0,12,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>", 1, 02, 00, 20,1c,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>", 1, 02, 00, 80,25,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>", 1, 02, 00, e0,2e,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>", 1, 02, 00, 40,38,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>", 1, 02, 00, a0,41,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>", 1, 02, 00, 00,4b,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600<cr><lf>", 1, 02, 00, 60,54,00,00, 00,96,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000<cr><lf>", 1, 02, 00, c0,5d,00,00, c0,5d,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400<cr><lf>", 1, 02, 00, 20,67,00,00, 00,96,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>", 1, 02, 00, 80,70,00,00, 00,96,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200/RELIABLE/MNP<cr><lf>", 1, 02, 02, b0,04,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/RELIABLE/MNP<cr><lf>", 1, 02, 02, 60,09,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/RELIABLE/MNP<cr><lf>", 1, 02, 02, c0,12,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/RELIABLE/MNP<cr><lf>", 1, 02, 02, 20,1c,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/RELIABLE/MNP<cr><lf>", 1, 02, 02, 80,25,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/RELIABLE/MNP<cr><lf>", 1, 02, 02, e0,2e,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/RELIABLE/MNP<cr><lf>", 1, 02, 02, 40,38,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/RELIABLE/MNP<cr><lf>", 1, 02, 02, a0,41,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/RELIABLE/MNP<cr><lf>", 1, 02, 02, 00,4b,00,00, 00,e1,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/RELIABLE/MNP<cr><lf>", 1, 02, 02, 60,54,00,00, 00,e1,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/RELIABLE/MNP<cr><lf>", 1, 02, 02, c0,5d,00,00, 00,e1,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/RELIABLE/MNP<cr><lf>", 1, 02, 02, 20,67,00,00, 00,e1,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/RELIABLE/MNP<cr><lf>", 1, 02, 02, 80,70,00,00, 00,e1,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/RELIABLE/LAPM<cr><lf>", 1, 02, 02, b0,04,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/RELIABLE/LAPM<cr><lf>", 1, 02, 02, 60,09,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/RELIABLE/LAPM<cr><lf>", 1, 02, 02, c0,12,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/RELIABLE/LAPM<cr><lf>", 1, 02, 02, 20,1c,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/RELIABLE/LAPM<cr><lf>", 1, 02, 02, 80,25,00,00, 00,96,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/RELIABLE/LAPM<cr><lf>"

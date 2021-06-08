@@ -1,0 +1,165 @@
+autodial_on>=ATDT
+<autodial_off>=ATD
+
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=321
+
+COMMAND_INIT=AT&F &C3 &D2 &I2 V1 E1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAP-M ACTIVE<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAP-M ACTIVE<cr><lf>
+
+;----------------------------------------
+[PDI-1000]
+;Supported on client side only.
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+COMMAND_INIT=AT&F&C1&D2 V1 E1 S0=0 S2=128 S7=55 S32=0<cr>
+COMMAND_INIT=AT<hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Practical Peripherals2400 Pkt]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PM2400PPM
+;----------------------------------------
+[Practical Peripherals 2400SA]
+;Server:Does not hang up normally. Not supported as a server modem.
+;Client side works
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATX3DT
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=04-00027-16
+DETECT_RESPONSE=AT-C2401-0E
+
+COMMAND_INIT=AT&F&D2 V1 S0=0 S2=128 S7=55 <speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Practical Peripherals 2400MNP]
+
+;Advanced features are disabled.
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=04-000
+
+COMMAND_INIT=AT&F&C2&D2 V1 S0=0 S2=128 S7=55 &Q0<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;--------------------------------------------------------------------------------
+; WARNING: The following modem had problems with CALLBACK feature in RAS.
+;--------------------------------------------------------------------------------
+[Practical Peripherals 9600SA]
+<hwflowcontrol_off>=&K0 &Q0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q6
+<protocol_on>=&Q5
+<compression_off>=S46=136
+<compression_on>=S46=138
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PM9600
+
+COMMAND_INIT=AT&F&D2&C1 V1 S0=0 S2=128 S7=55 S95=44<cr>
+COMMAND_INIT=AT<protocol><hwflowcontrol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Practical Peripherals 9600FX]
+ALIAS=Practical Peripherals 9600SA
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PM9600FX
+
+;----------------------------------------
+[Practical Peripherals 14400SA]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+<hwflowcontrol_off>=&K0 &Q0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q6
+<protocol_on>=&Q5
+<compression_off>=S46=0
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=AT X3 DT
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PM14400FXSA
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55 S95=44<cr>
+COMMAND_INIT=AT<protocol><hwflowcontrol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Practical Peripherals 14400FX]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=0
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodi

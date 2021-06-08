@@ -1,0 +1,144 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Supra Corporation
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[ControlFlags]
+ExcludeFromSelect=ISAPNP\SUP1381
+ExcludeFromSelect=UNIMODEM85B2DC91
+ExcludeFromSelect=SERENUM\SUP1201
+ExcludeFromSelect=SERENUM\SUP1261
+ExcludeFromSelect=SERENUM\SUP1251
+ExcludeFromSelect=SERENUM\SUP1211
+ExcludeFromSelect=ISAPNP\SUP1311
+ExcludeFromSelect=ISAPNP\SUP1321 
+ExcludeFromSelect=SERENUM\SUP1550
+ExcludeFromSelect=ISAPNP\SUP1560
+ExcludeFromSelect=SERENUM\SUP1280
+ExcludeFromSelect=ISAPNP\SUP1400
+ExcludeFromSelect=ISAPNP\SUP1300
+ExcludeFromSelect=ISAPNP\SUP1380
+ExcludeFromSelect=ISAPNP\SUP1310
+ExcludeFromSelect=UNIMODEM191DBDDB
+
+
+[Modem40.PosDup]
+*PNP0500
+
+[Modem39.NoResDup]
+UNIMODEM1C6DE8C1
+
+[Modem35.NoResDup]
+UNIMODEMD76A2DAB
+
+[Modem30.NoResDup]
+UNIMODEM44B0D26B
+
+[Modem29.NoResDup]
+UNIMODEM7FD4E3F0
+
+[Modem28.PosDup]
+*PNP0500
+
+[Modem26.NoResDup]
+UNIMODEM085B3649
+
+[Modem24.PosDup]
+*PNP0500
+
+[Modem22.NoResDup]
+UNIMODEM9BFFDCB4
+
+[Modem21.PosDup]
+*PNP0500
+
+[Modem19.PosDup]
+*PNP0500
+
+[Modem16.PosDup]
+*PNP0500
+
+[Manufacturer]
+%Mfg% = Models
+
+[Models]
+%Modem40%= Modem40, UNIMODEM85B2DC91
+%Modem40%= Modem40, ISAPNP\SUP1381                      ;Annie with voice 33.6
+%Modem39%= Modem39, UNIMODEM1C6DE8C1                          ;SFM 336
+%Modem39PNP%= Modem39, SERENUM\SUP1201
+%Modem35%= Modem35, UNIMODEMD76A2DAB                          ;Xpress 336i NT
+%Modem35PNP%= Modem35, SERENUM\SUP1261                 
+%Modem30%= Modem30, UNIMODEM44B0D26B                           ;Express 336e PnP
+%Modem30PNP%= Modem30, SERENUM\SUP1251    
+%Modem29%= Modem29, UNIMODEM7FD4E3F0                           ;SFM 336i IPC
+%Modem29PNP%= Modem29, SERENUM\SUP1211
+%Modem28%= Modem28, ISAPNP\SUP1311                              ; Annie 336i 
+%Modem28%= Modem28, ISAPNP\SUP1321 
+%Modem28%= Modem28, UNIMODEMB7E5FF44
+%Modem26%= Modem26, UNIMODEM085B3649                              ;Xpress 288 Japan
+%Modem26PNP%= Modem26, SERENUM\SUP1550
+%Modem24%= Modem24, SUPR3_Modem24, UNIMODEM191DBDDB
+%Modem24GEN%= Modem24, UNIMODEM191DBDDB
+%Modem24%= Modem24, ISAPNP\SUP1560                              ;Annie with Voice for Japan
+%Modem22%= Modem22, UNIMODEM9BFFDCB4                            ; SFM 288 German
+%Modem22PNP%= Modem22, SERENUM\SUP1280
+%Modem21%= Modem21, UNIMODEM5A7AC5A7
+%Modem21%= Modem21, ISAPNP\SUP1400                              ;Express 288i PnP WorldWide
+; bugbug -- rank0 collision with mdmsupra.inf -- commented out until we resolve
+;%Modem19%= Modem19, UNIMODEM04BE9FD4
+%Modem19%= Modem19, ISAPNP\SUP1300                              ;ExtremeExpress 144i
+%Modem16%= Modem16, UNIMODEM5FC44F8F
+%Modem16%= Modem16, SUPR3_Modem16, UNIMODEM191DBDDB
+%Modem16%= Modem16, ISAPNP\SUP1310  ;XP288i PnP
+
+
+[Modem40]
+AddReg=All, MfgAddReg, Modem40.AddReg, INTERNAL
+
+[Modem39]
+AddReg=All, MfgAddReg, Modem39.AddReg, EXTERNAL
+
+[Modem35]
+AddReg=All, MfgAddReg, Modem35.AddReg, INTERNAL
+
+[Modem30]
+AddReg=All, MfgAddReg, Modem30.AddReg, EXTERNAL
+
+[Modem29]
+AddReg=All, MfgAddReg, Modem29.AddReg, INTERNAL
+
+[Modem28]
+AddReg=All, MfgAddReg, Modem28.AddReg, INTERNAL
+
+[Modem26]
+AddReg=All, MfgAddReg, Modem26.AddReg, EXTERNAL
+
+[Modem24]
+AddReg=All, MfgAddReg, Modem24.AddReg, INTERNAL
+
+[Modem22]
+AddReg=All, MfgAddReg, Modem22.AddReg, EXTERNAL
+
+[Modem21]
+AddReg=All, MfgAddReg, Modem21.AddReg, INTERNAL
+
+[Modem19]
+AddReg=All, MfgAddReg, Modem19.AddReg, INTERNAL
+
+[Modem16]
+AddReg=All, MfgAddReg, Modem16.AddReg, INTERNAL
+
+
+[Modem40.AddReg]  
+HKR,, Properties, 1, C0,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,C2,01,00, 40,83,00,00
+
+[Modem39.AddReg]
+HKR,, Properties, 1, C0,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,03,00,00, 00,C2,01,00, 40,83,00,00
+
+[Modem35.AddReg]
+HKR,, Properties, 1, C0,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,03,0

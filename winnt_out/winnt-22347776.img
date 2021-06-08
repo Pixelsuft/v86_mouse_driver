@@ -1,0 +1,42 @@
+te, do not select the actual audio driver, but select Other.
+
+Quark Xpress
+This application warns that a font or fonts are not properly installed. You can uninstall offending fonts or ignore error messages. 
+The font name box will sometimes overlap the left justification button and completely cover the center and right justification buttons.
+
+Quattro Pro 
+Some embedded OLE objects may not behave as expected in files opened with Quattro Pro 6.0. Quattro Pro 6.01 has improved OLE implementation. Contact Novell at (800) 861-2774.
+
+In Quattro Pro for MS-DOS (RISC only), keyboard response may be exceptionally slow.
+
+In Quattro Pro for Windows 1.0, multiple-copy printing is not supported. When you select Redirect To File in the Printer Setup dialog box, the printer output will be redirected to a file in the \systemroot\system32 directory, even if you choose a different directory using the Browse button. The file will overwrite an existing file of the same name without any warning message. Another file with the same name will also be created in the directory you select using the Browse button, or in the Quattro Pro directory by default. This file will not contain any printer information and will have a size of zero bytes.
+
+Quattro Pro may display printers in its Printer Setup dialog box that are no longer available. A General Protection Fault may occur if you try to print to an unavailable printer. To see if a printer is still available, click Start  point to Settings, click Printers, and then double-click the printer to view the status.
+
+Quick View Plus
+Close and exit Quick View Plus, including any open viewing windows, before attempting to remove Quick View Plus by using Add/Remove Programs in Control Panel.
+
+Quicken version 4.0
+The communications portion of Quicken version 4.0 will only run on Windows NT version 4.0 if it is installed on x86-compatible computers.
+
+Quicken version 5.0 and Quicken Deluxe version 5.0
+Quicken 5.0 will not install on Window NT version 4.0 because the installation program is looking for Program Manager (Progman.exe) in the Windows directory. Windows NT includes a 32-bit version of Progman.exe in the System32 directory.
+
+If Windows NT version 4.0 has not been installed in the same directory as Windows 95 or Windows version 3.1,  copy Progman.exe into the systemroot (for example c:\winnt) directory before installing Quicken 5.0. After Quicken is installed, delete Progman.exe from the systemroot directory.
+
+If Windows NT version 4.0 has been installed in the same directory as Windows 95 or Windows version 3.1, the Windows 95 or Windows 3.1 version of Progman.exe will already be in the Windows directory. 
+
+Copy the existing version of Progman.exe to another directory before copying  the 32-bit version of Progman.exe from the System32 directory to the Windows directory. After Quicken is installed, copy the Windows 95 or the Windows 3.1 version of Progman.exe back into the Windows directory.
+
+Reflection 2
+Only a small portion of the printer icon appears in the Print dialog. If you have more than one printer, you can select any of them in the Print Setup dialog, but the change is not reflected in the Print dialog and all hard copy is sent to the default printer. 
+
+Remotely Possible/32
+If you have Remotely Possible/32 version 2.0 or 2.1 installed on computer running Windows NT 3.51, you must uninstall Remotely Possible before installing Windows NT 4.0. If you do not, Windows NT will not install correctly. You can uninstall Remotely Possible by running the Remove.bat file located on the Remotely Possible distribution disk. After you have upgraded to Windows NT, you can reinstall Remotely Possible.
+
+Remotely Possible/32 versions 2.0 and 2.1 do not enter Host mode under Windows NT version 4.0. Remotely Possible/32 can be run in client mode under Windows NT version 4.0 and can connect with Window NT 3.51 and Windows 95 hosts. Contact Avalan at http://www.avalan.com for upgrade information. 
+
+Remove-It 95
+Remove-It 95 fails to install under Windows NT version 4.0.
+
+Rumb

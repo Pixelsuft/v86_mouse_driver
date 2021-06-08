@@ -1,0 +1,121 @@
+ntrol\NLS\Language,Default,,400a
+HKLM,System\CurrentControlSet\Control\NLS\Language,400a,,l_intl.nls
+
+[NLS.Setlang.440a]
+HKLM,System\CurrentControlSet\Control\NLS\Language,Default,,440a
+HKLM,System\CurrentControlSet\Control\NLS\Language,440a,,l_intl.nls
+
+[NLS.Setlang.480a]
+HKLM,System\CurrentControlSet\Control\NLS\Language,Default,,480a
+HKLM,System\CurrentControlSet\Control\NLS\Language,480a,,l_intl.nls
+
+[NLS.Setlang.4c0a]
+HKLM,System\CurrentControlSet\Control\NLS\Language,Default,,4c0a
+HKLM,System\CurrentControlSet\Control\NLS\Language,4c0a,,l_intl.nls
+
+[NLS.Setlang.500a]
+HKLM,System\CurrentControlSet\Control\NLS\Language,Default,,500a
+HKLM,System\CurrentControlSet\Control\NLS\Language,500a,,l_intl.nls
+
+[NLS.Setlang.081d]
+HKLM,System\CurrentControlSet\Control\NLS\Language,Default,,081d
+HKLM,System\CurrentControlSet\Control\NLS\Language,081d,,l_intl.nls
+
+[NLS.Setlang.041e]
+HKLM,System\CurrentControlSet\Control\NLS\Language,Default,,041e
+HKLM,System\CurrentControlSet\Control\NLS\Language,041e,,l_intl.nls
+
+[NLS.Setlang.0422]
+HKLM,System\CurrentControlSet\Control\NLS\Language,Default,,0422
+HKLM,System\CurrentControlSet\Control\NLS\Language,0422,,l_intl.nls
+
+[NLS.Setlang.042a]
+HKLM,System\CurrentControlSet\Control\NLS\Language,Default,,042a
+HKLM,System\CurrentControlSet\Control\NLS\Language,042a,,l_intl.nls
+
+;
+; OS/2 message files
+;
+[oso001.007]
+oso001.007
+
+[oso001.009]
+oso001.009
+
+[oso001.010]
+oso001.010
+
+[oso001.012]
+oso001.012
+
+[oso001.016]
+oso001.016
+
+[oso001.029]
+oso001.029
+
+
+;
+; Target directories for copy sections
+;
+[DestinationDirs]
+DefaultDestDir    = 11                  ; system32
+NLS.Western       = 11
+NLS.EasternEurope = 11
+NLS.Cyrillic      = 11
+NLS.Baltic        = 11
+
+
+
+oso001.007     = 11,os2
+oso001.009     = 11,os2
+oso001.010     = 11,os2
+oso001.012     = 11,os2
+oso001.016     = 11,os2
+oso001.029     = 11,os2
+[Strings]
+Afrikaans                   = "Afrikaans"
+Albanian                    = "Albanian"
+Basque                      = "Basque"
+Belarusian                  = "Belarusian"
+Bulgarian                   = "Bulgarian"
+Catalan                     = "Catalan"
+Croatian                    = "Croatian"
+Czech                       = "Czech"
+Danish                      = "Danish"
+Dutch_Standard              = "Dutch (Standard)"
+Dutch_Belgian               = "Dutch (Belgian)"
+English_United_States       = "English (United States)"
+English_United_Kingdom      = "English (United Kingdom)"
+English_Canadian            = "English (Canadian)"
+English_New Zealand         = "English (New Zealand)"
+English_Australian          = "English (Australian)"
+English_South_Africa        = "English (South African)"
+English_Jamaica             = "English (Jamaican)"
+English_Caribbean           = "English (Caribbean)"
+English_Belize              = "English (Belize)"
+English_Trinidad            = "English (Trinidad)"
+Estonian                    = "Estonian"
+Faeroese                    = "Faeroese"
+Finnish                     = "Finnish"
+French_Standard             = "French (Standard)"
+French_Belgian              = "French (Belgian)"
+French_Swiss                = "French (Swiss)"
+French_Canadian             = "French (Canadian)"
+French_Luxembourg           = "French (Luxembourg)"
+German_Standard             = "German (Standard)"
+German_Swiss                = "German (Swiss)"
+German_Austrian             = "German (Austrian)"
+German_Luxembourg           = "German (Luxembourg)"
+German_Liechtenstein        = "German (Liechtenstein)"
+Greek                       = "Greek"
+Hungarian                   = "Hungarian"
+Icelandic                   = "Icelandic"
+Indonesian                  = "Indonesian"
+English_Irish               = "English (Irish)"
+Italian_Standard            = "Italian (Standard)"
+Italian_Swiss               = "Italian (Swiss)"
+Latvian                     = "Latvian"
+Lithuanian                  = "Lithuanian"
+Norwegian_Bokmal            = "Norwegian (Bokmal)"
+Norwegian_Nynorsk           = "Norwegian (Nynorsk)"

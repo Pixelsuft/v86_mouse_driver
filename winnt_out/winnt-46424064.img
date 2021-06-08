@@ -1,0 +1,99 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Intel Corp. (PCMCIA models)
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[Strings]
+Mfg = "Intel"
+
+Modem1="Intel Faxmodem 24-96 PCMCIA"            
+Modem2="Intel Faxmodem 9600 PCMCIA (MBFM6820)"
+Modem3="Intel Faxmodem 9600 PCMCIA (MBFM6821)"
+Modem4="Intel Faxmodem 14.4 PCMCIA (MBFM6830)"
+Modem5="Intel Faxmodem 14.4 PCMCIA (MBFM6831)"
+Modem6="Intel Cellular Faxmodem 14.4 PCMCIA"
+Modem7="Intel International Faxmodem 24-96 PCMCIA"
+Modem8="Intel International Faxmodem 14.4 PCMCIA"
+
+[Models]
+%Modem1% = Modem1, "PCMCIA\Intel-PCMCIA_Faxmodem_24/96-1972"
+%Modem2% = Modem2, INTPC_Modem2, "PCMCIA\Intel-PCMCIA_Faxmodem_96/96-A09E"
+%Modem3% = Modem3, INTPC_Modem3, "PCMCIA\INTEL-PCMCIA_FAXMODEM_96/96-A09E"
+%Modem4% = Modem4, INTPC_Modem4,, "PCMCIA\INTEL-PCMCIA_Faxmodem_14.4/14.4-121B"
+%Modem5% = Modem5, INTPC_Modem5,, "PCMCIA\Intel-PCMCIA_Faxmodem_14.4/14.4-121B"
+%Modem6% = Modem6, "PCMCIA\Intel-Cellular_Faxmodem_14.4/14.4-0BB0"
+%Modem7% = Modem7, "PCMCIA\Intel-FaxModem_24/96-2CC4"
+%Modem8% = Modem8, "PCMCIA\Intel-International_FaxModem_14.4/14.4-0D40"
+
+%Modem1% = Modem1, UNIMODEMA7FE9D20 ; 6810
+%Modem1% = Modem1, UNIMODEM334A17F8 ; Misc. 24-96
+%Modem1% = Modem1, UNIMODEMD9DC222C ; 6811
+%Modem2% = Modem2, UNIMODEME0B10A1B ; 6820
+%Modem3% = Modem3, UNIMODEMA8665160 ; 6821
+%Modem4% = Modem4, UNIMODEM8F381095 ; 6830
+%Modem5% = Modem5, UNIMODEM44B00931 ; 6831
+%Modem6% = Modem6, UNIMODEM9E766856 ; 6840
+%Modem8% = Modem8, UNIMODEMFDD73D98 ; INC235US
+
+
+[Modem1]    ; Intel Faxmodem 24-96 PCMCIA
+AddReg=All, MfgAddReg, Modem1.AddReg, PCMCIA, VerboseResponses
+
+[Modem2]    ; Intel Faxmodem 9600 PCMCIA (MBFM6820)
+AddReg=All, MfgAddReg, Modem2.AddReg, PCMCIA, VerboseResponses
+
+[Modem3]    ; Intel Faxmodem 9600 PCMCIA (MBFM6821)
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA, VerboseResponses
+
+[Modem4]    ; Intel Faxmodem 14.4 PCMCIA (MBFM6830)
+AddReg=All, MfgAddReg, Modem4.AddReg, PCMCIA, VerboseResponses
+
+[Modem5]    ; Intel Faxmodem 14.4 PCMCIA (MBFM6831)
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA, VerboseResponses
+
+[Modem6]    ; Intel Cellular Faxmodem 14.4 PCMCIA
+AddReg=All, MfgAddReg, Modem6.AddReg, PCMCIA, VerboseResponses
+
+[Modem7]    ; International Faxmodem 24-96 PCMCIA
+AddReg=All, MfgAddReg, Modem7.AddReg, PCMCIA, VerboseResponses
+
+[Modem8]    ; Intel International Faxmodem 14.4 PCMCIA
+AddReg=All, MfgAddReg, Modem8.AddReg, PCMCIA, VerboseResponses
+
+
+[Modem1.AddReg] ; Intel Faxmodem 24-96 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 2,, "AT&FE0V1\V2<cr>"   
+HKR, Settings, SpeedNegotiation_Off,, "%%N6"                 
+HKR, Settings, SpeedNegotiation_On,, "%%N0"                  
+
+[Modem2.AddReg] ; Intel Faxmodem 9600 PCMCIA (MBFM6820)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Settings, ErrorControl_On,, "\N3S48=7S36=7"      
+HKR, Settings, ErrorControl_Off,, "\N0S48=128S36=3"
+HKR, Settings, ErrorControl_Forced,, "\N2S48=128S36=4"
+HKR, Settings, Compression_On,, "%%C3S46=138"
+HKR, Settings, Compression_Off,, "%%C0S46=136"
+
+[Modem3.AddReg] ; Intel Faxmodem 9600 PCMCIA (MBFM6821)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Init, 2,, "AT&FE0W1V1S95=47<cr>"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "\N3S48=7S36=7"      
+HKR, Settings, ErrorControl_Off,, "\N0S48=128S36=3"   
+HKR, Settings, ErrorControl_Forced,, "\N2S48=128S36=4"
+HKR, Settings, Compression_On,, "%%C3S46=138"
+HKR, Settings, Compression_Off,, "%%C0S46=136"
+
+[Modem4.AddReg] ; Intel Faxmodem 14.4 PCMCIA (MBFM6830)
+HKR,, Properties, 

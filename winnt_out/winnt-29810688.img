@@ -1,0 +1,110 @@
+ddrValue = *($(IOAddrValues), $(IOAddrCBI))    
+        Debug-Output "OEMNADEP.INF: Setting Default IOAddress"
+    else
+        set IOAddrCBI = ~($(IOAddrValues),$(IOAddrValue))
+    endif
+    ifstr(i) $(IOReadyCBI) == ""
+        set IOReadyCBI = 4
+        Debug-Output "OEMNADEP.INF: Setting Default IOChannelReady"
+    endif
+    ifstr(i) $(TransceiverCBI) == ""
+        set TransceiverCBI = 4
+        Debug-Output "OEMNADEP.INF: Setting Default Transceiver"
+    endif        
+    set IOReadyValue = *($(IOReadyList), $(IOReadyCBI))
+    set TransceiverValue = *($(TransceiverList), $(TransceiverCBI))
+adaptersetup = +
+    Debug-Output "At adaptersetup"
+    Shell "" DebugConfiguration "After List Translation"
+    Shell $(ParamInf) Param_ParameterConfidence
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "OEMNADEP.INF: parameter confidence too low to bypass configuration"
+        Goto adapteroptions
+    Endif
+    Ifstr(i) $(DetectedCard) == TRUE
+        Ifstr(i) $(!STF_INSTALL_MODE) != CUSTOM
+            set BusInterfaceType = *($(!STF_NCDETINFO),5)
+            set BusNumber = *($(!STF_NCDETINFO),6)
+            Goto adapterverify
+        Endif
+    Endif
+adapteroptions = +
+    Debug-Output "At adapteroptions"
+    Set from = adapteroptions
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusInterfaceType = $(!AutoNetInterfaceType)
+        else
+            set BusInterfaceType = 1    
+        endif
+        ifstr(i) $(!AutoNetBusNumber) != ""
+            set BusNumber = $(!AutoNetBusNumber)
+        else
+            set BusNumber = 0
+        endif
+        goto adapterverify
+    endif
+    set LastIOAddrValue = $(IOAddrValue)
+    set IOAddrValue = *($(IOAddrList), $(IOAddrCBI))
+    Shell "" DebugConfiguration "Before rause UI"
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    ui start "InputDlg"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        Set IRQValue = $(Combo1Out)
+        Set IRQCBI = ~($(IRQList),$(IRQValue))
+        Set IOAddrCBI = ~($(IOAddrList),$(Combo2Out))
+        Set IOReadyValue = $(Combo3Out)
+        Set IOReadyCBI = ~($(IOReadyList),$(IOReadyValue))
+        Set TransceiverValue = $(Combo4Out)
+        Set TransceiverCBI = ~($(TransceiverList),$(TransceiverValue))
+        ui pop 1
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        set CommonStatus = STATUS_USERCANCEL
+        Debug-Output "Action: exit. Bye."
+        ui pop 1
+        goto end
+    else
+        Debug-Output "Action: unknown. Bye."
+        ui pop 1
+        goto end
+    endif
+    Set IOAddrValue = *($(IOAddrValues),$(IOAddrCBI))
+    ifint $(OldIOAddrValue) == "0"
+        ifint $(IOAddrValue) != $(LastIOAddrValue)
+            Set OldIOAddrValue = $(LastIOAddrValue)
+        endif
+    endif
+    ifstr(i) $(!STF_NCDETINFO) == {}
+        Shell $(UtilityInf),GetBusTypeDialog,$(ProductHardwareDescription) $(BusInterfaceType) $(BusNumber)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set BusInterfaceType = $($R1)
+        set BusNumber = $($R2)
+    else
+        set BusInterfaceType = *($(!STF_NCDETINFO),5)
+        set BusNumber = *($(!STF_NCDETINFO),6)
+    endif
+ adapterverify = +
+    Debug-Output "At adapterverify"
+    Shell "" DebugConfiguration "after running dialog"
+    Ifstr(i) $(DetectedCard) != TRUE
+        Goto skipoptions
+    Endif
+    Debug-Output "OEMNADEP.INF: Calling Param_VerifyCard"
+    Shell $(ParamInf) Param_VerifyCard $(!STF_NCDETCARD)
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Debug-Output "OEMNADEP.INF: Param_VerifyCard succeeded"
+        Goto skipoptions
+    Endif
+    Set from = adapteroptions
+    Set to = skipoptions
+    Shell $(UtilityInf),RegistryErrorString,VERIFY_WARNING
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error: cannot get an error string."
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    Goto Warning
+skipo

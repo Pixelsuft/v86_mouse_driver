@@ -1,0 +1,40 @@
+NT&nbsp;4.0 is installed, 60 MB for the uninstall folder, and 60 MB for the Service Pack-updated system files.</p>
+<blockquote>
+<p><b>To uninstall SP6 using Add/Remove Programs</b></p>
+<ol>
+<li>Click <b>Start</b>, point to <b>Settings</b>, and then click <b>Control Panel</b>.</li>
+<li>Double-click <b>Add/Remove Programs</b>, click <b>Windows&nbsp;NT&nbsp;4.0 SP6</b>, and then click <b>Add/Remove</b>.</li>
+<li>Follow the instructions that appear.</li></ol>
+<p><b>To uninstall SP6 from the command prompt</b></p>
+<ol>
+<li>Click <b>Start</b>, point to <b>Programs</b>, and then click <b>Command Prompt</b>.</li>
+<li>Change the folder to \%<i>systemroot</i>%\$NtServicePackUninstall$\spuninst\ and then type:
+<b>Spuninst.exe</b></li>
+<li>Type <b>Exit</b> to close the Command Prompt window.</li>
+</ol></blockquote>
+<p>
+<b>Note:</b> If you install any programs or services that require SP6 or have fixes contained in SP6, uninstalling SP6 could adversely affect those programs.</p>
+<p>
+To uninstall SP6, the drive letter for the hard disk must be the same one used when you installed SP6. If you change the drive letter for the hard disk, you cannot uninstall SP6.</p>
+<p>
+To uninstall Service Pack&nbsp;2 (SP2) and Service Pack&nbsp;3 (SP3), you had to run Update.exe and then select <b>Uninstall a previously installed Service Pack</b>. These commands returned your computer to its previous state. After your computer restarted, the Update.exe program replaced the files updated by the Service Pack with most of the files from the previous installation and returned most of your registry settings to what they were before the Service Pack was installed.</p>
+<p>
+<b>Note:</b> If you uninstall SP6 on a computer that previously had SP3 (without Internet Explorer&nbsp;4.0) installed on it, cryptography will not work correctly after the uninstall completes. To work around this issue, reinstall SP3 after you have uninstalled SP6.</p>
+<p>
+Uninstalling SP6 will not uninstall new versions of CryptoAPI and SChannel.</p>
+<p>
+<b>Important:</b> If you plan to install a previous Service Pack after uninstalling SP6, note that SP6 modifies the Security Account Manager (SAM) database and the Security database so that older versions of the Samsrv.dll, Samlib.dll, Lsasrv.dll, Services.exe, Msv1_0.dll, and Winlogon.exe files no longer recognize the database structure. Therefore, the uninstall process doesn't restore these files when uninstalling SP6. If you install a prior Service Pack (for example, SP3) after uninstalling SP6, when the <b>Confirm File Replace</b> dialog boxes appear, click <b>No</b> to avoid overwriting Samsrv.dll and
+Winlogon.exe. If you overwrite the newer files with these older versions, you'll be unable to log on to
+the computer.</p>
+<p>
+<b>Note:</b> If you're reinstalling SP6 after installing new software or hardware, you must create a new Uninstall folder. To retain your ability to return to a startup configuration , copy the current Uninstall folder to a safe location before running the SP6 installation program.</p>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="2.6"><b>2.6 Installing Symbol Files from the CD</b></a></p>
+<p>
+Each program file in Windows&nbsp;NT&nbsp;4.0 has a corresponding symbol file that is helpful in diagnosing application and computer problems. Symbol files are used in conjunction with a debugger and are not required for proper operation of your computer.</p>
+<p>
+The symbols for SP6 files are compressed in self-extracting program files named SP6symi.exe for Intel-based computers and SP6syma.exe for Alpha-based computers. To install the symbol files corresponding to the new binaries in SP6, run the executable file. When prompted, specify the path to the location of the previous version's symbols, such as C:\Winnt\. In this example, the symbols are stored in C:\Winnt\symbols.</p>
+<p>
+For more information about debugging in Windows&nbsp;NT&nbsp;4.0, see Chapter 39, "Windows&nbsp;NT Debugger" in the <i>Microsoft Windows&nbsp;N

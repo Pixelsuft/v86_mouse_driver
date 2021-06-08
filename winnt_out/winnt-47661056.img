@@ -1,0 +1,95 @@
+; MDMAUS.INF
+;
+; This is the INF file for Australian modems using generic 
+; command set information.  Specific models are moved to
+; MDM*.INF when correct command set information is available.
+;
+; Copyright (c) 1993-1996 Microsoft Corporation
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%MS%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEMCDF91D6A
+
+; --------------------------------------------------
+; Manufacturers
+
+[Manufacturer]
+%Avtek%=Avtek
+%Banksia%=Banksia
+%Exicom%=Exicom
+%Interlink%=Interlink
+%Teltra%=Teltra
+%Maestro%=Maestro
+%Microfax%=Microfax
+%NetComm%=NetComm
+%Schmidt%=Schmidt
+%Simple%=Simple
+
+; --------------------------------------------------
+; Driver sections
+
+[Avtek]
+%Avtek1%=Gen144, AUS_Avtek1 ; Avtek PC MegaData Fax
+%Avtek2%=Gen144, AUS_Avtek2 ; Avtek MegaData Fax
+%Avtek3%=Gen144, AUS_Avtek3 ; Avtek MegaPlus Fax 1234
+%Avtek4%=Gen144, AUS_Avtek4 ; Avtek MegaPlus Fax V.32bis
+%Avtek5%=Gen144, AUS_Avtek5 ; Avtek Mini Pocket Fax
+%Avtek6%=Gen144, AUS_Avtek6 ; Avtek MegaData Fax 144
+%Avtek7%=Gen288, AUS_Avtek7 ; Avtek MegaPlus Fax V.34
+%Avtek8%=Gen288, AUS_Avtek8 ; Avtek MegaPlus Fax 288
+
+[Banksia]
+%Banksia1%=Gen144,  AUS_Banksia1, UNIMODEMCDF91D6A    ; Banksia MyModem V.32bis Fax
+%Banksia2%=Gen288,  UNIMODEM153A4D63    ; Banksia MyFastModem 28.8 Fax
+%Banksia3%=Gen288,  UNIMODEMF24526DB    ; Banksia MyFastModem 28.8 V34 Fax
+%Banksia4%=Gen144,  UNIMODEM5E99A549    ; Banksia MyVoiceModem
+%Banksia5%=Gen144,  AUS_Banksia5, UNIMODEMVFG91D6A    ; Banksia MyPocketModem
+%Banksia6%=Gen144,  AUS_Banksia6, UNIMODEM6FC2012E    ; Banksia MyInModem V.32bis Fax
+%Banksia7%=Gen288,  UNIMODEM6D96A84C    ; Banksia MyFastInModem
+%Banksia8%=Gen144,  UNIMODEM8818F3D0    ; Banksia Blitzer V.32bis Fax
+%Banksia9%=Gen24,   AUS_Banksia9, UNIMODEM24FFB24B    ; Banksia Joey
+%Banksia10%=Gen96,  UNIMODEM3A00236D    ; Banksia Bit Blitzer MX-5 V.32
+%Banksia11%=Gen144, UNIMODEM54B93F43    ; Banksia Bit Blitzer MX-5S V.32bis
+%Banksia11%=Gen144, UNIMODEM32F27CDB    ; Banksia Bit Blitzer MX-5S V.32bis
+%Banksia12%=Gen144, UNIMODEM69B841C5    ; Banksia Bit Blitzer MX-6 V.32bis Fax
+%Banksia13%=Gen96,  UNIMODEM3E8F917D    ; Banksia ProModem MX-5W V.32 Fax
+%Banksia14%=Gen144, UNIMODEM8E461634    ; Banksia ProModem MX-6W V.32bis Fax
+%Banksia15%=Gen24,  UNIMODEMB0FB385B    ; Banksia MainlyFax
+%Banksia16%=Gen24I, AUS_Banksia16, UNIMODEM9F2BBC58   ; Banksia InFax
+%Banksia17%=Gen144, UNIMODEMCDF91D6A    ; Banksia combo
+
+[Exicom]
+%Exicom1%=Gen288, AUS_Exicom1 ; Exicom 288
+%Exicom2%=Gen96,  AUS_Exicom2 ; Exicom 596
+
+[Teltra]
+%Teltra1%=Gen288, AUS_Teltra1 ; Teltra TEL 288
+%Teltra2%=Gen96,  AUS_Teltra2 ; Teltra TEL 596
+
+[Interlink]
+%Intlnk1% =Gen144, UNIMODEM190612C1 ; Interlink Voidax I 14400 Fax
+%Intlnk2% =Gen144, UNIMODEM6AAFCE3B ; Interlink Voidax II 14400 Fax
+%Intlnk3% =Gen144, UNIMODEM6977A9DB ; Interlink Voidax III 14400 Fax
+%Intlnk4% =Gen144, UNIMODEM7B5EC8CC ; Interlink Voidax PRO 14400 Fax
+%Intlnk5% =Gen24I, UNIMODEM66188720 ; Interlink Hotlink 1i 2400 Fax
+%Intlnk6% =Gen96I, UNIMODEMA54DF85F ; Interlink Hotlink 2i 9600 Fax
+%Intlnk7% =Gen144I,UNIMODEM0429867C ; Interlink Hotlink 3i 14.4 Fax
+%Intlnk8% =Gen288I,UNIMODEM454B8908 ; Interlink Hotlink 4i 28.8 Fax
+%Intlnk9% =Gen288I,UNIMODEM688A1B14 ; Interlink Hotlink 5i 28.8 V.34 Fax
+%Intlnk10%=Gen24,  UNIMODEM799D0CF9 ; Interlink Hotlink 1x 2400 Fax
+%Intlnk11%=Gen96,  UNIMODEM5C1E3266 ; Interlink Hotlink 2x 9600 Fax
+%Intlnk12%=Gen144, UNIMODEMA6A2BB2C ; Interlink Hotlink 3x 14.4 Fax
+%Intlnk13%=Gen288, UNIMODEM0F65F9F6 ; Interlink Hotlink 4x 28.8 Fax
+%Intlnk14%=Gen288, UNIMODEM20D726D3 ; Interlink Hotlink 5x 28.8 V.34 Fax
+%Intlnk15%=Gen24,  UNIMODEM056C1556 ; Interlink FM3
+%Intlnk16%=Gen144, AUS_Intlnk16     ; Interlink IQ 12345
+%Intlnk17%=Gen144, AUS_Intlnk17     ; Interlink IQ 6
+%Intlnk18%=Gen144, AUS_Intlnk18     ; Interlink Base 12345
+%Intlnk19%=Gen144, AUS_Intlnk19     ; Interlink Base 6
+%Intlnk20%=Gen144, AUS_Intlnk20     ; Interlink FastBit IICP
+%Intlnk2

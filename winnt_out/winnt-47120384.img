@@ -1,0 +1,143 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Dynalink
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM0ADAAC9E
+
+[Models]
+%Modem1% = Modem1, UNIMODEM3F15EDC1
+%Modem2% = Modem2, UNIMODEMA9B3C5F8
+%Modem2% = Modem2, UNIMODEM84AAA0BC
+%Modem2% = Modem2, Dyna_Modem2, UNIMODEM0ADAAC9E
+%Modem3% = Modem3, UNIMODEM2616E668 
+%Modem3% = Modem3, UNIMODEMD19A72D8
+%Modem3% = Modem3, Dyna_Modem3, UNIMODEMC9720A17 
+%Modem4% = Modem4, Dyna_Modem4
+%Modem5% = Modem5, UNIMODEM882BB155
+%Modem5% = Modem5, UNIMODEM251BF00A
+%Modem6% = Modem6, Dyna_Modem6
+%Modem7% = Modem7, Dyna_Modem7
+%Modem8% = Modem8, Dyna_Modem8, UNIMODEM0FF842E0
+%Modem9% = Modem9, UNIMODEM6A19F710
+%Modem10% = Modem10, Dyna_Modem10
+%Modem11% = Modem11, UNIMODEMDDD3C188
+%Modem12% = Modem12, UNIMODEM469FEAF4
+%Modem13% = Modem13, Dyna_Modem13
+%Modem14% = Modem14, Dyna_Modem14
+%Modem15% = Modem15, Dyna_Modem15
+%Modem16% = Modem16, UNIMODEMA4DC07FA
+%Modem17% = Modem17, UNIMODEMF0284E0D
+%Modem18% = Modem18, UNIMODEM50055F0A
+%Modem19% = Modem19, UNIMODEM0ADAAC9E	; Generic Dynalink/Trust 1414
+
+
+; Installation sections
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, Internal
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, PCMCIA
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, Internal
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, Internal
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, Internal
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, Internal
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, Internal
+
+[Modem11]
+AddReg=All, MfgAddReg, Modem11.AddReg, External
+
+[Modem12]
+AddReg=All, MfgAddReg, Modem12.AddReg, Internal
+
+[Modem13]
+AddReg=All, MfgAddReg, Modem13.AddReg, Internal
+
+[Modem14]
+AddReg=All, MfgAddReg, Modem13.AddReg, Internal
+
+[Modem15]
+AddReg=All, MfgAddReg, Modem15.AddReg, External
+
+[Modem16]
+AddReg=All, MfgAddReg, Modem16.AddReg, External
+
+[Modem17]
+AddReg=All, MfgAddReg, Modem17.AddReg, External
+
+[Modem18]
+AddReg=All, MfgAddReg, Modem18.AddReg, External
+
+[Modem19]
+AddReg=All, MfgAddReg, Modem19.AddReg, External
+
+
+; AddReg sections
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 &D2 &C1 S95=3 V1<cr>"
+HKR, Settings, ErrorControl_On,, "&Q9"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 &C1 &D2 V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "&Q9"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 &C1 &D2 V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 &C1 &D2 V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "&Q6"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,     

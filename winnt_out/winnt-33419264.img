@@ -1,0 +1,49 @@
+icon, you might not see the Digi ISDN port. To fix this problem, complete the following steps after the upgrade is complete and before you do any RAS configuration:
+
+ 	- In Control Panel, click Network.
+ 	- In the Adapters tab, select the Digi ISDN adapter and click Properties.
+	- In the Digi ISDN adapter configuration dialog box, click OK.
+
+This ensures that your computer keeps a permanent record of all Digi ISDN lines.
+
+· Upgrading to Windows NT version 4.0 does not migrate existing redial settings from the Windows NT version 3.51 phonebook. To correct this, in Dial-Up Networking click More and select User preferences. In the Dialing tab, check the Redial on link failure box.
+
+· If you are using Windows NT Server Multi-Protocol Routing and have added the DisableOtherSrcPackets registry entry, you must readd the parameter after you upgrade to Windows NT version 4.0.
+
+
+TAPI/Unimodem Support
+
+Windows NT version 4.0 includes support for the Windows Telephony API (TAPI) and the universal modem driver (Unimodem). The following two files (Mdk.doc and Reg.doc) are Windows 95 documents that are also relevant to Windows NT except for the following areas: 
+
+· Plug and Play (PnP)
+· Voice INF structures
+· VoiceView support
+· Parallel port modems
+
+Windows 95 Modem Development Kit (MDK) (Mdk.doc)
+This Windows 95 Modem Development Kit (MDK) provides the tools, sample INF files, and information you need to build and test Windows 95 format INF files for AT (data) and AT+V (voice) command modems. Windows 95 INF files are required for modems to be used by programs which call the Windows Telephony API (TAPI) to make data/fax/voice calls, including the Windows applications HyperTerminal, Dial-up Networking, Phone Dialer, The Microsoft Network as well as other Win32 communications applications written for Windows 95 or Windows NT. 
+
+Windows 95 Modem Registry Reference (Reg.doc)
+Windows 95 and Windows NT use modem INF files to install modems so they can be used by applications, through the universal modem driver (Unimodem). A modem INF generally consists of some standard device INF entries, and many specific entries that provide Unimodem with information about the modem. This document is a complete list of the registry entries that can be added to the registry through the modem INF file.
+
+These documents are located on ftp://ftp.microsoft.com/developr/drg/modem/modemdev.exe.
+Modemdev.exe is a self-extracting compressed file. Run it to obtain Mdk.doc and Reg.doc.
+
+
+Microsoft Money for Windows 95, version 4.0 or 4.0a
+Under Windows NT, the Microsoft Money 95 application experiences problems with online banking and online stock quotes. This will be fixed in a future release of Money 95. Before you can dial out in Money95 using TAPI services on a computer running Windows NT Workstation, replace the Xsnpc.dll file in the system folder of MSMONEY with the Windows NT version 4.0 release of the Microsoft FAST Xs npc dll file dated March 29, 1996.
+This file can be found at www.microsoft.com and will be included in the next release of Money 95.
+
+Devices That Must be Manually Installed
+The following devices must be manually installed—do not choose to have Windows NT automatically detect them. 
+
+· E-Tech Pocket Fax/Modem
+· Multi-tech Multimodem (various models)
+· Penril modems (various models)
+
+Also, the Modems option in Control Panel closes when you attempt to query these devices.
+
+Modems That  Depend on Windows 95 Drivers
+Some modems are configured differently than the traditional serial port modem or internal bus modem with an embedded serial port.  They depend on special drivers written for Windows 95 or previous versions of Windows.  Until these manufacturers provide comparable device drivers for Windows NT version 4.0, these modems do not work.  
+
+The two most common types are parallel port modems, and "Windows modems".  The later are modems which move traditional modem hardware and firmware functions into Windows device drivers.  Examples include the US Robotics Sportster WinModem, the IBM MWAVE modem

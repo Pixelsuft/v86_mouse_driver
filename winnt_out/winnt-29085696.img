@@ -1,0 +1,73 @@
+  endif
+                            EndForListDo
+                            debug-output "Final dependency list for "$($)": "$(NewServiceValues)
+                            LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(NewServiceValues), "", "", ""
+                        else
+                        endif
+                        CloseRegKey $(ServicesKey)
+                    endif
+                EndForListDo
+            endif
+            Shell $(UtilityInf), RemoveService, $($), $(UseSvcctrl)
+        EndForListDo
+        set OldSTFInstallMode = $(!STF_INSTALL_MODE)
+        set !STF_INSTALL_MODE = EXPRESS
+        set OldInstallMode = $(!NTN_InstallMode)
+        set !NTN_InstallMode = install
+        Shell "" "InstallOption" $(!STF_LANGUAGE) "TC" $(!STF_SRCDIR) "NO" "NO" "NO"
+        set !STF_INSTALL_MODE = $(OldSTFInstallMode)
+        set !NTN_InstallMode = $(OldInstallMode)
+        OpenRegKey $(!REG_H_LOCAL) "" $(ParametersKeyName) $(MAXIMUM_ALLOWED) TcpipParamKey
+        ifstr(i) $(TcpipParamKey) != ""
+            set NewValueList = {$(LookupInfo),$(DomainInfo),$(HostnameInfo),$(NameServerInfo),$(SearchListInfo)}
+            Shell  $(UtilityInf), AddValueList, $(TcpipParamKey), $(NewValueList)
+            SetRegValue $(TcpipParamKey) {"EnableDHCP",$(NoTitle),$(!REG_VT_DWORD),$(UserWantsDHCP)}
+            CloseRegKey $(TcpipParamKey)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(NetBTParamKeyName) $(MAXIMUM_ALLOWED) NetbtParamKey
+        ifstr(i) $(NetbtParamKey) != ""
+            Shell  $(UtilityInf), AddValueList, $(NetbtParamKey), {$(ScopeIDInfo)}
+            CloseRegKey $(NetbtParamKey)
+        endif
+    else
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf) UpdateWinsockMappings $(ProductTCName) $(ProductTCWshDllPath)
+        ifstr(i) $($R0) != NO_ERROR
+            goto fatal
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" "Software\Microsoft\NetBT\CurrentControlSet\NetRules" $(MAXIMUM_ALLOWED) NetRulesKey
+        ifstr(i) $(NetRulesKey) != ""
+            SetRegValue $(NetRulesKey) {"use",$(NoTitle),$(!REG_VT_SZ),"transport yes yes"}
+            CloseRegKey $(NetRulesKey)
+        endif
+        Shell $(UtilityInf) RemoveNetworkProvider $(ProviderName)
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\DHCP\Parameters\Options" $(MAXIMUM_ALLOWED) KeyOptions
+        ifstr(i) $(KeyOptions) != ""
+            OpenRegKey $(KeyOptions) "" "1" $(MAXIMUM_ALLOWED) Key1
+            ifstr(i) $(Key1) == ""
+                CreateRegKey $(KeyOptions) {"1",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key1
+                Shell $(UtilityInf) AddValueList, $(Key1),+
+                    {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Services\?\Parameters\Tcpip\DhcpSubnetMaskOpt"},+
+                    {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_MULTI_SZ)}}
+            endif
+            CloseRegKey $(Key1)
+            OpenRegKey $(KeyOptions) "" "15" $(MAXIMUM_ALLOWED) Key15
+            ifstr(i) $(Key15) == ""
+                CreateRegKey $(KeyOptions) {"15",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" Key15
+                Shell $(UtilityInf) AddValueList, $(Key15),+
+                    {{"RegLocation", $(NoTitle), $(!REG_VT_SZ), "System\CurrentControlSet\Services\Tcpip\Parameters\DhcpDomain"},+
+                    {"KeyType", $(NoTitle), $(!REG_VT_DWORD), $(!REG_VT_SZ)}}
+            endif
+            CloseRegKey $(Key15)
+        endif
+        Shell $(UtilityInf), RemoveNameSpaceProvider, $(ProductProviderGUID)
+        Shell $(UtilityInf), AddNameSpaceProvider, +
+                $(ProviderDisplayName), +
+                $(Winsock20Provider), +
+                $(ProductProviderNameSpaces), +
+                FALSE, +
+                $(ProductProviderGUID)

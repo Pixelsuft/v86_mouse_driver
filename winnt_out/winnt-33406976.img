@@ -1,0 +1,65 @@
+le:
+
+	If the computer has the following IP configuration on the LAN interface
+		IP ADDRESS: 		10.1.1.1 
+		MASK:			255.255.0.0 
+		DEFAULT GATEWAY:	10.1.1.254
+
+	and the Dial-Up Networking link has the following IP configuration
+		IP ADDRESS:		20.1.2.3
+		MASK:			255.255.0.0
+		DEFAULT GATEWAY:	20.1.2.3
+
+	then the Dial-Up Networking client will not be able to communicate with 			computers with an IP address of 10.2.1.1, since by default the IP router will send 
+	packets over the Dial-Up Networking link. To fix this, add the following route. 		Note: This is a persistent route and only needs to be added once. 
+
+	route add -p 10.0.0.0 MASK 255.0.0.0 10.1.1.254
+
+
+Dial-Up Networking and PPTP
+
+PPTP Clients
+· To access PPTP servers using an Internet Service Provider (ISP)  that does not support PPTP, first dial your ISP for Internet access. Then, make a second call to the PPTP server using the PPTP server's IP address as the phone number.
+
+· If your computer does not have a modem or ISDN line, you can implement ISDN and modem pooling by using PPTP to dial a communications server on the network which then dials out and connects you to a RAS server on the PSTN or ISDN network.
+In Dial-Up Networking, specify the phone number for the entry in the following way:
+	12.12.12.12 (206)1234567
+where 12.12.12.12 is the IP address of the communications server and (206)1234567 is the phone number you want to call.
+Note: There must be a space between the IP address and the phone number.
+
+PPTP Servers
+· To use PPTP to call back a user through a PPTP communications server, on the RAS server start Remote Access Admin. In the Users menu, click Permissions. Select a user and then choose the Preset To callback option. In the Preset To box type:
+	12.12.12.12 (206)1234567
+where 12.12.12.12 is the IP address of the communications server and (206)1234567 is the phone number you want to call.
+Note: There must be a space between the IP address and the phone number.
+
+· The following are new PPTP parameters for appendix A "RAS Registry Values" in the Networking Supplement. If you need this functionality, you must add these values to the Registry because they are not created by default.
+The Registry path for these entries is the following:
+HKEY_LOCAL_MACHINE\SYSTEM\Services\RASPPTPE\Parameters\Configuration
+
+	AuthenticateIncomingCalls
+	DataType = REG_DWORD
+	Range = 0 - 1
+	Default = 0
+	Set this parameter to 1 to force the PPTP protocol to accept calls only from IP 		addresses listed in the PeerClientIPAddresses registry value.  If 			AuthenticateIncomingCalls is set to 1 and there are no addresses in 			PeerClientIPAddresses, then no clients will be able to connect.
+
+	PeerClientIPAddresses
+	DataType = REG_MULTI_SZ
+	Range = the format is a valid IP address xx.xx.xx.xx
+	This parameter is a list of the IP addresses of pptp clients from which this server 		will accept PPTP calls.  This list is only relevant if the uthenticateIncomingCalls 	parameter is set to 1.
+
+· If you are configuring a Windows NT Server computer to use PPTP as a dial-up server on the Internet, you must complete the following steps.
+
+	1) When you install PPTP, a default route gets installed for each LAN adapter. 		For instance, if you have two LAN adapters, one for Internet access and one for 		the corporate LAN, you will have default routes for both. To correct this situation, 		disable the default route on the corporate LAN adapter by adding the following 		registry key:
+
+	HKEY_LOCAL_MACHINE\SYSTEM\Services\<adapter name>\Parameters\Tcpip
+	DontAddDefaultGateway	
+	Data type = REG_DWORD
+	Range = 0 – 1
+	Default: 1
+	 
+	Note: You must add this registry value for each adapter that is not connected to 		the Internet.
+
+	2) You must use the route command to configure persistent static routes to 		point toward the corporate network. For instance, if you have a set of IP 			addresses from 123.45.x.x to 123.47.x.x use the following commands:
+	route add -p 123.45.0.0 MASK 255.555.0.0 <default gateway>
+	route add -p 123.46.0.0 MASK 255.555.0.0 <d

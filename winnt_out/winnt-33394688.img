@@ -1,0 +1,47 @@
+1.ms.com.
+   -- click Open on the ms.com zone
+   -- click Open (or add domain) the nt subdomain
+   -- add the ecord
+     -- select CNAME
+     -- in "Alias Name" field type "www"
+     -- in "For Host DNS Name" type "jamesg1.ms.com"
+     -- click OK
+
+Note 
+For the record data, the entire DNS name is required "jamesg1.ms.com". If you enter a single part name "jamesg1" for the RR data, the FQDN you will receive will be "jamesg1.", not "jamesg1.ms.com." which would be the result in the database file.
+
+Record Data in DNS Manager
+The DNS Manager does not automatically refresh its record data. The reason for this is efficiency -- domains with large numbers of records are expensive to refresh, similar to the work of a zone transfer. Hence, when adding or updating records, the data displayed is the administrative tool's last record of the data. After all your changes have been made to a zone, it is wise to refresh the data for the zone and to verify that the record data is as desired.
+
+Also, if the DNS server has been restarted, you should select that server and perform a refresh. This prevents the DNS Manager from sending obsolete data to the server.
+
+Writing Records Back to the Data File
+The server stores records in memory. As soon as a change is made using the DNS Manager, that change will be reflected in the data the DNS Manager sends on the wire. However, that data is not immediately written back to the zone's data file until  one of the following occurs: shutdown, periodic cleanup, or prompting by the user.
+
+After making all desired changes to a zone, users are encouraged to select the server and click Update server data files. This forces write back of all server data to the database files, and initiates (through SOA NOTIFY) zone transfer requests from the secondary servers.
+
+Changing Server to be Root Authoritative
+The DNS server is shipped configured as a caching server for the Internet. (The cache file points at Internet root DNS servers and no zones are configured.)
+
+If the server will be used on a private intranet, the server can be configured to be root authoritative (to have a root zone):
+ -- Because the root usually contains cache file data (or cached data) for locating the root servers, before creating a primary root zone, you are advised to open the cache and delete records (usually NS) at the root. If a cached SOA record exists at the root, the administrative tool may not allow deleting it. Simply stop and restart the DNS server to remove it.
+-- When creating the root zone, the zone name will be period (.). Be sure and select a an appropriate file name (the default is poorly chosen).  
+-- After zone creation completes, select the server and refresh, and the "cache" icon should disappear as the server is now root authoritative.
+
+
+WINS
+
+WINS Server Sends Mysterious Multicast Packets
+The WINS service sends packets that are addressed to IP address 224.0.1.24 hardware address 01005E000118. 
+
+This is a multicast packet sent so that if some other WINS is set for auto-replication, it will pick up the packet and add the sending WINS as a partner. WINS periodically sends information about itself using these packets. If you do not want these packets to be sent, set UseSelfFndPnrs in the registry under Wins\Parameters to DWORD 0 and also set McastIntvl to some huge value (DWORD FFFFFFFF. For instance, by default the interval is 2400 i.e. 40 mts).
+
+WINS parameters
+The following are new WINS registry parameters.
+The Registry path for these entries is the following:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Wins\Parameters
+	BurstHandling
+	Type = REG_DWORD 
+	Value: 0 or 1
+	Default = 0
+This parameter is used to temporarily achieve a steady state in the WINS server when the WINS server is either started with a clean database or many WINS clients come on-line for the first time. Either situation causes a large amount of name registration and name refresh traffic to occur. The WINS server currently stores a maximum of 25000 name registration and refresh queries in it's queue b

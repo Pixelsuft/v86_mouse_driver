@@ -1,0 +1,66 @@
+210 17 Fonts v52.1"                         = UNI17521.PPD
+"UNISYS AP9210 39 Fonts v52.1"                         = UNI39521.PPD
+"Unisys AP9210"                                        = HPPCL.DLL
+"Unisys AP9415 v47.0"                                  = U9415470.PPD
+
+[Varityper]
+"Varityper VT-600P v48.0"                              = VT600P_1.PPD
+"Varityper VT-600W v48.0"                              = VT600W_1.PPD
+"Varityper 4000-L300 v52.3"                            = VT4L3001.PPD
+"Varityper 4000-L330 v52.3"                            = VT4L3301.PPD
+"Varityper 4000-L500 v52.3"                            = VT4L5X01.PPD
+"Varityper 4000-L530 v52.3"                            = VT4L5X01.PPD
+"Varityper 4000-5100A v52.3"                           = VT4510A1.PPD
+"Varityper 4000-5300A v52.3"                           = VT4530A1.PPD
+"Varityper 4000-5300B v52.3"                           = VT4530B1.PPD
+"Varityper 4000-5300C v52.3"                           = VT4530C1.PPD
+"Varityper 4000-5330A v52.3"                           = VT4533A1.PPD
+"Varityper 4000-5330B v52.3"                           = VT4533B1.PPD
+"Varityper 4000-5330C v52.3"                           = VT4533C1.PPD
+"Varityper 4000-5300EA v52.3"                          = VT453EA1.PPD
+"Varityper 4000-5300EB v52.3"                          = VT453EB1.PPD
+"Varityper 4000-5300EC v52.3"                          = VT453EC1.PPD
+"Varityper 4000-5500A v52.3"                           = VT4550A1.PPD
+"Varityper 4000-5500B v52.3"                           = VT4550B1.PPD
+"Varityper 4000-5500C v52.3"                           = VT4550C1.PPD
+"Varityper 4000-5510A"                                 = VT4551A1.PPD
+"Varityper 4000-5630A v52.3"                           = VT4563A1.PPD
+"Varityper 4000-5630B v52.3"                           = VT4563B1.PPD
+"Varityper 4200B-P v49.3 or 52.2"                      = VT42P522.PPD
+"Varityper 4300P v49.3 or 52.2"                        = VT43P522.PPD
+"Varityper 4990T v52.3"                                = VT4990T1.PPD
+"Varityper VT4990 v52.3"                               = VT4990_1.PPD
+"Varityper 5100E v52.3"                                = VT5100E1.PPD
+"Varityper Series 4000-5300 v49.3 or 52.2"             = VT530522.PPD
+"Varityper Series 4000-5330 v49.3 or 52.2"             = V5334522.PPD
+"Varityper Series 4000-5500 v52.2"                     = VT550522.PPD
+"Varityper 5510 v52.3"                                 = VT5510_1.PPD
+"Varityper 5660 v52.3"                                 = VT5660_1.PPD
+"Varityper 5860 v52.3"                                 = VT5860_1.PPD
+"Varityper 5960E v52.3"                                = VT5960E1.PPD
+"Varityper 6000 v52.3"                                 = VT6000_1.PPD
+"Varityper 6990 v52.3"                                 = VT6990_1.PPD
+
+[Wang]
+"Wang LCS15 FontPlus"                                  = WANG15FP.PPD
+"Wang LCS15"                                           = WANG15.PPD
+"Wang LDP8"                                            = HPPCL.DLL
+
+[Xante]
+"Accel-a-Writer 8200 v2014.103"                        = XT_82001.PPD
+
+[Xerox]
+"Xerox 4505"                                           = XEROXPCL.DLL
+"Xerox 4505 PS"                                        = XR_45051.PPD
+"Xerox DocuPrint 4508"                                 = XEROXPCL.DLL
+"Xerox 4510"                                           = XEROXPCL.DLL
+"Xerox 4510 PS"                                        = XR_45101.PPD
+"Xerox DocuPrint 4517"                                 = XEROXPCL.DLL
+"Xerox 4517 PostScript Level 2"                        = XR_45171.PPD
+"Xerox 4520"                                           = XEROXPCL.DLL
+"Xerox 4520 PS"                                        = XR_45201.PPD
+"Xerox 4700 II PS"	                               = XR470002.PPD
+"Xerox 4900 PostScript"                                = XRX49001.PPD
+"XPrint 4915 PostScript"                               = XRX49151.PPD
+"XPrint 4920/4925 PostScript"                          = XRX49201.PPD
+"Xerox DocuPrint 350HC v1.

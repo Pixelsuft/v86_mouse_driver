@@ -1,0 +1,75 @@
+ 00,01,00,00, 08, 00, 00, 33, 03, \
+00,00,00,00
+
+; COM1(3F8) IRQ(Any) PPM(Any) COR=30
+HKR,Override,0004,1, 00,04,00,00, 00,20,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, F8,FF, 08,00, F8,03, FF,03, 00,00, 00, 00, AA,00,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, FC,FF, 04,00, 00,00, FF,FF, 00,00, 00, 00, AA,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 70,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, 00,01,00,00, 08, 00, 00, 30, 03, \
+00,00,00,00
+
+; COM2(2F8) IRQ(Any) PPM(Any) COR=31
+HKR,Override,0005,1, 00,04,00,00, 00,20,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, F8,FF, 08,00, F8,02, FF,02, 00,00, 00, 00, AA,00,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, FC,FF, 04,00, 00,00, FF,FF, 00,00, 00, 00, AA,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 70,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, 00,01,00,00, 08, 00, 00, 31, 03, \
+00,00,00,00
+
+; COM3(3E8) IRQ(Any) PPM(Any) COR=32
+HKR,Override,0006,1, 00,04,00,00, 00,20,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, F8,FF, 08,00, E8,03, EF,03, 00,00, 00, 00, AA,00,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, FC,FF, 04,00, 00,00, FF,FF, 00,00, 00, 00, AA,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 70,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, 00,01,00,00, 08, 00, 00, 32, 03, \
+00,00,00,00
+
+; COM4(2E8) IRQ(Any) PPM(Any) COR=33
+HKR,Override,0007,1, 00,04,00,00, 00,20,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, F8,FF, 08,00, E8,02, EF,02, 00,00, 00, 00, AA,00,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, FC,FF, 04,00, 00,00, FF,FF, 00,00, 00, 00, AA,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 70,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, 00,01,00,00, 08, 00, 00, 33, 03, \
+00,00,00,00
+
+; No COM, IRQ(Any) PPM(Any) COR=35
+HKR,Override,0008,1, 00,04,00,00, 00,50,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0c,00, 00,00, 00,00, 00,00, 00, 00, FC,FF, 04,00, 00,00, FF,FF, 00,00, 00, 00, 23,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 70,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, 00,01,00,00, 08, 00, 00, 35, 03, \
+00,00,00,00
+
+[Modem1.AddReg]   ; no bong, per IHV
+HKR,, DeviceType, 1, 01      ; External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Strings]
+Mfg = "Microcom, Inc."
+ 
+Modem18        ="Microcom QX-4232bis II or DeskPorte"   
+Modem17PNP     ="Microcom DeskPorte 28.8S Internal Plug & Play"
+Modem17        ="Microcom DeskPorte 28.8S Internal"
+Modem16        ="Microcom QX-4232bis Plus"
+Modem15        ="Microcom QX-4232bis II"
+Modem6and10P   ="Microcom DeskPorte 28.8P or EP 28.8 Parallel"
+Modem12PNP     ="Microcom TravelPorte FAST V.34 Plug & Play"
+Modem12P       ="Microcom TravelPorte FAST V.34 Parallel"
+Modem12        ="Microcom TravelPorte FAST V.34"
+Modem11P       ="Microcom TravelCard 28.8P"
+Modem11        ="Microcom TravelCard 28.8P Serial"
+Modem10PNP     ="Microcom DeskPorte 28.8P Plug & Play"
+Modem10P       ="Microcom DeskPorte 28.8P Parallel"
+Modem10        ="Microcom DeskPorte 28.8P"
+Modem9         ="Microcom MicroPorte 4232bis"
+Modem8         ="Microcom DeskPorte"
+Modem7         ="Microcom TravelPorte"
+Modem6PNP      ="Microcom DeskPorte FAST EP 28.8 Plug & Play"
+Modem6P        ="Microcom DeskPorte FAST EP 28.8 Parallel"
+Modem6         ="Microcom DeskPorte FAST EP 28.8"
+
+Modem5Fast   ="Microcom DeskPorte V.34 FAST"  
+Modem5FastP   ="Microcom DeskPorte V.34 FAST+"  
+Modem5PNP      ="Microcom DeskPorte V.34 FAST or FAST+ Plug & Play"  ; fast+ has caller ID, fast does not 
+Modem5P        ="Microcom DeskPorte V.34 FAST or FAST+ Parallel"   
+Mo

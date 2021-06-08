@@ -1,0 +1,86 @@
+(NoTitle), $(!REG_VT_DWORD), $(Tc3147EisaIdValue)},+
+          {MediaType,        $(NoTitle), $(!REG_VT_DWORD), $(MediaTypeValue)},+
+          {PacketSize,       $(NoTitle), $(!REG_VT_DWORD), $(PacketSizeValue)},+
+          {SlotNumber,       $(NoTitle), $(!REG_VT_DWORD), $(SlotNumberValue)},+
+          }
+   else
+      set NewValueList = {+
+          {AdapterType,      $(NoTitle), $(!REG_VT_DWORD), $(NdisInterfaceIsa)},+
+          {BusNumber,        $(NoTitle), $(!REG_VT_DWORD), $(BusNumberValue)},+
+          {BusType,          $(NoTitle), $(!REG_VT_DWORD), $(BusTypeValue)},+
+          {Interrupt,        $(NoTitle), $(!REG_VT_DWORD), $(InterruptValue)},+
+          {IoBase,           $(NoTitle), $(!REG_VT_DWORD), $(IoBaseValue)},+
+          {MediaType,        $(NoTitle), $(!REG_VT_DWORD), $(MediaTypeValue)},+
+          {MemoryBase,       $(NoTitle), $(!REG_VT_DWORD), $(MemoryBaseValue)},+
+          {PacketSize,       $(NoTitle), $(!REG_VT_DWORD), $(PacketSizeValue)},+
+          }
+   Endif
+   Shell  $(UtilityInf), AddValueList, $(Key_HardwareParameters), $(NewValueList)
+   CloseRegKey $(Key_HardwareParameters)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+      set ShellErrorSection = UtilityInf:AddValueList
+      goto ShellCodeError
+   endif
+   set RegistryErrorIndex = $($R0)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+      Debug-Output $(STF_CONTEXTINFNAME)": AddAdapterConfiguration - add value list error"
+      goto FatalRegistryError
+   endif
+   EndWait
+   goto ProcessSuccessExit
+CheckAdapterBinding =+
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering CheckAdapterBinding"
+   set Error = "CheckAdapterBinding: not required for this adapter"
+   goto FatalError
+RemoveAdapterFromRegistry = +
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering RemoveAdapterFromRegistry"
+   OpenRegKey $(!REG_H_LOCAL) "" $(KeyName_Software) $(MAXIMUM_ALLOWED) KeyToReferenceCount
+   Ifstr $(KeyToReferenceCount) == ""
+      Debug-Output "$(STF_CONTEXTINFNAME): Could not open Software Base Key"
+      set RefCountBeforeRemove = 2
+      goto InstallOptionExit
+   endif
+   GetRegValue $(KeyToReferenceCount),"RefCount", RefCountInfo
+   set RefCountBeforeRemove = *($(RefCountInfo), 4)
+   CloseRegKey $(KeyToReferenceCount)
+   Debug-Output "$(STF_CONTEXTINFNAME): Removing Hardware Component"
+   Shell $(UtilityInf), +
+         RemoveHardwareComponent, +
+         $(Manufacturer), +
+         $(TccBaseName), +
+         $(!NTN_RegBase)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+      set ShellErrorSection = UtilityInf:RemoveHardwareComponent
+      goto ShellCodeError
+   endif
+   Ifstr(i) $($R0) != NO_ERROR
+      Ifstr(i) $($R0) != REF_COUNT_NOT_ZERO
+         goto FatalRegistryError
+      endif
+   endif
+   ifint $(RefCountBeforeRemove) == 1
+      OpenRegKey $(!REG_H_LOCAL) "" $(KeyName_SoftwareRoot) $(MAXIMUM_ALLOWED) Key_SoftwareRoot
+      EnumRegKey $(Key_SoftwareRoot) KeyList
+      EnumRegValue $(Key_SoftwareRoot) ValueList
+      CloseRegKey $(Key_SoftwareRoot)
+      Debug-Output "$(STF_CONTEXTINFNAME): Reg Key .$(KeyName_SoftwareRoot). opened"
+      Debug-Output "$(STF_CONTEXTINFNAME): KeyList == .$(KeyList)."
+      Debug-Output "$(STF_CONTEXTINFNAME): ValueList == .$(ValueList)."
+      ifstr $(KeyList) == "{}"
+         ifstr $(ValueList) == "{}"
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase) $(MAXIMUM_ALLOWED) Key_SoftwareBase
+            DeleteRegKey $(Key_SoftwareBase) $(Manufacturer)
+            CloseRegKey $(Key_SoftwareBase)
+         endif
+      endif
+   endif
+   goto InstallOptionExit
+UpgradeSoftware = +
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering UpgradeSoftware"
+   ifstr(i) $(KeyName_Software) == $(!NTN_RegBase)
+      OpenRegKey $(!REG_H_LOCAL) "" $(KeyName_Software) $(MAXIMUM_ALLOWED) Key_Product
+      Ifstr $(Key_Product) != $(Key_Null)
+         GetRegValue $(Key_Product),"MajorVersion", VersionInfo
+         set Version = *($(VersionInfo), 4)
+         Shell $(UtilityInf), GetInfFileNameFromRegistry, $(Key_Product)
+         ifint $($ShellCode) 

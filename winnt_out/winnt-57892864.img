@@ -1,0 +1,89 @@
+G_VT_DWORD),*($(Now),1)} +
+                               {Review,$(NoTitle),$(!REG_VT_DWORD),1)}}
+            Shell  $(UtilityInf), AddValueList, $(ProductKey), $(NewValueList)
+            CloseRegKey $(ProductKey)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "utility.INF: ShellCode error. Cannot add IPRIP router service"
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "OEMNSVIR.INF:  error: create service"
+                set Status = STATUS_FAILED
+            endif
+            set NewValueList = +
+             {{class, $(NoTitle), $(!REG_VT_SZ), "ipripRouter basic"},+
+             {type,$(NoTitle),$(!REG_VT_SZ),"iprip ipripRouter"},+
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),"IPRIP"}, +
+             {bindform,$(NoTitle),$(!REG_VT_SZ),"""iprip"" yes yes simple"}, +
+             {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              {"ipripRouter ndisDriver non non 100"}}}
+            Shell  $(UtilityInf), AddValueList, $(RuleKey), $(NewValueList)
+            CloseRegKey $(RuleKey)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "utility.INF: ShellCode error. Cannot add IPRIP service"
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "OEMNSVIR.INF: Registry error: create service"
+                set Status = STATUS_FAILED
+            endif
+            set Result = 0
+            ifstr(i) $(!STF_GUI_UNATTENDED) != "YES"
+               LoadLibrary "x" $(!STF_CWDDIR)$(ProductSoftwareConfigDLL) !hDialogDLL
+                   ifstr(i) $(!hDialogDLL) != NULL
+                       set FLibraryErrCtl = 1
+                       LibraryProcedure ResultList, $(!hDialogDLL), TcpEnableRipSilentMode
+                       set FLibraryErrCtl = 0
+                       set Result = *($(ResultList), 1)
+                   endif
+            endif
+            SetRegValue $(ParamKey) {SilentRip, $(NoTitle), $(!REG_VT_DWORD), $(Result)}
+            CloseRegKey $(ParamKey)
+        endif
+    Else
+        Debug-Output "OEMNSVIR.INF: already installed InstallFrom = "$(InstallFrom)
+        GetRegValue $(KeySoftware) "MajorVersion" VersionInfo
+        set VersionMajor = *($(VersionInfo), 4)
+        GetRegValue $(KeySoftware) "MinorVersion" VersionInfo
+        set VersionMinor = *($(VersionInfo), 4)
+        set InstalledVersion = $(VersionMajor)"."$(VersionMinor)
+        ifstr(i) $(InstallFrom) == "IPRIP"
+            read-syms VerExists$(!STF_LANGUAGE)
+            set Text = $(Product$(Option)Title)$(Ver)$(ProductVersion)+
+                       $(Text1)
+            Shell $(subroutineinf), SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Text)
+            Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_FAILED
+                Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                Goto end
+            Endif
+        else
+            Shell "" AddIPRIPUsed $(InstallFrom)
+        endif
+        goto end
+    EndIf
+    Ifstr(i) $(KeySoftware) != $(KeyNull)
+        CloseRegKey $(KeySoftware)
+    endif
+    Shell "" AddIPRIPUsed $(InstallFrom)
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\Tcpip\Parameters" $(MAXIMUM_ALLOWED) KeyTcpParameter
+    ifstr(i) $(KeyTcpParameter) != ""
+        GetRegValue $(KeyTcpParameter) "IPEnableRouter" RouterInfo
+        ifint *($(RouterInfo),4) == 0
+            SetRegValue $(KeyTcpParameter) {"IPEnableRouter", $(NoTitle), $(!REG_VT_DWORD), 1}
+        endif
+    endif
+    goto successful
+configureadapter = +
+    goto end
+bindingadapter =+
+    goto end 	
+removeadapter = +
+    set IpRipKeyName = "System\CurrentControlSet\Services\IpRip"
+    set ProductIPRI

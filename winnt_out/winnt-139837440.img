@@ -1,0 +1,88 @@
+(KeyRasMan)
+            endif
+            LoadLibrary "x" $(!STF_CWDDIR)rascfg.dll PORTSDLGHANDLE
+            LibraryProcedure Result, $(PORTSDLGHANDLE), RenameRasHubToNdisWan
+            Shell "" RenameRasHubToNdisWan
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling RenameRasHubToNdisWan."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "OEMNSVRA.INF:error returned by RenameRasHubToNdisWan."
+                goto end
+            endif
+            Shell "" IsNdisWanBHAdapterInstalled
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "OEMNSVRA.INF:error shelling IsNdisWanBHAdapterInstalled"
+               goto ShellCodeError
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Shell "" InstallNdisWanBHAdapter
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   Debug-Output "OEMNSVRA.INF:error shelling InstallNdisWanBHAdapter"
+                   goto ShellCodeError
+                endif
+                ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                     set RegistryErrorIndex = $($R0)
+                     Debug-Output "Error installing NdisWan Blood hound adapter"
+                     goto fatalregistry
+                endif
+            endif
+            Shell "" InstallNdisTapiService
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 Debug-Output "Error shelling InstallNdisTapiService "
+                 goto ShellCodeError
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                 set RegistryErrorIndex = $($R0)
+                 Debug-Output "Error installing NdisTapi Service"
+                 goto fatalregistry
+            endif
+            Shell "" UpdateAsyncMacNetRules
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling UpdateAsyncMacNetRules."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "OEMNSVRA.INF:error returned by UpdateAsyncMacNetRules."
+                goto end
+            endif
+            Shell "" UpdateNdisWanInfo
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling UpdateNdisWanInfo."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "OEMNSVRA.INF:error returned by UpdateNdisWanInfo."
+                goto end
+            endif
+            Shell "" AddNDISWANToServiceGroupOrder
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "Cannot add NDISWAN to ServiceGroupOrder"
+               goto ShellCodeError
+            endif
+            Shell "" UpdateAsyncMacParameters
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling UpdateAsyncMacParameters."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "OEMNSVRA.INF:error returned by UpdateAsyncMacParameters."
+                goto end
+            endif
+            Shell "" UpdateAsyncMacStartType
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling UpdateAsyncMacStartType."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "OEMNSVRA.INF:error returned by UpdateAsyncMacStartType."
+                goto end
+            endif
+            Shell "" UpgradeSelectedProtocols
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling UpgradeSelectedProtocols."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                D

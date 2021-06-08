@@ -1,0 +1,102 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Gateway 2000
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[Models]
+%Modem7% = Modem7, UNIMODEMD4884CC1
+%Modem6% = Modem6, UNIMODEM4EC60D76                    ;Telepath, version 1.5 firmware
+%Modem5% = Modem5, "PCMCIA\GATEWAY2000-CC3144-5F5F"    ;PC14.4SR - MHZ CC3144
+%Modem5% = Modem5, "PCMCIA\GATEWAY2000-CC3144-2C32"    ;PC14.4SR - MHZ CC3144
+%Modem5% = Modem5, GATEW_Modem5, UNIMODEMD3A140D7      ;PC14.4SR - MHZ CC3144
+%Modem4% = Modem4, "PCMCIA\GATEWAY2000-XJ1144-CA60"    ;PC14.4SRXJ - MHZ XJ1144
+%Modem4% = Modem4, GATEW_Modem4, UNIMODEMD3A140D7      ;PC14.4SRXJ - MHZ XJ1144
+%Modem3% = Modem3, "PCMCIA\GATEWAY2000-CC324FM-8460"   ;PC24/96SR PCMCIA - MHZ CC324FM
+%Modem3% = Modem3, GATEW_Modem3, UNIMODEM484C7614      ;PC24/96SR PCMCIA - MHZ CC324FM
+%Modem2% = Modem2, UNIMODEM4A73715E                    ;USR sportster 14.4 internal
+%Modem2% = Modem2, UNIMODEM6544B126                    ;USR sportster 14.4 internal
+%Modem1% = Modem1, GATEW_Modem1, UNIMODEM9F2BBC58      ;Cardinal mb2650sr internal
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, INTERNAL
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, INTERNAL
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, PCMCIA
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, INTERNAL
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, INTERNAL
+
+[Modem7.AddReg]    
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F E0 Q0 V1 &B1 &C1 &D2 S0=0<cr>"
+HKR, Settings, FlowControl_Off,, "&H0&I0&R1"
+HKR, Settings, FlowControl_Hard,, "&H1&I0&R2"
+HKR, Settings, FlowControl_Soft,, "&H2&I2&R1"
+HKR, Settings, ErrorControl_Off,, "&M0"
+HKR, Settings, ErrorControl_On,, "&M4"
+HKR, Settings, ErrorControl_Forced,, "&M5"
+HKR, Settings, Compression_Off,, "&K0"
+HKR, Settings, Compression_On,, "&K1"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "S19=<#>"
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 Q0 V1 &C1 &D2 W2 S95=47<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem2.AddReg]    
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 Q0 V1 &B1 &C1 &D2 S0=0<cr>"
+HKR, Settings, FlowControl_Off,, "&H0&I0&R1"
+HKR, Settings, FlowControl_Hard,, "&H1&I0&R2"
+HKR, Settings, FlowControl_Soft,, "&H2&I2&R1"
+HKR, Settings, ErrorControl_Off,, "&M0"
+HKR, Settings, ErrorControl_On,, "&M4"
+HKR, Settings, ErrorControl_Forced,, "&M5"
+HKR, Settings, Compression_Off,, "&K0"
+HKR, Settings, Compression_On,, "&K1"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "S19=<#>"
+
+;Modem1 *must* turn blind dialing off or cannot handshake.
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,01,00,00, 00,c2,01,00, 60,09,00,00
+HKR, Init, 2,, "AT&FS0=0E0&C1&D2<cr>"
+
+[Strings]
+Mfg = "Gateway 2000"
+
+Modem7 ="Gateway 2000 Telepath II 28.8 Data Fax Voice"
+Modem6 ="Gateway 2000 Telepath 14400 Internal"       ;Telepath, version 1.5 firmware
+Modem5 ="Gateway 2000 Telepath 14.4-14.4 PCMCIA"     ;PC14.4SR - MHZ CC3144
+Modem4 ="Gateway 2000 Telepat

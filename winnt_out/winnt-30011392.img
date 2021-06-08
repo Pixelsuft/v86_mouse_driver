@@ -1,0 +1,99 @@
+   set IODefault = 0
+                            Debug-Output "After resetting IORangeList for EISA: "$(IORangeList)
+                            set BusTypeNum = 2
+                            goto getAdapterSettingsExit
+                         endif
+                      EndForListDo
+                  endif
+               endif
+            EndForListDo
+        endif
+        CloseRegKey $(BaseKey)
+        goto configureadapter
+    Endif
+    Debug-Output "Reading Parameters Key for current configuration"
+    GetRegValue $(ParametersKey) "BusType" BusTypeNum
+    set BusTypeNum = *($(BusTypeNum),4)
+    GetRegValue $(ParametersKey) "MemoryMappedBaseAddress" MemoryMappedValueList
+    GetRegValue $(ParametersKey) "InterruptNumber" IRQValueList
+    GetRegValue $(ParametersKey) "IOBaseAddress" IOBaseValueList
+    ifstr(i) $(BusType) != "MCA"
+       set-dectohex TmpHex = *($(MemoryMappedValueList),4)
+       Debug-Output "Current MemoryMappedBaseAddress = "$(TmpHex)
+       ForListDo $(MemoryRangeList)
+           Ifstr(i) $(TmpHex) == "0x"$($)
+               set-sub MemoryDefault = $(#),1
+           Endif
+       EndForListDo
+    else
+      GetRegValue $(ParametersKey) "MCAPosId" MCAPosId
+      GetRegValue $(ParametersKey) "SlotNumber" SlotNumber
+      set MCAPosId = *($(MCAPosId),4)
+      set SlotNumber = *($(SlotNumber),4)
+      Debug-Output "MCAPosId read from registry = "$(MCAPosId)
+      Debug-Output "SlotNumber read from registry = "$(SlotNumber)
+      set MemoryDefault = 0
+      set MemoryRangeList = {Slot$(SlotNumber)}
+    endif
+       set-dectohex TmpHex = *($(IRQValueList),4)
+       Debug-Output "Current InterruptNumber = "$(TmpHex)
+       ForListDo $(IRQRangeList)
+           Ifstr(i) $(TmpHex) == "0x"$($)
+               set-sub IRQDefault = $(#),1
+           Endif
+       EndForListDo
+    ifstr(i) $(BusType) != "MCA"
+       set IOFound = $(FALSE)
+       set-dectohex TmpHex = *($(IOBaseValueList),4)
+       Debug-Output "Current IOBaseAddress = "$(TmpHex)
+       ForListDo $(IORangeList)
+           Ifstr(i) $(TmpHex) == "0x"$($)
+               set-sub IODefault = $(#),1
+               set IOFound = $(TRUE)
+           Endif
+       EndForListDo
+       ifint $(IOFound) == $(FALSE)
+         set IORangeList = {$(TmpHex)}
+         set IODefault = 0
+         set BusTypeNum = 2
+       endif
+    else
+       set IORangeList = {Slot$(SlotNumber)}
+       set IODefault = 0
+    endif
+    set LineList = {}
+    ForListDo {"1","2"}
+      set CurrentLine = "Line"$($)
+      Ifint $(TraceConfig) == 1
+         Debug-Output "CurrentLine = "$(CurrentLine)
+      Endif
+      OpenRegKey $(ParametersKey) "" $(CurrentLine) $(MAXIMUM_ALLOWED) LineKey
+      Ifstr $(LineKey) != $(KeyNull)
+         GetRegValue $(LineKey) "LineSpeed" TmpLineSpeed
+         Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            Debug-Output "No LineSpeed entry exists, defaulting to 14!"
+            set LineSpeed = 14
+         Else
+            set LineSpeed = *($(TmpLineSpeed),4)
+         Endif
+         set ConcList = {}
+         ForListDo {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"}
+            set CurrentConc = "Concentrator"$($)
+            Ifint $(TraceConfig) == 1
+               Debug-Output "CurrentConc = "$(CurrentConc)
+            Endif
+            OpenRegKey $(LineKey) "" $(CurrentConc) $(MAXIMUM_ALLOWED) ConcKey
+            Ifstr $(ConcKey) != $(KeyNull)
+               set PortNameList = {}
+               set CurrentPort = ""
+               set PortName = {}
+               GetRegValue $(ConcKey) "ConcDisplayName" ConcDisplayName
+               Ifint $(TraceConfig) == 1
+                  Debug-Output "ConcDisplayName = "*($(ConcDisplayName),4)
+               Endif
+               GetRegValue $(ConcKey) "LineSpeed" TmpConcSpeed
+               Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                  Debug-Output "No LineSpeed entry exists for conc, defaulting to 14!"
+                  set ConcSpeed = 14
+               Else
+             

@@ -1,0 +1,127 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   LCE
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem1% = Modem1, UNIMODEMC60F268D
+%Modem2% = Modem2, UNIMODEM655B93D9
+%Modem3% = Modem3, UNIMODEM72948889
+%Modem4% = Modem4
+%Modem5% = Modem5, UNIMODEM13269CAA
+%Modem6% = Modem6, UNIMODEM8CDF6AB3
+%Modem7% = Modem7, UNIMODEME7528F93
+
+; Installation sections
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, Internal
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, Internal
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, External
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, External
+
+; AddReg sections
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00,07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Init, 3,, "ATE0W1V1<cr>"
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 10,00,00,00, 00,e1,00,00, 00,e1,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      2,, "ATX6=1X8=1S0=0S15=10<cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, DialSuffix,,
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, CallSetupFailTimer,,
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, Modulation_Bell,,
+HKR, Settings, Blind_Off,,
+HKR, Settings, Blind_On,,
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00,07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init, 2,, "ATZ<cr>"
+HKR, Init, 3,, "ATE0V1<cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B2"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X1"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,,
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00,07,00,00,00, 0f,00,00,00, 00,03,00,00, b0,04,00,00, b0,04,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      2,, "ATZ<cr>"
+HKR, Init,      3,, "ATE0V1B1<cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+HKR, Settings, FlowControl_Off,,
+HKR, Settings, FlowControl_Hard,,
+HKR, Settings, FlowControl_Soft,,
+HKR, Settings, Modulation_CCITT,,
+HKR, Settings, Modulation_Bell,,
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,,
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00,01,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 00,01,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 10,03,00,00, b0,04,00,00, b0,04,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init, 2,, "ATZ<cr>"
+HKR,, Reset,, "ATZ<cr>"
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 2a,00,00,00,07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR,, FClass, 1, 01,00,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      2,, "ATZ12<cr>"
+HKR, Init,      3,, "ATV1\V1<cr>"
+HKR, Settings, ErrorControl_On,, "\N6"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N5"
+HKR, Settings, Compression_On,, "&Q5"
+HKR, Settings, Comp

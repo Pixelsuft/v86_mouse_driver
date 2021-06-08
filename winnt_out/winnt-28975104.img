@@ -1,0 +1,76 @@
+                  {Title,$(NoTitle),$(!REG_VT_SZ),"["$($R4)"] "$(ProductHardware$(Option)Title)},+
+                       {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductHardware$(Option)Description)},+
+                       {ProductName,$(NoTitle),$(!REG_VT_SZ),$(ProductHardwareName)},+
+                       {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+                       {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)},+
+                       {Hidden,$(NoTitle),$(!REG_VT_DWORD),1}}
+    Shell  $(UtilityInf), AddValueList, $($R1), $(NewValueList)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": ShellCode error"
+        GoTo ShellCodeError
+    EndIf
+    CloseRegKey $($R1)
+    Set TempProdName = """"$(ProductHardwareName)$(AdapterNumber)""""
+    Set TempBindForm = $(TempProdName)$(NetRuleHardwareBindForm)
+    Set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleHardware$(Option)Type)},+
+                        {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)}, +
+                        {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleHardware$(Option)Class)}, +
+                        {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+    Shell  $(UtilityInf), AddValueList, $(KeyAdapterRules), $(NewValueList)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": ShellCode error."
+        GoTo ShellCodeError
+    EndIf
+    Set RegistryErrorIndex = $($R0)
+    IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output $(InfName)": Registry error: add value list."
+        CloseRegKey $(KeyParameters)
+        CloseRegKey $(KeyAdapterRules)
+        GoTo FatalRegistry
+    EndIf
+    CloseRegKey $(KeyAdapterRules)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    IfStr $(KeyProduct) != $(KeyNull)
+        SetRegValue $(KeyProduct) {NetCard,$(NoTitle),$(!REG_VT_DWORD),$(AdapterNumber)}
+        CloseRegKey $(KeyProduct)
+    EndIf
+    GoTo WriteParameters
+WriteParameters = +
+    LoadLibrary "x" $(!STF_CWDDIR)raspptpc.dll RASPPTPDLGHANDLE
+    Debug-Output $(InfName)": Getting info from GetChassisConfiguration"
+    Debug-Output "!STF_UNATTENDED is "$(!STF_UNATTENDED)
+    Debug-Output "!STF_GUI_UNATTENDED is "$(!STF_GUI_UNATTENDED)
+    Debug-Output "!STF_UNATTENDED_SECTION is "$(!STF_UNATTENDED_SECTION)
+    LibraryProcedure Result, $(RASPPTPDLGHANDLE), GetChassisConfiguration $(!NTN_InstallMode) +
+                             $(!STF_GUI_UNATTENDED) $(!STF_UNATTENDED) $(!STF_UNATTENDED_SECTION)
+    Debug-Output $(InfName)": Result value is :"$(Result)
+    Set NumberOfLineDevices = *($(Result), 1)
+    FreeLibrary $(RASPPTPDLGHANDLE)
+    ifstr(i) $(NumberOfLineDevices) == "EXITSETUP"
+        Read-Syms InvokeCancelDlg$(!STF_LANGUAGE)
+        Debug-Output $(InfName)": GetChassisConfiguration User selected ExitSetup"
+        Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS", $(InvokeCancelMsg)
+        GoTo SetFailed
+    endif
+    Debug-Output $(InfName)": Number Of Line Devices are :"$(NumberOfLineDevices)
+    Shell "" CreateFullTapiAddrList $(AdapterNumber)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Cannot create the TAPI address list"
+        goto ShellCodeError
+    endif
+    Set FullTapiAddrList = $($R0)
+    Set TapiAddressList = {}
+    ForListDo $(FullTapiAddrList)
+        Set CurListItem = $(AdapterNumber)"-"$($)"-0"
+        Set CurListNumber = $(#)
+        IfInt $(CurListNumber) <= $(NumberOfLineDevices)
+        	Set TapiAddressList = >($(TapiAddressList), $(CurListItem))
+        Endif
+    EndForListDo
+    Debug-Output $(InfName)": Modified Tapi Address List is :"$(TapiAddressList)
+    Set NewValueList = {+
+                       {AddressList,$(NoTitle),$(!REG_VT_MULTI_SZ),$(TapiAddressList)},+
+                       {DeviceName,$(NoTitle),$(!REG_VT_SZ),$(ProductHardwareName)},+
+                       {LineType,$(NoTitle),$(!REG_VT_DWORD),$(LineType)},+
+                       {MediaType,$(NoTitle),$(!REG

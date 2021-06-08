@@ -1,0 +1,156 @@
+er><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+
+;----------------------------------------
+
+[Netcomm Smartmodem E7F - AUS]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATX1D
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&F.
+COMMAND_INIT=AT&C1&D2 X1 \\V1 Q0 S0=0 S7=60<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+
+;---------------------------------------------
+
+[Netcomm Pocket M/F 2400-AUS]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+COMMAND_INIT=AT&F&C1&D2 V1 X1 S0=0 S2=128 S7=55<speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+
+
+;----------------------------------------
+; German Modems
+;----------------------------------------
+
+
+
+
+;-----------------
+; ComCom - Modems
+;-----------------
+
+[ComCom Spirit II - GER]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F3
+<hwflowcontrol_off>=*F0
+<compression_on>=*E9
+<compression_off>=
+<protocol_on>=*E5
+<protocol_off>=*E0
+<autodial_on>=ATDP
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=AT*O<cr>
+DETECT_RESPONSE=MODEL:SPIRIT II
+
+COMMAND_INIT=AT&F&C1&D2 X3 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT*M1<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[ComCom Spirit TERBO - GER]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F3
+<hwflowcontrol_off>=*F0
+<compression_on>=*E9
+<compression_off>=
+<protocol_on>=*E5
+<protocol_off>=*E0
+<autodial_on>=ATDP
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=AT*O<cr>
+DETECT_RESPONSE=MODEL:SPIRIT TERBO
+
+COMMAND_INIT=AT&F&C1&D2 X3 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT*M1<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Compaq SpeedPAQ 144 - GER]
+<speaker_on>=M1
+<speaker_off

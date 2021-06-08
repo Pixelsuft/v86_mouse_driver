@@ -1,0 +1,114 @@
+esponses
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps> V.34<cr><lf><append>\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps> V.34<cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps> V.34<cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps> V.34<cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42bis<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+;----------------------------------------
+;CONNECT responses that do not use the APPEND macro
+;----------------------------------------
+
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+;AT&T ARK DM 424
+CONNECT_EC=<cr><lf>CONNECT <connectbps> EC<cr><lf>
+
+;AT&T Dataports like an extra space
+CONNECT=<cr><lf>CONNECT <connectbps> <cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps> <cr><lf><cr><lf>
+
+;Telebits
+
+CONNECT=<cr><lf>CONNECT <connectbps>/<carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAPM/<carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAPM/COMP/<carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL/COMP/<carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL/<carrierbps><cr><lf>
+
+;;Digicom Scout
+
+CONNECT=<cr><lf>CONNECT <connectbps><hFF>
+
+CONNECT=\
+<cr><lf>CONNECT<cr><lf>
+
+CONNECT=<cr><lf>PLEASE SET TO <connectbps><cr><lf>
+
+CONNECT=\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT=<cr><lf>CONNECT FAST<cr><lf>
+
+;Racal RMD
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> MNP <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> V.42 <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> V.42 bis <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> V.42bis <connectbps><cr><lf>
+
+;UDS Motorola
+CONNECT_EC=\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <connectbps>/LAPM<cr><lf>
+
+;USRobotics modems
+
+CONNECT=<cr><lf>CONNECT <ignore>/NONE<ignore>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+;Codex 3261Fast returns this if *XC1
+;Codex 2264 also returns this
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps> RELIABLE<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V32/NONE<cr><lf>
+
+;;ATIs use this string
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAP-M <cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAP-M <cr><lf><cr><lf>OK<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAPM/COMP<cr><lf>
+
+;ZyXel U-1496
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/MNP3<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/V42 <cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/NONE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/MNP3<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/V42 <cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/NONE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/MNP3<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/V42b<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/V42 <cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/NONE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT

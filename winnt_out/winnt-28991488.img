@@ -1,0 +1,119 @@
+
+            GoTo FatalRegistry
+        EndIf
+    EndForListDo
+    IfStr(i) $(OEM_ABANDON_SOFTWARE) == TRUE
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), FALSE
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error"
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+            GoTo FatalRegistry
+        EndIf
+    EndIf
+    IfStr(i) $(OEM_ABANDON_PPTP_SOFTWARE) == TRUE
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+            $(PPTPProductSoftwareName), FALSE
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error"
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+            GoTo FatalRegistry
+        EndIf
+    EndIf
+    GoTo end
+WarningMsg = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        GoTo ShellCodeError
+    EndIf
+    IfStr(i) $($R1) == "OK"
+        GoTo $(to)
+    Else-IfStr(i) $($R1) == "CANCEL"
+        GoTo $(from)
+    EndIf
+    GoTo end
+NonFatalInfo = +
+    Set Severity = STATUS
+    Set CommonStatus = STATUS_USERCANCEL
+    IfStr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            GoTo ShellCodeError
+        EndIf
+        Set Error = $($R0)
+    EndIf
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        GoTo ShellCodeError
+    EndIf
+    IfStr(i) $($R1) == "OK"
+        GoTo $(from)
+    EndIf
+    GoTo end
+FatalRegistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        GoTo ShellCodeError
+    EndIf
+    Set Error = $($R0)
+    GoTo FatalError
+FatalDetect = +
+    Shell $(UtilityInf),RegistryErrorString,CANNOT_DETECT
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output $(InfName)": ShellCode error: cannot get an error string."
+        GoTo ShellCodeError
+    EndIf
+    Set Error = $($R0)
+    GoTo FatalError
+FatalError = +
+    IfStr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            GoTo ShellCodeError
+        EndIf
+        Set Error = $($R0)
+    EndIf
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+        GoTo ShellCodeError
+    EndIf
+    GoTo SetFailed
+ShellCodeError = +
+    Set DlgType      = "MessageBox"
+    Set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    Set STF_MB_TEXT  = $(ShellCodeErrorText)
+    Set STF_MB_TYPE  = 1
+    Set STF_MB_ICON  = 3
+    Set STF_MB_DEF   = 1
+    UI Start "Error Message"
+    GoTo SetFailed
+SetFailed = +
+    Set CommonStatus = STATUS_FAILED
+    IfStr(i) $(OEM_ABANDON_ON) == TRUE
+        Set OEM_ABANDON_ON = FALSE
+        GoTo Abandon
+    EndIf
+    GoTo end
+end = +
+    Return $(CommonStatus)
+[HtCreateRegKey]
+    Debug-Output $(InfName)": Entering [HtCreateRegKey]"
+    Set ECR_Result          = NO_ERROR
+    Set ECR_BaseKeyHandle   = $($0)
+    Set ECR_NewPath         = $($1)
+    Set KeyNull             = ""
+    Set MAXIMUM_ALLOWED     = 33554432
+    Debug-Output $(InfName)": HtCreateRegKey - ECR_BaseKeyHandle = "$(ECR_BaseKeyHandle)
+    Debug-Output $(InfName)":                  ECR_NewPath       = "$(ECR_NewPath)
+    Debug-Output $(InfName)":                  MAXIMUM_ALLOWED   = "$(MAXIMUM_ALLOWED)
+    Debug-Output $(InfName)":                  KeyNull           = "$(KeyNull)
+    OpenRegKey $(ECR_BaseKeyHandle) "" $(ECR_NewPath) $(MAXIMUM_ALLOWED) +
+               ECR_BaseKey
+    Debug-Output $(InfName)":

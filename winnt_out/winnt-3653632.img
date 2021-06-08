@@ -1,0 +1,104 @@
+ = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set CommonStatus = STATUS_REBOOT
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the Proteon ProNET RapiDriver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+        set StartLabel = configureadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+        set NetworkAddress = "000000000000"
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+   Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    goto nextstep
+configureadapter = +
+OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) NetCardKey
+    ifstr(i) $(NetCardKey) == ""
+        set CommonStatus = STATUS_USERCANCEL
+        goto successful
+    endif
+    GetRegValue $(NetCardKey), "ServiceName", ServiceInfo
+    set ServiceName = *($(ServiceInfo),4)
+    CloseRegKey $(NetCardKey)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ServiceName)"\Parameters" $(MAXIMUM_ALLOWED) ParamKey
+    ifstr(i) $(ParamKey) != ""
+        GetRegValue $(ParamKey),"NetworkAddress", NetworkAddressInfo
+        set NetworkAddress = *($(NetworkAddressInfo), 4)
+        GetRegValue $(ParamKey), "CardSpeed", CardSpeedInfo
+        set CardSpeed = *($(CardSpeedInfo), 4)
+        ifint $(CardSpeed) == 4
+            set RadioIn = {1}
+        else
+            set RadioIn = {2}
+        else
+        endif
+        read-syms FileDependentDlg$(!STF_LANGUAGE)
+        ui start "InputDlg"
+        ifstr(i) $(DLGEVENT) == "CONTINUE"
+            ifcontains(i) 1 in $(RadioOut)
+                SetRegValue $(ParamKey) {CardSpeed,$(NoTitle),$(!REG_VT_DWORD),4}
+                SetRegValue $(ParamKey) {PacketSize,$(NoTitle),$(!REG_VT_DWORD),4210}
+            else
+                SetRegValue $(ParamKey) {CardSpeed,$(NoTitle),$(!REG_VT_DWORD),16}
+                SetRegValue $(ParamKey) {PacketSize,$(NoTitle),$(!REG_VT_DWORD),17986}
+            endif
+            set NetworkAddress = *($(EditTextOut),1)
+            ifstr(i) $(NetworkAddress) == ""
+                set NetworkAddress = "000000000000"
+            endif
+            SetRegValue $(ParamKey) {NetworkAddress,$(NoTitle),$(!REG_VT_SZ),$(NetworkAddress)}
+            ui pop 1
+        else
+            set CommonStatus = STATUS_USERCANCEL
+            ui pop 1
+        endif
+        CloseRegKey $(ParamKey)
+    endif
+    goto successful
+nextstep = +
+    StartWait
+installproduct = +
+    set cardlist = {}
+    Shell $(UtilityInf), MCAFindBus, *($(p189x_1BYTE),1), *($(p189x_2BYTE),1)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    e

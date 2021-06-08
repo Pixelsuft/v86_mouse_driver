@@ -1,0 +1,115 @@
+ServiceKey)
+            else
+                goto fatalregistry
+            endif
+nextnetcard = +
+        EndForListDo
+    endif
+    set iSearch = 1
+nextncu = +
+    Shell $(UtilityInf), FindNextNetworkCard, $(ProductHardwareName), $(iSearch)
+    set KeyNetcard = $($R0)
+    set iSearch = $($R1)
+    Debug-Output "OemNadEp.Inf: FindNextNetworkCard "$(KeyNetcard)","$(iSearch)
+    Ifstr $(KeyNetcard) != $(KeyNull)
+        Debug-Output "OemNadEp.Inf: Setting OperationsSupport value"
+        SetRegValue $(KeyNetcard) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyNetcard)
+        goto nextncu
+    Endif
+    goto end
+successful = +
+    Debug-Output "******************Entering successful******************"
+    goto end
+abandon = +
+    Debug-Output "******************Entering abandon******************"
+    ForListDo $(OEM_ABANDON_OPTIONS)
+        Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), $($)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+        endif
+    EndForListDo
+    Ifstr(i) $(OEM_ABANDON_SOFTWARE) == TRUE
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), FALSE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+        endif
+    endif
+    goto end
+warning = +
+    Debug-Output "******************Entering warning******************"
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatalinfo = +
+    Debug-Output "******************Entering nonfatalinfo******************"
+    Set CommonStatus = STATUS_USERCANCEL
+    Set Severity = STATUS
+    goto nonfatalmsg
+nonfatal = +
+    Debug-Output "******************Entering nonfatal******************"
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    Debug-Output "******************Entering nonfatalmsg******************"
+    ifstr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Debug-Output "******************Entering fatalregistry******************"
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "fatalregistry: shell to find RegistryErrorString failed."
+       goto ShellCodeError
+    endif
+    set Error = $($R0)" - service "$(DigiSpecificString)"."
+    ifstr(i) $(fRemoveDigi) == TRUE
+        read-syms AbortMessage$(!STF_LANGUAGE)
+        set Error = $(Error)$(!LF)$(!LF)$(AbortText)
+    endif
+    goto fatal
+fataldetect = +
+    Debug-Output "******************Entering fataldetect******************"
+    Shell $(UtilityInf),RegistryErrorString,CANNOT_DETECT
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error: cannot get an error string."
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    Goto fatal
+fatal = +
+    Debug-Output "******************Ent

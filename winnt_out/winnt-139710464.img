@@ -1,0 +1,88 @@
+[Identification]
+    OptionType = NetService
+[Options]
+    RAS
+[GeneralConstants]
+    Chosen       = "ON"
+    NotChosen    = "OFF"
+    TRUE         = 1
+    FALSE        = 0
+    NoTitle      = 0
+    FLibraryErrCtl = 1
+    OldVersionExisted = $(FALSE)
+[FileConstants]
+    HandleNull   = ""
+    PORTSDLGHANDLE = $(HandleNull)
+    RasServerOption = "Server"
+    RasClientOption = "Client"
+    RasAdminOption  = "Admin"
+    RasClientAndServerOption = "ClientAndServer"
+    !Manufacturer        = "Microsoft"
+    !ProductMajorVersion = "4"
+    !ProductMinorVersion = "0"
+    ProductVersion       = $(!ProductMajorVersion)"."$(!ProductMinorVersion)
+    ProductOpSupport     = 134 
+    NetEventDLL = "%SystemRoot%\System32\netevent.dll"
+    IoLogMsgDll = "%SystemRoot%\System32\drivers\IoLogMsg.dll"
+    !RasMsgDll   = "%SystemRoot%\System32\rasmsg.dll"
+    !RasEventTypeSupported = 31
+    !HideComponent = 1
+    HideBindings  = 0
+    fReviewBindings = 1
+    !RasInfName     = "OEMNSVRA.INF"
+    ProductFullInfName = $(!STF_CWDDIR)$(!RasInfName)
+    RasDir      = $(!STF_CWDDIR)RAS
+    ProductPath = $(RasDir)"\"
+    ProductRASName        = "RAS"
+    ProductRASImagePath   = "%SystemRoot%\system32\ras"
+    ProductRASSvcType     = "service"
+    NetRuleRASClass       = "classRasService ""basic"""
+    NetRuleRASType        = "RasService classRasService"
+    NetRuleRASUse         = "system"
+    !ProductPCIMACName     = "PCIMAC"
+    ProductRASSVRName       = "RemoteAccess"
+    ProductRASSVRImagePath  = "%SystemRoot%\system32\rassrv.exe"
+    ProductRASSVRSvcType    = "service"
+    NetRuleRASSVRClass      = "classRasServer ""basic"""
+    NetRuleRASSVRType       = "RasServer classRasServer"
+    NetRuleRASSVRUse        = $(ProductRASSVRSvcType)
+    NetRuleRASSVRBindForm   = """RasServer"" yes yes container"
+    NetRuleRASSVRBindable    = {"classRasServer netBiosTransport non non 100",+
+                                "classRasServer ipxTransport non non 100"}
+    ProductRASMANName       = "RasMan"
+    ProductRASMANImagePath  = "%SystemRoot%\system32\rasman.exe"
+    ProductRASMANSvcType    = "service"
+    NetRuleRASMANClass      = "classRasManager ""basic"""
+    NetRuleRASMANType       = "RasManager classRasManager"
+    NetRuleRASMANUse        = $(ProductRASMANSvcType)
+    NetRuleRASMANBindForm   = """RasManager"" yes no container"
+    NetRuleRASMANBindable   = ""
+    !ProductRASARPName       = "RasArp"
+    !ProductRASARPImagePath  = "\SystemRoot\system32\drivers\rasarp.sys"
+    !ProductRASISNRIPName       = "NwlnkRip"
+    !ProductRASISNSAPName       = "NwSapAgent"
+    !ProductRASISNRIPImagePath  = "\SystemRoot\system32\drivers\nwlnkrip.sys"
+    !ProductRASISNSAPImagePath  = "%SystemRoot%\system32\services.exe"
+    !ProductRASAUTODIALName       = "RasAuto"
+    !ProductRASAUTODIALImagePath  = "%SystemRoot%\system32\rasman.exe"
+    !ProductRASAUTODIALSvcType    = "service"
+    !ProductRASACDName       = "RasAcd"
+    !ProductRASACDImagePath  = "\SystemRoot\system32\drivers\rasacd.sys"
+    !ProductNDISWANName	    = "NdisWan"
+    !ProductNDISWANImagePath = "\SystemRoot\system32\drivers\ndiswan.sys"
+    ProductNDISWANSvcType   = "kernel"
+    ProductNDISWANType	    = "transport"
+    !NetRuleNDISWANType	    = "ndisWanDrv ndisWanTransport"
+    !NetRuleNDISWANClass     = {"ndisWanTransport basic"}
+    NetRuleNDISWANUse	    = $(ProductNDISWANType)" yes yes"
+    !NetRuleNDISWANBindForm  = """NdisWan"" yes no container"
+    !NetRuleNDISWANBindable  = +
+	      {"rasCapableTransport ndisWanAdapterDialIn non non 100",+
+	       "rasCapableTransport ndisWanAdapterDialOut non non 100",+
+	       "tcpipTransport ndisWanAdapterDialInIP non non 100",+
+	       "tcpipTransport ndisWanAdapterDialOutIP non non 100",+
+	       "netbtTransport ndisWanAdapterDialInIP non non 100",+
+	       "netbtTransport ndisWanAdapterDialOutIP non non 100",+
+	       "ipxTransport ndisWanAdapterDialInOutIPX non non 100",+
+           "bhService    ndisWanAdapterBH non non 100",+
+	       "ndisWanTransport ndisWanAdapter

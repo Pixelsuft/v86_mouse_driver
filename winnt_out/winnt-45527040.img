@@ -1,0 +1,81 @@
+0, 00, F8,FF, 08,00, F8,03, FF,03, 00,00, 00, 00, 00,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 20,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, E0,07,00,00, 08, 00, 00, 20, 03, \
+00,00,00,00
+; COM2(2F8) IRQ(Any)
+HKR,Override,0005,1, 00,04,00,00, 00,00,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0C,00, 00,00, 00,00, 00,00, 00, 00, F8,FF, 08,00, F8,02, FF,02, 00,00, 00, 00, 00,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 20,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, E0,07,00,00, 08, 00, 00, 21, 03, \
+00,00,00,00
+; COM3(3E8) IRQ(Any)
+HKR,Override,0006,1, 00,04,00,00, 00,00,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0C,00, 00,00, 00,00, 00,00, 00, 00, F8,FF, 08,00, E8,03, EF,03, 00,00, 00, 00, 00,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 20,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, E0,07,00,00, 08, 00, 00, 22, 03, \
+00,00,00,00
+; COM4(2E8) IRQ(Any)
+HKR,Override,0007,1, 00,04,00,00, 00,00,00,00, \
+24,00,00,00, 02,00,00,00, 01,00, 0C,00, 00,00, 00,00, 00,00, 00, 00, F8,FF, 08,00, E8,02, EF,02, 00,00, 00, 00, 00,00,00,00, \
+14,00,00,00, 04,00,00,00, 00,00, 00,00, FF,FF, 00,00, 20,00,00,00, \
+19,00,00,00, 7C,89,00,00, 00,00, 02,00, 32, 32, 32, 02, E0,07,00,00, 08, 00, 00, 23, 03, \
+00,00,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, c0,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR, Responses, "11<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "12<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "13<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "14<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "15<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "22<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "23<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "24<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "25<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "26<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "28<CR>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "69<CR>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+
+[Strings]
+
+Hayes = "Hayes"
+Modem48 = "Hayes Accura 288 V.34 + FAX"
+Modem48GEN = "28.8 Data Fax Modem"       ; combo Hayes and Practical
+
+Mfg = "Practical Peripherals"
+Modem47="Practical Peripherals PM288MT II V.34"
+Modem46="Practical Peripherals PM2400FX96"
+Modem45="Practical Peripherals PC288T PCMCIA"
+Modem44="Practical Peripherals 28.8, V.34 Data Fax"
+Modem43PNP="Practical Peripherals PC288MT V.34 Plug & Play"
+Modem43="Practical Peripherals PC288MT V.34"
+Modem42="Practical Peripherals ProClass 144"
+Modem41PNP="Practical Peripherals PC288LCD V.34 Plug & Play"
+Modem41="Practical Peripherals PC288LCD V.34"
+Modem40="Practical Peripherals PM288HC II V.34"
+Modem39="Practical Peripherals PM9600 V.32-V.42bis"
+Modem38="Practical Peripherals PM2400FX96SA"
+Modem37="Practical Peripherals 2400"
+Modem36="Practical Peripherals PC288T2-EZ PCMCIA"
+Modem35="Practical Peripherals PC144T2-EZ PCMCIA"
+Modem34PNP="Practical Peripherals PC288HC V.34 Plug & Play" 
+Modem34="Practical Peripherals PC288HC V.34"
+Modem33="Practical Peripherals PM9600MT II"
+Modem32="Practical Peripherals PC288MT II V.34"
+Modem31="Practical Peripherals PM288MT II V.34"
+Modem30="Practical Peripherals PM14400FX"
+Modem29="Practical Peripherals PM9600SA"
+Modem28="Practical Peripherals PM9600"
+Modem27="Practical Peripherals PM14400FX MT"
+Modem26="Practical Peripherals PM144HC II"
+Modem25PNP=

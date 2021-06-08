@@ -1,0 +1,72 @@
+0, 40,83,00,00
+HKR, Init,      2,, "AT &F E0 V1 &C1 &D2 \V3 *MM<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, SpeedNegotiation_Off,, "%%R"
+HKR, Settings, SpeedNegotiation_On,, "%%R2"
+HKR, Settings, CallSetupFailTimer,, "S10=<#>"
+HKR, Settings, InactivityTimeout,, "S58=<#>"
+
+[Modem29.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init,      2,, "AT &F &D2 &C1 E0 \V1 V0 W2 S0=0<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Modulation_CCITT,, "B"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "%G"
+HKR, Settings, SpeedNegotiation_On,, "%G1"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+HKR, Responses, "0<cr>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "1<cr>", 1, 02, 00, 2c,01,00,00, 2c,01,00,00
+HKR, Responses, "2<cr>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "3<cr>", 1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "4<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "5<cr>", 1, 02, 00, b0,04,00,00, b0,04,00,00
+HKR, Responses, "6<cr>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "7<cr>", 1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "8<cr>", 1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "10<cr>", 1, 02, 00, 60,09,00,00, 60,09,00,00
+HKR, Responses, "11<cr>", 1, 02, 00, c0,12,00,00, c0,12,00,00
+HKR, Responses, "12<cr>", 1, 02, 00, 80,25,00,00, 80,25,00,00
+HKR, Responses, "13<cr>", 1, 02, 00, 40,38,00,00, 40,38,00,00
+HKR, Responses, "14<cr>", 1, 02, 00, 00,4b,00,00, 00,4b,00,00
+HKR, Responses, "15<cr>", 1, 02, 00, a0,41,00,00, a0,41,00,00
+HKR, Responses, "18<cr>", 1, 02, 00, 00,e1,00,00, 00,e1,00,00
+HKR, Responses, "24<cr>", 1, 02, 00, 20,1c,00,00, 20,1c,00,00
+HKR, Responses, "25<cr>", 1, 02, 00, e0,2e,00,00, e0,2e,00,00
+HKR, Responses, "26<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "27<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "28<cr>", 1, 02, 00, 00,96,00,00, 00,96,00,00
+HKR, Responses, "29<cr>", 1, 02, 00, 60,54,00,00, 60,54,00,00
+HKR, Responses, "30<cr>", 1, 02, 00, c0,5d,00,00, c0,5d,00,00
+HKR, Responses, "31<cr>", 1, 02, 00, 20,67,00,00, 20,67,00,00
+HKR, Responses, "32<cr>", 1, 02, 00, 80,70,00,00, 80,70,00,00
+HKR, Responses, "33<cr>", 1, 01, 00, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "40<cr>", 1, 01, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "42<cr>", 1, 01, 00, 4b,00,00,00, 00,00,00,00
+HKR, Responses, "43<cr>", 1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "46<cr>", 1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "47<cr>", 1, 01, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "48<cr>", 1, 01, 03, c0,12,00,00, 00,00,00,00
+HKR, Responses, "49<cr>", 1, 01, 03, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "50<cr>", 1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "51<cr>", 1, 01, 03, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "52<cr>", 1, 01, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "53<cr>", 1, 01, 03, a0,41,00,00, 00,00,00,00
+HKR, Responses, "54<cr>", 1, 01, 03, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "55<cr>", 1, 01, 03, 60,54,00,00, 00,00,00,00
+HKR, Responses, "56<cr>", 1, 01, 03, c0,5d,00,00, 00,00,00,00
+HKR, Responses, "57<cr>", 1, 01, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "58<cr>", 1, 01, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "66<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "67<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "69<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "70<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "77<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "80<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "81<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "82<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "83<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "84<cr>", 1, 01, 03, 00,00,00,00, 00

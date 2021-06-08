@@ -1,0 +1,90 @@
+!SHELL_CODE_OK)
+            Debug-Output "error shelling UpdatePerfmonInfoHelper."
+            goto UpdatePerfmonInfoEnd
+        endif
+        Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            Debug-Output "error returned by UpdatePerfmonInfo."
+            goto UpdatePerfmonInfoEnd
+        endif
+        CloseRegKey $(KeyService)
+        set Status = STATUS_SUCCESSFUL
+    else
+        Debug-Output "UpdatePerfmonInfo: error opening RemoteAccess service key"
+    endif
+UpdatePerfmonInfoEnd =+
+    Debug-Output "UpdatePerfmonInfo: Exit"
+    return $(Status)
+[UpdatePerfmonInfoHelper]
+    Debug-Output "UpdatePerfmonInfoHelper: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set ServiceKey = $($0)
+    set KeyPerformance = $(KeyNull)
+    OpenRegKey $(ServiceKey) "" $(!RasPerfKeyName) $(!MAXIMUM_ALLOWED) KeyPerformance
+    ifstr $(KeyPerformance) == $(KeyNull)
+        CreateRegKey $(ServiceKey) {$(!RasPerfKeyName),$(NoTitle),GenericClass} "" $(!MAXIMUM_ALLOWED) "" KeyPerformance
+        OpenRegKey $(ServiceKey) "" $(!RasPerfKeyName) $(!MAXIMUM_ALLOWED) KeyPerformance
+        ifstr $(KeyPerformance) == $(KeyNull)
+            Debug-Output "Error creating Performance key"
+            goto UpdatePerfmonInfoHelperEnd
+        endif
+    endif
+    set NewValueList = +
+         {{Library ,$(NoTitle),$(!REG_VT_SZ),$(!RasPerfLibraryName)},+
+         {Open, $(NoTitle),$(!REG_VT_SZ),$(!RasPerfOpenFunction)},+
+         {Close, $(NoTitle),$(!REG_VT_SZ),$(!RasPerfCloseFunction)},+
+         {Collect, $(NoTitle),$(!REG_VT_SZ),$(!RasPerfCollectFunction)}}
+    Shell  "Utility.Inf", AddValueList, $(KeyPerformance), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "UpdatePerfmonInfoHelper: error shelling AddValueList"
+         goto UpdatePerfmonInfoHelperEnd
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        Debug-Output "UpdatePerfmonInfoHelper: AddValueList bombed out"
+        goto UpdatePerfmonInfoHelperEnd
+    endif
+    CloseRegKey $(KeyPerformance)
+    set Status = STATUS_SUCCESSFUL
+UpdatePerfmonInfoHelperEnd =+
+    Debug-Output "UpdatePerfmonInfoHelper: Exit"
+    return $(Status)
+[RenameRasHubToNdisWan]
+    Debug-Output "RenameRasHubToNdisWan: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) $(!MAXIMUM_ALLOWED) KeyNetcards
+    ifstr $(KeyNetcards) == $(KeyNull)
+         Debug-Output "RenameRasHubToNdisWan: could not open Netcards key"
+         goto RenameRasHubToNdisWanEnd
+    endif
+    EnumRegKey $(KeyNetcards) NetcardsList
+    ForListDo $(NetcardsList)
+       set KeyName = *($($),1)
+       OpenRegKey $(KeyNetcards) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+       ifstr $(Card) == $(KeyNull)
+           Debug-Output "RenameRasHubToNdisWan: could not open netcard key"
+           CloseRegKey $(KeyNetcards)
+           goto RenameRasHubToNdisWanEnd
+       endif
+       GetRegValue $(Card), "ProductName" ProductNameInfo
+       set CardProductName = *($(ProductNameInfo), 4)
+	   ifstr(i) $(CardProductName) == $(!ProductRASHUBDIALINName)
+           set ThisOption = DIALIN
+	   else-ifstr(i) $(CardProductName) == $(!ProductRASHUBDIALOUTName)
+           set ThisOption = DIALOUT
+	   else-ifstr(i) $(CardProductName) == $(!ProductRASHUBDIALINIPName)
+           set ThisOption = DIALINIP
+	   else-ifstr(i) $(CardProductName) == $(!ProductRASHUBDIALOUTIPName)
+           set ThisOption = DIALOUTIP
+	   else-ifstr(i) $(CardProductName) == $(!ProductRASHUBDIALINOUTIPXName)
+           set ThisOption = DIALINOUTIPX
+       else
+           goto endloop
+       endif
+       SetRegValue $(Card) {ProductName, 0, +
+                            $(!REG_VT_SZ),$(!ProductNDISWAN$(ThisOption)Name)}
+       SetRegValue $(Card) {Description, 0, +
+                            $(!REG_VT_SZ),$(!ProductNDISWANDescription)}
+       SetRegValue $(Card) {ServiceName, 0, $(!REG_VT_SZ), +
+                            $(!ProductNDISWANName)$(KeyN

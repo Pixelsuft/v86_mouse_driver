@@ -1,0 +1,107 @@
+$(RegLastError) != $(!REG_ERROR_SUCCESS)
+      goto finish_getregoptions
+   Endif
+   Set RegTimeLow  = *($(ValueRegTimeLow),4)
+   Ifint $(TimeLow) != $(RegTimeLow)
+       goto finish_getregoptions
+   Endif
+   ForListDo $(!STF_BUSTYPELIST)
+       Set TypeKeyName = $(InfType)"."$($)
+       OpenRegKey $(KeyInf) "" $(TypeKeyName) $(!REG_KEY_READ) KeyType
+       ifint $(RegLastError) == $(!REG_ERROR_SUCCESS )
+          goto findit
+       endif
+   EndForListDo
+   Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+      Set Status = STATUS_SUCCESSFUL
+      goto finish_getregoptions
+   Endif
+findit = +
+   GetRegValue $(KeyType) OptionList ValueOptionList
+   Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+      goto finish_getregoptions
+   Endif
+   Set OptionList = *($(ValueOptionList),4)
+   GetRegValue $(KeyType) OptionTextList ValueOptionTextList
+   Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+      goto finish_getregoptions
+   Endif
+   Set OptionTextList = *($(ValueOptionTextList),4)
+   Set Status = STATUS_SUCCESSFUL
+finish_getregoptions =+
+   Ifstr(i) $(Status) != STATUS_SUCCESSFUL
+       Set OptionList = {}
+       Set OptionTextList = {}
+   Endif
+   Ifstr(i) $(KeyType) != ""
+      CloseRegKey  $(KeyType)
+   Endif
+   Ifstr(i) $(KeyInf) != ""
+      CloseRegKey  $(KeyInf)
+   Endif
+   return $(Status) $(OptionList) $(OptionTextList)
+[SetOptionsIntoRegistry]
+    Debug-Output "OTHER.INF: SetOptionsIntoRegistry - Entry "$($0)", "$($1)", "$($2)", "$($3)
+    Set OptionType     = $($0)
+    Set InfFullName    = $($1)
+    Set OptionList     = $($2)
+    Set OptionTextList = $($3)
+    Set MaskAllAccess  = 33554432
+    Set NoTitle        = 0
+    Set RegLastError   = $(!REG_ERROR_SUCCESS)
+    Set Status         = STATUS_FAILED
+    Set KeyInf         = ""
+    Ifstr(i) $(!STF_BUSTYPE) == ""
+        goto finish_setregoptions
+    Endif
+    Split-String $(InfFullName) "\" NameInfo
+    QueryListSize NameInfoListSize $(NameInfo)
+    Set InfName = *($(NameInfo),$(NameInfoListSize))
+    Set KeyInfName     = "SOFTWARE\Microsoft\Ncpa\InfOptions\"$(InfName)
+    Set KeyOptName     = $(OptionType)"."$(!STF_BUSTYPE)
+    Set FileDateTimeName = $(InfName)
+    Detect DetectFileTime
+    Set TimeLsw = *($(FileDateTime),1)
+    Ifint $(TimeLsw) == 0
+        goto finish_setregoptions
+    Endif
+    Set KeyInfo = {$(KeyInfName),$(NoTitle),""}
+    OpenRegKey $(!REG_H_LOCAL) "" $(KeyInfName) $(MaskAllAccess) KeyInf
+    ifstr(i) $(KeyInf) == ""
+        CreateRegKey $(!REG_H_LOCAL) $(KeyInfo) "" $(MaskAllAccess) "" KeyInf
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            Debug-Output "OTHER.INF: SetOptionsIntoRegistry - Reg Error"$(KeyInfo)
+            goto finish_setregoptions
+        Endif
+    Endif
+    Set KeyInfo = {$(KeyOptName),$(NoTitle),""}
+    OpenRegKey $(KeyInf) "" $(KeyOptName) $(MaskAllAccess) KeyType
+    ifstr(i) $(KeyType) == ""
+        CreateRegKey $(KeyInf) $(KeyInfo) "" $(MaskAllAccess) "" KeyType
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            Debug-Output "OTHER.INF: SetOptionsIntoRegistry - Reg Error"$(KeyInfo)
+            goto finish_setregoptions
+        Endif
+    Endif
+    Set ValueInfo = {DateLow, $(NoTitle), $(!REG_VT_DWORD), $(TimeLsw)}
+    SetRegValue $(KeyInf) $(ValueInfo)
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        goto finish_setregoptions
+    Endif
+    Set ValueInfo = {OptionList, $(NoTitle), $(!REG_VT_MULTI_SZ), $(OptionList)}
+    SetRegValue $(KeyType) $(ValueInfo)
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        goto finish_setregoptions
+    Endif
+    Set ValueInfo = {OptionTextList, $(NoTitle), $(!REG_VT_MULTI_SZ), $(OptionTextList)}
+    SetRegValue $(KeyType) $(ValueInfo)
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        goto finish_setregoptions
+    Endif
+    Set Status = STATUS_SUCCESSFUL
+finish_setregoptions =+
+   Ifstr(i) $(KeyType) != ""
+       CloseRegKey  $(KeyType)
+       Ifstr(i) $(Status) != STATUS_SUCCESSFUL
+           DeleteRegTree $(KeyOptName)
+     

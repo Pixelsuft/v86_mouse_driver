@@ -1,0 +1,85 @@
+Name) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) != $(KeyNull)
+            CloseRegKey $(KeyProduct)
+            Shell $(UtilityInf), VerExistedDlg, $(ProductRPCBanyanTitle),+
+                $(ProductVersion)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set CommonStatus = STATUS_USERCANCEL
+            goto end
+        endif
+        Ifstr(i) $(DoCopy) == "YES"
+           Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+           Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Goto ShellCodeError
+           Else-Ifstr(i) $($R0) == STATUS_FAILED
+               Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+               set Error = $($R0)
+               Goto fatal
+           Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+               Goto successful
+           Endif
+           Set SrcDir = $($R1)
+        Endif
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+        Shell $(UtilityInf), InstallSoftwareProduct, $(Manufacturer), $(RpcSrvNameBanyan), "oemnsvrp.inf"
+        Set SoftProductKey      = $($R1)
+        Set SoftNetRuleKey      = $($R2)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),"service"},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductRPCBanyanTitle)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductRPCBaynanSoftDescription)},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupportRPCBANYAN)}, +
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVNW.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNSVNW.INF: registry error: add value list."
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),RPCBANYAN}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVNW.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        CloseRegKey $(SoftNetRuleKey)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcSoftKeyName)$(ServerProto) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNull)
+            Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+            Goto fatalregistry
+        endif
+        SetRegValue $(KeyProduct) +
+				{"ncacn_vns_spp",$(NoTitle),$(!REG_VT_SZ),"rpclts8.dll" }
+        CloseRegKey $(KeyProduct)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcSoftKeyName)$(ClientProto) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNull)
+            Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+            Goto fatalregistry
+        endif
+        SetRegValue $(KeyProduct) +
+				{"ncacn_vns_spp",$(NoTitle),$(!REG_VT_SZ),"rpcltc8.dll" }
+        Clos

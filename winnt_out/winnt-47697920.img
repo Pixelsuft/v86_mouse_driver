@@ -1,0 +1,82 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: AT&T
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%ATT%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM43E11D57
+ExcludeFromSelect=PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-40E9
+ExcludeFromSelect=PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-762F
+ExcludeFromSelect=UNIMODEM5807B4CB
+ExcludeFromSelect=UNIMODEM16A162D5
+ExcludeFromSelect=UNIMODEM7B177FCF   ; KeepInTouch and KeepInTouch Express
+
+[Manufacturer]
+%ATT% = ATT
+%NEC% = NEC
+%Nokia% =  Nokia
+
+; Modem models
+
+[ATT]
+%Modem20% = Modem20, ATT_Modem20, UNIMODEM43E11D57            ; Comsphere 3825 Plus
+%Modem19% = Modem18, UNIMODEM16A162D5                ; Dataport PCX, Cardinal
+%Modem18% = Modem18, ATT_Modem18, UNIMODEM16A162D5   ; Dataport PCX
+%Modem17% = Modem15, UNIMODEM5807B4CB                            ; KIT 28.8+cell, KIT 28.8 no cell
+%Modem16% = Modem16, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_3766-4156  ; KIT 28.8 cell PCMCIA
+%Modem16% = Modem16, ATT_Modem16, UNIMODEM5807B4CB               ; KIT 28.8 cell PCMCIA
+%Modem15% = Modem15, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_3765-A5C2  ; KIT 28.8 PCMCIA
+%Modem15% = Modem15, ATT_Modem15, UNIMODEM5807B4CB               ; KIT 28.8 PCMCIA
+%Modem14% = Modem14, UNIMODEM3C89963B            ; Dataport 28.8 V.34
+%Modem13% = Modem13, UNIMODEM169744BD            ; Comsphere 3810 Plus
+%Modem12% = Modem12, ATT_Modem12, UNIMODEM43E11D57            ; Comsphere 3820 Plus
+%Modem10% = Modem6, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-762F  ; Rank 0 for Keep in touch, keep in touch express, Nokia, Com1
+%Modem9%  = Modem9, UNIMODEMADA0F3F6             ; Dataport Express Internal
+%Modem8%  = Modem8, UNIMODEM401EA6EE             ; Dataport Express External
+%Modem7%  = Modem7, UNIMODEM43E11D57             ; combo id
+%Modem6a% = Modem6, ATT_Modem6a, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-762F  ; AT&T Keep in Touch PC Card 
+%Modem6a% = Modem6, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-3761  ; AT&T Keep in Touch PC Card
+%Modem6a% = Modem6, ATT_Modem6a, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-40E9  ; AT&T Keep in Touch PC Card
+%Modem6a% = Modem6, ATT_Modem6a, UNIMODEMC605070E                            ; Rank-1 for AT&T
+%Modem6a% = Modem6, ATT_Modem6a, UNIMODEM7B177FCF                            ; Rank-1 for AT&T   
+
+%Modem6%  = Modem6, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-40E9  ; Generic name
+%Modem6%  = Modem6, UNIMODEMC605070E                            ; Generic name
+%Modem6%  = Modem6, ATT_Modem6, UNIMODEM43E11D57             ; AT&T KeepInTouch 14.4 PCMCIA
+%Modem5%  = Modem5, ATT_Modem5, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-762F  ; Keep in Touch Express
+%Modem5%  = Modem5, ATT_Modem5, UNIMODEM7B177FCF             ; Keep in Touch Express, production model
+%Modem5a%  = Modem5, UNIMODEM7B177FCF             ; Keep in Touch Express, production model
+
+%Modem4%  = Modem4, UNIMODEM964AB664             ; AT&T Comsphere 3810
+%Modem3%  = Modem3, UNIMODEM3662183F             ; AT&T Dataport 14.4/FAX Internal
+%Modem2%  = Modem2, UNIMODEM8CAF9051             ; 1994 AT&T DataPort 14.4/FAX External
+%Modem2%  = Modem2, UNIMODEM50DB2053             ; AT&T DataPort 14.4/FAX External
+%Modem2%  = Modem2, ATT_Modem2, UNIMODEM43E11D57             ; 1992 model AT&T DataPort 14.4/fax
+%Modem2%  = Modem2, UNIMODEMB41EB9B2
+%Modem1%  = Modem1, ATT_Modem1, UNIMODEM43E11D57             ; 1994 model AT&T DataPort 2001 External
+
+[NEC]
+%Modem6b% = Modem6, ATT_Modem6b, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-40E9
+%Modem6b% = Modem6, ATT_Modem6b, UNIMODEMC605070E
+
+[Nokia]
+%Modem11% = Modem6, ATT_Modem11, PCMCIA\AT&T_PARADYNE-KEEPINTOUCH_CARD-762F  ; Nokia 14.4 with no cell
+
+; Installation sections
+
+[Modem20]   ; Comsphere 3825 Plus
+AddReg=All, MfgAddReg, Modem20.AddReg, EXTERNAL
+
+[Modem18]   ; Dataport PCX
+AddReg=All, MfgAddReg, Modem18.AddReg, INTERNAL
+
+[Modem16]   ; KIT 28.8 cell PCMCIA
+AddReg=All, MfgAddReg, Modem16.AddReg, PCMCIA
+
+[Modem15]   ; KIT 28.8 PCMCIA
+AddReg=All, MfgAddReg, Mod

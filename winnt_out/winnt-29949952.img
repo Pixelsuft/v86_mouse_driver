@@ -1,0 +1,66 @@
+ueList)
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+               endif
+               set BusTypeNum = 5
+               set NewValueList = {{AdapterType,$(NoTitle),$(!REG_VT_DWORD),$(Adapter$(Option)Type)},+
+                                   {MediaType,$(NoTitle),$(!REG_VT_DWORD),1},+
+                                   {BusType,$(NoTitle),$(!REG_VT_DWORD),$(BusTypeNum)},+
+                                   {AdapterCFID,$(NoTitle),$(!REG_VT_DWORD),$($(Option)CFID)}}
+               Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+               endif
+            ifint $($(Option)CFID) == $(DC21041CFID) 
+               set NewValueList = {{SnoozeMode,$(NoTitle),$(!REG_VT_DWORD),0}}
+               Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+            endif
+            ifint $($(Option)CFID) == $(DC21142CFID) 
+                set NewValueList = {{SnoozeMode,$(NoTitle),$(!REG_VT_DWORD),0}}
+                Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+                endif
+            endif
+            ifint $($(Option)CFID) == $(DE450CFID) 
+               set NewValueList = {{SnoozeMode,$(NoTitle),$(!REG_VT_DWORD),0}}
+               Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+            endif
+            ifint $($(Option)CFID) == $(DC21140CFID) 
+                set NewValueList = {{StoreAndForward,$(NoTitle),$(!REG_VT_DWORD),$(StoreAndForward)},+
+                                    {TransmitThreshold100,$(NoTitle),$(!REG_VT_DWORD),$(TxmThreshold100)},+
+                                    {SnoozeMode,$(NoTitle),$(!REG_VT_DWORD),0}}
+                Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    goto ShellCodeError
+                endif
+            endif
+               ifstr(i) $(Option) == "MULTIA"
+                    set NewValueList = {{ExternalSia,$(NoTitle),$(!REG_VT_DWORD),1},+
+                                        {SiaRegister0,$(NoTitle),$(!REG_VT_DWORD),$(SiaRegister0)},+
+                                        {SiaRegister1,$(NoTitle),$(!REG_VT_DWORD),$(SiaRegister1)},+
+                                        {SiaRegister2,$(NoTitle),$(!REG_VT_DWORD),$(SiaRegister2)}}
+                    Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+                    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                         goto ShellCodeError
+                    endif
+               endif
+               set NewValueList = {{ConnectionType,$(NoTitle),$(!REG_VT_DWORD),$(ConnectionValue)}}
+               Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  goto ShellCodeError
+               endif
+               set TempProdName = """"$(ProductHardwareName)$(AdapterNumber)""""
+               set TempBindForm = $(TempProdName)$(NetRuleHardwareBindForm)
+               set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleHardware$(Option)Type)},+
+                                   {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)}, +
+                                   {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleHardware$(Option)Class)}, +
+                                   {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+               Shell  $(UtilityInf), AddValueList, $(HardNetRuleKey), $(NewValueList)
+               ifint $($ShellCode) != $(!SHELL_CODE_

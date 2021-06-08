@@ -1,0 +1,55 @@
+00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+HKR, Responses, "OK",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RING",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO CARRIER",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "ERROR",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO DIALTONE", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO DIAL TONE",1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "BUSY",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO ANSWER",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "FAX",         1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DATA",        1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "VOICE",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RINGING",     1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DELAYED",     1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "BLACKLISTED", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "+FCERROR",    1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "CONNECT",                 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/ARQ",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/REL",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/MNP",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/LAP-M",           1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/V42BIS",          1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/V42b",            1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300",             1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/ARQ",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/REL",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/REL-MNP",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/REL-MNP 5",         1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/REL-LAPM",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/REL-LAPM V.42 BIS",         1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/MNP",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/LAP-M",       1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/V42BIS",      1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/V42b",        1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600",             1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/ARQ",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/REL",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/REL-MNP",           1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/REL-MNP 5",         1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/REL-LAPM",          1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/REL-LAPM V.42 BIS", 1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/MNP",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/LAP-M",       1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/V42BIS",      1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/V42b",        1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600",            1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/ARQ",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/REL",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/MNP",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/LAP-M",      1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/V42BIS",     1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/V42b",       1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200",            1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CO

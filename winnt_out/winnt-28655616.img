@@ -1,0 +1,101 @@
+et RegistryErrorIndex = $($R0)
+        CloseRegKey $(KeyParameters)
+        Ifstr(i) $(RegistryErrorIndex) !=  NO_ERROR
+            goto fatalregistry
+        endif
+        ifint $(LargeSystemCache) != $(LargeSystemCacheOrg)
+            OpenRegKey $(!REG_H_LOCAL) "" $(SessMgrMemMgtKeyName) $(MAXIMUM_ALLOWED) KeySessMgrMemMgt
+            SetRegValue $(KeySessMgrMemMgt) {LargeSystemCache,$(NoTitle),$(!REG_VT_DWORD),$(LargeSystemCache)}
+            ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                set RegistryErrorIndex = UNABLE_WRITE_REGISTRY
+                CloseRegKey $(KeySessMgrMemMgt)
+                goto fatalregistry
+            endif
+            CloseRegKey $(KeySessMgrMemMgt)
+        endif
+    endif
+    ifstr(i) $(DoXACTSRV) == TRUE
+        ifint $(OldVersionExisted) == $(FALSE)
+            Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductXACTSRVName))
+            Shell $(UtilityInf), CreateService, $(ProductXACTSRVName), +
+                $(ProductXACTDisplayName), $(ProductXACTSRVImagePath), "serviceshare", "", +
+                {"LanmanServer"}, ""
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error"
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "Registry error: adding XACTSRV service"
+                goto fatalregistry
+            endif
+        endif
+    endif
+    ifstr(i) $(DoSRVSRV) == TRUE
+        ifint $(OldVersionExisted) == $(FALSE)
+            Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductSRVSRVName))
+            Shell $(UtilityInf), CreateService, $(ProductSRVSRVName), +
+                $(ProductSRVSRVDisplayName), $(ProductSRVSRVImagePath), "system", "Network", {}, "",+
+                $(NetEventDLL)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error"
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "Registry error: adding Srv service"
+                goto fatalregistry
+            endif
+        endif
+    endif
+    EndWait
+    goto successful
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+        set RegistryErrorIndex = CANT_REMOVE_SERVER_NTAS
+        goto fatalregistry
+    endif
+    ifcontains(i) $(ProductSRVName) in $(OEM_ABANDON_OPTIONS)
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+           $(ProductSRVName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+           Debug-Output "ShellCode error"
+           goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+           goto fatalregistry
+        endif
+    endif
+    ForListDo  {$(ProductXACTSRVName), $(ProductSRVSRVName)}
+        ifcontains(i) $($) in $(OEM_ABANDON_OPTIONS)
+           Shell $(UtilityInf), RemoveService, $($), "YES"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error"
+               goto ShellCodeError
+           endif
+           set RegistryErrorIndex = $($R0)
+           Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+               goto fatalregistry
+           endif
+        endif
+    EndForListDo
+    goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        e

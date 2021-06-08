@@ -1,0 +1,66 @@
+                 = NC_10971.PPD
+"NEC Silentwriter LC 860 Plus"                         = HPPCL.DLL
+"NEC Silentwriter LC 860"                              = HPPCL.DLL
+"NEC Silentwriter LC890 v47.0"                         = N890_470.PPD
+"NEC Silentwriter LC890XL v50.5"                       = N890X505.PPD
+"NEC Silentwriter S102"                                = PCL5MS.DLL
+"NEC Silentwriter2 290 v52.0"                          = N2290520.PPD
+"NEC Silentwriter2 90 v52.2"                           = N2090522.PPD
+"NEC Silentwriter2 990 v52.3"                          = NCS29901.PPD
+
+[OceColor]
+"OceColor G5241 PS"                                    = O5241503.PPD
+"OceColor G5242 PostScript Printer v50.3"              = O5242503.PPD
+
+[Oki]
+"OKI MICROLINE 801PS+F v52.3"                          = OK801PF1.PPD
+"Oki ML 182 Elite (IBM)"                               = OKI9IBM.DLL
+"Oki ML 192 Elite (IBM)"                               = OKI9IBM.DLL
+"Oki ML 193 Elite (IBM)"                               = OKI9IBM.DLL
+"Oki ML 280 Elite (IBM)"                               = OKI9IBM.DLL
+"Oki ML 320 Elite (IBM)"                               = OKI9IBM.DLL
+"Oki ML 321 Elite (IBM)"                               = OKI9IBM.DLL
+"Oki ML 3410 Elite (IBM)"                              = OKI9IBM.DLL
+"Oki ML 380 Elite"                                     = OKI24.DLL
+"Oki ML 390 Elite"                                     = OKI24.DLL
+"Oki ML 391 Elite"                                     = OKI24.DLL
+"Oki ML 393 Elite"                                     = OKI24.DLL
+"Oki ML 393C Elite"                                    = OKI24.DLL
+"Oki ML 590"                                           = OKI24.DLL
+"Oki ML 591"                                           = OKI24.DLL
+"OKI OJ-300C"                                          = HPDSKJET.DLL
+"Oki OL-1200ex"                                        = PCL5EMS.DLL
+"OKI OL-400"                                           = HPPCL.DLL
+"Oki OL-410"                                           = PCL5MS.DLL
+"Oki OL-410ex"                                         = PCL5MS.DLL
+"Oki OL410e v2014.105"                                 = OK_410E1.PPD
+"Oki OL-600ex"                                         = HPPCL.DLL
+"Oki OL-610ex"                                         = PCL5EMS.DLL
+"OKI OL-800/840"                                       = HPPCL.DLL
+"Oki OL-810"                                           = PCL5MS.DLL
+"Oki OL-810ex"                                         = PCL5EMS.DLL
+"Oki OL-870"                                           = PCL5MS.DLL
+"Oki OL830-PS v52.5"                                   = OL830525.PPD
+"Oki OL840-PS v51.8"                                   = OL840518.PPD
+"Oki OL850-PS v52.5"                                   = OKOL8501.PPD
+"Oki OL870-PS v2013.108"                               = OKOL8701.PPD
+
+[Okidata]
+"Okidata LaserLine 6"                                  = HPPCL.DLL
+"Okidata ML 192 Plus"                                  = OKI9.DLL
+"Okidata ML 192"                                       = OKI9.DLL
+"Okidata ML 192-IBM"                                   = OKI9IBM.DLL
+"Okidata ML 193 Plus"                                  = OKI9.DLL
+"Okidata ML 193"                                       = OKI9.DLL
+"Okidata ML 193-IBM"                                   = OKI9IBM.DLL
+"Okidata ML 292-IBM"                                   = OKI9IBM.DLL
+"Okidata ML 293-IBM"                                   = OKI9IBM.DLL
+"Okidata ML 320"                                       = OKI9.DLL
+"Okidata ML 320-IBM"                                   = OKI9IBM.DLL
+"Okidata ML 321"                                       = OKI9.DLL
+"Okidata ML 321-IBM"                                   = OKI9IBM.DLL
+"Okidata ML 380"                                       = OKI24.DLL
+"Okidata ML 390 Plus"                                  = OKI24.DLL
+"Okidata ML 390"                                       = OKI24.DLL
+"Okidata ML 391 Plus"                                  = OKI24.DLL
+"Okidata M

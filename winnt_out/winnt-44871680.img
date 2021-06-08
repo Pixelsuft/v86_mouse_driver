@@ -1,0 +1,47 @@
+   
+HKR, Responses, "<cr><lf>COMPRESSION: V.42BIS<cr><lf>",  1, 01, 01, 00,00,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>COMPRESSION:V.42BIS<cr><lf>",   1, 01, 01, 00,00,00,00, 00,00,00,00    
+HKR, Responses, "<cr><lf>COMPRESSION: NONE<cr><lf>",     1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION:NONE<cr><lf>",      1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>",1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:ALT-CELLULAR<cr><lf>", 1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-FAX<cr><lf>",     1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:ALT-FAX<cr><lf>",      1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-+FCERROR<cr><lf>",1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:ALT-+FCERROR<cr><lf>", 1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-DATA<cr><lf>",    1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:ALT-DATA<cr><lf>",     1, 01, 0A, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: V42BIS<cr><lf>",      1, 01, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:V42BIS<cr><lf>",       1, 01, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: V.42BIS<cr><lf>",     1, 01, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL:V.42BIS<cr><lf>",      1, 01, 03, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>PROTOCOL: NONE<cr><lf>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:NONE<cr><lf>",         1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:LAPM<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M<cr><lf>",       1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:LAP-M<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:ALT<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:MNP<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP2<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:MNP2<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP3<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:MNP3<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP4<cr><lf>",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:MNP4<cr><lf>",         1, 01, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 0600/ARQ<cr><lf>",   1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ<cr><lf>",   1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ<cr><lf>",   1, 02, 02, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ<cr><lf>",   1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ<cr><lf>",   1, 02, 02, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ<cr><lf>",  1, 02, 02, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ<cr><lf>",  1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ<cr><lf>",  1, 02, 02, 00,00,00,00, 00,4b,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ<cr><lf>",  1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/ARQ<cr><lf>",  1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000/ARQ<cr><lf>",  1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/

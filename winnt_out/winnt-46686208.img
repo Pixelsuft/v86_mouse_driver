@@ -1,0 +1,144 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Haeussler DK & NO
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM5BF77830, UNIMODEM2AC868CC
+
+[Models]
+%Modem12% = Modem9, UNIMODEM2AC868CC ; Generic 144ce + 144op
+%Modem11% = Modem4, UNIMODEM5BF77830 ; Generic 144i + 144Mca
+%Modem10% = Modem10, Haeus_Modem10, UNIMODEM2AC868CC
+%Modem9% = Modem9, Haeus_Modem9, UNIMODEM2AC868CC
+%Modem8% = Modem8, UNIMODEME3C73357
+%Modem7% = Modem7, UNIMODEMDFCCB899
+%Modem6% = Modem6, UNIMODEM58AEA69E
+%Modem6% = Modem6, PCMCIA\HAEUSSLER-H-288CC-F2C9
+%Modem5% = Modem5, Haeus_Modem5, UNIMODEM5BF77830
+%Modem4% = Modem4, Haeus_Modem4, UNIMODEM5BF77830
+%Modem3% = Modem3, UNIMODEM38C600ED
+%Modem3% = Modem3, PCMCIA\HAEUSSLER-H-144CC-311F
+%Modem2% = Modem2, UNIMODEM899AE922
+%Modem1% = Modem1, UNIMODEM4CEC9373
+
+
+; Installation sections
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, External
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, External
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, Internal
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, PCMCIA
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, Internal
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, Internal
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+
+; AddReg sections
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+
+; Strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Haeussler"
+
+; Model strings
+
+Modem12="Haeussler 144ce & 144op [DK,NO]"
+Modem11="Haeussler 144mca & 144i [DK,NO]"
+Modem10="Haeussler 144op [DK,NO]"
+Modem9="Haeussler 144ce [DK,NO]"
+Modem8="Haeussler 144e [DK,NO]"
+Modem7="Haeussler 288i [DK,NO]"
+Modem6="Haeussler 288cc [DK,NO]"
+Modem5="Haeussler 144i [DK,NO]"
+Modem4="Haeussler 144mca [DK,NO]"
+Modem3="Haeussler 144cc [DK,NO]"
+Modem2="Haeussler 288e [DK,NO]"
+Modem1="Haeussler 288e (voice) [DK,NO]"
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddReg]
+HKR,, InactivityScale, 1, 01,00,00,00 
+HKR, Init,      1,, "AT<cr>"
+HKR, Init,      2,, "AT &F<cr>" 
+HKR, Init,

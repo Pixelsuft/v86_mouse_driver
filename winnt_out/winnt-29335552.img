@@ -1,0 +1,89 @@
+.INF
+drvlib.nic\TLNK3\OEMSETUP.INF
+drvlib.nic\EPRONT\OEMSETUP.INF
+drvlib.nic\3C508\OEMSETUP.INF
+drvlib.nic\3C59X\OEMSETUP.INF
+drvlib.nic\3C59X\OEMSETUP.INF
+drvlib.nic\NETFLX3\OEMSETUP.INF
+drvlib.nic\IBMTOK4\OEMSETUP.INF
+drvlib.nic\SMC16\OEMSETUP.INF
+drvlib.nic\SMC16\OEMSETUP.INF
+drvlib.nic\NE2K.ISA\OEMSETUP.INF
+drvlib.nic\NE2K.ISA\OEMSETUP.INF
+drvlib.nic\NE2K.ISA\OEMSETUP.INF
+drvlib.nic\ES3210\OEMSETUP.INF
+drvlib.nic\SGATE\OEMSETUP.INF
+[EISAOptionsTextENG]
+NiwRAS      = "Niwot Networks NiwRAS Adapter"
+DigiSyncX25 = "Digi SyncPort X.25 Adapter"
+DigiSyncFR  = "Digi SyncPort Frame Relay Adapter"
+Diehl_DIVA  = "Eicon DIVA ISDN ISA Adapter"
+Diehl_DIVAPRO = "Eicon DIVA PRO ISDN Adapter with Advanced DSP"
+Diehl_S2M   = "Eicon Primary Rate ISDN Adapter"
+Diehl_QUADRO = "Eicon QUADRO ISDN Adapter"
+Diehl_SCOM  = "Eicon SCOM ISDN Adapter"
+Diehl_WAN   = "Eicon Virtual WAN-Miniport ISDN Interface"
+ECCARDS	    = "Eicon WAN Adapters"
+MGSL        = "MicroGate SyncLink Internet Adapter"
+USRBRI      = "U.S. Robotics Sportster ISDN Adapter"
+ALT1        = "U.S. Robotics Allegra T1 Frame Relay"
+AL56        = "U.S. Robotics Allegra 56 Frame Relay"
+ACCNT       = "Accton EN166x MPX2 PnP Ethernet Adapter"
+J2577A      = "HP DeskDirect (J2577A) 10/100 EISA LAN Adapter"
+J2573A      = "HP DeskDirect (J2573A) 10/100 ISA LAN Adapter"
+TC$4045e    = "Thomas-Conrad TC4045 Token Ring Adapter"
+TC$4046e    = "Thomas-Conrad TC4046 Token Ring Adapter"
+E21XX       = "Cabletron E21XX Ethernet Adapter"
+E22XX       = "Cabletron E22XX Ethernet Adapter"
+F70XX       = "Cabletron F70XX FDDI Adapter"
+T20XX       = "Cabletron T20XX Token-Ring Adapter"
+IRMAtrac    = "DCA IRMAtrac Token-Ring Adapter"
+BLUTOK      = "Madge Blue+ Token Ring Adapter"
+NI6510      = "Racal InterLan XLerator/EB/NI6510 Adapters"
+OCTK16      = "Olicom Token Ring 16/4 Adapter"
+OCTK32      = "Olicom Token Ring Server Adapter"
+OCE2XM      = "Olicom Ethernet ISA/IV Adapter"
+SMC8232     = "SMC EISA EtherCard Elite32 Ultra Adapter"
+TKXP16      = "Intel TokenExpress(tm) 16/4 Adapter"
+TKXP32      = "Intel TokenExpress(tm) Server Adapter"
+WAVELAN_ISA = "WaveLAN ISA Bus Adapter"
+XCSPE2      = "Xircom Pocket Ethernet II"
+XCSPE3      = "Xircom Pocket Ethernet III"
+HP27245     = "HP 27245A PC LAN Adapter/8 TP"
+HP27250     = "HP 27250 PC LAN Adapter/8 TL"
+HP27247A    = "HP 27247A PC LAN Adapter/16 TP"
+HP27247B    = "HP 27247B PC LAN Adapter/16 TP Plus"
+HP27252A    = "HP 27252A PC LAN Adapter/16 TL Plus"
+ANDTOK      = "Andrew ISA IIA Token Ring Adapter"
+FLNK        = "3Com FDDILink EISA LAN Adapter"
+FL32        = "Intel Flash32 EISA LAN Adapter"
+ETH16I      = "ICL EtherTeam16i Adapter"
+ETH32       = "ICL EtherTeam32 Adapter"
+NCRTOK      = "NCR StarLAN 16/4 Token-Ring Adapter"
+AT1700      = "Allied Telesyn AT1700 Ethernet Adapter"
+SKFINT      = "SysKonnect SK-NET ISA FDDI Adapter"
+SKFENT      = "SysKonnect SK-NET EISA FDDI Adapter"
+SKETHNT     = "SysKonnect SK-NET G32+ Ethernet Adapters"
+SKTOKNT     = "SysKonnect SK-NET TR4/16+ Token Ring Adapter"
+NPAT2       = "Network Peripherals FDDI, AT2"
+NPAT3       = "Network Peripherals FDDI, AT3"
+$enet       = "Compex ENET16 P/PNP Ethernet Adapter"
+TLNK3EISA   = "3Com TokenLink III ISA Adapter in EISA mode (3C619B)"
+EPRONT      = "Intel EtherExpress PRO/10+ ISA Adapter"
+3C508       = "3Com 3C508 ISA 16-bit Ethernet Adapter"
+3C592       = "3Com EtherLink III EISA Bus-Master Adapter (3C592)"
+3C597       = "3Com Fast EtherLink EISA 10/100BASE-T Adapter (3C597)"
+NetFlex3    = "Compaq NetFlex-3 Controller"
+IBMTOK4     = "IBM Auto 16/4 Token-Ring ISA Adapter"
+SMC8416     = "SMC 8416 EtherEZ"
+SMC8216     = "SMC 8216 EtherCard Elite16 Ultra"
+IBMISAETHER = "IBM ISA Ethernet Adapter"
+DLINKDE220  = "D-Link DE-220 ISA Ethernet Adapter"
+LINKSYSE16  = "LinkSys Ether16 LAN Card"
+ES3210      = "Racal Interlan ES3210 EISA Ethernet Adapter"
+aclser      = "Star Gate ACL/Avanstar Family Adapter"
+[Jazz-Internal BusOptions]
+[Jazz-Internal BusFilename]
+[Jazz-Internal BusOptionsTextENG]
+[PCMCIAOptions]
+XJEM32

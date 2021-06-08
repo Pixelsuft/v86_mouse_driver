@@ -1,0 +1,103 @@
+Debug-Output "Action: exit. Bye."
+        ui pop 1
+        goto end
+    else
+                ui pop 1
+                Debug-Output "Action: unknown. Bye."
+                goto end
+    endif
+    set PcCardBaseValue = *($(PcCardAddressDecList), ~($(PcCardAddressHexList),+
+        $(PcCardBaseAddress)))
+    set IOBaseAddrValue = *($(IOBaseAddrDecList), ~($(IOBaseAddrHexList),+
+        $(IOBaseAddress)))
+    ifstr(i) $(!STF_NCDETINFO) == {}
+        ifint $(PCMCIA) != 1
+            Shell $(UtilityInf),GetBusTypeDialog,$(ProductHardware$(Option)Description) $(BusInterfaceType) $(BusNumber)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error."
+                goto ShellCodeError
+            endif
+            set BusInterfaceType = $($R1)
+            set BusNumber = $($R2)
+        else
+            set BusInterfaceType = 1
+            set BusNumber = 0
+        endif
+    else
+        set BusInterfaceType = *($(!STF_NCDETINFO),5)
+        set BusNumber = *($(!STF_NCDETINFO),6)
+    endif
+adapterverify =+
+    Ifstr(i) $(DetectedCard) != TRUE
+        Goto skipoptions
+    Endif
+    Debug-Output "OEMNADN2.INF: Calling Param_VerifyCard"
+    Shell $(ParamInf) Param_VerifyCard $(!STF_NCDETCARD)
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Debug-Output "OEMNADN2.INF: Param_VerifyCard succeeded"
+        Goto skipoptions
+    Endif
+    Set from = adapteroptions
+    Set to = skipoptions
+    Shell $(UtilityInf),RegistryErrorString,VERIFY_WARNING
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error: cannot get an error string."
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    Goto Warning
+skipoptions =+
+    ifint $(OldVersionExisted) == $(TRUE)
+        ifstr(i) $(!NTN_InstallMode) == configure
+                goto writeparameters
+        endif
+    endif
+    StartWait
+    ifint $(OldVersionExisted) == $(FALSE)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+                Ifstr(i) $(DoCopy) == "YES"
+                    Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+                    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                        Goto ShellCodeError
+                    Else-Ifstr(i) $($R0) == STATUS_FAILED
+                        Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                           goto ShellCodeError
+                        endif
+                        set Error = $($R0)
+                        Goto fatal
+                    Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                        Goto successful
+                    Endif
+                    Set SrcDir = $($R1)
+                Endif
+                install "Install-Option"
+                ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                    Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+                    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                        goto ShellCodeError
+                    endif
+                    set Error = $($R0)
+                    goto fatal
+                endif
+        endif
+       Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+                        $(ProductSoftwareName), +
+                        $(ProductSoftwareName), +
+                        $(ProductSoftware$(Option)Title), $(STF_CONTEXTINFNAME), +
+                        $(ProductSoftwareImagePath), "kernel", "NDIS", {}, "",+
+                        $(NetEventDLL)
+       Set OEM_ABANDON_SOFTWARE = TRUE
+       ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error"
+        goto ShellCodeError
+       endif
+       set RegistryErrorIndex = $($R0)
+       set KeyProduct      = $($R1)
+       Set SoftNetRulesKey = $($R2)
+       CloseRegKey $($R3)
+       CloseRegKey $($R4)
+       CloseRegKey $($R5)
+       Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "Registry error:

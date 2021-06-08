@@ -1,0 +1,133 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Telelink
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem1% = Modem1		; Swissmod III SWITCH
+%Modem2% = Modem2		; SAFEline
+%Modem3% = Modem3		; Swissmod III FAST
+%Modem4% = Modem4		; IMS-08 Faxline+
+%Modem5% = Modem5		; Cardline V32bis
+
+; Installation sections
+
+[Modem1]	; Swissmod III
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+[Modem2]        ;SAFEline 
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem3]	; Swissmod III FAST
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem4]	; IMS-08 Faxline+
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem5]	; Cardline V32bis
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+; AddReg sections
+
+[Modem1.AddReg]	; Swissmod III
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 3f,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 4b,00,00,00
+HKR, INIT,3,,"AT&F W0 S95=251 <cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem2.AddReg]	; SAFEline
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,84,03,00, 80,70,00,00
+HKR,, FClass, 1, 0f,00,00,00
+HKR, INIT,3,,"AT&F W1<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem3.AddReg]	; Swissmod III FAST
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, FClass, 1, 4f,00,00,00
+HKR, INIT,3,,"AT&F W0 S95=251 <cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem4.AddReg]	; IMS-08 Faxline+
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 00,4b,00,00
+HKR,, FClass, 1, 0f,00,00,00
+HKR, INIT,3,,"AT&F2 W1<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem5.AddReg]	; Cardline V32bis
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0f,00,00,00
+HKR, INIT,3,,"AT&F W1 <cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, Compression_On,, "%%C3"
+
+; User visible strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Telelink"
+
+; Model strings
+
+Modem1="Telelink Swissmod III SWITCH"
+Modem2="Telelink SAFEline"
+Modem3="Telelink Swissmod III FAST"
+Modem4="Telelink IMS-08 Faxline+"
+Modem5="Telelink Cardline V32bis"
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init,      1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddReg]
+HKR,, InactivityScale, 01,00,00,00
+HKR, Init,      2,, "AT &F <cr>"
+HKR, Monitor,   1,, "None"
+HKR, Hangup,    1,, "ATH<cr>"
+HKR, Answer,    1,, "ATA<cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, 
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+HKR, Settings, SpeakerMode_Off,, "M0"
+HKR, Settings, SpeakerMo

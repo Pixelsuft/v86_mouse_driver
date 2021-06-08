@@ -1,0 +1,87 @@
+oute, LanaNumX and EnumExportX after pruning"
+            Set NewValueList = >($(NewValueList),{Route, $(NoTitle), $(!REG_VT_MULTI_SZ), $(CurrentRouteList)})
+            Shell $(UtilityInf), AddValueList, $(ParameterKey), $(NewValueList)
+        Endif
+    Endif
+    Debug-Output "NBINFO.INF: Access N/B info route data"
+    GetRegValue $(ParameterKey) "Route" OldRouteValue
+    set OldRouteList = *($(OldRouteValue), 4)
+    ifstr(i) $(OldRouteList) == ""
+        set OldRouteList = {}
+    Endif
+    Debug-Output "NBINFO.INF: Enumerate N/B info lananums"
+    EnumRegValue $(ParameterKey) ParameterValue
+    Set HighLana = 0
+    set UsedLanaNum = {}
+    ForListDo $(ParameterValue)
+        set LanaNumName = *($($), 1)
+        Set LanaNumNum = *($($), 4)
+        LibraryProcedure Result $(!LIBHANDLE) SetupStrncmp $(LanaNumName) "LanaNum" 7
+        ifint $(Result) == 0
+            Ifint $(HighLana) < $(LanaNumNum)
+                Set HighLana = $(LanaNumNum)
+            Endif
+            set UsedLanaNum = >($(UsedLanaNum),$(LanaNumNum))
+            ifint $(LanaNumNum) == 0
+                set LanaZeroNum = $(LanaNumName)
+            endif
+            Set Rpc$(LanaNumName) = $(LanaNumNum)
+        endif
+    EndForListDo
+    Set NewValueList = {}
+    Set RpcLanaList = {}
+    Set RpcProtoList = {}
+    QueryListSize Position $(OldRouteList)
+    Set LanaNum = 0
+    Set AnyChanges = 0
+    Set LanaXnsNum = ""
+    ForListDo $(RouteInformationList)
+        Set ThisRoute = $($)
+        ifContains(i) $(ThisRoute) NOT-IN $(OldRouteList)
+            Debug-Output "NBINFO.INF: New route to be added: "$(ThisRoute)
+            Set-add Position = $(Position), 1
+            Set OldRouteList = >($(OldRouteList), $(ThisRoute))
+            Set AnyChanges = 1
+TryAgain = +
+            ifContains(i) $(LanaNum) IN $(UsedLanaNum)
+                set-add LanaNum = $(LanaNum), 1
+                goto TryAgain
+            else
+                ifint $(LanaNum) == 0
+                    set LanaZeroNum = "LanaNum"$(Position)
+                endif
+                Debug-Output "NBINFO.INF: LanaNum "$(LanaNum)" assigned to "$(ThisRoute)
+                set NewValueList = >($(NewValueList),{LanaNum$(Position), $(NoTitle), $(!REG_VT_DWORD), $(LanaNum) })
+                set NewValueList = >($(NewValueList),{EnumExport$(Position), $(NoTitle), $(!REG_VT_DWORD), 1})
+                set UsedLanaNum = >($(UsedLanaNum), $(LanaNum))
+                Set RpcLanaNum$(Position) = $(LanaNum)
+                Ifint $(HighLana) < $(LanaNum)
+                    Set HighLana = $(LanaNum)
+                Endif
+                set-add LanaNum = $(LanaNum), 1
+            endif
+            set FLibraryErrCtl = 1
+            LibraryProcedure Result $(!NCPA_HANDLE) EqualToXnsRoute $(ThisRoute)
+            ifstr(i) $(Result) == "1"
+                set LanaXnsNum = "LanaNum"$(Position)
+            endif
+        endif
+        Set RouteIndex = ~($(OldRouteList),$(ThisRoute))
+        Set ThisLana = $(RpcLanaNum$(RouteIndex))
+        LibraryProcedure CEPSTemp $(!NCPA_HANDLE) CPlSetup $(!STF_HWND), ROUTETOLIST, $(ThisRoute)
+        Set ThisProto = ""
+        Set ThisService = *($(CEPSTemp),2)
+        Debug-Output "NBINFO.INF: CEPS: "$(ThisRoute)" = "$(CEPSTemp)", ThisService = "$(ThisService)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ThisService)"\Parameters" $(!REG_KEY_READ) SrvParmKey
+        Ifint $(RegLastError) == 0
+            GetRegValue $(SrvParmKey) $(NbProviderField) NbProviderData
+            Ifint $(RegLastError) == 0
+                Set ThisProto = *($(NbProviderData),4)
+                Debug-Output "NBINFO.INF: Service "$(ThisService)" is a NetBIOS provider: "$(ThisProto)
+                Set RpcSuffixCount$(ThisProto) = 0
+                Set RpcLanaList  = >($(RpcLanaList),$(ThisLana))
+                Set RpcProtoList = >($(RpcProtoList),$(ThisProto))
+            Else
+                Debug-Output "NBINFO.INF: "$(ThisService)"\Parameters has no NbProvider value"
+            Endif
+      

@@ -1,0 +1,119 @@
+ode pages: %2
+ECode page %1 is not prepared for system.
+INo code page support is available on the system.
+ICode page %1 is not prepared for device %2.
+?
+?
+?
+EThe system cannot accept the START command parameter %1.
+?
+EThere are no currently printing files in the print
+queue.
+PThere are too many printer queues associated with the device.
+Your job request is queued to print and cannot be cancelled.
+PThere are no printer queues associated with the device.
+Your job request is not queued to print and cannot be cancelled.
+EThe Presentation Manager spooler is not installed.
+EThe Presentation Manager print device
+specified is not installed.   (not ready)
+EThe PRINT command has detected an unexpected
+Presentation Manager error.
+ESPOOL cannot load the font switching file.
+EOne or more code page values in the CODEPAGE=
+statement of the CONFIG.SYS file are incompatible with
+the specified printer.
+EAn error occurred while attempting to open
+the font file for the specified printer.
+EAn error occurred while reading the font
+file for the specified printer.
+?
+?
+EThe font file specified in a printer's
+DEVINFO= statement in the CONFIG.SYS file is not
+compatible with the printer type.
+EThe system does not have enough storage to do
+code page switching.
+EThe font file specified in the DEVINFO=
+statement in the CONFIG.SYS file is not correct.
+EFont switching may not be available because of
+an error in the system.
+EThe system detected too many code page
+specifications in the DEVINFO= statement in the
+CONFIG.SYS file.
+ESome of the code page specifications
+will not be available.
+EThe Presentation Manager input device specified by
+the spool command is busy and cannot be used by the spooler.
+EThe Presentation Manager output device specified by
+the spool command is busy and cannot be used by the spooler.
+EAn unexpected error was detected from the
+Presentation Manager.
+PThe spool directory parameter is no longer supported.
+Spool will ignore the parameter and continue processing.
+?
+?
+?
+?
+EOS/2 Procedures Language 2/REXX is not installed.
+E%1 cannot be executed as a detached process.
+EChaining was attempted from a REXX batch file.
+EThe system cannot find the file %1.
+EThe process tried to write to a nonexistent pipe.
+EThe system cannot start the session in the foreground.
+?
+?
+I
+
+A non-recoverable error occurred.
+The process ended.
+E
+
+The system detected a divide by zero error.
+E
+
+The process has stopped.  The software
+diagnostic code (trap number) is %1.
+E
+
+The process ended when it tried to use
+a non-existent math processor.
+I
+The external process was cancelled by a Ctrl+Break or another process.
+?
+E"%1" is not a recognized OS/2 device.
+EThe batch file cannot be found.
+IThe file or directory %1 has an incorrect extended attribute chain.
+EInsufficient memory is available to examine extended attribute
+chains. Processing continues.
+I%1 bytes in extended attributes.
+IAn error was found in the extended attributes for a file
+or directory. The error will be ignored unless you convert the
+extended attributes to files. Do you want to convert these extended
+attributes chains to files (Y/N)? IAn error was found in the extended attributes for a file or
+directory. Do you want to display these extended attributes chains as
+files (Y/N)? IThe file or directory was renamed to %1 its extended attributes
+are in %2.
+IThe first extended attributes cluster number of %1 is incorrect.
+The entry was truncated.
+IThe file or directory was renamed to %1, its extended attributes
+are in %2.
+EThe system cannot locate the file.
+
+The file is not in the directory
+that contains the Program Selector
+(SHELL11F.EXE).
+
+Write down these steps:
+
+1. Copy the file listed above into the directory
+   that contains the Program Selector,
+   or reinstall the system.
+2. Restart the system.
+
+Press any key to continue.  Then do steps 1 and 2.
+EThe system does not have enough
+storage to process the command.
+
+There is not enough storage available.
+
+Make more storage available. For examp

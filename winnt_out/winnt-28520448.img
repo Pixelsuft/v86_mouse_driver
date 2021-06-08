@@ -1,0 +1,83 @@
+AddValueList, $(KeyPerformance), $(NewValueList)
+            CloseRegKey $(KeyPerformance)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNXPIP.INF: ShellCode error."
+                goto ShellCodeError
+            endif
+        endif
+        Shell "" CreateNWLNKConfiguration $(NWLNKSvcKeyHandle)
+        CloseRegKey $(NWLNKSvcKeyHandle)
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: Create NWLNK configuration."
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf), AddWinsockInfo, +
+             $(Product$(ThisOption)Name), +
+             $(Product$(ThisOption)WshDllPath), +
+             16,14
+        Shell $(UtilityInf) AddMixRpcProtocol "Netbios" "nwlnkipx" "ncacn_nb_ipx" "rpcltccm.dll" "RpcLtScm.Dll"
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\Browser\Parameters" $(MAXIMUM_ALLOWED) BrowserParamKey
+        ifstr(i) $(BrowserParamKey) != ""
+            SetRegValue $(BrowserParamKey) {DirectHostBinding,$(NoTitle),$(!REG_VT_MULTI_SZ),{"\Device\NwlnkIpx","\Device\NwlnkNb"}}
+            CloseRegKey $(BrowserParamKey)
+        Endif
+    Endif
+    Ifstr(i) $(DoNWLNKNB) == TRUE
+        Set ThisOption = NWLNKNB
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPIP.INF: installing NWLNKNB..."
+        Shell $(UtilityInf), AddSoftwareComponent,+
+            $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType),+
+            "PNP_TDI",+
+            {},+
+            "",+
+            $(NWLNKIPXEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set NWLNKNBProductKey      = $($R1)
+        Set NWLNKNBNetRuleKey      = $($R2)
+        Set NWLNKNBServiceKey      = $($R3)
+        Set NWLNKNBParameterKey    = $($R4)
+        Set NWLNKNBLinkageKey      = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(Product$(ThisOption)OpSupport)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(NWLNKNBProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            CloseRegKey $(NWLNKNBProductKey)
+            CloseRegKey $(NWLNKNBNetRuleKey)
+            CloseRegKey $(NWLNKNBServiceKey)
+            CloseRegKey $(NWLNKNBParamete

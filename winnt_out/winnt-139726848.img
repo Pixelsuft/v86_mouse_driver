@@ -1,0 +1,105 @@
+oCopy      = $($4)
+    set DoConfig    = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    StartWait
+    set-subst LF = "\n"
+    read-syms UiVars
+    detect    UiVars
+    set !STF_NTPATH = $(!STF_WINDOWSSYSPATH)
+    GetDriveInPath !STF_NTDRIVE $(!STF_WINDOWSSYSPATH)
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    read-syms FileConstants$(!STF_LANGUAGE)
+    read-syms RasErrors$(!STF_LANGUAGE)
+    detect date
+    read-syms HelpContextIDs
+    SetHelpFile $(!STF_CWDDIR)rassetup.hlp $(MinHelpID) $(MaxHelpID)
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    Debug-Output "OEMNSVRA.INF: STF_CWDDIR is: "$(!STF_CWDDIR)
+    Debug-Output "OEMNSVRA.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    Debug-Output "OEMNSVRA.INF: Option is: "$(Option)
+    Debug-Output "OEMNSVRA.INF: NTN_SoftwareBase is: "$(!NTN_SoftwareBase)
+    Debug-Output "OEMNSVRA.INF: NTN_ServiceBase is: "$(!NTN_ServiceBase)
+Begin = +
+    set !NETCARD_LIST    = {}
+    set ServerInstalled = FALSE
+    set ClientInstalled = FALSE
+    set AdminInstalled  = FALSE
+    set DoServer     = TRUE
+    set DoClient     = TRUE
+    set DoAdmin      = TRUE
+    set DoServerOnly = FALSE
+    set DoClientOnly = FALSE
+    set DoAdminOnly  = FALSE
+    set DoRas        = FALSE
+    set DoRasSvr     = FALSE
+    set DoRasMan     = FALSE
+    set DoNdisWan     = FALSE
+    set DoRasAsyMac  = FALSE
+    IfStr(i) $(!NTN_InstallMode)    ==    deinstall
+        Set StartLabel = RemoveRas
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        set StartLabel = UpgradeRas
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set StartLabel = ConfigureRas
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = BindingsRas
+    else
+        set StartLabel = InstallRas
+    endif
+    set from = Begin
+    set to = end
+    goto $(StartLabel)
+InstallRas = +
+    StartWait
+    Debug-Output "In InstallRas Section"
+    Debug-Output "Origin is "$(!NTN_Origination)
+    Debug-Output "Install Mode "$(!NTN_InstallMode)
+    Debug-Output "Install phase "$(!NTN_InstallPhase)
+    Debug-Output "Copy Flag is "$(DoCopy)
+    Debug-Output "Option is "$(Option)
+    Debug-Output "SrcDir is "$(SourceDir)
+    Debug-Output "STF_WINDOWSPATH is "$(!STF_WINDOWSPATH)
+    Debug-Output "Context Inf name "$(STF_CONTEXTINFNAME)
+    Debug-Output "!STF_UNATTENDED is "$(!STF_UNATTENDED)
+    Debug-Output "!STF_GUI_UNATTENDED is "$(!STF_GUI_UNATTENDED)
+    Debug-Output "!STF_UNATTENDED_SECTION is "$(!STF_UNATTENDED_SECTION)
+    set RasComponentsList = {} 
+    set NumInstalled = 0       
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        Ifstr(i) $(!NTN_InstallPhase) == primary
+           set CommonStatus = STATUS_USERCANCEL
+           goto end
+        EndIf
+        GetRegValue $(KeyProduct) "MajorVersion" VersionInfo
+        set VersionMajor = *($(VersionInfo), 4)
+        GetRegValue $(KeyProduct) "MinorVersion" VersionInfo
+        set VersionMinor = *($(VersionInfo), 4)
+        set InstalledVersion = $(VersionMajor)"."$(VersionMinor)
+        ifstr(i) $(ProductVersion) != $(InstalledVersion)
+            Shell "" QueryRasUpgrade $(ProductRASTitle) $(InstalledVersion) +
+                                     $(ProductVersion)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+            endif
+            Ifstr(i) $($R1) == "OK"
+                set from = InstallRas
+                set to   = InstallRas1
+                goto RemoveRas
+            else
+                goto end
+            endif
+        endif
+        shell "" QueryComponentsInstalled $(ProductKeyName)
+        Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+            Set RasComponentsList = $($R1)
+            Set InstalledFlags = $($R2)
+    

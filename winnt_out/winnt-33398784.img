@@ -1,0 +1,46 @@
+efore dropping queries. By using this parameter the WINS server can be configured to send success responses to the clients whose requests are dropped. These responses will have TTLs that will slow down the refresh rate of those WINS clients and regulate the burst of WINS client traffic. This will result in a steady state being reached much more quickly.
+
+To turn on this parameter, change the value to 1. 
+
+\ConsistencyCheck subkey
+   This is an optional subkey that should be created if you want WINS to periodically perform
+   database consistency checks. The following option values can be created under this key.
+	MaxRecsAtATime
+     	Type = REG_DWORD 
+	Range = 1000 to total number of records
+	Default = 30000
+Specifies the maximum number of records that will be replicated in one consistency check cycle. WINS does consistency checks on the records of each owner WINS server (the WINS server from which the record was replicated). After checking a owner WINS server, the local WINS server continues to the next owner WINS server, or stops. This is determined by the MaxRecsAtATime value.
+
+	UseRplPnrs
+	Type = REG_DWORD or non-zero value
+	Range = 0 or not-zero
+	Default = 0
+
+If set to zero, WINS will contact the owner WINS server. 
+If set to a non-zero value, WINS sill contact only it's pull partners to perform consistency checks. Specifies the time interval between WINS server database consistency checks. If set to non-zero, WINS randomly picks a WINS from a list of pull partners unless the owner WINS server also happens to be a pull partner. In that case, the owner WINS is contacted.
+
+	TimeInterval
+	Type = REG_DWORD 
+	Range = 6 hours - 
+	Default = 24 hours
+Specifies the time interval between WINS server database consistency checks.
+
+	SpTime
+	Type = REG_SZ 
+	Default = 2:00:00 (2 am).
+Specifies the specific time at which the first WINS server database consistency check will occur. The time is specified in hh:mm:ss format. Thereafter, the WINS database is periodically checked for consistency by using the time interval specified in the TimeInterval parameter.
+
+Database Conversion Procedure
+When the WINS, DHCP, and RPL service starts for the first time after an upgrade to Windows NT version 4.0, it will detect that the database needs to be converted. It will then start a conversion process, JETCONV.EXE. (If JETCONV.EXE has already been started by another service, another JETCONV process is not started.) Before conversion, you are notified that the conversion process is about to start and is asked for confirmation. If you click OK, the WINS, DHCP, and RPL service terminates and the conversion begins. JETCONV converts the databases of all the installed services (WINS, DHCP, and RPL) to the new Windows NT version 4.0 database format.
+
+Once the databases are converted successfully by JETCONV, the service is automatically restarted.
+
+Notes:
+
+· Before upgrading to Windows NT Server version 4.0, the Windows NT version 3.51 databases of the WINS, DHCP, and RPL services should be brought to a consistent state. This can be done by terminating the services, either via service control panel or via the net stop service command. This is recommended because it prevents the JETCONV conversion from failing due to an inconsistent Windows NT version 3.51 database.
+
+· The conversion requires approximately the same amount of free disk space as the size of the original database and log files. You should have at least 5 MB free for the log files for each database.
+
+· The conversion process preserves the original database and log files in a folder named 351db under the same folder where original database and log files were (For example, for DHCP systemroot\system32\dhcp\351db\). The administrator can later remove these files to reclaim the disk space.
+
+The database conversion can take anywhere from a minute to an hour, depending on the size of the database. You must not try to restart the services while the databases are being converted. To check the status of the conversion, watch the Application Event Log of the 

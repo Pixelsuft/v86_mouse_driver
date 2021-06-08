@@ -1,0 +1,40 @@
+e ranges available to various ISAPNP cards, the sequence of installation may affect resource allocation. If it is difficult to install two or more ISAPNP cards, try installing them in a different order and restarting the computer.
+
+If you continue to experience difficulty installing an ISAPNP card, free up unused resources on your computer and retry installation. A recommended method is to disable unused Com1 or Com2 ports by standard means (system BIOS, motherboard jumpers, I/O card jumpers) and then reattempt to install the ISAPNP card on the newly available resources.
+
+If a modem appears to be installed but is not accessible by an application (eg, HyperTerminal or Dial-Up Networking) try restarting the computer a second time to complete installation, then retry the communications application.
+
+If an ISAPNP modem seems unreliable after installation (drops characters or is unstable during communications settings) be sure to check that 16550 UART support is available for the com port which supports the modem.
+
+ISAPNP Modems with Jumpers
+ISAPNP modems are available (eg, US Robotics and other manufacturers) that can contain both legacy (non-PnP) and full ISAPNP personalities. If modem card jumpers are installed, the modem behaves as a legacy card with specific IRQ and com port addresses and has no apparent PnP function. If board jumpers are removed, full ISAPNP functionality is enabled. If you experience difficulty installing, try removing jumpers to enable full ISAPNP. Alternatively, try using jumpers if PnP installation proves difficult, since the modem control panel autodetection method will usually detect legacy configured cards.
+
+Multiple Modem Installation
+It is possible to mix installations of modem profiles. PCMCIA, external and ISAPNP modems can all be used on the same computer, assuming adequate resources are available.
+
+PnP support for Serenum, Parallel port and PCMCIA 
+This is not supported by PNPISA.SYS.
+
+
+Services for Macintosh (SFM)
+
+· Macintosh Service functionality is included in File Manager and is not part of Windows NT Explorer. File Manager is installed in the Start menu in the Programs/Administrative Tools folder when SFM is installed.  
+
+· If you disable the bindings for the AppleTalk protocol on a network adapter, after restarting the computer and re-enabling the bindings, the AppleTalk protocol will not start even though it appears to be enabled. 
+
+To enable the AppleTalk protocol bindings, in the Network icon in Control Panel, in the Services tab select Services for Macintosh and click Properties. When the popup appears that states: "Setup could not get the zone list...", click Yes, and then click OK.
+
+In the Devices icon in Control Panel, select AppleTalk Protocol and click Start.
+
+Then, in the Services icon in Control Panel, select File Server for Macintosh and Print Server for Macintosh and click Start.
+
+
+Network Adapter Drivers
+Microsoft provides network adapter drivers from third-party vendors on the Windows NT Workstation and Windows NT Server version 4.0 compact discs. These drivers, which are located in the \DRVLIB directory, have all met specific standards for installation and operation.
+
+Plug and Play ISA Network Adapters
+A Plug and Play ISA network card will be automatically detected by the PnP ISA enabler if the card runs in PnP mode. An Install dialog box is displayed after the New Hardware Found dialog box. If you install the driver from the network category, another message box advises you to install the drivers using the Network icon in Control Panel. If the adapter has not been installed before, turn off the Plug and Play mode before installing the driver. If the adapter has already been installed, skip the installation.
+For more information about the Plug and Play ISA enabler, see "Plug and Play ISA Device Installation and PNPISA.SYS" in the Readme.wri file.
+
+Network Adapter Drivers Notes
+· Most PCI, EISA, and MCA adapters in the \DRVLIB directory can be detected and successfully installed during Setup. Most ISA and PCMCIA adapters are not d

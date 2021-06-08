@@ -1,0 +1,131 @@
+al Courier 9600 V32 PC
+%Modem16% = Modem16, UNIMODEMAA889B79   ;External Courier 9600 V32
+%Modem15% = Modem15, USRCR_Modem15      ;Internal Courier 9600 HST PC
+%Modem14% = Modem14, UNIMODEM3885B225   ;External Courier 9600 HST
+%Modem13% = Modem13, USRCR_Modem13      ;Internal Courier 2400 V42bis PC
+%Modem12% = Modem12, UNIMODEMCBBE6746   ;External Courier 2400 V42bis
+%Modem11% = Modem11, USRCR_Modem11      ;Internal Courier 16,800 HST PC
+%Modem10% = Modem10, USRCR_Modem10      ;External Courier 16,800 HST
+%Modem9%  = Modem9,  USRCR_Modem9       ;Internal Courier 16,800 Dual Standard Fax PC
+%Modem8%  = Modem8,  UNIMODEM6B0563D5   ;External Courier 16,800 Dual Standard Fax
+%Modem7%  = Modem7,  USRCR_Modem7       ;Internal Courier 14,400 V32bis-V42bis PC
+%Modem6%  = Modem6,  UNIMODEM8842E37F   ;External Courier V32bis-V42bis
+%Modem5%  = Modem5,  UNIMODEM6FA02081   ;Internal Courier 14,400 HST PC
+%Modem4%  = Modem4,  USRCR_Modem4       ;External Courier 14,400 HST
+%Modem3%  = Modem3,  USRCR_Modem3       ;Internal Courier 14,400 V32bis FAX PC
+%Modem2%  = Modem2,  USRCR_Modem2       ;External Courier 14,400 V32bis FAX
+%Modem1%  = Modem1,  UNIMODEMB2FDE7A6   ;External Courier Terbo Dual Standard Fax
+
+; Installation sections
+
+[Modem38]
+AddReg= All, MfgAddReg, Fast, Modem38.AddReg, Verbose, PCMCIA
+
+[Modem36]
+AddReg = All, MfgAddReg, Fast, Modem35.AddReg, Verbose, External
+
+[Modem35]
+AddReg = All, MfgAddReg, Fast, Modem35.AddReg, Verbose, Internal
+
+[Modem33]
+AddReg=All, MfgAddReg, Fast, Modem33.AddReg, Verbose, PCMCIA
+
+[Modem29]
+AddReg=All, MfgAddReg, Fast, Modem29.AddReg, Verbose, External
+
+[Modem28]
+AddReg=All, MfgAddReg, Modem28.AddReg, Verbose, External
+
+[Modem27]
+AddReg=All, MfgAddReg, Modem27.AddReg, Verbose, External
+
+[Modem26]
+AddReg=All, MfgAddReg, Modem26.AddReg, Verbose, External
+
+[Modem25]
+AddReg=All, MfgAddReg, Modem25.AddReg, Verbose, External
+
+[Modem24]
+AddReg=All, MfgAddReg, Fast, Modem24.AddReg, Verbose, External
+
+[Modem23]
+AddReg=All, MfgAddReg, Fast, Modem23.AddReg, Verbose, External
+
+[Modem22]
+AddReg=All, MfgAddReg, Modem22.AddReg, Verbose, Internal
+
+[Modem21]
+AddReg=All, MfgAddReg, Modem21.AddReg, Verbose, External
+
+[Modem20]
+AddReg=All, MfgAddReg, Modem20.AddReg, Verbose, Internal
+
+[Modem19]
+AddReg=All, MfgAddReg, Modem19.AddReg, Verbose, Internal
+
+[Modem18]
+AddReg=All, MfgAddReg, Modem18.AddReg, Verbose, External
+
+[Modem17]
+AddReg=All, MfgAddReg, Modem17.AddReg, Verbose, Internal
+
+[Modem16]
+AddReg=All, MfgAddReg, Modem16.AddReg, Verbose, External
+
+[Modem15]
+AddReg=All, MfgAddReg, Modem15.AddReg, Verbose, Internal
+
+[Modem14]
+AddReg=All, MfgAddReg, Modem14.AddReg, Verbose, External
+
+[Modem13]
+AddReg=All, MfgAddReg, Modem13.AddReg, Verbose, Internal
+
+[Modem12]
+AddReg=All, MfgAddReg, Modem12.AddReg, Verbose, External
+
+[Modem11]
+AddReg=All, MfgAddReg, Modem11.AddReg, Verbose, Internal
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, Verbose, External
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, Verbose, Internal
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, Verbose, External
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, Verbose, Internal
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, Verbose, External
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, Verbose, Internal
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, Verbose, External
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, Verbose, Internal
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, Verbose, External
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, Verbose, External
+
+
+; AddReg sections
+
+[Modem38.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, 77,03,00,00, 00,C2,01,00, 40,83,00,00
+
+[Modem35.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 00,00,00,00, 0F,00,00,00, 77,03,00,00, 00,C2,01,00, 40,83,00,00
+
+[Modem33.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings,

@@ -1,0 +1,81 @@
+-PS 825 v52.4"                                     = QMPS8251.PPD
+"QMS-PS 1700 v52.4"                                    = QM1700_1.PPD
+"QMS-PS 2000 v52.4"                                    = QM2000_1.PPD
+"QMS-PS 2200 v51.0 or 52.3"                            = Q2200523.PPD
+"QMS-PS 2210 v51.0 or 52.3"                            = Q2210523.PPD
+"QMS-PS 2220 v51.0 or 52.3"                            = Q2220523.PPD
+
+[Quad]
+"QuadLaser I"                                          = HPPCL.DLL
+
+[Qume]
+"Qume ScripTEN v47.0"                                  = QUME_470.PPD
+
+[Radio Shack]
+"Radio Shack JP500"                                    = JP350.DLL
+"Radio Shack JP1000 (Color)"                           = JP350.DLL
+"Radio Shack JP1000 (Mono)"                            = JP350.DLL
+
+[Ricoh]
+"Ricoh LP-1200"                                        = PCL5MS.DLL
+"Ricoh PC Laser 6000-PS v50.5"                         = R6000505.PPD
+
+[Royal]
+"Royal CJP 450"                                        = JP350.DLL
+
+[Schlumberger]
+"Schlumberger 5232 Color PostScript Printer v50.3"     = S5232503.PPD
+
+[Scitex]
+"IRIS Ink Jet"                                         = SX2IRIS1.PPD
+"Dolev PSM v2013.104"                                  = SX2PSM21.PPD
+"Scitex Dolev PSM L2"                                  = SX2PSM22.PPD
+"Scitex Dolev400 PSM L2"                               = SX4PSM21.PPD
+
+[Seiko]
+"ColorPoint 820 PS USA"                                = SK820RU2.PPD
+"ColorPoint 830 PS USA"                                = SK830RU2.PPD
+"ColorPoint 835 PS USA"                                = SK835RU2.PPD
+"Seiko ColorPoint PS Model 04"                         = SEIKO_04.PPD
+"Seiko ColorPoint PS Model 14"                         = SEIKO_14.PPD
+"Seiko ColorPoint2 PSF"                                = SKPSFCD1.PPD
+"Seiko Professional ColorPoint 8BPP"                   = SEIKO.DLL
+
+[Seikosha]
+"Seikosha LT-20"                                       = SEIKO24E.DLL
+"Seikosha SL-80 IP"                                    = SEIKO24E.DLL
+"Seikosha SL-92 Plus"                                  = SEIKO24E.DLL
+"Seikosha SL-92"                                       = SEIKO24E.DLL
+"Seikosha SP-1900"                                     = SEIKOSH9.DLL
+"Seikosha SP-1900+"                                    = SEIKOSH9.DLL
+"Seikosha SP-2000"                                     = SEIKOSH9.DLL
+"Seikosha SP-2400"                                     = SEIKOSH9.DLL
+"Seikosha SP-2415"                                     = SEIKOSH9.DLL
+"SEIKOSHA SpeedJET 200"                                = JP350.DLL
+
+[Sharp]
+"Sharp JX-9300"                                        = HPPCL.DLL
+"Sharp JX-9460"                                        = PCL5MS.DLL
+"Sharp JX-9460 PS"                                     = JX9460PS.PPD
+"Sharp JX-9500"                                        = HPPCL.DLL
+"Sharp JX-9500 PS"                                     = JX9500PS.PPD
+"Sharp JX-9500E"                                       = HPPCL.DLL
+"Sharp JX-9500H"                                       = HPPCL.DLL
+"Sharp JX-9600"                                        = PCL5MS.DLL
+"Sharp JX-9600 PS"                                     = JX9600PS.PPD
+"Sharp JX-9660"                                        = PCL5MS.DLL
+"Sharp JX-9660 PS"                                     = JX9660PS.PPD
+"Sharp JX-9700"                                        = HPPCL.DLL
+"Sharp JX-9700E"                                       = PCL5MS.DLL
+"Sharp JX-9700E PS"                                    = JX9700PS.PPD
+
+[Shinko]
+"Shinko Color CHC-746PSJ PostScript Printer v52.2"     = S746J522.PPD
+
+[Star]
+"Star FR-10"                                           = STAR9E.DLL
+"Star FR-15"                                           = STAR9E.DLL
+"Star LaserPrinter 4 III"                              = PCL5MS.DLL
+"Star LaserPrinter 4"                                  = HPPCL.DLL
+"Star LaserPrinter 5 EX"                               = PCL5MS.DLL
+"Star LaserPrinter 5"             

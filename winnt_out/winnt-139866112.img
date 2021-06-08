@@ -1,0 +1,77 @@
+s-RemoveList, RASMXSDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSERDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASIPXCPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASPPPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASPPPENDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASPAPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCHAPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSPAPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASIPCPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASIPHLPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASNBFCPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCCPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCBCPDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASNBIPCDLL, 1))
+           set RenameList = >($(RenameList), #(Files-RemoveList, ASYNCMACSYS, 1))
+	   set RenameList = >($(RenameList), #(Files-RemoveList, NDISWANSYS, 1))
+       endif
+    endif
+    ifstr(i) $(DoAdmin) == TRUE
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASADMINHLP, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASGLOSSHLP, 1))
+    endif
+    ForListDo $(RemoveList)
+        Debug-Output "Removing "$($)
+        LibraryProcedure Status , $(!LIBHANDLE), DelFile $($)
+        Debug-Output "Status is "$(Status)
+    EndForListDo
+    ForListDo $(RenameList)
+        Split-String $($) "\" FilePath
+        QueryListSize PathLen $(FilePath)
+        Split-String *($(FilePath),$(PathLen)) "." FullFileName
+        Set FileName = *($(FullFileName),1)
+        Debug-Output "FileName is "$(FileName)
+        LibraryProcedure STATUS, $(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+        Debug-Output "CheckFile Status = "$(STATUS)
+        ifstr(i) $(STATUS) == YES
+            LibraryProcedure STATUS, $(!LIBHANDLE), DelFile $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+            Debug-Output "Delfile Status = "$(STATUS)
+        endif
+        Debug-Output "Renaming from "$($)
+        Debug-Output "Renaming to "$(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+        LibraryProcedure Status1 , $(!LIBHANDLE), RenFile $($), $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+        Debug-Output "Status is "$(Status1)
+        AddFileToDeleteList $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+    EndForListDo
+    exit
+[RemoveRasGroup]
+    Debug-Output "Removing icons from "$(RasGroup)
+    CreateCommonProgManGroup $(RasGroup) ""
+    RemoveCommonProgManGroup $(RasGroup)
+    exit
+[AddNDISWANToServiceGroupOrder]
+    set GroupOrderName = "SYSTEM\CurrentControlSet\Control\ServiceGroupOrder"
+    OpenRegKey $(!REG_H_LOCAL) "" $(GroupOrderName) $(!MAXIMUM_ALLOWED) KeyGroup
+    set OldList = {}
+    Ifstr(i) $(KeyGroup) != $(KeyNull)
+        GetRegValue  $(KeyGroup) "List" TmpList
+        ifint $(RegLastError) == 0
+            ForListDo *($(TmpList), 4)
+                set OldList = >($(OldList), $($))
+            EndForListDo
+        endif
+        Debug-Output "AddNDISWANToServiceGroupOrder current list "$(OldList)
+        Ifcontains(i) "NDISWAN" not-in $(OldList)
+            set NewGroupList = {}
+            ForListDo $(OldList)
+                set NewGroupList = >($(NewGroupList), $($))
+                ifstr(i) $($) == "NDIS"
+                    set NewGroupList = >($(NewGroupList), "NDISWAN" )
+                endif
+            EndForListDo
+            Debug-Output "AddNDISWANToServiceGroupOrder new list "$(NewGroupList)
+            SetRegValue $(KeyGroup) {List, 0,$(!REG_VT_MULTI_SZ),$(NewGroupList)}
+        endif
+        CloseRegKey $(KeyGroup)
+    else
+        Debug-Output "AddNDISWANToServiceGroupOrder error opening ServiceGroupOrd

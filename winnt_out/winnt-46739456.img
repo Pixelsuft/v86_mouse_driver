@@ -1,0 +1,112 @@
+,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1<cr>"
+
+[Modem5.AddReg]  ; GVC Fax Modem 9648 External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1<cr>"
+
+[Modem4.AddReg]  ; GVC Super Modem 2400
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, DialSuffix,, ""
+HKR, Init, 2,, "AT&FS0=0E0V1Q0&C1&D2<cr>"
+
+[Modem3.AddReg]  ; FM144/144V(P)
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 W2 &C1 &D2 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+
+[Modem2.AddReg]  ; GVC Faxmodem PFM-964824
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,01,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 V1<cr>"
+
+[Modem1.AddReg]  ; 28800 Fax Modem
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+; User visible strings
+
+[Strings]
+MS  = "Microsoft"
+Eiger = "Eiger Labs Inc."
+Eiger1 = "Eiger 14.4 Data Fax PCMCIA"
+Eiger1GEN = "14.4 Data Fax PCMCIA"   ; combo IBM and Eiger
+GVC = "GVC"
+Modem38 ="GVC V.32 9600 Modem"
+Modem37 ="GVC Super Modem 9600"
+Modem32 ="GVC External Fax Modem GM9648E"
+Modem20 ="GVC 14.4 Data Fax GM144i, F-1114HV-R2"
+Modem7a="GVC 14.4 Data Fax GM144e, 14400 V.42bis-MNP5"
+Modem7 ="14400 Data Fax Modem"
+Modem6 ="GVC External Fax Modem 9696"
+Modem5 ="GVC External Fax Modem 9648"
+Modem4 ="GVC External Super Modem 2400"
+Modem3 ="GVC PCMCIA Faxmodem FM144-144V(P)"
+Modem3a ="14.4 Data Fax Modem PCMCIA"   ; combo gvc and smart
+Modem2 ="GVC PCMCIA Faxmodem PFM-964824"
+Modem1 ="GVC External 28800 Fax Modem"
+
+IBM = "IBM"
+Modem31 ="IBM 7852 013, V.34 Data Fax"
+Modem30 ="IBM 7852 010, V.34 Data Fax"
+Modem29 ="IBM 28.8, V.34 Data Fax"
+Modem28 ="IBM 14.4 Data Fax with DAA PCMCIA"
+Modem26 ="14.4 Bps Data Fax Modem"
+Modem24 ="IBM Aptiva 310, 2400 Bps Data Fax"
+Modem23 ="IBM Aptiva 730, 14.4 Data Fax"
+Modem22 ="IBM Aptiva 510, 14.4 Data Fax Voice"
+Modem19 ="IBM Thinkpad 701 Internal Modem Voice"
+Modem17 ="IBM Aptiva 14.4 Data Fax Modem"
+Modem16 ="IBM Aptiva 2400-9600 Data Fax Modem"
+Modem15 ="2400 Bps Internal Modem"
+Modem14 ="IBM 2400, SM-24HN-1 Modem"
+Modem13 ="IBM 2400-9600 Data Fax Modem"
+Modem12 ="14400 Data Fax Modem"
+Modem7b="IBM PS-1 Internal Fax Modem"
+
+PB  = "Packard Bell"
+Modem25 ="Packard Bell F-1114HV-R2 Data Fax"
+Modem21 ="Packard Bell 24DBF Data Fax Modem"
+Modem18 ="Packard Bell 14.4AM(SP) Modem-Soundcard"
+Modem8 ="Packard Bell F-114 Modem Fax"
+
+Turbomodem = "Turbomodem"
+Modem11 ="Turbomodem Plus FM-144VR-1"
+Modem10 ="14400 Data Fax Modem"
+Modem9 ="Turbomodem 14.4 Data Fax Modem"
+
+Maxtech  = "Maxtech"
+Maxtech1 = "Maxtech 28.8 Data Fax XM288E"
+Maxtech2 = "28.8 Data Fax Modem"
+Maxtech3 = "Maxtech 14.4 Data Fax PCMCIA, PCM144C"
+Maxtech4 = "Maxtech 28.8 Data Fax Internal, XM288I"
+Maxtech5 = "28.8 Data Fax Modem"
+Maxtech6 = "Maxtech 14.4 Data Fax (RPI), XM144I"
+Maxtech7 = "Maxtech 14.4 Data Fax Voice, XVM144I"
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[Modem

@@ -1,0 +1,134 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Victory
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM18C20355
+
+[Models]
+%Modem3% = Modem3, UNIMODEM2A40A898					;1414VIP
+%Modem4% = Modem4, Victory_Modem4, UNIMODEM52AF34A9		;14400I
+%Modem6% = Modem6, Victory_Modem6, UNIMODEM7C16C318					;14400E (AT&T chipset)
+%Modem11% = Modem11, Victory_Modem11, UNIMODEM18C20355	;2400E
+%Modem15% = Modem15, UNIMODEMF82C2E99				;2400I
+%Modem21% = Modem21, Victory_Modem21, UNIMODEM18C20355	;2423E
+%Modem22% = Modem21, UNIMODEM4A430FEC				;2423I
+%Modem23% = Modem11, UNIMODEM18C20355				;Generic 2400E & 2423E
+%Modem38% = Modem38, Victory_Modem38, UNIMODEM52AF34A9	;14400E (Rockwell chipset)
+%Modem41% = Modem41, Victory_Modem41, UNIMODEM322437AF 	;28800E
+%Modem42% = Modem42, Victory_Modem42, UNIMODEM322437AF	;28800I
+
+; Installation sections
+
+[Modem3]
+AddReg=All, Common, Modem3.AddReg, External
+
+[Modem4]
+AddReg=All, Common, Modem4.AddReg, Internal
+
+[Modem6]
+AddReg=All, Common, Modem6.AddReg, External
+
+[Modem11]
+AddReg=All, Common, Modem11.AddReg, External
+
+[Modem15]
+AddReg=All, Common, Modem15.AddReg, Internal
+
+[Modem21]
+AddReg=All, Common, Modem21.AddReg, External
+
+[Modem22]
+AddReg=All, Common, Modem22.AddReg, Internal
+
+[Modem38]
+AddReg=All, Common, Modem38.AddReg, External
+
+[Modem41]
+AddReg=All, Common, Modem41.AddReg, External
+
+[Modem42]
+AddReg=All, Common, Modem42.AddReg, Internal
+
+
+; AddReg sections
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, FlowControl_Off,, "$F5"
+HKR, Settings, FlowControl_Hard,, "$F4"
+HKR, Settings, FlowControl_Soft,, "$F0"
+HKR, Settings, ErrorControl_On,, "$E3"
+HKR, Settings, ErrorControl_Off,, "$E0"
+HKR, Settings, ErrorControl_Forced,, "$E4"
+HKR, Settings, Compression_On,, "$C1"
+HKR, Settings, Compression_Off,, "$C0"
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+
+[Modem11.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem15.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem21.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, 00,00,00,00, 07,00,00,00, 0F,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem38.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem41.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem42.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+
+; Strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Victory"
+
+Modem3="Victory 1414 VIP"
+Modem4="Victory 14400 I"
+Modem6="Victory 14400 E (AT&T chipset)"
+Modem11="Victory 2400 E"
+Modem15="Victory 2400 I"
+Modem21="Victory 2423 E"
+Modem22="Victory 2423 I"
+Modem23="Victory 2400 E & 2423 E"
+Modem38="Victory 14400 E (Rockwell chipset)"
+Modem41="Victory 28800 E"
+Modem42="Victory 28800 I"
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,, InactivityScale, 01,00,00,00
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init,    

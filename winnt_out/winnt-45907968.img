@@ -1,0 +1,121 @@
+27.AddReg, INTERNAL
+
+[Modem21]
+AddReg=All, MfgAddReg, Modem21.AddReg, EXTERNAL
+
+[Modem20]
+AddReg=All, MfgAddReg, Modem20.AddReg, PCMCIA
+
+[Modem17]
+AddReg=All, MfgAddReg, Modem17.AddReg, EXTERNAL
+
+[Modem16]
+AddReg=All, MfgAddReg, Modem16.AddReg, EXTERNAL
+
+[Modem15]
+AddReg=All, MfgAddReg, Modem15.AddReg, EXTERNAL
+
+[Modem14]
+AddReg=All, MfgAddReg, Modem14.AddReg, EXTERNAL
+
+[Modem13]
+AddReg=All, MfgAddReg, Modem13.AddReg, EXTERNAL
+
+[Modem12]
+AddReg=All, MfgAddReg, Modem12.AddReg, EXTERNAL
+
+[Modem11]
+AddReg=All, MfgAddReg, Modem11.AddReg, EXTERNAL
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, EXTERNAL
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, EXTERNAL
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, EXTERNAL
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, EXTERNAL
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, INTERNAL
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, EXTERNAL
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, EXTERNAL
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, EXTERNAL
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, EXTERNAL
+
+[Modem27.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F V1 &D2 &C1 E0 Q0 S0=0 S25=20 $BA0<cr>"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem21.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, DialSuffix,, ""
+
+[Modem20.AddReg]
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F V1 &D2 &C1 E0 Q0 S0=0 S25=20<cr>"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem17.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem16.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 00,4b,00,00
+HKR, Init, 2,, "AT &F E0 S0=0 S25=20<cr>"
+
+[Modem15.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 00,4b,00,00
+
+[Modem14.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 00,4b,00,00
+
+[Modem13.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 S0=0 $BA0 S25=20<cr>"
+
+[Modem12.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR, Init, 2,, "AT &F E0 S0=0 $BA0 S25=20<cr>"
+
+[Modem11.AddReg] 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,96,00,00, 80,25,00,00
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 00,4b,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 00,4b,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem3.A

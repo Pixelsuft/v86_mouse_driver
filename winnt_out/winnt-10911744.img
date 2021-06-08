@@ -1,0 +1,87 @@
+onent]
+    Debug-Output "Remove Hardware Component..."
+    read-syms InitBaseVars
+    set RH_Manufacturer = $($0)
+    set RH_ProductName  = $($1)
+    set RH_VersionNum   = "CurrentVersion"
+    set RH_ProductKey   = $(!NTN_SoftwareBase)"\"$($0)"\"$($1)"\"$(RH_VersionNum)
+    set RH_NetCardName  = $($2)
+    Split-String $(RH_NetCardName), "\", CardInfo
+    set RH_NetCardNum   = *($(CardInfo),11)
+    set RH_NetCardBase  = *($(CardInfo),1)*($(CardInfo),2)*($(CardInfo),3)*($(CardInfo),4)*($(CardInfo),5)*($(CardInfo),6)*($(CardInfo),7)*($(CardInfo),8)*($(CardInfo),9)
+    set RegistryErrorIndex      = NO_ERROR
+    Shell "", DecrementRefCount, $(RH_ProductKey)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "UTILITY.INF: [AddHardwareComponent] IncrementRefCount returned "$(RegistryErrorIndex)
+        goto RemoveHardwareComponent_Return
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RH_NetCardBase) $(MAXIMUM_ALLOWED) NetCardKey
+    Ifstr $(NetCardKey) == $(KeyNull)
+       Debug-Output "UTILITY.INF: could not open NetworkCards key"
+       set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       goto RemoveHardwareComponent_Return
+    endif
+    OpenRegKey $(NetCardKey) "" $(RH_NetCardNum) $(MAXIMUM_ALLOWED) NetCardNumKey
+    Ifstr $(NetCardNumKey) == $(KeyNull)
+       Debug-Output "UTILITY.INF: could not open NetworkCards Number key"
+       set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       goto RemoveHardwareComponent_Return
+    endif
+    GetRegValue $(NetCardNumKey),"ServiceName", RH_ServiceNameInfo
+    set RH_ServiceName = *($(RH_ServiceNameInfo), 4)
+    ifstr(i) $(RH_ServiceName) == ""
+        set RH_ServiceName = $(RH_ProductName)$(RH_NetCardNum)
+    endif
+    CloseRegKey $(NetCardNumKey)
+    DeleteRegTree $(NetCardKey) $(RH_NetCardNum)
+    CloseRegKey $(NetCardKey)
+    Shell "", RemoveService, $(RH_ServiceName), "NO"
+    Set RS_RemoveError = $($R0)
+    Ifint $(RS_RemoveError) != 0
+         Debug-Output "UTILITY.INF: RemoveService wrapper failed, error: "$(RS_RemoveResult)
+         Set RegistryErrorIndex = UNABLE_REMOVE_CONFIGURE_SERVICE
+         Goto RemoveHardwareComponent_Return
+    Endif
+    Shell "", IsRefCountEqualZero, $(RH_ProductKey)
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "UTILITY.INF: [RemoveHardwareComponent] IsRefCountEqualZero returned "$($R0)
+        goto RemoveHardwareComponent_Return
+    endif
+    Ifint $($R1) == 1
+        Debug-Output "Remove software component..."
+        Shell "" RemoveSoftwareComponent, $(RH_Manufacturer), $(RH_ProductName)
+        set RegistryErrorIndex = $($R0)
+    endif
+    debug-output "remove netbios information..."
+    LibraryProcedure Result, $(!NCPA_HANDLE), RemoveRouteFromNETBIOS, $(RH_ServiceName)
+RemoveHardwareComponent_Return = +
+    Return $(RegistryErrorIndex)
+[RemoveService]
+    read-syms InitBaseVars
+    Set RS_SvcName = $($0)
+    Set RS_UseDelSvc = $($1)
+    OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\"$(RS_SvcName) +
+        $(MAXIMUM_ALLOWED) ServiceKey
+    Ifstr $(ServiceKey) == $(KeyNull)
+        Debug-Output "UTILITY.INF: could not open SYSTEM Service key "$(RS_SvcName)
+        goto RemoveService_Return
+    endif
+    OpenRegKey $(ServiceKey) "" "Parameters" $(MAXIMUM_ALLOWED) ParameterKey
+    Ifstr $(ParameterKey) != $(KeyNull)
+         DeleteRegValue $(ParameterKey) "NbProvider"
+         CloseRegKey $(ParameterKey)
+    Endif
+    CloseRegKey $(ServiceKey)
+    ifstr(i) $(RS_UseDelSvc) == "YES"
+        Set FLibraryErrCtl = 1
+        LibraryProcedure RS_RemoveResult $(!NCPA_HANDLE), CPlSetup, +
+          $(!STF_HWND), DELETESVC, $(RS_SvcName)
+        Set FLibraryErrCtl = 0
+        Set RS_RemoveError = *($(RS_RemoveResult),1)
+        Ifint $(RS_RemoveError) != 0
+             Debug-Output "UTILITY.INF: RemoveService wrapper failed, error: "$(RS_RemoveResult)
+             Set RegistryErrorIndex = UNABLE_REMOVE_CONFIGURE_SERVICE
+             Goto RemoveService_Return
+        Endif
+    else
+        OpenRegKey $(!REG_H_L

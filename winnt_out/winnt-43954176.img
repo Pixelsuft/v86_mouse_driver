@@ -1,0 +1,88 @@
+k2, NMS-Version, Fax + Voice"
+Modem15="U-1496RN  Rack-mounted Card, 16k8, NMS-Version, Fax + Voice"
+Modem14="U-1496R   Rack-mounted Card, 16k8, Fax + Voice"
+Modem13="U-1496R+  Rack-mounted Card, 19k2, Fax + Voice"
+Modem12="U-1496EG  external with LEDs, 16k8, German PTT approved"
+Modem11="U-1496EG+ external with LEDs, 19k2, German PTT approved"
+Modem10="U-1496EA  external with LEDs, 16k8, Austrian PTT approved"
+Modem9= "U-1496EA+ external with LEDs, 19k2, Austrian PTT approved"
+Modem8= "U-1496A   external with LCD,  19k2, Austrian PTT approved"
+Modem7= "U-1496P   external Pocket, 16k8, Fax + Voice"
+Modem6= "U-1496B   internal PC-Card, 16k8, Fax + Voice"
+Modem5= "U-1496B+  internal PC-Card, 19k2, Fax + Voice"
+Modem4= "U-1496E   external LED, 16k8, Fax + Voice"
+Modem3= "U-1496E+  external LED, 19k2, Fax + Voice"
+Modem2= "U-1496S   external LCD, 16k8, Fax + Voice"
+Modem1= "U-1496S+  external LCD, 19k2, Fax + Voice"
+Modem0= "U-1496xx  external (E,E+,S,S+), V32b and Fax Class 2 only"
+
+; --------------------------------------------------------------
+; Common Registry Sections
+
+[Opt_Cellular]
+HKR, Settings, Cellular_On,,  "S43.3=0"
+HKR, Settings, Cellular_Off,, "S43.3=1"
+HKR, Settings, ErrorControl_Cellular,, "S43.3=0S57.5=1&K3*E0"
+HKR, Settings, ErrorControl_Cellular_Forced,, "S43.3=0S57.5=1&K3*E1"
+
+[Opt_FaxClass1]
+HKR, Fax, ModemFaxClasses,,       "14"       ; Fax Class: 0,1,2,2.0
+HKR, Fax, FixModemClass,,         "1"
+HKR, Fax, Class1DTESpeed,,        "AUTO"
+HKR, Fax, Class1FlowOff,,         "+FLO=0"
+HKR, Fax, Class1FlowHW,,          "+FLO=2"
+HKR, Fax, Class1FlowSW,,          "+FLO=1"
+HKR, Fax, Cl1FCS,,                "0"
+HKR, Fax, Cl1DontSync,,           "1"
+
+[Opt_FaxClass2]
+HKR, Fax, ModemFaxClasses,,       "4"       ; Fax Class: 0,2
+HKR, Fax, FixModemClass,,         "2"
+HKR, Fax, Class2FlowOff,,         "&H0"
+HKR, Fax, Class2FlowHW,,          "&H3"
+HKR, Fax, Class2FlowSW,,          "&H4"
+
+
+[PTT_approved]
+HKR, Responses, "<cr><lf>STOP!<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>Delayed 5 secs<cr><lf>",  1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>Delayed 60 secs<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>Delayed 2 hours<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BLACKLISTED<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "43<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Settings, InactivityTimeout,, "S50=<#>"
+
+; The [All] section is installed for all modems.
+;
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init,      1,, "AT &FE0X7<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>", 1, 02, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>", 1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>", 1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>", 1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RINGING<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[MfgAddReg]
+HKR, Init,      2,, "ATS35.1=0S35.7=1<cr>"
+HKR, Init,      3,, "ATS48.2=1S11=90<cr>"
+HKR, Monitor,   1,, "None"
+HKR, Hangup,    1,, "ATH0<cr>"
+HKR, Answer,    1,, "ATA<cr>"
+HKR,, Reset,, "AT &F<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, SpeakerVolume_Low,, "L1"
+HKR, Settings, SpeakerVolume_Med,, "L4"

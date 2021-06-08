@@ -1,0 +1,137 @@
+ported,%REG_DWORD%,7
+
+[exabyte2_Inst]
+CopyFiles = @exabyte2.sys
+
+[exabyte2_Inst.Services]
+AddService = exabyte2, %SPSVCINST_ASSOCSERVICE%, exabyte2_Service_Inst, exabyte2_EventLog_Inst
+
+[exabyte2_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\exabyte2.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[exabyte2_EventLog_Inst]
+AddReg = exabyte2_EventLog_AddReg
+
+[exabyte2_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\exabyte2.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+;[mammoth_Inst]
+;CopyFiles = @mammoth.sys
+;
+;[mammoth_Inst.Services]
+;AddService = mammoth, %SPSVCINST_ASSOCSERVICE%, mammoth_Service_Inst, mammoth_EventLog_Inst
+;
+;[mammoth_Service_Inst]
+;ServiceType    = %SERVICE_KERNEL_DRIVER%
+;StartType      = %SERVICE_SYSTEM_START%
+;ErrorControl   = %SERVICE_ERROR_NORMAL%
+;ServiceBinary  = %12%\mammoth.sys
+;LoadOrderGroup = SCSI Class
+;Dependencies   = +SCSI Miniport
+;
+;[mammoth_EventLog_Inst]
+;AddReg = mammoth_EventLog_AddReg
+;
+;[mammoth_EventLog_AddReg]
+;HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\mammoth.sys"
+;HKR,,TypesSupported,%REG_DWORD%,7
+
+
+;*********************************
+;Tandberg-manufacturer device list
+[Tandberg]
+%tandqic.DeviceDesc% = tandqic_Inst, TANDQIC_TAPE
+
+[tandqic_Inst]
+CopyFiles = @tandqic.sys
+
+[tandqic_Inst.Services]
+AddService = tandqic, %SPSVCINST_ASSOCSERVICE%, tandqic_Service_Inst, tandqic_EventLog_Inst
+
+[tandqic_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\tandqic.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[tandqic_EventLog_Inst]
+AddReg = tandqic_EventLog_AddReg
+
+[tandqic_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\tandqic.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+
+;********************************
+;Wangtek-manufacturer device list
+[Wangtek]
+%wangqic.DeviceDesc% = wangqic_Inst, WANGQIC_TAPE
+
+[wangqic_Inst]
+CopyFiles = @wangqic.sys
+
+[wangqic_Inst.Services]
+AddService = wangqic, %SPSVCINST_ASSOCSERVICE%, wangqic_Service_Inst, wangqic_EventLog_Inst
+
+[wangqic_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\wangqic.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[wangqic_EventLog_Inst]
+AddReg = wangqic_EventLog_AddReg
+
+[wangqic_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\wangqic.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+
+;********************************
+;Hewlett Packard-manufacturer device list
+[HP]
+%hpt4qic.DeviceDesc% = hpt4qic_Inst, HPT4QIC_TAPE
+
+[hpt4qic_Inst]
+CopyFiles = @hpt4qic.sys
+
+[hpt4qic_Inst.Services]
+AddService = hpt4qic, %SPSVCINST_ASSOCSERVICE%, hpt4qic_Service_Inst, hpt4qic_EventLog_Inst
+
+[hpt4qic_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_SYSTEM_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\hpt4qic.sys
+LoadOrderGroup = SCSI Class
+Dependencies   = +SCSI Miniport
+
+[hpt4qic_EventLog_Inst]
+AddReg = hpt4qic_EventLog_AddReg
+
+[hpt4qic_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\hpt4qic.sys"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+
+;****************************
+;Alternate driver search list
+[AlternateDriverSearch]
+
+4MMDAT_TAPE = "AIWA    ", "GD-201"
+4MMDAT_TAPE = "ARCHIVE ", "Python"
+4MMDAT_TAPE = "ARCHIVE ", "IBM4326"
+4MMDAT_TAPE = "ARCHIVE ", "4322XX"
+4MMDAT_TAPE = "ARCHIVE ", "4326XX"
+4MMDAT_TAPE = "ARCHIVE ", "4586XX"
+4MMDAT_TAPE = "DEC     ", "T

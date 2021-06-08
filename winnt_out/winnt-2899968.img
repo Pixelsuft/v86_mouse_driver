@@ -1,0 +1,117 @@
+ handle parameter passed to a keyboard API
+function is not correct.
+ENo more handles are available in the system.
+EA resource error occurred during an attempt to open a
+logical keyboard.
+EAn error occurred during an attempt to load a
+code page table.
+EThe CODEPAGE= statement in the CONFIG.SYS file
+is not correct.
+ECode page support is not defined for the system.
+EA keyboard API function that requires a prior
+call to KbdGetFocus was attempted.
+EThe current thread already has a call to KbdGetFocus.
+EThe keyboard focus is not available.
+EThe specified code page ID in the call to KbdSetCP is
+not correct.
+EThe keyboard handle passed to KbdGetFocus to obtain
+the keyboard focus is not correct.
+EThis session is not selectable.
+IThe Session Manager could not switch to the parent
+process. The parent process is in the background or a pop-up
+is in progress.
+EThe request is not valid from the process that issued it.
+EThe session start mode parameter is not correct.
+EThe related session start parameter is not correct.
+EThe specified parameter for the session bond option
+is not correct.
+EThe specified parameter for the session select option
+is not correct.
+IThe Session Manager cannot start the process in
+the foreground. It will be started in the background.
+EThe specified parameter for the session end option
+is not correct.
+EThe reserved parameter specified is not correct.
+EThe request is not valid from the process that
+issued it.
+EThe data buffer length is not correct.
+EThe specified parent and child sessions are not
+bound together.
+ENot enough storage is available to process this
+Session Manager function.
+EA detached process attempted a keyboard API
+function.
+EThe VIO call issued by a detached process is not
+valid.
+EA mouse function was called from a detached process.
+EThe font requested is not available.
+EYour font cannot be loaded in the current video
+mode.
+EThe code page specified is not correct.
+?
+ECode page support is not available on the current
+video device.
+?
+?
+?
+?
+?
+?
+EThe specified parameter for the session trace
+option is not correct.
+?
+EVioPopup cannot occur until the Shell is started.
+EThe hard error and print screen functions are not
+available.
+?
+EThe transparent pop-up requested is not valid.
+?
+?
+EThe reserved parameter specified is not valid.
+EThe specified address is not correct.
+IThe number of selectors requested of
+DevHlp_AllocateGDTSelectors was zero.
+EThere are not enough GDT selectors to satisfy the
+request.
+EThe selector is not correct.
+EThe specified parameter for the session type is not
+correct.
+EThe specified parameter for the first state of the
+windowed session is not correct.
+EThe specified parameter for the session inherit option
+is not correct.
+EThe VIO call issued by a VIO windowed program is
+not valid.
+EThe caller of the Advanced VIO application is not
+valid.
+EThe VioShieldInit or VioShieldTerm call has
+already been issued by the current session.
+EThe call to VioCreatePS failed.
+?
+?
+EAn error occurred during an attempt to load the
+Dynamic-Link Library module PMVIOP.DLL.
+IDOS cannot be started because too many files are open.
+Switch back to OS/2 mode and terminate some applications to reduce
+the number of open files. Then switch back to DOS mode and retry
+the command.
+EThe handle parameter passed to a Mouse API function
+is not correct.
+EThe specified parameter for the session diagnostic
+option is not correct.
+EA keyboard API function was attempted from a
+Presentation Manager session.
+EA Presentation Manager session attempted to issue
+a mouse API function call.
+?
+EThe specified process does not exist.
+ERAS trace count is already active.
+ERAS tracing has been suspended.
+ERAS trace-until-error has not been requested.
+IThe RAS trace-error-count has reached its limit.
+EMinor code RAS tracing is disallowed.
+EThe RAS major or minor code table contains an error.
+EThe requested RAS trace-until-error is not allowed.
+EToo many device drivers are registered with the
+Session Manager.
+EThe session notif

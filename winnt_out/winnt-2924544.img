@@ -1,0 +1,108 @@
+d with FORMAT (Y/N)? IThe system files have been transferred.
+PFormat another diskette (Y/N)? EThe size of the requested partition
+exceeds 2,048 MB.
+EThe /S parameter is not supported in this
+release of OS/2.
+EThe FORMAT command has detected an incorrect parameter.
+IInsert target diskette for drive %1
+and press Enter when ready. IInsert the Microsoft Operating System/2 startup
+diskette in drive %1 and press Enter. EThe format was unsuccessful.
+EThe disk is unsuitable for a system disk.
+ETrack 0 cannot be formatted.
+P                                                                   I%1 bytes total disk space
+I%1 bytes used by system files
+I%1 bytes in defective sectors
+I%1 bytes available on disk
+IThe format size you specified does not match the diskette
+capacity.  However, the system will continue to format the diskette
+to the specified size.
+PEnter up to 11 characters for the volume label,
+or press Enter for no volume label. EThe volume label was written to the disk
+without leading blanks.
+IThe system files could not be transferred.
+EAn error has occurred while reading the system file %1.
+IThe system disk is missing file %1.
+IThe new type of file system is %1.
+IFormatting has been completed.
+?
+EFORMAT cannot write the file system
+to the target disk.
+EAn incorrect parameter was specified
+for formatting the fixed disk.
+EAn incorrect combination of parameters
+was specified.
+?
+IThe ONCE parameter is not valid when formatting
+a fixed disk. Parameter is ignored.
+IThe /f parameter is not necessary. The parameter
+is ignored.
+IHead:%1 Cylinder:%2 %3EThe system is currently unable to format drive %1.
+I%1 bytes in each allocation unit.
+I%1 total allocation units.
+I%1 available allocation units on disk.
+?
+?
+PFormatting this disk might take up to %1 minutes.
+Do you want to continue (Y/N)? EA drive letter must be specified.
+EThe system files are missing.
+I%1 percent of disk formatted %2EAn error has occurred while reading
+or writing to the fixed disk partition.
+PLost extended attributes were found.
+Do you want to display them as files (Y/N)? PLost extended attributes were found. They will be
+erased if they are not converted to files. Do you want to
+convert them to files (Y/N)? EThe version of extended attributes is not correct.
+IAn extended attributes error was found and corrected.
+PEnter the current volume label for drive %1. EIncorrect volume label entered for drive %1.
+EThe file FORMATS.TBL is missing or an error
+occurred while reading this file. The system transfer
+continues.
+ISystem file transfer is in progress...
+IThe /N or /T parameters are not
+necessary and have been ignored.
+I%1 attempted to claim an extended attribute that does
+not exist. The error was corrected.
+E%1 is cross-linked on extended attribute %2.
+EThe diskette you are trying to format is bigger than the drive's
+capacity.  The system will not allow formatting to continue.
+?
+I
+[DOS mode storage report]
+%1 bytes total storage
+%2 bytes free
+I%1
+   Contains %2 non-contiguous blocks.
+IAll specified files are contiguous.
+EThe system cannot accept the %1%2 parameter.
+?
+?
+ECHKDSK cannot access the specified drive.
+?
+E%1 allocation error, size adjusted.
+EDisk error reading the File
+Allocation Table %1.
+EDisk error writing the File
+Allocation Table %1.
+IDirectory %1
+I
+Errors found.  F parameter not specified.
+Corrections will not be written to disk.
+
+E%1 has an incorrect cluster.
+EThe system cannot read the current directory.
+E%1 allocation size error.
+E%1 is cross-linked on cluster %2
+I
+The first cluster number of %1 is incorrect.
+The entry has been truncated.
+ICHKDSK encountered an unrecoverable error in directory %1.
+PConvert directory to file (Y/N)?  E%1 directory is totally empty.
+Tree past this point is not processed.
+?
+W%1 is an incorrect subdirectory.
+WThe system cannot recover . entry,
+processing continued.
+EThe system cannot recover the ..
+entry.  Tree past this point not processed.
+E%1 has a bad link, attribute, or size.
+I
+%1 lost clusters found in %2 chai

@@ -1,0 +1,84 @@
+gs, Compression_Off,, "%%C0"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+
+[Modem15.AddReg]    ; V.34 Data Fax Internal with cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q1 *H1 :E1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H1 :E1"
+HKR,, InactivityScale, 1, 0a,00,00,00   ; ten sec
+
+[Modem14.AddReg]    ; V.34 Data Fax External with cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q1 *H1 :E1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H1 :E1"
+HKR,, InactivityScale, 1, 0a,00,00,00   ; ten sec 
+
+[Modem13.AddReg]    ; Viva 300-1200-2400 external 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem12.AddReg]    ; Viva Hookup 2400SE
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Settings, DialSuffix,, ""
+HKR, Init, 2,, "AT&FS0=0E0V1Q0&C1&D2<cr>"
+
+[Modem11.AddReg]    ; Viva 2400 Data/Fax External 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Settings, DialSuffix,, ""
+HKR, Init, 2,, "AT&FS0=0E0V1Q0&C1&D2<cr>"
+
+[Modem10.AddReg]    ; Viva Hookup 2400 internal 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 00,c2,01,00, 60,09,00,00
+
+[Modem9.AddReg]     ; Viva 24i internal 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 00,c2,01,00, 60,09,00,00
+
+[Modem8.AddReg]     ; Viva Message Center Internal 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 00,c2,01,00, 60,09,00,00
+
+[Modem7.AddReg]     ; Viva 2400 Data Fax Internal 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 00,c2,01,00, 60,09,00,00
+
+[Modem6.AddReg]     ; Viva modem 24 external 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem5.AddReg]     ; Viva 2496p Pocket 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem4.AddReg]     ; Viva 2442if  Internal 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, Compression_On,, "%%C1S46=138"
+HKR, Settings, Compression_Off,, "%%C0S46=136"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+
+[Modem3.AddReg]     ; Viva 14.4i Data FAX
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem2.AddReg]     ; Viva 14.4 FAX-P
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem1.AddReg]     ; 14.4 Data Fax External
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Strings]
+
+Phoebe = "Phoebe Micro"
+Phoebe1="Phoebe Micro 14.4 Data Fax 1414VQH"
+
+Zoltrix ="Zoltrix"
+Zoltrix1="Zoltrix 14.4 Data FAX Modem"
+Zoltrix2="14.4 Data FAX Modem"
+Zoltrix3="Zoltrix 14.4, ZX144 ATI"
+Zoltrix4="14.4 Data FAX Modem"
+Zoltrix5="Zoltrix 28.8, ZX288 ACI"
+Zoltrix6="Zoltrix 14.4, 144 ATI"
+Zoltrix7="14.4 Data FAX Modem"
+Zoltrix8="Zo

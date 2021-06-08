@@ -1,0 +1,116 @@
+Copy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       Debug-Output "OEMNXPTC.INF: *** CopyFilesInCopyList [2]"
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-TC $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   AddSectionFilesToCopyList Files-TCPIPEXE $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-LMHOST $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers\etc
+   AddSectionFilesToCopyList Files-ETC-Upgrade $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers\etc
+   Exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-ETC-Upgrade]
+1,HOSTS , SIZE=999, RENAME=HOSTS.SAM
+1,SERVICES , SIZE=999, RENAME=SERVICES.SAM
+[Files-ETC]
+1,HOSTS , SIZE=999
+1,NETWORKS , SIZE=999
+1,PROTOCOL , SIZE=999
+1,SERVICES , SIZE=999
+[Files-LMHOST]
+1,LMHOSTS.SAM , SIZE=999
+[Files-LMHOSTOTHER]
+99,LMHOSTS.SAM , SIZE=999
+[Files-TC]
+1,NETBT.SYS , SIZE=117328
+1,TCPIP.SYS , SIZE=142960, OVERWRITE=OLDER
+[Files-TCPIPEXE]
+1, DHCPCSVC.DLL, SIZE=38160
+1, DHCPSAPI.DLL, SIZE=19216
+1, ICMP.DLL, SIZE=10000
+1, IPCONFIG.EXE, SIZE=21776
+1, NBTSTAT.EXE, SIZE=18704
+1, SNMPAPI.DLL, SIZE=21776
+1, TCPSVCS.EXE, SIZE=21264
+1, TRACERT.EXE, SIZE=12048
+1,ARP.EXE , SIZE=22800
+1,HOSTNAME.EXE , SIZE=11024
+1,INETMIB1.DLL , SIZE=50960
+1,IPINFO.INF , SIZE=999
+1,LMHSVC.DLL , SIZE=12048
+1,NETSTAT.EXE , SIZE=25360
+1,PING.EXE , SIZE=15120
+1,ROUTE.EXE , SIZE=26896
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    TC     = "TCP/IP Protocol"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+NoNewComponents = "No New Components to Install."
+FunctionTitle   = "TCP/IP Setup"
+ProductNETBTDescription           = "NetBT System Driver"
+ProductNETBTDisplayName   = "WINS Client(TCP/IP)"
+ProductNETBTTitle         = "WINS Client(TCP/IP)"
+ProductTELNETDisplayName = "Telnet"
+ProductTELNETTitle      = "Telnet Networking Support Environment"
+ProductTELNETSYSDisplayName = "Telnetsys"
+ProductTELNETSYSTitle     = "Telnet Driver"
+ProductLMHOSTSDisplayName = "TCP/IP NetBIOS Helper"
+ProductLMHOSTSTitle     = "TCP/IP NetBIOS Helper"
+ProductDHCPDisplayName = "DHCP Client"
+ProductDHCPTitle     = "DHCP Client"
+ProductTCDisplayName = "TCP/IP Service"
+ProductTCTitle     = "TCP/IP Protocol"
+ProductTCDescription         = "Transport Control Protocol/Internet Protocol. The default wide area network protocol that provides communication across diverse interconnected networks."
+ProviderDisplayName     = "TCP/IP"
+LDAPProviderDisplayName = "NTDS"
+ShellCodeErrorTitle     = "Error: "$(FunctionTitle)
+ShellCodeErrorText      = "Shell Code Error."
+RASRebindError = "Setup has discovered that you have Remote Access Services installed. Do you want to configure RAS to support the TCP/IP protocol?"
+[DialogConstantsENG]
+Help        = "&Help"
+Exit        = "Cancel"
+OK          = "OK"
+HelpContext = ""
+Continue    = "Continue"
+Cancel      = "Cancel"
+[FileDependentDlgENG]
+[InfoDlg]
+STF_MB_TITLE = "Information Message"
+DlgType = "MessageBox"
+STF_MB_TEXT  = $(InfoMsgText)
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[DHCPDialog]
+DHCPText = "If there is a DHCP server on your network, TCP/IP can be configured to dynamically provide"+
+                 " an IP address.  If you are not sure, ask your system administrator.  Do you wish to use DHCP?"
+STF_MB_TITLE = "TCP/IP Setup"
+DlgType = "MessageBox"
+STF_MB_TEXT  = $(DHCPText)
+STF_MB_TYPE  = 3
+STF_MB

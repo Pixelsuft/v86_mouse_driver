@@ -1,0 +1,107 @@
+[InitBaseVars]
+KeyNull            = ""
+MAXIMUM_ALLOWED    = 33554432
+KeyInfo            = {}
+RegistryErrorIndex = NO_ERROR
+NoTitle            = 0
+CurrentControlSet  = "SYSTEM\CurrentControlSet"
+ServicesBaseName   = $(CurrentControlSet)"\Services"
+NetworkCardKeyName = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+!RegLastError      = NO_ERROR
+[RegistryErrorSetup]
+RegistryErrorIndex = ^(RegistryErrors$(!STF_LANGUAGE),1)
+RegistryErrorList = ^(RegistryErrors$(!STF_LANGUAGE),2)
+[RegistryErrorString]
+     read-syms RegistryErrorSetup
+     read-syms RegistryErrorUnknown$(!STF_LANGUAGE)
+     set RE_String = *($(RegistryErrorList),~($(RegistryErrorIndex),$($0)))
+     Ifstr $(RE_String) == ""
+        set RE_String = $(Error_Bogus)
+     endif
+     return $(RE_String)
+[BaseServiceKey]
+    read-syms InitBaseVars
+    set BS_KeyServices = ""
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServicesBaseName) $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) == $(KeyNull)
+       Debug-Output "UTILITY.INF: could not open Services base key"
+       set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+    endif
+B_S_Return = +
+    return $(RegistryErrorIndex), $(BS_KeyServices)
+[ReduceInfPath]
+    Set RIP_Result = $($0)
+    Split-String $(RIP_Result) "\" InList
+    Set BasePath = $(!STF_WINDOWSSYSPATH)"\"
+    Split-String $(BasePath) "\" BaseList
+    Set Indx = 0
+    Set Matched = 0
+    QueryListSize InListSize, $(InList)
+    ForListDo $(BaseList)
+        Set-add Indx = $(Indx),1
+        Ifint $(Indx) <= $(InListSize)
+            Set Instr = *($(InList),$(Indx))
+            Ifstr(i) $($) == $(Instr)
+                Set-add Matched = $(Matched),1
+            Endif
+        Endif
+    EndForListDo
+    Ifint $(Indx) == $(Matched)
+        Set RIP_Result = ""
+        Set Indx2 = 0
+        ForListDo $(InList)
+            Set-add Indx2 = $(Indx2),1
+            Ifint $(Indx2) > $(Indx)
+                Set RIP_Result = $(RIP_Result)$($)
+            Endif
+        EndForListDo
+    Endif
+    Return $(RIP_Result)
+[InstallSoftwareProduct]
+    read-syms InitBaseVars
+    set IS_MfgName  = $($0)
+    set IS_ProdName = $($1)
+    set IS_Infname  = $($2)
+    set IS_KeySoftware = ""
+    set IS_KeyMfg = ""
+    set IS_KeyProduct = ""
+    set IS_KeyVersion = ""
+    set IS_KeyNetRules = ""
+    set IS_MfgCreated = 1
+    set IS_ProductCreated = 1
+    set RegistryErrorIndex = INVALID_DATA_PASSED
+    Ifstr(i) $(IS_MfgName) == ""
+       goto I_S_Return
+    endif
+    Ifstr(i) $(IS_ProdName) == ""
+       goto I_S_Return
+    endif
+    set RegistryErrorIndex = NO_ERROR
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase) $(MAXIMUM_ALLOWED) IS_KeySoftware
+    Ifstr $(IS_KeySoftware) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+       goto I_S_Return
+    endif
+    CreateRegKey $(IS_KeySoftware) {$(IS_MfgName),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" IS_KeyMfg
+    Ifstr $(IS_KeyMfg) == $(KeyNull)
+       set IS_MfgCreated = 0
+       OpenRegKey $(IS_KeySoftware) "" $(IS_MfgName) $(MAXIMUM_ALLOWED) IS_KeyMfg
+       Ifstr $(IS_KeyMfg) == $(KeyNull)
+          set RegistryErrorIndex = UNABLE_OPEN_MICROSOFT_KEY
+          goto I_S_Return
+       endif
+    endif
+    CreateRegKey $(IS_KeyMfg) {$(IS_ProdName),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" IS_KeyProduct
+    Ifstr $(IS_KeyProduct) == $(KeyNull)
+       set IS_ProductCreated = 0
+       OpenRegKey $(IS_KeyMfg) "" $(IS_ProdName) $(MAXIMUM_ALLOWED) IS_KeyProduct
+       Ifstr $(IS_KeyProduct) == $(KeyNull)
+          set RegistryErrorIndex = UNABLE_CREATE_PRODUCT_KEY
+          goto I_S_Return
+       endif
+    endif
+    CreateRegKey $(IS_KeyProduct) {"CurrentVersion",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" IS_KeyVersion
+    Ifstr $(IS_KeyVersion) == $(KeyNull)
+       OpenRegKey $(IS_KeyProduct) "" "CurrentVersion" $(MAXIMUM_ALLOWED) IS_KeyVersion
+       Ifstr $(IS_KeyVersion) == $(KeyNull)
+          set RegistryErrorIndex = UNABLE_CREATE_PRODUCT_VERSION

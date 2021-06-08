@@ -1,0 +1,101 @@
+  Level NEXTLEVEL, sammy()
+                        PrintScore NumPlayers, sammy(1).score, sammy(2).score, sammy(1).lives, sammy(2).lives
+                        SpacePause "     Level" + STR$(curLevel) + ",  Push Space"
+                        IF NumPlayers = 1 THEN sammy(2).row = 0
+                        number = 1
+                        IF diff$ = "P" THEN speed = speed - 10: curSpeed = speed
+                    END IF
+                    nonum = TRUE
+                    IF curSpeed < 1 THEN curSpeed = 1
+                END IF
+            NEXT a
+
+            FOR a = 1 TO NumPlayers
+                'If player runs into any point, or the head of the other snake, it dies.
+                IF PointIsThere(sammy(a).row, sammy(a).col, colorTable(4)) OR (sammy(1).row = sammy(2).row AND sammy(1).col = sammy(2).col) THEN
+                    PLAY "MBO0L32EFGEFDC"
+                    COLOR , colorTable(4)
+                    LOCATE numberRow, NumberCol
+                    PRINT " "
+                   
+                    playerDied = TRUE
+                    sammy(a).alive = FALSE
+                    sammy(a).lives = sammy(a).lives - 1
+
+                'Otherwise, move the snake, and erase the tail
+                ELSE
+                    sammy(a).head = (sammy(a).head + 1) MOD MAXSNAKELENGTH
+                    sammyBody(sammy(a).head, a).row = sammy(a).row
+                    sammyBody(sammy(a).head, a).col = sammy(a).col
+                    tail = (sammy(a).head + MAXSNAKELENGTH - sammy(a).length) MOD MAXSNAKELENGTH
+                    Set sammyBody(tail, a).row, sammyBody(tail, a).col, colorTable(4)
+                    sammyBody(tail, a).row = 0
+                    Set sammy(a).row, sammy(a).col, sammy(a).scolor
+                END IF
+            NEXT a
+
+        LOOP UNTIL playerDied
+
+        curSpeed = speed                ' reset speed to initial value
+       
+        FOR a = 1 TO NumPlayers
+            EraseSnake sammy(), sammyBody(), a
+
+            'If dead, then erase snake in really cool way
+            IF sammy(a).alive = FALSE THEN
+                'Update score
+                sammy(a).score = sammy(a).score - 10
+                PrintScore NumPlayers, sammy(1).score, sammy(2).score, sammy(1).lives, sammy(2).lives
+                
+                IF a = 1 THEN
+                    SpacePause " Sammy Dies! Push Space! --->"
+                ELSE
+                    SpacePause " <---- Jake Dies! Push Space "
+                END IF
+            END IF
+        NEXT a
+
+        Level SAMELEVEL, sammy()
+        PrintScore NumPlayers, sammy(1).score, sammy(2).score, sammy(1).lives, sammy(2).lives
+     
+    'Play next round, until either of snake's lives have run out.
+    LOOP UNTIL sammy(1).lives = 0 OR sammy(2).lives = 0
+
+END SUB
+
+'PointIsThere:
+'  Checks the global  arena array to see if the boolean flag is set
+FUNCTION PointIsThere (row, col, acolor)
+    IF row <> 0 THEN
+        IF arena(row, col).acolor <> acolor THEN
+            PointIsThere = TRUE
+        ELSE
+            PointIsThere = FALSE
+        END IF
+    END IF
+END FUNCTION
+
+'PrintScore:
+'  Prints players scores and number of lives remaining
+SUB PrintScore (NumPlayers, score1, score2, lives1, lives2)
+    COLOR 15, colorTable(4)
+
+    IF NumPlayers = 2 THEN
+        LOCATE 1, 1
+        PRINT USING "#,###,#00  Lives: #  <--JAKE"; score2; lives2
+    END IF
+
+    LOCATE 1, 49
+    PRINT USING "SAMMY-->  Lives: #     #,###,#00"; lives1; score1
+END SUB
+
+'Set:
+'  Sets row and column on playing field to given color to facilitate moving
+'  of snakes around the field.
+SUB Set (row, col, acolor)
+    IF row <> 0 THEN
+        arena(row, col).acolor = acolor             'assign color to arena
+        realRow = arena(row, col).realRow           'Get real row of pixel
+        topFlag = arena(row, col).sister + 1 / 2    'Deduce whether pixel
+                                                    'is on topﬂ, or bottom‹
+        sisterRow = row + arena(row, col).sister    'Get arena row of sis

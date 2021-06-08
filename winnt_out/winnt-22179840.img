@@ -1,0 +1,34 @@
+h this logon method cannot access remote, authenticated resources, such as a SQL server using integrated security. 
+
+Generally, you should configure the default logon method for FTP and gopher users as Network. You should configure the default logon for WWW service users as Network unless users need to access remote, authenticated resources.
+
+The default logon method is Local. To change the logon method, set the registry entry LogonMethod as described in Chapter 10, "Configuring Registry Entries," in Internet Information Server Installation and Administration Guide.
+
+For the WWW service, if the user’s browser supports Basic authentication, the user is logged on using the logon method set in the LogonMethod registry entry. If the user’s browser supports Windows NT Challenge/Response authentication, the user is always logged on using the Network logon method. 
+
+Note that Basic authentication sends user names and passwords over the network in clear text (unencrypted text). Challenge/Response authentication is more secure because it sends passwords in encrypted text. Currently, only Internet Explorer 2.0 or later supports Windows NT Challenge/Response authentication. For more information on security, see Chapter 5, "Securing Your Site Against Intruders," in the Peer Web Services Installation and Administration Guide.
+
+Setting the Log File Size
+You cannot set the maximum size of the logging file by using the Web-based version of Internet Service Manager.  You must use Internet Service Manager to set this option, which is located in the Logging Properties panel.
+
+Internet Information Server Setup May Be Disabled After Installing ODBC 3.0
+If you installed Internet Information Server 2.0 and start the Internet Information Server 2.0 setup program from the start menu item, it may display a message which says that the SqlInstallODBC entry point is missing.  To work around this problem, run the IIS setup program again. The program must be run from platform\inetsrv\inetstp.exe on the Windows NT compact disc.  
+
+To run inetstp.exe for Peer Web Services
+1. Insert the Windows NT Workstation compact disc in the drive.
+2. Type d: and then press ENTER.
+3. Type cd \<platform>\inetsrv and then press ENTER.
+4. Type inetstp.exe and then press ENTER.
+
+Peer Web Services Default File is Changed to Default.htm
+Upon installation of Peer Web Services, the Default Document for the WWW Service will be set to Default.htm.  If you previously had a different default document, you need to change it in the Microsoft Internet Service Manager.  Go to the start menu and click on Programs/Peer Web Services/Internet Service Manager.  This will start the Microsoft Internet Service Manager.  Double click on the WWW line in the display.  Click on the Directories tab and edit the Default Document edit box.  Click OK.
+
+FAQ and Mailing List for IIS Developers
+Stephen Genusa's IIS FAQ answers questions about Internet Information Server and is a good source of additional information about developing applications for IIS. To read the FAQ, visit http://rampages.onramp.net/~steveg/iis.html. 
+
+There are many mailing lists and newsgroups that cover the broad range of Microsoft Internet technologies and related tools. Being a member of these lists will allow you to tap into the latest information about these tools and technologies, and will provide you with an open forum for asking questions and exchanging ideas with other developers. The ISAPI-L mailing list covers information on developing Internet Information Server API applications. For information on subscribing to the ISAPI-L mailing list and for information on other mailing lists, visit http://www.microsoft.com/workshop/resource/mail.htm.
+
+Windows Messaging
+Windows Messaging is installed during Windows NT Setup. You can choose Internet Mail, Microsoft Mail, or both. 
+
+When you install Windows NT or use Windows Messaging for the first time by double-clicking the Inbox icon on the desktop, the Windows Messaging Setup Wizard will be run. You can then select the information services that 

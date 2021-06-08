@@ -1,0 +1,98 @@
+ication bit map is not correct.
+IThe OS/2 Logging Facility cannot perform the requested function.
+IThe OS/2 Logging Facility is not available for use.
+IThe OS/2 Logging Facility is currently disabled.
+?
+?
+?
+?
+IThe OS/2 Logging Facility detected a general failure.
+EThe specified disk cannot be formatted.
+EThe system detected an error and cannot format
+the specified disk for HPFS (High Performance File System).
+EHPFS (High Performance File System) data cannot
+be copied to the specified disk.
+EThe specified disk did not finish formatting.
+ENot enough memory is available to run FORMAT.
+EYou must specify a fixed disk with the FORMAT command.
+EYou can specify only one drive letter with FORMAT.
+EThe system detected error %1. The specified
+disk cannot be formatted for HPFS (High Performance File System).
+ECommand syntax information is online.
+I
+Formatting...
+
+I
+%1 kilobytes of total disk space.
+I%1 kilobytes are in bad blocks.
+I%1 kilobytes are available.
+I%1% of the disk has been formatted.PType the current volume label for drive %1. EThe disk did not format for HPFS
+(High Performance File System).
+IThe HPFS (High Performance File System) driver is loaded.
+
+I%1 cache buffers are specified by the DISKCACHE=
+statement in the CONFIG.SYS file.
+E%1 is not a valid parameter with the CHKDSK
+command when checking a fixed disk.
+ECHKDSK cannot access drive %1.
+EThe system detected error %1. CHKDSK cannot check
+the status of the disk specified.
+ENot enough memory is available to run CHKDSK.
+ECHKDSK cannot write recovered data to the disk.
+WWarning! Not enough memory is available for CHKDSK
+to recover all lost data.
+ENot enough disk space is available to run CHKDSK
+using the /F parameter.
+ECHKDSK did not recover any data.
+WWarning! CHKDSK cannot find the root directory of
+the specified disk but will still attempt to reconstruct the
+file system.
+EThe system found file system errors on the
+disk specified.
+ICHKDSK found and corrected a minor file system error.
+ICHKDSK found and corrected an organization error in
+a directory.
+ICHKDSK relocated data from a bad block to another
+place on the disk.
+ICHKDSK removed a corrupted directory block.
+ICHKDSK removed the corrupted file %1.
+ICHKDSK corrected a disk space allocation error.
+PWarning! The specified disk does not appear to be
+formatted for HPFS (High Performance File System). Running
+CHKDSK on this disk might destroy data. Do you want to
+proceed (Y/N)? ICHKDSK corrected an allocation error for the file %1.
+ICHKDSK is searching disk space that is not allocated.
+EThe system detected lost data on disk %1.
+ICHKDSK has searched %1% of the disk.ICHKDSK is searching for lost data.
+WWarning! CHKDSK cannot read critical HPFS
+(High Performance File System) data on the specified disk. Do
+not turn your computer off before you back up files. Back up
+all files on this disk immediately!
+EThe specified disk is being used by another process.
+ICHKDSK recovered data that was temporarily relocated.
+I
+%1 kilobytes total disk space.
+I%1 kilobytes are in %2 directories.
+I%1 kilobytes are in %2 user files.
+I%1 kilobytes are available for use.
+I
+CHKDSK will place recovered files in %1.
+ICHKDSK recovered a lost directory as %1.
+ICHKDSK placed recovered data in file %1.
+ICHKDSK recovered extended attributes that were relocated by HPFS.
+ECHKDSK found extended attributes in a temporary
+replacement sector but could not relocate the data.
+ICHKDSK relocated extended attributes that were
+located in a temporary replacement sector.
+ICHKDSK relocated an access control list that was in
+a temporary replacement sector.
+ECHKDSK found an access control list in a temporary
+replacement sector but could not relocate it to its correct
+place.
+ICHKDSK truncated a corrupted extended attributes list.
+ICHKDSK truncated an invalid extended attribute name.
+ICHKDSK truncated an extended attribute list containing a
+corrupted block.
+ICHKDSK removed an invalid extended attribute.
+ICHKDSK corrected an allocation error for an extended attribute.
+ICHKDSK co

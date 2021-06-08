@@ -1,0 +1,90 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Microcom, Inc.
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[DestinationDirs]
+DefaultDestDir=11
+
+[ControlFlags]
+ExcludeFromSelect=SERENUM\MNP0281         
+ExcludeFromSelect=SERENUM\MNP0342
+ExcludeFromSelect=SERENUM\MNP0336
+ExcludeFromSelect=SERENUM\MNP0339
+ExcludeFromSelect=LPTENUM\MICROCOMDESKPORTE_28D6EE
+ExcludeFromSelect=LPTENUM\MICROCOMDESKPORTE_28AF67                     
+ExcludeFromSelect=SERENUM\MNP0500                                      
+ExcludeFromSelect=SERENUM\MNP0501                                      
+ExcludeFromSelect=SERENUM\MNP0502                                      
+ExcludeFromSelect=UNIMODEMA7920CFE
+ExcludeFromSelect=UNIMODEMC353466F                                   
+ExcludeFromSelect=UNIMODEMF2287246                                   
+ExcludeFromSelect=UNIMODEMD3036EEC                                   
+
+ExcludeFromSelect.NT=LPTENUM\MICROCOMTRAVELPORTE_1FF4
+ExcludeFromSelect.NT=PCMCIA\MICROCOM__INC.-TRAVELCARD_28.8P_DATA/FAX_MODEM-05A2
+ExcludeFromSelect.NT=LPTENUM\MICROCOMDESKPORTE_28D6EE
+ExcludeFromSelect.NT=MICROCOM_Modem6P
+ExcludeFromSelect.NT=LPTENUM\MICROCOMDESKPORTE_28AF67
+ExcludeFromSelect.NT=MICROCOM_Modem3P
+ExcludeFromSelect.NT=PCMCIA\MICROCOM__INC.-TRAVELCARD_FAST_28.8_DATA/FAX_MODEM-2288
+ExcludeFromSelect.NT=PCMCIA\MICROCOM__INC.-TRAVELCARD_FAST_28.8K_DATA/FAX_MODEM-E5FD
+ExcludeFromSelect.NT=PCMCIA\TDK-DF2814_DATA/FAX_MODEM-AC80
+ExcludeFromSelect.NT=PCMCIA\TDK-DF2814_DATA/FAX_MODEM-AD71
+ExcludeFromSelect.NT=PCMCIA\TDK-DF2814_DATA/FAX_MODEM-9C19
+
+
+[Modem17.NoResDup]
+UNIMODEM338C3E2E,UNIMODEM733C4E29                                                    
+
+[Modem12.NoResDup]
+UNIMODEM4BF3E5C4        
+
+[Modem10.NoResDup]
+UNIMODEM6D92E082
+
+[Modem6.NoResDup]
+UNIMODEMCC646872,UNIMODEMA4970248,UNIMODEMB6071C15
+
+[Modem5.NoResDup]
+UNIMODEMD3036EEC,UNIMODEMF2287246,UNIMODEMC353466F
+
+[Modem4.NoResDup]
+UNIMODEM99EB2611,UNIMODEMC9720A17
+
+[Modem3.NoResDup]
+UNIMODEM4BF3E5C4,UNIMODEMC93A08AB        
+
+[Modem1.NoResDup]
+UNIMODEMA3EEEF33
+
+[Manufacturer]
+%Mfg% = Models
+%TDK% = TDK
+
+[Models]
+%Modem18%   = Modem8, UNIMODEMA7920CFE       ; combo QX/4232bis II & DeskPorte
+%Modem17PNP%  = Modem17, SERENUM\MNP0502    ; Microcom DeskPorte 28.8S internal
+%Modem17%   = Modem17, UNIMODEM338C3E2E     ; Microcom DeskPorte 28.8S internal
+%Modem17%   = Modem17, MDMMCOM_Modem17, UNIMODEM733C4E29     ; Microcom DeskPorte 28.8S internal
+%Modem16%   = Modem16, UNIMODEM23719FC3                 ; Microcom QX/4232bis +
+%Modem15%   = Modem15, MDMMCOM_Modem15, UNIMODEMA7920CFE  ; Microcom QX/4232bis II
+%Modem12%  = Modem3, UNIMODEM4BF3E5C4
+%Modem12PNP% = Modem3, SERENUM\MNP0281
+%Modem12P% = Modem3P, LPTENUM\MICROCOMTRAVELPORTE_1FF4
+%Modem11P% = Modem11P, PCMCIA\MICROCOM__INC.-TRAVELCARD_28.8P_DATA/FAX_MODEM-05A2                        ; V.34 TravelCard 28.8P Serial
+%Modem11%  = Modem11, MDMMCOM_Modem11, PCMCIA\MICROCOM__INC.-TRAVELCARD_28.8P_DATA/FAX_MODEM-05A2      ; V.34/V.FC TravelCard 28.8P Serial
+%Modem11%  = Modem11, UNIMODEMBCFF2053                                                                  ; V.34 travel card fast serial 
+%Modem11%  = Modem11, UNIMODEMEEEDA05A                                                                  ; V.34 travel card fast serial
+%Modem11P% = Modem11P, PCMCIA\MICROCOM__INC.-TRAVELCARD_28.8P______DATA/FAX_MODEM-3B9F                   ; TravelCard 28.8P Serial
+%Modem11%  = Modem11, MDMMCOM_Modem11, PCMCIA\MICROCOM__INC.-TRAVELCARD_28.8P______DATA/FAX_MODEM-3B9F ; TravelCard 28.8P Parallel
+%Modem10P% = Modem10P, MDMMCOM_Modem10P, LPTENUM\MICROCOMDESKPORTE_28D6EE ; Deskporte 28.8P parallel mode
+%Modem10%  = Modem10, UNIMODEM6D92E082                                    ; Deskporte 28.8P serial mode
+%Modem10PNP% = Modem10, SERENUM\MNP0342                                     ; Deskporte 28.8P serial mode
+%Modem9%   = Modem9, UNIMODEM679DE81

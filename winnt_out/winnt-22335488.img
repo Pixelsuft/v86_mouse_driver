@@ -1,0 +1,70 @@
+ystem, please copy the contents of the SNA directory to your snaroot\SYSTEM directory after you have upgraded your system to Windows NT version 4.0.
+
+The contents of the SNA directory are:
+IBMSDLC.DLLIBMX25.DLLSNADLC.DLL
+
+Microsoft recommends that you use SNA Server version 2.1 or 2.11 on all Windows NT version 4.0 systems. Please refer to the MSSNA forum on CompuServe for any additional updates or notices.
+
+Microsoft SQL Server for Windows 
+If you create a new window using Tools/Windows/Form Window, Tools/Windows/Table Window, Tools/Windows/DialogBox, or Tools/Windows/MDIWindow, the form window box shows the title “frm1 tled” instead of “frm1 (untitled).”
+
+At the end of installation, always choose Replace Existing Program Group, even on the first installation. If you choose to create a new program group, any name used will be considered invalid.
+
+Report templates which are created or modified using Report Windows cannot be saved. The application reports it cannot create temporary files. This problem is fixed in Windows SQL Server 6.0.
+
+Microsoft Systems Management Server
+The following notes apply to Microsoft Systems Management Server (SMS) version 1.1 under Windows NT Workstation and Windows NT Server version 4.0.
+
+Using Automation to Upgrade Clients to Windows NT version 4.0
+Sending Windows NT version 4.0 unattended upgrade jobs using SMS version 1.1 requires two new PDF files (one for Windows NT Workstation and one for Windows NT Server), and an updated wrapper file. The wrapper files are operating system and platform specific.
+
+Wrapper filename
+Operating system and hardware platform
+
+Ntencap.exe
+Windows NT on x86-compatible computers
+Ntencapa.exe
+Windows NT on Digital Alpha computers
+Ntencapm.exe
+Windows NT on MIPS computers
+W16ntupg.exe
+Windows 3.1 and Windows for Workgroups
+Dosntupg.exe
+MS-DOS
+
+Starting SMS Administrator Console
+For this release, for server users, the SMS Administrator Console shortcut installed in the Start/Programs/SMS folder is not functional. You must either start SMS Administrator Console from the command line in a Command Prompt window or modify the shortcut path.
+
+To start SMS Administrator Console from the command line
+1. Click Start, point to Programs, and then click Command Prompt.
+2. Change to the drive SMS is installed on. 
+3. Change to the \sms\site.srv\xxx.bin folder, and then run SMS.EXE.
+
+To modify the SMS Administrator Console shortcut
+1. Click Start, point to Programs, and then click Explorer.
+2. From the %systemroot%\profiles\all users\start menu\programs folder, find the SMS Administrator Console shortcut.
+3. Right-click the SMS Administrator Console shortcut, and then click Properties.
+4. Click the Shortcut tab.
+5. Add cmd /c in front of the Target path in the shortcut.
+
+Installing SMS Network Monitor
+Do not install the SMS version of Network Monitor during Systems Management Server version 1.1 setup. After setup you can install the SMS version of Network Monitor from the BackOffice compact disc. 
+
+To install the SMS version of Network Monitor
+1. Click Start, point to Settings, and then click Control Panel.
+2. Double-click the Network icon, then click the Services tab.
+3. Click Add, the click Network Monitor Agent. 
+Windows NT setup starts.
+4. Setup will ask for the location of the file. Type the path to the BackOffice compact disc.
+
+Program Group Control Icon not Functional
+For the SMS client, the Program Group Control icon in the SMS folder is not functional in this release. Package shortcuts sent to users will either not appear or will fail to function properly.
+
+SMS Folder is Displayed on the Desktop at Startup
+For the SMS client, in this release, the SMS folder is displayed open on the desktop whenever the system is restarted.
+
+Microsoft Visual C++ version 1.52 
+This version of Visual C++ does not compile applications on RISC platforms.
+
+Microsoft Visual C++ 2.0 
+If you install Microsoft Visual C++® 2.0 (x86-based version) under Windows NT version 4.0, and attempt to run a Help file, the following error 

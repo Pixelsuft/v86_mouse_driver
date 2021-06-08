@@ -1,0 +1,196 @@
+e Type Objname)
+    (present Dev Type Objname _)
+)
+( (ifpresent upper Dev Dev Owner Objname)
+    (devIf Owner Dev _ Objname _)
+    (present Owner _ _ _)
+)
+
+( (ifbind Dev Method)
+    (devBind Dev _ _ _ Method)
+)
+( (ifbind Dev Method)
+    (devIf _ Dev _ _ Method)
+)
+
+
+( (ifusage Kind Usage)
+    (devType Kind Usage _ _)
+)
+( (ifusage Kind Usage)
+    (devIf Owner Kind _ _ _)
+    (devType Owner Usage _ _)
+)
+
+
+
+
+
+( (canbind X Y Xexcl Yexcl Value)
+    (iflower X Lower)
+    (ifupper Y Upper)
+    (printif (nl "Try: " X " binding to " Y))
+    (bindable Blower Bupper Xexcl Yexcl Value)
+    (printif (nl "Bind (L): is " Lower " derived from " Blower))
+    (devDerived Lower Blower)
+    (printif (nl "Bind (U): is " Upper " derived from " Bupper))
+    (devDerived Upper Bupper)
+    (printif ("<- Success!"))
+)
+
+
+
+( (bindpair Dev1 Dev2 (Dev1 Dev2 Excl1 Excl2 Value))
+    (ifpresent lower Dev1 Type1 _ _)
+    (ifpresent upper Dev2 Type2 _ _)
+    (not (eq Dev1 Dev2))
+    (canbind Type1 Type2 Excl1 Excl2 Value)
+    (printif (nl))
+)
+
+
+
+( (getbindings List)
+    (findall L (bindpair X Y L) List)
+)
+
+
+
+
+
+
+( (retractbindings)
+    (retract (binding _ _ _ _ _))
+    (fail)
+)
+
+( (assertbindings L)
+    (not (retractbindings))
+    (getbindings L)
+    (bindassert L)
+)
+( (bindassert () )
+)
+
+
+
+
+
+
+
+( (bindassert ((Bindfrom Bindto Exclfrom Exclto Value)|T) )
+    (assertz (binding Bindfrom Bindto Exclfrom Exclto Value))
+    (bindassert T)
+)
+
+( (createbindings)
+    (assertbindings L)
+)
+
+
+
+
+( (makebindstrings)
+    
+
+
+
+
+
+    
+    (collapseDuplicateTypes)
+
+    
+    (not (userExtensions createbindings))
+    (createbindings)
+
+    
+    (not (userExtensions pruneexclusive))
+    (prunexclusive)
+
+    
+    (not (userExtensions allbindstrings))
+    (allbindstrings)
+
+    
+    (explodeDuplicateTypes)
+
+    (not (userExtensions endofquery))
+    (tracestat)
+)
+
+
+
+
+
+   
+( (collapseDuplicateTypes)
+    (not (determineCollapsibleTypes))
+)
+
+   
+   
+   
+( (determineCollapsibleTypes)
+
+    
+    
+    (present ProductId Typename Objectname Registrykey)
+    (present ProductId2 Typename Objectname2 Registrykey2)
+    (not (eq ProductId ProductId2))
+    (not (collapsibleType Typename _ _ _))
+
+    
+    (string_from Typename StrTypename)
+    (string_concat StrTypename "Dummy" StrDummyTypename)
+    (atom_from StrDummyTypename DummyTypename)
+    (string_from Objectname StrObjname)
+    (string_concat StrObjname "_DummyObjName" DummyObjectName)
+    (string_concat "Dummy_Reg_Key_for_" StrObjname DummyRegKey)
+
+    
+    (assertz (collapsibleType Typename DummyTypename DummyObjectName DummyRegKey))
+
+    
+    (not (collapseDupType Typename DummyTypename))
+
+    
+    (assertz (present DummyTypename Typename DummyObjectName DummyRegKey))
+    (fail)
+)
+
+   
+( (collapseDupType Typename PseudoTypeName)
+    (present ProductId Typename Objectname Registrykey)
+    (assertz (dupType PseudoTypeName ProductId Typename Objectname Registrykey))
+    (retract (present ProductId Typename Objectname Registrykey))
+    (fail)
+)
+
+   
+( (explodeDuplicateTypes)
+    (not (explodeEachType))
+)
+   
+( (explodeEachType)
+    (collapsibleType RealTypeName DummyTypeName DummyObjectName DummyRegistryKeyName)
+    (explodeDup DummyTypeName DummyObjectName)
+)
+
+   
+   
+( (explodeDup Typename Textname)
+    (bindstring Owner Interface Objectname PathAtomList BindString ExportString)
+    (member Typename PathAtomList)
+    (retract (bindstring Owner Interface Objectname PathAtomList BindString ExportString))
+    (not (assertOnePer Typename Textname Owner Interface Objectname PathAtomList BindString ExportString))
+    (fail)
+)
+
+   
+   
+( (assertOnePer Typename Textname Owner Interface Objectname PathAtomList BindString ExportString)
+    (dupType Typename ProductId RealType Objname Registrykey)
+    (list_subst Typename PathAtomList ProductId NewAtomList)
+    (string_subst Textname BindString Objname NewBindString)
+    (string_subst Textname ExportString Objn

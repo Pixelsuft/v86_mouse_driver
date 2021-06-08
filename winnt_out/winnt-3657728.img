@@ -1,0 +1,110 @@
+ndif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) != {}
+        set cardlist = $($R1)
+    endif
+    Shell $(UtilityInf), MCAFindBus, *($(p189x_1BYTE),2), *($(p189x_2BYTE),2)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) != {}
+        ifstr(i) $(cardlist) != {}
+            set cardlist = >($(cardlist),$($R1))
+        else
+            set cardlist = $($R1)
+        endif
+    endif
+    Shell $(UtilityInf), MCAFindBus, *($(p189x_1BYTE),3), *($(p189x_2BYTE),3)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr $($R0) != "NO_ERROR"
+        set Error = $($R0)
+        goto fatal
+    endif
+    ifstr(i) $($R1) != {}
+        ifstr(i) $(cardlist) != {}
+            set cardlist = >($(cardlist),$($R1))
+        else
+            set cardlist = $($R1)
+        endif
+    endif
+    ifstr(i) $(cardlist) == {}
+        set Error = $(CANNOT_FIND_ANY_CARD)
+        set CommonStatus = STATUS_USERCANCEL
+        set from = "end"
+        goto nonfatal
+    endif
+    set AdapterList = $(cardlist)
+    ifint $(OldVersionExisted) == $(FALSE)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+           Ifstr(i) $(DoCopy) == "YES"
+              Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+              Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  Goto ShellCodeError
+              Else-Ifstr(i) $($R0) == STATUS_FAILED
+                  Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                  ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                      goto ShellCodeError
+                  endif
+                  set Error = $($R0)
+                  Goto fatal
+              Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                  Goto successful
+              Endif
+              Set SrcDir = $($R1)
+           Endif
+           install "Install-Option"
+           ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+              Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+              ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  goto ShellCodeError
+              endif
+              set Error = $($R0)
+              goto fatal
+           endif
+        endif
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), +
+            $(ProductSoftwareName), +
+            $(ProductSoftwareTitle), $(STF_CONTEXTINFNAME), +
+            $(ProductSoftwareImagePath), "kernel", "NDIS", {}, "",+
+            $(NetEventDLL)
+        Set OEM_ABANDON_SOFTWARE = TRUE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey      = $($R1)
+        Set SoftNetRuleKey      = $($R2)
+        Set SoftServiceKey      = $($R3)
+        Set SoftParameterKey    = $($R4)
+        Set SoftLinkageKey      = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+{MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+{MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+{Title,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareTitle)},+
+{Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescription)},+
+{ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareName)},+
+{InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+       

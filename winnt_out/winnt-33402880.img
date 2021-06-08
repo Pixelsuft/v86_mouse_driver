@@ -1,0 +1,54 @@
+JETCONV process in the Event Viewer.
+
+In case this automatic procedure of converting databases fails for some reason (as can be determined from the event logs), the database that could not be converted can be converted manually using systemroot\system32\upg351db.exe. At the command line, type upg351db -? for instructions.
+
+· You cannot convert the new database back to the previous database format.
+
+· The converted database will not work with Windows NT version 3.51 or earlier services.
+
+· The new database engine uses log files that have the prefix J50.
+
+
+Dial-Up Networking
+Windows NT Remote Access Service (RAS) includes the following applications:
+
+· Dial-Up Networking is the client version of RAS and is used to connect to dial-up servers. The Dial-Up Networking icon is located in the My Computer dialog box and in the Accessories folder on the Start menu.
+· Dial-Up Networking Monitor, used to monitor connections and devices, is located in Control Panel.
+· Remote Access Admin, used to monitor remote users connecting to a RAS server, is located in the Administrative Tools folder on the Start menu.
+
+Dial-Up Networking Notes
+
+· If a Dial-Up Networking client connects to a RAS server that is using older RAS framing (a Windows NT version 3.1 or Windows for Workgroups version 3.11 RAS server), the client will report 0 percent software compression for throughput. Although compression is actually taking place, it is not being measured correctly in this release.
+
+· In Dial-Up Networking, Null Modem support is now called Dial-Up Networking Serial Cable between 2 PCs. The functionality is the same as Null Modem. 
+
+To use a cable to connect two computers,  in the Network icon in Control Panel, in the Services tab select Remote Access Service and click Properties. Click Add, and then click Install Modem. In the Install New Modem dialog box, in the Manufacturers box select Standard Modem Types, select Dial-Up Networking Serial Cable between 2 PCs in the Models box, and then click OK.
+
+· In Dial-Up Networking, in the Script tab, the Pop up a terminal window option works only for serial ports. For instance, if you select this option and then dial over an ISDN line, you will not see the after dial Terminal dialog.
+
+· In Dial-Up Networking, identical phone numbers for multiple devices may be set in one step. To do this, in the Edit Phonebook Entry dialog box, in the Basic tab, select Multiple Lines in the Dial using box and click Configure. In the Multiple Line Configuration dialog box, hold the SHIFT key to select multiple devices and click Phone numbers. The new phone numbers you add will be applied to all the selected devices.
+
+· In chapter 4 "Routing in Windows NT" in the Networking Supplement, the following parameters in the section "Registry Parameters for IP RIP" have an incorrect range. The upper end of the range should be 86400 seconds, not 884400 seconds.
+  
+	MaxTriggeredUpdateFrequency
+	Data type = REG_DWORD
+	Range = 1 second - 86400 seconds (24 hours)
+	Default = 5 seconds
+	The minimum number of seconds that must elapse between triggered updates.
+
+	UpdateFrequency
+	Data type = REG_DWORD
+	Range = 15 seconds - 86400 seconds (24 hours)
+	Default = 30 seconds
+	The number of seconds between periodic updates which contain the entire 		routing table.
+
+· The following is a new PPP parameter for appendix A "RAS Registry Values" in the Networking Supplement.
+The Registry path for this entry is the following:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasMan\PPP
+	DefaultCallbackDelay	
+	Data type = REG_DWORD
+	Range = 0 – 255 seconds
+	Default: 12 (if the parameter is not in the Registry)
+	Used on RAS clients to tell the RAS server's modem how many seconds to wait 		before calling back.
+
+· If a Dial-Up Networking client is multihomed (it is using IP on the LAN interface and the Dial-Up Networking link), the client may not be able to communicate with all computers on the LAN. In this case, the client can use the route command to add routes for the networks it cannot reach. For examp

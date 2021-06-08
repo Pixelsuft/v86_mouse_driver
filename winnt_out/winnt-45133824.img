@@ -1,0 +1,32 @@
+, 02, 02, 20,67,00,00, 00,00,00,00 ; CONNECT 26400 - Connection at 26400 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 28800/ARQ<cr><lf>", 1, 02, 02, 80,70,00,00, 00,00,00,00 ; CONNECT 28800 - Connection at 28800 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 38400/ARQ<cr><lf>", 1, 02, 02, 00,96,00,00, 00,00,00,00 ; CONNECT 38400 - Connection at 38400 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 57600/ARQ<cr><lf>", 1, 02, 02, 00,E1,00,00, 00,00,00,00 ; CONNECT 57600 - Connection at 57600 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 115200/ARQ<cr><lf>", 1, 02, 02, 00,C2,01,00, 00,00,00,00 ; CONNECT 115200 - Connection at 115200 bps error correction
+HKR, Responses, "<cr><lf>CONNECT/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00 ; CONNECT - Connection at 300 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 300/REL<cr><lf>", 1, 02, 02, 2C,01,00,00, 00,00,00,00 ; CONNECT - Connection at 300 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 0600/REL<cr><lf>", 1, 02, 02, 58,02,00,00, 00,00,00,00 ; CONNECT 600 - Connection at 600 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 1200/REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00 ; CONNECT 1200 - Connection at 1200 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00 ; CONNECT 2400 - Connection at 2400 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 4800/REL<cr><lf>", 1, 02, 02, C0,12,00,00, 00,00,00,00 ; CONNECT 4800 - Connection at 4800 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 7200/REL<cr><lf>", 1, 02, 02, 20,1C,00,00, 00,00,00,00 ; CONNECT 7200 - Connection at 7200 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 9600/REL<cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00 ; CONNECT 9600 - Connection at 9600 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 12000/REL<cr><lf>", 1, 02, 02, 00,2E,00,00, 00,00,00,00 ; CONNECT 12000 - Connection at 12000 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 14400/REL<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00 ; CONNECT 14400 - Connection at 14400 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 16800/REL<cr><lf>", 1, 02, 02, A0,41,00,00, 00,00,00,00 ; CONNECT 16800 - Connection at 16800 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 19200/REL<cr><lf>", 1, 02, 02, 00,4B,00,00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 21600/REL<cr><lf>", 1, 02, 02, 60,54,00,00, 00,00,00,00 ; CONNECT 21600 - Connection at 21600 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 24000/REL<cr><lf>", 1, 02, 02, C0,5D,00,00, 00,00,00,00 ; CONNECT 24000 - Connection at 24000 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 26400/REL<cr><lf>", 1, 02, 02, 20,67,00,00, 00,00,00,00 ; CONNECT 26400 - Connection at 26400 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 28800/REL<cr><lf>", 1, 02, 02, 80,70,00,00, 00,00,00,00 ; CONNECT 28800 - Connection at 28800 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 38400/REL<cr><lf>", 1, 02, 02, 00,96,00,00, 00,00,00,00 ; CONNECT 38400 - Connection at 38400 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 57600/REL<cr><lf>", 1, 02, 02, 00,E1,00,00, 00,00,00,00 ; CONNECT 57600 - Connection at 57600 bps error correction
+HKR, Responses, "<cr><lf>CONNECT 115200/REL<cr><lf>", 1, 02, 02, 00,C2,01,00, 00,00,00,00 ; CONNECT 115200 - Connection at 115200 bps error correction
+
+HKR, Responses, "<cr><lf>CONNECT/MNP<cr><lf>",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/MNP<cr><lf>",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/MNP<cr><lf>",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/MNP<cr><lf>",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1

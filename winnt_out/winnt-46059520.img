@@ -1,0 +1,143 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1998 Microsoft Corporation \\MS-IRL\\
+; Manufacturer:   TRON B.V. Datacommunicatie
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem1% = Modem1, Tron_Modem1
+%Modem2% = Modem2, UNIMODEMFD6F6F92
+%Modem3% = Modem3, UNIMODEMCA75DE31
+%Modem4% = Modem4, UNIMODEM4261CAA1
+%Modem5% = Modem5, Tron_Modem5
+%Modem6% = Modem6, Tron_Modem6
+%Modem7% = Modem7, Tron_Modem7
+%Modem8% = Modem8, UNIMODEM1244D510
+%Modem9% = Modem9, UNIMODEM24451AF7
+%Modem10% = Modem10, UNIMODEM1986E975
+
+; Installation sections
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External, 2400, 144
+; top speed 144
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, External, 2400, 144, 576
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, External, 2400, 144, 576
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, External, 2400, 144, 576
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, External, 2400, 144, 576
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, External, 2400, 144, 576 , 1152
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, External,  2400, 144, 576 , 1152
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, External, 2400
+;2400 top speed
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, External, 2400, 144, 576 , 1152
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, External, 2400, 144, 576 , 1152
+
+
+; AddReg sections
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 40,38,00,00, 60,09,00,00
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,E1,00,00, 40,38,00,00
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,E1,00,00, 40,38,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,E1,00,00, 40,38,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, B7,03,00,00, 00,E1,00,00, 40,38,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,C2,01,00, 00,4B,00,00
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,C2,01,00, 00,4B,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F0,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,C2,01,00, 80,70,00,00
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, F7,03,00,00, 00,C2,01,00, 80,70,00,00
+
+; Strings
+
+[Strings]
+
+Mfg = "TRON"
+
+; Model strings
+
+Modem1="TRON FAXMODEM"
+Modem2="TRON QuaTron FM144"
+Modem3="TRON QuaTron FM14.4"
+Modem4="TRON DF14.4"
+Modem5="TRON QuaTron FMV14.4"
+Modem6="TRON VDF14.4"
+Modem7="TRON DF19.2"
+Modem8="TRON DF24.0"
+Modem9="TRON QuaTron FM28.8"
+Modem10="TRON DF28.8"
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init,      1,, "AT<cr>"
+
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[MfgAddReg]
+HKR, Init,      1,, "AT<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Answer, 1,, "ATA<cr>"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Init,      2,, "AT &F E0 V1 &C1 &D2 S0=0 W2 S95=47<cr>"
+
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ";"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, 

@@ -1,0 +1,99 @@
+_NameOfService = $($0)
+    Set UW_Adding        = $($1)
+    Set UW_KeyServices   = $(KeyNull)
+    Set UW_KeyParameters = $(KeyNull)
+    Shell "", BaseServiceKey
+    Set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       Goto U_W_Return
+    endif
+    Set UW_KeyServices = $($R1)
+    OpenRegKey $(UW_KeyServices) "" "WinSock\Parameters" $(MAXIMUM_ALLOWED) UW_KeyParameters
+    Ifstr(i) $(UW_KeyParameters) == $(KeyNull)
+        set UW_KeyWinSock = $(KeyNull)
+        set UW_RestoreKeys = FALSE
+        set UW_TempKeyName = ""
+        set UW_TempKey = $(KeyNull)
+        OpenRegKey $(UW_KeyServices) "" "WinSock" $(MAXIMUM_ALLOWED) UW_KeyWinSock
+        Ifstr(i) $(UW_KeyWinSock) != $(KeyNull)
+            set UW_RestoreKeys = TRUE
+            set UW_TempKeyName = "WinSockMergeVolatile"
+            Shell "", CopyRegTreeAs $(UW_KeyWinSock) $(UW_KeyServices) $(UW_TempKeyName) 
+            set UW_TempKey = $($R1)
+            CloseRegKey $(UW_KeyWinSock)    
+            DeleteRegTree $(UW_KeyServices) "WinSock"
+        Endif
+        Debug-Output "UTILITY.INF:  Create WinSock Service"
+        Shell "", CreateService, "WinSock", "", "", "adapter", "", {}
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "UTILITY.INF: CreateService for WinSock returned "$(RegistryErrorIndex)
+            ifstr(i) $(UW_RestoreKeys) == TRUE
+                CloseRegKey $(UW_TempKey) 
+            Endif
+            Goto U_W_Return
+        Endif
+        set UW_KeyWinSock =  $($R1)
+        Set UW_KeyParameters = $($R2)
+        ifstr(i) $(UW_RestoreKeys) == TRUE
+            Shell "", CopyRegTreeAs $(UW_TempKey) $(UW_KeyWinSock) ""
+            CloseRegKey $(UW_TempKey) 
+            DeleteRegTree $(UW_KeyServices) "WinSockMergeVolatile"
+        Endif
+        CloseRegKey $(UW_KeyWinSock)
+        CloseRegKey $($R3)
+    Else
+        Debug-Output "UTILITY.INF:  Open WinSock Service"
+    Endif
+    Ifstr(i) $(UW_KeyParameters) == $(KeyNull)
+        Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+        Goto U_W_Return
+    Endif
+    GetRegValue $(UW_KeyParameters) "Transports" UW_TransportsValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set UW_TransportsList = *($(UW_TransportsValue), 4)
+    Else
+        Set UW_TransportsList = {}
+    Endif
+    Ifstr(i) $(UW_TransportsList) == ""
+        Set UW_TransportsList = {}
+    Endif
+    Ifstr(i) $(UW_Adding) == "TRUE"
+        Set UW_TransportsList = >($(UW_TransportsList), $(UW_NameOfService))
+    Else
+        Set UW_NewList = {}
+        ForListDo $(UW_TransportsList)
+            Ifstr(i) $($) != $(UW_NameOfService)
+                Set UW_NewList = >($(UW_NewList), $($))
+            Endif
+        EndForListDo
+        Set UW_TransportsList = $(UW_NewList)
+    Endif
+    SetRegValue $(UW_KeyParameters) {Transports, $(NoTitle), $(!REG_VT_MULTI_SZ), $(UW_TransportsList)}
+    Debug-Output "UTILITY.INF:  WinSock transport info added/deleted for "$(UW_NameOfService)
+U_W_Return = +
+    Ifstr $(UW_KeyParameters) != $(KeyNull)
+        CloseRegKey $(UW_KeyParameters)
+    Endif
+    Ifstr $(UW_KeyServices) != $(KeyNull)
+        CloseRegKey $(UW_KeyServices)
+    Endif
+    Return $(RegistryErrorIndex)
+[UpdateWinsockMappings]
+    read-syms InitBaseVars
+    Set AW_NameOfService = $($0)
+    Set AW_DLLName       = $($1)
+    Shell "", BaseServiceKey
+    Set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       Goto M_W_Return
+    endif
+    OpenRegKey $($R1) "" $(AW_NameOfService)"\Parameters\Winsock" $(MAXIMUM_ALLOWED) KeyWinsock    
+    Ifstr(i) $(KeyWinsock) == ""
+       Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       Goto M_W_Return
+    Endif
+    Set FLibraryErrCtl = 1
+    LibraryProcedure MW_MapResult $(!NCPA_HANDLE), CPlSetup, $(!STF_HWND), WINSOCKMAP, $(AW_DLLNa

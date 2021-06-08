@@ -1,0 +1,111 @@
+ATUS_SUCCESSFUL
+        Goto adaptersetup
+    Endif
+    Set DetectedParams = $($R1)
+    Debug-Output "OEMNADWD.INF: Calling Param_SetDefaults to merge detected params"
+    Shell $(ParamInf) Param_SetDefaults $(DetectedParams)
+    goto adaptersetup
+configureadapter = +
+    Ifstr $(KeyProduct) == $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNull)
+            set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+            Debug-Output "Cannot find component product key"
+            goto fatalregistry
+        Endif
+    Endif
+    Debug-Output "INF: Shelling to FindService"
+    Shell $(UtilityInf) FindService, $(KeyProduct)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "INF: FindService shell failure"
+        Goto ShellCodeError
+    Endif
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "INF: FindService Shell error: "$($R0)
+        Goto fatalregistry
+    endif
+    set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Ifstr $(KeyParameters) == $(KeyNull)
+        set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+        Debug-Output "Cannot find component service"
+        goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE )
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+        set ValueItem = $($)
+        set ValueName = *($(ValueItem),1)
+        set ValueData = *($(ValueItem),4)
+        Ifstr(i) $(ValueName) == "InterruptNumber"
+            set IRQLevel = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "IOBaseAddress"
+            set IOBaseValue = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "MemoryMappedBaseAddress"
+            set WinBaseValue = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusType"
+            set BusInterfaceType = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumber = $(ValueData)
+        endif
+    EndForListDo
+adaptersetup =+
+    Shell $(ParamInf) Param_ParameterConfidence
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "OEMNADWD.INF: parameter confidence too low to bypass configuration"
+        Goto adapteroptions
+    Endif
+    Ifstr(i) $(DetectedCard) == TRUE
+        Ifstr(i) $(!STF_INSTALL_MODE) != CUSTOM
+            set BusInterfaceType = *($(!STF_NCDETINFO),5)
+            set BusNumber = *($(!STF_NCDETINFO),6)
+            Goto adapterverify
+        Endif
+    Endif
+    goto adapteroptions
+adapteroptions = +
+    set from = adapteroptions
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusInterfaceType = $(!AutoNetInterfaceType)
+        else
+            set BusInterfaceType = 1    
+        endif
+        ifstr(i) $(!AutoNetBusNumber) != ""
+            set BusNumber = $(!AutoNetBusNumber)
+        else
+            set BusNumber = 0
+        endif
+        goto adapterverify
+    endif
+    set WinBaseAddress = *($(WinBaseAddressHexList), ~($(WinBaseAddressDecList),+
+        $(WinBaseValue)))
+    set IOBaseAddress = *($(IOBaseAddressHexList), ~($(IOBaseAddressDecList),+
+        $(IOBaseValue)))
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    ui start "InputDlg"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set IRQLevel = $(Combo1Out)
+        set WinBaseAddress = $(Combo2Out)
+        set IOBaseAddress = $(Combo3Out)
+        ui pop 1
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        set CommonStatus = STATUS_USERCANCEL
+        Debug-Output "Action: exit. Bye."
+        ui pop 1
+        goto end
+    else
+        ui pop 1
+        Debug-Output "Action: unknown. Bye."
+        goto end
+    endif
+    set WinBaseValue = *($(WinBaseAddressDecList), ~($(WinBaseAddressHexList),+
+        $(WinBaseAddress)))
+    set IOBaseValue = *($(IOBaseAddressDecList), ~($(IOBaseAddressHexList),+
+        $(IOBaseAddress)))
+    ifstr(i) $(!STF_NCDETINFO) == {}
+ 

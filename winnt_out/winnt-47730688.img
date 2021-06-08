@@ -1,0 +1,129 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: ATI Technologies Inc.
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+
+%Modem7% = Modem7, "PCMCIA\ATI__-14.4_MODEM/FAX_-D904" 
+%Modem7% = Modem7, UNIMODEMD9C98361            
+%Modem6% = Modem6, UNIMODEM27848EEB            
+%Modem6% = Modem6, UNIMODEM34488C84
+%Modem6% = Modem6, UNIMODEM236D02C9
+%Modem5% = Modem5, ATI_Modem5, UNIMODEMF7782786
+%Modem4% = Modem4, ATI_Modem4, UNIMODEMF7782786            
+%Modem3% = Modem3, ATI_Modem3, UNIMODEM3ABE6861            
+%Modem3% = Modem3, UNIMODEMB79F1713
+%Modem1% = Modem1, ATI_Modem1, UNIMODEM3ABE6861            
+
+[Modem7]    ; ATI 14400 ETC-EXPRESS
+AddReg=All, MfgAddReg, Modem7.AddReg, PCMCIA
+
+[Modem6]    ; ATI 9600 ETC-E
+AddReg=All, MfgAddReg, Modem6.AddReg, EXTERNAL
+
+[Modem5]    ; ATI 14400 ETC-E
+AddReg=All, MfgAddReg, Modem5.AddReg, EXTERNAL
+
+[Modem4]    ; ATI 14400 ETC-I
+AddReg=All, MfgAddReg, Modem4.AddReg, INTERNAL
+
+[Modem3]    ; ATI 19200 ETC-E
+AddReg=All, MfgAddReg, Modem3.AddReg, EXTERNAL
+
+[Modem1]    ; ATI 19200 ETC-I
+AddReg=All, MfgAddReg, Modem1.AddReg, INTERNAL
+
+; AddReg sections
+
+[Modem7.AddReg] ; ATI 14400 ETC-EXPRESS
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init, 2,, "AT&FE0V1S95=47<cr>"
+HKR,, Reset,, "AT&F<cr>"
+HKR, Settings, Modulation_CCITT,, "B0"    
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, Compression_On,, "%%C3"      
+HKR, Settings, Compression_Off,, "%%C0"     
+HKR, Settings, ErrorControl_On,, "&Q5"           
+
+[Modem6.AddReg] ; ATI 9600 ETC-E
+
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, f7,03,00,00, 00,e1,00,00, 80,25,00,00
+
+HKR, Init, 2,, "AT&F2E0W2<cr>"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem5.AddReg] ; ATI 14400 ETC-E
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem4.AddReg] ; ATI 14400 ETC-I
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem3.AddReg] ; ATI 19200 ETC-E
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 00,4b,00,00
+
+[Modem1.AddReg] ; ATI 19200 ETC-I
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 00,4b,00,00
+
+[Strings]
+Mfg = "ATI Technologies Inc."
+
+; Model strings
+
+Modem7="ATI 14400 ETC-EXPRESS"
+Modem6="ATI 9600 ETC-E"
+Modem5="ATI 14400 ETC-E"
+Modem4="ATI 14400 ETC-I"
+Modem3="ATI 19200 ETC-E"
+Modem1="ATI 19200 ETC-I"
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "0<cr>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "2<cr>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "4<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddReg]
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Init, 2,, "AT&F2E0S95=47<cr>"     
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+HKR,, Reset,, "AT&F2<cr>"            
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HK

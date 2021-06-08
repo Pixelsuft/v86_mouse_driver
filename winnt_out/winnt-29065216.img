@@ -1,0 +1,64 @@
+                                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                                    Debug-Output "OEMNXPTC.INF: ShellCode error: cannot write default subnet mask error."
+                                    goto ShellCodeError
+                                endif
+                            else
+                                ifstr(i) $(DefaultIPAddress) != ""
+                                    set IPAddressInfo = {}
+                                    GetRegValue $(TCPIPKey) "IPAddress" IPAddressInfo
+                                    set IPAddress = *($(IPAddressInfo), 4)
+                                    ifstr(i) $(IPAddress) == ""
+                                        set NewValueList = {{IPAddress,$(NoTitle),$(!REG_VT_MULTI_SZ),{$(DefaultIPAddress)}}}
+                                        Shell  $(UtilityInf), AddValueList, $(TCPIPKey), $(NewValueList)
+                                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                                            Debug-Output "OEMNXPTC.INF: ShellCode error: cannot write default subnet mask error."
+                                            goto ShellCodeError
+                                        endif
+                                    endif
+                                endif
+                                ifstr(i) $(DefaultSubnetMask) != ""
+                                    set SubnetMasInfo = {}
+                                    GetRegValue $(TCPIPKey) "SubnetMask" SubnetMaskInfo
+                                    set SubnetMask = *($(SubnetMaskInfo), 4)
+                                    ifstr(i) $(SubnetMask) == ""
+                                        set NewValueList = {{SubnetMask,$(NoTitle),$(!REG_VT_MULTI_SZ),{$(DefaultSubnetMask)}}}
+                                        Shell  $(UtilityInf), AddValueList, $(TCPIPKey), $(NewValueList)
+                                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                                            Debug-Output "OEMNXPTC.INF: ShellCode error: cannot write default subnet mask error."
+                                            goto ShellCodeError
+                                        endif
+                                    endif
+                                endif
+                                ifstr(i) $(DefaultGateway) != ""
+                                    GetRegValue $(TCPIPKey) "DefaultGateway" GatewayInfo
+                                    set Gateway = *($(GatewayInfo), 4)
+                                    ifstr(i) $(Gateway) == ""
+                                        set NewValueList = {{DefaultGateway,$(NoTitle),$(!REG_VT_MULTI_SZ),{$(DefaultGateway)}}}
+                                        Shell  $(UtilityInf), AddValueList, $(TCPIPKey), $(NewValueList)
+                                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                                            Debug-Output "OEMNXPTC.INF: ShellCode error: cannot write default subnet mask error."
+                                            goto ShellCodeError
+                                        endif
+                                    endif
+                                endif
+                            endif
+                        endif
+                    endif
+                    CloseRegKey $(TCPIPKey)
+                endif
+                CloseRegKey $(ServiceParamKey)
+                set-add CardCount = $(CardCount),1
+            Endif
+        EndForListDo
+        ifstr(i) $(CardList) != ""
+            ifstr(i) $(!NTN_InstallMode) == bind
+                set FLibraryErrCtl = 1
+                LibraryProcedure ResultList, $(!TCPCFG_HANDLE), TcpCfgCheck
+                set FLibraryErrCtl = 0
+                Set Result = *($(ResultList),1)
+                ifint $(Result) == 0
+                    Debug-Output "OEMNXPTC.INF:  reconfiguration not required"
+                    set CommonStatus = STATUS_USERCANCEL
+                    goto checkBootp
+                else 
+     

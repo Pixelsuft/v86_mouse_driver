@@ -1,0 +1,118 @@
+[Identification]
+    OptionType = NetService
+[Options]
+    NWWKSTA
+[FileConstants]
+UtilityInf          = "UTILITY.INF"
+subroutineinf       = "SUBROUTN.INF"
+SoftwareType        = "service"
+Exit_Code           = 0
+NetwareEventDLL     = "%SystemRoot%\System32\nwevent.dll"
+Manufacturer        = "Microsoft"
+ProductMajorVersion = "4"
+ProductMinorVersion = "0"
+ProductVersion      = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductOpSupport    = 132 
+ProductNWWKSTAName  = "NWCWorkstation"
+ProductNWWKSTAImagePath   = "%SystemRoot%\System32\services.exe"
+NetRuleNWWKSTAType  = "nwWsta nwcWorkstation"
+NetRuleNWWKSTAClass = {"nwcWorkstation basic"}
+NetRuleNWWKSTABindable    = {"nwcWorkstation nwlinkipxTransport non non 100"}
+NetRuleNWWKSTAUse   = $(SoftwareType)" no no"
+NetRuleNWWKSTABindForm    = """NwcWorkstation"" yes yes container"
+ProductNWRDRName    = "NwRdr"
+ProductNWRDRImagePath     = "\SystemRoot\System32\drivers\nwrdr.sys"
+ProductProviderImagePath = "%SystemRoot%\System32\nwprovau.dll"
+ProviderName        = $(ProductNWWKSTAName)
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(Product$(Option)Name)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)"\"$(Product$(Option)Name)"\Parameters"
+LSAKeyName      = "System\CurrentControlSet\Control\LSA"
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[DetectDiskSpace]
+    VolumeList      = {} ? $(!LIBHANDLE) GetHardDriveLetters
+    VolumeFreeList  = {} ? $(!LIBHANDLE) GetHardDriveFreeSpace
+    VolumeFSList    = {} ? $(!LIBHANDLE) GetHardDriveFileSystems
+[DetectSystemMemory]
+    SystemMemory    = "" ? $(!LIBHANDLE) GetMemorySize
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    ifstr(i) $(!STF_PRODUCT) == "WINNT"
+        set OptionTextList = ^(OptionsWINNTText$($0), 1)
+    else
+        set OptionTextList = ^(OptionsLANMANNTText$($0), 1)
+    endif
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    Debug-Output "OEMNSVNW.INF: STF_CWDDIR is: "$(!STF_CWDDIR)
+    Debug-Output "OEMNSVNW.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    set-subst LF = "\n"
+    set-subst CR = "\r"
+    ifstr(i) $(!STF_PRODUCT) == "WINNT"
+        read-syms Workstation$($0)
+    else
+        read-syms Gateway$($0)
+    endif
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_Origination) == "NCPA"
+        set Continue = $(OK)
+    endif
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    detect DetectSystemMemory
+    detect DetectDiskSpace
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        set OEM_ABAND

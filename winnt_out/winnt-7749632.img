@@ -1,0 +1,43 @@
+es, "7<cr>",       1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY
+HKR, Responses, "8<cr>",       1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+HKR, Responses, "<cr><lf>PROTOCOL: MNP<cr><lf>",           1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP1<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP2<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP3<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP4<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: NONE<cr><lf>",           1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM<cr><lf>",           1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT<cr><lf>",            1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT - CELLULAR<cr><lf>", 1, 01, 0a, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL:ALT<cr><lf>" ,            1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION :CLASS5<cr><lf>" ,    1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42BIS<cr><lf>",    1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION V.42BIS<cr><lf>" ,    1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: MNP5<cr><lf>",       1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION NONE<cr><lf>" ,       1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: NONE<cr><lf>" ,      1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42bis<cr><lf>",    1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42 bis<cr><lf>",   1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: ADC",                1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",                     1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",               1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",              1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIAL TONE<cr><lf>",             1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",                     1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",                1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>FAX<cr><lf>",                      1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATA<cr><lf>",                     1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NUMBER DELAYED:TIMER<cr><lf>",     1, 1D, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NUMBER LOCKED OUT<cr><lf>",        1, 1C, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CALL LOCKED:BLACKLISTED<cr><lf>",  1, 1C, 00, 00,00,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>DALAYED<cr><lf>",                  1, 1D, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BLACKLISTED<cr><lf>",              1, 1C, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>",                 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT<cr><lf>",                   1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT/ARQ<cr><lf>",               1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT/REL<cr><lf>",               1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT/MNP<cr><lf>",               1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT/LAP-M<cr><lf>",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT/V42BIS<cr><lf>",            1, 02, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 300<cr><lf>",               1, 02, 00, 2C,01,00,00, 00

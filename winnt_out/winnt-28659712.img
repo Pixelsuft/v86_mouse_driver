@@ -1,0 +1,77 @@
+ndif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        ifstr(i) $(!STF_PRODUCT) == "WINNT"
+            set ProductOpSupport = $(ProductOpSupportWKSTA)
+        else
+            set ProductOpSupport = $(ProductOpSupportSERVER)
+        endif
+        SetRegValue $(KeyProduct) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSRVDescription)}
+        SetRegValue $(KeyProduct) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyProduct)
+        LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, "LanmanServer", $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "%SystemRoot%\System32\services.exe", "", "", "", "", ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\LanmanServer\Linkage" $(MAXIMUM_ALLOWED) KeyLinkage
+        set NewList = {}
+        GetRegValue $(KeyLinkage) "OtherDependencies" Dependencies
+        ifint $(RegLastError) == 0
+            set OldList = *($(Dependencies),4)
+            Debug-Output "Old value for OtherDependencies = "$(OldList)
+            ForListDo $(OldList)
+                ifstr(i) $($) != "Srv"
+                    set NewList = >($(NewList), $($))
+                Endif
+            EndForListDo
+        endif
+        SetRegValue $(KeyLinkage) {OtherDependencies, 0, $(!REG_VT_MULTI_SZ), $(NewList)}
+        Debug-Output "New value for OtherDependencies = "$(NewList)
+        CloseRegKey $(KeyLinkage)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\LanmanServer\Parameters" $(MAXIMUM_ALLOWED) KeyParameters
+        GetRegValue $(KeyParameters), "NullSessionPipes", PipesInfo
+        GetRegValue $(KeyParameters), "NullSessionShares", SharesInfo
+        set Pipes = *($(PipesInfo),4)
+        set Shares = *($(SharesInfo),4)
+        ForListDo {"COMNAP","COMNODE","SQL\QUERY","SPOOLSS","LLSRPC","EPMAPPER","LOCATOR"} 
+            Ifcontains(i) $($) NOT-IN $(Pipes)
+                ifstr(i) $(Pipes) == ""
+                    set Pipes = $($)
+                else
+                    set Pipes = >($(Pipes),$($))
+                endif
+            endif
+        EndForListDo
+        ForListDo {"COMCFG"} 
+            Ifcontains(i) $($) NOT-IN $(Shares)
+                ifstr(i) $(Shares) == ""
+                    set Shares = {$($)}
+                else
+                    set Shares = >($(Shares),$($))
+                endif
+            endif
+        EndForListDo
+        set NewValueList = {{NullSessionPipes,$(NoTitle),$(!REG_VT_MULTI_SZ), $(Pipes)},+
+                            {NullSessionShares,$(NoTitle),$(!REG_VT_MULTI_SZ),$(Shares)} }
+        Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        GetRegValue $(KeyParameters), "Disc", DiscInfo
+        Debug-Output "GetRegValue returned "$(RegLastError)
+        ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            GetRegValue $(KeyParameters), "AutoDisconnect", DisconnectInfo
+            Debug-Output "GetRegValue returned "$(RegLastError)
+            ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                SetRegValue $(KeyParameters) {AutoDisconnect,$(NoTitle),$(!REG_VT_SZ),*($(DiscInfo),4)}
+	    endif
+            DeleteRegValue $(KeyParameters) "Disc"
+        endif
+        GetRegValue $(KeyParameters), "Comment", CommentInfo
+        Debug-Output "GetRegValue returned "$(RegLastError)
+        ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            GetRegValue $(KeyParameters), "SrvComment", SrvCommentInfo
+            Debug-Output "GetRegValue returned "$(RegLastError)
+            ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+		SetRegValue $(KeyParameters) {SrvComment,$(NoTitle),$(!REG_VT_SZ),*($(CommentInfo),4)}
+	    endif
+	    DeleteRegValue $(KeyParameters) "Comment"
+        end

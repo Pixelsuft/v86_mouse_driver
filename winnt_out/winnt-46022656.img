@@ -1,0 +1,91 @@
+
+[Modem16.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 3b,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Cellular,, "&F1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "&F1\N2"
+HKR, Settings, DialSuffix,, ""
+
+[Modem15.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, DialSuffix,, ""
+
+[Modem14.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,f4,01,00, c0,5d,00,00
+HKR, Init, 2,, "AT&F&D2&C1S0=0E0V1*XC1*MM10<cr>"
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Settings, FlowControl_Off,, "*FL0"
+HKR, Settings, FlowControl_Hard,, "*FL3"
+HKR, Settings, FlowControl_Soft,, "*FL1"
+HKR, Settings, ErrorControl_Forced,, "*SM2"
+HKR, Settings, ErrorControl_On,, "*SM3"
+HKR, Settings, ErrorControl_Off,, "*SM0"
+HKR, Settings, Compression_On,, "*DC1"
+HKR, Settings, Compression_Off,, "*DC0"
+HKR, Settings, Blind_Off,, "*BD2S6=0"
+HKR, Settings, InactivityTimeout,, "*SI5S30=<#>"
+
+[Modem13.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00,00,00,00,00, 00,00,00,00, 37,00,00,00, 00,c2,01,00, 00,fa,00,00
+HKR, Init, 2,, "AT&F&C1&D2E0V1S0=0<cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem12.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem11.AddReg]  
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, DialSuffix,, ""
+
+[Modem9.AddReg]   
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 33,03,00,00, 00,96,00,00, 80,25,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,4b,00,00, 80,25,00,00
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, DialSuffix,, ""
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,03,00,00, 00,96,00,00, 00,96,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 32,03,00,00, 00,96,00,00, 00,96,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 3f,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N7&J2S7=90S10=60"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6&J2S7=90S10=60"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 3f,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N7&J2S7=90S10=60"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6&J2S7=90S10=60"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, DialSuffix,, ""
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Forced,, "\N5"
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,

@@ -1,0 +1,149 @@
+stuff
+novell    = ,"Novell NetWare"
+pathworks = ,"DEC PATHWORKS"
+10net     = ,"TCS 10Net"
+
+[3open.versions]
+xx010000="versions 1.X",,3open1
+00020000="version 2.0 Basic",,lmbasic
+01020000="version 2.0 Enhanced",,lmenh20
+
+[lantastic.versions]
+xx000000="versions below 3.0",,unsupported_net
+xx030000="versions 3.X",,lant3
+xx040000="versions 4.X",lantasti.386,lant4def,lant4
+
+[banyan.versions]
+xx000000="versions below 4.0",,unsupported_net
+xx040000="versions 4.0X",,ban4
+xx041000="version 4.1",z:\vines.drv,ban41def,ban41
+
+[pathworks.versions]
+xx000000="versions below 4.0",,unsupported_net
+xx040000="version 4.0",,dec4
+xx040100="version 4.1 or higher",,dec41
+
+[dlr.versions]
+xx000000="versions below 1.2",,unsupported_net
+00012000="without /API option",,dlr12
+01012000="version 1.2 or 1.3",,dlr12
+01013000="version 1.3 CSD 5015/5050",,dlr13csd
+01020000="version 2.0",,dlr20
+
+[pclp.versions]
+xx000000="all versions",,pclp
+
+[lanman.versions]
+xx000000="versions 1.X",,lmbasic
+00020000="version 2.0 Basic",,lmbasic
+01020000="version 2.0 Enhanced",,lmenh20
+00021000="version 2.1 Basic",,lmbasic21
+01021000="version 2.1 Enhanced",lanman21.drv,lmenh21nodrv,lmenh21
+
+[novell.versions]
+00000000="shell versions below 3.01",,unsupported_net
+00030100="shell versions below 3.21",,novell301
+00032100="shell versions 3.21 and above",,novell321
+00032600="shell versions 3.26 and above",,novell326
+
+[10net.versions]
+xx000000="versions below 4.1",,unsupported_net
+00041000="versions 4.1X",,10net41
+01041000="versions 4.1X with DCA 1M card",,10net41a
+xx042000="versions 4.2 and above",wtnet.drv,10net42def,10net42
+xx050000="version 5.0",wtnet.drv,10net42def,10net50
+
+[nonet_stuff]
+vxd=x:*dosnet,x:*vnetbios
+
+[msnet_stuff]
+driver=1:msnet.drv
+vxd=x:*dosnet,x:*vnetbios
+system.ini=386Enh,TimerCriticalSection,10000
+system.ini=386Enh,UniqueDOSPSP,TRUE
+system.ini=386Enh,PSPIncrement,5
+
+[3open1]
+driver=1:msnet.drv
+vxd=x:*vnetbios,x:*dosnet,2:lanman10.386
+warning=2
+system.ini=386Enh,TimerCriticalSection,10000
+system.ini=386Enh,UniqueDOSPSP,TRUE
+system.ini=386Enh,PSPIncrement=5
+
+[unsupported_net]
+warning=1
+
+[lant3]
+warning=2
+driver=1:msnet.drv
+vxd=x:*vnetbios,x:*dosnet
+system.ini=386Enh,INDOSPolling,TRUE
+system.ini=386Enh,EMMExclude,D800-DFFF
+system.ini=386Enh,NetHeapSize,76
+win.ini=Ports,LPT1.DOS,
+win.ini=Ports,LPT2.DOS,
+win.ini=Ports,LPT3.DOS,
+system.ini=386Enh,NetAsynchTimeout,50
+system.ini=386Enh,NetAsynchFallback,true
+
+[lant4]
+driver=1:msnet.drv
+system.ini=386Enh,network,"lantasti.386, *vnetbios"
+system.ini=386Enh,EMMExclude,D800-DFFF
+system.ini=386Enh,PerVMFiles,0
+system.ini=386Enh,NetHeapSize,64
+system.ini=386Enh,NetAsynchTimeout,50
+system.ini=386Enh,NetAsynchFallback,true
+
+[lant4def]
+warning=3
+driver=1:msnet.drv
+vxd=x:*vnetbios,x:*dosnet
+system.ini=386Enh,EMMExclude,D800-DFFF
+system.ini=386Enh,PerVMFiles,0
+system.ini=386Enh,NetHeapSize,64
+system.ini=386Enh,NetAsynchTimeout,50
+system.ini=386Enh,NetAsynchFallback,true
+
+[ban4]
+warning=2
+driver=1:msnet.drv
+vxd=x:*vnetbios,x:*dosnet,2:baninst.386
+system.ini=386Enh,TimerCriticalSection=5000
+system.ini=386Enh,UniqueDOSPSP,TRUE
+system.ini=386Enh,PSPIncrement,5
+
+[ban41]
+;; paths other than windows disk only works for sysdir or windir...
+sysdir=z:\vines.drv,z:\vvinesd.386
+sysdir=z:\vnsapi.dll,z:\rvnsapi.dll,z:\rvines.dll,z:\ddelib.dll
+system.ini=boot,network.drv,vines.drv
+system.ini=386Enh,network,"*vnetbios,*dosnet,vvinesd.386"
+system.ini=386Enh,TimerCriticalSection,5000
+system.ini=386Enh,UniqueDOSPSP,TRUE
+system.ini=386Enh,PSPIncrement,5
+
+[ban41def]
+warning=3
+driver=1:msnet.drv
+vxd=x:*vnetbios,x:*dosnet
+system.ini=386Enh,TimerCriticalSection=5000
+system.ini=386Enh,UniqueDOSPSP,TRUE
+system.ini=386Enh,PSPIncrement,5
+
+[dec4]
+warning=2
+driver=2:pcsa.drv
+vxd=x:*dosnet,2:decnet.386,2:decnb.386
+system.ini=386Enh,TimerCriticalSection,10000
+
+[dec41]
+driver=2:pcsa.drv
+vxd=x:*dosnet,2:decnet.386,2:decnb.386
+system.ini=386Enh,TimerCriticalSection,10000
+
+[dlr12]
+warning=2
+driver=1:msnet.drv
+vxd=x

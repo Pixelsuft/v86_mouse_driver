@@ -1,0 +1,90 @@
+rtLabel = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set ActivateDetection = TRUE
+        set StartLabel = configureadapter
+        ifstr(i) $(MachineType) == "MCA"
+            Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+                Debug-Output "Cannot configure the EtherExpress MCA driver software."
+                Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            else
+                Debug-Output "Cannot configure the EtherExpress MCA adapter card."
+                Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_HARDWARE
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the 82595 driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error: cannot get an error string."
+            goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+    else
+        set ActivateDetection = TRUE
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE   
+    endif
+    Debug-Output "OEMNADEP.INF: =================================================="
+    Debug-Output "OEMNADEP.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNADEP.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    Debug-Output "OEMNADEP.INF: Option is: "$(Option)
+    Debug-Output "OEMNADEP.INF: !STF_NCDETECT  is: "$(!STF_NCDETECT)
+    Debug-Output "OEMNADEP.INF: !STF_NCOPTION  is: "$(!STF_NCOPTION)
+    Debug-Output "OEMNADEP.INF: !STF_NCDETCARD is: "$(!STF_NCDETCARD)
+    Debug-Output "OEMNADEP.INF: !STF_NCDETINFO is: "$(!STF_NCDETINFO)
+    Debug-Output "OEMNADEP.INF: MachineType is: "$(MachineType)
+    Debug-Output "OEMNADEP.INF: =================================================="
+    Set DetectedCard = FALSE
+    Ifstr(i) $(ActivateDetection) != TRUE
+        Goto $(StartLabel)
+    Endif
+    Set TypeList = {{IRQ,IRQList,IRQValue},+
+                    {IOADDR, IOAddrValues, IOAddrValue},+
+                    {IOCHANNELREADY, IOReadyList_ignore, IOReadyCBI},+
+                    {TRANSCEIVER, TransceiverList_ignore, TransceiverCBI}+
+                    }
+    Debug-Output "OEMNADEP.INF: Calling Param_BuildTypeLists"
+    Shell $(ParamInf) Param_BuildTypeLists $(Option) $(TypeList)
+    Set Status = $($R0)
+    ifstr(i) $(Status) != STATUS_SUCCESSFUL
+        Goto fataldetect
+    Endif
+    Debug-Output "OEMNADEP.INF: Calling Param_SetDefaults"
+    Shell $(ParamInf) Param_SetDefaults {}
+    Shell $(ParamInf) HexListFromDecList $(IOAddrValues)
+    Set IOAddrList = $($R0)
+    Shell $(UtilityInf) SortList $(IRQList) TRUE FALSE
+    Set IRQList = $($R0)
+    Ifstr(i) $(!STF_NCDETECT) == YES
+        Ifstr(i) $(!STF_NCOPTION) == $(Option)
+           Set DetectedCard = TRUE
+           Debug-Output "OEMNADEP.INF: Setting DetectedCard to TRUE"
+        Endif
+    Endif
+    set IOAddrCBI = ~($(IOAddrValues),$(IOAddrValue))
+    set IRQCBI = ~($(IRQList),$(IRQValue))
+    set IOReadyValue = *($(IOReadyList), $(IOReadyCBI))
+    set TransceiverValue = *($(TransceiverList), $(TransceiverCBI))
+    Shell "" DebugConfiguration "After parameter querying"
+    Set from = $(fatal)
+    Set to = $(fatal)
+    Goto $(StartLabel)
+installadapter = +
+    Debug-Output "At installadapter"
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareDescription),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!S

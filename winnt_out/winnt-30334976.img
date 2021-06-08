@@ -1,0 +1,109 @@
+3Value)))
+    ifstr(i) $(LED3Value) == ""
+	set LED3Value = *($(LEDList), 1)
+    endif
+    Debug-Output $(InfName)" LED3 is "$(LED3Value)
+    set FullDuplexValue = *($(FullDuplexList), ~($(FullDuplexValues),$(FullDuplexValue)))
+    ifstr(i) $(FullDuplexValue) == ""
+	set FullDuplexValue = *($(FullDuplexList), 1)
+    endif
+    Debug-Output $(InfName)" Full Duplex is "$(FullDuplexValue)
+    set BusTimerValue = *($(BusTimerList), ~($(BusTimerValues),$(BusTimerValue)))
+    ifstr(i) $(BusTimerValue) == ""
+	set BusTimerValue = *($(BusTimerList), 1)
+    endif
+    Debug-Output $(InfName)" Bus Timer is "$(BusTimerValue)
+adaptersetup = +
+    Set from = adapteroptions
+adapteroptions = +
+    LoadLibrary "x" $(!STF_CWDDIR)\$(DialogDllName) hLib
+ifint $(IsISA) == 0
+    read-syms FileDependentDlgPCI$(!STF_LANGUAGE)
+    Debug-Output $(InfName)" TP is "$(TPValue)
+    Debug-Output $(InfName)" LED0 is "$(LED0Value)
+    Debug-Output $(InfName)" LED1 is "$(LED1Value)
+    Debug-Output $(InfName)" LED2 is "$(LED2Value)
+    Debug-Output $(InfName)" LED3 is "$(LED3Value)
+    Debug-Output $(InfName)" Full Duplex is "$(FullDuplexValue)
+    Debug-Output $(InfName)" Bus Timer is "$(BusTimerValue)
+    ui start "Inputdlg" $(hLib)
+else
+debug-output "read the isa dialog"
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    Debug-Output $(InfName)" Bus is "$(BusScanValue)
+    Debug-Output $(InfName)" TP is "$(TPValue)
+    Debug-Output $(InfName)" LED0 is "$(LED0Value)
+    Debug-Output $(InfName)" LED1 is "$(LED1Value)
+    Debug-Output $(InfName)" LED2 is "$(LED2Value)
+    Debug-Output $(InfName)" LED3 is "$(LED3Value)
+    Debug-Output $(InfName)" DMA is "$(DMAChannelValue)
+    Debug-Output $(InfName)" I/o base is "$(IOBaseAddrValue)
+    Debug-Output $(InfName)" Full Duplex is "$(FullDuplexValue)
+    Debug-Output $(InfName)" Bus Timer is "$(BusTimerValue)
+    ui start "InputDlg"  $(hLib)
+endif
+    set ExitButton      = $(ButtonPressed)
+    Debug-Output " ButtonPressed "$(ButtonPressed)
+debug-output $(DLGEVENT)
+    FreeLibrary $(hLib)
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+ifint $(IsISA) == 1
+		set IOBaseAddrValue = $(Combo1Out)
+		set IRQValueValue = $(Combo2Out)
+		set DMAChannelValue = $(Combo3Out)
+		set FullDuplexValue = $(Combo4Out)
+		set BusTimerValue = $(Combo5Out)
+		set ExitButton = $(ButtonPressed)
+		set BusIndex = *($(RadioOut),1)
+else
+		set FullDuplexValue = $(Combo1Out)
+		set BusTimerValue = $(Combo2Out)
+		set ExitButton = $(ButtonPressed)
+		set BusIndex = *($(RadioOut),1)
+endif
+		Ifint $(BusIndex) == 1
+		    Set BusScanValue = "PNP"
+		else-Ifint $(BusIndex) == 2
+		    Set BusScanValue = "VESA"
+		else-Ifint $(BusIndex) == 3
+		    Set BusScanValue = "ISA"
+		else-Ifint $(BusIndex) ==  4
+		    Set BusScanValue = "ALL"
+		Endif
+	Set Chk = *($(CheckItemsOut), 1)
+	Ifstr(i) $(Chk) == "ON"
+	    Set TPValue = 1
+	Else
+	    Set TPValue = 0
+	Endif
+		ui pop 1
+    else-ifstr(i) $(DLGEVENT) == "EXIT"
+		set CommonStatus = STATUS_USERCANCEL
+		Debug-Output "Action: exit. Bye."
+		ui pop 1
+		goto end
+    else
+		ui pop 1
+		Debug-Output "Action: unknown. Bye."
+		goto end
+    endif
+    Debug-Output " Combo list out "$(ComboListItemsOut)
+skipoptions =+
+    ifint $(OldVersionExisted) == $(TRUE)
+	ifstr(i) $(!NTN_InstallMode) == configure
+    Shell $(UtilityInf), GetBusTypeNum
+    set BusTypeNum = $($R1)
+    set BusNumberValue = 0
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	Debug-Output "ShellCode error."
+	goto ShellCodeError
+    endif
+debug-output "before write registry"
+    set DMAChannelValue = *($(DMAChannelValues), ~($(DMAChannelList),$(DMAChannelValue)))
+    set IRQValue = *($(IRQValues), ~($(IRQList),$(IRQValueValue)))
+    set IOBaseAddrValue = *($(IOBaseAddrValues), ~($(IOBaseAddrList),$(IOBaseAddrValue)))
+    set LED0Value = *($(LEDValues), ~($(LEDList),$(LED0Value)))
+    set LED1Value = *($(LEDValues), ~($(LEDList),$(LED1Value)))
+    set LED2Value = *($(LEDValues), ~($(LEDList),$(LED2Value)))
+    set LED3Value = *($(LEDValues), ~($(LEDList),$(LED3Value)))
+    

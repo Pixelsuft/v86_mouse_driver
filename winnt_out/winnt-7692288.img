@@ -1,0 +1,129 @@
+
+
+[NLS.Registry.Thai]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  874,,C_874.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  850,,C_850.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  437,,C_437.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10000,,C_10000.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,874
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10000
+
+[NLS.Registry.Vetnamese]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  1258,,C_1258.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  850,,C_850.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  437,,C_437.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10000,,C_10000.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,1258
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10000
+
+[NLS.Registry.Japanese]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  932,,C_932.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10001,,C_10001.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,932
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,932
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10001
+
+[NLS.Registry.Korean]
+HKCU,"Control Panel\International\Sorting Order",1,,128
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  949,,C_949.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10002,,C_10002.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,949
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,949
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10002
+
+[NLS.Registry.KoreanJohab]
+HKCU,"Control Panel\International\Sorting Order",1,,128
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  949,,C_949.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage, 1361,,C_1361.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10002,,C_10002.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,1361
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,1361
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10002
+
+[NLS.Registry.TraditionalChinese]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  950,,C_950.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10000,,C_10000.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,950
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,950
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10000
+
+[NLS.Registry.SimplifiedChinese]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  936,,C_936.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10000,,C_10000.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,936
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,936
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
+; Extra codepages
+;
+[NLS.Registry.CP860]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  860,,C_860.NLS
+
+[NLS.Registry.CP863]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  863,,C_863.NLS
+
+[NLS.Registry.CP865]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  865,,C_865.NLS
+
+;
+; OEM Codepage settings
+;
+[NLS.Registry.OEMCP437]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,437
+
+[NLS.Registry.OEMCP737]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,737
+
+[NLS.Registry.OEMCP850]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,850
+
+[NLS.Registry.OEMCP852]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,852
+
+[NLS.Registry.OEMCP857]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,857
+
+
+
+
+
+
+
+
+
+[NLS.Registry.OEMCP866]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,866
+
+[NLS.Registry.OEMCP775]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,775
+
+[NLS.Registry.OEMCP874]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,874
+
+[NLS.Registry.OEMCP1258]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,OEMCP,,1258
+
+;
+; Per-language stuff

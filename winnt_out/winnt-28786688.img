@@ -1,0 +1,94 @@
+     Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorString)
+	     goto endconfigui
+      endif
+   else
+	  Set RegistryErrorIndex = $($R0)
+      goto fatalregistry
+   EndIf
+   LoadLibrary "x" $(!STF_CWDDIR)sfmatcfg.dll ATHANDLE
+   Set FLibraryErrCtl = 1
+   Set atcfgresult = ""
+   LibraryProcedure atcfgresult, $(ATHANDLE),EnterAtalkConfigDLL $(!STF_HWND) $(IsInitialInstall) $(SFMUnattended)
+   FreeLibrary $(ATHANDLE)
+endconfigui = +
+   Set CommonStatus = STATUS_USERCANCEL
+   goto usercancel
+RemoveAdmin = +
+   Debug-Output "OEMNXPSM.INF: Entering Remove"
+   OpenRegKey $(!REG_H_LOCAL) "" $(SFMKeyName) $(!ACCESS) KeyProduct
+   Ifstr $(KeyProduct) != $(!KeyNull)
+	  read-syms AtalkString7$(!STF_LANGUAGE)
+      Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorString)
+      Set CommonStatus = STATUS_USERCANCEL
+      goto end
+   EndIf
+   Ifstr(i) $(!NTN_InstallMode) == deinstall
+	  LoadLibrary "x" $(!STF_CWDDIR)sfmutil.dll !UTILHANDLE
+   EndIf
+   Ifstr(i) $(Option) == "SFMADM"
+	  Set FLibraryErrCtl  = 1
+	  Set IniFile = $(NtNetIniFileName)
+	  Set IniSection = $(SrvMgrIniSection)
+	  Set Result = ""
+	  Set FLibraryErrCtl = 1
+	  LibraryProcedure Result, $(!UTILHANDLE), WriteAfpMgrIniStrings, $(IniSection), NULL, $(IniFile)
+	  Set FLibraryErrCtl = 0
+	  Set IniFile = $(WinFileIniFileName)
+	  Set IniSection = $(WinFileIniSection)
+	  Set FLibraryErrCtl = 1
+	  LibraryProcedure Result, $(!UTILHANDLE), WriteAfpMgrIniStrings, $(IniSection), NULL, $(IniFile)
+	  Set FLibraryErrCtl = 0
+   EndIf
+   Shell "" RemoveAdminFiles "REMOVE"
+   ForListDo  $(REMOVE_SOFTWARE)
+	  debug-output "Removing component: "$($)
+	  Shell $(UtilInf), RemoveSoftwareComponent, $(Manufacturer), $($)
+   EndForListDo
+   Shell "" RemovePrintMonitor
+   Shell $(UtilInf), RemoveWinsockInfo, $(ProductATALKName)
+   Shell "utility.inf" RemoveRpcProtocol ncacn_at_dsp
+   FreeLibrary $(!UTILHANDLE)
+   goto end
+UpgradeAdmin = +
+	  OpenRegKey $(!REG_H_LOCAL) "" $(ATALKKeyName) $(!ACCESS) KeyProduct
+	  Ifstr $(KeyProduct) != $(!KeyNull)
+		 GetRegValue $(KeyProduct),"MajorVersion", VersionInfo
+         set Version = *($(VersionInfo), 4)
+         Split-String $(!NTN_Infname), "\", FilenameList
+         QueryListSize ListSize $(FilenameList)
+         set !UG_Filename = *($(FilenameList), $(ListSize))
+         ifstr(i) $(!STF_PRODUCT) == "WINNT"
+            OpenRegKey $(!REG_H_LOCAL) "" $(SFMKeyName) $(!ACCESS) KeyProduct
+            Ifstr $(KeyProduct) != ""
+                Debug-Output "OEMNXPSM.INF: SFM is installed, so remove SFM"
+                ifstr(i) $(!STF_UNATTENDED) == NO
+                    read-syms RemovingSFM$(!STF_LANGUAGE)
+                    Shell "subroutn.inf" SetupMessage, $(!STF_LANGUAGE), "STATUS", $(Message)
+                endif
+                set SaveNTN_InstallMode = $(!NTN_InstallMode)
+                set !NTN_InstallMode = deinstall
+                Shell "oemnsvsm.inf" InstallOption $(!STF_LANGUAGE) "SFM" $(!STF_SRCDIR) "NO" "NO" "NO"
+                set !NTN_InstallMode = $(SaveNTN_InstallMode)
+                goto end
+            EndIf
+         endif
+	     LoadLibrary "x" $(!STF_CWDDIR)sfmutil.dll !UTILHANDLE
+         install Install-Update
+         ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+			goto fatal
+         endif
+         Shell "" AddPrintMonitor $(!NTN_InstallMode)
+		 FreeLibrary $(!UTILHANDLE)
+		 Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+			Goto ShellCodeError
+		 EndIf
+         OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ProductATALKName) +
+                                    $(!ACCESS) AtkSvcKey
+         Ifstr $(AtkSvcKey) != $(!KeyNull)
+             Shell "" CreatePerfKey $(AtkSvcKey) $(AtalkPerfLibraryName) +
+                          $(AtalkCounterFileName) $(AtalkPerfOpenFunction) +
+                          $(AtalkPerfCloseFunction) $(AtalkPerfCollectFunction)
+             Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                CloseRegKey $(AtkSvcKey)
+                Set RegistryErrorIndex = $($R1)
+          

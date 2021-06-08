@@ -1,0 +1,236 @@
+dard,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Templates",,"Templates"
+HKLM,%KEY_OPTIONAL%\Templates,INF,,"accessor.inf"
+HKLM,%KEY_OPTIONAL%\Templates,Section,,"Templates"
+HKLM,%KEY_OPTIONAL%\Templates,Installed,,"0"
+
+
+[CalcCopyFilesSys]
+calc.exe
+
+
+[CalcCopyFilesHelp]
+calc.cnt
+calc.hlp
+
+
+[CalcAddReg]
+HKLM,%KEY_OPTIONAL%\Calc,Installed,,"1"
+
+
+[CalcUninstallAddReg]
+HKLM,%KEY_OPTIONAL%\Calc,Installed,,"0"
+
+
+[CharMapCopyFilesSys]
+charmap.exe
+
+
+[CharMapCopyFilesHelp]
+charmap.cnt
+charmap.hlp
+
+
+[CharMapAddReg]
+HKLM,%KEY_OPTIONAL%\CharMap,Installed,,"1"
+
+
+[CharMapUninstallAddReg]
+HKLM,%KEY_OPTIONAL%\CharMap,Installed,,"0"
+
+
+[ClipBookCopyFilesSys]
+clipbrd.exe
+
+
+[ClipBookCopyFilesHelp]
+clipbrd.cnt
+clipbrd.hlp
+
+
+[ClipBookAddReg]
+HKLM,%KEY_OPTIONAL%\ClipBook,Installed,,"1"
+
+
+[ClipBookUninstallAddReg]
+HKLM,%KEY_OPTIONAL%\ClipBook,Installed,,"0"
+
+
+[ClockCopyFilesSys]
+clock.exe
+
+
+[ClockAddReg]
+HKLM,%KEY_OPTIONAL%\Clock,Installed,,"1"
+
+
+[ClockUninstallAddReg]
+HKLM,%KEY_OPTIONAL%\Clock,Installed,,"0"
+
+
+[DeskpaperOldCopyFilesSys]
+256color.bmp
+arcade.bmp
+arches.bmp
+argyle.bmp
+ball.bmp
+cars.bmp
+castle.bmp
+chitz.bmp
+egypt.bmp
+honey.bmp
+leaves.bmp
+marble.bmp
+redbrick.bmp
+rivets.bmp
+squares.bmp
+tartan.bmp
+thatch.bmp
+winlogo.bmp
+zigzag.bmp
+
+[DeskpaperCopyFilesSys]
+%Blueday%,              blueday.bmp
+%Blulac16%,             blulac16.bmp
+%Blumon16%,             blumon16.bmp
+%Bubbles%,              bubbles.bmp
+%Coffee16%,             coffee16.bmp
+%Coffeebn%,             coffeebn.bmp
+%Feather%,              feather.bmp
+%Fidlhead%,             fidlhead.bmp
+%Furry16%,              furry16.bmp
+%Furrydog%,             furrydog.bmp
+%Geometrx%,             geometrx.bmp
+%Gonefish%,             gonefish.bmp
+%Grnstone%,             grnstone.bmp
+%Hazy16%,               hazy16.bmp
+%Hikingbt%,             hikingbt.bmp
+%Leaves16%,             leaves16.bmp
+%Lether16%,             lether16.bmp
+%Mpltrail%,             mpltrail.bmp
+%Pglyph16%,             pglyph16.bmp
+%Pool%,                 pool.bmp
+%Prairie%,              prairie.bmp
+%Rhody%,                rhody.bmp
+%Rvrsumid%,             rvrsumid.bmp
+%Santafe%,              santafe.bmp
+%Seaside%,              seaside.bmp
+%Seside16%,             seside16.bmp
+%Snakeskn%,             snakeskn.bmp
+%Solstice%,             solstice.bmp
+%Upstrm16%,             upstrm16.bmp
+%Zapotec%,              zapotec.bmp
+%Zaptec16%,             zaptec16.bmp
+
+[DeskpaperAddReg]
+HKLM,%KEY_OPTIONAL%\Deskpaper,Installed,,"1"
+
+
+[DeskpaperUninstallAddReg]
+HKLM,%KEY_OPTIONAL%\Deskpaper,Installed,,"0"
+
+
+[MousePointDelOldFiles]
+;
+; This is used to remove these files from system32 directory
+; when the component is uninstalled. We don't do this on
+; install or upgrade because 3.51 users could then wind up
+; with dangling registry references.
+;
+appstar2.ani
+appstar3.ani
+appstart.ani
+banana.ani
+barber.ani
+coin.ani
+counter.ani
+dinosau2.ani
+dinosaur.ani
+drum.ani
+fillitup.ani
+hand.ani
+handapst.ani
+handnesw.ani
+handno.ani
+handns.ani
+handnwse.ani
+handwait.ani
+handwe.ani
+horse.ani
+hourgla2.ani
+hourgla3.ani
+hourglas.ani
+metronom.ani
+piano.ani
+rainbow.ani
+raindrop.ani
+sizenesw.ani
+sizens.ani
+sizenwse.ani
+sizewe.ani
+stopwtch.ani
+vanisher.ani
+wagtail.ani
+3dgarro.cur
+3dgmove.cur
+3dgnesw.cur
+3dgno.cur
+3dgns.cur
+3dgnwse.cur
+3dgwe.cur
+3dsmove.cur
+3dsns.cur
+3dsnwse.cur
+3dwarro.cur
+3dwmove.cur
+3dwnesw.cur
+3dwno.cur
+3dwns.cur
+3dwnwse.cur
+3dwwe.cur
+cross.cur
+harrow.cur
+hcross.cur
+hibeam.cur
+hmove.cur
+hnesw.cur
+hnodrop.cur
+hns.cur
+hnwse.cur
+hwe.cur
+lappstrt.cur
+larrow.cur
+lcross.cur
+libeam.cur
+lmove.cur
+lnesw.cur
+lnodrop.cur
+lns.cur
+lnwse.cur
+lwait.cur
+lwe.cur
+
+[MousePointCopyFilesSys]
+appstar2.ani
+appstar3.ani
+appstart.ani
+banana.ani
+barber.ani
+coin.ani
+counter.ani
+dinosau2.ani
+dinosaur.ani
+drum.ani
+fillitup.ani
+hand.ani
+handapst.ani
+handnesw.ani
+handno.ani
+handns.ani
+handnwse.ani
+handwait.ani
+handwe.ani
+horse.ani
+hourgla2.ani
+hourgla3

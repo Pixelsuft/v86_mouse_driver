@@ -1,0 +1,91 @@
+3:RECORDER.EXE, "Recorder"                  ,  39152, recorder
+   3:RECORDER.HLP, "Recorder Help"             ,  18200
+   4:TERMINAL.HLP, "Terminal Help"             ,  36279
+   4:PACKAGER.EXE, "Object Packager"           ,  76480, packager
+   3:PACKAGER.HLP, "Object Packager Help"      ,  21156
+   3:CHARMAP.EXE,  "Character Map"             ,  22016, charmap
+   4:CHARMAP.HLP,  "Character Map Help"        ,  10797
+   5:MPLAYER.EXE,  "Media Player"              ,  33312, mplayer
+   3:MPLAYER.HLP,  "Media Player Help"         ,  12825
+   4:SOUNDREC.EXE, "Sound Recorder"            ,  51241, soundrec
+   3:SOUNDREC.HLP, "Sound Recorder Help"       ,  17730
+   6:CLIPBRD.HLP,  "Clipboard Viewer Help"     ,  13071
+   4:DRWATSON.EXE, "Dr. Watson System Utility" ,  26864
+   5:PIFEDIT.HLP,  "PIF Editor Help"           ,  33270
+   4:PRINTMAN.HLP, "Print Manager Help"        ,  40879
+   5:PROGMAN.HLP,  "Program Manager Help"      ,  30911
+   6:REGEDIT.HLP,  "Registration Help"         ,  22681
+   5:REGEDITV.HLP, "Registration Advanced Help",  15731
+   3:WINFILE.HLP,  "File Manager Help"         ,  76855
+   3:WINTUTOR.EXE, "Windows Tutorial"          , 124416, wintutor
+   3:WINHELP.HLP,  "Help Utility Help"         ,  26960
+   3:GLOSSARY.HLP, "Glossary Help"             ,  46570
+   3:EXPAND.EXE,   "File Expansion Utility"    ,  15285
+   diskspace=1506946
+
+[win.dependents]
+pbrush   = 4:PBRUSH.DLL
+recorder = 3:RECORDER.DLL
+wintutor = 4:WINTUTOR.DAT
+
+[win.games]
+   4:SOL.EXE,      "Solitaire"        , 180688, sol
+   4:WINMINE.EXE,  "Minesweeper"      ,  27776, winmine
+   5:SOL.HLP,      "Solitaire Help"   ,  13753
+   4:WINMINE.HLP,  "Minesweeper Help" ,  12754
+   diskspace=234971
+
+[win.scrs]
+   4:SCRNSAVE.SCR, "Default Screen Saver"     ,   5328
+   4:SSMARQUE.SCR, "Marquee Screen Saver"     ,  16896
+   4:SSMYST.SCR,   "Mystify Screen Saver"     ,  19456
+   4:SSSTARS.SCR,  "Stars Screen Saver"       ,  17536
+   3:ssflywin.scr, "Flying Windows Screen Saver",  16160
+   diskspace=75376
+
+[win.bmps]
+   4:256COLOR.BMP, "256-Color Wallpaper"      ,   5078
+   6:ARCADE.BMP,   "Arcade Wallpaper"         ,    630
+   4:ARCHES.BMP,   "Arches Wallpaper"         ,  10358
+   3:ARGYLE.BMP,   "Argyle Wallpaper"         ,    630
+   3:CARS.BMP,     "Cars Wallpaper"           ,    630
+   6:CASTLE.BMP,   "Castle Wallpaper"         ,    778
+   5:CHITZ.BMP,    "Chitz Wallpaper"          ,  19918
+   5:EGYPT.BMP,    "Egypt Wallpaper"          ,    630
+   3:FLOCK.BMP,    "Flock Wallpaper"          ,   1630
+   4:HONEY.BMP,    "Honey Wallpaper"          ,    854
+   4:MARBLE.BMP,   "Marble Wallpaper"         ,  27646
+   4:RIVETS.BMP,   "Rivets Wallpaper"         ,    630
+   3:REDBRICK.BMP, "Red Brick Wallpaper"      ,    630
+   6:SQUARES.BMP,  "Squares Wallpaper"        ,    630
+   4:TARTAN.BMP,   "Tartan Wallpaper"         ,  32886
+   4:THATCH.BMP,   "Thatch Wallpaper"         ,    598
+   4:WINLOGO.BMP,  "Windows Logo Wallpaper"   ,  38518
+   3:ZIGZAG.BMP,   "Zigzag Wallpaper"         ,    630
+   6:LEAVES.BMP,   "Leaves Wallpaper"         ,  15118
+   5:ding.wav,     "Ding Sound"               ,  11598
+   3:chord.wav,    "Chord Sound"              ,  24982
+   4:chimes.wav,   "Chimes Sound"             ,  15920
+   4:tada.wav,     "Trumpet Sound"            ,  27804
+   5:canyon.mid,   "Canyon MIDI Song"         ,  33883
+   diskspace=272609
+
+[win.readme]
+   3:readme.wri,   "General Readme"           ,  92928, readme
+   3:networks.wri, "Networks Readme"          ,  62336
+   3:winini.wri,   "Win.ini Readme"           ,  31104
+   3:sysini.wri,   "System.ini Readme"        ,  52864
+   3:printers.wri, "Printers Readme"          ,  41984
+   3:apps.hlp,     "Application Compatibility Help",  15930
+   diskspace=297146
+
+; The [*.groups] sections maps a group section to the group name used in
+; Program Manager.
+;
+; Section Name = Progman group name, Min/Max switch. ( 1 = Max, nothing = Min).
+;
+; This section is used for upgrading from 3.X to 3.1.
+[new.groups]
+group7=Main,1
+group1=StartUp
+gro

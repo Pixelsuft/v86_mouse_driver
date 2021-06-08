@@ -1,0 +1,87 @@
+       Debug-Output "ShellCode error."
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "Resgitry error: add value list."
+        CloseRegKey $(KeyParameters)
+        CloseRegKey $(KeyAdapterRules)
+        goto fatalregistry
+    endif
+    FlushRegKey $(KeyParameters)
+    FlushRegKey $(KeyAdapterRules)
+    CloseRegKey $(KeyParameters)
+    CloseRegKey $(KeyAdapterRules)
+    goto writeparameters
+configureadapter = +
+    Debug-Output "******************Entering configureadapter******************"
+    QueryListSize IRQRangeListSize $(IRQRangeList)
+    QueryListSize MemoryRangeListSize $(MemoryRangeList)
+    QueryListSize IORangeListSize $(IORangeList)
+    QueryListSize PortNameListSize $(PortNameList)
+    Debug-Output "AdapterName = "$(AdapterName)
+    Debug-Output "ProductHardwareDescription = "$(ProductHardwareDescription)
+    Debug-Output "ConfigurationTitle = "$(ConfigurationTitle)
+    LibraryProcedure Result, $(DGCONFIG_HANDLE), +
+            DGConfigEntryPoint,  $(!STF_HWND), +
+                                 $(AdapterHardwareType), +
+                                 $(ConfigurationTitle), +
+                                 $(IRQRangeList), +
+                                 $(IRQRangeListSize), +
+                                 $(IRQDefault), +
+                                 $(MemoryRangeList), +
+                                 $(MemoryRangeListSize), +
+                                 $(MemoryDefault), +
+                                 $(IORangeList), +
+                                 $(IORangeListSize), +
+                                 $(IODefault), +
+                                 $(CtrlList), +
+                                 $(AdapterName), +
+                                 $(ProductHardwareDescription)
+    set AdapterParameters = $(Result)
+    Ifstr $(Result) == "{}"
+        set CommonStatus = STATUS_USERCANCEL
+        goto successful
+    Endif
+    read-syms UpdatingConfiguration$(!STF_LANGUAGE)
+    shell $(subroutninf) PushBillBoard NETSTATUSDLG $(UpdatingConfiguration)
+    Debug-Output "jumping to "$(from)
+    goto $(from)
+getAdapterSettings = +
+    Debug-Output "******************Entering getAdapterSettings******************"
+    Debug-Output "from value = "$(from)
+    set CtrlList = {}
+    LoadLibrary "x" $(!STF_CWDDIR)dgconfig.dll DGCONFIG_HANDLE
+    read-syms AdapterSettings-$(AdapterHardwareName)
+    Ifstr $(!NTN_RegBase) != $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) SoftwareKey
+        Ifstr $(SoftwareKey) == $(KeyNull)
+            Debug-Output "Unable to open "$(!NTN_RegBase)" key!!!!"
+            goto getAdapterSettingsExit
+        Else
+            GetRegValue $(SoftwareKey), "ServiceName", ServiceNameList
+            set AdapterServiceName = *($(ServiceNameList),4)
+            set AdapterName = $(AdapterServiceName)
+            CloseRegKey $(SoftwareKey)
+        Endif
+    Endif
+    Debug-Output "AdapterServiceName = "$(AdapterServiceName)
+    Debug-Output "AdapterName = "$(AdapterName)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(AdapterServiceName) $(MAXIMUM_ALLOWED) BaseKey
+    Ifstr $(BaseKey) == $(KeyNull)
+        Debug-Output "Error opening BaseKey "$(!NTN_ServiceBase)"\"$(AdapterServiceName)
+        CloseRegKey $(BaseKey)
+        goto fatalregistry
+    Endif
+    set BusTypeNum = 1
+    set ParametersKey = $(KeyNull)
+    OpenRegKey $(BaseKey) "" "Parameters" $(MAXIMUM_ALLOWED) ParametersKey
+    Ifstr $(ParametersKey) == $(KeyNull)
+        Debug-Output "Assuming Parameters key does not exist!!!"
+        ifstr(i) $(BusType) == "MCA"
+            ForListDo $(AdapterHardwareAdapterID)
+               Debug-Output "Calling MCAFindBus, "*($(AdapterIDByte1),$(#))", "*($(AdapterIDByte2),$(#))
+               Shell $(UtilityInf), MCAFindBus, *($(AdapterIDByte1),$(#)), *($(AdapterIDByte2),$(#))
+               Debug-Output "MCAFindBus returned "$($R1)
+   

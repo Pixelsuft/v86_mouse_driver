@@ -1,0 +1,106 @@
+eyAdapterRules)
+    EndForListDo
+    goto writeparameters
+configureadapter = +
+   read-syms NoConfig$(!STF_LANGUAGE)
+   Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorString)
+   goto end
+writeparameters = +
+    set NewValueList = {{BusNumber,0,$(!REG_VT_DWORD),$(BusNum)},+
+                        {MediaType,0,$(!REG_VT_DWORD),5},+
+                        {McaPosId,0,$(!REG_VT_DWORD),$(NETCARD_ID)},+
+                        {BusType,0,$(!REG_VT_DWORD),3},+
+                        {Server,0,$(!REG_VT_DWORD),1},+
+                        {SlotNumber,0,$(!REG_VT_DWORD),$(SlotNum)}}
+    Shell  $(UtilInf), AddValueList, $(KeyParameters), $(NewValueList)
+    CloseRegKey $(KeyParameters)
+    ifint $($ShellCode) != 0
+        Debug-Output "ShellCode error."
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       goto fatalregistry
+    endif
+    goto end
+bindingadapter = +
+        goto end
+removeadapter = +
+    Set FLibraryErrCtl = 1
+    Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+                Shell $(UtilInf), RemoveSoftwareComponent, $(Manufacturer),$(ProductSoftwareName)
+                ifint $($ShellCode) != 0
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+                endif
+                set RegistryErrorIndex = $($R0)
+                Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+                endif
+    else
+                Shell $(UtilInf), RemoveHardwareComponent, $(Manufacturer),$(ProductSoftwareName), $(!NTN_RegBase)
+                ifint $($ShellCode) != 0
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+                endif
+                set RegistryErrorIndex = $($R0)
+                Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+                endif
+        endif
+        goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        CloseRegKey $(KeyProduct)
+    else
+        goto fatalregistry
+    endif
+    set iSearch = 1
+nextnetcard = +
+    Shell $(UtilityInf), FindNextNetworkCard, $(ProductHardwareName), $(iSearch)
+    set KeyNetcard = $($R0)
+    set iSearch = $($R1)
+    Debug-Output "OemNadEp.Inf: FindNextNetworkCard "$(KeyNetcard)","$(iSearch)
+    Ifstr $(KeyNetcard) != $(KeyNull)
+        Debug-Output "OemNadEp.Inf: Setting OperationsSupport value"
+        SetRegValue $(KeyNetcard) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyNetcard)
+        goto nextnetcard
+    Endif
+    goto end
+successful = +
+installstep1 = +
+        goto end
+abandon = +
+   ForListDo $(REMOVE_HARDWARE)
+          Shell $(UtilInf), RemoveHardwareComponent, $(Manufacturer), +
+                        $(ProductSoftwareName), $($)
+          ifint $($ShellCode) != 0
+                 Debug-Output "ShellCode error"
+         goto ShellCodeError
+          endif
+          set RegistryErrorIndex = $($R0)
+          Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                 goto fatalregistry
+      endif
+   EndForListDo
+   Ifstr(i) $(REMOVE_SOFTWARE) == TRUE
+          Shell $(UtilInf), RemoveSoftwareComponent, +
+                                                   $(Manufacturer), +
+                                                   $(ProductSoftwareName), FALSE
+      ifint $($ShellCode) != 0
+                 goto ShellCodeError
+      endif
+      set RegistryErrorIndex = $($R0)
+      Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                 goto fatalregistry
+      endif
+   endif
+   goto end

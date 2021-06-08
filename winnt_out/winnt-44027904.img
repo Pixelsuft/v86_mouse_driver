@@ -1,0 +1,98 @@
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem4Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 00,4b,00,00
+
+[Modem6Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, c0,5d,00,00
+
+[Modem14Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+
+[Modem16Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT&FE0V0Q0&C1&D2S0=0<cr>"
+
+[Modem18Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, Compression_On,, "S46=138%%C3"
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Modem20Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+
+[Modem22Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 )M1 *H0 -K1 -Q1 :E1 @M0" 
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 )M1 *H0 -K1 -Q1 :E1 @M0"
+
+[Modem24Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT&FE0V0&D2&C1<cr>"
+
+[Modem26Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init, 2,, "AT&FE0V0&D2&C1S0=0<cr>"
+
+[Modem28Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR, Init, 2,, "AT&FE0V0Q0&C1&D2S0=0<cr>"
+
+[Modem29Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 )M1 -K1 -Q1 *H1 :E0 &Q5"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 )M1 -K1 -Q1 *H1 :E0 &Q5"
+
+[Modem30Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,01,00, 40,38,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 )M1 -K1 -Q1 *H1 :E0"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 )M1 -K1 -Q1 *H1 :E0"
+HKR, Init, 2,, "AT&FE0V0Q0&C1&D2S95=47S0=0<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+
+[Modem31Reg]    
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+
+[Modem34Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+
+[Modem35Reg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f0,03,00,00, 00,c2,01,00, 40,38,00,00
+
+
+[Strings]
+Mfg = "Zoom Telephonics, Inc."
+Modem1="Zoom VFX V.32bis"
+Modem2="Zoom VFX 28.8"
+Modem3="Zoom VFP 28.8"
+Modem4="Zoom VFX 19.2"
+Modem5="Zoom VFP 19.2"
+Modem6="Zoom VFX 24K"
+Modem7="Zoom VFP 24K"
+Modem8="Zoom VX V.32bis"
+Modem9="Zoom VP V.32bis"
+Modem10="Zoom VFP V.32bis"
+Modem11="Zoom VFX 14.4V"
+Modem12="Zoom VFP 14.4V"
+Modem13="Zoom PKT 14.4"
+Modem14="Zoom VX V.32"
+Modem15="Zoom VP V.32"
+Modem16="Zoom FX 9624"
+Modem17="Zoom FC 9624"
+Modem18="Zoom FX 9624V"
+Modem19="Zoom FC 9624V"
+Modem20="Zoom VFDX"
+Modem21=

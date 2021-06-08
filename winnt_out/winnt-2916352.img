@@ -1,0 +1,133 @@
+    Frozen     %3    %4
+EThe system cannot complete the process.
+I      %1        %2      CritSec    %3    %4
+I      %1        %2      BackGnd    %3    %4
+I      %1        %2      Boost      %3    %4
+I%1 did not install.
+I   The system unit is not an AT or XT-286.
+I   The system is not a PS/2 machine.
+I   The device adapter is not supported.
+I   The device adapter could not be located,
+   or it is in use by another device.
+I   The interrupt level is not available.
+I   Advanced BIOS is not present.
+?
+?
+?
+PSunPMonPTuePWedPThuPFriPSatEAn incorrect process ID was
+entered for the command.
+I
+                    System Semaphore Information
+
+   Owning Process             No. of     No. of          Semaphore
+(Name  ID  Session)  Index  References  Requests  Flag     Name
+I%1  %2  %3    %4      %5         %6     %7   %8
+I
+          Named Shared Memory Information
+
+                            No. of
+  Handle     Selector     References     Shared Memory Name
+I   %1        %2           %3          %4
+I
+                  Process and Thread Information
+
+           Parent                         Run-Time
+ Process   Process   Session   Process      Link        Shared
+   ID        ID        ID       Name      Libraries   Memory Names
+I  %1      %2       %3      %4   %5    %6
+?
+I
+          Run-Time Link Libraries
+
+ Process   Process   Session
+  Name       ID        ID      Library List
+EThe source path is missing.
+I %1   %2       %3      %4
+PPress Enter to begin adding files.
+PPress Enter to begin replacing files.
+EThe system cannot find the files
+specified: %1.
+I
+                    Process and Thread Information
+
+          Parent
+Process   Process   Session   Process   Thread
+  ID        ID        ID       Name       ID    Priority   Block ID   State
+I
+    Thread
+      ID      Priority     State     Block ID    Owned Semaphores
+I      %1        %2                 %3    %4
+EAccess to %1 is denied.
+?
+?
+INo files were added.
+I%1 file(s) added.
+INo files were replaced.
+I%1 file(s) replaced.
+PDo you want to add %1 (Y/N)? PDo you want to replace %1 (Y/N)? IAdding file %1.
+IReplacing file %1.
+?
+?
+?
+?
+?
+PDo you want to compare more files (Y/N)? PEnter the first file name.
+PEnter the second file name.
+IThe files compare OK.
+IThere were 10 or more mismatches in comparing
+the files.  The system is ending the COMPARE command.
+IMismatching byte of file 2 = IMismatching byte of file 1 = IA COMPARE error occurred at OFFSET IThe files are different sizes.
+Do you want to continue (Y/N)? ICompare file %1 and file %2
+WThe system cannot find the %1 path.
+?
+EOS/2 Mouse Device Support did not load.
+I
+%1 Mouse Device Driver is loaded.
+I     Model  = %1
+I     Serial = %1
+I
+ OS/2 Mouse Device Support is loaded.
+    Version = %1
+    Qsize   = %2
+    Mode    = %3
+E%1 Mouse Device Driver did not load.
+IFiles compare OK for lengths compared.
+PParameters modified
+P
+%6 Mouse Device Driver
+Version %1.%2 was not loaded.
+IThe DOS Programs Device Driver is loaded.
+P
+%6 Mouse Device Driver
+Version %1.%2 is loaded
+Mode = %3
+Qsize = %4
+Serial = %5
+EThe system cannot copy the file.
+EInternal error %1 occurred during XCOPY.
+EXCOPY cannot access the source file.
+EXCOPY cannot access the target file.
+?
+EXCOPY cannot close the
+source or target file.
+?
+IOS/2 could not start because an IFS= statement
+is not included in the CONFIG.SYS file. Add the
+IFS= statement (containing the correct file system name)
+to the CONFIG.SYS file; then, restart your system.
+EXCOPY cannot access the
+source or target drive.
+?
+?
+EThe command "%2" on line %1 of the CONFIG.SYS
+file is not recognized. Line %1 is ignored.
+EThe parameter "%3" on line %1 of the CONFIG.SYS
+file is not acceptable for the %2 command. Line %1 is
+ignored.
+EThe %2 command requires a parameter that is
+not specified on line %1 of the CONFIG.SYS file.  Line %1
+is ignored.
+EThe device driver "%3" specified in
+the %2 command on line %1 of the CONFIG.SYS file
+is incorrect for the operating system.
+IHPFS (Hig

@@ -1,0 +1,85 @@
+; Windows'95 Modem Setup File
+; Copyright 1994-1996 Microsoft Corp.
+; Manufacturer:   ZyXEL Comm. Corp.
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem17% = Modem17, ZYX_U1496SN      ; U-1496SN  external with LCD, 19k2, Network Management System
+%Modem16% = Modem16, ZYX_U1496RNP     ; U-1496RN+ Rack-mounted Card, 19k2, NMS-Version
+%Modem15% = Modem15, ZYX_U1496RN      ; U-1496RN  Rack-mounted Card, 16k8, NMS-Version
+%Modem14% = Modem14, ZYX_U1496R       ; U-1496R   Rack-mounted Card, 16k8
+%Modem13% = Modem13, ZYX_U1496RP      ; U-1496R+  Rack-mounted Card, 19k2
+%Modem12% = Modem12, ZYX_U1496EG      ; U-1496EG  external with LEDs, 16k8, German PTT approved
+%Modem11% = Modem11, ZYX_U1496EGP     ; U-1496EG+ external with LEDs, 19k2, German PTT approved
+%Modem10% = Modem10, ZYX_U1496EA      ; U-1496EA  external with LEDs, 16k8, Austrian PTT approved
+%Modem9%  = Modem9,  ZYX_U1496EAP     ; U-1496EA+ external with LEDs, 19k2, Austrian PTT approved
+%Modem8%  = Modem8,  ZYX_U1496A	      ; U-1496A   external with LCD,  19k2, Austrian PTT approved
+%Modem7%  = Modem7,  ZYX_U1496P	      ; U-1496P   external pocket modem, 16k8
+%Modem6%  = Modem6,  ZYX_U1496B	      ; U-1496B   internal PC-Card, 16k8
+%Modem5%  = Modem5,  ZYX_U1496BP      ; U-1496B+  internal PC-Card, 16k8
+%Modem4%  = Modem4,  ZYX_U1496E       ; U-1496E   external with LEDs, 16k8
+%Modem3%  = Modem3,  ZYX_U1496EP      ; U-1496E+  external with LEDs, 19k2
+%Modem2%  = Modem2,  ZYX_U1496S	      ; U-1496S   external with non back-light LCD, 16k8
+%Modem1%  = Modem1,  ZYX_U1496SP      ; U-1496S+  external with back-light LCD, 19k2
+%Modem0%  = Modem0, ZYX_Modem0, UNIMODEM5403B1C4 ; U-1496    external (E,E+,S,S+,P), V32b and Fax Class 2
+%Modem0%  = Modem0, ZYX_Modem0, UNIMODEM64CA1E7B ; U-1496    external (E,E+,S,S+,P), V32b and Fax Class 2
+%Modem0%  = Modem0, ZYX_Modem0, UNIMODEM5D1E7F65 ; U-1496    external (E,E+,S,S+,P), V32b and Fax Class 2
+%Modem0%  = Modem0, ZYX_Modem0, UNIMODEM0893644B ; U-1496    external (E,E+,S,S+,P), V32b and Fax Class 2
+
+
+; Installation sections
+
+[Modem17]       ; U-1496SN  external LCD, 16k8, NMS-Version, Fax + Voice
+AddReg=All, MfgAddReg, Modem2.AddReg, Opt_FaxClass1
+
+[Modem16]       ; U-1496RN+ Rack-mounted Card, 19k2, NMS-Version, Fax + Voice
+AddReg=All, MfgAddReg, Modem1.AddReg, Opt_FaxClass1
+
+[Modem15]       ; U-1496RN  Rack-mounted Card, 16k8, NMS-Version, Fax + Voice
+AddReg=All, MfgAddReg, Modem2.AddReg, Opt_FaxClass1
+
+[Modem14]       ; U-1496R   Rack-mounted Card, 16k8, Fax + Voice
+AddReg=All, MfgAddReg, Modem2.AddReg, Opt_FaxClass1
+
+[Modem13]       ; U-1496R+  Rack-mounted Card, 19k2, Fax + Voice
+AddReg=All, MfgAddReg, Modem1.AddReg, Opt_FaxClass1
+
+[Modem12]       ; U-1496EG  external with LEDs, 16k8, German PTT approved
+AddReg=All, MfgAddReg, Modem10.AddReg, Opt_FaxClass1, PTT_approved
+
+[Modem11]       ; U-1496EG+ external with LEDs, 19k2, German PTT approved
+AddReg=All, MfgAddReg, Modem9.AddReg, Opt_FaxClass1, PTT_approved
+
+[Modem10]	; U-1496EA    external with LEDs, 16k8, Austrian PTT approved
+AddReg=All, MfgAddReg, Modem10.AddReg, Opt_FaxClass1, PTT_approved
+
+[Modem9]	; U-1496EA+   external with LEDs, 19k2, Austrian PTT approved
+AddReg=All, MfgAddReg, Modem9.AddReg, Opt_FaxClass1, PTT_approved
+
+[Modem8]	; U-1496A     external with LCD,  19k2, Austrian PTT approved
+AddReg=All, MfgAddReg, Modem8.AddReg, Opt_FaxClass1, PTT_approved
+
+[Modem7]	; U-1496P   external pocket modem, 16k8
+AddReg=All, MfgAddReg, Modem7.AddReg, Opt_Cellular, Opt_FaxClass1
+
+[Modem6]	; U-1496B   internal PC-Card, 16k8
+AddReg=All, MfgAddReg, Modem6.AddReg, Opt_Cellular, Opt_FaxClass1
+
+[Modem5]	; U-1496B+  internal PC-Card, 16k8
+AddReg=All, MfgAddReg, Modem5.AddReg, Opt_Cellular, Opt_FaxClass1
+
+[Modem4]	; U-1496E     external with LEDs, 16k8
+AddReg=All, MfgAddReg, Modem4.AddReg, Opt_Cellular, Opt_FaxClass1
+
+[Modem3]	; U-1496E+    external with

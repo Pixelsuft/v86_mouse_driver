@@ -1,0 +1,90 @@
+asArpBindValueFromTcpIP
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "error shelling SetRasArpBindValueFromTcpIP."
+        goto ShellCodeError
+    endif
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "error returned by SetRasArpBindValueFromTcpIP."
+    endif
+    Debug-Output "Review bindings done."
+    goto end
+UpgradeRas = +
+    Debug-Output "OEMNSVRA.INF: Upgrade with Option type "$(Option)
+    ifstr(i) $(Option) != "RAS"
+        Debug-Output "OEMNSVRA.INF: not upgrading due to nonras option"
+        set CommonStatus = STATUS_NOEFFECT
+        goto end
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        Shell $(!UtilityInf), GetInfFileNameFromRegistry, $(KeyProduct)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+        endif
+        set !UG_Filename = $($R0)
+        ifstr(i) $(!UG_Filename) != ""
+            Debug-Output "File Name is "$(!UG_Filename)
+            StartWait
+            read-syms UpgradeErrors$(!STF_LANGUAGE)
+            read-syms StatusUpdatingRegistry$(!STF_LANGUAGE)
+            Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(UpdatingRas)
+            Set BillboardVisible = 1
+            shell "" QueryComponentsInstalled
+            Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                Set InstalledComps = $($R1)
+                Set InstalledFlags = $($R2)
+                Set DoServer      = *($(InstalledFlags),1)
+                Set DoClient      = *($(InstalledFlags),2)
+                Set DoAdmin       = *($(InstalledFlags),3)
+                Set DoServerOnly  = *($(InstalledFlags),4)
+                Set DoClientOnly  = *($(InstalledFlags),5)
+                Set DoAdminOnly   = *($(InstalledFlags),6)
+            Endif
+            Debug-Output "Installed List is "$(InstalledComps)
+            Debug-Output "Installed Flags is "$(InstalledFlags)
+            Set ServerInstalled = $(DoServer)
+            Set ClientInstalled = $(DoClient)
+            Set AdminInstalled  = $(DoAdmin)
+            Install InstallResources
+            ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                goto filecopycancel
+            endif
+            Install InstallRasFiles
+            ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                goto filecopycancel
+            endif
+            set fTcpIp = FALSE
+            Shell "" QuerySelectedProtocols
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "error returned by QuerySelectedProtocols."
+            endif
+            set fNetbeuiSelected = $($R1)
+            set fTcpIpSelected   = $($R2)
+            set fIpxSelected     = $($R3)
+            set fNetbeuiAllowed  = $($R4)
+            set fTcpIpAllowed    = $($R5)
+            set fIpxAllowed      = $($R6)
+            ifstr(i) $(fTcpIpSelected) == TRUE
+              set fTcpIp = "TRUE"
+            else-ifstr(i) $(fTcpIpAllowed) == TRUE
+              set fTcpIp = "TRUE"
+            endif
+            ifstr(i) $(fTcpIp) == TRUE
+                Shell "" RemoveServiceDependency "TCPIP" "RASARP"
+                Shell "" RemoveRasArpService
+                Shell "" InstallRasArpService
+            endif
+            Shell "" SetRestoreConnectionTo1
+            Shell "" RemoveServiceDependency "RemoteAccess" "NetLogon"
+            Shell "" AddServiceDependency "RasMan" "tapisrv"
+            Shell "" InstallSoftwareAndService RASAUTODIAL
+            Shell "" AddServiceDependency "RasAuto" "RasMan"
+            Shell "" RemoveRasAcdService
+            Shell "" InstallRasAcdService
+            OpenRegKey $(!REG_H_LOCAL) "" $(!RasManSvcKeyName) $(!MAXIMUM_ALLOWED) KeyRasMan
+            ifstr $(KeyRasMan) == $(KeyNull)
+              Debug-Output "OEMNSVRA.INF: could not open RasMan key"
+            else
+              SetRegValue $(KeyRasMan) {Type, $(NoTitle), $(!REG_VT_DWORD), 32}
+              CloseRegKey $

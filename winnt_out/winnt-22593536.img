@@ -1,0 +1,66 @@
+em is not recognized by Windows NT
+* FIFO needs to be disabled
+* An incorrect IRQ or I/O address is being used
+To reconfigure the communications port, in the Control Panel Ports icon, choose the Settings button, and then choose the Advanced button. Then, in the Registry, add the following entry for the new port key:
+Pcmcia:REG_DWORD 1
+
+If Terminal functions properly, verify that the modem type is being detected correctly and that the speed is set correctly. For information on speed settings, refer to the modem manufacturer's manual.
+
+
+
+=================================================
+CONNECTING TO WINDOWS NT 3.51 RAS SERVERS
+WITH THIRD-PARTY PPP CLIENTS
+=================================================
+
+NetManage Chameleon and Chameleon NFS Version 4.1 Clients Required
+------------------------------------------------------------------
+Versions of NetManage Chameleon prior to 4.1 do not interoperate with Windows NT. You must update to version 4.1 to connect to Windows NT 3.51 RAS servers.
+
+Also, you must make the following change in the SLIP.INI file located in the \NETMANAG directory, before connecting a NetManage client to a Windows NT RAS server.
+
+[ppp]
+SCRIPT=-n
+TYPE=PPP
+
+In order to configure the NetManage client to request an IP address from the Windows NT RAS server, set the client IP address to 0.0.0.0.
+
+If you want the NetManage client to request a specific IP address, you must configure the RAS server IP configuration to allow remote clients to request their own IP addresses. You configure the RAS server using the Network option of Control Panel.
+
+
+Third-Party FTP Software
+------------------------
+PC/TCP OnNet version 1.1 or later is required for Windows NT. Previous version of FTP Software Inc. client software do not work with Windows NT.
+
+In order to have the Remote Access server assign an IP address for you, set your IP address to 0.0.0.0 before dialing.  You can set your IP address from the Configure screen of the Dialer application.
+
+
+Wollongong Software
+-------------------
+Wollongong PPP software now interoperates with Windows NT 3.51. Contact The Wollongong Group for more information or updates:
+The Wollongong Group Inc.  
+1129, San Antonio Rd.  
+Palo Alto, CA 94303-4310
+Tel# (800) 872-8649 
+
+
+=================================================
+CONNECTING TO THIRD-PARTY PPP SERVERS
+WITH WINDOWS NT 3.51 RAS CLIENTS
+=================================================
+
+Connecting to Internet Service Providers that Use Older PPP Software
+--------------------------------------------------------------------
+If you connect to an Internet service provider and TCP/IP utilities do not work (such as FTP or TELNET) the problem may be due to Van Jacobson (VJ) header compression and older PPP software on the Internet service provider system. Older PPP server software may be unable to match the VJ header compression settings on your computer.
+
+To solve the problem, you must disable VJ header compression for that entry. To disable VJ header compression, select the entry in your phone book. Choose the Edit button. Choose the Advanced button (if the Network button is not visible). Choose the Network Button. Choose the TCP/IP Settings button. Clear the Use VJ Header Compression check box. Choose the OK button until you return to the main Remote Access dialog box. You should be able to successfully connect to the entry and use TCP/IP utilities.
+
+
+Cisco Router Software
+---------------------
+You can use Windows NT RAS to connect through a Cisco router. If you have a Cisco router using version 9.21 or earlier, you must upgrade your Cisco router software to the most recent release. Contact Cisco Systems for more information at 800-553-NETS, or via electronic mail at tac@cisco.com.
+
+
+3Com Access Builder Software
+----------------------------
+You can use Windows NT RAS to connect to 3Com Access Builder remote access servers. If you have installed Access Builder products prior to September 1994, you must upgrade your 3Com Access Builder software to the most recent release

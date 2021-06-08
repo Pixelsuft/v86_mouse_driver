@@ -1,0 +1,52 @@
+ECT 115200/V42BIS<cr><lf>",   1, 02, 01, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200<cr><lf>",         1, 02, 00, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/ARQ<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/REL<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/MNP<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/LAP-M<cr><lf>",   1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/V42BIS<cr><lf>",  1, 02, 01, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 230400<cr><lf>",          1, 02, 00, 00,84,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 230400/ARQ<cr><lf>",      1, 02, 02, 00,84,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 230400/REL<cr><lf>",      1, 02, 02, 00,84,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 230400/MNP<cr><lf>",      1, 02, 02, 00,84,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 230400/LAP-M<cr><lf>",    1, 02, 02, 00,84,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 230400/V42BIS<cr><lf>",   1, 02, 01, 00,84,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/V42<cr><lf>", 1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/V42<cr><lf>", 1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/V42<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/V42<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/V42<cr><lf>", 1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/V42<cr><lf>", 1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/V42<cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/V42<cr><lf>", 1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/V42<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/V42<cr><lf>", 1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/V42<cr><lf>", 1, 02, 02, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/V42<cr><lf>",1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/V42<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/V42<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/V42<cr><lf>",       1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/V42<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/V42<cr><lf>",    1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/V42<cr><lf>",    1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/V42<cr><lf>",    1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/V42<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 230400/V42<cr><lf>",          1, 02, 02, 00,84,03,00, 00,00,00,00
+
+
+
+
+
+
+HKR, Responses, "<cr><lf>CONNECT 300/V42BIS<cr><lf>", 1, 02, 01, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/V42BIS<cr><lf>", 1, 02, 01, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/V42BIS<cr><lf>", 1, 02, 01, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/V42BIS<cr><lf>", 1, 02, 01, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/V42BIS<cr><lf>", 1, 02, 01, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/V42BIS<cr><lf>", 1, 02, 01, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/V42BIS<cr><lf>", 1, 02, 01, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/V42BIS<cr><lf>", 1, 02, 01, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/V42BIS<cr><lf>", 1, 02, 01, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/V42BIS<cr><lf>", 1, 02, 01, 40,38,00,00, 00,00,00,00
+HKR, R

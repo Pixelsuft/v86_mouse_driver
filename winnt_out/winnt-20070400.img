@@ -1,0 +1,143 @@
+***
+;Olivetti Manufacturer device list
+[OLIVETTI]
+%oliscsi.DeviceDesc% = oliscsi_Inst, OLISCSI_SCSI
+
+[oliscsi_Inst]
+CopyFiles = @oliscsi.sys
+Reboot
+
+[oliscsi_Inst.Services]
+AddService = oliscsi, %SPSVCINST_ASSOCSERVICE%, oliscsi_Service_Inst, Miniport_EventLog_Inst
+
+[oliscsi_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\oliscsi.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;****************************
+;IBM Manufacturer device list
+[IBM]
+%spock.DeviceDesc% = spock_Inst, mca_8eff
+
+[spock_Inst]
+CopyFiles = @spock.sys
+Reboot
+
+[spock_Inst.Services]
+AddService = spock, %SPSVCINST_ASSOCSERVICE%, spock_Service_Inst, Miniport_EventLog_Inst
+
+[spock_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\spock.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;**************************************
+;SymBios Logic Manufacturer device list
+[SYMBIOS]
+%symc810.DeviceDesc%               = symc810_Inst,  SYMC810_SCSI
+%symc810.DeviceDesc%               = symc810_Inst,  PCI\VEN_1000&DEV_0001
+%PCI\VEN_1000&DEV_0002.DeviceDesc% = symc810_Inst,  PCI\VEN_1000&DEV_0002
+%PCI\VEN_1000&DEV_0003.DeviceDesc% = symc810_Inst,  PCI\VEN_1000&DEV_0003
+%PCI\VEN_1000&DEV_0004.DeviceDesc% = symc810_Inst,  PCI\VEN_1000&DEV_0004
+
+
+;********************************
+;Mitsumi Manufacturer device list
+[MITSUMI]
+%mitsumi.DeviceDesc%  = mitsumi_Inst, MITSUMI_SCSI
+%*pnpa030.DeviceDesc% = mitsumi_Inst, *pnpa030
+%*pnpa031.DeviceDesc% = mitsumi_Inst, *pnpa031
+%*pnpa032.DeviceDesc% = mitsumi_Inst, *pnpa032
+
+[mitsumi_Inst]
+CopyFiles = @mitsumi.sys
+Reboot
+
+[mitsumi_Inst.Services]
+AddService = mitsumi, %SPSVCINST_ASSOCSERVICE%, mitsumi_Service_Inst, Miniport_EventLog_Inst
+
+[mitsumi_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\mitsumi.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;**********************************
+;Panasonic Manufacturer device list
+[PANASONIC]
+%mkecr5xx.DeviceDesc% = mkecr5xx_Inst, *pnpa003
+%mkecr5xx.DeviceDesc% = mkecr5xx_Inst, *ctl2001
+
+[mkecr5xx_Inst]
+CopyFiles = @mkecr5xx.sys
+Reboot
+
+[mkecr5xx_Inst.Services]
+AddService = mkecr5xx, %SPSVCINST_ASSOCSERVICE%, mkecr5xx_Service_Inst, Miniport_EventLog_Inst
+
+[mkecr5xx_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\mkecr5xx.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;*****************************
+;Sony Manufacturer device list
+[SONY]
+%slcd32.DeviceDesc% = slcd32_Inst, *pnpA02B
+
+[slcd32_Inst]
+CopyFiles = @slcd32.sys
+Reboot
+
+[slcd32_Inst.Services]
+AddService = slcd32, %SPSVCINST_ASSOCSERVICE%, slcd32_Service_Inst, Miniport_EventLog_Inst
+
+[slcd32_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\slcd32.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;**********************************
+;UltraStor Manufacturer device list
+[ULTRASTOR]
+%ultra14f.DeviceDesc% = ultra14f_Inst, *USC0140
+%ultra14f.DeviceDesc% = ultra14f_Inst, *USC0141
+%ultra14f.DeviceDesc% = ultra14f_Inst, *USC0142
+%ultra14f.DeviceDesc% = ultra14f_Inst, *USC0143
+%ultra24f.DeviceDesc% = ultra24f_Inst, *USC0240
+
+[ultra14f_Inst]
+CopyFiles = @ultra14f.sys
+Reboot
+
+[ultra14f_Inst.Services]
+AddService = ultra14f, %SPSVCINST_ASSOCSERVICE%, ultra14f_Service_Inst, Miniport_EventLog_Inst
+
+[ultra14f_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ultra14f.sys
+LoadOrderGroup = SCSI Miniport
+
+[ultra24f_Inst]
+CopyFiles = @ultra24f.sys
+Reboot
+
+[ultra24f_Inst.Services]
+AddService = ultra24f, %SPSVCINST_ASSOCSERVICE%, ultra24f_Service_Inst, Miniport_Ev

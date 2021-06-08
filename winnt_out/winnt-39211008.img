@@ -1,0 +1,160 @@
+=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+;----------------------------------------
+[Racal RMD 3221]
+;Set MAXCONNECTBPS to disable unsupported baud rate of 12000 bps.
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F2
+<hwflowcontrol_off>=*F0
+<compression_on>=*D1
+<compression_off>=*D0
+<protocol_on>=*E1
+<protocol_off>=*E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=RACAL
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Racal RMD 3222]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q1
+<hwflowcontrol_off>=\\Q0
+<compression_on>=\\M0
+<compression_off>=\\M1\\C4
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=096
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>V42bis <connectbps><cr><lf>
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>BUFFER <connectbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>V42 <connectbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>MNP <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>V42bis <connectbps><cr><lf>
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>BUFFER <connectbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>V42 <connectbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>MNP <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+;----------------------------------------
+[Racal RMD 3226]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=14400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K3
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=3226
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><protocol><compression><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>V42bis <connectbps><cr><lf>
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>BUFFER <connectbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>V42 <connectbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>MNP <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>V42bis <connectbps><cr><lf>
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>BUFFER <connectbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>V42 <connectbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps><cr><lf><append>\
+<cr><lf>MNP <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+;----------------------------------------
+[Racal ALM 3226]
+ALIAS=Racal RMD 3226
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=3226
+
+;----------------------------------------
+[Racal RMD 3223]
+ALIAS=Racal RMD 3222
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=960
+;----------------------------------------
+[Racal RMD 9632PA]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on

@@ -1,0 +1,112 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: P.N.B
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM54D240E6, UNIMODEMF910BD97
+
+[Models]
+%Modem14% = Modem1, UNIMODEMF910BD97	; Generic PNB/USR
+%Modem13% = Modem6, UNIMODEM54D240E6
+%Modem12% = Modem12, PNB_Modem12                                 	; RIO 2 PC
+%Modem11% = Modem11, UNIMODEMA81878D6
+%Modem11% = Modem11, "PCMCIA\P.N.B-14.4_Data/Fax/Voice_Modem"    	; PCMCIA RIO Voice
+%Modem10% = Modem10, "PCMCIA\P.N.B-14.4/14.4_Data/Fax_Modem"     	; PCMCIA RIO
+%Modem9%  = Modem9, UNIMODEM3E821AA8                            	; RIO Voice Pocket
+%Modem8%  = Modem8, UNIMODEM78697A9E					; PNB Niagra
+%Modem8%  = Modem8, UNIMODEMC6B8744F					; PNB Niagra
+%Modem7%  = Modem7, UNIMODEMF4C117AB
+%Modem6%  = Modem6, PNB_Modem6, UNIMODEM54D240E6
+%Modem5%  = Modem5, UNIMODEM41F3E959
+%Modem5%  = Modem5, "PCMCIA\P.N.B-2400/9600_DATA/FAX_MODEM-C151"    ;P.N.B Samantha PCMCIA
+%Modem4%  = Modem4, UNIMODEM4F9E7812                                ;P.N.B Rio Grande PCMCIA
+%Modem4%  = Modem4, "PCMCIA\P.N.B-14.4/14.4_DATA/FAX_MODEM-A32A"
+%Modem4%  = Modem4, "PCMCIA\P.N.B-14.4_DATA/FAX/VOICE_MODEM-9C39"
+%Modem3%  = Modem3, UNIMODEMBFCDD371
+%Modem2%  = Modem2, PNB_Modem2, UNIMODEM54D240E6
+%Modem1%  = Modem1, PNB_Modem1, UNIMODEMF910BD97
+
+
+[Modem12]   ; RIO 2 PC
+AddReg=All, RIO2, VerbResp, Modem12.AddReg, Internal
+
+[Modem11]   ; PCMCIA RIO Voice
+AddReg=All, MfgAddReg, VerbResp, Modem11.AddReg, PCMCIA
+
+[Modem10]   ; PCMCIA RIO
+AddReg=All, MfgAddReg, VerbResp, Modem10.AddReg, PCMCIA
+
+[Modem9]    ; RIO Voice Pocket
+AddReg=All, MfgAddReg, VerbResp, Modem9.AddReg, External
+
+[Modem8]
+AddReg=All, MfgAddReg, VerbResp, Modem8.AddReg, Internal
+
+[Modem7]
+AddReg=All, MfgAddReg, VerbResp, Modem7.AddReg, External
+
+[Modem6]
+AddReg=All, MfgAddReg, VerbResp, Modem6.AddReg, External
+
+[Modem5]
+AddReg=All, MfgAddReg, VerbResp, Modem5.AddReg, PCMCIA
+
+[Modem4]
+AddReg=All, MfgAddReg, VerbResp, Modem4.AddReg, Internal
+
+[Modem3]
+AddReg=All, MfgAddReg, VerbResp, Modem3.AddReg, External
+
+[Modem2]
+AddReg=All, MfgAddReg, VerbResp, Modem2.AddReg, External
+
+[Modem1]
+AddReg=All, MfgAddReg, VerbResp, Modem1.AddReg, External
+
+
+[Modem12.AddReg]    ; RIO 2 PC
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem11.AddReg]    ; PCMCIA RIO Voice
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem10.AddReg]    ; PCMCIA RIO
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem9.AddReg]     ; RIO Voice Pocket
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00,07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 00,00,00,00, 01,00,00,00, 0f,00,00,00, c7,07,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, SpeakerVolume_Low,, ""
+HKR, Settings, SpeakerVolume_Med,, ""
+HKR, Settings, SpeakerVolume_High,, ""
+HKR, Settings, ErrorControl_On,, "L4"
+HKR, Settings, ErrorControl_Off,, "L0"
+HKR, Settings, ErrorControl_Forced,, "L4"
+HKR, Settings, Compression_On,, "L5"
+HKR, Settings, Compression_Off,, "L0"
+
+[Modem7.AddReg]
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, c0,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, 00,00,00,00, 01,00,00,00, 0f,00,00,00, 40,07,00,00, 60,09,00,00, 60,09,00,00
+HKR, Settings, SpeakerVolume_Low,, ""
+HKR, Settings, SpeakerVolume_Med,, ""
+HKR, Settings, SpeakerVolume_High,, ""
+
+[Modem5.AddReg]
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem4.AddReg]
+HKR,, Propertie

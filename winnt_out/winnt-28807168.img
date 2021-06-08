@@ -1,0 +1,104 @@
+ZE=999
+1,SFMMGR.CNT , SIZE=914
+1,SFMMGR.HLP , SIZE=64891
+1,SFMMON.DLL , SIZE=999
+1,SFMWSHAT.DLL , SIZE=999
+[Files-ATALKDRIVER]
+1,SFMATALK.SYS , SIZE=999
+[Files-MISC]
+1,SFMUTIL.DLL , SIZE=999
+[LanguagesSupported]
+   ENG
+[OptionsTextENG]
+   ATALK           = "AppleTalk Protocol"
+[FileConstantsENG]
+ProductSFMADMTitle              = "Macintosh Administrator Tools"
+ProductSFMADMDescription        = "Macintosh Administrator Tools"
+ProductATALKTitle               = "AppleTalk Protocol"
+ProductSFMADMName               = "SFMADM"
+FunctionTitle               = "AppleTalk Protocol Setup"
+ProductATALKDescription     = "Enables a Macintosh computer to access shared disk space on your computer."
+ProCaption      = $(FunctionTitle)
+ProCancel       = "Cancel"
+ProCancelMsg    = "AppleTalk Protocol is not correctly installed. "+
+                  "Are you sure you want to cancel copying files ?"
+ProCancelCap    = "AppleTalk Protocol Setup"
+ProText1        = "Copying:"
+ProText2        = "To:"
+Error           = "User has cancelled copying files. Copied files will be removed."
+MajorVersion    = "MajorVersion"
+MinorVersion    = "MinorVersion"
+Version         =  "Version "
+OF              = " of "
+!AtalkMonName                   = "AppleTalk Printing Devices"
+!AtalkMonEventLogName   = "AppleTalk Print Monitor"
+AskLocationText = "Setup needs to copy AppleTalk Protocol files."$(!LF)$(!LF)+
+                  "Setup will look for the files in the location specified below. If you want "+
+                  "Setup to look in a different place, type the new location. When the location "+
+                  "is correct, click Continue."
+[DialogConstantsENG]
+Help        = "&Help"
+Exit        = "Cancel"
+OK          = "OK"
+HelpContext = ""
+Continue    = "Continue"
+Cancel      = "Cancel"
+[ExitWarningDlgENG]
+STF_MB_TITLE    = "AppleTalk Protocol Setup"
+STF_MB_TEXT     = "AppleTalk Protocol is not correctly installed. Are you "+
+                  "sure you want to exit Setup?"
+DlgType         = "MessageBox"
+STF_MB_TYPE     = 3
+STF_MB_ICON     = 5
+STF_MB_DEF      = 2
+[MiscErrorString1ENG]
+ErrorString = +
+" is already installed on your system. "+
+"Use [Update] to update to newer versions."
+[SfmAlreadyInstalledENG]
+ErrorString = +
+" of Services for Macintosh is already installed on your system. "+
+"You have to remove Services for Macintosh before installing the "+
+"AppleTalk Protocol."
+[MiscErrorString3ENG]
+ErrorString = +
+"Setup encountered the following error during installation. Try installing "+
+"after rebooting your system. "$(LF)
+[ShellingErrorENG]
+ErrorString  = +
+"An internal error occurred. Contact Technical Support."
+[CannotStartAtalkENG]
+ErrorSuffix = +
+"Setup was unable to start the AppleTalk Protocol. You will be unable to choose "+
+"a desired zone at this time."
+[CannotStartAfdENG]
+ErrorSuffix = +
+"Setup was unable to start the AFD Driver. You will be unable to choose "+
+"a desired zone at this time."
+[StatusStartingAppleTalkENG]
+Status = "Starting AppleTalk Protocol..."
+[AtalkString1ENG]
+ErrorString  = +
+"Setup cannot add Windows sockets support for the AppleTalk protocol. "+
+"Windows sockets applications will be unable to use the AppleTalk Protocol. "+
+"Remove Services for Macintosh after installation and re-install. If the problem "+
+"persists, contact Microsoft support."
+[AtalkString2ENG]
+ErrorString  = +
+"Setup cannot remove Windows Sockets support for the AppleTalk protocol."
+[AtalkString3ENG]
+ErrorString  = +
+"AppleTalk has just been installed. "+
+"If you would like to configure AppleTalk, close "+
+"the Control Panel, reboot, start AppleTalk and use the Control Panel "+
+"to configure."
+[AtalkString4ENG]
+ErrorString = +
+"Setup cannot add the print monitor for the Print Server for Macintosh. "+
+"Macintosh workstations will be unable to use print services on this "+
+"Windows NT workstation."
+[AtalkString5ENG]
+ErrorString = +
+"Setup cannot remove the monitor for the Print Server for Macintosh."
+[AtalkString6ENG]
+"Setup cannot create the eventlog

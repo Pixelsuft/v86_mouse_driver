@@ -1,0 +1,105 @@
+Ds]
+    HC_RASOPTIONS     = 25020
+    HC_CLIENTACCESS   = 25021
+    HC_INSTALLOVER1   = 25022
+    HC_INSTALLOVER2   = 25023
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    Else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    Endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[Shell Commands]
+    set Exit_Code = $(!STF_ERROR_GENERAL)
+    LoadLibrary "x" $(!STF_SRCDIR)\setupdll.dll !LIBHANDLE
+    LoadLibrary "x" $(!STF_SRCDIR)\ncpa.cpl !NCPA_HANDLE
+    ifstr(i) $(!LIBHANDLE) == ""
+       Debug-Output "OEMNSVRA.INF: unable to load setupdll.dll"
+       Shell subroutn.inf, SetupMessage $(!STF_LANGUAGE) "FATAL" $(UnableToLoadSetupdll)
+       set Exit_Code = STATUS_USERCANCEL
+       exit
+    endif
+    ifstr(i) $(!NCPA_HANDLE) == ""
+       Debug-Output "OEMNSVRA.INF: unable to load ncpa.cpl"
+       Shell subroutn.inf, SetupMessage $(!STF_LANGUAGE) "FATAL" $(UnableToLoadNcpaCpl)
+       set Exit_Code = STATUS_USERCANCEL
+       exit
+    endif
+    ifstr(i) $(RAS_INSTALL_MODE) == ""
+       set RAS_INSTALL_MODE = install
+    endif
+    read-syms SystemVars
+    detect    SystemVars
+    read-syms RasErrors$(!STF_LANGUAGE)
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\ProductOptions" 33554432 KeyProductOption
+    ifstr(i) $(KeyProductOption) != ""
+        GetRegValue $(KeyProductOption) "ProductType" ProductTypeList
+        set TempProductType = *($(ProductTypeList),4)
+        ifstr(i) $(TempProductType) == "winnt"
+            set !STF_PRODUCT = WINNT
+        else-ifstr(i) $(TempProductType) == "lanmannt"
+            set !STF_PRODUCT = LANMANNT
+        else-ifstr(i) $(TempProductType) == "servernt"
+            set !STF_PRODUCT = SERVERNT
+        else
+            Debug-Output "OEMNSVRA.INF: invalid Product Type "$(TempProductType)
+            Shell subroutn.inf, SetupMessage $(!STF_LANGUAGE) "FATAL" $(UnknownProductType)
+            set Exit_Code = STATUS_USERCANCEL
+            exit
+        endif
+        CloseRegKey $(KeyProductOptions)
+    else
+        Debug-Output "OEMNSVRA.INF: unable to determine Product Type "
+        Shell subroutn.inf, SetupMessage $(!STF_LANGUAGE) "FATAL" $(NoProductType)
+        set Exit_Code = STATUS_USERCANCEL
+        exit
+    endif
+    Debug-Output "OEMNSVRA.INF: Product Type "$(!STF_PRODUCT)
+    ifstr(i) $(RAS_INSTALL_MODE) != "install"
+       ifstr(i) $(RAS_INSTALL_MODE) != "configure"
+          ifstr(i) $(RAS_INSTALL_MODE) != "deinstall"
+             Debug-Output "OEMNSVRA.INF: Invalid RAS_INSTALL_MODE "$(RAS_INSTALL_MODE)
+             Shell subroutn.inf, SetupMessage $(!STF_LANGUAGE) "WARNING" $(InvalidMode)
+             set Exit_Code = STATUS_USERCANCEL
+             exit
+          endif
+       endif
+    endif
+    set !NTN_InstallMode = $(RAS_INSTALL_MODE)
+    Shell "" InstallOption $(!STF_LANGUAGE) "RAS" $(!STF_SRCDIR) "YES" "YES" "YES"
+    ifint $($ShellCode) != $( !SHELL_CODE_OK)
+       Debug-Output "OEMNSVRA.INF: Failed to shell out to InstallOption"
+       exit
+    endif
+    set Exit_Code = $($R0)
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+       set Exit_Code = 1
+    endif
+    Debug-Output "Oemnsvra.inf: install returned "$($R0)
+    FreeLibrary $(!LIBHANDLE)
+    FreeLibrary $(!NCPA_HANDLE)
+    exit
+[InstallOption]
+    Debug-Output "In InstallOption section"
+    set Status   = STATUS_FAILED
+    set Option      = $($1)
+    set SourceDir   = $($2)
+    set AddCopy     = $($3)
+    set D

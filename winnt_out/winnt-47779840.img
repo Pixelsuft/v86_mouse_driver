@@ -1,0 +1,55 @@
+, 00,00,00,00
+HKR, Responses, "44<cr>77<cr>67<cr>05<cr>", 1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>77<cr>69<cr>05<cr>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>77<cr>05<cr>",       1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>80<cr>66<cr>05<cr>", 1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>80<cr>67<cr>05<cr>", 1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>80<cr>69<cr>05<cr>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>80<cr>05<cr>",       1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>81<cr>66<cr>05<cr>", 1, 02, 0B, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>81<cr>67<cr>05<cr>", 1, 02, 0B, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>81<cr>69<cr>05<cr>", 1, 02, 0A, B0,04,00,00, 00,00,00,00
+HKR, Responses, "44<cr>81<cr>05<cr>",       1, 02, 0A, B0,04,00,00, 00,00,00,00
+
+; 300 								
+HKR, Responses, "40<cr>70<cr>66<cr>01<cr>", 1, 02, 01, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>70<cr>67<cr>01<cr>", 1, 02, 01, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>70<cr>69<cr>01<cr>", 1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>70<cr>01<cr>",       1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>77<cr>66<cr>01<cr>", 1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>77<cr>67<cr>01<cr>", 1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>77<cr>69<cr>01<cr>", 1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>77<cr>01<cr>",       1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>80<cr>66<cr>01<cr>", 1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>80<cr>67<cr>01<cr>", 1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>80<cr>69<cr>01<cr>", 1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>80<cr>01<cr>",       1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>81<cr>66<cr>01<cr>", 1, 02, 0B, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>81<cr>67<cr>01<cr>", 1, 02, 0B, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>81<cr>69<cr>01<cr>", 1, 02, 0A, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "40<cr>81<cr>01<cr>",       1, 02, 0A, 2C,01,00,00, 00,00,00,00
+
+[VerboseResultCodes]
+HKR, Responses, "<cr><lf>RING<cr><lf>",         1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",   1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",  1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",         1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",    1, 07, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 0600<cr><lf>", 1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>", 1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>", 1, 02, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>", 1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>", 1, 02, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>", 1, 02, 00, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>", 1, 02, 00, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>", 1, 02, 00, 00,00,00,00, 00,c2,01,00
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>", 1, 02, 00, a0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600<cr><lf>", 1, 02, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000<cr><lf>", 1, 02, 00, c0,5d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400<cr><lf>", 1, 02, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>", 1, 02

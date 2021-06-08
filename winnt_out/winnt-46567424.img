@@ -1,0 +1,52 @@
+, 00, 60,54,00,00, 00,00,00,00 ; CARRIER 21600
+HKR, Responses, "39<cr>", 1, 01, 00, 80,BB,00,00, 00,00,00,00 ; CARRIER 48000
+HKR, Responses, "40<cr>", 1, 01, 00, 2C,01,00,00, 00,00,00,00 ; CARRIER 300
+HKR, Responses, "41<cr>", 1, 01, 00, 58,02,00,00, 00,00,00,00 ; CARRIER 600
+HKR, Responses, "42<cr>", 1, 01, 00, 58,02,00,00, 00,00,00,00 ; CARRIER 600/75
+HKR, Responses, "43<cr>", 1, 01, 00, 58,02,00,00, 00,00,00,00 ; CARRIER 75/600
+HKR, Responses, "44<cr>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 1200/75
+HKR, Responses, "45<cr>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 75/1200
+HKR, Responses, "46<cr>", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 1200
+HKR, Responses, "47<cr>", 1, 01, 00, 60,09,00,00, 00,00,00,00 ; CARRIER 2400
+HKR, Responses, "48<cr>", 1, 01, 00, C0,12,00,00, 00,00,00,00 ; CARRIER 4800
+HKR, Responses, "49<cr>", 1, 01, 00, 20,1C,00,00, 00,00,00,00 ; CARRIER 7200
+HKR, Responses, "50<cr>", 1, 01, 00, 80,25,00,00, 00,00,00,00 ; CARRIER 9600
+HKR, Responses, "51<cr>", 1, 01, 00, E0,2E,00,00, 00,00,00,00 ; CARRIER 12000
+HKR, Responses, "52<cr>", 1, 01, 00, 40,38,00,00, 00,00,00,00 ; CARRIER 14400
+HKR, Responses, "53<cr>", 1, 01, 00, A0,41,00,00, 00,00,00,00 ; CARRIER 16800
+HKR, Responses, "54<cr>", 1, 01, 00, 00,4B,00,00, 00,00,00,00 ; CARRIER 19200
+HKR, Responses, "55<cr>", 1, 01, 00, 80,70,00,00, 00,00,00,00 ; CARRIER 28800
+HKR, Responses, "56<cr>", 1, 01, 00, 00,96,00,00, 00,00,00,00 ; CARRIER 38400
+HKR, Responses, "57<cr>", 1, 01, 00, C0,DA,00,00, 00,00,00,00 ; CARRIER 56000
+HKR, Responses, "58<cr>", 1, 01, 00, 00,E1,00,00, 00,00,00,00 ; CARRIER 57600
+HKR, Responses, "59<cr>", 1, 01, 00, 00,FA,00,00, 00,00,00,00 ; CARRIER 64000
+HKR, Responses, "60<cr>", 1, 02, 00, 60,54,00,00, 00,00,00,00 ; CONNECT 21600
+HKR, Responses, "61<cr>", 1, 02, 00, 40,51,00,00, 00,00,00,00 ; CONNECT 20800
+HKR, Responses, "62<cr>", 1, 02, 00, 80,A2,00,00, 00,00,00,00 ; CONNECT 41600
+HKR, Responses, "63<cr>", 1, 02, 00, 00,C8,00,00, 00,00,00,00 ; CONNECT 51200
+HKR, Responses, "64<cr>", 1, 02, 00, C0,F3,00,00, 00,00,00,00 ; CONNECT 62400
+HKR, Responses, "65<cr>", 1, 02, 00, 00,84,03,00, 00,00,00,00 ; CONNECT 230400
+HKR, Responses, "66<cr>", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: CLASS 5
+HKR, Responses, "67<cr>", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS
+HKR, Responses, "68<cr>", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: ADC
+HKR, Responses, "69<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; COMPRESSION: NONE
+HKR, Responses, "70<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; PROTOCOL: NONE
+HKR, Responses, "71<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ERROR-CONTROL/LAPB
+HKR, Responses, "72<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ERROR-CONTROL/LAPB/HDX
+HKR, Responses, "73<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ERROR-CONTROL/LAPB/AFT
+HKR, Responses, "74<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: X.25/LAPB
+HKR, Responses, "75<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: X.25/LAPB/HDX
+HKR, Responses, "76<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: X.25/LAPB/AFT
+HKR, Responses, "77<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM
+HKR, Responses, "78<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM/HDX
+HKR, Responses, "79<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM/AFT
+HKR, Responses, "80<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ALT
+HKR, Responses, "81<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ISDN
+HKR, Responses, "82<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: X.25
+HKR, Responses, "83<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: V.120
+HKR, Responses, "84<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: T-LINK
+HKR, Responses, "85<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: DTMF
+HKR, Responses, "86<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: FAX
+HKR, Responses, "87<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "88<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Respons

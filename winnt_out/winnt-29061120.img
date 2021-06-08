@@ -1,0 +1,77 @@
+AddressList  = $($R1)
+                        set SubnetMaskList = $($R2)
+                    Endif
+                endif
+            endif
+        EndIf
+        CloseRegKey $(ParametersKey)
+        OpenRegKey $(!REG_H_LOCAL) "" $(LinkageKeyName) $(MAXIMUM_ALLOWED) LinkageKey
+        GetRegValue $(LinkageKey) "Bind" BindList
+        ifstr(i) $(BindList) == {}
+           Set BindList = ""
+        endif
+        ifstr(i) $(BindList) == ""
+            LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceStart "DHCP", 4
+            debug-output "OEMNXPTC.INF: no binding info; warning user"
+            read-syms InfoDlgCantConfigure
+            goto infomsg
+        endif
+        set OldVersionExisted = $(TRUE )
+        set CardList = ""
+        set CardCount = 0
+        ForListDo *($(BindList),4)
+            Split-String $($), "\", BindInfo
+            QueryListSize BindListSize $(BindInfo)
+            set CardName = *($(BindInfo),$(BindListSize))
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"*($(BindInfo),$(BindListSize)) $(MAXIMUM_ALLOWED) CardServiceKey
+            ifstr(i) $(CardServiceKey) != ""
+                CloseRegKey $(CardServiceKey)
+                set-add CardCount = $(CardCount),1
+                ifstr $(CardList) == ""
+                    set CardList = {$(CardName)}
+                else
+                    set CardList = >($(CardList),$(CardName))
+                endif
+            endif
+        EndForListDo
+        debug-output $(CardList)
+        set OldCardList = $(CardList)
+        set CardList = ""
+        set CardServiceKey = ""
+        set CardCount = 1
+        ForListDo $(OldCardList)
+            ifstr(i) $(CardServiceKey) == ""
+                ifstr $(CardList) == ""
+                    set CardList = $($)
+                else
+                    set CardList = $(CardList)"@"$($)
+                endif
+                debug-output "Doing:"$($)
+                debug-output $(CardList)
+                set DefaultIPAddress = *($(IPAddressList),$(CardCount))
+                set DefaultSubnetMask = *($(SubnetMaskList),$(CardCount))
+                OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$($)"\Parameters" $(MAXIMUM_ALLOWED) ServiceParamKey
+                ifstr(i) $(ServiceParamKey) != ""
+                    OpenRegKey $(ServiceParamKey) "" "Tcpip" $(MAXIMUM_ALLOWED) TCPIPKey
+                    GetRegValue $(ParametersKey) "AutoIPAddress" AutoIPInfo
+                    set AutoIPFlag = *($(AutoIPInfo),4)
+                    set EnableDHCPForThisAdapter = $(EnableDHCPFlag)
+                    ifint $(AutoIPFlag) == 1
+                        set EnableDHCPForThisAdapter = 0
+                    endif
+                    ifstr(i) $(TCPIPKey) == ""
+                        CreateRegKey $(ServiceParamKey) {"Tcpip",$(NoTitle),GenericClass} "" +
+                        $(MAXIMUM_ALLOWED) "" TCPIPKey
+                        debug-output "set Parameters"
+                        debug-output "EnableDHCPFlag:"$(EnableDHCPForThisAdapter)
+                        set NewValueList = {{EnableDHCP,$(NoTitle),$(!REG_VT_DWORD),$(EnableDHCPForThisAdapter)},+
+                                        {UseZeroBroadcast,$(NoTitle),$(!REG_VT_DWORD),0},+
+                                        {LLInterface,$(NoTitle),$(!REG_VT_SZ),""}}
+                        Shell  $(UtilityInf), AddValueList, $(TCPIPKey), $(NewValueList)
+                        ifstr(i) $(TCPIPKey) != ""
+                            debug-output $(RegistryErrorIndex)
+                            ifint $(EnableDHCPForThisAdapter) == 1
+                                set NewValueList = {{IPAddress,$(NoTitle),$(!REG_VT_MULTI_SZ),{"0.0.0.0"}},+
+                                                    {DefaultGateway,$(NoTitle),$(!REG_VT_MULTI_SZ),{}},+
+                                                    {SubnetMask,$(NoTitle),$(!REG_VT_MULTI_SZ),{"0.0.0.0"}}}
+                                Shell  $(UtilityInf), AddValueList, $(TCPIPKey), $(NewValueList)

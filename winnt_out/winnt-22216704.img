@@ -1,0 +1,31 @@
+o use network drives, you must use the server and share name (for example, \\Computername\Sharename\Wwwfiles). If you require a user name and password to connect to a network drive, all requests from remote users to access that drive must be made with the user name and password you specified, not the anonymous IUSR_computername account or another account you may have specified.
+
+Choosing a Logon Method
+This release of Internet Information Server provides three logon methods for the WWW, FTP, and gopher services.
+
+· Local means that the user is logged on as though he or she had actually walked up to the computer and logged on interactively. The user must have the Log on locally access right set in User Manager.
+
+· Batch means the user is logged on locally (as with the Local logon method) but must have the Log on as a batch job access right set in User Manager. This logon method enables the user to access the server from a Web browser but does not give the user the right to log on locally.
+
+· Network means the user is logged on as a remote network user. The user must have the Access this computer from network access right set in User Manager. This logon method enables the user to access the server from a Web browser but does not give the user the right to log on locally. Users logged on with this logon method cannot access remote, authenticated resources, such as a SQL server using integrated security. 
+
+Generally, you should configure the default logon method for FTP and gopher users as Network. You should configure the default logon for WWW service users as Network unless users need to access remote, authenticated resources.
+
+For backward compatibility with Internet Information Server 1.0, the default logon method is Local. To change the logon method, set the registry entry LogonMethod as described in Chapter 10, "Configuring Registry Entries," in Internet Information Server Installation and Administration Guide.
+
+For the WWW service, if the user’s browser supports Basic authentication, the user is logged on using the logon method set in the LogonMethod registry entry. If the user’s browser supports Windows NT Challenge/Response authentication, the user is always logged on using the Network logon method. 
+
+Note that Basic authentication sends user names and passwords over the network in clear text (unencrypted text). Challenge/Response authentication is more secure because it sends passwords in encrypted text. Currently, only Internet Explorer 2.0 or later supports Windows NT Challenge/Response authentication. For more information on security, see Chapter 5, "Securing Your Site Against Intruders," in Internet Information Server Installation and Administration Guide.
+
+Setting the Log File Size
+You cannot set the maximum size of the logging file by using the Web-based version of Internet Service Manager.  You must use Internet Service Manager to set this option, which is located in the Logging Properties panel.
+
+Securely Generating SSL Key Pairs
+The Key Manager tool (Keyring.exe), new with Internet Information Server 2.0, can generate a Secure Sockets Layer (SSL) public-private key pair on a local computer as well as for a remote computer. With this tool, you can  create a key pair on one computer and move it to a remote computer.
+
+However, transferring a key pair from one computer to another over a network may expose it to snooping, because the key pairs are not encrypted when traveling over a network. If a private key is discovered, it can compromise the site's SSL identification (as stated in the Certificate). Furthermore, this potentially exposes all subsequent SSL communications to and from that computer are subject to interception and decryption.
+
+To protect the private key, which is paramount to SSL security, you should generate a key pair remotely in one of these three ways:
+* In a secure environment over a trusted network.
+* Locally, on the actual computer where it is to be installed.
+* On a remote computer and then moved to a floppy disk, hand-carried to the target computer, and manu

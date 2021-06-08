@@ -1,0 +1,56 @@
+1, 02, 00, 00,C2,01,00, 00,00,00,00
+
+HKR, Responses, "CONNECT 300/ARQ",             1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/ARQ",             1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/ARQ",            1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/ARQ",            1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/75/ARQ",         1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200TX/75RX/ARQ",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75/1200/ARQ",         1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75TX/1200RX/ARQ",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 2400/ARQ",            1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 4800/ARQ",            1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 7200/ARQ",            1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 9600/ARQ",            1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 12000/ARQ",           1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 14400/ARQ",           1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 16800/ARQ",           1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 19200/ARQ",           1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 21600/ARQ",           1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "CONNECT 24000/ARQ",           1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 26400/ARQ",           1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/ARQ",           1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/ARQ/VFC",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/VFC",           1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 38400/ARQ",           1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 57600/ARQ",           1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 115200/ARQ",          1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "CONNECT 115,200/ARQ",         1, 02, 02, 00,C2,01,00, 00,00,00,00
+
+HKR, Responses, "CARRIER 300",       1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 1200",      1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 1200/75",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 75/1200",   1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 2400",      1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 4800",      1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 7200",      1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 9600",      1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 12000",     1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 14400",     1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 19200",     1, 01, 00, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 21600",     1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 24000",     1, 01, 00, c0,5d,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 26400",     1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 28800",     1, 01, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 28800/VFC", 1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "COMPRESSION: CLASS 5",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42 bis", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42BIS",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: NONE",     1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "PROTOCOL: NONE",         1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT-CELLULAR", 1, 01, 0A, 0

@@ -1,0 +1,135 @@
+t [unbuffered] Link<cr><lf><cr><lf>OK<cr><lf>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+
+;******************* Modem Anderson Jacobson CXR ***************
+
+[AJ 2423 - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*LG2
+<hwflowcontrol_off>=*LG0
+<compression_on>=*E1
+<compression_off>=*E0
+<protocol_on>=*T3
+<protocol_off>=*M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=AJ2423
+
+
+COMMAND_INIT=AT&F&C1*M2&D0S0=0S2=43S7=55X4V1Q0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+[AJ 1445/1446 - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*LG2
+<hwflowcontrol_off>=*LG0
+<compression_on>=*E1
+<compression_off>=*E0
+<protocol_on>=*T3
+<protocol_off>=*M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=AJ 1445
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=AJ 1446
+
+
+COMMAND_INIT=AT&F&C1*M2&D2S0=0S2=43S7=55X4V1Q0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP4<cr><lf>
+
+
+[AJ 9636 - FRN]
+CALLBACKTIME=45
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*LG2
+<hwflowcontrol_off>=*LG0
+<compression_on>=*E1
+<compression_off>=*E0
+<protocol_on>=*T3
+<protocol_off>=*M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=AJ 9636
+
+
+COMMAND_INIT=AT&F&C1*M2&D2S0=0S2=43S7=55X4V1Q0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/MNP5<cr><lf>
+CONNEC

@@ -1,0 +1,149 @@
+lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>PROTOCOL: MNP5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+; End of compression for CLASS5 Compression.
+
+; NONE Compression with Protocol ALT,MNP5,LAP-M,MNP4,MNP3,MNP2,NONE
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>PROTOCOL: MNP2<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>PROTOCOL: MNP3<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>PROTOCOL: MNP4<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>PROTOCOL: MNP5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+
+; End of compression for NONE Compression.
+
+;----------------------------------------
+
+[Maestro RC224FMI - AUS]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+COMMAND_INIT=AT&F&C1&D2 V1 X1 S0=0 S2=128 S7=55<speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+
+;----------------------------------------
+
+[Maestro 144FMEI - AUS]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C1
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&F&C1&D2 X1 S0=0 S2=128 S7=60 <speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+
+;------------------------------------------------------
+
+[Netcomm Pocket Rocket PA- AUS]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&F&C1&D2 V1 X1 W1 S95=2 S0=0 S7=60<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumb

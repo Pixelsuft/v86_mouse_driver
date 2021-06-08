@@ -1,0 +1,112 @@
+$($R1)
+    Debug-Output "OEMNADE2.INF: Calling Param_SetDefaults to merge detected params"
+    Shell $(ParamInf) Param_SetDefaults $(DetectedParams)
+    goto adaptersetup
+configureadapter = +
+    Ifstr $(KeyProduct) == $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNull)
+            set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+            Debug-Output "Cannot find component product key"
+            goto fatalregistry
+        Endif
+    Endif
+    Debug-Output "INF: Shelling to FindService"
+    Shell $(UtilityInf) FindService, $(KeyProduct)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "INF: FindService shell failure"
+        Goto ShellCodeError
+    Endif
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "INF: FindService Shell error: "$($R0)
+        Goto fatalregistry
+    endif
+    Set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Ifstr $(KeyParameters) == $(KeyNull)
+        set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+        Debug-Output "Cannot find component service"
+        goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE)
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+        set ValueItem = $($)
+        set ValueName = *($(ValueItem),1)
+        set ValueData = *($(ValueItem),4)
+        Ifstr(i) $(ValueName) == "Transceiver"
+            set TransceiverValue = $(ValueData)
+        else-ifstr(i) $(ValueName) == "MemoryMapped"
+            set MappedValue = $(ValueData)
+        else-ifstr(i) $(ValueName) == "InterruptNumber"
+            set IRQ_Level = $(ValueData)
+        else-ifstr(i) $(ValueName) == "IoBaseAddress"
+            set IOBaseAddrValue = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusType"
+            set BusInterfaceType = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumber = $(ValueData)
+        endif
+    EndForListDo
+    Shell $(ParamInf) Param_SaveValues
+    Set CurrParamSettings = $($R0)
+adaptersetup = +
+    Shell "" DebugConfiguration "before displaying dialog"
+    Set from = adapteroptions
+    Set IOADDR_Hex_Value = *($(IOADDR_Hex_List), ~($(IOADDR_Addr_List),$(IOBaseAddrValue)))
+    Ifint $(MappedValue) == 0
+        Set CheckItemsIn = {"OFF"}
+    Else
+        Set CheckItemsIn = {"ON"}
+    Endif
+    Ifint $(TransceiverValue) == 1
+        Set RadioIn = {1}
+    Else
+        Set RadioIn = {2}
+    Endif
+    Shell $(ParamInf) Param_ParameterConfidence
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "OEMNADE2.INF: parameter confidence too low to bypass configuration"
+        Goto adapteroptions
+    Endif
+    Ifstr(i) $(DetectedCard) == TRUE
+        Ifstr(i) $(!STF_INSTALL_MODE) != CUSTOM
+            set BusInterfaceType = *($(!STF_NCDETINFO),5)
+            set BusNumber = *($(!STF_NCDETINFO),6)
+            Goto adapterverify
+        Endif
+    Endif
+adapteroptions = +
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusInterfaceType = $(!AutoNetInterfaceType)
+        else
+            set BusInterfaceType = 1    
+        endif
+        ifstr(i) $(!AutoNetBusNumber) != ""
+            set BusNumber = $(!AutoNetBusNumber)
+        else
+            set BusNumber = 0
+        endif
+        goto adapterverify
+    endif
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    ui start "InputDlg"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set IRQ_Level = $(Combo1Out)
+        set IOADDR_Hex_Value = $(Combo2Out)
+        set TransceiverTypeIndex = *($(RadioOut),1)
+        Ifint $(TransceiverTypeIndex) == 1
+            Set TransceiverValue = 1
+        Else
+            Set TransceiverValue = 2
+        Endif
+        Set Chk = *($(CheckItemsOut), 1)
+        Ifstr(i) $(Chk) == "ON"
+            Set MappedValue = 1
+        Else
+            Set Mapp

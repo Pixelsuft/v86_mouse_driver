@@ -1,0 +1,103 @@
+[Options]
+    Computer            = cpt
+    Video               = vio
+    Layout              = lay
+    Language            = lng
+    Printer             = prn
+    Sound               = snd
+    Driver              = drv
+    NetAdapter          = nad
+    NetDriver           = ndr
+    NetTransport        = nxp
+    NetService          = nsv
+    Network             = nwk
+    NetProvider         = npr
+[OemOptionFiles]
+    OemFiles = {} ? $(!LIBHANDLE) FindFileInstances $(!STF_WINDOWSSYSPATH)"\oem"$(Abb)"*.inf"
+[DetectFileTime]
+    FileDateTime = {"0","0"} ? $(!LIBHANDLE) GetFileLastWriteTime $(!STF_WINDOWSSYSPATH)"\"$(FileDateTimeName)
+[ReturnOemOptions]
+    set Status         = STATUS_FAILED
+    set OemOptionList  = {}
+    set FromNetwork    = $($2)
+    set AllChars       = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789."
+    set Numerals      = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+    set Abb = #(Options, $($1), 1)
+    read-syms OemOptionFiles
+    detect OemOptionFiles
+    ifcontains(i) "oemnadzz.inf" in $(OemFiles)
+        set newList = {"oemnadzz.inf"}
+        ForListDo $(OemFiles)
+            ifstr(i) $($) != "oemnadzz.inf"
+                set newList = >($(newList),$($))
+            endif
+        EndForListDo
+        set OemFiles = $(newList)
+    endif
+    debug-output $(OemFiles)
+    set TotalOptions = {}
+    ForListDo $(OemFiles)
+        set fExclude = ""
+        Split-String $($) $(AllChars) InfNameChars
+        ifcontains(i) *($(InfNameChars), 7) in $(Numerals)
+            set fExclude = $(FromNetwork)
+        endif
+        ifstr(i) $(fExclude) == ""
+            set OemFileName = $(!STF_WINDOWSSYSPATH)"\"$($)
+            ifstr(i) $(FromNetwork) == ""
+                shell "", GetOptionsFromINF $($0) $($1) $(OemFileName)
+            else
+                shell "", GetNetworkOptionsFromINF $($0) $($1) $(OemFileName)
+            endif
+            set CurrentInf = $($)
+            ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                set Index = 0
+                set ReturnOption = $($R1)
+                set ReturnOptionText = $($R2)
+                ForListDo $(ReturnOption)
+                    set-add Index = $(Index), 1
+                    ifcontains(i) $($) not-in $(TotalOptions)
+                        set OemOptionList = >($(OemOptionList), {$(CurrentInf), $($), *($(ReturnOptionText),$(Index))})
+                        set TotalOptions = >($(TotalOptions), $($))
+                    endif
+                EndForListDo
+            endif
+        endif
+    EndForListDo
+    set Status = STATUS_SUCCESSFUL
+finish_GetCurrentOemOptions = +
+    Return $(Status) $(OemOptionList)
+[GetNetworkOptionsFromINF]
+    set Status         = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set FileToCheck = $($2)
+    install Install-SeeIfFileIsPresent
+    ifstr(i) $(STATUS) != "YES"
+        set Status = STATUS_INFNOTFOUND
+        goto finish_GetNetworkOptionsFromINF
+    endif
+    Shell "" GetOptionsFromRegistry $($1) $($2)
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set  OptionList     = $($R1)
+        set  OptionTextList = $($R2)
+        set  Status         = STATUS_SUCCESSFUL
+        goto finish_GetNetworkOptionsFromINF
+    endif
+    shell $($2) Identify
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        ifstr(i) $($R1) == $($1)
+            set OptionList = {}
+            set OptionTextList = {}
+            forlistdo $(!STF_BUSTYPELIST)
+                shell $($2) ReturnOptions $($0) $($)
+                ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                    set Index = 0
+                    set ReturnOption = $($R1)
+                    set ReturnOptionText = $($R2)
+                    ForListDo $(ReturnOption)
+                        set-add Index = $(Index), 1
+                        ifstr(i) $(OptionList) == {}
+                            set OptionList = {$($)}
+                            set OptionTextList = {*($(ReturnOptionText),$(Index))}
+                        el

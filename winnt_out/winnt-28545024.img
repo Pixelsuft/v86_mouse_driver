@@ -1,0 +1,83 @@
+  Streams}
+        Debug-Output "OEMNXPIP.INF: At RemoveWinsockInfo"
+        Shell $(UtilityInf), RemoveWinsockInfo, "NWLINKIPX"
+        Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_ipx"
+        Ifstr(i) $($0) != NO_ERROR
+            Debug-Output "OEMNXPIP.INF: ERROR deleting IPX RPC protocol data"
+        Endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\Microsoft\NWCWorkstation" $(MAXIMUM_ALLOWED) NwcKey
+	    ifstr(i) $(NwcKey) == ""
+            Shell $(UtilityInf) RemoveServerRpcProtocol "ncadg_ipx"
+            Ifstr(i) $($0) != NO_ERROR
+                Debug-Output "OEMNXPIP.INF: ERROR deleting IPX RPC protocol data"
+            Endif
+            Shell $(UtilityInf) RemoveServerRpcProtocol "ncacn_spx"
+            Ifstr(i) $($0) != NO_ERROR
+                Debug-Output "OEMNXPIP.INF: ERROR deleting SPX RPC protocol data"
+            Endif
+        else
+            CloseRegKey $(NwcKey)
+        endif
+        ForListDo $(OEM_ABANDON_SOFTWARE)
+            DEBUG-OUTPUT "Remove component: "$($)
+            ifstr(i) $($) == "Streams"
+                Shell $(UtilityInf), RemoveStreams
+            else
+                Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $($), FALSE
+            endif
+        EndForListDo
+        ForListDo  $(OEM_ABANDON_OPTIONS)
+            DEBUG-OUTPUT "Remove component: "$($)
+            ifstr(i) $($) != "NWLINKSPX"
+                Set UseSvcctrl = "YES"
+            else
+                Set UseSvcctrl = "NO"
+            endif
+            Shell $(UtilityInf), RemoveService, $($), $(UseSvcctrl)
+        EndForListDo
+        set OldInstallMode = $(!NTN_InstallMode)
+        set !NTN_InstallMode = install
+        Shell "" "InstallOption" $(!STF_LANGUAGE) "NWLNKIPX" +
+           $(!STF_SRCDIR) "NO" "NO" $(DoConfig)
+        set !NTN_InstallMode = $(OldInstallMode)
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+        ifstr(i) $(KeyProduct) != ""
+            SetRegValue $(KeyProduct), $(RefCountInfo)
+            CloseRegKey $(KeyProduct)
+        endif
+    else
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        CloseRegKey $(KeyProduct)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NwlnkIpx\Parameters" $(MAXIMUM_ALLOWED) KeyParameters
+        ifstr(i) $(KeyParameters) != ""
+            GetRegValue $(KeyParameters), "ReplaceConfigDialog", ReplaceInfo
+            Debug-Output "GetRegValue returned "$(RegLastError)
+            ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+	    	SetRegValue $(KeyParameters) {ReplaceConfigDialog,$(NoTitle),$(!REG_VT_DWORD),0}
+            endif
+            CloseRegKey $(KeyParameters)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\"$(Manufacturer)"\NwlnkSpx\CurrentVersion\NetRules" $(MAXIMUM_ALLOWED) KeyNetRules
+        ifstr(i) $(KeyNetRules) != ""
+            set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNWLNKSPXType)},+
+                            {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleNWLNKSPXBindable)},+
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleNWLNKSPXClass)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNWLNKSPXUse)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNWLNKSPXBindForm)}}
+            Shell  $(UtilityInf), AddValueList, $(KeyNetRules), $(NewValueList)
+            CloseRegKey $(KeyNetRules)
+        endif
+    Shell $(UtilityInf), AddNameSpaceProvider, +
+            $(ProductNWLNKIPXDisplayName), +
+            $(ProviderImagePath), +
+            $(ProviderNameSpaces), +
+            TRUE, +
+            $(ProviderGUID)
+	Shell $(UtilityInf), AddServiceProvider, $(ProductNWLNKIPXName), +
+	    $(ProviderImagePath), 8
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\Microsoft\NWCWorkstation" $(MAXIMUM_ALLOWED) NwcKey
+	    ifstr(i) $(NwcKey) == ""
+	        Shell $(UtilityInf) Remov

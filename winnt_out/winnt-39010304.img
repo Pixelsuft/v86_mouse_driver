@@ -1,0 +1,176 @@
+MenuEnter
+            CASE CHR$(27): GOSUB MenuEscape
+            CASE ELSE:  BEEP
+        END SELECT
+    WEND
+
+    Menu = currChoice
+
+    EXIT FUNCTION
+
+
+MenuEnter:
+    finished = TRUE
+    RETURN
+
+MenuEscape:
+    currChoice = 0
+    finished = TRUE
+    RETURN
+
+MenuUp:
+    IF BarMode THEN
+        BEEP
+    ELSE
+        currChoice = (currChoice + MaxChoice - 2) MOD MaxChoice + 1
+    END IF
+    RETURN
+
+MenuLeft:
+    IF BarMode THEN
+        currChoice = (currChoice + MaxChoice - 2) MOD MaxChoice + 1
+    ELSE
+        currChoice = -2
+        finished = TRUE
+    END IF
+    RETURN
+
+MenuRight:
+    IF BarMode THEN
+        currChoice = (currChoice) MOD MaxChoice + 1
+    ELSE
+        currChoice = -3
+        finished = TRUE
+    END IF
+    RETURN
+
+MenuDown:
+    IF BarMode THEN
+        finished = TRUE
+    ELSE
+        currChoice = (currChoice) MOD MaxChoice + 1
+    END IF
+    RETURN
+
+MenuShowCursor:
+    COLOR colors(8, ColorPref), colors(9, ColorPref)
+    LOCATE ItemRow(currChoice), ItemCol(currChoice)
+    PRINT choice$(currChoice);
+    PrintHelpLine help$(currChoice)
+    RETURN
+
+MenuGetKey:
+    Kbd$ = ""
+    WHILE Kbd$ = ""
+        Kbd$ = INKEY$
+    WEND
+    RETURN
+
+MenuHideCursor:
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    LOCATE ItemRow(currChoice), ItemCol(currChoice)
+    PRINT choice$(currChoice);
+    RETURN
+
+
+END FUNCTION
+
+'MenuSystem:
+'  Main routine that controls the program.  Uses the MENU function
+'  to implement menu system and calls the appropriate function to handle
+'  the user's selection
+SUB MenuSystem
+
+    DIM choice$(20), menuRow(20), menuCol(20), help$(20)
+    LOCATE , , 0
+    choice = 1
+    finished = FALSE
+
+    WHILE NOT finished
+        GOSUB MenuSystemMain
+
+        subchoice = -1
+        WHILE subchoice < 0
+            SELECT CASE choice
+                CASE 1: GOSUB MenuSystemFile
+                CASE 2: GOSUB MenuSystemEdit
+                CASE 3: GOSUB MenuSystemAccount
+                CASE 4: GOSUB MenuSystemReport
+                CASE 5: GOSUB MenuSystemColors
+            END SELECT
+            FancyCls colors(2, ColorPref), colors(1, ColorPref)
+
+            SELECT CASE subchoice
+                CASE -2: choice = (choice + 3) MOD 5 + 1
+                CASE -3: choice = (choice) MOD 5 + 1
+            END SELECT
+        WEND
+    WEND
+    EXIT SUB
+
+
+MenuSystemMain:
+    FancyCls colors(2, ColorPref), colors(1, ColorPref)
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    Box 9, 19, 14, 61
+    Center 11, "Use arrow keys to navigate menu system"
+    Center 12, "Press Enter to select a menu item"
+
+    choice$(1) = " File "
+    choice$(2) = " Accounts "
+    choice$(3) = " Transactions "
+    choice$(4) = " Reports "
+    choice$(5) = " Colors "
+
+    menuRow(1) = 1: menuCol(1) = 2
+    menuRow(2) = 1: menuCol(2) = 8
+    menuRow(3) = 1: menuCol(3) = 18
+    menuRow(4) = 1: menuCol(4) = 32
+    menuRow(5) = 1: menuCol(5) = 41
+    
+    help$(1) = "Exit the Money Manager"
+    help$(2) = "Add/edit/delete accounts"
+    help$(3) = "Add/edit/delete account transactions"
+    help$(4) = "View and print reports"
+    help$(5) = "Set screen colors"
+    
+    DO
+        NewChoice = Menu((choice), 5, choice$(), menuRow(), menuCol(), help$(), TRUE)
+    LOOP WHILE NewChoice = 0
+    choice = NewChoice
+    RETURN
+
+MenuSystemFile:
+    choice$(1) = " Exit           "
+
+    menuRow(1) = 3: menuCol(1) = 2
+
+    help$(1) = "Exit the Money Manager"
+
+    subchoice = Menu(1, 1, choice$(), menuRow(), menuCol(), help$(), FALSE)
+
+    SELECT CASE subchoice
+        CASE 1: finished = TRUE
+        CASE ELSE
+    END SELECT
+    RETURN
+
+
+MenuSystemEdit:
+    choice$(1) = " Edit Account Titles "
+
+    menuRow(1) = 3: menuCol(1) = 8
+    
+    help$(1) = "Add/edit/delete accounts"
+
+    subchoice = Menu(1, 1, choice$(), menuRow(), menuCol(), help$(), FALSE)
+
+    SELECT CASE subchoice
+        CASE 1: EditAccounts
+        CASE ELSE
+    END SELECT
+    RETURN
+
+
+MenuSystemAccount:
+

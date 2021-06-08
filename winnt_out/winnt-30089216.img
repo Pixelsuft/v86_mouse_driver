@@ -1,0 +1,81 @@
+Base)"\"$(ServiceName) +
+	    	    		 $(!MAXIMUM_ALLOWED) ServiceKey
+	    	    	   Ifstr $(ServiceKey) != $(KeyNull)
+	    	    	       Debug-Output "   Opened service key "$(ServiceName)" successfully"
+	    	    	       OpenRegKey $(ServiceKey) "" "Parameters" +
+	    	    		     $(!MAXIMUM_ALLOWED) ParametersKey
+	    	    	       Ifstr $(ParametersKey) != $(KeyNull)
+	    	    		    set RegLastError = $(!REG_ERROR_SUCCESS)
+	    	    		    GetRegValue $(ParametersKey),"BoardLink", BoardLinkInfo
+	    	    		    set BoardLink = *($(BoardLinkInfo), 4)
+	    	    		    Debug-Output "OEMNADDI: BoardLink = "$(BoardLink)
+	    	    		    Debug-Output "OEMNADDI: RegLastError = "$(RegLastError)
+	    	    		    ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+	    	    			Debug-Output "OEMNADDI:  Detected NT 3.1 configuration"
+	    	    			OpenRegKey $(!REG_H_LOCAL) +
+	    	    				   "" +
+	    	    				   $(ParamKeyName) +
+	    	    				   $(!MAXIMUM_ALLOWED) +
+	    	    				   DriverKey
+	    	    			Ifstr(i) $(DriverKey) != $(KeyNull)
+	    	    			    Debug-Output "OEMNADDI.INF:  Opened "$(ParamKeyName)
+	    	    			    OpenRegKey $(DriverKey) +
+	    	    				       "" +
+	    	    				       $(BoardLink) +
+	    	    				       $(!MAXIMUM_ALLOWED) +
+	    	    				       AdapterKey
+	    	    			    Ifstr(i) $(AdapterKey) != $(KeyNull)
+	    	    						    Debug-Output "OEMNADDI:  Opened "$(ParamKeyName)"\"$(BoardLink)
+	    	    				GetRegValue $(AdapterKey), +
+	    	    					    "Type", +
+	    	    					    TypeInfo
+	    	    				set Type = *($(TypeInfo), 4 )
+	    	    							Debug-Output "OEMNADDI:  Type = "$(Type)
+	    	    				Ifstr(i) $(Type) == "PCIMAC/4"
+	    	    							    Debug-Output "OEMNADDI: Resetting InfOption to PCIMAC4"
+	    	    							    SetRegValue $(NetRuleKey) {InfOption,$(NoTitle),$(!REG_VT_SZ),"PCIMAC4"}
+	    	    				    set InfOption = "PCIMAC4"
+	    	    						    Debug-Output "OEMNADDI: Resetting Type to PCIMAC4"
+	    	    				    SetRegValue $(AdapterKey) +
+	    	    						{Type,$(NoTitle),$(!REG_VT_SZ),"PCIMAC4"}
+	    	    				Else-Ifstr(i) $(Type) == "PCIMAC4"
+	    	    							    Debug-Output "OEMNADDI: Resetting InfOption to PCIMAC4"
+	    	    							    SetRegValue $(NetRuleKey) {InfOption,$(NoTitle),$(!REG_VT_SZ),"PCIMAC4"}
+	    	    				    set InfOption = "PCIMAC4"
+	    	    				Else-Ifstr(i) $(Type) == "PCIMAC - ISA"
+	    	    				    set InfOption = "PCIMACISA"
+	    	    							    Debug-Output "Resetting InfOption to PCIMACISA"
+	    	    							    SetRegValue $(NetRuleKey) {InfOption,$(NoTitle),$(!REG_VT_SZ),"PCIMACISA"}
+	    	    				Endif
+	    	    			    Else
+	    	    				goto fatalregistry
+	    	    			    Endif
+	    	    			    CloseRegKey $(AdapterKey)
+	    	    			Else
+	    	    			    goto fatalregistry
+	    	    			Endif
+	    	    			CloseRegKey $(DriverKey)
+	    	    		    else
+	    	    			Debug-Output "OEMNADDI: Detected NT 3.5 config which was upgraded from NT 3.1"
+	    	    			GetRegValue $(ParametersKey) +
+	    	    				    "BoardType" +
+	    	    				    BoardTypeInfo
+	    	    			set BoardType = *($(BoardTypeInfo), 4)
+	    	    			Ifstr(i) $(BoardType) == "PCIMAC/4"
+	    	    			    Debug-Output "OEMNADDI: Resetting InfOption to PCIMAC4"
+	    	    			    SetRegValue $(NetRuleKey) {InfOption,$(NoTitle),$(!REG_VT_SZ),"PCIMAC4"}
+	    	    			    set InfOption = "PCIMAC4"
+	    	    			    Debug-Output "OEMNADDI: Changing BoardType from "$(BoardType)" -> PCIMAC4"
+	    	    			    SetRegValue $(ParametersKey) +
+	    	    					{BoardType,$(NoTitle),$(!REG_VT_SZ),"PCIMAC4"}
+	    	    			Else-Ifstr(i) $(BoardType) == "PCIMAC - ISA"
+	    	    			    Debug-Output "Resetting InfOption to PCIMACISA"
+	    	    			    SetRegValue $(NetRuleKey) {InfOption,$(NoTitle),$(!REG_VT_SZ),"PCIMACISA"}
+	    	    			    set InfOption = "PCIMACISA"
+	    	    			Endif
+	    	    		    endif
+	    	    		    CloseRegKey $(ParametersKey)
+	    	    	       else
+	    	    		   goto fatalregistry
+	    	    	       Endif
+	    	    	     

@@ -1,0 +1,48 @@
+"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (8514a res)",,SSERIFFG.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (8514a res)",,SMALLFG.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,120
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,120
+
+[Font.CP1254.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (8514a res)",,COURFT.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (8514a res)",,SERIFFT.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (8514a res)",,SSERIFFT.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (8514a res)",,SMALLFT.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,120
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,120
+
+[Font.CP1257.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (8514a res)",,COUF1257.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (8514a res)",,SERF1257.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (8514a res)",,SSEF1257.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (8514a res)",,SMAF1257.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,120
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,120
+
+[Font.CP874.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (8514a res)",,COURF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (8514a res)",,SERIFF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (8514a res)",,SSERIFF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (8514a res)",,SMALLF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,120
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,8514fix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FONTS.FON",,8514sys.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","OEMFONT.FON",,8514oem.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","LogPixels",0x00010001,120
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FIXEDFON.FON",,8514fix.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","FONTS.FON",,8514sys.fon
+HKLM,"System\CurrentControlSet\Hardware Profiles\Current\Software\Fonts","OEMFONT.FON",,8514oem.fon
+
+[Font.CP1258.Reg.120]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Courier 10,12,15 (8514a res)",,COURF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Serif 8,10,12,14,18,24 (8514a res)",,SERIFF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","MS Sans Serif 8,10,12,14,18,24 (8514a res)",,SSERIFF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\Fonts","Small Fonts (8514a res)",,SMALLF.FON
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Shell Dlg",,%ShellDlgFont%
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontDPI","LogPixels",0x00010001,120
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\GRE_Initialize","FIXEDFON.FON",,8514fix.fon
+HKLM,"Software\Microsoft\Windows NT\CurrentV

@@ -1,0 +1,122 @@
+Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+			Debug-Output "Cannot configure the dec 300 driver software."
+			Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+			ifint $($ShellCode) != $(!SHELL_CODE_OK)
+				Debug-Output "ShellCode error: cannot get an error string."
+				goto ShellCodeError
+			endif
+			set Error = $($R0)
+			set from = end
+			set to = end
+			goto nonfatalinfo
+		else
+			set StartLabel = configureadapter
+		endif
+	else
+		set StartLabel = installadapter
+		set OEM_ABANDON_OPTIONS = {}
+		set OEM_ABANDON_SOFTWARE = FALSE
+		set OEM_ABANDON_ON = TRUE
+	endif
+	Debug-Output "NTN_Origination"$(!NTN_Origination)
+	set from = $(fatal)
+	set to = $(fatal)
+	goto $(StartLabel)
+installadapter = +
+	goto nextstep
+configureadapter = +
+	Ifstr $(KeyProduct) == $(KeyNull)
+		OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) KeyProduct
+		Ifstr $(KeyProduct) == $(KeyNull)
+			set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+			Debug-Output "Cannot find component product key"
+			goto fatalregistry
+		Endif
+	Endif
+	Debug-Output "INF: Shelling to FindService"
+	Shell $(UtilityInf) FindService, $(KeyProduct)
+	Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		Debug-Output "INF: FindService shell failure"
+		Goto ShellCodeError
+	Endif
+	Ifstr(i) $($R0) != NO_ERROR
+		Debug-Output "INF: FindService Shell error: "$($R0)
+		Goto fatalregistry
+	endif
+	Set KeyParameters = $($R2)
+	CloseRegKey $($R1)
+	Ifstr $(KeyParameters) == $(KeyNull)
+		set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+		Debug-Output "Cannot find component service"
+		goto fatalregistry
+	endif
+	set OldVersionExisted = $(TRUE)
+	set ValueName = ""
+	set ValueData = ""
+	set ValueStr  = ""
+	set ValueList = {}
+	EnumRegValue $(KeyParameters) ValueList
+	ForListDo $(ValueList)
+		set ValueItem = $($)
+		set ValueName = *($(ValueItem),1)
+		set ValueData = *($(ValueItem),4)
+		ifstr(i) $(ValueName) == "BurstSize"
+			set BurstSizeIndex = $(ValueData)
+		else-ifstr(i) $(ValueName) == "FullDuplexEnable"
+			set FullDuplexEnableIndex = $(ValueData)
+		else-ifstr(i) $(ValueName) == "RcvBuffCnt"
+			set RcvBuffCntIndex = $(ValueData)
+		else-ifstr(i) $(ValueName) == "XmtBuffCnt"
+			set XmtBuffCntIndex = $(ValueData) 
+		else-ifstr(i) $(ValueName) == "RequestedTTRT"
+			set RequestedTTRTIndex = $(ValueData)
+		else-ifstr(i) $(ValueName) == "SlotNumber"
+			set SlotNumber = $(ValueData)
+		endif
+	EndForListDo
+	Set Caption = $(FunctionTitle)
+	Set Label1  = "Slot #"$(SlotNumber)
+	ifstr(i) $(FullDuplexEnableIndex) == 1
+		set RadioIn = {1}
+	else
+		set RadioIn = {2}
+	endif
+	ifstr(i) $(RequestedTTRTIndex) == ""
+		set EditTextIn = {8}
+	else
+		set EditTextIn = {$(RequestedTTRTIndex)}
+	endif
+	set BurstSizeValue = *($(BurstSizeList), ~($(BurstSizeValues),$(BurstSizeIndex)))
+	ifstr(i) $(BurstSizeValue) == ""
+		set BurstSizeValue = 16
+	endif
+	set ReceiveBuffValue = *($(ReceiveBuffList), ~($(ReceiveBuffValues),$(RcvBuffCntIndex)))
+	ifstr(i) $(ReceiveBuffValue) == ""
+		set ReceiveBuffValue = 4
+	endif
+	set TransmitBuffValue = *($(TransmitBuffList), ~($(TransmitBuffValues),$(XmtBuffCntIndex)))
+	ifstr(i) $(TransmitBuffValue) == ""
+		set TransmitBuffValue = 32
+	endif
+	set RequestedTTRTValue = RequestedTTRTIndex
+	ifstr(i) $(RequestedTTRTValue) == ""
+		set RequestedTTRTValue = 8
+	endif
+displaydialog = +    
+	set ExitButton = ""
+        LoadLibrary "x" $(!STF_WINDOWSSYSPATH)\$(DialogDllName) hLib
+	read-syms FileDependentDlg$(!STF_LANGUAGE)
+restart = +    
+	set NotifyFields = {YES,NO,NO}
+	ui start "InputDlg" $(hLib)
+	set ExitButton = $(DLGEVENT)
+	ifstr(i) $(DLGEVENT) == "CONTINUE"
+		ifint *($(EditTextOut),1) < 4
+			shell $(subroutineinf) SetupMessage ENG NONFATAL "Value of Requested TTRT must be between 4 and 165 ms"
+			goto restart
+		else-ifint *($(EditTextOut),1) > 165
+			shell $(subroutineinf) SetupMessage ENG NONFATAL "Value of Requested TTRT must be between 4 and 165 ms"
+			goto restart
+		endif
+		set BurstSizeIndex = *($(BurstSizeValues), ~($(BurstSizeList),$(Combo1Out)))
+		set

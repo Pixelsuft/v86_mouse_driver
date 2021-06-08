@@ -1,0 +1,81 @@
+ty,"CHARISMA=", "CHARISMA=0x2000"
+  win.ini, Compatibility,"PR2=", "PR2=0x2000"
+  win.ini, Compatibility,"PLUS=", "PLUS=0x1000"
+  win.ini, Compatibility,"ED=", "ED=0x00010000"
+  win.ini, Compatibility,"PP=",
+  win.ini, Compatibility,"APORIA=", "APORIA=0x0100"
+  win.ini, Compatibility,"EXCEL=", "EXCEL=0x1000"
+  win.ini, Compatibility,"GUIDE=", "GUIDE=0x1000"
+  win.ini, Compatibility,"NETSET2=", "NETSET2=0x0100"
+  win.ini, Compatibility,"W4GL=", "W4GL=0x4000"
+  win.ini, Compatibility,"W4GLR=","W4GLR=0x4000"
+  win.ini, Compatibility,"TURBOTAX=","TURBOTAX=0x00080000"
+
+[system]
+; The various SYSTEM.DRV, SOUND.DRV, COMM.DRV
+;
+; These   are the   drivers   which may vary from system to system,
+; but are selected only   by the [machine] menu -- they do not have
+; special menus   for their selection.
+system   =    2:system.drv
+sound    =    2:mmsound.drv
+comm     =    2:comm.drv
+hpsystem =    2:hpsystem.drv
+
+[machine]
+; This section defines default machine selections.  The   system
+; description from each   entry will appear in the initial machine
+; selection menu of Setup.
+;
+; An * means that setup will use the device specified here and override
+; the detected device, this applies to keyboards, mice, and displays.
+;
+; Each entry contains a   descriptive line for the system-selection menu,
+; followed by the filenames of the drivers in fixed order.
+;
+;      Field      1         2           3        4         5          6         7          8         9             10     11
+; prof_str      = Desc Str, System drv, kbd drv, kbd type, mouse drv, disp drv, sound drv, comm drv, himem switch, ebios, cookies
+;
+ibm_compatible  = "MS-DOS System",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,
+ast_386_486     = "AST Premium 386/25 and 386/33 (CUPID)",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,ast_cookz
+at_and_t        = "AT&T PC",system,kbd,t4s0enha,nomouse,!olibw,sound,comm,,ebios,
+everex_386_25   = "Everex Step 386/25 (or Compatible)",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,everex_cookz
+hewlett_packard = "Hewlett-Packard: all machines",hpsystem,kbdhp,t4s0enha,nomouse,egahires,sound,comm,,hpebios,
+ibm_ps2_70p     = "IBM PS/2 Model P70",system,kbd,t4s0enha,nomouse,!vga,sound,comm,,ebios,
+ibm_ps2_l40sx   = "IBM PS/2 Model L40sx",system,kbd,!t4s0enha,nomouse,vga,sound,comm,,ebios,ibml40_cookz
+ncr_386sx       = "NCR: all 80386 and 80486 based machines",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,ncr386sx_cookz
+nec_pm_sx+      = "NEC PowerMate SX Plus",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,nec_pm_cookz
+nec_prospeed    = "NEC ProSpeed 386",system,kbd,t4s0enha,nomouse,!egahires,sound,comm,,ebios,
+toshiba_1200xe  = "Toshiba 1200XE",system,kbd,t4s0enha,nomouse,egahires,sound,comm,"TOSHIBA",ebios,
+toshiba_1600    = "Toshiba 1600",system,kbd,t4s0enha,nomouse,egahires,sound,comm,"TOSHIBA",ebios,
+toshiba_5200    = "Toshiba 5200",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,t5200_cookz
+zenith_386      = "Zenith: all 80386 based machines",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,zen386_cookz
+att_nsx_20      = "AT&T NSX 20 : Safari notebook",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios
+apm             = "MS-DOS System with APM",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,apm_cookz
+apm_sl          = "Intel 386SL Based System with APM",system,kbd,t4s0enha,nomouse,egahires,sound,comm,,ebios,apm_sl_cookz
+;
+; Cookies as specified in machine section
+;
+; ini file, section, cookie, needed file
+;
+; specialdriver,,,file will add an installable driver to [boot]drivers=
+;
+
+[apm_cookz]
+specialdriver,,,3:power.drv
+system.ini,386enh,"device=vpowerd.386",3:vpowerd.386
+,,,2:power.hlp
+
+[apm_sl_cookz]
+specialdriver,,,3:power.drv
+system.ini,386enh,"device=vpowerd.386",3:vpowerd.386
+,,,2:power.hlp
+system.ini,power.drv,"OptionsDLL=sl.dll",2:sl.dll
+,,,2:sl.hlp
+
+[ast_cookz]
+system.ini,386enh,"emmexclude=E000-EFFF",
+
+[everex_cookz]
+system.ini,386enh,"8042ReadCmd=A2,1,F",
+system.ini,386enh,"8042Re

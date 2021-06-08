@@ -1,0 +1,133 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Pace Micro Communications Ltd
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[Models]
+%Modem11%= Modem11,PCMCIA\PACE_MICRO_COMMUNICATIONS-MICROLIN_FX_NB_34-3393
+%Modem11%= Modem11,UNIMODEM2857402B
+%Modem10%= Modem10,UNIMODEMDA37905B
+%Modem9% = Modem9, Pace_Modem9
+%Modem8% = Modem8, UNIMODEM2D1D2549
+%Modem7% = Modem7, PCMCIA\PACE_MICRO_COMMUNICATIONS-MICROLIN_FX_NB_32_PLUS-5F0F
+%Modem6% = Modem6, Pace_Modem6
+%Modem5% = Modem5, UNIMODEM9E9CA04C
+%Modem5% = Modem5, UNIMODEM35283002
+%Modem4% = Modem4, UNIMODEM211BD2EC
+%Modem3% = Modem3, UNIMODEM7D5F439E
+%Modem3% = Modem3, UNIMODEMB683D3D0
+%Modem2% = Modem2, UNIMODEM7BB48C4B
+%Modem1% = Modem1, Pace_Modem1
+
+
+[Modem11]
+Addreg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, External
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, External
+
+[Modem8]
+AddReg=All, MfgAddReg, MfgAddRegExtra, Modem8.AddReg, External
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, PCMCIA
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem3.AddReg, Internal
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, Internal
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem9.AddReg]
+HKR,, Properties, 1, c0,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 01,00,00,00, 0d,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F V1 E0 S95=46<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00 
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F V1 E0 S95=46<cr>"
+
+[Strings]
+Mfg = "Pace Micro Communications Ltd"
+
+Modem11="Pace Microlin NB 34 PCMCIA Modem"
+Modem10="Pace MobiFax 144"
+Modem9 ="Pace Linnet Message Desk" 
+Modem8 ="Pace Ultralink 32 Plus"
+Modem7 ="Pace Microlin fx NB 32 Plus PCMCIA Modem"
+Modem6 ="Pace Linnet 34fx & Microlin fx 34 Internal Modem"
+Modem5 ="Pace Microlin fx 32 Plus Pocket Modem"
+Modem4 ="Pace Microlin fx 32 Plus Internal Modem"
+Modem3 ="Pace Linnet 34fx Ext & Microlin fx 34 Pocket Modem"
+Modem2 ="Pace Linnet 32 Plus fx"
+Modem1 ="Pace Linnet VFC"
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddRegExtra]
+HKR, Settings, FlowControl_Hard,, "&K1"
+HKR, Settings, FlowControl_Soft,, "&K2"
+HKR, Settings, ErrorControl_On,, "\N0"
+HKR, Settings, ErrorControl_Off,, "\P0"
+HKR, Settings, ErrorControl_Forced,, "

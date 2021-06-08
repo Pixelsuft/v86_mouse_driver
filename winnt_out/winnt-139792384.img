@@ -1,0 +1,87 @@
+_VT_SZ),+
+              $(AdapterType)},+
+             {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)},+
+             {class,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              $(AdapterClass)},+
+             {block,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              $(AdapterBlock)},+
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)},+
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)}}
+        Shell  $(!UtilityInf), AddValueList, $(KeyAdapterRules), $(AdapterRulesList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "Resgitry error: add value list."
+            CloseRegKey $(KeyParameters)
+            CloseRegKey $(KeyAdapterRules)
+            goto fatalregistry
+        endif
+        CloseRegKey $(KeyAdapterRules)
+        Shell  $(!UtilityInf), AddValueList, $(KeyParameters), $(ServiceParamList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        CloseRegKey $(KeyParameters)
+	goto AddNdisWanNetCard
+     endif 
+RemoveNdisWanNetCard = +
+     ifstr(i) $(ServicesBaseKey) != $(KeyNull)
+         CloseRegKey $(ServicesBaseKey)
+     endif
+     ifstr(i) $(KeyNetcards) != $(KeyNull)
+         CloseRegKey $(KeyNetcards)
+     endif
+     Ifint $(NumRemoveTotal) == 0
+	 goto WriteRasAsyMac
+     endif
+     Debug-Output "Removing NdisWan netcard entry..."
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) $(!MAXIMUM_ALLOWED) KeyNetcards
+        ifstr $(KeyNetcards) == $(KeyNull)
+             Debug-Output "OEMNSVRA.INF: could not open Netcards key"
+             set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+             goto fatalregistry
+        endif
+        EnumRegKey $(KeyNetcards) NetcardsList
+        set RemoveDialinList  = {}
+        set RemoveDialinIpList  = {}
+        set RemoveDialoutList = {}
+        set RemoveDialoutIpList = {}
+        set RemoveDialinoutIpxList = {}
+        ForListDo $(NetcardsList)
+           set KeyName = *($($),1)
+           OpenRegKey $(KeyNetcards) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+           ifstr $(Card) == $(KeyNull)
+               Debug-Output "OEMNSVRA.INF: could not open netcard key"
+               set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+               goto fatalregistry
+           endif
+           GetRegValue $(Card), "ProductName" ProductNameInfo
+           set CardProductName = *($(ProductNameInfo), 4)
+	       ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINName)
+              set RemoveDialinList = >($(RemoveDialinList), +
+				      {$(!ProductNDISWANName),+
+                                       $(!NetworkCardKeyName)"\"$(KeyName)})
+	       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINIPName)
+              set RemoveDialinIpList = >($(RemoveDialinIpList), +
+					{$(!ProductNDISWANName),+
+                                         $(!NetworkCardKeyName)"\"$(KeyName)})
+	       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALOUTName)
+              set RemoveDialoutList = >($(RemoveDialoutList), +
+				       {$(!ProductNDISWANName),+
+                                        $(!NetworkCardKeyName)"\"$(KeyName)})
+	       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALOUTIPName)
+              set RemoveDialoutIpList = >($(RemoveDialoutIpList), +
+					 {$(!ProductNDISWANName),+
+                                          $(!NetworkCardKeyName)"\"$(KeyName)})
+	       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINOUTIPXName)
+              set RemoveDialinoutIpxList = >($(RemoveDialinoutIpxList), +
+					   {$(!ProductNDISWANName),+
+                                           $(!NetworkCardKeyName)"\"$(KeyName)})
+           endif
+           CloseRegKey $(Card)
+        EndForListDo
+        CloseRegKey $(KeyNetcards)

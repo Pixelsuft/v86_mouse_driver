@@ -1,0 +1,117 @@
+nnection 144+FAX (int)
+%Modem4%   = Modem4,  UNIMODEM75A314BC  ; Digicom Connection 144+FAX (int)
+%Modem4%   = Modem4,  UNIMODEME6F74E8C  ; Digicom Connection 144+FAX (int)
+%Modem3%   = Modem3,  DSI_Modem3        ; Digicom Connection 144+ (int)
+%Modem2%   = Modem2,  DSI_Modem2        ; Digicom Connection  96+ (int)
+%Modem1%   = Modem1,  UNIMODEM7E77D7D9  ; Digicom Connection 144DF (int)
+
+[Digitan]
+%Modem31% = Modem29, UNIMODEM99D67908
+
+
+[Modem29]
+AddReg=All, MfgAddReg, ROCK_VOICE_ALL, ROCK_VOICE_SERWAVE, VoiceView_Modem, VoiceView_Socket, Modem29.AddReg, INTERNAL
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[Modem28]
+AddReg=All, MfgAddReg, Modem28.AddReg, INTERNAL
+
+[Modem27]
+AddReg=All, MfgAddReg, ROCK_VOICE_ALL, ROCK_VOICE_SERWAVE, VoiceView_Modem, VoiceView_Socket, Modem27.AddReg, INTERNAL
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[Modem26]
+AddReg=All, MfgAddReg, Modem26.AddReg, INTERNAL
+
+[Modem25]
+AddReg=All, MfgAddReg, Modem25.AddReg, EXTERNAL
+
+[Modem20]
+AddReg=All, MfgAddReg, Modem20.AddReg, EXTERNAL
+
+[Modem19]       
+AddReg=All, MfgAddReg, Modem14.AddReg, PCMCIA
+
+[Modem18]
+AddReg=All, MfgAddReg, Modem5.AddReg, INTERNAL
+
+[Modem17]       
+AddReg=All, MfgAddReg, Modem5.AddReg, INTERNAL
+
+[Modem16]   ; Digicom 9624E+, 9624LE+, 9624AR+, 9624LR+  
+AddReg=All, MfgAddReg, Scout, Modem15.AddReg, EXTERNAL
+
+[Modem15]   ; Digicom 9624PC+ 
+AddReg=All, MfgAddReg, Modem15.AddReg, INTERNAL
+
+[Modem14]   ; Digicom Scout 14400 PCMCIA FAX Modem
+AddReg=All, MfgAddReg, Modem14.AddReg, PCMCIA
+
+[Modem13]   ; Digicom Scout Plus 
+AddReg=All, MfgAddReg, Modem12.AddReg, Scout, INTERNAL
+
+[Modem12]   ; Digicom Scout Plus 
+AddReg=All, MfgAddReg, Modem12.AddReg, Scout, EXTERNAL
+
+[Modem11]   ; Digicom Scout 
+AddReg=All, MfgAddReg, Modem10.AddReg, Scout, INTERNAL
+
+[Modem10]   ; Digicom Scout 
+AddReg=All, MfgAddReg, Modem10.AddReg, Scout, EXTERNAL
+
+[Modem9]    ; Digicom FaxModem 1442PC 
+AddReg=All, MfgAddReg, Modem9.AddReg, INTERNAL
+
+[Modem8]    ; Digicom Scout Classic 144 
+AddReg=All, MfgAddReg, Modem8.AddReg, EXTERNAL
+
+[Modem7]    ; Digicom Scout Plus Terbo 
+AddReg=All, MfgAddReg, Modem7.AddReg, Scout, EXTERNAL
+
+[Modem6]    ;  Digicom 9624E, 9624LE, 9624AR, 9624LR 
+AddReg=All, MfgAddReg, Scout, Modem6.AddReg, EXTERNAL
+
+[Modem5]    ; Digicom Connection Pro 19.2 
+AddReg=All, MfgAddReg, Modem5.AddReg, INTERNAL
+
+[Modem4]    ;Digicom Connection 144+FAX 
+AddReg=All, MfgAddReg, Modem4.AddReg, INTERNAL
+
+[Modem3]    ; Digicom connection 144+ 
+AddReg=All, MfgAddReg, Modem3.AddReg, INTERNAL
+
+[Modem2]    ; Digicom Connection 96+ 
+AddReg=All, MfgAddReg, Modem2.AddReg, INTERNAL
+
+[Modem1]    ; Digicom Connection 144DF 
+AddReg=All, MfgAddReg, Modem1.AddReg, INTERNAL
+
+[Modem29.AddReg]    ; Phone Blaster 28.8 - serwave
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W2 S95=47<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+
+[Modem28.AddReg]    ; Modem Blaster 28.8
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W1 S95=47<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem27.AddReg]    ; Phone Blaster - 14.4 serwave
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,

@@ -1,0 +1,145 @@
+      Checked         =   -1  'True
+      End
+      Begin VB.Menu mnuThumbnail 
+         Caption         =   "&Thumbnail"
+      End
+      Begin VB.Menu mnuPageThumbnail 
+         Caption         =   "&Page and Thumbnail"
+      End
+      Begin VB.Menu mnuSep7 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuFullScreen 
+         Caption         =   "&Full Screen"
+      End
+      Begin VB.Menu mnuSep6 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuToolbar 
+         Caption         =   "&Toolbar"
+         Enabled         =   0   'False
+      End
+      Begin VB.Menu mnuSep5 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuOptions 
+         Caption         =   "Options..."
+         Enabled         =   0   'False
+      End
+   End
+   Begin VB.Menu mnuPage 
+      Caption         =   "&Page"
+      Enabled         =   0   'False
+      Begin VB.Menu mnuNext 
+         Caption         =   "&Next"
+      End
+      Begin VB.Menu mnuPrevious 
+         Caption         =   "&Previous"
+      End
+      Begin VB.Menu mnuFirst 
+         Caption         =   "&First"
+      End
+      Begin VB.Menu mnuLast 
+         Caption         =   "&Last"
+      End
+      Begin VB.Menu mnuSep11 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuGoTo 
+         Caption         =   "&Go To..."
+      End
+      Begin VB.Menu mnuBack 
+         Caption         =   "Go &Back"
+      End
+      Begin VB.Menu mnuSep10 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuPrintPage 
+         Caption         =   "Prin&t Page"
+      End
+      Begin VB.Menu mnuSep9 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuLeft 
+         Caption         =   "Rotate &Left"
+      End
+      Begin VB.Menu mnuRight 
+         Caption         =   "Rotate &Right"
+      End
+      Begin VB.Menu mnuFlip 
+         Caption         =   "&Flip"
+      End
+      Begin VB.Menu mnuSep8 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuInsert 
+         Caption         =   "&Insert..."
+         Enabled         =   0   'False
+      End
+      Begin VB.Menu mnuAppend 
+         Caption         =   "&Append..."
+         Enabled         =   0   'False
+      End
+      Begin VB.Menu mnuSep 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuConvert 
+         Caption         =   "&Convert..."
+         Enabled         =   0   'False
+      End
+      Begin VB.Menu mnuRescan 
+         Caption         =   "&Rescan"
+         Enabled         =   0   'False
+      End
+   End
+   Begin VB.Menu mnuZoom 
+      Caption         =   "&Zoom"
+      Enabled         =   0   'False
+      Begin VB.Menu mnuZoomIn 
+         Caption         =   "Zoom &In"
+      End
+      Begin VB.Menu mnuZoomOut 
+         Caption         =   "Zoom &Out"
+      End
+      Begin VB.Menu mnuZoomToSelection 
+         Caption         =   "Zoom to &Selection"
+      End
+      Begin VB.Menu mnuSep13 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuFitHeight 
+         Caption         =   "Fit to &Height"
+      End
+      Begin VB.Menu mnuFitWidth 
+         Caption         =   "Fit to &Width"
+      End
+      Begin VB.Menu mnuBestFit 
+         Caption         =   "&Best Fit"
+      End
+      Begin VB.Menu mnuActual 
+         Caption         =   "Act&ual Size"
+      End
+      Begin VB.Menu mnuSep14 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnu25 
+         Caption         =   "&25%"
+      End
+      Begin VB.Menu mnu50 
+         Caption         =   "&50%"
+      End
+      Begin VB.Menu mnu75 
+         Caption         =   "&75%"
+      End
+      Begin VB.Menu mnu100 
+         Caption         =   "&100%"
+      End
+      Begin VB.Menu mnu200 
+         Caption         =   "2&00%"
+      End
+      Begin VB.Menu mnu400 
+         Caption         =   "&400%"
+      End
+      Begin VB.Menu mnuCustom 
+         Caption         =   "&Custom..."
+         Enabled         =   0   

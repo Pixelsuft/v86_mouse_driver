@@ -1,0 +1,110 @@
+eyProduct) == $(KeyNull)
+            set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+            Debug-Output "Cannot find component product key"
+            goto fatalregistry
+        Endif
+    Endif
+    Debug-Output "INF: Shelling to FindService"
+    Shell $(UtilityInf) FindService, $(KeyProduct)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "INF: FindService shell failure"
+        Goto ShellCodeError
+    Endif
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "INF: FindService Shell error: "$($R0)
+        Goto fatalregistry
+    endif
+    Set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Ifstr $(KeyParameters) == $(KeyNull)
+        set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+        Debug-Output "Cannot find component service"
+        goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE)
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+        set ValueItem = $($)
+        set ValueName = *($(ValueItem),1)
+        set ValueData = *($(ValueItem),4)
+        Ifstr(i) $(ValueName) == "IoBaseAddress"
+            set IOBaseAddrValue = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "NetworkAddress"
+           set NetworkAddress = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusType"
+            set BusInterfaceType = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumber = $(ValueData)
+        endif
+    EndForListDo
+    Shell $(ParamInf) Param_SaveValues
+    Set CurrParamSettings = $($R0)
+adaptersetup = +
+    Shell "" DebugConfiguration "before displaying dialog"
+    Set from = adapteroptions
+    Set IOADDR_Hex_Value = *($(IOADDR_Hex_List), ~($(IOADDR_Addr_List),$(IOBaseAddrValue)))
+    Shell $(ParamInf) Param_ParameterConfidence
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "oemnadt2.INF: parameter confidence too low to bypass configuration"
+        Goto adapteroptions
+    Endif
+    Ifstr(i) $(DetectedCard) == TRUE
+        Ifstr(i) $(!STF_INSTALL_MODE) != CUSTOM
+            set BusInterfaceType = *($(!STF_NCDETINFO),5)
+            set BusNumber = *($(!STF_NCDETINFO),6)
+            Goto adapterverify
+        Endif
+    Endif
+adapteroptions = +
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusInterfaceType = $(!AutoNetInterfaceType)
+        else
+            set BusInterfaceType = 1    
+        endif
+        ifstr(i) $(!AutoNetBusNumber) != ""
+            set BusNumber = $(!AutoNetBusNumber)
+        else
+            set BusNumber = 0
+        endif
+        goto adapterverify
+    endif
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    ui start "InputDlg"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set IOADDR_Hex_Value = $(Combo1Out)
+        set NetworkAddress = *($(EditTextOut),1)
+        Set IOBaseAddrValue = *($(IOADDR_Addr_List), ~($(IOADDR_Hex_List),$(IOADDR_Hex_Value)))
+        ui pop 1
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        set CommonStatus = STATUS_USERCANCEL
+        Debug-Output "Action: exit. Bye."
+        ui pop 1
+        goto end
+    else
+        Debug-Output "Action: unknown. Bye."
+        ui pop 1
+        goto end
+    endif
+    ifstr(i) $(!STF_NCDETINFO) == {}
+        Shell $(UtilityInf),GetBusTypeDialog,$(ProductHardware$(Option)Description) $(BusInterfaceType) $(BusNumber)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set BusInterfaceType = $($R1)
+        set BusNumber = $($R2)
+    else
+        set BusInterfaceType = *($(!STF_NCDETINFO),5)
+        set BusNumber = *($(!STF_NCDETINFO),6)
+    endif
+adapterverify = +
+    Shell "" DebugConfiguration "after running dialog"
+    Ifstr(i) $(DetectedCard) != TRUE
+        Shell $(ParamInf) Param_SaveValues
+        Set NewParamSettings = $($R0)
+        Ifstr(i) $(CurrPara

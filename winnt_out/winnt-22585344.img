@@ -1,0 +1,108 @@
+RELEASE NOTES 
+Remote Access Service Version 3.51
+
+To easily view this file on screen, maximize the 
+Notepad window, and then, from the Edit menu, 
+choose Word Wrap.
+
+CONTENTS ----------------------------------------
+
+GENERAL NOTES
+   Starting the Remote Access Server
+   Browsing Remote Networks
+   RAS Authentication
+   Using Winchat with RAS
+   Registry Key Name Changes and Additions
+   RAS Compression
+   Remote Access Support for Security Dynamics ACE Server
+   Shadow RAM Conflicts
+   NetBEUI Bindings on Computers with Multiple Network Cards 
+   Using RAS with PCMCIA Cards
+   
+CONNECTING TO WINDOWS NT 3.51 RAS SERVERS
+WITH THIRD-PARTY PPP CLIENTS
+   NetManage Chameleon and Chameleon NFS 
+     Version 4.1 Clients Required
+   Third-Party FTP Software
+   Wollongong Software
+
+CONNECTING TO THIRD-PARTY PPP SERVERS
+WITH WINDOWS NT 3.51 RAS CLIENTS
+   Connecting to Internet Service Providers 
+     that Use Older PPP Software
+   Cisco Router Software
+   3Com Access Builder Software
+   Using Terminal Mode in RAS
+   PPP Service Providers
+
+RAS AND TCP/IP
+   Resetting DHCP Leases on RAS Servers
+
+RAS AND IPX
+   Using NetBIOS Applications on IPX
+   Using Shiva Remote Version 3.2 Client Software and IPX
+
+ISDN
+   Reinstalling RAS with ISDN
+   Removing and Adding an ISDN Port to RAS Configuration
+   Installing a PCIMAC ISDN Card on 
+     a Gateway 2000 Pentium
+   Installing New Modems with ISDN Cards
+
+X.25 NETWORKS
+   Eicon Drivers
+   Configuring Null Modem Connections on X.25 Networks
+   Creating Reliable Links Using Dial-up PADs
+   Configuring a RAS Server for X.25
+   X.25 Buffering
+   Server Bandwidth and the Total Number of Clients
+   Troubleshooting Remote Disconnections
+
+FREQUENTLY ASKED QUESTIONS
+
+-------------------------------------------------
+
+For best printed results, open this document 
+in Windows NT Write or another word processor, 
+select the entire document, set the margins, and 
+then format the text in 10 point Courier before printing.
+
+
+=================================================
+GENERAL NOTES
+=================================================
+
+Starting the Remote Access Server
+---------------------------------
+If the Remote Access server fails to start, check the Windows NT Event Viewer for more information.
+
+
+Browsing Remote Networks
+------------------------
+To browse a remote network, the remote RAS computer must belong to a workgroup or domain on the network.  If the computer is not a member of a valid workgroup or domain on the network, the remote computer will not be able to browse the network from File Manager. 
+
+Note:  You can still connect to servers directly using File Manager even if your RAS computer is not a member of a valid workgroup or domain. For example, in the File Manager Connect Network Drive dialog box, you can enter a server name and share name and connect to that server and share, even though the server does not appear in the browse box.
+
+
+RAS Authentication
+------------------
+When you are dialing a number, the domain name you enter in the Authentication dialog box should be the Windows NT domain that the Windows NT RAS server is in. This is not the DNS domain name given by some PPP/SLIP providers. For example, you would enter accounting, not www.halcyon.com.
+
+Using Winchat with RAS
+----------------------
+When using WINCHAT.EXE on a remote client, you must change a Registry key on the RAS server.
+
+Using REGEDT32.EXE, change 
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\
+  RemoteAccess\Parameters\NetBiosGateway\RemoteListen 
+
+from 1 (the default) to 2.
+
+
+Registry Key Name Changes and Additions
+---------------------------------------
+In the Windows NT Server RAS book, in Appendix C, the IPXRouter Parameters section incorrectly refers to the IPXRouter Registry key. The correct key name is NwLnkRip. All other information in the IPXRouter Parameters section is correct. The Registry path for this entry is:
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NwLnkRip\Parameters
+
+In

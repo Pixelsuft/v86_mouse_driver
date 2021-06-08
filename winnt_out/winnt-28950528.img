@@ -1,0 +1,77 @@
+[Identification]
+    OptionType = NetTransport
+[PlatformsSupported]
+    ISA
+    EISA
+    "Jazz-Internal Bus"
+[Options]
+    RASPPTP
+[FileConstants]
+    InfName                 = "OEMNXPPP.INF"
+    UtilityInf              = "UTILITY.INF"
+    ParamInf                = "NCPARAM.INF"
+    subroutineinf           = "SUBROUTN.INF"
+    SoftwareType            = "driver"
+    Exit_Code               = 0
+    NetEventDLL             = "%SystemRoot%\System32\netevent.dll"
+    IoLogMsgDLL             = "%SystemRoot%\System32\IoLogMsg.dll"
+    RASPPTPMsgDLL           = "%SystemRoot%\System32\raspptpl.dll;%SystemRoot%\System32\netevent.dll"
+    Manufacturer            = "Microsoft"
+    ProductMajorVersion     = "4"
+    ProductMinorVersion     = "0"
+    ProductVersion          = $(ProductMajorVersion)"."$(ProductMinorVersion)
+    ProductSoftwareName     = "RASPPTPM"
+    ProductSoftwareImagePath = "\SystemRoot\System32\drivers\RASPPTPM.sys"
+    NetworkCardKeyName      = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+    ProductKeyBase          = $(!NTN_SoftwareBase)"\"$(Manufacturer)
+    NetRuleSoftwareType     = "RASPPTPSys RASPPTPDriver"
+    NetRuleSoftwareUse      = $(SoftwareType)
+    NetRuleSoftwareBindForm = """RASPPTPSys"" yes no container"
+    NetRuleSoftwareClass    = {"RASPPTPDriver basic"}
+    NetRuleSoftwareBindable = {"RASPPTPDriver RASPPTPAdapter non exclusive 100"}
+    ProductHardwareName     = "RASPPTPM"
+    NetRuleHardwareBindForm = " yes yes container"
+    NetRuleHardwareRASPPTPType = "RASPPTP RASPPTPAdapter"
+    NetRuleHardwareRASPPTPClass = {"RASPPTPAdapter basic"}
+    BindableRASPPTPTxt      = {"RASPPTPDriver RASPPTPAdapter non exclusive 100"}
+    ProductOpSupport     = 134 
+    ProductRASPPTPName      = "RASPPTP"
+    ProductRASPPTPSvcType   = "transport"
+    NetRuleRASPPTPClass     = "classRaspptpTransport ""basic"""
+    NetRuleRASPPTPType      = "RaspptpTransport classRaspptpTransport"
+    NetRuleRASPPTPUse       = "system"
+    TapiDevices             = "TAPI DEVICES"
+    TapiDeviceKey           = $(ProductHardwareName)
+    TapiMediaType           = "VPN"
+    ProductKeyName          = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"+
+                              $(ProductSoftwareName)"\CurrentVersion"
+    ParamKeyName            = $(!NTN_ServiceBase)"\"$(ProductHardwareName)+
+                              "\Parameters"
+    ProductRASPPTPKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"+
+                              "RASPPTP\CurrentVersion"
+    LineType                = 1
+    DebugFlags              = 0
+[SMANFileConstants]
+    PPTPProductMajorVersion         = "4"
+    PPTPProductMinorVersion         = "0"
+    PPTPProductVersion              = $(PPTPProductMajorVersion)"."$(PPTPProductMinorVersion)
+    PPTPProductSoftwareName         = "RASPPTPE"
+    PPTPProductSoftwareImagePath    = "\SystemRoot\System32\drivers\RASPPTPE.sys"
+    PPTPNetRuleSoftwareType         = "RASPPTPSys RASPPTPDriver"
+    PPTPNetRuleSoftwareBindForm     = """RASPPTPSys"" yes no container"
+    PPTPNetRuleSoftwareClass        = {"RASPPTPDriver basic"}
+    PPTPNetRuleSoftwareBindable     = {"RASPPTPDriver RASPPTPAdapter non exclusive 100"}
+    PPTPProductHardwareName         = "RASPPTPE"
+    PPTPNetRuleHardwareRASPPTPType  = "RASPPTP RASPPTPAdapter"
+    PPTPNetRuleHardwareRASPPTPClass = {"RASPPTPAdapter basic"}
+    PPTPBindableRASPPTPTxt          = {"RASPPTPDriver RASPPTPAdapter non exclusive 100"}
+    PPTPProductKeyName              = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"+
+                              		$(PPTPProductSoftwareName)"\CurrentVersion"
+    PPTPParamKeyName                = $(!NTN_ServiceBase)"\"$(PPTPProductHardwareName)+
+                              		"\Parameters"
+    !PPTPFProductName               = "RASPPTPF"
+    !PPTPFProductImagePath          = "\SystemRoot\system32\drivers\raspptpf.sys"
+    !RaspptpfKeyName                = $(!NTN_ServiceBase)"\"$(!PPTPFProductName)
+[GeneralConstants]
+    from                    = ""
+    to   

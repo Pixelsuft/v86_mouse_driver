@@ -1,0 +1,39 @@
+ction at 28800 bps
+HKR, Responses, "CONNECT 31200", 1, 02, 00, E0,79,00,00, 00,00,00,00 ; CONNECT 31200 - Connection at 31200 bps
+HKR, Responses, "CONNECT 33600", 1, 02, 00, 40,83,00,00, 00,00,00,00 ; CONNECT 33600 - Connection at 33600 bps
+
+HKR, Responses, "CARRIER 300", 1, 01, 00, 2C,01,00,00, 00,00,00,00 ; CARRIER 300 - Carrier detected at 300 bps
+HKR, Responses, "CARRIER 1200/75", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 1200/75 - Carrier detected at 1200/75 bps
+HKR, Responses, "CARRIER 75/1200", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 75/1200 - Carrier detected at 75/1200 bps
+HKR, Responses, "CARRIER 1200", 1, 01, 00, B0,04,00,00, 00,00,00,00 ; CARRIER 1200 - Carrier detected at 1200 bps
+HKR, Responses, "CARRIER 2400", 1, 01, 00, 60,09,00,00, 00,00,00,00 ; CARRIER 2400 - Carrier detected at 2400 bps
+HKR, Responses, "CARRIER 4800", 1, 01, 00, C0,12,00,00, 00,00,00,00 ; CARRIER 4800 - Carrier detected at 4800 bps
+HKR, Responses, "CARRIER 7200", 1, 01, 00, 20,1C,00,00, 00,00,00,00 ; CARRIER 7200 - Carrier detected at 7200 bps
+HKR, Responses, "CARRIER 9600", 1, 01, 00, 80,25,00,00, 00,00,00,00 ; CARRIER 9600 - Carrier detected at 9600 bps
+HKR, Responses, "CARRIER 12000", 1, 01, 00, E0,2E,00,00, 00,00,00,00 ; CARRIER 12000 - Carrier detected at 12000 bps
+HKR, Responses, "CARRIER 14400", 1, 01, 00, 40,38,00,00, 00,00,00,00 ; CARRIER 14400 - Carrier detected at 14400 bps
+HKR, Responses, "CARRIER 16800", 1, 01, 00, A0,41,00,00, 00,00,00,00 ; CARRIER 16800 - Carrier detected at 16800 bps
+HKR, Responses, "CARRIER 19200", 1, 01, 00, 00,4B,00,00, 00,00,00,00 ; CARRIER 19200 - Carrier detected at 19200 bps
+HKR, Responses, "CARRIER 21600", 1, 01, 00, 60,54,00,00, 00,00,00,00 ; CARRIER 21600 - Carrier detected at 21600 bps
+HKR, Responses, "CARRIER 24000", 1, 01, 00, C0,5D,00,00, 00,00,00,00 ; CARRIER 24000 - Carrier detected at 24000 bps
+HKR, Responses, "CARRIER 26400", 1, 01, 00, 20,67,00,00, 00,00,00,00 ; CARRIER 26400 - Carrier detected at 26400 bps
+HKR, Responses, "CARRIER 28800", 1, 01, 00, 80,70,00,00, 00,00,00,00 ; CARRIER 28800 - Carrier detected at 28800 bps
+HKR, Responses, "CARRIER 31200", 1, 01, 00, E0,79,00,00, 00,00,00,00 ; CARRIER 31200 - Carrier detected at 31200 bps
+HKR, Responses, "CARRIER 33600", 1, 01, 00, 40,83,00,00, 00,00,00,00 ; CARRIER 33600 - Carrier detected at 33600 bps
+
+HKR, Responses, "COMPRESSION: CLASS 5", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: CLASS 5 - MNP5 compression negotiated
+HKR, Responses, "COMPRESSION: V.42BIS", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS - V.42bis compression negotiated
+HKR, Responses, "COMPRESSION: NONE", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; COMPRESSION: NONE - No compression negotiated
+
+HKR, Responses, "PROTOCOL: NONE", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; PROTOCOL: NONE - Asynchronous mode
+HKR, Responses, "PROTOCOL: LAP-M", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM - V.42 LAPM error-control negotiated
+HKR, Responses, "PROTOCOL: ALT", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ALT - Alternative protocol (MNP2-4 compatible) error-control negotiated
+HKR, Responses, "PROTOCOL: ALT - CELLULAR", 1, 01, 0a, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ALT-CELLULAR
+
+HKR, Responses, "CARRIER 14400/VFC", 1, 01, 00, 40,38,00,00, 00,00,00,00 ; CARRIER 14400 - Carrier detected at 14400 bps
+HKR, Responses, "CARRIER 16800/VFC", 1, 01, 00, A0,41,00,00, 00,00,00,00 ; CARRIER 16800 - Carrier detected at 16800 bps
+HKR, Responses, "CARRIER 19200/VFC", 1, 01, 00, 00,4B,00,00, 00,00,00,00 ; CARRIER 19200 - Carrier detected at 19200 bps
+HKR, Responses, "CARRIER 21600/VFC", 1, 01, 00, 60,54,00,00, 00,00,00,00 ; CARRIER 21600 - Carrier detected at 21600 bps
+HKR, Responses, "CARRIER 24000/VFC", 1, 01, 00, C0,5D,00,00, 00,00,00,00 ; CARRIER 24000 - Carrier detected at 24000 bps
+HKR, Responses, "CARRIER 26400/VFC", 1, 01, 00, 20,67,00,00, 00,00,00,00 ; CARRIER 26400 - Carrier detected at 26400 bps
+HKR, Responses, "CARRIER 28800/VFC", 1, 01, 00, 80,70,00,00, 00,00,00,00 ; CARRIER 28800 - Carrier detected at 28800 b

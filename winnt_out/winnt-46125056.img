@@ -1,0 +1,58 @@
+R, Responses, "CARRIER 19200 V.34",1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 21600 V.34",1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 24000 V.34",1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 26400 V.34",1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 28800 V.34",1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "COMPRESSION:CLASS5",    1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: CLASS5",   1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: CLASS 5",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION:MNP5",      1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: MNP5",     1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42BIS",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42 BIS", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION:V.42bis",   1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42bis",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42 bis", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: ADC",      1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION:NONE",      1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: NONE",     1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "PROTOCOL:NONE",          1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: NONE",         1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT-CELLULAR", 1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL:MNP 2, 4",      1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL:MNP 3, 4",      1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP 2, 4",     1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP 3, 4",     1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP2",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP3",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP4",         1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP 2",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP 3",        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP 4",        1, 01, 02, 00,00,00,00, 00,00,00,00
+
+[Rokcar.Responses]
+HKR, Responses, "PROTOCOL: ALT-EC",       1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT-ETC",      1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M-EC",     1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M-ETC",    1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 2400 V.34",    1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 4800 V.34",    1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 7200 V.34",    1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 9600 V.34",    1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 12000 V.34",   1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 14400 V.34",   1, 01, 00, 40,38,00,00, 00,00,00,00
+
+HKR, Responses, "CARRIER 2400/VFC",    1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 4800/VFC",    1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 7200/VFC",    1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 9600/VFC",    1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 12000/VFC",   1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 14400/VFC",   1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 16800/VFC",1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 19200/VFC",

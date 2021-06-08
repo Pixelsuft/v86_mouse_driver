@@ -1,0 +1,54 @@
+P,,1250
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10082
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","System,0",,"System,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Fixedsys,0",,"Fixedsys,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Small Fonts,0",,"Small Fonts,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Serif,0",,"MS Serif,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Sans Serif,0",,"MS Sans Serif,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier,0",,"Courier New,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial CE,0",,"Arial,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New CE,0",,"Courier New,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman CE,0",,"Times New Roman,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,238"
+
+[NLS.Registry.Romania]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  852,,C_852.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage, 1250,,C_1250.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10029,,C_10029.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10010,,C_10010.NLS
+;
+; For Romanian locales ACP is 1250 and MACCP is 10010
+;
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,1250
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10010
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","System,0",,"System,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Fixedsys,0",,"Fixedsys,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Small Fonts,0",,"Small Fonts,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Serif,0",,"MS Serif,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Sans Serif,0",,"MS Sans Serif,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier,0",,"Courier New,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial CE,0",,"Arial,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New CE,0",,"Courier New,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman CE,0",,"Times New Roman,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,238"
+
+[NLS.Registry.Cyrillic]
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  855,,C_855.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  866,,C_866.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage, 1251,,C_1251.NLS
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,10007,,C_10007.NLS
+;
+; For all Cyrillic locales ACP is 1251 and MACCP is 10007
+;
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,  ACP,,1251
+HKLM,System\CurrentControlSet\Control\NLS\Codepage,MACCP,,10007
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","System,0",,"System,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Fixedsys,0",,"Fixedsys,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Small Fonts,0",,"Small Fonts,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Serif,0",,"MS Serif,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Sans Serif,0",,"MS Sans Serif,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier,0",,"Courier New,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial Cyr,0",,"Arial,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New Cyr,0",,"Courier

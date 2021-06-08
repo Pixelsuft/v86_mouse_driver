@@ -1,0 +1,97 @@
+        $(!PPTPFProductDisplayName), +
+            $(!PPTPFProductImagePath), +
+            "kernelautostart", "TDI", {"TCPIP"}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPPP.INF: InstallRASPPTPFDriver : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) == SERVICE_ALREADY_EXISTS
+           return $(Status)
+        EndIf
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNXPPP.INF: InstallRASPPTPFDriver: Registry error create service"
+            return STATUS_FAILED
+        endif
+    endif
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        CloseRegKey $(KeyService)
+    endif
+    Debug-Output "InstallRASPPTPFDriver exit"
+    return $(Status)
+[RemoveRASPPTPFDriver]
+    Set MAXIMUM_ALLOWED = 33554432
+    set Status = STATUS_SUCCESSFUL
+    set KeyNull = ""
+    Debug-Output "RemoveRASPPTPFDriver entry"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!RaspptpfKeyName) $(MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        Shell "utility.inf", RemoveService $(!PPTPFProductName) "YES"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPPP.INF: RemoveRASPPTPFDriver : ShellCode error"
+            return STATUS_FAILED
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNXPPP.INF: RemoveRASPPTPFDriver: Registry error: "
+            return STATUS_FAILED
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    Debug-Output "RemoveRASPPTPFDriver exit"
+    return $(Status)
+[AddServiceDependency]
+    Debug-Output "AddServiceDependency: entry"
+    set MAXIMUM_ALLOWED = 33554432
+    set SERVICE_NO_CHANGE = 4294967295
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set DependentService = $(!NTN_ServiceBase)\$($0)
+    set DependentName = $($0)
+    set DependOn = $($1)
+    set ServiceKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(DependentService)"\Linkage" $(MAXIMUM_ALLOWED) ServiceKey
+    ifstr(i) $(ServiceKey) != $(KeyNull)
+        GetRegValue $(ServiceKey) "OtherDependencies" ServicesList
+        ifint $(RegLastError) != 0
+           set ServiceValues = {}
+        else
+           set ServiceValues = *($(ServicesList),4)
+        endif
+        debug-output "AddServiceDependency: Old OtherDependencies: "$(ServiceValues)
+        ifstr(i) $(ServiceValues) == {}
+            Set ServiceValues = {$(DependOn)}
+        else-ifstr(i) $(ServiceValues) == ""
+            Set ServiceValues = {$(DependOn)}
+        else-ifcontains(i) $(DependOn) in $(ServiceValues)
+            return STATUS_SUCCESSFUL
+        else
+            Set ServiceValues = >($(ServiceValues), $(DependOn))
+        endif
+        debug-output "AddServiceDependency: New OtherDependencies: "$(ServiceValues)
+        SetRegValue $(ServiceKey) {OtherDependencies, 0,+
+                                   $(!REG_VT_MULTI_SZ), $(ServiceValues)}
+        CloseRegKey $(ServiceKey)
+        set Status = STATUS_SUCCESSFUL
+    else
+        Debug-Output "AddServiceDependency: error opening service "$(DependentService)"\Linkage"
+    endif
+    set KeyService = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(DependentService) $(MAXIMUM_ALLOWED) KeyService
+    ifstr $(KeyService) != $(KeyNull)
+        set newDependList = {$(DependOn)}
+        GetRegValue    $(KeyService) "DependOnService" ServiceList
+        ifint $(RegLastError) == 0
+            Debug-Output "AddServiceDependency: old DependOnService List "*($(ServiceList), 4)
+            ForListDo *($(ServiceList),4)
+                ifstr(i) $($) != $(DependOn)
+                   set newDependList = >($(newDependList), $($))
+                endif
+            EndForListDo
+        endif
+        GetRegValue    $(KeyService) "DependOnGroup" GrpList
+        ifint $(RegLastError) == 0
+   

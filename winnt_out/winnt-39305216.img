@@ -1,0 +1,163 @@
+ression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT%C0 S2=128<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=ATD<phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/RELC<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/V42B<cr><lf>
+
+[EEH Elink 32-3 analog - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=\\N3%C1
+<speaker_off>=M0
+<speaker_on>=M1
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=Elink 32-3
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=115200
+
+COMMAND_INIT=AT&F
+COMMAND_INIT=X1 &B0 %C0 S2=128
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=ATD<phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/RELC<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42B<cr><lf>
+
+
+[EEH Elink 29-3 analog - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=\\N3%C1
+<speaker_off>=M0
+<speaker_on>=M1
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=Elink 29-3
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=115200
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=ATX1 &B0 %C0 S2=128<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=ATD<phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/RELC<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42B<cr><lf>
+
+[EEH Elink 301 - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N6
+<compression_off>=M
+<compression_on>=M
+<speaker_off>=M0
+<speaker_on>=M1
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=ELINK 301
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=64000
+MAXCONNECTBPS=115200
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=ATX1 \\N6 S12=128 S16=1<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=ATD<phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps>/V.110<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/X.75<cr><lf>
+
+[EEH Elink 310 - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=&B34
+<protocol_on>=&B49
+<compression_off>=%C0
+<compression_on>=%C1
+<speaker_off>=M0
+<speaker_on>=M1
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=Elink 310
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=64000
+MAXCONNECTBPS=115200
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=ATX1 &B49 \\S1 S2=128<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=ATD<phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps>/V.110<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/X.75<cr><lf>
+
+[EEH Elink 29-3 ISDN - GER]
+ALIAS=EEH Elink 310 - GER
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=Elink 29-3
+
+[EEH Elink 32-3 ISDN - GER]
+ALIAS=EEH Elink 310 - GER
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=Elink 32-3
+
+
+;----------------------------------------
+;Elsa Modems (Germany)
+;----------------------------------------
+
+[ELSA MicroLink 2440T - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&F$K0 X3 S0=0 S2=128 S7=55 S95=8\\V1<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CON

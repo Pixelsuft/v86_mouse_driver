@@ -1,0 +1,130 @@
+yErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fataldetect = +
+    Shell $(UtilityInf),RegistryErrorString,CANNOT_DETECT
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	Debug-Output "ShellCode error: cannot get an error string."
+	goto ShellCodeError
+    endif
+    set Error = $($R0)
+    Goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+	Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto ShellCodeError
+	endif
+	set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+	set OEM_ABANDON_ON = FALSE
+	goto abandon
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[DebugConfiguration]
+    Set InfName = "OEMNADAM.INF"
+    Debug-Output $(InfName)" **CONFIGURATION STATE: "$($0)
+    Debug-Output $(InfName)" IRQ_Level is "$(!p:IRQ_Level)
+    Debug-Output $(InfName)" IOBaseAddrValue is "$(!p:IOBaseAddrValue)
+    return
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+	AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   AddSectionFilesToCopyList Files-Dll $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-hlp $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   exit
+[Install-Helpfile]
+   Debug-Output "At Install-Helpfile"
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   ifstr(i) $(AddCopy) == "YES"
+       AddSectionFilesToCopyList Files-hlp $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   endif
+   ifstr(i) $(DoCopy) == "YES"
+      set !STF_NCPA_FLUSH_COPYLIST = TRUE
+      CopyFilesInCopyList
+   endif
+   exit
+[Install-Dll]
+   set STF_VITAL        = ""
+   ifstr(i) $(AddCopy) == "YES"
+       AddSectionFilesToCopyList Files-Dll $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   endif
+   ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+   endif
+   exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-AMDPCI]
+1,AMDPCN.SYS , SIZE=999
+[Files-Dll]
+1,AMDDLG.DLL , SIZE=999
+[Files-hlp]
+1,PCNET.HLP , SIZE=999
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    AMDPCI     = "AMD PCNET Family Ethernet Adapter"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+GenericAdapterName = "AMD PCNET ISA/VESA Ethernet Adapter"
+GenericPCIAdapterName = "AMD PCNET PCI Ethernet Adapter"
+GenericDriverName  = "AMD PCNET Family Ethernet Adapter Driver"
+ProductSoftwareDescription = $(GenericDriverName)
+ProductHardwareDescription = $(GenericAdapterName)
+ProductHardwarePCNTN3Description="AMD PCnet Family Driver"
+ProductSoftwareTitle =       $(GenericDriverName)
+ProductHardwareP

@@ -1,0 +1,49 @@
+you would like to use with Windows Messaging. The Wizard is also run each time you add a new profile by using the Mail option in Control Panel.
+
+
+Upgrading from Windows NT 4.0 Beta 1 or Beta 2
+
+Note
+The following information does not apply if you are running the Exchange Client for Microsoft Exchange Server.
+
+If you are currently running Windows NT version 4.0 Beta 1 or Beta 2 and using the Exchange Client, use the following procedure to remove Microsoft Exchange before upgrading to Windows NT version 4.0.
+
+To remove Microsoft Exchange and then install Windows NT version 4.0
+1. Click Start, point to Settings, and then click Control Panel.
+2. Double-click Add/Remove Programs.
+3. On the Windows NT Setup tab, clear the Microsoft Exchange check box, and then click OK.
+4. After Microsoft Exchange has been removed, start Windows NT version 4.0 Setup.
+5. When prompted to select the type of installation, click Custom Setup.
+6. On the Select Components page, select Windows Messaging (new name for Exchange in Windows NT 4.0).
+
+If you are a Windows NT 4.0 Beta Exchange Client user and you have already installed   Windows NT version 4.0 (final), you need to remove Exchange and reinstall Windows Messaging to ensure proper operation of the Messaging Client.
+
+To remove Microsoft Exchange and install Windows Messaging after upgrading from Windows NT version 4.0 Beta 1 or Beta 2 to Windows NT version 4.0 (final).
+1. Right-click the Taskbar, and click Properties.  
+2. On the Start Menu Programs tab, click Remove.  
+3. Select Microsoft Exchange from the list, and then click Remove. 
+4. Click Close, and then click OK.
+5. Click Start, point to Settings, and then click Control Panel.
+6. Double-click Add/Remove Programs.
+7. On the Windows NT Setup tab, clear the Windows Messaging check box, and then click OK.
+
+Using Windows Messaging with Microsoft Schedule+ 1.0
+Windows Messaging is designed to work with Microsoft Schedule+ version 7.0. When Windows Messaging is installed, you can still use Schedule+ 1.0 in standalone mode, but you will not be able to send or receive meeting requests. You will see an error message when starting Schedule+ 1.0 that notifies you the mail spooler cannot be started. Click Yes to continue.
+You are eligible for a free upgrade to Schedule+ 7.0.  In the U.S., call 1-800-360-7561; in Canada call, 1-800-933-4750.  Outside the U.S. and Canada, contact your local dealer.
+
+Using Windows Messaging with Microsoft Schedule+ 7.0
+Schedule+ 7.0 may not run properly after you upgrade to Windows NT version 4.0. You can work around this problem by prepending the Schedule+ 7.0 directory to your system path. For example, if Schedule+ 7.0 is installed in c:\exchange, and your current system path is %SystemRoot%\system32;%SystemRoot%, change the path to c:\exchange;%SystemRoot%\system32;%SystemRoot%.
+
+To edit your path
+1. Run Control Panel and double-click System.
+2. On the Environment page, click Path in System Variables.
+3. Add the Schedule+ path to the front of the directories listed in Value.
+4. Click Set.
+
+Using Windows Messaging with Microsoft Mail
+Windows Messaging is designed to replace the Microsoft Mail program that comes with Windows NT and Microsoft Mail version 3.x. After installing Windows Messaging, you will no longer be able to run the older Microsoft mail program, but you will be able to use Windows Messaging to send and receive messages.
+
+Using Windows Messaging with Microsoft Mail and Remote Access Service (RAS)
+Before configuring the Microsoft Mail Service for remote usage, you need to install the Remote Access Service (RAS) and create a RAS phonebook entry by using the Dial-Up Networking icon. If a RAS phonebook entry has not been created, the remote configuration tabs (Remote Configuration, Remote Session, & Dial-Up Networking) will not be available when configuring the Microsoft Mail Service in Windows Messaging.
+
+RAS can be installed during Windows NT Setup or from the Services tab in the Network icon in Control Panel. The Dial-Up Networking icon is found either on 

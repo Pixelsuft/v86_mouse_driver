@@ -1,0 +1,46 @@
+ubstitutes","MS Serif,0",,"MS Serif,186"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Sans Serif,0",,"MS Sans Serif,186"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier,0",,"Courier New,186"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Sans Serif Greek,0",,"MS Sans Serif,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","System Greek,0",,"System,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Fixedsys Greek,0",,"Fixedsys,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Small Fonts Greek,0",,"Small Fonts,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","MS Serif Greek,0",,"MS Serif,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial Greek,0",,"Arial,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New Greek,0",,"Courier New,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman Greek,0",,"Times New Roman,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial Tur,0",,"Arial,162"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New Tur,0",,"Courier New,162"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman Tur,0",,"Times New Roman,162"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial CE,0",,"Arial,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New CE,0",,"Courier New,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman CE,0",,"Times New Roman,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial Cyr,0",,"Arial,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New Cyr,0",,"Courier New,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Times New Roman Cyr,0",,"Times New Roman,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv",,"MS Sans Serif"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,162"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Helv,0",,"MS Sans Serif,186"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn",,"MS Serif"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,162"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Tms Rmn,0",,"MS Serif,186"
+
+;
+; Registry additions for old style tagged TT font face names.  Add all of them anytime the locale
+; is non-1252.  Never remove them after that.
+;
+
+[Font.NonCP1252.Substitutes]
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial CE,238",,"Arial,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial CYR,204",,"Arial,204"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial Greek,161",,"Arial,161"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial TUR,162",,"Arial,162"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Arial Baltic,186",,"Arial,186"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier New CE,238",,"Courier New,238"
+HKLM,"Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes","Courier N

@@ -1,0 +1,130 @@
+; This is the Setup information file to install optional components
+; Copyright (c) 1996 Microsoft Corporation
+
+
+[version]
+signature="$Windows NT$"
+ClassGUID={00000000-0000-0000-0000-000000000000}
+LayoutFile=layout.inf
+
+
+[DestinationDirs]
+CalcCopyFilesSys                = 11    ;LDID_SYSTEM
+CalcCopyFilesHelp               = 11    ;LDID_SYSTEM
+CharMapCopyFilesSys             = 11    ;LDID_SYSTEM
+CharMapCopyFilesHelp            = 11    ;LDID_SYSTEM
+ClipBookCopyFilesSys            = 11    ;LDID_SYSTEM
+ClipBookCopyFilesHelp           = 11    ;LDID_SYSTEM
+ClockCopyFilesSys               = 11    ;LDID_SYSTEM
+DeskpaperCopyFilesSys           = 10    ;LDID_WIN
+DeskpaperOldCopyFilesSys        = 10    ;LDID_WIN
+MousePointCopyFilesSys          = 10,%Cursors%
+MousePointDelOldFiles           = 11    ;LDID_SYSTEM
+ObjectPkgCopyFilesSys           = 11    ;LDID_SYSTEM
+ObjectPkgCopyFilesHelp          = 11    ;LDID_SYSTEM
+PaintCopyFilesSys               = 11    ;LDID_SYSTEM
+PaintCopyFilesHelp              = 18    ;LDID_HELP
+QuickViewCopyFilesViewers       = 21    ;LDID_VIEWERS (LDID_SYSTEM\viewers)
+SSOpenGLCopyFilesSys            = 11    ;LDID_SYSTEM
+SSStandardCopyFilesSys          = 11    ;LDID_SYSTEM
+TemplatesCopyFiles              = 25,ShellNew ; LDID_SHARED\ShellNew
+
+
+[BaseWinOptions]
+BaseSection
+
+
+[Optional Components]
+AccessTop       ;Top level option
+Calc
+CharMap
+ClipBook
+Clock
+Deskpaper       ; Desktop wallpaper
+MousePoint      ; Mouse pointers
+ObjectPkg       ; Object packager
+Paint
+QuickView
+ScreenSave      ; Screen savers
+SSOpenGL        ; OpenGL screen savers
+SSStandard      ; Standard screen savers
+Templates       ; Document Templates
+
+
+[BaseSection]
+AddReg                  = BaseAddReg
+
+
+[AccessTop]
+OptionDesc              = %AccessTop_DESC%
+Tip                     = %AccessTop_TIP%
+IconIndex               = 26 ;Windows mini-icon for dialogs
+
+
+[Calc]
+OptionDesc              = %Calc_DESC%
+Tip                     = %Calc_TIP%
+IconIndex               = 30 ;Windows mini-icon for dialogs
+Parent                  = AccessTop
+InstallType             = 10 ;Typical, Custom
+CopyFiles               = CalcCopyFilesSys, CalcCopyFilesHelp
+AddReg                  = CalcAddReg
+UpdateInis              = CalcInis
+Uninstall               = CalcUninstall
+Upgrade                 = CalcUpgrade
+Detect                  = %11%\calc.exe
+
+
+[CalcUninstall]
+DelFiles                = CalcCopyFilesSys, CalcCopyFilesHelp
+AddReg                  = CalcUninstallAddReg
+UpdateInis              = CalcUninstallInis
+
+
+[CalcUpgrade]
+CopyFiles               = CalcCopyFilesSys, CalcCopyFilesHelp
+AddReg                  = CalcAddReg
+
+
+[CalcInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Calc_DESC%"",""""""%11%\calc.exe"""""",,,,""%11%"""
+
+
+[CalcUninstallInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Calc_DESC%"""
+
+
+[CharMap]
+OptionDesc              = %CharMap_DESC%
+Tip                     = %CharMap_TIP%
+IconIndex               = 44 ;Keyboard mini-icon for dialogs
+Parent                  = AccessTop
+InstallType             = 10 ;Typical, Custom
+CopyFiles               = CharMapCopyFilesSys, CharMapCopyFilesHelp
+AddReg                  = CharMapAddReg
+UpdateInis              = CharMapInis
+Uninstall               = CharMapUninstall
+Upgrade                 = CharMapUpgrade
+Detect                  = %11%\charmap.exe
+
+
+[CharMapUninstall]
+DelFiles                = CharMapCopyFilesSys, CharMapCopyFilesHelp
+AddReg                  = CharMapUninstallAddReg
+UpdateInis              = CharMapUninstallInis
+
+
+[CharMapUpgrade]
+CopyFiles               = CharMapCopyFilesSys, CharMapCopyFilesHelp
+AddReg                  = CharMapAddReg
+
+
+[CharMapInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%CharMap_DESC%"",""""""%11%\charmap.exe"""""",,,,""%11%"""
+
+
+[CharMapUninstallInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"

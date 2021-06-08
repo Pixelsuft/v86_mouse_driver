@@ -1,0 +1,252 @@
+ Index Key)
+     (regenumkey Key Index SvcNameCi)
+     (string_upper SvcNameCi SvcName)
+     (not (getGroup Key SvcName))
+     (iplus Index 1 Newindex)
+     (enumGroups Newindex Key)
+)
+
+    
+    
+    
+    
+( (getGroup Key SvcName)
+     (regopenkey Key SvcName Svckey)
+     (or (regqueryvalue Svckey "Group" GroupCi) (eq GroupCi ""))
+     (regclosekey Svckey)
+     (getDepends SvcName)
+     (not (eq GroupCi ""))
+     (string_upper GroupCi Group)
+     (assertz (group SvcName Group))
+     (fail)
+)
+
+( (getDepends SvcName)
+     (svcinfo SvcName SvcList GroupList)
+     (assertDependList service SvcName SvcList)
+     (assertDependList group SvcName GroupList)
+)
+
+    
+    
+    
+( (assertDependList Type SvcName ())
+     (cut)
+)
+( (assertDependList Type SvcName (H|T))
+     (depends SvcName Type H)
+     (cut)
+     (assertDependList Type SvcName T)
+)
+( (assertDependList Type SvcName (H|T))
+     (assertz (depends SvcName Type H))
+     (assertDependList Type SvcName T)
+)
+
+    
+    
+    
+( (retractstops)
+     (retract (stop _ _))
+     (fail)
+)
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+( (orderstops L Level L)                
+     (not (stop _ Level))               
+     (cut)
+)
+( (orderstops Inlist Level OutList)             
+     (findall Sname (stop Sname Level) Slist)   
+     (append Inlist Slist NewList)              
+     (iplus Level 1 NewLevel)                   
+     (orderstops NewList NewLevel OutList)      
+)
+
+
+     
+     
+     
+     
+( (basestoplevel Level Level)
+     (iminus Level 1 TestLevel)
+     (not (stop _ TestLevel))
+     (cut)
+)
+( (basestoplevel Level LowestLevel)
+     (iminus Level 1 NextLevel)
+     (basestoplevel NextLevel LowestLevel)
+)
+
+    
+    
+    
+    
+    
+    
+( (specialstops SvcName Level)
+    (iminus Level 1 NewLevel)
+    (magicStop SvcName SvcToStop)
+    (alldependencies SvcToStop NewLevel)
+    (fail)
+)
+
+(magicStop "LANMANWORKSTATION" "NETDDE")
+
+    
+    
+    
+    
+( (upcaseList () ())
+   (cut)
+)
+( (upcaseList (H|T) (HU|TU))
+    (string_upper H HU)
+    (upcaseList T TU)
+)
+
+( (stopupper SvcName Level)
+    (findall Sname (depends Sname service SvcName) SvcList)
+    (iminus Level 1 NewLevel)
+    (stopupperlist SvcList NewLevel)
+)
+( (stopupperlist () _)
+    (cut)
+)
+( (stopupperlist (SvcName|T) Level)
+    (stopsvc SvcName Level up)
+    (stopupperlist T Level)
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+( (printif List)
+    (printctl on)
+    (cut)
+    (printall List)
+)
+( (printif _) )
+
+( (displayif Thing)
+    (printctl on)
+    (cut)
+    (display Thing)
+)
+( (displayif _) )
+
+( (pctl on)
+    (cut)
+    (asserta (printctl on))
+)
+( (pctl off)
+    (retract (printctl _))
+)
+
+( (pstdout on)
+    (cut)
+    (asserta (printstdout on))
+)
+( (pstdout off)
+    (retract (printstdout _))
+)
+
+( (statctl on)
+    (cut)
+    (asserta (statctl on))
+)
+( (statctl off)
+    (retract (statctl _))
+)
+
+( (tostring nl "")
+    (cut)
+    (tracenl)
+    
+)
+
+( (tostring X X)
+    (string X)
+    (cut)
+)
+( (tostring X Y)
+    (atom X)
+    (cut)
+    (string_from X Y)
+)
+( (tostring X Y)
+    (integer X)
+    (cut)
+    (string_from X Y)
+)
+( (tostring X "<_var_>")
+    (var X)
+)
+(printall ())
+
+( (printall (H|T))
+    (tostring H Sh)
+    (tracewrites Sh)
+    
+    (printall T)
+)
+
+ 
+ 
+
+((tracestat)
+ (statctl on)
+ (cut)
+ (space_left Heap Str Dyn Subst Trail Temp)
+ (alloc_percent 1 HeapPct)
+ (dbg_remains Heap HeapPct "heap")
+ (alloc_percent 4 StrPct)
+ (dbg_remains Str StrPct "strings")
+ (alloc_percent 2 DynPct)
+ (dbg_remains Dyn DynPct "contol stack")
+ (alloc_percent 6 SubstPct)
+ (dbg_remains Subst SubstPct "substitutions")
+ (alloc_percent 5 TrailPct)
+ (dbg_remains Trail TrailPct "trail")
+ (alloc_percent 3 TempPct)
+ (dbg_remains Temp TempPct "temp")
+)
+
+((tracestat))
+
+((dbg_remains Bytes Percent Zone)
+ (printall ("NCPA/SP: There remains " Bytes " bytes for the " Zone
+             "; percent used: " Percent "%" nl))
+)
+
+
+
+
+
+
+
+
+((is_

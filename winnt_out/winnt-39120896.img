@@ -1,0 +1,120 @@
+;----------------------------------------
+; NOTE:
+;   Windows NT version 4.0 and later include support for
+;   modems through the Universal Modem Driver (Unimodem) using TAPI.
+;   Thus, if you are installing a new unsupported modem, you should
+;   obtain a modem driver from the modem manufacturer.
+;   RAS continues to support modems for older legacy systems.
+;   To configure a previously installed unsupported modem to work with RAS,
+;   add an entry for that modem in this file.
+;
+; Modem responses are normally located in the global [Responses]
+; section.  Most modems will return one of the responses listed in the
+; global [Responses] section.  If you encounter a modem with a different
+; response sequence than any of the responses already listed, add that
+; new sequence to the global [Respones] section. You may also put new
+; modem response sequences immediately following the command section of
+; a specific modem.  Such responses are checked before the global
+; responses.
+;
+; Individual modems will have separate command sections.  Modems with
+; identical command sequences can be aliased.  E.g., if modem 2 has the
+; same command sequences as modem 1, then modem 2's section might be
+; as follows:
+;
+;      [modem 2]
+;      alias=modem 1
+;
+; Aliases to aliased sections are not allowed. In other words, in the
+; example given above, if you have "modem 3" which also has an identical
+; command sequence to modem 1 and modem 2, you can alias modem 3 to
+; modem 1, but you cannot alias modem 3 to modem 2.
+;----------------------------------------
+
+[Responses]
+
+;----------------------------------------
+;OK, ERROR, NO DIALTONE, NO CARRIER, etc
+;----------------------------------------
+
+OK=<lf>OK<cr><lf>
+OK=<cr><lf>OK<cr><lf>
+OK=<cr><cr><lf>OK<cr><lf>
+OK=<hFF><cr><lf>OK<cr><lf>
+LOOP=<lf>RING<cr><lf>
+LOOP=<cr><lf>RING<cr><lf>
+LOOP=<cr><lf>RRING<cr><lf>
+LOOP=<cr><lf>RINGING<cr><lf>
+LOOP=<cr><lf>DIALING<cr><lf>
+ERROR=<cr><lf>ERROR<cr><lf>
+ERROR=<cr><lf>ABORTED<cr><lf>
+ERROR_NO_CARRIER=<cr><lf>NO CARRIER<cr><lf>
+ERROR_VOICE=<cr><lf>VOICE<cr><lf>
+ERROR_NO_DIALTONE=<cr><lf>NO DIALTONE<cr><lf>
+ERROR_NO_DIALTONE=<cr><lf>NO DIAL TONE<cr><lf>
+ERROR_BUSY=<cr><lf>BUSY<cr><lf>
+ERROR_NO_ANSWER=<cr><lf>NO ANSWER<cr><lf>
+ERROR_NO_PROMPTTONE=<cr><lf>NO PROMPTTONE<cr><lf>
+
+;PDI modem
+ERROR=<cr><lf>ERROR DATA Button not defined<cr><lf>
+
+;----------------------------------------
+;CONNECT responses with APPEND macro come first to force proper match
+;----------------------------------------
+
+
+;Zoom V32bis modem
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAPM<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+;ATI modems, Hayes V Series; Practical
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42bis<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps> V.34<cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42bis<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>\
+<cr><lf>COMPRESSION: MNP5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: MNP5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>\
+<cr><lf>COMPRESSION: MNP4<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPR

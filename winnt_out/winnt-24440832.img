@@ -1,0 +1,44 @@
+sed Applications
+Some Windows version 3.1 applications do not accept port names longer than 5 characters. If you are using a monitor (such as DECPSMON or HPMON) that allows you to use a long name and you experience problems from older applications, rename the port name to 5 characters.
+
+Using Separator Pages
+The default separator pages (PCL.SEP, PSCRIPT.SEP, and SYSPRINT.SEP) may not work with some printers.  PCL.SEP is targeted for PCL printers, and may not work unless the PCL printer also supports PJL.  PSCRIPT.SEP is targeted toward PostScript printers that also support PJL.  Also note that PSCRIPT.SEP does not actually print a physical separator page.  SYSPRINT.SEP is targeted toward PostScript printers and does produce a physical page.
+
+Printers that do not meet the above specifications will require custom separator pages.  For most non-PostScript printers (PCL or otherwise), this will produce a basic separator page (only plain text with no printer-specific control codes):
+\
+\B\S\N\4	
+\I\4		
+\U\D\4		
+\E
+
+Micrografx Designer 6.0
+Designer (part of the ABC Graphics Suite) may display an error dialog box that refers to SMapLS_IP_EBP_12 in KERNEL32.dll when printing to PostScript printers. The dialog box appears because Designer misinterprets the operating system version information and tries to call a procedure found only in the Windows 95 version of the .dll file. Clicking OK allows printing to continue as expected. 
+
+The printer setup property page has a different appearance under Windows NT version 4.0 than it does under Windows 95.
+
+Micrografx Designer substitutes a monospace font such as Courier for TrueType fonts.
+
+Contact Micrografx at (214) 234-2694 or online at http://www.micrografx.com for upgrade information.
+
+Microsoft Encarta 95
+There are known problems printing from Encarta 95 to PCL printers in 24bpp when metafile spooling is turned on. You can work around this problem by either turning off metafile spooling or by switching to 8 color or 256 color depth in the printer's document properties dialog box.
+		
+Printer Drivers
+Printer drivers from third party vendors that were used with earlier versions of Windows NT cannot be used with Windows NT version 4.0. Contact your print device vendor directly to obtain an updated printer driver. 
+
+Existing Windows NT version 3.x drivers are upgraded to Windows NT version 4.0 compatible drivers. However, the Windows NT version 3.x drivers are retained for use by Windows NT version 3.x clients when connecting to printers shared through a computer running Windows NT version 4.0. 
+
+Printers are now set up and accessed from the new Printers folder.
+
+To view the Printers folder 
+Click Start, point to Settings, and then click Printers. 
+
+To add a new printer
+From the Printers folder, click the Add Printer wizard.
+
+Note
+The Add Printer wizard supports the installation of printer drivers for Windows 95, all versions of Windows NT, and all architectures of Windows NT. However, the Windows NT version 4.0 compact disc does not contain printer drivers for earlier versions of Windows NT or Windows 95. To use the Add Printer wizard to install earlier versions of Windows NT printer drivers, you must have the installation media that contains the earlier version of the driver. The Add Printer wizard can install Windows 95 printer drivers from a share which contains decompressed Windows 95 printer driver files and printer .INF files, The Add Printer wizard cannot install files directly from a Windows 95 compact disc because the files are compressed on the compact disc. 
+
+Windows 95 Printer Drivers on Windows NT 
+Windows 95 printer drivers can be installed on computers running Windows NT. The printer drivers can be obtained from an existing Windows 95 installation or from a Windows 95 compact disc. Be aware that drivers on the Windows 95 compact disc must be decompressed before they can be installed on a Windows NT computer. Before you decompress the files, first create a directory for the decompressed files.
+To decompress files from the Windows 9

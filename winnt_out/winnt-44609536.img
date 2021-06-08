@@ -1,0 +1,108 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Toshiba, Noteworthy
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Toshiba%
+
+[Manufacturer]
+%Toshiba% = Toshiba
+%Noteworthy% = Noteworthy
+%Kingston% = Kingston
+
+[Toshiba]
+%Modem13% = Modem13, PCMCIA\PSION_DACOM-ADVANCED_PCMCIA_MODEM-3D25    ; Toshiba British (UK) Advanced PCMCIA modem (mfg by Psion )
+%Modem13% = Modem13, UNIMODEMD7AC3773
+
+%Modem12% = Modem12, TOSH_Modem12                      ; T24DX similar to modem4 but no fax
+%Modem11% = Modem11, TOSH_Modem11                      ; T24SL similar to modem6
+%Modem8%  = Modem8,  PCMCIA\TOSHIBA-T144P/F4-4EB7      ; T144PF4
+%Modem8%  = Modem8,  UNIMODEM39888E6F                  ; T144PF4
+%Modem7%  = Modem7,  UNIMODEMEE6AD1B7                  ; BC 14.400
+%Modem7%  = Modem7,  PCMCIA\PURE_DATA_LTD-PDMCIA_V.17_FAX/MODEM-0085   ; BC 14.400 (Toshiba Canada)
+%Modem6%  = Modem6,  UNIMODEMA1E98A9B                  ; T24M
+%Modem6%  = Modem6,  UNIMODEMF83D4E2F                  ; T24M
+%Modem5%  = Modem5,  TOSH_Modem5                       ; TPCV32BF (Psion Dacom)
+%Modem4%  = Modem4,  TOSH_Modem4                       ; T24D/F  has fax
+%Modem3%  = Modem3,  TOSH_Modem3                       ; T144D/F
+
+[Noteworthy]
+%Modem14% = Modem14, PCMCIA\NOTEWORTHY-NW288CR-6DBA    ; V.34 model
+%Modem14% = Modem14, TOSH_Modem14, UNIMODEM1058B7F8    ; V.34 model
+%Modem10% = Modem10, UNIMODEMDC96479E                  ; T144NW
+%Modem10% = Modem10, PCMCIA\TOSHIBA-T144PF-B87B        ; T144NW 
+%Modem9%  = Modem9,  UNIMODEM74CD5712                  ; T24NW
+%Modem9%  = Modem9,  PCMCIA\TOSHIBA-T24PF-8F85         ; T24NW
+%Modem2%  = Modem2,  TOSH_Modem2, PCMCIA\INTEL-DATAFAX_14.4-7462 ; T144NWX
+%Modem2%  = Modem2, UNIMODEM30EA2F30   ; T144NWX
+%Modem1%  = Modem1,  "PCMCIA\NOTEWORTHY-NW144CR-4A96"  ; NW144CR
+
+[Kingston]
+%Modem15% = Modem15, PCMCIA\KINGSTON_TECHNOLOGY-DATAREX_14.4_DATA/FAX_MODEM-6EC4    ; Kingston DataRex 14.4 PCMCIA Modem
+%Modem15% = Modem15, UNIMODEM3192220E                                               ; Kingston DataRex 14.4 PCMCIA Modem
+
+; Installation sections
+
+[Modem15] ; Kingston DataRex 14.4 PCMCIA Modem
+AddReg=All, MfgAddReg, Modem15.AddReg, PCMCIA
+
+[Modem14] ; V.34
+AddReg=All, MfgAddReg, Modem14.AddReg, PCMCIA
+
+[Modem13] ; Toshiba UK model
+AddReg=All, MfgAddReg, Modem13.AddReg, PCMCIA
+
+[Modem12] ; T24DX
+AddReg=All, MfgAddReg, Modem12.AddReg, INTERNAL
+
+[Modem11] ; T24SL
+AddReg=All, MfgAddReg, Modem11.AddReg, INTERNAL
+
+[Modem10] ;Toshiba Noteworthy T144NW 
+AddReg=All, MfgAddReg, Modem10.AddReg, PCMCIA
+
+[Modem9]  ; T24NW
+AddReg=All, MfgAddReg, Modem9.AddReg, PCMCIA
+
+[Modem8]  ; T144PF4
+AddReg=All, MfgAddReg, Modem8.AddReg, PCMCIA
+
+[Modem7]  ; BC 14.400
+AddReg=All, MfgAddReg, Modem7.AddReg, PCMCIA
+
+[Modem6]  ; T24M
+AddReg=All, MfgAddReg, Modem6.AddReg, INTERNAL
+
+[Modem5]  ; TPCV32BF (Psion Dacom)
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem4]  ; T24D/F
+AddReg=All, MfgAddReg, Modem4.AddReg, INTERNAL
+
+[Modem3]  ; T144D/F
+AddReg=All, MfgAddReg, Modem3.AddReg, INTERNAL
+
+[Modem2]  ; T144NWX
+AddReg=All, MfgAddReg, Modem2.AddReg, PCMCIA
+
+[Modem1]  ; NW144CR 
+AddReg=All, MfgAddReg, Modem1.AddReg, PCMCIA
+
+; AddReg sections
+
+[Modem15.AddReg] ; Kingston DataRex 14.4 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Init, 2,, "AT &F E0 V1 Q0 &D2 &C1 S95=47 S0=0<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 *H2 %%C3 -Q1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 *H2 %%C3 -Q1""
+
+[Modem14.AddReg] ; V.34
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F E0 V1 \V1 W2 &D2 &C1 S95=47 S0=0<cr>"
+HKR, Settings, ErrorControl_On,

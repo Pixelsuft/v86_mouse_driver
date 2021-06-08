@@ -1,0 +1,86 @@
+PortNameList) == $(KeyNull)
+                        set PortNameList = *($(PortName),4)
+                     Else
+                        set PortNameList = >($(PortNameList), >($(CurrentPort),*($(PortName),4)))
+                     Endif
+                     Ifint $(TraceConfig) == 1
+                        Debug-Output $(CurrentPort)"->"*($(PortName),4)
+                     Endif
+                     CloseRegKey $(PortKey)
+                  EndIf
+               EndForListDo
+               CloseRegKey $(ConcKey)
+               Ifint $(TraceConfig) == 1
+                  Debug-Output "PortNameList = "
+                  LibraryProcedure Result2, $(DGCONFIG_HANDLE), DumpList, $(PortNameList)
+               Endif
+               set CurrentConc = >($(CurrentConc), *($(ConcDisplayName),4))
+               set CurrentConc = >($(CurrentConc), $(ConcSpeed))
+               set CurrentConc = >($(CurrentConc), $(ChildConcList))
+               set CurrentConc = >($(CurrentConc), $(PortNameList))
+               Ifint $(TraceConfig) == 1
+                  Debug-Output "CurrentConc = "
+                  LibraryProcedure Result2, $(DGCONFIG_HANDLE), DumpList, $(CurrentConc)
+               Endif
+               set ConcList = >($(ConcList),$(CurrentConc))
+            EndIf
+         EndForListDo
+         CloseRegKey $(LineKey)
+         Ifint $(TraceConfig) == 1
+            Debug-Output "LineList = "$(LineList)
+            Debug-Output "CurrentLine = "$(CurrentLine)
+            Debug-Output "ConcList = "$(ConcList)
+         Endif
+         set CurrentLine = >($(CurrentLine), $(LineSpeed))
+         set TmpLine = >($(CurrentLine),$(ConcList))
+         Ifint $(TraceConfig) == 1
+            Debug-Output "TmpLine = "$(TmpLine)
+         Endif
+         set LineList = >($(LineList),$(TmpLine))
+      Endif
+      Ifint $(TraceConfig) == 1
+         Debug-Output "LineList = "
+         LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(LineList)
+      Endif
+      set CtrlList = $(LineList)
+    EndForListDo
+    Ifint $(TraceConfig) == 1
+      LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(CtrlList)
+    Endif
+    CloseRegKey $(ParametersKey)
+    CloseRegKey $(BaseKey)
+getAdapterSettingsExit = +
+    goto configureadapter
+writeparameters = +
+    Debug-Output "******************Entering writeparameters******************"
+    StartWait
+    Debug-Output "Trying to open: "$(!NTN_ServiceBase)"\"$(AdapterServiceName)
+    Debug-Output "AdapterParameters = "
+    LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(AdapterParameters)
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(AdapterServiceName) $(MAXIMUM_ALLOWED) BaseKey
+    Ifstr $(BaseKey) == $(KeyNull)
+        Debug-Output "Error opening BaseKey "$(!NTN_ServiceBase)"\"$(AdapterServiceName)
+        CloseRegKey $(BaseKey)
+        goto fatal
+    Endif
+    OpenRegKey $(BaseKey) "" "Parameters" $(MAXIMUM_ALLOWED) ParametersKey
+    Ifstr $(ParametersKey) == $(KeyNull)
+        Debug-Output "Assuming Parameters key does not exist!!!"
+        CloseRegKey $(BaseKey)
+        goto fatal
+    Endif
+    set MemoryAddress = *($(AdapterParameters),1)
+    set InterruptNumber = *($(AdapterParameters),2)
+    set IOBaseAddress = *($(AdapterParameters),3)
+    set HdwDeviceName = "\Device\"$(AdapterHardwareDriver)
+    Debug-Output "MemoryAddress = "$(MemoryAddress)
+    Debug-Output "InterruptNumber = "$(InterruptNumber)
+    Debug-Output "IOBaseAddress = "$(IOBaseAddress)
+    Debug-Output "HdwDeviceName = "$(HdwDeviceName)
+    Debug-Output "FEPImage = "$(AdapterFepImage)
+    Debug-Output "BiosImage = "$(AdapterBiosImage)
+    SetRegValue $(ParametersKey) {MemoryMappedBaseAddress,$(NoTitle),$(!REG_VT_DWORD),$(MemoryAddress)}
+    SetRegValue $(ParametersKey) {IOBaseAddress,$(NoTitle),$(!REG_VT_DWORD),$(IOBaseAddress)}
+    SetRegValue $(ParametersKey) {InterruptNumber,$(NoTitle),$(!REG_VT_DWORD),$(InterruptNumber)}
+    SetRegValue $(ParametersKey) {HdwDeviceName,$(NoTitle),$(!REG_VT_SZ),$(HdwDeviceName)}
+    SetRegValue $(P

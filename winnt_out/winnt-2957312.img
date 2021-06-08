@@ -1,0 +1,132 @@
+le,
+decrease the value specified for the RMSIZE=,
+BUFFERS=, or TRACEBUF= statement in the
+CONFIG.SYS file. Then restart the system.
+EThe system cannot process this request.
+
+A non-recoverable error occurred.
+
+Try to save all your programs and data.
+Then restart the system.
+EThe system cannot start the selected
+program.
+
+The maximum number of programs are currently running.
+
+End a running program. Then start another program.
+EThe extended attribute join operation is not
+allowed.
+EThe system cannot set the mouse
+button assignments.
+
+The mouse may not be installed properly.
+
+Check that the mouse software is properly installed.
+Then restart the system.
+EThe system has detected an
+unacceptable executable format in the file.
+
+The program is either formatted
+incorrectly or is an incorrect
+version of the operating system.
+
+Run the program from DOS mode.
+?
+?
+?
+?
+?
+?
+?
+PDo you want to use the maximum
+size for an OS/2 partition (Y/N) .....? PChoose one of the following:
+
+
+    1.  Create primary OS/2 partition
+    2.  Create extended OS/2 partition
+P   3.  Create logical drive(s) in
+        the extended OS/2 partition
+PCreate Primary OS/2 Partition
+PCreate Extended OS/2 Partition
+PCreate Logical Drive(s)
+IExtended OS/2 partition created.
+IDisk volume %1 created
+?
+PChoose one of the following:
+
+
+    1.  Delete the Primary OS/2 partition
+    2.  Delete the Extended OS/2 partition
+P   3.  Delete the logical drive(s) in
+        the Extended OS/2 Partition
+PDelete the Primary OS/2 Partition
+PDelete the Extended OS/2 Partition
+PDelete the Logical Drive
+IAll the logical drives have been
+deleted in the Extended OS/2 partition.
+IThe extended OS/2 partition was deleted.
+?
+?
+IThe drive has been deleted.
+?
+IWarning! The partition marked is
+not a startup partition.
+IWarning! Data in the logical drive will be lost.
+What drive do you want to delete.........? IWarning! Data in the Extended OS/2 partition
+will be lost. Do you want to continue.............? PAre you sure......................? PEnter the size of the logical drive........: PThe Extended OS/2 partition contains logical drives.
+Do you want to display the logical drive information......? PPress Esc to return to the operating system.
+P%1
+PThe total partition size is %1 cylinders.
+The maximum contiguous space available for
+the logical drive is %2 cylinders.
+IThe total partition size is %1 cylinders.
+?
+ICurrent Fixed Disk Drive: %1
+?
+IThe drive letters have been changed or deleted.
+IThe only startup partition on Drive 1
+is already marked active.
+IAll available space in the Extended OS/2 partition
+is assigned to logical drives.
+INo startup partitions exist.
+IOnly partitions on Drive 1 can be
+made active.
+IThe maximum number of logical OS/2 drives are installed.
+?
+IThe primary OS/2 partition on drive 1 cannot be deleted
+when an Extended partition exists.
+IThe maximum available space for the partition
+is %1 cylinders.
+IDrive Start End  Size
+I%1    %2 %3  %4
+I%1   %2      %3    %4  %5 %6 %7
+IAn Extended OS/2 partition already exists.
+IAn Extended OS/2 partition does not exist.
+?
+IA partition or logical drive cannot be less than 32K bytes.
+INo logical drives are defined.
+IThe requested logical drive size exceeds
+the maximum space available.
+IThe requested partition size exceeds the
+the maximum space available.
+IThere are no partitions to delete.
+IAn Extended OS/2 partition cannot be created without
+a Primary partition on Disk 1.
+PAn Extended OS/2 partition cannot be deleted while
+logical drives exist. IA zero cannot be specified as the number of
+cylinders.
+IThe drive %1 was previously deleted.
+IAn internal error occurred in FDISK.
+INo Parameters are allowed with FDISK.
+EThe system cannot start another OS/2 mode session.
+I%1 was installed.
+ICOM device driver Version 1.3 is being installed.
+EThe query status function for COM port
+is not available in DOS mode.
+WThe infinite retry option, P, is not valid in
+the OS/2 session. It has been ignored.
+?
+?
+?
+?
+I%1 file(s) moved

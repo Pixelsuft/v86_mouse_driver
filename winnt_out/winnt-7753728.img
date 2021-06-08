@@ -1,0 +1,44 @@
+,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 300/ARQ<cr><lf>",           1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 300/REL<cr><lf>",           1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 300/MNP<cr><lf>",           1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 300/LAP-M<cr><lf>",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 300/V42BIS<cr><lf>",        1, 02, 01, 2C,01,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 600<cr><lf>",               1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 600/ARQ<cr><lf>",           1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 600/REL<cr><lf>",           1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 600/MNP<cr><lf>",           1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 600/LAP-M<cr><lf>",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 600/V42BIS<cr><lf>",        1, 02, 01, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 0600<cr><lf>",              1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 0600/ARQ<cr><lf>",          1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 0600/REL<cr><lf>",          1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 0600/MNP<cr><lf>",          1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 0600/LAP-M<cr><lf>",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 0600/V42BIS<cr><lf>",       1, 02, 01, 58,02,00,00, 00,00,00,00
+
+HKR, Responses,"<cr><lf>CONNECT 1200<cr><lf>",               1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/ARQ<cr><lf>",           1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/REL<cr><lf>",           1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/MNP<cr><lf>",           1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/LAP-M<cr><lf>",         1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/V42BIS<cr><lf>",        1, 02, 01, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/75<cr><lf>",            1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/75/ARQ<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/75/REL<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/75/MNP<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/75/LAP-M<cr><lf>",      1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200/75/V42BIS<cr><lf>",     1, 02, 01, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200TX/75RX<cr><lf>",        1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200TX/75RX/ARQ<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200TX/75RX/REL<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200TX/75RX/MNP<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200TX/75RX/LAP-M<cr><lf>",  1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 1200TX/75RX/V42BIS<cr><lf>", 1, 02, 01, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 75/1200<cr><lf>",            1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 75/1200/ARQ<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 75/1200/REL<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 75/1200/MNP<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 75/1200/LAP-M<cr><lf>",      1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 75/1200/V42BIS<cr><lf>",     1, 02, 01, B0,04,00,00, 00,00,00,00
+HKR, Responses,"<cr><lf>CONNECT 75TX/1200RX<cr><lf>",        1, 02, 00, B0,04,00,0

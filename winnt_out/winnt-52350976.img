@@ -1,0 +1,119 @@
+;----------------------------------------------------------------------------
+; GRAPHICS.PRO File for Microsoft MS-DOS
+;----------------------------------------------------------------------------
+     ;    (C)Copyright 1988-1991 Microsoft
+     ;Licensed Material - Program Property of Microsoft
+;----------------------------------------------------------------------------
+PRINTER HPDEFAULT
+;
+; SETUP 	
+;	   esc*rA		start graphics at current cursor position
+;				using current graphics resolution.
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE DATA,ROW
+
+  DISPLAYMODE 4,5,13,19     				; 320x200
+    SETUP 27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,2,ROTATE
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 6,14	   				; 640x200 
+    SETUP 27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1,ROTATE
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 15,16	   				; 640x350
+    SETUP 27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1           
+    RESTORE 27,42,114,66
+
+  DISPLAYMODE 17,18	   				; 640x480
+    SETUP 27,42,114,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1           
+    RESTORE 27,42,114,66
+;----------------------------------------------------------------------------
+PRINTER DESKJET,LASERJETII
+;
+; SETUP 	
+;	   esc*t75R 		select 75dpi
+;	   esc*t150R 		select 150dpi
+;	   esc*t300R 		select 300dpi
+;	   esc&a#h#V		move cursor position, in decipoints
+;	   esc*r1A		start graphics at current cursor position
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE DATA,ROW
+
+  DISPLAYMODE 4,5,13,19     				; 320x200 100dpi
+    SETUP 27,42,116,49,48,48,82,27,38,97,48,104,48,27,42,114,49,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,4,3,ROTATE
+    RESTORE 27,42,114,66,12
+
+  DISPLAYMODE 6,14	   				; 640x200 150dpi
+    SETUP 27,42,116,49,53,48,82,27,38,97,57,55,53,104,52,57,56,86,27,42,114,49,65  
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,4,2,ROTATE
+    RESTORE 27,42,114,66,12
+
+
+  DISPLAYMODE 15,16	   				; 640x350 150dpi
+    SETUP 27,42,116,49,53,48,82,27,38,97,49,50,49,53,104,54,48,55,86,27,42,114,49,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,2,ROTATE    
+    RESTORE 27,42,114,66,12
+
+  DISPLAYMODE 17,18	   				; 640x480 150dpi
+    SETUP 27,42,116,49,53,48,82,27,38,97,53,56,56,104,54,57,55,86,27,42,114,49,65
+    GRAPHICS 27,42,98,COUNT,87,DATA                     
+    PRINTBOX STD,2,2,ROTATE	
+    RESTORE 27,42,114,66,12
+;----------------------------------------------------------------------------
+PRINTER LASERJET 
+;
+; SETUP 	
+;	   esc*t75R 		select 75dpi
+;	   esc&a#h#V		move cursor position in decipoints
+;	   esc*r1A		start graphics at current cursor position
+; GRAPHICS 
+;	   esc*b COUNT W DATA
+; RESTORE
+;	   esc*rB		end graphics
+;----------------------------------------------------------------------------
+  DEFINE DATA,ROW
+
+  DISPLAYMODE 4,5,13,19     				; 320x200 75dpi
+    SETUP 27,42,116,55,53,82,27,38,97,49,48,50,48,104,53,52,51,86,27,42,114,49,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,2,ROTATE
+    RESTORE 27,42,114,66,12
+
+  DISPLAYMODE 6,14	   				; 640x200 75dpi
+    SETUP 27,42,116,55,53,82,27,38,97,49,48,50,48,104,53,52,51,86,27,42,114,49,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1,ROTATE
+    RESTORE 27,42,114,66,12
+
+  DISPLAYMODE 15,16	   				; 640x350 75dpi
+    SETUP 27,42,116,55,53,82,27,42,114,49,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1 ROTATE				
+    RESTORE 27,42,114,66,12
+
+  DISPLAYMODE 17,18	   				; 640x480 75dpi
+    SETUP 27,42,116,55,53,82,27,42,114,48,65
+    GRAPHICS 27,42,98,COUNT,87,DATA     
+    PRINTBOX STD,2,1,ROTATE				
+    RESTORE 27,42,114,66,12
+;---------------------------------------

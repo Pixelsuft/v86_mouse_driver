@@ -1,0 +1,91 @@
+ey = $($R4)
+    CloseRegKey $($R5)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       EndWait
+       Debug-Output "OEMNSVRP.INF: Registry error: creating RPCLOCATE software product"
+       CloseRegKey $(SoftProductKey)
+       CloseRegKey $(SoftNetRuleKey)
+       CloseRegKey $(RpcLocatorParametersKey)
+       Goto fatalregistry
+    Endif
+    Set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                       {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                       {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                       {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductRPCTitle)},+
+                       {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescription)},+
+                       {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupportRPC)}, +
+                       {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+    Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+    Set RegistryErrorIndex = $($R0)
+    CloseRegKey $(SoftProductKey)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error."
+        goto ShellCodeError
+    endif
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        Debug-Output "OEMNSVRP.INF: Registry error: add value list to RPCLOCATE product"
+        CloseRegKey $(SoftNetRuleKey)
+        CloseRegKey $(RpcLocatorParametersKey)
+        goto fatalregistry
+    endif
+    Set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+    Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(SoftNetRuleKey)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        CloseRegKey $(RpcLocatorParametersKey)
+        Debug-Output "ShellCode error."
+        goto ShellCodeError
+    endif
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        EndWait
+        CloseRegKey $(RpcLocatorParametersKey)
+        Debug-Output "OEMNSVSV.INF: Registry error: add value list."
+        goto fatalregistry
+    Endif
+   Set NewValueList = {{ExpirationAge,$(NoTitle),$(!REG_VT_DWORD),3600}}
+   Shell  $(UtilityInf), AddValueList, $(RpcLocatorParametersKey), $(NewValueList)
+   Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "OEMNSVRP.INF: ShellCode error."
+       goto ShellCodeError
+   Endif
+   set RegistryErrorIndex = $($R0)
+   CloseRegKey $(RpcLocatorParametersKey)
+   Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+       Set AclIndex = 4
+   Else
+       Set AclIndex = 3
+   Endif
+   Shell $(UtilityInf), CreateService, $(RpcSrvNameSSP), +
+         $(RpcSrvDisplayNameSSP), $(RpcSrvExeSSP), "serviceshare", "", {}, "", ""
+   Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "OEMNSVRP.INF: ShellCode error creating RPCSS service: "$($ShellCode)
+       goto ShellCodeError
+   endif
+   Set RegistryErrorIndex = $($R0)
+   CloseRegKey $($R1)
+   CloseRegKey $($R2)
+   CloseRegKey $($R3)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+      EndWait
+      Debug-Output "OEMNSVRP.INF: Registry error: creating RPCSS service"
+      Goto fatalregistry
+   Endif
+   LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND),+
+         SECURESVC, $(RpcSrvNameLocator), $(AclIndex)
+   LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND),+
+         SECURESVC, $(RpcSrvNameRpcss), $(AclIndex)
+   LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND),+
+         SECURESVC, $(RpcSrvNameSSP), $(AclIndex)
+   EndWait
+   goto successful
+bindingadapter =+
+    set Error = "RPC INF file invoked during bindings review."
+    goto fatal
+removeadapter = +
+    ifstr(i) $(Option) == "RPCBANYAN"
+        Debug-Output "OEMNSVRP.INF: Remove component RpcBanyan"
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $(RpcSrvNameBanyan), FALSE
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcSoftKeyName)$(ServerProto) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNu

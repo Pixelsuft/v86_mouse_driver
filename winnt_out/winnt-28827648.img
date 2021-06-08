@@ -1,0 +1,121 @@
+  goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+   goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-SAP $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-SAP $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   Exit
+[AddSAPUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set KeyName = $($0)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            SetRegValue $(KeyUseRef) {$(KeyName),$(NoTitle),$(!REG_VT_SZ),"1"}
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return
+[RemoveSAPUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set KeyName = $($0)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            DeleteRegValue $(KeyUseRef) $(KeyName)
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return
+[NumOfUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef

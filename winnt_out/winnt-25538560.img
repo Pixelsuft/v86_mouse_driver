@@ -1,0 +1,168 @@
+MMAND=<cr>
+; We dont care about the response so we ignore it (unless modem has hung up).
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+OK=<ignore>
+
+
+COMMAND=<cr>
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+OK=<ignore>
+
+
+COMMAND=X<cr>
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+OK=<ignore>
+
+
+; Set X.3 settings on the PAD which make it work well with RAS. Broken into
+; two parts since the line is too long.
+COMMAND=SET 1:126,2:1,3:0,4:1,5:0,6:1,7:0,8:0,9:0,10:0<cr>
+NoResponse
+
+COMMAND=
+NoResponse
+
+; Set the other half of X.3 parameters
+COMMAND=SET 12:0,13:0,14:0,15:0,16:0,17:0,18:0,19:0,20:0,21:0,22:0<cr>
+NoResponse
+
+
+COMMAND=
+NoResponse
+
+; Try to call RAS X25 server
+COMMAND=<x25address><cr><lf>
+
+OK=<match>"COM"
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+ERROR_DIAGNOSTICS=<cr><lf><Diagnostics>
+
+
+; CONNECT response means that the connection completed fine.
+; ERROR_DIAGNOISTICS response means connection attempt failed - the X25
+;  DIAGNOSTIC information will be extracted from the response and sent
+;  to the user.
+; ERROR_NO_CARRIER means that the remote modem hung up.
+; ERROR resonses are for generic failures.
+
+
+; Finally set no escape and no echo
+COMMAND=SET 1:0,2:0<cr>
+NoResponse
+
+;-----------------------------------------------------------------------------
+[InfoNet, Alternate]
+
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+
+; The next line will give a delay of 2 secs - allowing the PAD to initialize
+COMMAND=
+NoResponse
+
+
+; The next line will give a delay of 2 secs - allowing the PAD to initialize
+COMMAND=
+NoResponse
+
+
+COMMAND=<cr>
+; We dont care about the response so we ignore it (unless modem has hung up).
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+OK=<ignore>
+
+
+COMMAND=<cr>
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+OK=<ignore>
+
+
+COMMAND=X<cr>
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+OK=<ignore>
+
+
+; Set X.3 settings on the PAD which make it work well with RAS. Broken into
+; two parts since the line is too long.
+;COMMAND=SET 1:126,2:1,3:0,4:1,5:0,6:1,7:0,8:0,9:0,10:0<cr>
+COMMAND=SET 1:126,2:1,3:0,4:1,5:0,6:1,7:2,9:0,10:0<cr>
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+ERROR=<match>"ERR"
+OK=<ignore>
+
+
+; Set the other half of X.3 parameters
+COMMAND=SET 12:0,13:0,14:0,15:0,16:127,17:24,18:18,19:0,20:0,21:0,22:0<cr>
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+ERROR=<match>"ERR"
+OK=<ignore>
+
+; Try to call RAS X25 server
+COMMAND=<x25address><cr><lf>
+OK=<ignore>
+
+OK=<match>"COM"
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+ERROR_DIAGNOSTICS=<cr><lf><Diagnostics>
+ERROR=<match>"ERR"
+
+
+; CONNECT response means that the connection completed fine.
+; ERROR_DIAGNOISTICS response means connection attempt failed - the X25
+;  DIAGNOSTIC information will be extracted from the response and sent
+;  to the user.
+; ERROR_NO_CARRIER means that the remote modem hung up.
+; ERROR resonses are for generic failures.
+
+
+; Finally set no escape and no echo
+COMMAND=SET 1:0,2:0<cr>
+NoEcho
+ERROR=<match>"ERR"
+CONNECT=<ignore>
+
+[Transpac]
+
+DEFAULTOFF=
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+
+; The next line will give a delay of 2 secs - allowing the PAD to initialize
+COMMAND=
+NoResponse
+
+; The next line will give a delay of 2 secs - allowing the PAD to initialize
+COMMAND=
+NoResponse
+
+; We dont care about the response so we ignore it (unless modem has hung up).
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+OK=<match>"TRANSPAC"
+
+; Set X.3 settings on the PAD which make it work well with RAS. Broken into
+; two parts since the line is too long.
+COMMAND=SET 1:1,2:1,3:0,4:1,5:0,6:1,7:0,9:0,10:0<cr>
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+ERROR=<match>"ERR"
+OK=<ignore>
+
+
+; Set the other half of X.3 parameters
+COMMAND=SET 12:0,13:0,14:0,15:0,16:127,17:24,18:18,19:0,20:0,21:0,22:0<cr>
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+ERROR=<match>"ERR"
+OK=<ignore>
+
+; Try to call RAS X25 server
+COMMAND=<x25address><cr><lf>
+OK=<ignore>
+
+OK=<match>"COM"
+ERROR_NO_CARRIER=<match>"NO CARRIER"
+ERROR_DIAGNOSTICS=<cr><lf><Diagnostics>
+
+
+; CONNECT response means that the connection completed fine.

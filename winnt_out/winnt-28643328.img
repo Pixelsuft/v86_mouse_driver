@@ -1,0 +1,113 @@
+TATUS_REBOOT
+            set StartLabel = configureadapter
+        else
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVSV.INF: ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set CommonStatus = STATUS_USERCANCEL
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatal
+            endif
+    else
+        set StartLabel = installadapter
+                set OEM_ABANDON_OPTIONS = {}
+    endif
+    ifstr(i) $(!STF_PRODUCT) == "WINNT"
+        set Size = 1
+    else
+        set Size = 3
+    endif
+    set RadioDefault = $(Size)
+    set RadioIn = {$(RadioDefault)}
+    set Lmannounce = 0
+    set CheckItemsIn = {OFF}
+    set DoSRV = FALSE
+    set DoXACTSRV = FALSE
+    set DoSRVSRV = FALSE
+    ifstr(i) $(Option) == SRV
+                set DoSRV = TRUE
+        set DoSRVSRV = TRUE
+    else-ifstr(i) $(Option) == XACTSRV
+                set DoXACTSRV = TRUE
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf), VerExistedDlg, $(Product$(Option)Title),+
+            $(ProductVersion)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    goto adapteroptions
+configureadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ParamKeyName) $(MAXIMUM_ALLOWED) KeyParameters
+    Ifstr $(KeyParameters) == $(KeyNull)
+        set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+        Debug-Output "Cannot find component service"
+        goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE )
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+        set ValueItem = $($)
+        set ValueName = *($(ValueItem),1)
+        set ValueData = *($(ValueItem),4)
+        Ifstr(i) $(ValueName) == "Size"
+            set Size = $(ValueData)
+        else-ifstr(i) $(ValueName) == "Lmannounce"
+            set Lmannounce = $(ValueData)
+        endif
+    EndForListDo
+    set LargeSystemCacheOrg = 2
+    OpenRegKey $(!REG_H_LOCAL) "" $(SessMgrMemMgtKeyName) $(MAXIMUM_ALLOWED) KeySessMgrMemMgt
+    Ifstr $(KeySessMgrMemMgt) != $(KeyNull)
+        GetRegValue $(KeySessMgrMemMgt), "LargeSystemCache", LSCInfo
+        Debug-Output "GetRegValue returned "$(RegLastError)
+        ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            Debug-Output "GetRegValue of LargeSystemCache successful"
+            set LargeSystemCacheOrg = *($(LSCInfo), 4)
+            Debug-Output "LargeSystemCacheOrg ="$(LargeSystemCacheOrg)
+            ifint $(Size) == 3
+                ifint $(LargeSystemCacheOrg) == 0
+                    set Size = 4
+                endif
+            endif
+        endif
+        CloseRegKey $(KeySessMgrMemMgt)
+    endif
+    set RadioDefault = $(Size)
+    set RadioIn = {$(RadioDefault)}
+    ifint $(Lmannounce) == 1
+        set CheckItemsIn = {ON}
+    else
+        set CheckItemsIn = {OFF}
+    endif
+    CloseRegKey $(KeyParameters)
+    goto adapteroptions
+adapteroptions = +
+    ifstr(i) $(DoSRV) == TRUE
+        Ifstr(i) $(!NTN_InstallMode) == "configure"
+            set from = adapteroptions
+            read-syms FileDependentDlg$(!STF_LANGUAGE)
+            ui start "InputDlg"
+            ifstr(i) $(DLGEVENT) == "CONTINUE"
+                set Size = *($(RadioOut),1)
+                Debug-Output "OEMNSVSV.INF: Size = "$(Size)
+                set Lmannounce = *($(CheckItemsOut),1)
+                Debug-Output "OEMNSVSV.INF: Lmannounce = "$(Lmannounce)
+      

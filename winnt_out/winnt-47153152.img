@@ -1,0 +1,81 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Digicom Systems and Creative Labs
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%MS%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM1D10CEDC
+ExcludeFromSelect=UNIMODEM1E9755DF
+ExcludeFromSelect=UNIMODEMA0869A48
+ExcludeFromSelect=UNIMODEMF0C04D74
+ExcludeFromSelect=UNIMODEM5505D91E
+ExcludeFromSelect=ISAPNP\CTL3001_DEV0004
+ExcludeFromSelect=*CTL3011
+ExcludeFromSelect=UNIMODEMA472D57C
+
+[Modem29.PosDup]
+*PNP0500
+
+[Manufacturer]
+%Digicom% = Digicom
+%CreativeLabs% = CreativeLabs
+%Digitan% = Digitan
+
+[CreativeLabs]
+%Modem30% = Modem29,  ISAPNP\CTL3001_DEV0004
+%Modem30% = Modem29,  UNIMODEM5172362D       
+%Modem29% = Modem29,  *CTL3011   
+%Modem29% = Modem29,  UNIMODEM3FE73268
+%Modem28% = Modem28,  DSI_Modem28, UNIMODEM733C4E29
+%Modem27% = Modem27,  UNIMODEMCB01299F      ; old
+%Modem27% = Modem27,  UNIMODEME9DF4BA4      ; retail - serwave
+%Modem27% = Modem27,  DSI_Modem27, UNIMODEME466C599      ; old
+%Modem27% = Modem27,  UNIMODEM13270455      ; fixed firmware
+%Modem27% = Modem27,  UNIMODEM1C254526      ; british
+%Modem27% = Modem27,  UNIMODEMB8DF3F07      ; german & french
+%Modem26% = Modem26,  DSI_Modem26, UNIMODEM16E3BF9F
+%Modem19% = Modem19,  DSI_Modem19, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874    ; Creative Labs modem blaster 14.4 PCMCIA, match with modem 14
+%Modem19% = Modem19,  DSI_Modem19, UNIMODEM858E1599                      ; Creative Labs modem blaster 14.4 PCMCIA
+%Modem18% = Modem18,  UNIMODEM1D10CEDC                      ; combo of modems 17+5
+%Modem17% = Modem17,  DSI_Modem17, UNIMODEM1D10CEDC                      ; Creative Labs modem Blaster 19.2 (int) uses modem 5 set
+
+[Digicom]
+
+%Modem29A%  = Modem16, UNIMODEMA472D57C
+
+%Modem25%  = Modem25, UNIMODEM1ACBC3FC
+%Modem24%  = Modem12, UNIMODEM5505D91E  ; Scout Plus, Scout Plus terbo, Eagle
+%Modem23%  = Modem12, DSI_Modem23, UNIMODEM5505D91E  ; Eagle
+%Modem22%  = Modem8,  UNIMODEMF0C04D74  ; Digicom Scout Classic 144, Infotel
+%Modem21%  = Modem12, UNIMODEMA0869A48  ; Scout Plus, Scout Plus terbo
+%Modem21%  = Modem12, DSI_Modem21, UNIMODEM5505D91E  ; Scout Plus, Scout Plus terbo
+%Modem20%  = Modem20, UNIMODEM1E9755DF  ; Combo Digicom Scout Plus or terbo ext+int
+%Modem16d% = Modem16, DSI_Modem16d      ; Digicom 9624LR+(ext)
+%Modem16c% = Modem16, DSI_Modem16c      ; Digicom 9624AR+(ext)
+%Modem16b% = Modem16, DSI_Modem16b, UNIMODEMA472D57C  ; Digicom 9624LE+(ext)
+%Modem16a% = Modem16, DSI_Modem16a, UNIMODEMA472D57C  ; Digicom 9624E+(ext)
+%Modem15%  = Modem15, DSI_Modem15       ; Digicom 9624PC+(int)
+%Modem14%  = Modem14, DSI_Modem14, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874  ; Digicom Scout 14400 PCMCIA FAX Modem
+%Modem14%  = Modem14, DSI_Modem14, UNIMODEM858E1599                    ; Digicom Scout 14400 PCMCIA FAX Modem
+%Modem13%  = Modem13, DSI_Modem13, UNIMODEM1E9755DF  ; Digicom Scout Plus (int)
+%Modem13%  = Modem13, DSI_Modem13, UNIMODEMA0869A48  ; Digicom Scout Plus (int)
+%Modem12%  = Modem12, UNIMODEMAFD70D24  ; Digicom Scout Plus (ext)
+%Modem11%  = Modem11, DSI_Modem11       ; Digicom Scout (int)
+%Modem10%  = Modem10, DSI_Modem10       ; Digicom Scout (ext)
+%Modem9%   = Modem9,  UNIMODEM2FC0670B  ; Digicom FaxModem 1442PC (int)
+%Modem8%   = Modem8,  DSI_Modem8, UNIMODEMF0C04D74  ; Digicom Scout Classic 144 (ext)
+%Modem7%   = Modem7,  DSI_Modem7, UNIMODEM1E9755DF  ; Digicom Scout Plus Terbo (ext)
+%Modem7%   = Modem7,  DSI_Modem7, UNIMODEMA0869A48  ; Digicom Scout Plus Terbo (ext)
+%Modem7%   = Modem7,  UNIMODEMD5D455F1  ; Digicom Scout Plus Terbo (ext)
+%Modem6d%  = Modem6,  DSI_Modem6d       ; Digicom 9624LR (ext)
+%Modem6c%  = Modem6,  DSI_Modem6c       ; Digicom 9624AR (ext)
+%Modem6b%  = Modem6,  DSI_Modem6b       ; Digicom 9624LE (ext)
+%Modem6a%  = Modem6,  DSI_Modem6a       ; Digicom 9624E (ext)
+%Modem5%   = Modem5,  DSI_Modem5, UNIMODEM1D10CEDC  ; Digicom Connection Pro 19.2 (int)
+%Modem4%   = Modem4,  UNIMODEMDFB7F25F  ; Digicom Co

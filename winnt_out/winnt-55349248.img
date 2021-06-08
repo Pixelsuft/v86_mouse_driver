@@ -1,0 +1,154 @@
+3
+ %Diamond% STEALTH64 VIDEO 2200XL VLB          = s3
+ %Diamond% STEALTH64 VIDEO 2201XL PCI          = s3
+ %Diamond% STEALTH64 VIDEO 2201XLe PCI         = s3
+ %Diamond% STEALTH64 VIDEO 2201TV PCI          = s3
+ %Diamond% STEALTH64 VIDEO 3200XL PCI          = s3
+ %Diamond% STEALTH64 VIDEO 3200XL VLB          = s3
+ %Diamond% STEALTH64 VIDEO 3240XL PCI          = s3
+ %Diamond% STEALTH64 VIDEO 3240XL VLB          = s3
+ %Diamond% STEALTH64 VIDEO 3400XL PCI          = s3
+ %Diamond% STEALTH64 VIDEO 3400XL VLB          = s3
+ %Diamond% VIPER PCI                           = weitekp9
+ %Diamond% VIPER VLB                           = viper
+ %Diamond% VIPER PRO PCI                       = weitekp9
+ %Diamond% VIPER PRO VLB                       = weitekp9
+ %Diamond% VIPER PRO VIDEO PCI                 = weitekp9
+ %Diamond% VIPER PRO VIDEO VLB                 = weitekp9
+ %Diamond% VIPER SE PCI                        = weitekp9
+ %Diamond% VIPER SE VLB                        = viper
+
+
+
+
+
+
+[Digital.Mfg]
+ %Digital% PCXAG-AL                            = s3
+
+
+
+
+
+[Elsa.Mfg]
+ %Elsa% WINNER 1000                            = s3
+
+
+
+
+
+[FirePower.Mfg]
+
+
+
+[Genoa.Mfg]
+ %Genoa% 8500VL                                = cirrus
+ %Genoa% PHANTOM 32I 8900 VLB                  = et4000
+ %Genoa% PHANTOM 32I 8900 PCI                  = et4000
+
+
+
+[Hercules.Mfg]
+ %Hercules% DYNAMITE 128 / VIDEO PCI           = et4000
+ %Hercules% DYNAMITE POWER VLB                 = et4000
+ %Hercules% DYNAMITE POWER PCI                 = et4000
+ %Hercules% DYNAMITE PRO PCI                   = et4000
+ %Hercules% GRAPHITE TERMINATOR 64 PCI         = s3
+ %Hercules% GRAPHITE TERMINATOR 64 VLB         = s3
+ %Hercules% TERMINATOR 32/DRAM PCI             = s3
+ %Hercules% TERMINATOR 64 VIDEO PCI            = s3
+ %Hercules% TERMINATOR 64/DRAM PCI             = s3
+ %Hercules% TERMINATOR PROFESSIONAL PCI        = s3
+
+
+
+
+
+[IBM.Mfg]
+ %IBM% XGA                                     = xga, XGA_COMPAT
+ %IBM% XGA2                                    = xga
+ 8514A %CompatAdap%                            = 8514a
+
+
+
+
+[LeadTek.Mfg]
+ %LeadTek% VideoPlus T230                      = et4000
+ %LeadTek% WINFAST S240V+                      = s3
+ %LeadTek% WINFAST S240                        = s3
+ %LeadTek% WINFAST S250                        = s3
+ %LeadTek% WINFAST S430                        = s3
+ %LeadTek% WINFAST S500                        = s3
+ %LeadTek% WINFAST S510                        = s3
+
+
+
+
+
+
+[Matrox.Mfg]
+ %Matrox% IMPRESSION                           = mga, MGA_COMPAT
+ %Matrox% IMPRESSION PCI                       = mga
+ %Matrox% IMPRESSION VLB                       = mga
+ %Matrox% IMPRESSION LITE PCI                  = mga
+ %Matrox% IMPRESSION PLUS                      = mga
+ %Matrox% IMPRESSION PLUS 220HZ                = mga
+ %Matrox% IMPRESSION PLUS 220HZ PCI            = mga
+ %Matrox% IMPRESSION PLUS PCI                  = mga
+ %Matrox% IMPRESSION PLUS VLB                  = mga
+ %Matrox% MILLENIUM PCI                        = mga_mil, MGA_MIL_COMPAT
+ %Matrox% MILLENIUM 220HZ PCI                  = mga_mil
+ %Matrox% ULTIMA PCI                           = mga
+ %Matrox% ULTIMA VLB                           = mga
+ %Matrox% ULTIMA + PCI                         = mga
+ %Matrox% ULTIMA + VLB                         = mga
+
+
+
+
+
+
+
+[MediaVision.Mfg]
+ %MediaVision% Thunder & Lightning             = cirrus
+
+
+
+[Metheus.Mfg]
+ %Metheus% Premier 928                         = s3
+
+
+
+
+[Micronics.Mfg]
+ %Micronics% VL-BUS                            = s3
+
+
+
+[Mips.Mfg]
+
+
+
+[Miro.Mfg]
+ %Miro% miroCRYSTAL 20SD                       = s3
+
+
+
+[Motorola.Mfg]
+
+
+
+[NCR.Mfg]
+ %NCR% 32BLT                                   = ncr77c22
+ %NCR% 77C22                                   = ncr77c22, NCR77C22_COMPAT
+ %NCR% 77C22E                                  = ncr77c22
+
+
+
+[NEC.Mfg]
+
+
+
+[#9.Mfg]
+ %#9% 9FX MOTION 331 PCI                       = s3
+ %#9% 9FX MOTION 531 PCI                

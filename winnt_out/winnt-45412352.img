@@ -1,0 +1,56 @@
+HKR, Responses, "CARRIER 1200/75",   1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 75/1200",   1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 2400",      1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 4800",      1, 01, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 7200",      1, 01, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 9600",      1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 12000",     1, 01, 00, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 14400",     1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 16800",     1, 01, 00, a0,41,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 19200",     1, 01, 00, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 21600",     1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 24000",     1, 01, 00, c0,5d,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 26400",     1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 28800",     1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "CARRIER 300/VFC",       1, 01, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 1200/VFC",      1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 1200/75/VFC",   1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 75/1200/VFC",   1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 2400/VFC",      1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 4800/VFC",      1, 01, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 7200/VFC",      1, 01, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 9600/VFC",      1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 12000/VFC",     1, 01, 00, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 14400/VFC",     1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 16800/VFC",     1, 01, 00, a0,41,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 19200/VFC",     1, 01, 00, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 21600/VFC",     1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 24000/VFC",     1, 01, 00, c0,5d,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 26400/VFC",     1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 28800/VFC",     1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "COMPRESSION: CLASS5",   1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: CLASS 5",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: MNP5",     1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V42BIS",   1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42BIS",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42 BIS", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42bis",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42 bis", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: ADC",      1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: NONE",     1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "PROTOCOL: NONE",                   1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP2",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP3",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP4",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT - CELLULAR",         1, 01, 0A, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300/V42<cr><lf>",     1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/V42<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/V

@@ -1,0 +1,80 @@
+ebug-Output "OEMNSVRA.INF:error returned by UpgradeSelectedProtocols."
+                goto end
+            endif
+            ifstr(i) $(!STF_STANDARDSERVERUPGRADE) == "YES"
+                OpenRegKey $(!REG_H_LOCAL) "" $(RasProtocolsKeyName) +
+                                              $(!MAXIMUM_ALLOWED) KeyProtocols
+                ifstr $(KeyProtocols) != $(KeyNull)
+                    set fDialin = FALSE
+                    set TmpList = {}
+                    GetRegValue $(KeyProtocols) "fNetbeuiAllowed" TmpList
+                    ifint $(RegLastError) == 0
+                        ifstr *($(TmpList), 4) == 1
+                            set fDialin = TRUE
+                        endif
+                    endif
+                    set TmpList = {}
+                    ifstr(i) $(fDialin) == FALSE
+                        GetRegValue $(KeyProtocols) "fTcpIpAllowed" TmpList
+                        ifint $(RegLastError) == 0
+                            ifstr *($(TmpList), 4) == 1
+                                set fDialin = TRUE
+                            endif
+                        endif
+                    endif
+                    set TmpList = {}
+                    ifstr(i) $(fDialin) == FALSE
+                        GetRegValue $(KeyProtocols) "fIpxAllowed" TmpList
+                        ifint $(RegLastError) == 0
+                            ifstr *($(TmpList), 4) == 1
+                                set fDialin = TRUE
+                            endif
+                        endif
+                    endif
+                    Debug-Output "OEMNSVRA.INF: Upgrade => Are dialin ports configured? "$(fDialin)
+                    ifstr(i) $(fDialin) == TRUE
+                        OpenRegKey $(!REG_H_LOCAL) "" $(RasSvrKeyName) +
+                                                     $(!MAXIMUM_ALLOWED) KeySvr
+                        ifstr $(KeySvr) != $(KeyNull)
+                            set  RasStartValue = 2
+                            GetRegValue $(KeySvr) "Start" StartList
+                            ifint $(RegLastError) == 0
+                               set RasStartValue = *($(StartList), 4)
+                            endif
+                            ifint $(RasStartValue) != 4
+                                Debug-Output "OEMNSVRA.INF: Changing RemoteAccess Start value to 2"
+                                SetRegValue $(KeySvr) {Start,$(NoTitle),$(!REG_VT_DWORD), 2}
+                            endif
+                            CloseRegKey $(KeySvr)
+                        else
+                            Debug-Output "OEMNSVRA.INF: error opening RemoteAccess service key"
+                        endif
+                    endif
+                    CloseRegKey $(KeyProtocols)
+                else
+                    Debug-Output "OEMNSVRA.INF: could not open RAS\Protocols key"
+                endif
+                OpenRegKey $(!REG_H_LOCAL) "" $(!NdisTapiKeyName)"\Parameters" $(!MAXIMUM_ALLOWED) ParamKey
+                Ifstr(i) $(ParamKey) != $(KeyNull)
+                    SetRegValue $(ParamKey) {AsyncEventQueueSize, 0, $(!REG_VT_DWORD), 3072}
+                    CloseRegKey $(ParamKey)
+                EndIf
+            endif
+            Shell "" UpgradeIpxInfo $(PORTSDLGHANDLE)
+            Shell "" UpgradeIsdnInfo
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling UpgradeIsdnInfo."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "OEMNSVRA.INF:error returned by UpgradeIsdnInfo."
+                set Error = $(UpgradeIsdnInfoError)
+                goto fatal
+            endif
+            Shell "" UpdatePerfmonInfo
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNSVRA.INF:error shelling UpdatePerfmonInfo."
+                goto ShellCodeError
+            endif
+            Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "OEMNSVRA.INF

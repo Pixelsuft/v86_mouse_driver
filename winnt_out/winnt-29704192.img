@@ -1,0 +1,120 @@
+eError
+      endif
+      set RegistryErrorIndex = $($R0)
+      Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                 goto fatalregistry
+      endif
+   endif
+   goto end
+UpgradeSoftware = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        install "Install-Update"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto fatal
+        endif
+        SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+        SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+        CloseRegKey $(KeyProduct)
+    else
+        goto fatalregistry
+    endif
+    set iSearch = 1
+nextnetcard = +
+    Shell $(UtilityInf), FindNextNetworkCard, $(ProductHardwareName), $(iSearch)
+    set KeyNetcard = $($R0)
+    set iSearch = $($R1)
+    Debug-Output "OemNadEp.Inf: FindNextNetworkCard "$(KeyNetcard)","$(iSearch)
+    Ifstr $(KeyNetcard) != $(KeyNull)
+        Debug-Output "OemNadEp.Inf: Setting OperationsSupport value"
+        SetRegValue $(KeyNetcard) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(KeyNetcard)
+        goto nextnetcard
+    Endif
+    goto end
+abandon = +
+   ForListDo $(REMOVE_HARDWARE)
+          Shell $(UtilInf), RemoveHardwareComponent, $(Manufacturer), +
+                                           $(ProductSoftwareName), +
+                                                                                   $($)
+          ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 goto ShellCodeError
+          endif
+          set RegistryErrorIndex = $($R0)
+          Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                 goto fatalregistry
+          endif
+   EndForListDo
+   Ifstr(i) $(REMOVE_SOFTWARE) == TRUE
+          Shell $(UtilInf), RemoveSoftwareComponent, $(Manufacturer), +
+                                                         $(ProductSoftwareName), FALSE
+          ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 goto ShellCodeError
+          endif
+          set RegistryErrorIndex = $($R0)
+          Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                 goto fatalregistry
+          endif
+   endif
+   goto end
+fatalregistry = +
+   Shell $(UtilInf) RegistryErrorString $(RegistryErrorIndex)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+          goto ShellCodeError
+   endif
+   set Error = $($R0)
+   goto fatal
+fatal = +
+   ifstr(i) $(!NTN_InstallMode) == install
+          read-syms MiscErrorString3$(!STF_LANGUAGE)
+          Shell $(SubInf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(ErrorString)$(Error)
+   Else
+          Shell $(SubInf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+   EndIf
+   ifint $($ShellCode) != 0
+          goto ShellCodeError
+   endif
+   goto setfailed
+ShellCodeError = +
+   read-syms ShellingError$(!STF_LANGUAGE)
+   Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(ErrorString)
+   goto setfailed
+setfailed = +
+   set CommonStatus = STATUS_FAILED
+   ifstr(i) $(RemoveOnError) == TRUE
+          Set RemoveOnError = FALSE
+          goto abandon
+   else
+          goto end
+   EndIf
+end = +
+   Return $(CommonStatus)
+usercancel = +
+   Set CommonStatus = STATUS_USERCANCEL
+   Return $(CommonStatus)
+[Install-Update]
+   set STF_VITAL        = ""
+   AddSectionFilesToCopyList Files-LT200 $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   Exit
+[Install-Initial]
+   set STF_VITAL        = ""
+   AddSectionFilesToCopyList Files-LT200 $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   CopyFilesInCopyList
+   Exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-LT200]
+1,LT200.SYS , SIZE=999
+[LanguagesSupported]
+   ENG
+[OptionsTextENG

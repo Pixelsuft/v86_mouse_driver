@@ -1,0 +1,88 @@
+,00
+HKR,, FClass, 1, 00,00,00,00
+HKR, Init,      2,, "AT &O6<cr>"
+HKR, Init,      3,, "AT E0 S0=0 S95=45<cr>"
+HKR, Init,      4,, "AT &O7<cr>"
+HKR, Init,      5,, "AT S0=0 S95=45<cr>"
+HKR, Init,      6,, "AT &O1<cr>"
+HKR, Init,      7,, "AT S112=32<cr>"
+HKR, Init,      8,, "AT S0=0 S95=45<cr>"
+HKR, Hangup,    1,, "AT<cr>"
+HKR,, Reset,, "AT<cr>"
+HKR, Settings, DialSuffix,, ""
+HKR, Responses, "<cr><lf>CARRIER 64000<cr><lf>", 1, 01, 00, 00,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: PAD<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: V.14<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>", 1, 02, 00, 00,FA,00,00, 00,00,00,00
+
+[Modem12.AddReg]   ; KORTEX NUMERIS Interne
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 10,00,00,00, 00,C2,01,00, 00,FA,00,00
+HKR,, FClass, 1, 00,00,00,00
+HKR, Init,      1,, "AT &O7<cr>"
+HKR, Init,      2,, "AT E0 S0=0 S95=45<cr>"
+HKR, Init,      3,, "AT &O1<cr>"
+HKR, Init,      4,, "AT S112=32<cr>"
+HKR, Init,      5,, "AT S0=0 S95=45<cr>"
+HKR, Hangup,    1,, "AT<cr>"
+HKR,, Reset,, "AT<cr>"
+HKR, Settings, DialSuffix,, ""
+HKR, Responses, "<cr><lf>CARRIER 64000<cr><lf>", 1, 01, 00, 00,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: PAD<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>", 1, 02, 00, 00,FA,00,00, 00,00,00,00
+
+
+[Modem11.AddReg]   ; KORTEX 2400 LECAM Externe
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b0,03,00,00, 80,25,00,00, 60,09,00,00
+HKR,, FClass, 1, 00,00,00,00
+HKR, Init,      2,, "AT Z<cr>"
+HKR, Init,      3,, "AT &F<cr>"
+HKR, Init,      4,, "AT E0 S0=0 T V1<cr>"
+HKR,, Reset,, "AT<cr>"
+HKR, Settings, Modulation_CCITT,, "F0"
+HKR, Settings, Modulation_Bell,, ""
+HKR, Settings, Modulation_CCITT_V23,, "F3"
+
+[Modem10.AddReg]   ; KORTEX 2400 LECAM Interne
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, b0,03,00,00, 80,25,00,00, 60,09,00,00
+HKR,, FClass, 1, 00,00,00,00
+HKR, Init,      2,, "AT Z<cr>"
+HKR, Init,      3,, "AT &F<cr>"
+HKR, Init,      4,, "AT E0 S0=0 T V1<cr>"
+HKR,, Reset,, "AT<cr>"
+HKR, Settings, Modulation_CCITT,, "F0"
+HKR, Settings, Modulation_Bell,, ""
+HKR, Settings, Modulation_CCITT_V23,, "F3"
+
+[Modem9.AddReg]    ; KORTEX 2400 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,07,00,00, 00,4B,00,00, 60,09,00,00
+HKR,, FClass, 1, 0f,00,00,00
+
+[Modem8.AddReg]    ; KORTEX 2400 et MINITEL FAX Externe
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,07,00,00, 00,4B,00,00, 60,09,00,00
+HKR,, FClass, 1, 0f,00,00,00
+
+[Modem7.AddReg]    ; KORTEX 2400 et MINITEL FAX Interne
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,07,00,00, 00,4B,00,00, 60,09,00,00
+HKR,, FClass, 1, 0f,00,00,00
+
+[Modem6.AddReg]    ; KORTEX 14400 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,07,00,00, 00,E1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0f,00,00,00
+
+[Modem5.AddReg]    ; KORTEX 14400 Externe
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,07,00,00, 00,E1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0f,00,00,00
+
+[Modem4.AddReg]    ; KORTEX 14400 Interne
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,07,00,00, 00,E1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0f,00,00,00
+
+[Modem3.AddReg]    ; KORTEX 28800 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 07,00,00,00, 0F,00,00,00, FF,07,00,00, 00,C2,01,00, 80,70,00,00
+HKR,, FClass, 1, 0f,00,00,00
+HKR, Settings, Modulation_CCITT,, "B0 +MS=11,1,300,28800"
+HKR, Settings, Modulation_Bell,, "B1 +MS=11,1,300,28800"
+HKR, Settings, Modulation_CCITT_V23,, "B0 +MS=3,0,1200,1200"
+
+[Modem2.AddReg]    ; KORTEX 28800 Externe
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,

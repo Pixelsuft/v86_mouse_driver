@@ -1,0 +1,92 @@
+        CloseRegKey $(KeyLinkage)
+        endif
+        CloseRegKey $(KeyService)
+    else
+	    Debug-Output "UpdateNdisWanInfo: could not open NdisWan services key"
+    endif
+    Shell "" RemoveServiceDependency "RasMan" "RasHub"
+    set Status   = STATUS_SUCCESSFUL
+UpdateNdisWanInfoEnd =+
+    Debug-Output "UpdateNdisWanInfo: Exit"
+    return $(Status)
+[UpdateAsyncMacNetRules]
+    Debug-Output "UpdateAsyncMacNetRules: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set AsyncMacRulesName = $(!NTN_SoftwareBase)"\Microsoft\AsyncMac\CurrentVersion\NetRules"
+    OpenRegKey $(!REG_H_LOCAL) "" $(AsyncMacRulesName) $(!MAXIMUM_ALLOWED) KeyRules
+    ifstr $(KeyRules) != $(KeyNull)
+        set Status   = STATUS_SUCCESSFUL
+        SetRegValue $(KeyRules) {bindable, 0, +
+				$(!REG_VT_MULTI_SZ),$(!NetRuleRASASYMACBindable)}
+        CloseRegKey $(KeyRules)
+    else
+	    Debug-Output "UpdateAsyncMacNetRules: could not open NdisWan NetRules key"
+    endif
+    Debug-Output "UpdateAsyncMacNetRules: Exit"
+    return $(Status)
+[UpdateAsyncMacParameters]
+    Debug-Output "UpdateAsyncMacParameters: entry"
+    set Status   = STATUS_SUCCESSFUL
+    Set KeyNull  = ""
+    set RasAsyMacParamKeyName = $(!NTN_ServiceBase)"\AsyncMac\Parameters"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacParamKeyName) $(!MAXIMUM_ALLOWED) KeyMacParams
+    ifstr $(KeyMacParams) != $(KeyNull)
+        GetRegValue $(KeyMacParams), "DialinNBF" DialinNBFInfo
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            GetRegValue $(KeyMacParams), "Dialin" DialinNBFInfo
+            set PrevNumDialinNBF  = *($(DialinNBFInfo), 4)
+            SetRegValue $(KeyMacParams) {DialinNBF, 0, +
+                                        $(!REG_VT_DWORD),$(PrevNumDialinNBF)}
+            Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                Debug-Output "UpdateAsyncMacParameters: deleting dialin key"
+                DeleteRegValue $(KeyMacParams) "Dialin"
+            endif
+        endif
+        GetRegValue $(KeyMacParams), "DialoutNBF" DialoutNBFInfo
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+            GetRegValue $(KeyMacParams), "Dialout" DialoutNBFInfo
+            set PrevNumDialoutNBF    = *($(DialoutNBFInfo), 4)
+            SetRegValue $(KeyMacParams) {DialoutNBF, 0, +
+                                        $(!REG_VT_DWORD),$(PrevNumDialoutNBF)}
+            Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                Debug-Output "UpdateAsyncMacParameters: deleting dialout key"
+                DeleteRegValue $(KeyMacParams) "Dialout"
+            endif
+        endif
+        CloseRegKey $(KeyMacParams)
+    else
+        Debug-Output "OEMNSVRA.INF: could not open AsyncMac Params key"
+    endif
+    Debug-Output "UpdateAsyncMacParameters: Exit"
+    return $(Status)
+[UpdateAsyncMacStartType]
+    Debug-Output "UpdateAsyncMacStartType: entry"
+    set Status   = STATUS_SUCCESSFUL
+    Set KeyNull  = ""
+    set RasAsyMacKeyName = $(!NTN_ServiceBase)"\AsyncMac"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacKeyName) $(!MAXIMUM_ALLOWED) KeyMac
+    ifstr $(KeyMac) != $(KeyNull)
+        GetRegValue $(KeyMac), "Start" StartValue
+        Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            set Start = *($(StartValue), 4)
+            ifint $(Start) == 3
+                set Start = 2
+                SetRegValue $(KeyMac) {Start, 0, $(!REG_VT_DWORD), $(Start)}
+            endif
+        endif
+        CloseRegKey $(KeyMac)
+    else
+        Debug-Output "OEMNSVRA.INF: could not open AsyncMac key"
+    endif
+    Debug-Output "UpdateAsyncMacStartType: Exit"
+    return $(Status)
+[UpdatePerfmonInfo]
+    Debug-Output "UpdatePerfmonInfo: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set RemoteAccessService = $(!NTN_ServiceBase)"\RemoteAccess"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RemoteAccessService) $(!MAXIMUM_ALLOWED) KeyService
+    ifstr $(KeyService) != $(KeyNull)
+        Shell "" UpdatePerfmonInfoHelper $(KeyService)
+        ifint $($ShellCode) != $(

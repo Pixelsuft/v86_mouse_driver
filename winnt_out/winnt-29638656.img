@@ -1,0 +1,105 @@
+ != STATUS_SUCCESSFUL
+        Goto adaptersetup
+    Endif
+    Set DetectedParams = $($R1)
+    Debug-Output "OEMNADTK.INF: Calling Param_SetDefaults to merge detected params"
+    Shell $(ParamInf) Param_SetDefaults $(DetectedParams)
+    goto adapteroptions
+configureadapter = +
+    Ifstr $(KeyProduct) == $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) == $(KeyNull)
+            set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+            Debug-Output "Cannot find component product key"
+            goto fatalregistry
+        Endif
+    Endif
+    Debug-Output "OEMNADTK.INF: Shelling to FindService"
+    Shell $(UtilityInf) FindService, $(KeyProduct)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNADTK.INF: FindService shell failure"
+        Goto ShellCodeError
+    Endif
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "OEMNADTK.INF: FindService Shell error: "$($R0)
+        Goto fatalregistry
+    endif
+    set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Ifstr $(KeyParameters) == $(KeyNull)
+        set RegistryErrorIndex = "CANNOT_FIND_COMPONENT_SERVICE"
+        Debug-Output "Cannot find component service"
+        goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE )
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+        set ValueItem = $($)
+        set ValueName = *($(ValueItem),1)
+        set ValueData = *($(ValueItem),4)
+        Ifstr(i) $(ValueName) == "IOBaseAddress"
+           set IOBaseAddress = $(ValueData)
+        else-Ifstr(i) $(ValueName) == "NetworkAddress"
+           set NetworkAddress = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusType"
+            set BusInterfaceType = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumber = $(ValueData)
+        else-ifstr(i) $(ValueName) == "InterruptNumber"
+           set Token1IRQVal = $(ValueData)
+        else-ifstr(i) $(ValueName) == "RingSpeed"
+            set Token1Speed = $(ValueData)
+        else-ifstr(i) $(ValueName) == "MemoryMappedBaseAddress"
+            set Token1MMIOVal = $(ValueData)
+        else-ifstr(i) $(ValueName) == "MemoryMappedBaseAddress_1"
+            set Token1RAM = $(ValueData)
+        else-ifstr(i) $(ValueName) == "MemoryMappedSize"
+            set Token1MMIOSize = $(ValueData)
+        else-ifstr(i) $(ValueName) == "MemoryMappedSize_1"
+            set Token1RAMSize = $(ValueData)
+        else-ifstr(i) $(ValueName) == "Pcmcia"
+            set Pcmcia = $(ValueData)
+        endif
+    EndForListDo
+    ifstr(i) $(IOBaseAddress) == 2592
+        set IOBaseAddress = 1
+    else-ifstr(i) $(IOBaseAddress) == 2596
+        set IOBaseAddress = 2
+    else-ifstr(i) $(IOBaseAddress) == ""
+        set IOBaseAddress = 1
+    endif
+adaptersetup =+
+    Shell $(ParamInf) Param_ParameterConfidence
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "OEMNADTK.INF: parameter confidence too low to bypass configuration"
+        Goto adapteroptions
+    Endif
+    Ifstr(i) $(DetectedCard) == TRUE
+        Ifstr(i) $(!STF_INSTALL_MODE) != CUSTOM
+            set BusInterfaceType = *($(!STF_NCDETINFO),5)
+            set BusNumber = *($(!STF_NCDETINFO),6)
+            Goto adapterverify
+        Endif
+    Endif
+    goto adapteroptions
+adapteroptions = +
+    set from = adapteroptions
+    ifstr(i) $(IOBaseAddress) == 2592
+        set IOBaseAddress = 1
+    else-ifstr(i) $(IOBaseAddress) == 2596
+        set IOBaseAddress = 2
+    else-ifstr(i) $(IOBaseAddress) == ""
+        set IOBaseAddress = 1
+    endif
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusInterfaceType = $(!AutoNetInterfaceType)
+        else
+            set BusInterfaceType = 1    
+        endif
+        ifstr(i) $(!AutoNetBusNumber) != ""
+            set BusNumber = $(!AutoNet

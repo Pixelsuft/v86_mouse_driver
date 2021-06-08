@@ -1,0 +1,109 @@
+" $(!STF_CWDDIR)\ncpa.cpl NCPA_HANDLE
+    OpenRegKey $(!REG_H_LOCAL) "" "Software\Microsoft\PCNTN3" $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        DeleteRegTree $(KeyProduct) ""
+        LibraryProcedure NCPA_RESULT $(NCPA_HANDLE), CPlSetup $(!STF_HWND), DELETESVC, "PCNTN3"
+        set NetworkCardKeyName = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+            OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(MAXIMUM_ALLOWED) IE_KeyNetcards
+        ifstr(i) $(IE_KeyNetcards) != ""    
+            EnumRegKey $(IE_KeyNetcards) IE_KeyNameList
+            ForListDo $(IE_KeyNameList)
+                OpenRegKey $(IE_KeyNetcards) "" *($($),1) +
+                    $(MAXIMUM_ALLOWED) NetworkCardKey
+                Ifstr(i) $(NetworkCardKey) != $(KeyNull)
+                    GetRegValue $(NetworkCardKey),"ProductName", ProductNameInfo
+                    set ProductName = *($(ProductNameInfo), 4)
+                    Debug-Output "   ProductName = "$(ProductName)
+                    ifstr(i) $(ProductName) != "PCNTN3"
+                        goto nextnetcard
+                    endif
+                    GetRegValue $(NetworkCardKey),"ServiceName", ServiceNameInfo
+                    set ServiceName = *($(ServiceNameInfo), 4)
+                    Debug-Output "   ServiceName = "$(ServiceName)
+                    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$(ServiceName) +
+                          $(MAXIMUM_ALLOWED) ServiceKey
+                DeleteRegTree $(ServiceKey) ""
+                DeleteRegTree $(NetworkCardKey) ""
+                endif
+    nextnetcard = +
+            EndForListDo
+        endif	
+        OpenRegKey $(!REG_H_LOCAL) "" "Software\Microsoft\AMDPCI" $(MAXIMUM_ALLOWED) KeyProduct2
+        ifstr $(KeyProduct2) == $(KeyNull)
+            LibraryProcedure NCPA_RESULT $(NCPA_HANDLE), CPlSetup $(!STF_HWND), STARTSVC, NetDetect
+            set !NTN_InstallMode = Install
+            Shell "" InstallOption $(!STF_LANGUAGE) "AMDPCI" $(SrcDir) "YES" "YES" "NO"
+            set !NTN_InstallMode = Update
+        else
+        endif
+    else
+    endif
+    FreeLibrary $(NCPA_HANDLE)
+    goto end
+successful = +
+    goto end
+abandon = +
+    ForListDo $(OEM_ABANDON_OPTIONS)
+	Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+	    $(ProductSoftwareName), $($)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    Debug-Output "ShellCode error"
+	    goto ShellCodeError
+	endif
+	set RegistryErrorIndex = $($R0)
+	Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	    goto fatalregistry
+	endif
+    EndForListDo
+    Ifstr(i) $(OEM_ABANDON_SOFTWARE) == TRUE
+	Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+	    $(ProductSoftwareName), FALSE
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    Debug-Output "ShellCode error"
+	    goto ShellCodeError
+	endif
+	set RegistryErrorIndex = $($R0)
+	Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	    goto fatalregistry
+	endif
+    endif
+    goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+	goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+	goto $(from)
+    else
+	goto "end"
+    endif
+nonfatalinfo = +
+    Set Severity = STATUS
+    Set CommonStatus = STATUS_USERCANCEL
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+	Set Severity = NONFATAL
+	Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto ShellCodeError
+	endif
+	set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+	goto $(from)
+    else
+	goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(Registr

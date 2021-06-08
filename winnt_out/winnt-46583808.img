@@ -1,0 +1,61 @@
+ "&Q6S36=3S48=128"
+HKR, Settings, ErrorControl_On,, "&Q5S36=7S48=7"
+HKR, Settings, ErrorControl_Forced,, "&Q5S36=4S48=7"
+HKR, Settings, Compression_Off,, "%%C0S46=136"
+HKR, Settings, Compression_On,, "%%C3S46=138"
+
+[M2119Reg] ; Megahertz P224FMV
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, ErrorControl_Off,, "&Q6S36=3S48=128"
+HKR, Settings, ErrorControl_On,, "&Q5S36=7S48=7"
+HKR, Settings, ErrorControl_Forced,, "&Q5S36=4S48=7"
+HKR, Settings, Compression_Off,, "%%C0S46=136"
+HKR, Settings, Compression_On,, "%%C3S46=138"
+
+[M2700Reg] ; Null-Modem
+HKR, Init, 1,, "None"
+HKR, Init, 2,, "NoResponse"
+HKR, Monitor, 1,, "None"
+HKR, Answer, 1,, "CLIENTSERVER"
+HKR, Answer, 2,, "NoResponse"
+HKR, Settings, DialPrefix,, "CLIENT"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,c2,01,00, 00,c2,01,00
+HKR, Responses, "CLIENT",       1, 08, 00, 00, 00, 00, 00, 00,00,00,00 ; Server side - the client is requesting a connection
+HKR, Responses, "<h00>CLIENT",  1, 08, 00, 00, 00, 00, 00, 00,00,00,00 ; Server side - the client is requesting a connection
+HKR, Responses, "CLIENTSERVER", 1, 02, 00, 00, 00, 00, 00, 00,00,00,00 ; Client side - the server has acknowledged and the connection is completed
+
+[M2900Reg]
+HKR, Init, 2,, "AT&FE0V0&C1&D2<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 10,00,00,00, 00,4b,00,00, 00,4b,00,00
+HKR, Settings, DialPrefix,, "DT"
+HKR, Settings, DialSuffix,, "" ; replace the one provided by the Common section
+HKR, Responses, "<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; ignore and parse following numeric response
+HKR, Responses, "<lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; ignore and parse following numeric response
+HKR, Responses, "CONNECT", 1,02, 00, 00,00,00,00, 00,00,00,00 ; CONNECT from remote modem 
+; we want to ignore the numeric connect response for the pdi, we will use the connect from the remote modem as above
+HKR, Responses, "1<cr>",  1, 01, 00, 00,00,00,00, 00,00,00,00 ; CONNECT - Connection at 300 bps
+HKR, Responses, "5<cr>",  1, 01, 00, 00,00,00,00, 00,00,00,00 ; CONNECT 1200 - Connection at 1200 bps
+HKR, Responses, "10<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; CONNECT 2400 - Connection at 2400 bps
+HKR, Responses, "11<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; CONNECT 4800 - Connection at 4800 bps
+HKR, Responses, "12<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; CONNECT 9600 - Connection at 9600 bps
+HKR, Responses, "14<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps
+
+[M4300Reg] ; Psion Dacom Gold Card V.32 PCMCIA
+HKR, Init, 2,, "AT&FE0V0W1&Q5&S0S95=47<cr>"
+HKR,, Properties, 1, b0,01,00,00, 3a,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,03,00,00, 00,e1,00,00, 80,25,00,00
+HKR, Settings, ErrorControl_Off,, "\N0-K0S36=3S48=128"
+HKR, Settings, ErrorControl_On,, "\N3-K0S36=7S48=7"
+HKR, Settings, ErrorControl_Forced,, "\N2-K0S36=4S48=7"
+HKR, Settings, ErrorControl_Cellular,, "\N3-K1S36=7S48=7"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2-K1S36=0S48=7"
+HKR, Settings, Compression_Off,, "%%C0S46=136"
+HKR, Settings, Compression_On,, "%%C3S46=138"
+HKR, Responses, "9<cr>",  1, 02, 00, 58, 02, 00, 00, 00,00,00,00 ; CONNECT 600 - Connection at 600 bps
+HKR, Responses, "13<cr>", 1, 02, 00, 20, 1C, 00, 00, 00,00,00,00 ; CONNECT 7200 - Connection at 7200 bps
+HKR, Responses, "14<cr>", 1, 02, 00, E0, 2E, 00, 00, 00,00,00,00 ; CONNECT 12000 - Connection at 12000 bps
+HKR, Responses, "15<cr>", 1, 02, 00, 40, 38, 00, 00, 00,00,00,00 ; CONNECT 14400 - Connection at 14400 bps
+HKR, Responses, "16<cr>", 1, 02, 00, 00, 4B, 00, 00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps
+HKR, Responses, "17<cr>", 1, 02, 00, 00, 96, 00, 00, 00,00,00,00 ; CONNECT 38400 - Connection at 38400 bps
+HKR, Responses, "19<cr>", 1, 02, 00, 00, C2, 01, 00, 00,00,00,00 ; CONNECT 115200 - Connection at 115200 bps
+HK

@@ -1,0 +1,110 @@
+StartWait
+    ifcontains(i) $(Option) in $(SlotNumberAdapters)
+        set TypeList = {{SLOTNUMBER,SlotList,SlotNumber},+
+                        {DMACHANNEL,DmaList,DmaChannel},+
+                        {MULTIPROCESSOR,MpList,MpFlag}}
+    else
+        set TypeList = {{IOLOCATION,IoList,IoLocation},+
+                        {DMACHANNEL,DmaList,DmaChannel},+
+                        {INTERRUPTNUMBER,IrqList,IrqNumber},+
+                        {MULTIPROCESSOR,MpList,MpFlag}}
+    endif
+    Shell $(ParamInf) Param_BuildTypeLists $(Option) $(TypeList)
+    set Status = $($R0)
+    ifstr(i) $(Status) != STATUS_SUCCESSFUL
+        goto fataldetect
+    endif
+    Shell $(ParamInf) Param_SetDefaults $(ParamList)
+    set MaxFrameSize = 4096
+    set LAA          = ""
+    set RxTxSlots    = *($(RxTxRawList),3)
+    set StatsFlag    = *($(StatsRawList),1)
+    set NoMmioFlag   = 0
+    set SpeedFlag    = 0
+    set TransferType = $(TRANSFER_UNKNOWN)
+    ifstr $(KeyProduct) == $(KeyNull)
+	    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_RegBase) $(MAXIMUM_ALLOWED) KeyProduct
+	    ifstr $(KeyProduct) == $(KeyNull)
+	        set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+	        goto Fatal_Registry
+	    endif
+    endif
+    Shell $(UtilityInf) FindService, $(KeyProduct)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    	goto Shell_Code_Error
+    endif
+    ifstr(i) $($R0) != NO_ERROR
+    	goto Fatal_Registry
+    endif
+    set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    ifstr $(KeyParameters) == $(KeyNull)
+    	set RegistryErrorIndex = CANNOT_FIND_COMPONENT_SERVICE
+    	goto Fatal_Registry
+    endif
+    set OldVersionExisted = $(TRUE)
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+	    set ValueItem = $($)
+	    set ValueName = *($(ValueItem),1)
+	    set ValueData = *($(ValueItem),4)
+	    ifstr(i) $(ValueName) == "InterruptNumber"
+	        set IrqNumber = $(ValueData)
+	    else-ifstr(i) $(ValueName) == "IoLocation"
+	        set IoLocation = $(ValueData)
+	    else-ifstr(i) $(ValueName) == "IoBaseAddress"
+	        set IoLocation = $(ValueData)
+	    else-ifstr(i) $(ValueName) == "DmaChannel"
+	        set DmaChannel = $(ValueData)
+	    else-ifstr(i) $(ValueName) == "SlotNumber"
+	        set SlotNumber = $(ValueData)
+	    else-ifstr(i) $(ValueName) == $(McaEisaKeyword)
+	        set McaEisaId = $(ValueData)
+	    else-ifstr(i) $(ValueName) == "MaxFrameSize"
+	        set MaxFrameSize = $(ValueData)
+	    else-ifstr(i) $(ValueName) == "NetworkAddress"
+	        set LAA = $(ValueData)
+        else-ifstr(i) $(ValueName) == "RxTxSlots"
+            set RxTxSlots = $(ValueData)
+        else-ifstr(i) $(ValueName) == "PromiscuousModeX"
+            set StatsFlag = $(ValueData)
+        else-ifstr(i) $(ValueName) == "Multiprocessor"
+            set MpFlag = $(ValueData)
+        else-ifstr(i) $(ValueName) == "NoMmio"
+            set NoMmioFlag = $(ValueData)
+        else-ifstr(i) $(ValueName) == "Force16"
+            set SpeedFlag = 2
+        else-ifstr(i) $(ValueName) == "Force4"
+            set SpeedFlag = 1
+        else-ifstr(i) $(ValueName) == "TransferType"
+            set TransferType = $(ValueData)
+	    endif
+    EndForListDo
+    ifint $(DmaChannel) == 32768
+        set DmaChannel = $(GENERAL_PIO)
+        set MpFlag     = 1
+    endif
+    ifcontains(i) $(GENERAL_MMIO) in $(DmaList)
+        ifint $(NoMmioFlag) != 0
+            set DmaChannel = $(GENERAL_PIO)
+        else
+            set DmaChannel = $(GENERAL_MMIO)
+        endif
+    endif
+    ifint $(TransferType) == $(TRANSFER_PIO)
+        ifcontains(i) $(GENERAL_PIO) in $(DmaList)
+            set DmaChannel = $(GENERAL_PIO)
+        endif
+    endif
+    ifint $(TransferType) == $(TRANSFER_DMA)
+        ifcontains(i) $(GENERAL_DMA) in $(DmaList)
+            set DmaChannel = $(GENERAL_DMA)
+        endif
+    endif
+    set OldSlotNumber = $(SlotNumber)
+    set OldIoLocation = $(IoLocation)
+    

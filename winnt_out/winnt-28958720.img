@@ -1,0 +1,100 @@
+ebug-Output $(InfName)": Option is: "$(Option)
+    Debug-Output $(InfName)": !STF_NCDETECT  is: "$(!STF_NCDETECT)
+    Debug-Output $(InfName)": !STF_NCOPTION  is: "$(!STF_NCOPTION)
+    Debug-Output $(InfName)": !STF_NCDETCARD is: "$(!STF_NCDETCARD)
+    Debug-Output $(InfName)": !STF_NCDETINFO is: "$(!STF_NCDETINFO)
+    Debug-Output $(InfName)": =================================================="
+    Set DetectedCard = FALSE
+    IfStr(i) $(ActivateDetection) != TRUE
+        GoTo $(StartLabel)
+    EndIf
+    Debug-Output $(InfName)": Calling Param_SetDefaults"
+    Shell $(ParamInf) Param_SetDefaults {}
+    IfStr(i) $(!STF_NCDETECT) == YES
+        IfStr(i) $(!STF_NCOPTION) == $(Option)
+           Set DetectedCard = TRUE
+           Debug-Output $(InfName)": Setting DetectedCard to TRUE"
+        EndIf
+    EndIf
+    Shell "" DebugConfiguration "After parameter querying"
+    Set from = FatalError
+    Set to = FatalError
+    GoTo $(StartLabel)
+InstallAdapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    IfStr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        IfStr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output $(InfName)": ShellCode error: cannot get an error string."
+               GoTo ShellCodeError
+           EndIf
+           GoTo end
+        Else
+           Shell $(UtilityInf), CardExistedDlg
+           IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output $(InfName)": ShellCode error: cannot get an error string."
+               GoTo ShellCodeError
+           EndIf
+           IfStr(i) $($R1) != "OK"
+               Set CommonStatus = STATUS_USERCANCEL
+               GoTo end
+           EndIf
+           Set OldVersionExisted = $(TRUE)
+        EndIf
+    EndIf
+    Set CurrParamSettings = {}
+    IfStr(i) $(DetectedCard) != TRUE
+        GoTo AdapterSetup
+    EndIf
+    StartWait
+        Shell $(ParamInf) Param_QueryCard $(!STF_NCDETCARD)
+    EndWait
+    IfStr(i) $($R0) != STATUS_SUCCESSFUL
+        GoTo AdapterSetup
+    EndIf
+    Set DetectedParams = $($R1)
+    Debug-Output $(InfName)": Calling Param_SetDefaults to merge detected params"
+    Shell $(ParamInf) Param_SetDefaults $(DetectedParams)
+    GoTo AdapterSetup
+ConfigureAdapter = +
+    Read-Syms InvokeConfigureDlg$(!STF_LANGUAGE)
+    LoadLibrary "x" $(!STF_CWDDIR)raspptpc.dll RASPPTPDLGHANDLE
+    Debug-Output $(InfName)": Getting info from GetChassisConfiguration"
+    Debug-Output $(InfName)": NTN_InstallMode is "$(!NTN_InstallMode)
+    LibraryProcedure Result, $(RASPPTPDLGHANDLE), GetChassisConfiguration $(!NTN_InstallMode)
+    Set NumberOfLineDevices = *($(Result), 1)
+    Set AdapterNum = *($(Result), 2)
+    FreeLibrary $(RASPPTPDLGHANDLE)
+    ifstr(i) $(NumberOfLineDevices) != "EXITSETUP"
+	ifstr(i) $(NumberOfLineDevices) != "RASNOCHANGE"
+	    Shell "" UpdateAddressList $(NumberOfLineDevices) $(AdapterNum) $(ProductSoftwareName) +
+								   	$(TapiMediaType)
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		Debug-Output "Cannot update address list for RAS"
+    	    goto ShellCodeError
+	    endif
+	endif
+        Set CommonStatus = STATUS_SUCCESSFUL
+    Else
+        Set CommonStatus = STATUS_USERCANCEL
+    EndIf
+    goto end
+AdapterSetup = +
+    Shell "" DebugConfiguration "before Param_ParameterConfidence"
+    Shell $(ParamInf) Param_ParameterConfidence
+    IfStr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output $(InfName)": parameter confidence too low to bypass configuration"
+    	Shell "" DebugConfiguration "before AdapterOptions"
+        GoTo AdapterOptions
+    EndIf
+    IfStr(i) $(DetectedCard) == TRUE
+        IfStr(i) $(!STF_INSTALL_MODE) != CUSTOM
+    	    Shell "" DebugConfiguration "before AdapterVerify"
+            GoTo AdapterVerify
+        EndIf
+    EndIf
+AdapterOptions = +
+    Shell "" DebugConfiguration "inside Ad

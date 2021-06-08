@@ -1,0 +1,132 @@
+----------"
+            LPRINT : LPRINT : LPRINT
+        END IF
+        ON ERROR GOTO 0
+    END IF
+    RETURN
+END SUB
+
+'PrintHelpLine:
+'  Prints help text on the bottom row in the proper color
+SUB PrintHelpLine (help$)
+    COLOR colors(5, ColorPref), colors(4, ColorPref)
+    LOCATE 25, 1
+    PRINT SPACE$(80);
+    Center 25, help$
+END SUB
+
+'SaveState:
+'  Save color preference and account information to "MONEY.DAT" data file.
+SUB SaveState
+    OPEN "money.dat" FOR OUTPUT AS #2
+    PRINT #2, ColorPref
+    
+    FOR a = 1 TO 19
+        PRINT #2, account(a).Title
+        PRINT #2, account(a).AType
+        PRINT #2, account(a).Desc
+    NEXT a
+    
+    CLOSE #2
+END SUB
+
+'ScrollDown:
+'  Call the assembly program to scroll the screen down
+SUB ScrollDown
+    DEF SEG = VARSEG(ScrollDownAsm(1))
+    CALL Absolute(VARPTR(ScrollDownAsm(1)))
+    DEF SEG
+END SUB
+
+'ScrollUp:
+'  Calls the assembly program to scroll the screen up
+SUB ScrollUp
+    DEF SEG = VARSEG(ScrollUpAsm(1))
+    CALL Absolute(VARPTR(ScrollUpAsm(1)))
+    DEF SEG
+END SUB
+
+'SparklePause:
+'  Creates flashing border for intro screen
+SUB SparklePause
+
+    COLOR 4, 0
+    a$ = "*    *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    "
+    WHILE INKEY$ <> "": WEND 'Clear keyboard buffer
+
+    WHILE INKEY$ = ""
+        FOR a = 1 TO 5
+            LOCATE 1, 1                             'print horizontal sparkles
+            PRINT MID$(a$, a, 80);
+            LOCATE 22, 1
+            PRINT MID$(a$, 6 - a, 80);
+
+            FOR b = 2 TO 21                         'Print Vertical sparkles
+                c = (a + b) MOD 5
+                IF c = 1 THEN
+                    LOCATE b, 80
+                    PRINT "*";
+                    LOCATE 23 - b, 1
+                    PRINT "*";
+                ELSE
+                    LOCATE b, 80
+                    PRINT " ";
+                    LOCATE 23 - b, 1
+                    PRINT " ";
+                END IF
+            NEXT b
+        NEXT a
+    WEND
+END SUB
+
+'TransactionSummary:
+'  Print transaction summary to line printer
+SUB TransactionSummary (item)
+    FancyCls colors(2, ColorPref), colors(1, ColorPref)
+    PrintHelpLine ""
+    Box 8, 20, 14, 62
+    Center 10, "Prepare printer on LPT1 for report"
+    Center 12, "Hit <Enter> to print, or <Esc> to abort"
+
+    DO: Kbd$ = INKEY$: LOOP WHILE Kbd$ <> CHR$(13) AND Kbd$ <> CHR$(27)
+
+    IF Kbd$ = CHR$(13) THEN
+        Box 8, 20, 14, 62
+        Center 11, "Printing report..."
+        PrintErr = FALSE
+        ON ERROR GOTO ErrorTrap                 ' test if printer is connected
+        LPRINT
+        IF PrintErr = FALSE THEN
+            PRINT
+            LPRINT : LPRINT : LPRINT : LPRINT : LPRINT
+            LCenter "Q B a s i c"
+            LCenter "M O N E Y   M A N A G E R"
+            LPRINT : LPRINT
+            LCenter "Transaction summary: " + Trim$(account(item).Title)
+            LCenter DATE$
+            LPRINT
+            u5$ = "--------|------|------------------------|----------|----------|--------------"
+            LPRINT u5$
+            LPRINT "  Date  | Ref# | Description            | Increase | Decrease |  Balance   "
+            LPRINT u5$
+             u0$ = "\      \|\    \|\                      \|"
+            u2$ = "###,###.##"
+            u3$ = "###,###,###.##"
+            u4$ = "          "
+
+            file$ = "money." + Cvit$(item)
+            OPEN file$ FOR RANDOM AS #1 LEN = 84
+            FIELD #1, 8 AS IoDate$, 10 AS IoRef$, 50 AS IoDesc$, 8 AS IoFig1$, 8 AS IoFig2$
+            FIELD #1, 11 AS valid$, 5 AS IoMaxRecord$, 8 AS IoBalance$
+            GET #1, 1
+            IF valid$ = "THISISVALID" THEN
+                Balance# = 0
+                MaxRecord = VAL(IoMaxRecord$)
+                CurrRecord = 1
+                WHILE CurrRecord <= MaxRecord
+
+                    GET #1, CurrRecord + 1
+                    Fig1# = CVD(IoFig1$)
+                    Fig2# = CVD(IoFig2$)
+
+                    LPRINT USING u0$

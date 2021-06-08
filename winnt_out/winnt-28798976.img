@@ -1,0 +1,93 @@
+    Shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) +
+                                            "NONFATAL" $(ErrorString)
+         endif
+         return
+      EndIf
+      OpenRegKey $(!REG_H_LOCAL) "" $(!EventLogKey) $(!ACCESS) EvntLogKey
+      ifstr(i) $(EvntLogKey) != $(!KeyNull)
+          CreateRegKey $(EvntLogKey) +
+                   {$(!AtalkMonEventLogName),0,GenericClass} "" +
+                   $(!ACCESS) "" AtalkMonKey
+          ifstr $(AtalkMonKey) != $(!KeyNull)
+              Set EventFile = "%SystemRoot%\system32\sfmmon.dll"
+              Set NewValueList = +
+                        {{CategoryMessageFile,0,$(!REG_VT_EXPAND_SZ),$(EventFile)},+
+                        {EventMessageFile,0,$(!REG_VT_EXPAND_SZ),$(EventFile)},+
+                        {CategoryCount,0,$(!REG_VT_DWORD),4},+
+                        {TypesSupported,0,$(!REG_VT_DWORD),7}}
+              Shell "utility.Inf" AddValueList $(AtalkMonKey) $(NewValueList)
+              CloseRegKey $(AtalkMonKey)
+          else
+              ifstr(i) $(Mode) == install
+                  read-syms AtalkString6$(!STF_LANGUAGE)
+                  Shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) +
+                                                  "NONFATAL" $(ErrorString)
+              endif
+          endif
+          CloseRegKey $(EvntLogKey)
+      Else-ifstr(i) $(Mode) == install
+         read-syms AtalkString6$(!STF_LANGUAGE)
+         Shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) +
+                                                  "NONFATAL" $(ErrorString)
+      EndIf
+      return
+[RemovePrintMonitor]
+   Set DelMonStatus = ""
+   Set FLibraryErrCtl = 1
+   LibraryProcedure DelMonStatus $(!UTILHANDLE) SfmDeletePrintMonitor $(!AtalkMonName)
+   Set FLibraryErrCtl = 0
+   ifstr(i) $(DelMonStatus) == "FAILED"
+      read-syms AtalkString5$(!STF_LANGUAGE)
+      Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(ErrorString)
+   EndIf
+   OpenRegKey $(!REG_H_LOCAL) "" $(!EventLogKey) $(!ACCESS) LogKey
+   Ifstr(i) $(LogKey) != $(!KeyNull)
+       Set AtalkMonKey = $(!AtalkMonEventLogName)
+       DeleteRegTree $(LogKey) $(AtalkMonKey)
+       CloseRegKey $(LogKey)
+   endif
+   return
+[CreatePerfKey]
+   Set Status              = STATUS_FAILED
+   Set ServiceKey          = $($0)
+   Set PerfDll             = $($1)
+   Set PerfCounterFileName = $($2)
+   Set PerfOpen            = $($3)
+   Set PerfClose           = $($4)
+   Set PerfCollect         = $($5)
+   set KeyPerformance = $(!KeyNull)
+   OpenRegKey $(ServiceKey) "" $(!PerfKeyName) $(!ACCESS) KeyPerformance
+   ifstr $(KeyPerformance) == $(!KeyNull)
+       CreateRegKey $(ServiceKey) {$(!PerfKeyName),$(NoTitle),GenericClass} +
+                                   "" $(!ACCESS) "" KeyPerformance
+       ifstr $(KeyPerformance) == $(!KeyNull)
+           Debug-Output "Error creating Performance key"
+           Set RegistryErrorIndex = $($R0)
+           return $(Status) $(RegistryErrorIndex)
+       endif
+   endif
+   set NewValueList = +
+        {{Library ,$(NoTitle),$(!REG_VT_SZ),$(PerfDll)},+
+        {Open, $(NoTitle),$(!REG_VT_SZ),$(PerfOpen)},+
+        {Close, $(NoTitle),$(!REG_VT_SZ),$(PerfClose)},+
+        {Collect, $(NoTitle),$(!REG_VT_SZ),$(PerfCollect)}}
+   Shell  utility.inf, AddValueList, $(KeyPerformance), $(NewValueList)
+   set RegistryErrorIndex = $($R0)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       set RegistryErrorIndex = ERROR
+   endif
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       CloseRegKey $(KeyPerformance)
+       Debug-Output "OEMNXPSM.INF: error adding perf values"
+       return STATUS_FAILED $(RegistryErrorIndex)
+   endif
+   CloseRegKey $(KeyPerformance)
+   Set Status = STATUS_SUCCESSFUL
+   return $(Status) $(RegistryErrorIndex)
+[CreateEventLogKey]
+   Set Status      = STATUS_FAILED
+   Set Service     = $($0)
+   Set PerfDll     = $($1)
+   Set EventLogKeyName = $(!EventLogKey)"\"$(Service)
+   OpenRegKey $(!REG_H_LOCAL) "" $(EventLogKeyName) $(!ACCESS) EvntLogKey
+   ifstr $(EvntLogKey) == $(!KeyNull)

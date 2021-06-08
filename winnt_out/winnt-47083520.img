@@ -1,0 +1,63 @@
+akerVolume_Med,, 
+HKR, Settings, SpeakerVolume_High,, 
+HKR, Settings, SpeakerMode_Off,, "M0"
+HKR, Settings, SpeakerMode_Dial,, "M1"
+HKR, Settings, SpeakerMode_On,, "M2"
+HKR, Settings, SpeakerMode_Setup,, "M3"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, Modulation_CCITT,, 
+HKR, Settings, Modulation_Bell,, 
+HKR, Settings, SpeedNegotiation_Off,, 
+HKR, Settings, SpeedNegotiation_On,, 
+HKR, Settings, Pulse,, 
+HKR, Settings, Tone,, 
+HKR, Settings, Blind_Off,, 
+HKR, Settings, Blind_On,, 
+HKR, Settings, CallSetupFailTimer,, 
+HKR, Settings, InactivityTimeout,, 
+
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO USER RESPONDING<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/REL<cr><lf>", 1, 02, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200/RELC<cr><lf>", 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/RELC<cr><lf>", 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/RELC<cr><lf>", 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/RELC<cr><lf>", 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/RELC<cr><lf>", 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/RELC<cr><lf>", 1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CO

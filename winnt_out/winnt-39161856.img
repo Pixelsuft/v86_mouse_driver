@@ -1,0 +1,169 @@
+>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=DataTrek <?><?> <?>.<?><?><?> PR
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><speaker>-M0 \\V0<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+;----------------------------------------
+[DP Defender 1000D Hayes Ultra]
+
+;This entry uses the Digital Pathways Defender 1000D with the
+;Hayes Ultra 9600 modem.
+;The macro definitions, <xxx_xx>=, and COMMAND_INIT= lines must be
+;changed in order to use other modems with the Defender.
+;Set Defender ports to fixed 19200 bps (not autobaud).
+;Set Originate Fallback to OFF on Configure DAD Options screen.
+;(If used with Telebit WorldBlazer set S51=5 to fix port speed at 19200.)
+
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=19200
+CALLBACK_TIME=10
+
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=136
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 S0=0 S2=128 S7=55 W1 S95=44<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+COMMAND_LISTEN=ATE0Q1S0=2<cr>
+LOOP=<h0d>
+LOOP=<h0d><ignore>
+CONNECT=<match>"DIALIN_GATEWAY"
+CONNECT=<?><?><?><?><hC0><h21><ignore>
+CONNECT=<?><?><?><hC0><h21><ignore>
+CONNECT=<?><?><hC0><h21><ignore>
+
+
+;----------------------------------------
+[Digicom Scout]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F3
+<hwflowcontrol_off>=*F0
+<compression_on>=*E9
+<compression_off>=
+<protocol_on>=*E5
+<protocol_off>=*E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+DETECT_STRING=AT*O<cr>
+DETECT_RESPONSE=SCOUT
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT*M0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Digicom Scout Plus]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F3
+<hwflowcontrol_off>=*F0
+<compression_on>=*E9
+<compression_off>=
+<protocol_on>=*E5
+<protocol_off>=*E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=961
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT*M0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[DSI 9624LE Plus]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F3
+<hwflowcontrol_off>=*F0
+<compression_on>=*E9
+<compression_off>=
+<protocol_on>=*E5
+<protocol_off>=*E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+DETECT_STRING=AT*O<cr>
+DETECT_RESPONSE=9624LEP
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55*M0<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[DSI 9624E]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F3
+<hwflowcontrol_off>=*F0
+<compression_on>=*E9
+<compression_off>=
+<protocol_on>=*E5
+<protocol_off>=*E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+DETECT_STRING=AT*O<cr>
+DETECT_RESPONSE=MODEL: 9624E
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT*M0<cr>
+COMMAND_IN

@@ -1,0 +1,48 @@
+the CD-ROM drive.
+2. In the Windows NT Explorer, switch to the CD-ROM drive.
+3. Go to the  \DRVLIB\PNPISA\<platform> directory (where <platform> is either "X86", "MIPS", "ALPHA", or "PPC", depending on your computer’s platform). 
+4.  Right-click PNPISA.INF, and click Install.  
+     If Hide file extensions for known file types (accessed by clicking Options on the View menu)
+     is selected, the filename is displayed as PNPISA. 
+ 5. When prompted, restart your computer.
+
+Disabling PNPISA.SYS
+1. Double-click the Devices icon in Control Panel.
+2. Select PnP ISA Enabler Driver and click Startup.
+3. Click Disabled and then click OK.
+
+Installing PnP ISA Devices
+When the system boots with the enabler driver (PNPISA.SYS) installed, the enabler locates all PnP ISA devices in the computer and enables those devices for which you have selected resources.  Any new devices are recognized, so that drivers for the devices can be installed when you log onto the computer as a user with administrative privilege.  At logon, Windows NT displays a New Hardware Found dialog box for each new device it locates. 
+ Note
+ Some PnP ISA cards contain multiple functions.  In this case, a dialog box will be displayed for each function on the card.
+
+ If Windows NT does not have a driver that is an exact match for a device, a dialog box containing the following options is displayed:
+
+Windows NT default driver
+If Windows NT has a driver that is compatible with your device, this selection will be enabled.  If you do not have a vendor-supplied driver for the device, and this option is available, you should select it.
+
+Driver from disk provided by hardware manufacturer
+If you have a disk that contains a driver for your device, select this option.  Insert the disk in the drive and a list of the drivers on the disk is displayed. Select the model that matches your device to install it.  In general, the driver disk you supply must contain support for Windows NT (a disk for Window 95 only will not work).  However, in the case of PnP ISA modems, Windows 95 driver disks can be used.  However, certain functions, such as VoiceView, will not work.
+
+Do not install a driver (Windows NT will not prompt you again)
+Select this option only if you do not have a driver for the device.  This keeps Windows NT from displaying the New Hardware Found dialog box for the device in the future.
+********************************************************************************
+WARNING:  If you select this option, you will not be able to install the device at a later time, unless you perform the following procedure.
+1.  Shut down Windows NT.
+2.  Remove the card from the computer.
+3.  Restart Windows NT. 
+    Windows NT detects that the card has been removed from the machine, and removes
+    the entry for the card from the registry.
+4.  Shut down Windows NT.
+5. Reinsert the card.  
+6. Restart the computer. When you log on, the New Hardware Found dialog box is displayed for the device.
+*********************************************************************************
+
+Select from a list of alternate drivers
+If you do not have an INF file for the device, and if the Windows NT default driver option is not enabled, you can use this option to attempt to locate a compatible device in the list of devices supported by Windows NT.  After you click Select from a list of alternate drivers, a list of device types is displayed.  Select the type that corresponds to your device, and then click OK. 
+If you are not sure about the device type, click Other devices to display a list of all supported devices.
+
+The Select from a list of alternate drivers option is particularly useful for PnP ISA modems. Even if you do not have an INF that matches your particular modem, you can select a generic modem (for example "Standard 28800 bps Modem"), and you will be able to use the device.
+
+Configuring PnP ISA Devices
+After selecting the device that you want to install (or after automatic selection, if Windows NT has an exact match), you may be presented with additional dial

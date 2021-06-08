@@ -1,0 +1,98 @@
+Card"
+    Shell $(ParamInf) Param_VerifyCard $(!STF_NCDETCARD)
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Debug-Output "OEMNADMA.INF: Param_VerifyCard succeeded"
+        Goto Update_Registry
+    Endif
+    Set from = Get_Adapter_Options
+    Set to = Update_Registry
+    Shell $(UtilityInf),RegistryErrorString,VERIFY_WARNING
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error: cannot get an error string."
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    Goto Warning
+    EndWait
+Update_Registry = +
+    ifint $(OldVersionExisted) == $(TRUE)
+	    ifstr(i) $(!NTN_InstallMode) == configure
+	        goto Write_Parameters
+	    endif
+    endif
+    StartWait
+    ifint $(OldVersionExisted) == $(FALSE)
+	    Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+	        $(ProductSoftwareName), +
+	        $(ProductSoftwareName), +
+	        $(ProductSoftwareTitle), $(STF_CONTEXTINFNAME), +
+	        $(ProductSoftwareImagePath), "kernel", "NDIS", {}, "",+
+	        $(MadgeEventLogFile)
+	    Set OEM_ABANDON_SOFTWARE = TRUE
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        goto Shell_Code_Error
+	    endif
+	    set RegistryErrorIndex = $($R0)
+	    set KeyProduct         = $($R1)
+	    Set SoftNetRulesKey    = $($R2)
+	    CloseRegKey $($R3)
+	    CloseRegKey $($R4)
+	    CloseRegKey $($R5)
+	    ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	        CloseRegKey $(KeyProduct)
+	        CloseRegKey $(SoftNetRulesKey)
+	        goto Fatal_Registry
+	    endif
+	    set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+			       {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+			       {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+			       {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareTitle)},+
+			       {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescription)},+
+			       {PathName,$(NoTitle),$(!REG_VT_SZ),$(!STF_CWDDIR)},+
+			       {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareName)},+
+			       {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+	    Shell $(UtilityInf), AddValueList, $(KeyProduct), $(NewValueList)
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        goto Shell_Code_Error
+	    endif
+	    set RegistryErrorIndex = $($R0)
+	    ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	        CloseRegKey $(KeyProduct)
+	        CloseRegKey $(SoftNetRulesKey)
+	        goto Fatal_Registry
+	    endif
+	    set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareType)},+
+			        {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareUse)}, +
+			        {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareBindForm)}, +
+			        {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareClass)}, +
+			        {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareBindable)}, +
+			        {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}, +
+			        {Infname ,$(NoTitle),$(!REG_VT_SZ),$(STF_CONTEXTINFNAME)} }
+	    Shell $(UtilityInf), AddValueList, $(SoftNetRulesKey), $(NewValueList)
+	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        goto Shell_Code_Error
+	    endif
+	    set RegistryErrorIndex = $($R0)
+	    CloseRegKey $(KeyProduct)
+	    CloseRegKey $(SoftNetRulesKey)
+	    ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	        goto Fatal_Registry
+	    endif
+    endif
+    Shell $(UtilityInf), AddHardwareComponent, $(ProductHardwareName),$(STF_CONTEXTINFNAME),$(ProductKeyName)
+    ifint $($R4) != -1
+    	Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards\"$($R4))
+    endif
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    goto Shell_Code_Error
+    endif
+    set RegistryErrorIndex = $($R0)
+    ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	    CloseRegKey $($R1)
+	    CloseRegKey $($R2)
+	    CloseRegKey $($R3)
+	    goto Fatal_Registry
+    endif
+    set KeyParameters   = $($R3)
+    set KeyAdapterRules = $($R2)
+    set AdapterNumber   = $($R4)

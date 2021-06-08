@@ -1,0 +1,82 @@
+eServerRpcProtocol "ncadg_ipx"
+            Shell $(UtilityInf) RemoveServerRpcProtocol "ncacn_spx"
+        else
+            CloseRegKey $(NwcKey)
+        endif
+        Shell $(UtilityInf) AddClientRpcProtocol "ncadg_ipx" "RpcLtCcm.Dll"
+        Shell $(UtilityInf) AddClientRpcProtocol "ncacn_spx" "RpcLtCcm.Dll"
+    endif
+    LibraryProcedure DontCare $(!NCPA_HANDLE), CPlSetup $(!STF_HWND),+
+              SECURESVC, $(ProductNWLNKSPXName), 3
+    Set MappingOption = NWLNKIPX
+    Shell $(UtilityInf) UpdateWinsockMappings $(Product$(MappingOption)Name) $(ProductNWLNKIPXWshDllPath)
+    Set MappingOption = NWLNKSPX
+    Shell $(UtilityInf) UpdateWinsockMappings $(Product$(MappingOption)Name) $(ProductNWLNKIPXWshDllPath)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "OEMNXPIP.INF: Registry error: UpdateWinsockInfo."
+    Endif
+    set UnattendInstallMode = 0
+    Ifstr(i) $(!STF_UNATTENDED) == "YES"
+       set UnattendInstallMode = 1
+       Debug-Output "IPX: UnattendInstallMode(3) = "$(UnattendInstallMode)
+    endif
+    Ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+       set UnattendInstallMode = 1
+       Debug-Output "IPX: UnattendInstallMode(4) = "$(UnattendInstallMode)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) UnattendProduct
+    ifstr(i) $(UnattendProduct) != ""
+        SetRegValue $(UnattendProduct) {Unattend,$(NoTitle),$(!REG_VT_DWORD),$(UnattendInstallMode)}
+        CloseRegKey $(UnattendProduct)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServiceNWLNKKeyName) $(MAXIMUM_ALLOWED) NWLNKKeyService
+    Ifstr $(NWLNKKeyService) != $(KeyNull)
+        SetRegValue $(NWLNKKeyService) {Group,$(NoTitle),$(!REG_VT_SZ),"PNP_TDI"}
+        CloseRegKey $(NWLNKKeyService)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ServiceNWLNKNBKeyName) $(MAXIMUM_ALLOWED) NWLNKNBKeyService
+    Ifstr $(NWLNKNBKeyService) != $(KeyNull)
+        SetRegValue $(NWLNKNBKeyService) {Group,$(NoTitle),$(!REG_VT_SZ),"PNP_TDI"}
+        CloseRegKey $(NWLNKNBKeyService)
+    endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(NWLNKIPXNetRuleKeyName) $(MAXIMUM_ALLOWED) NWLNKIPXKeyNetRules
+        Ifstr $(NWLNKIPXKeyNetRules) != $(KeyNull)
+            SetRegValue $(NWLNKIPXKeyNetRules) {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNWLNKIPXUse)}
+            CloseRegKey $(NWLNKIPXKeyNetRules)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(NWLNKNBNetRuleKeyName) $(MAXIMUM_ALLOWED) NWLNKNBKeyNetRules
+        Ifstr $(NWLNKNBKeyNetRules) != $(KeyNull)
+            SetRegValue $(NWLNKNBKeyNetRules) {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNWLNKNBUse)}
+            CloseRegKey $(NWLNKNBKeyNetRules)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(NWLNKIPXKeyName) $(MAXIMUM_ALLOWED) NWLNKIPXKey
+        Ifstr $(NWLNKIPXKey) != $(KeyNull)
+            SetRegValue $(NWLNKIPXKey) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductNWLNKIPXDescription)}
+            SetRegValue $(NWLNKIPXKey) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductNWLNKIPXOpSupport)}
+            CloseRegKey $(NWLNKIPXKey)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" $(NWLNKNBKeyName) $(MAXIMUM_ALLOWED) NWLNKNBKey
+        Ifstr $(NWLNKNBKey) != $(KeyNull)
+            SetRegValue $(NWLNKNBKey) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductNWLNKNBDescription)}
+            SetRegValue $(NWLNKNBKey) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductNWLNKNBOpSupport)}
+            CloseRegKey $(NWLNKNBKey)
+        endif
+        Shell $(UtilityInf) AddServerRpcProtocol "ncadg_ipx" "RpcLtScm.Dll"
+        Shell $(UtilityInf) AddServerRpcProtocol "ncacn_spx" "RpcLtScm.Dll"
+    goto end
+successful = +
+    goto end
+infomsg =+
+   read-syms InfoDlg
+   ui start "Warning"
+   set CommonStatus = STATUS_USERCANCEL
+   goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+   

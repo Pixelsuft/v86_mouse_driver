@@ -1,0 +1,129 @@
+C
+
+   DO WHILE NOT EOF(1)
+      ' Get line and first token
+      LINE INPUT #1, InLin$
+      Token$ = GetToken$(InLin$, Seps$)
+      DO WHILE (Token$ <> "")
+         FOR KeyIndex = 1 TO KeyWordCount
+            ' See if token is keyword
+            IF (KeyWordTable$(KeyIndex) = UCASE$(Token$)) THEN
+               ' Get possible line number after keyword
+               Token$ = GetToken$("", Seps$)
+               ' Check each token to see if it is a line number
+               ' (the LOOP is necessary for the multiple numbers
+               ' of ON GOSUB or ON GOTO). A non-numeric token will
+               ' terminate search.
+               DO WHILE (IsDigit(LEFT$(Token$, 1)))
+                  LineCount = LineCount + 1
+                  LineTable!(LineCount) = VAL(Token$)
+                  Token$ = GetToken$("", Seps$)
+                  IF Token$ <> "" THEN KeyIndex = 0
+               LOOP
+            END IF
+         NEXT KeyIndex
+         ' Get next token
+         Token$ = GetToken$("", Seps$)
+      LOOP
+   LOOP
+
+END SUB
+
+'
+' GenOutFile:
+'  Generates an output file with unreferenced line numbers removed.
+' Input:
+'  Uses globals LineTable!, LineCount, and Seps$
+' Output:
+'  Processed file
+'
+SUB GenOutFile STATIC
+
+   ' Speed up by eliminating comma and colon (can't separate first token)
+   Sep$ = " " + CHR$(9)
+   DO WHILE NOT EOF(1)
+      LINE INPUT #1, InLin$
+      IF (InLin$ <> "") THEN
+         ' Get first token and process if it is a line number
+         Token$ = GetToken$(InLin$, Sep$)
+         IF IsDigit(LEFT$(Token$, 1)) THEN
+            LineNumber! = VAL(Token$)
+            FoundNumber = false
+            ' See if line number is in table of referenced line numbers
+            FOR index = 1 TO LineCount
+               IF (LineNumber! = LineTable!(index)) THEN
+                  FoundNumber = TRUE
+               END IF
+            NEXT index
+            ' Modify line strings
+            IF (NOT FoundNumber) THEN
+               Token$ = SPACE$(LEN(Token$))
+               MID$(InLin$, StrSpn(InLin$, Sep$), LEN(Token$)) = Token$
+            END IF
+              
+            ' You can replace the previous lines with your own
+            ' code to reformat output. For example, try these lines:
+               
+            'TmpPos1 = StrSpn(InLin$, Sep$) + LEN(Token$)
+            'TmpPos2 = TmpPos1 + StrSpn(MID$(InLin$, TmpPos1), Sep$)
+            '
+            'IF FoundNumber THEN
+            '   InLin$ = LEFT$(InLin$, TmpPos1 - 1) + CHR$(9) + MID$(InLin$, TmpPos2)
+            'ELSE
+            '   InLin$ = CHR$(9) + MID$(InLin$, TmpPos2)
+            'END IF
+
+         END IF
+      END IF
+      ' Print line to file or console (PRINT is faster than console device)
+      IF OutputFile$ = "CON" THEN
+         PRINT InLin$
+      ELSE
+         PRINT #2, InLin$
+      END IF
+   LOOP
+
+END SUB
+
+'
+' GetFileNames:
+'  Gets a file name by prompting the user.
+' Input:
+'  User input
+' Output:
+'  Defines InputFiles$ and OutputFiles$
+'
+SUB GetFileNames STATIC
+
+    CLS
+    PRINT " Microsoft RemLine: Line Number Removal Utility"
+    PRINT "       (.BAS assumed if no extension given)"
+    PRINT
+    INPUT "      Input file name (ENTER to terminate): ", InputFile$
+    IF InputFile$ = "" THEN END
+    INPUT "      Output file name (ENTER to print to screen): ", OutputFile$
+    PRINT
+    IF (OutputFile$ = "") THEN OutputFile$ = "CON"
+
+   IF INSTR(InputFile$, ".") = 0 THEN
+      InputFile$ = InputFile$ + ".BAS"
+   END IF
+
+   IF INSTR(OutputFile$, ".") = 0 THEN
+      SELECT CASE OutputFile$
+         CASE "CON", "SCRN", "PRN", "COM1", "COM2", "LPT1", "LPT2", "LPT3"
+            EXIT SUB
+         CASE ELSE
+            OutputFile$ = OutputFile$ + ".BAS"
+      END SELECT
+   END IF
+
+   DO WHILE InputFile$ = OutputFile$
+      TmpFile$ = LEFT$(InputFile$, INSTR(InputFile$, ".")) + "BAK"
+      ON ERROR GOTO FileErr1
+      NAME InputFile$ AS TmpFile$
+      ON ERROR GOTO 0
+      IF TmpFile$ <> "" THEN InputFile$ = TmpFile$
+   LOOP
+
+END 

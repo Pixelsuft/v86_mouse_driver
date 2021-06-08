@@ -1,0 +1,96 @@
+e 16 MBit/s"}
+SpeedRawListMSMDGMPPC      = {0, 2}
+SpeedUserListMSMDGMPEISA   = {"Set at adapter"}
+SpeedRawListMSMDGMPEISA    = {0}
+SpeedUserListMSMDGMPMCA    = {"Set at adapter"}
+SpeedRawListMSMDGMPMCA     = {0}
+SpeedUserListMSMDGMPMC32   = {"Set at adapter"}
+SpeedRawListMSMDGMPMC32    = {0}
+SpeedUserListMSMDGMPSM16   = {"Always 16 MBit/s"}
+SpeedRawListMSMDGMPSM16    = {0}
+SpeedUserListMSMDGMPPNP    = {"Set at adapter", "Force 4 MBit/s", "Force 16 MBit/s"}
+SpeedRawListMSMDGMPPNP     = {0, 1, 2}
+SpeedUserListMSMDGMPPCI    = {"Set at adapter", "Force 4 MBit/s", "Force 16 MBit/s"}
+SpeedRawListMSMDGMPPCI     = {0, 1, 2}
+SpeedUserListMSMDGMPPCIBM  = {"Set at adapter", "Force 4 MBit/s", "Force 16 MBit/s"}
+SpeedRawListMSMDGMPPCIBM   = {0, 1, 2}
+SpeedUserListMSMDGMPPCMCIA = {"Set at adapter", "Force 4 MBit/s", "Force 16 MBit/s"}
+SpeedRawListMSMDGMPPCMCIA  = {0, 1, 2}
+AdapterTypeFlagMSMDGMPISA    = 100
+AdapterTypeFlagMSMDGMPATP    = 100
+AdapterTypeFlagMSMDGMPISAC   = 100
+AdapterTypeFlagMSMDGMPISACP  = 100
+AdapterTypeFlagMSMDGMPPC     = 100
+AdapterTypeFlagMSMDGMPEISA   = 500
+AdapterTypeFlagMSMDGMPMCA    = 600
+AdapterTypeFlagMSMDGMPMC32   = 600
+AdapterTypeFlagMSMDGMPSM16   = 400
+AdapterTypeFlagMSMDGMPPNP    = 300
+AdapterTypeFlagMSMDGMPPCI    = 700
+AdapterTypeFlagMSMDGMPPCIBM  = 700
+AdapterTypeFlagMSMDGMPPCMCIA = 200
+CANNOT_FIND_ANY_CARD = "Cannot find a Madge Smart Ringnode in the machine. "+
+                       "If you are certain that a Madge Smart Ringode is "+
+                       "present then try choosing the adapter type "+
+                       "instead of automatic installation. Please note "+
+                       "that EISA and MCA adapters will only be found if "+
+                       "the EISA configuration utility or PS/2 reference "+
+                       "diskette respectively have been used to configure "+
+                       "the adapter. Also not that automated installation "+
+                       "will not find PCI adapters."
+TRIMMED_MFS = "WARNING: The maximum frame size at 16Mbps is 17839 bytes"+
+	      "  and you have specified a value greater than that. This"+
+	      "  value has been reduced to 17839 for you. If you are in"+
+	      "  fact running at 4Mbps, the maximum frame size is 4472,"+
+	      "  but do not worry -  the driver will automatically  set"+
+	      "  the correct value, and write it to the Event Log."
+ShellCodeErrorTitle = "Error: "$(FunctionTitle)
+ShellCodeErrorText  = "Shell Code Error"
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+[DialogConstantsENG]
+Help        = "&Help"
+Exit        = "&Cancel"
+OK          = "&OK"
+Continue    = "C&ontinue"
+Cancel      = "C&ancel"
+HelpContext = ""
+OldValueTitleInstall   = "Current hardware settings"
+OldValueTitleConfigure = "Currently configured settings"
+ConsultHelp = "Consult help before changing the settings below"
+[FileDependentDlgENG]
+DlgType     = "RadioCombination"
+DlgTemplate = $(Option)
+Caption = $(FunctionTitle)
+Combo1Label = "&IRQ Level:"
+Combo2Label = "I/O &Location:"
+Combo3Label = "&Transfer method:"
+Combo4Label = "Rx/Tx &Buffers:"
+Combo5Label = "Traffic &Statistics Gathering:"
+Combo6Label = "Please choose a Madge adapter to install"
+Combo7Label = "Number of processors in &PC:"
+Combo8Label = "Slot &Number:"
+Combo9Label = "&Ring Speed:"
+PciCombo8Label = "PCI &Device ID:"
+Combo1List = $(IrqList)
+Combo1Out  = $(IrqNumber)
+Combo2List = $(IoList)
+Combo2Out  = $(IoLocation)
+Combo3List = $(DmaList)
+Combo3Out  = $(DmaChannel)
+Combo4List = $(RxTxUserList)
+Combo4Out  = $(RxTxSlots)
+Combo5List = $(StatsUserList)
+Combo5Out  = $(StatsFlag)
+Combo6List = $(AdapterDescList)
+Combo6Out  = $(AdapterType)
+Combo7List = $(MpList)
+Combo7Out  = $(MpFlag)
+Combo8List = $(SlotList)
+Combo8Out  = $(SlotNumber)
+Combo9List = $(SpeedUserL

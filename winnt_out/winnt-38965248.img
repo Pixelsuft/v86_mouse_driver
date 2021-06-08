@@ -1,0 +1,107 @@
+[Identification]
+    OptionType = MONITOR
+[Options]
+"Local Port"                                        = localmon
+"Digital Network Port"                         = decpsmon
+"Lexmark DLC Network Port"          = lexmon
+"Lexmark TCP/IP Network Port"       = lexlmpm
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 0)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Status   = STATUS_FAILED
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_InstallOption
+    endif
+    read-syms Strings$($0)
+    set OptionList = ^(Options, 0)
+    ifcontains $(Option) in $(OptionList)
+    else
+        goto finish_InstallOption
+    endif
+    set OptionList = ""
+    set MonitorOption = #(Options, $(Option), 1)
+installtheoption = +
+    ifstr(i) $(AddCopy) == "YES"
+        install Install-AddCopyOption
+        ifstr(i) $(STF_INSTALL_OUTCOME) != "STF_SUCCESS"
+            Debug-Output "Adding video files to copy list failed"
+            goto finish_InstallOption
+        endif
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+        read-syms ProgressCopy$($0)
+        install Install-DoCopyOption
+        ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_FAILURE"
+            Debug-Output "Copying files failed"
+            goto finish_InstallOption
+        else-ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_USERQUIT"
+            set Status = STATUS_USERCANCEL
+            goto finish_InstallOption
+        endif
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+        set MonitorPath      = $(!STF_PRNMONITORPATH)"\"#(Files-PrinterMonitor, $(MonitorOption), 2)
+        LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(MonitorPath)
+        ifstr(i) $(STATUS) == NO
+            set OptionText = #(OptionsText$($0), $(Option), 1)
+            shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(String4)$(OptionText)$(String5)
+            Debug-Output "Copying printer files failed"
+            goto finish_InstallOption
+        endif
+        install Install-Configure
+        ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_FAILURE"
+            Debug-Output "Installing printer monitor failed"
+            goto finish_InstallOption
+        else-ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_USERQUIT"
+            set Status = STATUS_USERCANCEL
+            goto finish_InstallOption
+        endif
+        ifstr(i) $(STATUS) != "ADDED"
+            set OptionText = #(OptionsText$($0), $(Option), 1)
+            ifstr(i) $(STATUS) == "PRESENT"
+                shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(String1)$(OptionText)$(String2)
+                set Status = STATUS_SUCCESSFUL
+            else-ifstr(i) $(STATUS) == "DENIED"
+                shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(String6)
+            else
+                shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(String1)$(OptionText)$(String7)
+            endif
+            goto finish_InstallOption
+        endif
+    endif
+    set Status = STATUS_SUCCESSFUL
+finish_InstallOption = +
+    Return $(Status)
+[Install-AddCopyOption]
+    set STF_VITAL = ""
+    set STF_OVERWRITE   = "VERIFYSOURCEOLDER"
+    AddSectionKeyFileToCopyLi

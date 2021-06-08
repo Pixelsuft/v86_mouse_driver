@@ -1,0 +1,111 @@
+[Identification]
+   OptionType = NetAdapter
+[PlatformsSupported]
+   MCA
+[Options]
+   LT200MC
+[FileConstants]
+UtilInf                 = "UTILITY.INF"
+SubInf                  = "SUBROUTN.INF"
+SoftwareType            = "driver"
+LT200MC_1BYTE           = 116
+LT200MC_2BYTE           = 102
+NETCARD_ID              = 26228
+Manufacturer            = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion          = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductInfName          = "oemnadlm.inf"
+ProductSoftwareName      =      "lt200"
+ProductSoftwareImagePath =      "%SystemRoot%\system32\drivers\lt200.sys"
+NetRuleSoftwareType      =      "Lt200Sys ltkndisDriver lt200Driver"
+NetRuleSoftwareUse       =      $(SoftwareType)
+NetRuleSoftwareBindForm  =      """Lt200Sys"" yes no container"
+NetRuleSoftwareClass     =      {"lt200Driver basic","ltkndisDriver basic yes"}
+NetRuleSoftwareBindable  =      {"lt200Driver lt200Adapter non exclusive 100",+
+                             "ltkndisDriver lt200Driver non non 100"}
+ProductEventDll         =  "%SystemRoot%\system32\netevent.dll"
+ProductHardwareName     =  "lt200"
+NetRuleHardwareType     =  "lt200 lt200Adapter"
+NetRuleHardwareBindForm =  " yes yes container"
+NetRuleHardwareClass    =  {"lt200Adapter basic"}
+ProductOpSupport     = 134 
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)"\"$(ProductHardwareName)"\Parameters"
+CardKey         = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+[GeneralConstants]
+KeyNull                 = ""
+MAXIMUM_ALLOWED         = 33554432
+RegistryErrorIndex      = NO_ERROR
+KeyProduct              = ""
+KeyParameters           = ""
+TRUE                    = 1
+FALSE                   = 0
+NoTitle                 = 0
+[date]
+   Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        ifstr(i) $($1) == ""
+           goto returnoptions
+        endif
+        set PlatformList = ^(PlatformsSupported, 1)
+        Ifcontains(i) $($1) in $(PlatformList)
+           goto returnoptions
+        else
+           set Status = STATUS_NOTSUPPORTED
+           goto finish_ReturnOptions
+        endif
+   else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+   endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Status   = STATUS_FAILED
+    set Option   = $($1)
+    set SrcDir       = $($2)
+    Set AddCopy  = $($3)
+    Set DoCopy       = $($4)
+    Set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+           return STATUS_NOLANGUAGE
+    EndIf
+    StartWait
+    set-subst LF = "\n"
+    set-subst CR = "\r"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    set-title  $(FunctionTitle)
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+          set StartLabel = removeadapter
+          Set RemoveonError = FALSE
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+      set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+      set StartLabel = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+      set CommonStatus = STATUS_USERCANCEL
+      se

@@ -1,0 +1,115 @@
+        Set ServerInstalled = *($(InstalledFlags),1)
+            Set ClientInstalled = *($(InstalledFlags),2)
+            Set AdminInstalled  = *($(InstalledFlags),3)
+        Endif
+        Debug-Output "Installed List is "$(RasComponentsList)
+        Debug-Output "Installed Flags is "$(InstalledFlags)
+        QueryListSize NumInstalled $(RasComponentsList)
+        ifint $(NumInstalled) == 3
+            read-syms VerExists$(!STF_LANGUAGE)
+            set Text = $(Product$(Option)Title)$(Ver)$(ProductVersion)+
+                       $(Text1)
+            Shell $(subroutninf), SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Text)
+            Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_FAILED
+                Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                Goto end
+            Endif
+            goto end
+        endif
+        CloseRegKey $(KeyProduct)
+    else
+InstallRas1 =+
+       set fRemoveRas   = TRUE
+    endif
+    goto memorycheck
+setupabort = +
+    read-syms SetupAbortDlg$(!STF_LANGUAGE)
+    ui start "SetupAbort"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        ui pop 1
+        Exit
+    else
+        ui pop 1
+        Exit
+    endif
+memorycheck = +
+    read-syms AvailableSystemMemory
+    detect AvailableSystemMemory
+    Debug-Output "Available Memory is "$(SystemMemory)
+    IfInt $(SystemMemory) < $(MinSystemMemory)
+        read-syms FatalErrorMem$(!STF_LANGUAGE)
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Fatal)
+        goto setupabort
+    Else
+        goto InstallNetwork
+    EndIf
+InstallNetwork =+
+    ifstr(i) $(DoServer) == FALSE
+       ifstr(i) $(DoClient) == FALSE
+           goto CopyResources
+       endif
+    endif
+    goto CopyResources
+CopyResources = +
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        Ifstr(i) $(DoCopy) == "YES"
+           Shell $(!UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SourceDir) YES
+           Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Goto ShellCodeError
+           Else-Ifstr(i) $($R0) == STATUS_FAILED
+               Shell $(!UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+               set Error = $($R0)
+               goto fatal
+           Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+               Goto end
+           Endif
+           Set !STF_SRCDIR = $($R1)
+           Set SourceDir  = $($R1)
+           Debug-Output "SrcDir "$(SourceDir)
+        endif
+        Debug-Output "OEMNSVRA.INF: Copying files"
+        Install InstallResources
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto filecopycancel
+        endif
+        install InstallRasFiles
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto filecopycancel
+        endif
+    endif
+    StartWait
+    ifstr(i) $(DoAdminOnly) == TRUE
+        goto CommonCode
+    endif
+    goto PortsConfigure
+ConfigureRas = +
+    set OldVersionExisted = $(TRUE)
+    read-syms StatusDeterminingConfig$(!STF_LANGUAGE)
+    shell $(subroutninf) PushBillBoard NETSTATUSDLG $(ReadingConfig)
+    Set BillboardVisible = 1
+    StartWait
+    shell "" QueryComponentsInstalled
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Set InstalledComps = $($R1)
+        Set InstalledFlags = $($R2)
+        Set DoServer      = *($(InstalledFlags),1)
+        Set DoClient      = *($(InstalledFlags),2)
+        Set DoAdmin       = *($(InstalledFlags),3)
+        Set DoServerOnly  = *($(InstalledFlags),4)
+        Set DoClientOnly  = *($(InstalledFlags),5)
+        Set DoAdminOnly   = *($(InstalledFlags),6)
+    Endif
+    Set ServerInstalled = $(DoServer)
+    Set ClientInstalled = $(DoClient)
+    Set AdminInstalled  = $(DoAdmin)
+    Debug-Output "DoServer "$(DoServer)
+    Debug-Output "DoClient "$(DoClient)
+    Debug-Output "DoAdmin "$(DoAdmin)
+    Debug-Output "DoServerOnly "$(DoServerOnly)
+   

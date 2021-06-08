@@ -1,0 +1,51 @@
+ 28800/ARQ/VFC/LAPM/V42BIS<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/VFC/MNP/MNP5<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ<cr><lf>",1,2,2,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/VFC/MNP/NONE<cr><lf>",1,2,2,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/VFC/MNP/V42BIS<cr><lf>",1,2,3,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/V34/NONE<cr><lf>",1,2,0,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/VFC/NONE<cr><lf>",1,2,0,80,70,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 28800/ARQ/V34/LAPM<cr><lf>",1,2,2,80,70,00,0,0,0,0,0
+
+
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/V34/LAPM/MNP5<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/V34/LAPM/NONE<cr><lf>",1,2,2,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/V34/LAPM/V42BIS<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/V34/MNP/MNP5<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/V34/MNP/NONE<cr><lf>",1,2,2,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/V34/MNP/V42BIS<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/VFC/LAPM/MNP5<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/V32/LAPM<cr><lf>",1,2,2,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/VFC/LAPM/NONE<cr><lf>",1,2,2,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/VFC/LAPM<cr><lf>",1,2,2,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/VFC/LAPM/V42BIS<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/VFC/MNP/MNP5<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ<cr><lf>",1,2,2,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/VFC/MNP/NONE<cr><lf>",1,2,2,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/VFC/MNP/V42BIS<cr><lf>",1,2,3,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/V34/NONE<cr><lf>",1,2,0,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/VFC/NONE<cr><lf>",1,2,0,E0,79,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 31200/ARQ/V34/LAPM<cr><lf>",1,2,2,E0,79,00,0,0,0,0,0
+
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/V34/LAPM/MNP5<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/V34/LAPM/NONE<cr><lf>",1,2,2,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/HST/HST/V42BIS<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/LAPM/V42BIS<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/V34/LAPM/V42BIS<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/V34/MNP/MNP5<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/V34/MNP/NONE<cr><lf>",1,2,2,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/V34/MNP/V42BIS<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/VFC/LAPM/MNP5<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/V32/LAPM<cr><lf>",1,2,2,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/VFC/LAPM/NONE<cr><lf>",1,2,2,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/VFC/LAPM<cr><lf>",1,2,2,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/VFC/LAPM/V42BIS<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/VFC/MNP/MNP5<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ<cr><lf>",1,2,2,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/VFC/MNP/NONE<cr><lf>",1,2,2,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/ARQ/VFC/MNP/V42BIS<cr><lf>",1,2,3,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/V34/NONE<cr><lf>",1,2,0,40,83,00,0,0,0,0,0
+HKR,Responses,"<cr><lf>CONNECT 33600/VFC/NONE<cr><lf>",1,2,0,40,83,00,0,0,0,0,0
+HKR,Responses

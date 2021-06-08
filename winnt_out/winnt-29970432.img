@@ -1,0 +1,73 @@
+[Identification]
+    OptionType = NetAdapter
+[PlatformsSupported]
+    ISA
+    EISA
+    "Jazz-Internal Bus"
+    PCI
+    MCA
+[LanguagesSupported]
+    ENG
+[Options]
+    DigiBoardCX
+    DigiBoardXem
+    DigiBoard8r
+    IBM8r
+    DigiBoard8i
+    DigiBoard16i
+    DigiBoard2Port
+    DigiBoard4Port
+    DigiBoard8Port
+    DigiBoard4e
+    DigiBoard8e
+    DigiBoard16e
+    DigiBoardEPC
+    StarGateClusStar
+[OptionsMCA]
+    DigiBoardCX
+    DigiBoardXem
+    DigiBoard8r
+    DigiBoard4i
+    DigiBoard8i
+    DigiBoard16i
+    DigiBoard2Port
+    DigiBoard4Port
+    DigiBoard8Port
+    DigiBoardEPC
+    StarGateClusStar
+[AdapterInfo]
+    DigiBoardCX     = "C/X",    ntcx,       ntcx,     3,        "Digi",  cxfep.bin   cxbios.bin  {84240}    
+    DigiBoardXem    = "PC/Xem", ntxem,      ntxem,    2,        "Digi",  sxfep.bin   sxbios.bin  {149776}   
+    DigiBoard8r     = "AccelePort 8",  nt8r,       ntxem,    7,        "Digi",  sxfep.bin   sxbios.bin  {0}
+    IBM8r           = "8-Port Async, EIA-232 (ISA)",  nt8r,       ntxem,    13,        "IBM",  sxfep.bin   sxbios.bin  {0}
+    DigiBoard8i     = "PC/8i",  nt8i,       ntxall,   1,        "Digi",  xacook.bin  xabios.bin  {0}
+    DigiBoard16i    = "PC/16i", nt16i,      ntxall,   9,        "Digi",  xacook.bin  xabios.bin  {0}
+    DigiBoard2Port  = "PC/2e (8K)",  2Port,      ntxall,   4,        "Digi",  xacook.bin  xabios.bin  {0}        
+    DigiBoard4Port  = "PC/4e (8K)",  4Port,      ntxall,   6,        "Digi",  xacook.bin  xabios.bin  {0}        
+    DigiBoard8Port  = "PC/8e (8K)",  8Port,      ntxall,   7,        "Digi",  xacook.bin  xabios.bin  {0}        
+    DigiBoard4e     = "PC/4e",  nt4e,       ntxall,   5,        "Digi",  xacook.bin  xabios.bin  {0}        
+    DigiBoard8e     = "PC/8e",  nt8e,       ntxall,   0,        "Digi",  xacook.bin  xabios.bin  {0}        
+    DigiBoard16e    = "PC/16e", nt16e,      ntxall,   8,        "Digi",  xacook.bin  xabios.bin  {0}        
+    DigiBoardEPC    = "EPC",    ntepc,      ntepc,    11,       "Digi",  fxfep.bin   fxbios.bin  {215312}   
+    StarGateClusStar = "ClusStar",    ntcx, ntcx,     12,       "Digi/StarGate",   cxfep.bin   cxbios.bin  {84240}    
+[AdapterInfoMCA]
+    DigiBoardCX     = "MC C/X", ntcx,       ntcx,     3,        "Digi",  cxfep.bin   cxbios.bin  {28652,28648},   {236,232},  {111,111}
+    DigiBoardXem    = "MC/Xem", ntxem,      ntxem,    2,        "Digi",  sxfep.bin   sxbios.bin  {32668},         {156},      {127}
+    DigiBoard8r     = "MC AccelePort 8",  nt8r,       ntxem,    7,        "Digi",  sxfep.bin   sxbios.bin  {28647},         {231},      {111}
+    DigiBoard4i     = "MC/4i",  nt4i,       ntxall,   10,       "Digi",  xacook.bin  xabios.bin  {32666,32665},   {154,153},  {127,127}
+    DigiBoard8i     = "MC/8i",  nt8i,       ntxall,   1,        "Digi",  xacook.bin  xabios.bin  {32666,32665},   {154,153},  {127,127}
+    DigiBoard16i    = "MC/16i", nt16i,      ntxall,   9,        "Digi",  xacook.bin  xabios.bin  {32667},         {155},      {127}
+    DigiBoard2Port  = "MC/2e (8K)",  2Port,      ntxall,   4,        "Digi",  xacook.bin  xabios.bin  {28647},         {231},      {111}
+    DigiBoard4Port  = "MC/4e (8K)",  4Port,      ntxall,   6,        "Digi",  xacook.bin  xabios.bin  {28647},         {231},      {111}
+    DigiBoard8Port  = "MC/8e (8K)",  8Port,      ntxall,   7,        "Digi",  xacook.bin  xabios.bin  {28647},         {231},      {111}
+    DigiBoardEPC    = "MC EPC", ntepc,      ntepc,    11,       "Digi",  fxfep.bin   fxbios.bin  {32669},         {157},      {127}
+    StarGateClusStar = "MC ClusStar", ntcx, ntcx,     12,       "Digi/StarGate",   cxfep.bin   cxbios.bin  {28652,28648},   {236,232},  {111,111}
+[FileConstants]                                                                 
+    ExitState   = "Active"
+    OldVersionExisted = $(FALSE)
+    HdwDriverComponentExists = $(FALSE)
+    DriverPath      = $(!STF_NTPATH)"\drivers"
+    UtilityInf     = "UTILITY.INF"
+    subroutninf    = "SUBROUTN.INF"
+    ParamInf        = "NCPARAM.INF"
+   

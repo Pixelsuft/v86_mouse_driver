@@ -1,0 +1,142 @@
+-------------------------------------
+; This modem does not support callback
+;--------------------------------------
+[Banksia XM124/R FAXMODEM- AUS]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+DEFAULTOFF=compression
+COMMAND_INIT=AT&F&C1&D2 S0=0 V1 X1 S2=128 S7=60<speaker><cr>
+COMMAND_LISTEN=ATS0=2<cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+
+;----------------------------------------
+
+[Banksia MX-6 V.32bis - AUS]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&F&C1&D2 X1 V1 N1 S0=0 S7=60<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><h5C>/ARQ<cr><lf>\
+CONNECT_EC=<cr><lf>CONNECT <connectbps><h5C>/ARQ<cr><lf>\
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><h5C>/ARQ<cr><lf>\
+CONNECT_EC=<cr><lf>CONNECT <connectbps><h5C>/ARQ<cr><lf>\
+
+; V.42BIS Compression with Protocol ALT,MNP5,LAP-M,MNP4,MNP3,MNP2,NONE
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>PROTOCOL: MNP2<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>PROTOCOL: MNP3<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>PROTOCOL: MNP4<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>PROTOCOL: MNP5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: VVV.42BIS<cr><lf>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+; End of compression for V.42bis
+
+; CLASS5 Compression with Protocol ALT,MNP5,LAP-M,MNP4,MNP3,MNP2,NONE
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>PROTOCOL: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>PROTOCOL: MNP2<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>PROTOCOL: MNP3<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>PROTOCOL: MNP4<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><

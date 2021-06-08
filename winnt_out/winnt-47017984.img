@@ -1,0 +1,55 @@
+00,00, F7,06,00,00, 00,C2,01,00, 80,70,00,00
+HKR, Init, 1,, "AT<cr>"
+HKR, Init, 3,, "AT E0 V1 W1 S0=0 S7=50<cr>"
+HKR, Init, 4,, "AT &C1 &D2 \V1<cr>"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, Modulation_Bell,, "B1 "
+HKR, Settings, Modulation_CCITT,, "B0 "
+HKR, Settings, Modulation_CCITT_V23,, "B0 B2 "
+HKR, Settings, Pulse,, "P"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR,, InactivityScale, 1, 3C,00,00,00
+
+HKR, Responses, "<cr><lf>COMPRESSION: NONE<cr><lf>",                    1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: CLASS 5<cr><lf>",                 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: MNP5<cr><lf>",                    1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42BIS<cr><lf>",                 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V42BIS<cr><lf>",                  1, 01, 03, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>PROTOCOL: NONE<cr><lf>",                       1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M<cr><lf>",                      1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT<cr><lf>",                        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: V42<cr><lf>",                        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP REL 4<cr><lf>",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP<cr><lf>",                        1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP 2<cr><lf>",                      1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP 3<cr><lf>",                      1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP 2,4<cr><lf>",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP 3,4<cr><lf>",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: V42BIS<cr><lf>",                     1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP REL 5<cr><lf>",                  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>",               1, 01, 0A, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",                              1, 02, 00, 00,00,00,00, 2C,01,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200<cr><lf>",                      1, 02, 00, 00,00,00,00, B0,04,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75<cr><lf>",                      1, 02, 00, 00,00,00,00, B0,04,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>",                         1, 02, 00, 00,00,00,00, B0,04,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>",                         1, 02, 00, 00,00,00,00, 60,09,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>",                         1, 02, 00, 00,00,00,00, C0,12,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>",                         1, 02, 00, 00,00,00,00, 80,25,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>",                        1, 02, 00, 00,00,00,00, 40,38,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>",                        1, 02, 00, 00,00,00,00, A0,41,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>",                        1, 02, 00, 00,00,00,00, 00,4B,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>",                        1, 02, 00, 00,00,00,00, 00,96,00,00

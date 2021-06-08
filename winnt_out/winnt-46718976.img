@@ -1,0 +1,76 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturers: GVC, Packard Bell, IBM, Turbomodem, Compaq, Eiger
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%MS%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM8FC45DA6
+ExcludeFromSelect=UNIMODEMD6E032DF   ; GVC+Turbomodem combo
+ExcludeFromSelect=UNIMODEM7C37DAC5   ; GVC+Turbomodem combo
+ExcludeFromSelect=UNIMODEMD209269F   ; IBM+Viva modem combo
+ExcludeFromSelect=UNIMODEM7EBF3F36   ; Packard Bell+GVC
+ExcludeFromSelect=UNIMODEMC1E06F72   ; Maxtech, GVC
+ExcludeFromSelect=UNIMODEMEB2448CD   ; Maxtech, Acer
+ExcludeFromSelect=UNIMODEMDE96F803                   ; Smart, GVC
+ExcludeFromSelect=PCMCIA\14.4/14.4_DATA/FAX_MODEM-001-113D   ; Eiger, IBM
+
+[Manufacturer]
+%GVC% = GVC
+%PB%  = PB
+%IBM% = IBM
+%Turbomodem% = Turbomodem
+%Maxtech% = Maxtech
+%Eiger% = Eiger
+
+; Modem models
+
+[GVC]
+%Modem38% = Modem38, UNIMODEM4CB07362
+%Modem37% = Modem37, UNIMODEM64344979
+%Modem32% = Modem32, GVC_Modem32, UNIMODEM24FFB24B   ; FM-9648(Fax Modem 9648) External
+%Modem20% = Modem20, GVC_Modem20, UNIMODEM7EBF3F36   ; GVC F-1114HV/R2 Internal
+%Modem7%  = Modem7,  UNIMODEM8FC45DA6                ; Generic name
+%Modem7a% = Modem7,  UNIMODEM162E4132                ; FM-144VBIS/R
+%Modem7a% = Modem7,  GVC_Modem7a, UNIMODEM8FC45DA6   ; FM-144HVBIS/R1
+%Modem7a% = Modem7,  GVC_Modem7a, UNIMODEM7C37DAC5   ; FM-144VBIS/R(Fax 14400 V.42bis/MNP5) External
+%Modem7a% = Modem7,  UNIMODEM9208DC74                ; GVC 14.4 Data Fax
+%Modem7a% = Modem9,  GVC_Modem7a, UNIMODEMD6E032DF   ; GVC 14.4 Data Fax
+%Modem6%  = Modem6,  UNIMODEMCE46DD7D                ; FM-9696(FaxModem 9696) External
+%Modem5%  = Modem5,  GVC_Modem5, UNIMODEM901DD6E5    ; FM-9648(Fax Modem 9648) External
+%Modem4%  = Modem4,  GVC_Modem4, UNIMODEM8A085313    ; SM-24(Super Modem 2400) External
+%Modem3%  = Modem3,  PCMCIA\INTELLIGENT-MODEM-C15D   ; FM144/144V(P) PCMCIA
+%Modem3%  = Modem3,  GVC_Modem3, UNIMODEM5C047344    ; FM144/144V(P) PCMCIA
+%Modem3a%  = Modem3,  UNIMODEMDE96F803    ; combo gvc and smart
+%Modem3%  = Modem3,  GVC_Modem3, UNIMODEMDE96F803    ; FM144/144V(P) PCMCIA
+%Modem2%  = Modem2,  PCMCIA\INTELLIGENT-MODEM-DAF0   ; PFM-964824(Faxmodem) PCMCIA
+%Modem2%  = Modem2,  PCMCIA\INTELLIGENT-MODEM-4AF2   ; PFM-964824(Faxmodem) PCMCIA
+%Modem1%  = Modem1,  GVC_Modem1, UNIMODEMC1E06F72    ; F-1128V/R6(28800 Fax Modem) External
+
+[PB]
+%Modem8%  = Modem8,  UNIMODEM3F5F15FA                ; PB-144HV/R6 
+%Modem18% = Modem18, GVC_Modem18, UNIMODEME466C599   ; 144AM(SP)
+%Modem21% = Modem21, UNIMODEM184DD74A                ; 24DBF internal modem
+%Modem25% = Modem20, GVC_Modem25, UNIMODEM7EBF3F36   ; Packard Bell F-1114HV/R2 Internal
+%Modem26% = Modem20, UNIMODEM7EBF3F36                ; Packard Bell+GVC 
+
+[IBM]                                               
+%Modem31%  = Modem31, UNIMODEMBA90396C               ; IBM 7852 013 V.34 Data FAX
+%Modem30%  = Modem30, UNIMODEM43221094               ; IBM 7852 010 V.34 Data FAX
+%Modem29%  = Modem29, UNIMODEMD9DEC170               ; IBM ISA 28.8 V.34 modem with wakeup on ring
+%Modem28%  = Modem28, GVC_Modem28, PCMCIA\14.4/14.4_DATA/FAX_MODEM-001-113D ; IBM 14.4 PCMCIA 
+
+%Modem28%  = Modem28, UNIMODEM49F994F9               ; IBM 14.4 PCMCIA 
+%Modem19%  = Modem19, BIOS\*IBM0033                  ; IBM (butterfly) Thinkpad 701
+%Modem19%  = Modem19, UNIMODEM2AECBE97               ; IBM (butterfly) Thinkpad 701
+%Modem19%  = Modem19, UNIMODEM7627C87A               ; IBM (butterfly) Thinkpad 701
+%Modem7b%  = Modem7,  GVC_Modem7b, UNIMODEM8FC45DA6  ; IBM PS-1 Internal
+%Modem13%  = Modem13, GVC_Modem13, UNIMODEM9F2BBC58  ; IBM 24-96 Internal
+%Modem14%  = Modem14, GVC_Modem14, UNIMODEMD209269F  ; IBM SM-24HN-1
+%Modem15%  = Modem14, UNIMODEMD209269F               ; IBM+Viva modem combo
+%Modem16%  = Modem13, GVC_Modem16, UNIMODEM9F2BBC58  ; IBM Aptiva F-942H-R1, 2400 bps internal
+%Modem17%  = Modem17, UNIMODEMF7974461               ; IBM Aptiva 14.4 Data FAX Modem intern

@@ -1,0 +1,40 @@
+Page usability issues such as Setup, FrontPage usage, and troubleshooting error messages via a toll call between 6:00 A.M. and 6:00 P.M. Pacific time, Monday through Friday, excluding holidays.   Questions involving HTML code, 3rd party server extensions, or other development-related issues will receive up to two no-charge incidents for the current version. In the United States call (206) 635-7088.
+When you call, you should be at your computer and have the appropriate product documentation at hand. Be prepared to give the following information:
+The version number of the Microsoft product that you are using
+The type of hardware that you are using, including network hardware, if applicable
+The exact wording of any messages that appeared on your screen
+A description of what happened and what you were doing at the time
+A description of how you tried to solve the problem
+
+Priority Support
+Microsoft AnswerPoint offers priority telephone access to Microsoft support engineers 24 hours a day, 7 days a week, excluding holidays, in the U.S.   In the United States, call (900) 555-2020; $55 (U.S.) per incident. Charges appear on your telephone bill.
+
+Text Telephone
+Microsoft text telephone (TT/TDD) services are available for the deaf or hearing impaired. In the United States, using a TT/TDD modem, dial (206) 635-4948. In Canada, using a TT/TDD modem, dial (905) 568-9641.
+
+Product Support Worldwide
+For information on Microsoft subsidiary offices and the countries they serve, refer to the Technical Support section in online Help or the Microsoft World Wide Web site at http://www.microsoft.com. If there is no Microsoft office in your country, please contact the establishment from which you purchased your Microsoft product.
+
+
+Microsoft Internet Information Server
+
+Installing Internet Information Server on Windows NT Version 4.0
+Internet Information Server (IIS) version 2.0 Setup is fully integrated into Windows NT Server version 4.0 Setup, so you can set up your Internet services while installing Windows NT Server. To install IIS, run Windows NT Server Setup and follow the on-screen instructions. If you have already installed Windows NT Server version 4.0, you can install IIS version 2.0 separately by clicking the Install Internet Information Server icon on your Windows NT desktop. You can also double-click the Network icon in Control Panel, and then click the Services tab to add Internet Information Server. 
+
+For more information about installation, see the Start Here book provided with Windows NT Server version 4.0. 
+  
+Where Is the Product Documentation?
+Documentation for Microsoft Internet Information Server is installed with the product and is available online. After installing Internet Information Server, you can open its Installation and Administration Guide by clicking the Product Documentation icon in the Microsoft Internet Server program group, or by running Internet Service Manager and choosing Topics on the Help menu. You can also review the product documentation before you install Internet Information Server by using a Web browser (such as Microsoft Internet Explorer) to open the files directly from the Windows NT Server compact disc. 
+
+To read the documentation, open the following file on the compact disc:
+\Platform\Inetsrv\Htmldocs\Inetdocs.htm
+where Platform is Alpha, I386, Mips, or PPC.
+
+You can print chapters by using your Web browser’s Print command. You will obtain the best printing results by using your browser’s default font size for text; for example, Medium in Internet Explorer and 12 points in Netscape Navigator.
+
+Information about Internet Information Server is included in the printed book Start Here, which is provided with Windows NT Server version 4.0.  
+
+Upgrading IIS 1.0 to IIS 2.0
+IIS 2.0 includes a new Web-based administration tool, Internet Service Manager (HTML), that enables you to administer your server from any Web browser.  By default, this tool is not installed when you upgrade from IIS 1.0 to IIS 2.0. 
+
+To install the Web-based Internet Service Manager, double

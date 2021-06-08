@@ -1,0 +1,73 @@
+etup cannot function properly without a user name."
+[FatalErrorMemENG]
+    Fatal  = "Not enough memory is available. Remote Access requires atleast 2 Meg."
+[NoConfigAdminENG]
+    NoConfigAdmin = "The only component installed currently is RasAdmin which "+
+                    "cannot be configured."
+[VerExistsENG]
+    Ver   = " version "
+    Text1 = " is already installed. "
+[NetworkConfigErrorENG]
+    Text1 = "Setup encountered an error while determining the "+
+            "network configuration.  Please make sure that "+
+            "the network is properly configured before attempting "+
+            "to install Remote Access Service."
+    Text2 = "The Microsoft Windows Workstation and Server Service must be "+
+            "installed for proper operation of Remote Access Service."$(!LF)$(!LF)+
+            "To install Workstation or Server Service:"$(!LF)$(!LF)+
+            "1. Invoke 'Network' control panel applet."$(!LF)+
+            "2. Choose Add Software and select Workstation or Server from the list."
+[NoPortsConfiguredENG]
+   NoPortsError =+
+       "Remote Access is not configured with any ports. "+
+       "You have an invalid RAS configuration. "+
+       "Please configure Remote Access Service and add "+
+       "ports using the Network option in Control Panel "+
+       "after restarting the system."
+[QueryInstalledProtocolsErrorENG]
+    Text  = "Setup encountered an error while determining the "+
+            "installed network protocols.  Try restarting the "+
+            "system to correct the problem. Contact your system "+
+            "administrator, if the problem persists."
+[RasUpgradeENG]
+    Ver = " ver "
+    Text1 = " exists on the system. Are you sure you want to upgrade to"
+    Text2 = "?. "
+    Text3 = "Selecting YES will result in the new version replacing the old."
+[InstallLoopbackENG]
+Message = "RAS Setup has discovered that you have configured one or more "+
+          "ports to receive calls and your computer does not have a "+
+          "network adapter installed. Setup will install the MS Loopback "+
+          "Adapter to enable remote clients to use resources on this computer."
+Error   = "RAS setup encountered an error while invoking the OEMNADLB.INF file "+
+          "to install the MS Loopback Adapter. You can install the Loopback Adapter "+
+          "from the Network option in Control Panel after restarting the system. "+
+          "Remote Clients will not be able to dialin and use resources on this computer "+
+          "till you install the Loopback Adapter."
+[NoNetbeuiDlgENG]
+    NoNetbeuiWarning =+
+        "The NetBEUI protocol is either not installed or not configured "+
+        "for Remote Access.  NetBEUI provides the fastest throughput to "+
+        "NetBIOS resources when accessed over a Remote Access connection. "+
+        "If clients will access remote NetBIOS resources, configure RAS "+
+        "to use NetBEUI. "$(!LF)$(!LF)+
+        "You can add the NetBEUI protocol to your computer using the "+
+        "Network option in Control Panel."
+[NoProtocolsDlgENG]
+    NoProtocolsWarning =+
+       "Remote Access is not configured with any network protocols. "+
+       "You have an invalid RAS configuration. "+
+       "You can configure RAS to support "+
+       "network protocols using the Network option in Control Panel "+
+       "after restarting the system."
+[UpgradeErrorsENG]
+UpgradeIsdnInfoError = "Remote Access Setup encoutered an error while "+
+                       "updating the ISDN information. Please remove and "+
+                       "reinstall Remote Access to ensure proper operation."
+[RasErrorsENG]
+ErrorBadArgs = "OEMNSVRA.INF specified invalid number of arguments "+
+               "to RASCFG.DLL. Remote Access Setup will terminate now."
+ErrorNoPorts = "Dial-Up Networking setup failed to detect any installed "+
+               "ports on this computer. Setup will terminate now."
+ErrorUnknown = "Dial-Up Networking setup encountered an unknown failure "+
+               "and will terminate now. Please con

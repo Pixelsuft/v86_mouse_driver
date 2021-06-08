@@ -1,0 +1,63 @@
+CONNECT 57600
+HKR, Responses, "19<cr>", 1, 02, 00, 00,c2,01,00, 00,00,00,00   ; Not in manual
+
+; Misc. CONNECT xxxx result codes (DCE)
+
+HKR, Responses, "22<cr>", 1, 02, 00, b0,04,00,00, 00,00,00,00   ; CONNECT 75TX/1200RX
+HKR, Responses, "23<cr>", 1, 02, 00, b0,04,00,00, 00,00,00,00   ; CONNECT 1200TX/75RX
+
+HKR, Responses, "24<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00   ; Not in manual
+HKR, Responses, "32<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00   ; Not in manual
+HKR, Responses, "33<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00   ; FAX
+HKR, Responses, "35<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00   ; DATA
+HKR, Responses, "40<cr>", 1, 01, 00, 2c,01,00,00, 00,00,00,00
+
+;  CARRIER xxxx result codes (requires X4)
+
+HKR, Responses, "44<cr>", 1, 01, 00, b0,04,00,00, 00,00,00,00   ; CARRIER 1200/75
+HKR, Responses, "45<cr>", 1, 01, 00, b0,04,00,00, 00,00,00,00   ; CARRIER 75/100
+HKR, Responses, "46<cr>", 1, 01, 00, b0,04,00,00, 00,00,00,00   ; CARRIER 1200
+HKR, Responses, "47<cr>", 1, 01, 00, 60,09,00,00, 00,00,00,00   ; CARRIER 2400
+HKR, Responses, "48<cr>", 1, 01, 00, c0,12,00,00, 00,00,00,00   ; CARRIER 4800
+HKR, Responses, "49<cr>", 1, 01, 00, 20,1c,00,00, 00,00,00,00   ; CARRIER 7200
+HKR, Responses, "50<cr>", 1, 01, 00, 80,25,00,00, 00,00,00,00   ; CARRIER 9600
+HKR, Responses, "51<cr>", 1, 01, 00, e0,2e,00,00, 00,00,00,00   ; CARRIER 12000
+HKR, Responses, "52<cr>", 1, 01, 00, 40,38,00,00, 00,00,00,00   ; CARRIER 14400
+
+; COMPRESSSION result codes (requires X4)
+
+HKR, Responses, "66<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00   ; COMPRESSION: CLASS 5
+HKR, Responses, "67<cr>", 1, 01, 03, 00,00,00,00, 00,00,00,00   ; COMPRESSION: V.42bis
+HKR, Responses, "69<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00   ; COMPRESSION: NONE
+
+; PROTOCOL result codes (requires X4)
+
+HKR, Responses, "76<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00   ; PROTOCOL: NONE
+HKR, Responses, "77<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00   ; PROTOCOL: LAPM
+HKR, Responses, "80<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00   ; PROTOCOL: ALT
+HKR, Responses, "81<cr>", 1, 01, 0a, 00,00,00,00, 00,00,00,00   ; PROTOCOL: ALT-CELLULAR
+
+HKR, Responses, "<cr><lf>OK<cr><lf>",           1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",      1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",        1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",   1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",  1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIAL TONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",         1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",    1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",         1, 08, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>FAX<cr><lf>",          1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATA<cr><lf>",         1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>VOICE<cr><lf>",        1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RINGING<cr><lf>",      1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DELAYED<cr><lf>",      1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BLACKLISTED<cr><lf>",  1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>",     1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",                              1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600<cr><lf>",                          1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/REL-LAPM V.42 BIS<cr><lf>",        1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/REL<cr><lf>",                      1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600<cr><lf>",                         1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/R

@@ -1,0 +1,128 @@
+ TransmitBuffIndex = *($(TransmitBuffValues), ~($(TransmitBuffList),$(Combo3Out)))
+		set ReceiveBuffIndex = *($(ReceiveBuffValues), ~($(ReceiveBuffList),$(Combo2Out)))
+		ifstr(i) *($(RadioOut),1) == 1
+			Set FullDuplexEnableIndex = 1
+		else
+			Set FullDuplexEnableIndex = 2
+		endif
+		set RequestedTTRTIndex = *($(EditTextOut),1)
+		FreeLibrary $(hLib)
+		ui pop 1
+		ifstr(i) $(StartLabel) == installadapter
+			Set Successful_Install = 1
+			goto returnpoint
+		endif
+	else-ifstr(i) $(DLGEVENT) == "NOTIFY"
+		goto restart
+	else-ifstr(i) $(DLGEVENT) == "BACK"
+		FreeLibrary $(hLib)
+		ui pop 1
+		ifstr(i) $(StartLabel) == installadapter
+			goto returnpoint
+		else
+			CloseRegKey $(KeyParameters)
+			set CommonStatus = STATUS_USERCANCEL
+			goto end
+		endif
+	else
+		FreeLibrary $(hLib)
+		ui pop 1
+		goto end
+	endif
+	set NewValueList = {{RcvBuffCnt,$(NoTitle),$(!REG_VT_DWORD),$(ReceiveBuffIndex)},+
+						{BurstSize,$(NoTitle),$(!REG_VT_DWORD),$(BurstSizeIndex)},+
+						{XmtBuffCnt,$(NoTitle),$(!REG_VT_DWORD),$(TransmitBuffIndex)},+
+						{FullDuplexEnable,$(NoTitle),$(!REG_VT_DWORD),$(FullDuplexEnableIndex)},+
+						{RequestedTTRT,$(NoTitle),$(!REG_VT_DWORD),$(RequestedTTRTIndex)}}
+	Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		goto ShellCodeError
+	endif
+	CloseRegKey $(KeyParameters)
+	goto successful
+nextstep = +
+	StartWait
+installproduct = +
+	Shell $(UtilityInf), EISAFindBus, $(DEC300_1BYTE)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		goto ShellCodeError
+	endif
+	ifstr $($R0) != "NO_ERROR"
+		set Error = $($R0)
+		goto fatal
+	endif
+	ifstr(i) $($R1) == {}
+		set Error = $(CANNOT_FIND_ANY_CARD)
+		set CommonStatus = STATUS_USERCANCEL
+		set from = end
+		goto nonfatal
+	endif
+	set AdapterList = $($R1)
+	Set AllAdaptersInstalled = $(TRUE)
+	ForListDo $(AdapterList)
+		set BusNum = *($($),1)
+		set SlotNum = *($($),2)
+		Shell $(UtilityInf), IsNetCardAlreadyInstalled, $(BusNum), +
+			$(SlotNum), $(ProductHardwareDescription), $(ProductHardwareName)
+		ifint $($ShellCode) != $(!SHELL_CODE_OK)
+			goto ShellCodeError
+		endif
+		ifstr $($R0) != "NO_ERROR"
+			set Error = $($R0)
+			goto fatal
+		endif
+		ifstr(i) $($R1) != "YES"
+				Set AllAdaptersInstalled = $(FALSE)
+				Set ReceiveBuffValue = 4
+				Set TransmitBuffValue = 32
+				Set BurstSizeValue = 16
+				Set EditTextIn = {"8"}
+				Set RadioIn = {2}
+				Set Caption = $(FunctionTitle)
+				Set Label1  = "Slot #"$(SlotNum)
+				Set ExitButton = ""
+				goto displaydialog
+		else
+				Set ExitButton = ""
+				Set OldVersionExisted = $(TRUE)
+		endif
+returnpoint = +
+		ifstr(i) $(ExitButton) == "CONTINUE"
+			Set List1 = >($(List1),$(BusNum))
+			Set List2 = >($(List2),$(SlotNum))
+			Set List3 = >($(List3),$(ReceiveBuffIndex))
+			Set List4 = >($(List4),$(BurstSizeIndex))
+			Set List5 = >($(List5),$(TransmitBuffIndex))
+			Set List6 = >($(List6),$(FullDuplexEnableIndex))
+			Set List7 = >($(List7),$(RequestedTTRTIndex))
+		endif
+	EndForListDo
+	ifstr(i) $(AllAdaptersInstalled) == $(TRUE)
+		shell $(subroutineinf) SetupMessage ENG NONFATAL "All DEC FDDIcontroller/EISA adapters already installed"
+	endif
+	ifstr(i) $(Successful_Install) == 1
+		Debug-Output "Successful Install"
+	ifint $(OldVersionExisted) == $(FALSE)
+		Ifstr(i) $(DoCopy) == "YES"
+		   Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+		   Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+			   Goto ShellCodeError
+		   Else-Ifstr(i) $($R0) == STATUS_FAILED
+			   Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+			   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+				  goto ShellCodeError
+			   endif
+			   set Error = $($R0)
+			   Goto fatal
+		   Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+			   Goto successful
+		   Endif
+		   Set SrcDir = $($R1)
+		Endif
+		install "Install-Option"
+		ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+		   Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+		   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+			   goto ShellCodeError
+		   endif
+		  

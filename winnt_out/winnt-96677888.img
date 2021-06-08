@@ -1,0 +1,162 @@
+ation types
+oleImgEdit1.SelectTool AnnoFilledRect
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = False
+mnuAttachNote.Checked = False
+mnuFillRect.Checked = True
+mnuFreeHand.Checked = False
+mnuHiLight.Checked = False
+mnuHollowRect.Checked = False
+mnuStamp.Checked = False
+mnuStraightLine.Checked = False
+mnuTextFromFile.Checked = False
+mnuTypedText.Checked = False
+
+End Sub
+
+Private Sub mnuFirst_Click()
+'Save current page if modified, then store the current
+'page number and display the first page
+If oleImgEdit1.ImageModified = True Then
+    If MsgBox(ImageChanged, vbYesNo) = vbYes Then
+        mnuSave_Click
+    End If
+End If
+LastPage = oleImgEdit1.page
+oleImgEdit1.page = 1
+oleImgEdit1.Display
+
+'Update the selected page thumbnail
+oleImgThumbnail1.DeselectAllThumbs
+oleImgThumbnail1.ThumbSelected(1) = True
+End Sub
+
+Private Sub mnuFitHeight_Click()
+'Zoom the image so that its vertical
+'dimension fits within the display window
+oleImgEdit1.FitTo (FitHeight)
+
+'check the current menu pick and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = True
+mnuFitWidth.Checked = False
+mnuZoomToSelection.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+Private Sub mnuFitWidth_Click()
+'Zoom the image so that its horizontal
+'dimension fits within the display window
+oleImgEdit1.FitTo (FitWidth)
+
+'check the current menu pick and uncheck the others.
+mnuBestFit.Checked = False
+mnuFitHeight.Checked = False
+mnuFitWidth.Checked = True
+mnuZoomToSelection.Checked = False
+mnu25.Checked = False
+mnu50.Checked = False
+mnu75.Checked = False
+mnu100.Checked = False
+mnu200.Checked = False
+mnu400.Checked = False
+End Sub
+
+Private Sub mnuFlip_Click()
+'Rotate the image 180 degrees.
+oleImgEdit1.Flip
+End Sub
+
+Private Sub mnuFreeHand_Click()
+'see documentation for the list of annotation types
+oleImgEdit1.SelectTool AnnoFreehand
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = False
+mnuAttachNote.Checked = False
+mnuFillRect.Checked = False
+mnuFreeHand.Checked = True
+mnuHiLight.Checked = False
+mnuHollowRect.Checked = False
+mnuStamp.Checked = False
+mnuStraightLine.Checked = False
+mnuTextFromFile.Checked = False
+mnuTypedText.Checked = False
+
+End Sub
+
+Private Sub mnuFullScreen_Click()
+'resize the Image Edit window to maximize the display
+
+If mnuFullScreen.Checked Then
+    frmSample.WindowState = 0
+    mnuFullScreen.Checked = False
+Else
+    frmSample.WindowState = 2
+    mnuFullScreen.Checked = True
+End If
+End Sub
+
+Private Sub mnuGoTo_Click()
+'Save current page if modified, then store the current
+'page number and display the GoTo Page dialog box
+If oleImgEdit1.ImageModified = True Then
+    If MsgBox(ImageChanged, vbYesNo) = vbYes Then
+        mnuSave_Click
+    End If
+End If
+LastPage = oleImgEdit1.page
+frmGotoDlg.Show
+End Sub
+
+Private Sub mnuHelp_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuHideAnnotation_Click()
+'Toggle the display of annotations
+If mnuHideAnnotation.Checked = True Then
+    'show all hidden annotations
+    oleImgEdit1.ShowAnnotationGroup
+    oleImgEdit1.Refresh
+    mnuHideAnnotation.Checked = False
+Else
+    'hide all displayed annotations
+    oleImgEdit1.HideAnnotationGroup
+    oleImgEdit1.Refresh
+    mnuHideAnnotation.Checked = True
+End If
+
+End Sub
+
+Private Sub mnuHiLight_Click()
+'see documentation for the list of annotation types
+oleImgEdit1.SelectTool AnnoHiLight
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = False
+mnuAttachNote.Checked = False
+mnuFillRect.Checked = False
+mnuFreeHand.Checked = False
+mnuHiLight.Checked = True
+mnuHollowRect.Checked = False
+mnuStamp.Checked = False
+mnuStraightLine.Checked = False

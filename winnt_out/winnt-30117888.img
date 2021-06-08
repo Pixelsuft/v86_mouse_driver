@@ -1,0 +1,126 @@
+TRTIndex)
+	endif
+	ifstr(i) $(BusNumber) == ""
+		set EditText2 = 0
+	else
+		set EditText2 = $(BusNumber)
+	endif
+	ifstr(i) $(CardInstanceIndex) == ""
+		set EditText3 = 1
+	else
+		set EditText3 = $(CardInstanceIndex)
+	endif
+	set ReceiveBuffValue = *($(ReceiveBuffList), ~($(ReceiveBuffValues),$(RcvBuffCntIndex)))
+	ifstr(i) $(ReceiveBuffValue) == ""
+		set ReceiveBuffValue = 4
+	endif
+	set TransmitBuffValue = *($(TransmitBuffList), ~($(TransmitBuffValues),$(XmtBuffCntIndex)))
+	ifstr(i) $(TransmitBuffValue) == ""
+		set TransmitBuffValue = 32
+	endif
+	set BurstSizeValue = *($(BurstSizeList), ~($(BurstSizeValues),$(BurstSizeIndex)))
+	ifstr(i) $(BurstSizeValue) == ""
+		set BurstSizeValue = 16
+	endif
+	set RequestedTTRTValue = RequestedTTRTIndex
+	ifstr(i) $(RequestedTTRTValue) == ""
+		set RequestedTTRTValue = 8
+	endif
+	set CardInstanceValue = CardInstanceIndex
+	ifstr(i) $(CardInstanceValue) == ""
+		set CardInstanceValue = 1
+	endif
+	set BusNumberValue = BusNumber
+	ifstr(i) $(BusNumberValue) == ""
+		set BusNumberValue = 0
+	endif
+displaydialog = +    
+	set ExitButton = ""
+        LoadLibrary "x" $(!STF_WINDOWSSYSPATH)\$(DialogDllName) hLib
+	read-syms FileDependentDlg$(!STF_LANGUAGE)
+restart = +    
+	set NotifyFields = {NO,NO,NO}
+	ui start "InputDlg" $(hLib)
+	set ExitButton = $(DLGEVENT)
+	ifstr(i) $(DLGEVENT) == "CONTINUE"
+		ifint *($(EditTextOut),1) < 4
+			shell $(subroutineinf) SetupMessage ENG NONFATAL "Requested TTRT must be between 4 and 165 ms"
+			goto restart
+		else-ifint *($(EditTextOut),1) > 165
+			shell $(subroutineinf) SetupMessage ENG NONFATAL "Requested TTRT must be between 4 and 165 ms"
+			goto restart
+		endif
+		set RequestedTTRTIndex = *($(EditTextOut),1)
+		set BusNumber     = *($(EditTextOut),2)
+		set CardInstanceIndex  = *($(EditTextOut),3)
+		set RcvBuffCntIndex = *($(ReceiveBuffValues), ~($(ReceiveBuffList),$(Combo1Out)))
+		set XmtBuffCntIndex = *($(TransmitBuffValues), ~($(TransmitBuffList),$(Combo2Out)))
+		set BurstSizeIndex = *($(BurstSizeValues), ~($(BurstSizeList),$(Combo3Out)))
+		ifstr(i) *($(RadioOut),1) == 1
+			Set FullDuplexEnableIndex = 1
+		else
+			Set FullDuplexEnableIndex = 2
+		endif
+		FreeLibrary $(hLib)
+		ui pop 1
+		ifstr(i) $(StartLabel) == installadapter
+			Set Successful_Install = 1
+			goto returnpoint
+		endif
+	else-ifstr(i) $(DLGEVENT) == "BACK"
+		FreeLibrary $(hLib)
+		ui pop 1
+		ifstr(i) $(StartLabel) == installadapter
+			goto returnpoint
+		else
+			CloseRegKey $(KeyParameters)
+			set CommonStatus = STATUS_USERCANCEL
+			Debug-Output "Action: exit. Bye."
+			goto end
+		endif
+	else
+		FreeLibrary $(hLib)
+		ui pop 1
+		Debug-Output "Action: unknown. Bye."
+		goto end
+	endif
+	set NewValueList = {{RcvBuffCnt,$(NoTitle),$(!REG_VT_DWORD),$(RcvBuffCntIndex)},+
+			    {BurstSize,$(NoTitle),$(!REG_VT_DWORD),$(BurstSizeIndex)},+
+			    {XmtBuffCnt,$(NoTitle),$(!REG_VT_DWORD),$(XmtBuffCntIndex)},+
+			    {FullDuplexEnable,$(NoTitle),$(!REG_VT_DWORD),$(FullDuplexEnableIndex)},+
+			    {RequestedTTRT,$(NoTitle),$(!REG_VT_DWORD),$(RequestedTTRTIndex)}}
+	Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+		goto ShellCodeError
+	endif
+	CloseRegKey $(KeyParameters)
+	goto successful
+adapteroptions = +
+	StartWait
+installproduct = +
+	Set BusNumber = 0
+	Set CardInstance = 1
+	Set ReceiveBuffValue = 4
+	Set TransmitBuffValue = 32
+	Set BurstSizeValue = 16
+	Set EditText1 = 8
+	Set EditText2 = 0
+	Set EditText3 = 1
+	Set RadioIn = {2}
+	Set Caption = $(FunctionTitle)
+	Set ExitButton = ""
+        set Vendor = 4113
+        set CFID = 15
+        Shell $(UtilityInf), GetPCIInformation, $(Vendor) $(CFID)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             goto ShellCodeError
+        endif
+        ifstr(i) $($R0) == {}
+             set Error = $(CANNOT_FIND_ANY_CARD)
+             set CommonStatus = USER_CANCEL
+             set from = end
+             goto nonfatal
+        endif
+        set AdapterList = $($R0)
+	ifint $(OldVersionExisted) == $(FALSE)
+	  if

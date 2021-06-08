@@ -1,0 +1,93 @@
+[RegistryConstants]
+    MaskAllAccess          = 33554432
+    NoTitle                = 0
+    RegLastError           = $(!REG_ERROR_SUCCESS)
+[GetNTSource]
+    set Status = STATUS_SUCCESSFUL
+    read-syms RegistryConstants
+    set NTSource = A:\
+    set KeyName = "Software\Microsoft\Windows NT\CurrentVersion"
+    OpenRegKey $(!REG_H_LOCAL) "" $(KeyName) $(!REG_KEY_READ) KeyHandle
+    ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "REGISTRY.INF: Couldn't open windows nt software key for read access"
+        goto end_getntsource
+    endif
+    GetRegValue $(KeyHandle) "SourcePath" SourcePathValue
+    ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        CloseRegKey $(KeyHandle)
+        goto end_getntsource
+    endif
+    set NTSource =  *($(SourcePathValue), 4)
+    CloseRegKey $(KeyHandle)
+end_getntsource = +
+    Return $(Status) $(NTSource)
+[MakeServicesEntry]
+    set Status = STATUS_FAILED
+    read-syms RegistryConstants
+    Debug-Output "REGISTRY.INF: Creating Services node: "$($0)
+    OpenRegKey $(!REG_H_LOCAL) "" "system\"$(!STF_CONTROLSET)"\services" $(MaskAllAccess) ServicesKey
+    ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "REGISTRY.INF: Failed to open services key"
+        goto finish_MakeServicesEntry
+    endif
+    set StandardSet = { Type,           +
+                        Start,          +
+                        ErrorControl,   +
+                        Group,          +
+                        Dependencies,   +
+                        StartName,      +
+                        Password,       +
+                        BinaryPathName, +
+                        DisplayName     +
+                      }
+    ForListDo $(StandardSet)
+        set $($) = ""
+    EndForListDo
+    set KeyValues = {}
+    ForListDo $($1)
+       set Var   = *($($), 1)
+       set Value = *($($), 4)
+       ifcontains(i) $(Var) in $(StandardSet)
+           set $(Var) = $(Value)
+       else
+           set KeyValues = >($(KeyValues), $($))
+       endif
+    EndForListDo
+    set Error = NO
+    ForListDo { Type, Start, ErrorControl, BinaryPathName }
+        ifstr(i) $($($)) == ""
+            set Error = YES
+        endif
+    EndForListDo
+    ifstr(i) $(Error) == YES
+        Debug-Output "REGISTRY.INF: MakeServicesEntry was not passed in one of the three values: Type, Start, ErrorControl"
+        CloseRegKey $(ServicesKey)
+        goto finish_MakeServicesEntry
+    endif
+    set ServiceName = $($0)
+    LibraryProcedure STATUS, $(!LIBHANDLE), SetupCreateService $(ServiceName)      +
+                                                               $(DisplayName)      +
+                                                               $(Type)             +
+                                                               $(Start)            +
+                                                               $(ErrorControl)     +
+                                                               $(BinaryPathName)   +
+                                                               $(Group)            +
+                                                               $(Dependencies)     +
+                                                               $(StartName)        +
+                                                               $(Password)
+    ifstr(i) $(STATUS) != "SUCCESS"
+        Debug-Output "REGISTRY.INF: MakeServicesEntry: SetupCreateService function failed"
+        CloseRegKey $(ServicesKey)
+        goto finish_MakeServicesEntry
+    endif
+    set KeyPath   = {{$($0), $(NoTitle), $(MaskAllAccess)}}
+    shell "" CreateKey $(ServicesKey) $(KeyPath) $(KeyValues)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "REGISTRY.INF: Failed to shell CreateKey."
+        CloseRegKey $(ServicesKey)
+        goto error_MakeServicesEntry
+    endif
+    ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "REGISTRY.INF: Failed to create services node."
+        CloseRegKey $(ServicesKey)
+        goto error_MakeServicesEntry

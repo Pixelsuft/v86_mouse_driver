@@ -1,0 +1,94 @@
+.inf" PushBillboard NETSTATUSDLG $(Status)
+        Set BillboardVisible = 1
+    Else-ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    set AddCopy  = YES
+    set DoCopy   = YES
+    set DoConfig = YES
+    set InvokedByRas = YES
+    set SaveNTN_InstallMode = $(!NTN_InstallMode)
+    set SaveSTF_INSTALL_MODE = $(!STF_INSTALL_MODE)
+    set !NTN_InstallMode = install
+    set !STF_INSTALL_MODE = EXPRESS
+    Shell $(ThisInfName) InstallOption $(!STF_LANGUAGE) $(InfOption) $(!STF_SRCDIR) $(AddCopy) $(DoCopy) $(DoConfig) $(InvokedByRas)
+    set !NTN_InstallMode = $(SaveNTN_InstallMode)
+    set !STF_INSTALL_MODE = $(SaveSTF_INSTALL_MODE)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVRA.INF: INF "$(ThisInfName)" SHELL ERROR!"
+        Goto InstallProtocolEscape
+    Endif
+    Set InstallProtocolStatus = $($R0)
+    Ifstr(i) $(InstallProtocolStatus) != STATUS_SUCCESSFUL
+        Ifstr(i) $(InstallProtocolStatus) != STATUS_USERCANCEL
+            Debug-Output "OEMNSVRA.INF: INF "$(ThisInfName)" returned "$(InstallProtocolStatus)
+            Goto InstallProtocolEscape
+        Endif
+    Endif
+InstallProtocolEscape = +
+    set Status = $(InstallProtocolStatus)
+    return $(Status)
+[UpgradeSelectedProtocols]
+    Debug-Output "UpgradeSelectedProtocols entry."
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set RasKeyName =  $(!NTN_SoftwareBase)"\Microsoft\Ras"
+    set RasProtocolName =  $(!NTN_SoftwareBase)"\Microsoft\Ras\Protocols"
+    set RasServiceParmName =  $(!NTN_ServiceBase)"\Remoteaccess\Parameters"
+    set AsyMacServiceParmName = $(!NTN_ServiceBase)"\AsyncMac\Parameters"
+    set RasManPPPName = $(!NTN_ServiceBase)"\RasMan\PPP"
+    set GtwyEnabled = 1
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasServiceParmName) $(!MAXIMUM_ALLOWED) KeyParam
+    ifstr $(KeyParam) != $(KeyNull)
+        GetRegValue $(KeyParam), "NetBiosGatewayEnabled", GtwyEnabledList
+        ifint $(RegLastError) == 0
+            set GtwyEnabled = *($(GtwyEnabledList), 4)
+        endif
+        CloseRegKey $(KeyParam)
+    else
+        Debug-Output "UpgradeSelectedProtocols: error opening RemoteAccess\Parameters key"
+    endif
+    set DialinNBF    = 0
+    set DialinIP     = 0
+    set DialoutNBF   = 0
+    set DialoutIP    = 0
+    set DialinoutIPX = 0
+    OpenRegKey $(!REG_H_LOCAL) "" $(AsyMacServiceParmName) $(!MAXIMUM_ALLOWED) KeyParam
+    ifstr $(KeyParam) != $(KeyNull)
+        GetRegValue $(KeyParam), "DialinNBF", DialinNBFList
+        ifint $(RegLastError) == 0
+            set DialinNBF = *($(DialinNBFList), 4)
+        endif
+        GetRegValue $(KeyParam), "DialinIP", DialinIPList
+        ifint $(RegLastError) == 0
+            set DialinIP = *($(DialinIPList), 4)
+        endif
+        GetRegValue $(KeyParam), "DialoutNBF", DialoutNBFList
+        ifint $(RegLastError) == 0
+            set DialoutNBF = *($(DialoutNBFList), 4)
+        endif
+        GetRegValue $(KeyParam), "DialoutIP", DialoutIPList
+        ifint $(RegLastError) == 0
+            set DialoutIP = *($(DialoutIPList), 4)
+        endif
+        GetRegValue $(KeyParam), "DialinoutIPX", DialinoutIPXList
+        ifint $(RegLastError) == 0
+            set DialinoutIPX = *($(DialinoutIPXList), 4)
+        endif
+        CloseRegKey $(KeyParam)
+    else
+        Debug-Output "UpgradeSelectedProtocols: error opening AsyncMac\Parameters key"
+    endif
+    set fDownLevel = FALSE
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasProtocolName) $(!MAXIMUM_ALLOWED) RasProtocolKey
+    ifstr $(RasProtocolKey) == $(KeyNull)
+        set fDownLevel = TRUE
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasKeyName) $(!MAXIMUM_ALLOWED) RasKey
+        CreateRegKey $(RasKey) {"Protocols",0,GenericClass} "" $(!MAXIMUM_ALLOWED) "" RasProtocolKey
+        OpenRegKey $(RasKey) "" "Protocols" $(!MAXIMUM_ALLOWED) RasProtocolKey
+        CloseRegKey $(RasKey)
+    endif
+    ifstr $(RasProtocolKey) != $(KeyNull)
+        set MultilinkList = {}
+        GetRegValue $(RasProtoco

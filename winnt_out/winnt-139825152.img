@@ -1,0 +1,85 @@
+ags),1)
+        Set DoClient      = *($(InstalledFlags),2)
+        Set DoAdmin       = *($(InstalledFlags),3)
+        Set DoServerOnly  = *($(InstalledFlags),4)
+        Set DoClientOnly  = *($(InstalledFlags),5)
+        Set DoAdminOnly   = *($(InstalledFlags),6)
+    Endif
+    Debug-Output "Installed List is "$(InstalledComps)
+    Debug-Output "Installed Flags is "$(InstalledFlags)
+    set AsyStartValue = 4
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacKeyName) $(!MAXIMUM_ALLOWED) KeyMac
+    ifstr $(KeyMac) == $(KeyNull)
+        Debug-Output "OEMNSVRA.INF: could not open AsyncMac key"
+    else
+        GetRegValue $(KeyMac), "Start" AsyStartInfo
+        ifint $(RegLastError) == 0
+            set AsyStartValue = *($(AsyStartInfo), 4)
+        endif
+        Debug-Output "OEMNSVRA.INF: AsyncMac start value "$(AsyStartValue)
+        CloseRegKey $(KeyMac)
+    endif
+    set NdisWanParam = {}
+    set NdisWanEndPointsLst = {}
+    ifint $(AsyStartValue) != 4
+        set RasMacLinkageKey = $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasMacLinkageKeyName) $(!MAXIMUM_ALLOWED) RasMacLinkageKey
+        ifstr $(RasMacLinkageKey) == $(KeyNull)
+            Debug-Output "OEMNSVRA.INF: could not open AsyncMac linkage key"
+            set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+            goto fatalregistry
+        endif
+        GetRegValue $(RasMacLinkageKey), "Bind" BindInfo
+	set NdisWanParam = *($(BindInfo), 4)
+        CloseRegKey $(RasMacLinkageKey)
+	set NdisWanParamKey = $(KeyNull)
+	OpenRegKey $(!REG_H_LOCAL) "" $(NdisWanParamKeyName) $(!MAXIMUM_ALLOWED) NdisWanParamKey
+	ifstr $(NdisWanParamKey) == $(KeyNull)
+	    Debug-Output "OEMNSVRA.INF: could not open NdisWanParamKey"
+        else
+	    GetRegValue $(NdisWanParamKey), "EndPoints" EndPointsInfo
+            set EndPointsLst = *($(EndPointsInfo), 4)
+	    set NdisWanEndPointsLst = >($(NdisWanEndPointsLst),*($(EndPointsLst), 1))
+	    CloseRegKey $(NdisWanParamKey)
+        endif
+    endif
+    set ProviderList = {}
+    set RasTapiDevicesKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasTapiDevicesKeyName) $(!MAXIMUM_ALLOWED) RasTapiDevicesKey
+    ifstr $(RasTapiDevicesKey) != $(KeyNull)
+       set TapiProviderList = {}
+       EnumRegKey $(RasTapiDevicesKey) TapiProviderList
+       ForListDo $(TapiProviderList)
+           set TapiAddress = {}
+           set NumEndPoints = 0
+           set ProviderName = *($($),1)
+           Debug-Output "OEMNSVRA.INF: TAPI provider name = "$(ProviderName)
+           OpenRegKey $(RasTapiDevicesKey) "" $(ProviderName) $(!MAXIMUM_ALLOWED) Provider
+           ifstr $(Provider) != $(KeyNull)
+               GetRegValue $(Provider), "Address" TapiAddress
+               set AdapterNum = ""
+               set EndPointCount = 0
+               set tmpNdisWanParam = {}
+               set tmpNdisWanEndPointsLst = {}
+               set DeviceName = ""
+               ForListDo *($(TapiAddress),4)
+                   Split-String $($) "- " Address
+                   set NewAdapterNum = *($(Address), 1)
+                   ifstr(i) $(AdapterNum) != $(NewAdapterNum)
+                     ifstr(i) $(AdapterNum) != ""
+                        set tmpNdisWanParam = >($(tmpNdisWanParam), $(DeviceName))
+                        set tmpNdisWanEndPointsLst = >($(tmpNdisWanEndPointsLst), $(EndPointCount))
+                        set EndPointCount = 0
+                     endif
+                     set AdapterNum = $(NewAdapterNum)
+                     set DeviceName = "\Device\"$(ProviderName)$(AdapterNum)
+                   endif
+                   set-add EndPointCount = $(EndPointCount), 1
+               EndForListDo
+               ifstr $(DeviceName) != ""
+                   set tmpNdisWanParam = >($(tmpNdisWanParam), $(DeviceName))
+                   set tmpNdisWanEndPointsLst = >($(tmpNdisWanEndPointsLst), $(EndPointCount))
+               endif
+               CloseRegKey $(Provider)
+           else
+              Debug-Output "OEMNSVRA.INF: could not open RAS\TAPI DEVICES\"$(D

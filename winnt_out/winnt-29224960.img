@@ -1,0 +1,89 @@
+llCode) != $(!SHELL_CODE_OK)
+               Debug-Output "OEMNSVNW.INF: ShellCode error"
+               goto ShellCodeError
+           endif
+           set RegistryErrorIndex = $($R0)
+           Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+               goto fatalregistry
+           endif
+        endif
+    EndForListDo
+    set NwlnkName = "NWLINKIPX"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NWLINKIPX" $(MAXIMUM_ALLOWED) BS_KeyServices
+    Ifstr $(BS_KeyServices) == $(KeyNull)
+        set NwlnkName = "NWLNKIPX"
+    endif
+    Shell "UTILITY.INF", DecrementRefCount, "Software\Microsoft\"$(NwlnkName)"\CurrentVersion"
+    Set FLibraryErrCtl = 1
+    set FoundAutoExec = TRUE
+    set AutoExecName = "autoexec.nt"
+    LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName)
+    ifstr(i) $(STATUS) == NO
+        set AutoExecName = "autoexec.tmp"
+        LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName)
+        ifstr(i) $(STATUS) == NO
+            set FoundAutoExec = FALSE
+        endif
+    endif
+    ifstr(i) $(FoundAutoExec) == TRUE
+        LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), $(REM1)$(LF)
+        LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), "lh %SystemRoot%\system32\nw16"$(LF)
+        LibraryProcedure Result $(!NWCFG_HANDLE), RemoveSzFromFile, $(!STF_WINDOWSSYSPATH)"\"$(AutoExecName), "lh %SystemRoot%\system32\vwipxspx"$(LF)
+    endif
+    Set FLibraryErrCtl = 0
+    Shell $(UtilityInf) RemoveNetworkProvider $(ProviderName)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVNW.INF: ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto fatalregistry
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\NetworkProvider\ShortName" $(MAXIMUM_ALLOWED) ShortNameKey
+    ifstr $(ShortNameKey) != $(KeyNull)
+         DeleteRegValue $(ShortNameKey) "NW"
+    else
+        debug-output "something wrong..."
+    endif
+    Set FLibraryErrCtl = 1
+    LibraryProcedure Result $(!NWCFG_HANDLE), CleanupRegistryForNWCS
+    Set FLibraryErrCtl = 0
+    FreeLibrary $(!NWCFG_HANDLE)
+    Install "RestoreFiles"
+    Set FLibraryErrCtl = 1
+    AddfileToDeleteList $(!STF_WINDOWSSYSPATH)"\nwc.cpl"
+    AddfileToDeleteList $(!STF_WINDOWSSYSPATH)"\nwapi32.dll"
+    LibraryProcedure Status1, $(!LIBHANDLE), DelFile, $(!STF_WINDOWSSYSPATH)"\nwc.cpl"
+    LibraryProcedure Status1, $(!LIBHANDLE), DelFile, $(!STF_WINDOWSSYSPATH)"\nwapi32.dll"
+    Set FLibraryErrCtl = 0
+    Shell "" RemoveBackupFiles
+    goto end
+UpgradeSoftware = +
+    LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(SrcDir)"\nwc.2a"
+    ifstr(i) $(STATUS) == YES
+        Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(UpgradeBetaOnTopOfDaytona)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(SrcDir)"\nwc.2b"
+    ifstr(i) $(STATUS) == YES
+        Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(UpgradeBetaOnTopOfDaytona)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    Install "Install-Update"
+    ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+        goto fatal
+    endif
+    LoadLibrary "nw" $(!STF_CWDDIR)\nwcfg.dll !NWCFG_HANDLE
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        ifstr(i) $(!STF_NTUPGRADE) != "YES"
+            ifstr(i) $(STF_CONTEXTINFNAME) != "oemnsvnw.inf"
+                OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\NetRules" $(MAXIMUM_ALLOWED) KeyNetRules
+                Ifstr $(KeyNetRules) != $(KeyNull)

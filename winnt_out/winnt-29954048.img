@@ -1,0 +1,104 @@
+OK)
+                    goto ShellCodeError
+               endif
+               CloseRegKey $(HardNetCardKey)
+               CloseRegKey $(HardNetRuleKey)
+               set NewValueList = {{BusNumber,$(NoTitle),$(!REG_VT_DWORD),$(BusNum)},+
+                                   {SlotNumber,$(NoTitle),$(!REG_VT_DWORD),$(DeviceNum)},+
+                                   {FunctionNumber,$(NoTitle),$(!REG_VT_DWORD),$(FunctionNum)}}
+               Shell  $(UtilityInf), AddValueList, $(HardParameterKey), $(NewValueList)
+               CloseRegKey $(HardParameterKey)
+            endif       
+        endif
+    EndForListDo
+    EndWait
+    goto successful
+updateparameters =+
+    set HardParameterKey    = $($R3)
+    set NewValueList = {{ConnectionType,$(NoTitle),$(!REG_VT_DWORD),$(ConnectionValue)}}
+   Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+     goto ShellCodeError
+   endif
+   CloseRegKey $(KeyParameters)
+    goto successful
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+        endif
+    else
+        Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), $(!NTN_RegBase)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+        endif
+    endif
+    goto end
+UpgradeSoftware = +
+     OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+     Ifstr $(KeyProduct) != $(KeyNull)
+           Shell $(UtilityInf), GetInfFileNameFromRegistry, $(KeyProduct)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error"
+               goto ShellCodeError
+           endif
+           set !UG_Filename = $($R0)
+           install "Install-Update"
+           ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+               goto fatal
+           endif
+           SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+           SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+           CloseRegKey $(KeyProduct)
+     else
+           goto fatalregistry
+     endif
+    ifstr(i) $(Option) == "DE425"    
+        set OpSupport = $(ProductDE425OpSupport)
+    else
+        set OpSupport = $(ProductOpSupport)
+    endif
+    set iSearch = 1
+nextnetcard = +
+    Shell $(UtilityInf), FindNextNetworkCard, $(ProductHardwareName), $(iSearch)
+    set KeyNetcard = $($R0)
+    set iSearch = $($R1)
+    Debug-Output "OemNadEp.Inf: FindNextNetworkCard "$(KeyNetcard)","$(iSearch)
+    Ifstr $(KeyNetcard) != $(KeyNull)
+        Debug-Output "OemNadEp.Inf: Setting OperationsSupport value"
+        SetRegValue $(KeyNetcard) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(OpSupport)}
+        CloseRegKey $(KeyNetcard)
+        goto nextnetcard
+    Endif
+     goto end
+successful = +
+    goto end
+abandon = +
+    ForListDo $(OEM_ABANDON_OPTIONS)
+        Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), $($)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            goto fatalregistry
+        endif
+    EndForListDo
+    Ifstr(i) $(OEM_ABANDON_SOFTWARE) == TRUE
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), FAL

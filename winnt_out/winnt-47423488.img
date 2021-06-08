@@ -1,0 +1,131 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Communicate Limited
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+
+[Models]
+%Modem6% = Modem6, PCMCIA\COMMUNICATE-CONNEXION__GSM_-3B85 
+%Modem6% = Modem6, UNIMODEMC3EBDFFA
+%Modem6% = Modem6, PCMCIA\COMMUNICATE-CONNEXION_GSM-4CCB
+%Modem6% = Modem6, UNIMODEM4ACD13AF
+%Modem6% = Modem6, PCMCIA\COMMUNICATE-ATLAS_GSM-B02A
+%Modem6% = Modem6, UNIMODEMC6A67A55
+%Modem5% = Modem5, PCMCIA\COMMUNICATE-CONNEXION_2880-FC46
+%Modem5% = Modem5, PCMCIA\COMMUNICATE-CONNEXION_2880-8162
+%Modem5% = Modem5, UNIMODEM68AFB6FA
+%Modem4% = Modem4, PCMCIA\COMMUNICATE-CONNEXION_2880C-272E
+%Modem4% = Modem4, UNIMODEMC33E6211
+%Modem3% = Modem3, PCMCIA\COMMUNICATE-CONNEXION_2496-DE53
+%Modem3% = Modem3, UNIMODEMF1349B13
+%Modem2% = Modem2, PCMCIA\COMMUNICATE-CONNEXION_1440-5672
+%Modem2% = Modem2, PCMCIA\COMMUNICATE-CONNEXION_1440-0927
+%Modem1% = Modem1, PCMCIA\COMMUNICATE-CONNEXION_1440C-CD02
+%Modem1% = Modem1, UNIMODEM168D3DBB
+%Modem1% = Modem1, PCMCIA\COMMUNICATE-CONNEXION_1440C-F10A
+
+
+; Installation sections
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, PCMCIA
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, PCMCIA
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, PCMCIA
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, PCMCIA
+
+; AddReg sections
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, ErrorControl_Cellular,, "+MS=10,1,4800,14400 S10=50"
+HKR, Settings, ErrorControl_Cellular_Forced,, "+MS=10,1,4800,14400 S10=10"
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Cellular,, "F6 S10=50"
+HKR, Settings, ErrorControl_Cellular_Forced,, "F6 S10=10"
+
+
+; Strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Communicate"
+
+; Model strings
+
+Modem6="Communicate Atlas GSM"
+Modem5="Communicate Connexion 2880"
+Modem4="Communicate Connexion 2880C"
+Modem3="Communicate Connexion 2496"
+Modem2="Communicate Connexion 1440"
+Modem1="Communicate Connexion 1440C"
+
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddReg]
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Init, 2,, "AT &F0 &D2 &C1 E0 -K0 %E2<cr>"
+ HKR, Init, 3,, "AT V1 W1 S95=47<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+HKR,, Reset,, "AT&FS0=0<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ";"
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+HKR, Settings, SpeakerMode_Off,, "M0"
+HKR, Settings, SpeakerMod

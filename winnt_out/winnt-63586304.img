@@ -1,0 +1,120 @@
+MDGMPMC32 =   116
+IDVMSMDGMPMC32 = McaPosId
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status         = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    ifcontains(i) $($0) in $(LanguageList)
+	ifstr(i) $($1) == ""
+	    goto Return_Options
+	endif
+	set PlatformList = ^(PlatformsSupported, 1)
+	ifcontains(i) $($1) in $(PlatformList)
+	    goto Return_Options
+	else
+	    set Status = STATUS_NOTSUPPORTED
+	    goto Finish_ReturnOptions
+	endif
+    else
+        set Status = STATUS_NOLANGUAGE
+	goto Finish_ReturnOptions
+    endif
+Return_Options = +
+    set OptionList     = ^(Options$($1), 1)
+    set OptionTextList = ^(OptionsText$($1)$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+Finish_ReturnOptions = +
+    return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    StartWait
+    set Status = STATUS_FAILED
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    Debug-Output "MADGE: STF_CWDIR    = "$(!STF_CWDIR)
+    Debug-Output "MADGE: STF_LANGUAGE = "$(!STF_LANGUAGE)
+    Debug-Output "MADGE: Option       = "$(Option)
+    Debug-Output "MADGE: SrcDir       = "$(SrcDir)
+    Debug-Output "MADGE: AddCopy      = "$(AddCopy)
+    Debug-Output "MADGE: DoCopy       = "$(DoCopy)
+    Debug-Output "MADGE: DoConfig     = "$(DoConfig)
+    set LanguageList = ^(LanguagesSupported, 1)
+    ifcontains(i) $($0) NOT-IN $(LanguageList)
+	return STATUS_NOLANGUAGE
+    endif
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_Origination) == "NCPA"
+	set Continue = $(OK)
+    endif
+    read-syms FileConstants$(!STF_LANGUAGE)
+    SetHelpFile "mdgmpdlg.hlp" $(MadgeHelpIdMin) $(MadgeHelpIdMax)
+    detect date
+    set-title $(FunctionTitle)
+    set To   = Begin
+    set From = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    set AdapterDetected     = FALSE
+    set MappedRawParameters = FALSE
+    ifstr(i) $(!NTN_InstallMode) == deinstall
+    	set StartLabel = Remove_Adapter
+    else-ifstr(i) $(!NTN_InstallMode) == Update
+	set StartLabel = Upgrade_Software
+    else-ifstr(i) $(!NTN_InstallMode) == bind
+    	set StartLabel = Binding_Adapter
+    else-ifstr(i) $(!NTN_InstallMode) == configure
+    	set CommonStatus = STATUS_REBOOT
+    	set StartLabel = Configure_Adapter
+    	ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+    	    Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+    	    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    		    goto Shell_Code_Error
+            endif
+	        set Error = $($R0)
+	        set From  = End
+	        set To    = End
+	        goto Non_Fatal_Info
+    	endif
+    else
+	    set StartLabel           = Install_Adapter
+	    set OEM_ABANDON_OPTIONS  = {}
+	    set OEM_ABANDON_SOFTWARE = FALSE
+	    set OEM_ABANDON_ON       = TRUE
+    endif
+    set From = Fatal
+    set To   = Fatal
+    goto $(StartLabel)
+Install_Adapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+	    CloseRegKey $(KeyProduct)
+	    ifstr(i) $(!NTN_RegBase) == $(ProductKeyName)
+	       Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+	           $(ProductVersion)
+	       ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	           goto Shell_Code_Error
+	       endif
+	       goto End
+	    else
+           ifstr(i) $(Option) != "MSMDGMPAUTO"
+   	           Shell $(UtilityInf), CardExistedDlg
+	           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	               goto Shell_Code_Error
+	           endif
+	           ifstr(i) $($R1) != "OK"
+	               

@@ -1,0 +1,130 @@
+>
+COMMAND_INIT=AT<compression><protocol><hwflowcontrol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+;-------------------------------------------
+[MultiTech MultiModem MT932]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&E4
+<hwflowcontrol_off>=&E3
+<compression_on>=&E15
+<compression_off>=&E14
+<protocol_on>=&E1
+<protocol_off>=&E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI2<cr>
+DETECT_RESPONSE=MT932BA
+
+COMMAND_INIT=AT&SF1&S0&W<cr>
+COMMAND_INIT=AT E1<cr>
+COMMAND_INIT=AT &F &C1 V1 &D2 &Q0 X4 &S0 S0=0 S2=128 S7=55 $BA0<cr>
+COMMAND_INIT=AT<compression><hwflowcontrol><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+;-------------------------------------------
+[MultiTech MultiModem MT1432]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&E4
+<hwflowcontrol_off>=&E3
+<compression_on>=&E15
+<compression_off>=&E14
+<protocol_on>=&E1
+<protocol_off>=&E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI2<cr>
+DETECT_RESPONSE=MT1432ZDX
+
+COMMAND_INIT=AT&SF1&S0&W<cr>
+COMMAND_INIT=AT E1<cr>
+COMMAND_INIT=AT &F &C1 V1 &D2 &Q0 X4 &S0 S0=0 S2=128 S7=55 $BA0<cr>
+COMMAND_INIT=AT<compression><hwflowcontrol><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+;-------------------------------------------
+[MultiTech MultiModem MT2834]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&E4
+<hwflowcontrol_off>=&E3
+<compression_on>=&E15
+<compression_off>=&E14
+<protocol_on>=&E1
+<protocol_off>=&E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=15
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=247
+DETECT_STRING=ATI2<cr>
+DETECT_RESPONSE=MT2834BA
+
+COMMAND_INIT=AT&SF1&S0&W<cr>
+COMMAND_INIT=AT E1<cr>
+COMMAND_INIT=AT &F &C1 V1 &D2 &Q0 X4 &S0 S0=0 S2=128 S7=55 $BA0<cr>
+COMMAND_INIT=AT<compression><hwflowcontrol><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNE

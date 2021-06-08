@@ -1,0 +1,137 @@
+
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2 E1 V1 W1 X4 S0=0 S7=60 S2=128<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+
+
+;-------------------------------------------
+[MultiTech MT932 - SWE]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&E4
+<hwflowcontrol_off>=&E3
+<compression_on>=&E15
+<compression_off>=&E14
+<protocol_on>=&E1
+<protocol_off>=&E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=AT&SF1&S0&W<cr>
+COMMAND_INIT=AT E1<cr>
+COMMAND_INIT=AT &F &C1 V1 &D2 &Q0 X4 &S0 S0=0 S2=128 S7=60 $BA0<cr>
+COMMAND_INIT=AT<compression><hwflowcontrol><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+;------------------------------------------------------------------------
+; Hardware flow control and error correction are set ON for stability.
+;
+; Connecting to modems with Advanced features may fail due to Guard tone
+; feature.
+;------------------------------------------------------------------------
+[UCOM FASTLINK 144 - SWE]
+<speaker_on>=L2M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K3
+<compression_on>=%C2
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N3
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=speaker compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=14400
+COMMAND_INIT=AT&F&C1&D2N0&G0W1<cr>
+COMMAND_INIT=AT V1 X4 S0=0 S2=128 S7=60<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[UCOM TRAVELLER 144 - SWE]
+alias=UCOM FASTLINK 144 - SWE
+
+;----------------------------------------
+[UDS Motorola FasTalk V32- SWE]
+CALLBACKTIME=20
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+;Maxconnect set down to 9600 and advanced features disabled for stability.
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 \\V1 \\Q0 %C0 \\N0 S0=0 S2=128<cr>
+COMMAND_INIT=AT<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+
+
+;---------------------------------------------------------------------------
+; Please note that this modem does NOT support 14,400bps DTE speed.
+;---------------------------------------------------------------------------
+; This modem does not support callback when connecting to MS RAS 1.x Servers
+;---------------------------------------------------------------------------
+[UFOMATE P1496MX - SWE]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=$F4
+<hwflowcontrol_off>=$F5
+<compression_on>=$C1
+<compression_off>=$C0
+<protocol_on>=$E3
+<protocol_off>=$E0
+<autodi

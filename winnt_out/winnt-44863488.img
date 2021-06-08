@@ -1,0 +1,47 @@
+1C,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 9600 EC/V42<cr><lf>",   1, 02, 02, 80,25,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 12000 EC/V42<cr><lf>",  1, 02, 02, E0,2E,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 14400 EC/V42<cr><lf>",  1, 02, 02, 40,38,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 16800 EC/V42<cr><lf>",  1, 02, 02, A0,41,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 19200 EC/V42<cr><lf>",  1, 02, 02, 00,4B,00,00, 00,00,00,00   
+
+HKR, Responses, "<cr><lf>CONNECT 1200 EC<cr><lf>",         1, 02, 03, B0,04,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 2400 EC/V42BIS<cr><lf>",  1, 02, 03, 60,09,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 4800 EC/V42BIS<cr><lf>",  1, 02, 03, C0,12,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 7200 EC/V42BIS<cr><lf>",  1, 02, 03, 20,1C,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 9600 EC/V42BIS<cr><lf>",  1, 02, 03, 80,25,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 12000 EC/V42BIS<cr><lf>", 1, 02, 03, E0,2E,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 14400 EC/V42BIS<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 16800 EC/V42BIS<cr><lf>", 1, 02, 03, A0,41,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 19200 EC/V42BIZ<cr><lf>", 1, 02, 03, 00,4B,00,00, 00,00,00,00   
+
+HKR, Responses, "<cr><lf>CONNECT REL<cr><lf>",        1, 02, 02, 00,00,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 300 REL<cr><lf>",    1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 REL<cr><lf>",    1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 REL<cr><lf>",   1, 02, 02, B0,04,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 2400 REL<cr><lf>",   1, 02, 02, 60,09,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 4800 REL<cr><lf>",   1, 02, 02, C0,12,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 7200 REL<cr><lf>",   1, 02, 02, 20,1C,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 9600 REL<cr><lf>",   1, 02, 02, 80,25,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 12000 REL<cr><lf>",  1, 02, 02, E0,2E,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 14400 REL<cr><lf>",  1, 02, 02, 40,38,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 16800 REL<cr><lf>",  1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 REL<cr><lf>",  1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600 REL<cr><lf>",  1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000 REL<cr><lf>",  1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 REL<cr><lf>",  1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 REL<cr><lf>",  1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 REL<cr><lf>",  1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 REL<cr><lf>",  1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 REL<cr><lf>", 1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200 REL/V42<cr><lf>",  1, 02, 02, B0,04,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 2400 REL/V42<cr><lf>",  1, 02, 02, 60,09,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 4800 REL/V42<cr><lf>",  1, 02, 02, C0,12,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 7200 REL/V42<cr><lf>",  1, 02, 02, 20,1C,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 9600 REL/V42<cr><lf>",  1, 02, 02, 80,25,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 12000 REL/V42<cr><lf>", 1, 02, 02, E0,2E,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 14400 REL/V42<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00   
+HKR, Responses, "<cr><lf>CONNECT 16800 REL/V42<cr><lf>", 1, 02,

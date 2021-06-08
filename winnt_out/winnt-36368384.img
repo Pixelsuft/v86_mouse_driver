@@ -1,0 +1,108 @@
+$0)
+       Set Pelem = $($)
+       Set Name = *($(Pelem),1)
+       Set Qvar = *($(Pelem),2)
+       Set Qvalue = *($(Pelem),3)
+       Ifstr(i) $(Qvar) != "NONE"
+           Set QnewValue = $(!p:$(Qvar))
+           Ifint $(QnewValue) != $(Qvalue)
+               Debug-Output "NCPARAM.INF: Param_DiffValues: param "$(Name)" value has changed"
+               Set Plist = >($(Plist),{$(Name),$(Qvar),$(QnewValue)})
+           Endif
+       Endif
+   EndForListDo
+   Return $(Plist)
+[Param_SetDefaults]
+   Set QueryList = $($0)
+   Debug-Output "NCPARAM.INF: Param_SetDefaults, QueryList = "$(QueryList)
+   ForListDo $(!STF_NC_PNAMES)
+       Set Pelem = $($)
+       Set Name = *($(Pelem),1)
+       Set Qvar = *($(Pelem),2)
+       Set Qvalue = *($(Pelem),3)
+       ForListDo $(QueryList)
+           Set Qname = *($($),1)
+           Ifstr(i) $(Qname) == $(Name)
+               Debug-Output "NCPARAM.INF: Param_SetDefaults: default override for param "$(Qname)
+               Set Qvalue = *($($),2)
+           Endif
+       EndForListDo
+       Ifstr(i) $(Qvar) != "NONE"
+           Debug-Output "NCPARAM.INF: Param_SetDefaults: setting "$(Qvar)" to "$(Qvalue)
+           Set !p:$(Qvar) = $(Qvalue)
+       Endif
+   EndForListDo
+   Return
+[Param_QueryCard]
+    Set CardIndex = $($0)
+    Set Status = STATUS_SUCCESSFUL
+    Set ResultList = {}
+    Debug-Output "OEMNADDE.INF: Querying parameters for netcard "$(CardIndex)
+    Set FLibraryErrCtl = 1  
+    LibraryProcedure NcpaResult $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), DTQUERY, $(CardIndex)
+    Set FLibraryErrCtl = 0
+    Set ErrorStatus = *($(NcpaResult),1)
+    Debug-Output "NCPARAM.INF: DTQUERY status was: "$(ErrorStatus)
+    Ifint $(ErrorStatus) != 0
+        Set Status = STATUS_FAILED
+    Else
+        Set ResultList = *($(NcpaResult),2)
+    Endif
+    Return $(Status) $(ResultList)
+[Param_VerifyCard]
+    Set CardIndex = $($0)
+    Set Status = STATUS_FAILED
+    Set VerifyList = {}
+    ForListDo $(!STF_NC_PNAMES)
+        Set Pelem = $($)
+        Set Name = *($(Pelem),1)
+        Set Qvar = *($(Pelem),2)
+        Set Qvalue = $(!p:$(Qvar))
+        Ifstr(i) $(Qvalue) != ""
+            Debug-Output "NCPARAM.INF: VerifyCard: "$(Qvar)" = "$(Qvalue)
+            Set VerifyList = >($(VerifyList),{$(Name),$(Qvalue)})
+        Endif
+    EndForListDo
+    Debug-Output "NCPARAM.INF: Verifying parameters for netcard "$(CardIndex)
+    Debug-Output "NCPARAM.INF: Parameters are: "$(VerifyList)
+    Set FLibraryErrCtl = 1  
+    LibraryProcedure NcpaResult $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), DTVERIFY, $(CardIndex), $(VerifyList)
+    Set FLibraryErrCtl = 0
+    Set ErrorStatus = *($(NcpaResult),1)
+    Debug-Output "NCPARAM.INF: DTVERIFY status was: "$(ErrorStatus)
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        Set Status = STATUS_SUCCESSFUL
+    else
+        Ifint $(ErrorStatus) == 0
+            Set Status = STATUS_SUCCESSFUL
+        Endif
+    endif
+    Return $(Status)
+[Param_VerifyResources]
+    Set DiffParamList = $($0)
+    Ifstr(i) $(DiffParamList) == {}
+        Set Status = STATUS_SUCCESSFUL
+        Goto PVR_Return
+    Endif
+    Set Status = STATUS_FAILED
+    Set VerifyList = {}
+    ForListDo $(DiffParamList)
+        Set Pelem = $($)
+        Set Name = *($(Pelem),1)
+        Set Qvar = *($(Pelem),2)
+        Set Qvalue = $(!p:$(Qvar))
+        Ifstr(i) $(Qvalue) != ""
+            Debug-Output "NCPARAM.INF: VerifyResources: "$(Qvar)" = "$(Qvalue)
+            Set VerifyList = >($(VerifyList),{$(Name),$(Qvalue)})
+        Endif
+    EndForListDo
+    Debug-Output "NCPARAM.INF: VerifyResources: Claiming changed resource parameter values"
+    Debug-Output "NCPARAM.INF: Parameters are: "$(VerifyList)
+    Set FLibraryErrCtl = 1  
+    LibraryProcedure NcpaResult $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), DTCLAIM, $(VerifyList)
+    Set FLibraryErrCtl = 0
+    Set ErrorStatus = *($(NcpaResult),1)
+    Debug-Output "NCPARAM.INF: DTCLAIM status was: "$(ErrorStatus)
+    Ifint $(ErrorStatus) == 0
+        Set Status = STATUS_SUCCESSFUL
+    En

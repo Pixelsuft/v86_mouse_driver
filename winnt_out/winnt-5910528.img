@@ -1,0 +1,158 @@
+
+;HKCU,"Software\Microsoft\Windows Messaging Subsystem\Profiles"
+
+; remove old info center from explorer
+HKLM,SOFTWARE\MICROSOFT\WINDOWS\CurrentVersion\Explorer\Desktop\NameSpace\{00020D23-0000-0000-C000-000000000046}
+HKLM,SOFTWARE\MICROSOFT\WINDOWS\CurrentVersion\Explorer\FindExtensions\Static\InfoCenter
+HKCR,CLSID\{00020D20-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D21-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D22-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D23-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D25-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D26-0000-0000-C000-000000000046}
+
+; delete any old extensions that may be hanging around
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","Schedule+"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","exutil"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","inetui"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","etexch"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","Exchange Extensions"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","Internet News"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","inewsui"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","ml3ext"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","MMFMig"
+
+[BaseCopyProgramFiles]
+mlset32.exe
+mlshext.dll
+
+[BaseDelFilesSys]
+mlcfg32.dll
+
+[MAPIDelFilesSys]
+mlcfg.cpl                       ;16-bit control panel
+mspst32.dll
+msfs32.dll
+moscfg32.dll
+awfaxp32.dll
+inews32.dll
+mdisp.tlb
+mdisp32.reg
+mdisp32.exe
+mdisp32.tlb
+
+[MAPIDelFilesWin]
+msmail32.exe                    ;renamed to exchng32.exe
+exchng32.exe                    ;moved to Program Files directory
+MMFMIG32.DLL                    ;file moved to system dir
+mapisp32.exe                    ;file moved to system dir
+MMFUPG32.EXE                    ;Mail 3.x Message Importer.
+pst16upg.exe
+pst17upg.exe
+pst18upg.exe
+pst19upg.exe
+pstver.exe
+
+[MAPIDelFilesEforms]
+frmcache.dat
+frmcache.bak
+
+[MAPICopyProgramFiles]
+;note: the ",,,1" is a flag that will force a reboot and rename if the file is
+;      in use when we try to delete it during uninstall
+exchng32.exe,,,1
+scanpst.exe,,,1
+mapiwm.tpl,,,1
+
+[MAPICopyCfgIcoFiles]
+MAPIF0.CFG,,,1
+MAPIF1.CFG,,,1
+MAPIF2.CFG,,,1
+MAPIF3.CFG,,,1
+MAPIF4.CFG,,,1
+MAPIF5.CFG,,,1
+mapif0l.ico
+mapif0s.ico
+mapif1l.ico
+mapif1s.ico
+mapif2l.ico
+mapif2s.ico
+mapif3l.ico
+mapif3s.ico
+mapif4l.ico
+mapif4s.ico
+mapif5l.ico
+mapif5s.ico
+
+[MAPICopyFilesSysNoRemove]
+mapi32.dll,,,1                      ;Simple MAPI
+mapi.dll,,,1
+
+[MAPICopyFilesSys]
+MMFMIG32.DLL,,,1                    ;used by the profile wizard and by the MMF Migration utility.
+mapisp32.exe,,,1                    ;Spooler
+mapisrvr.exe,,,1
+wmsfr32.dll,,,1
+mapirpc.reg,,,1
+mlcfg32.cpl,,,1
+mspst32.dll,,,1                     ;Local Message Store
+wmsui32.dll,,,1
+ml3xec16.exe,,,1
+mapix32.dll,,,1
+mapiu32.dll,,,1
+mapix.dll,,,1
+mapiu.dll,,,1
+cmc.dll,,,1
+mdisp.tlb,,,1
+mdisp32.reg,,,1
+mdisp32.exe,,,1
+mdisp32.tlb,,,1
+
+[IMAILCopyFilesSys]
+minet32.dll,,,1
+iso88591.trn,,,1
+norweg.trn,,,1
+swedish.trn,,,1
+usascii.trn,,,1
+
+; ansi.trn,,,1
+; german.trn,,,1
+
+[IMAILCopyFilesHelp]
+int-mail.hlp,,,1
+int-mail.cnt,,,1
+
+[MSFSCopyFilesSys]
+msfs32.dll,,,1                      ;MS Mail 3.2 for PC networks
+wgpocpl.cpl,,,1
+wgpoadmn.dll,,,1
+
+[MAPICopyFilesHelp]
+exchng.hlp,,,1
+exchng.cnt,,,1
+msfs.hlp,,,1
+msfs.cnt,,,1
+scanpst.hlp,,,1
+
+[MAPIUpdateIni]
+win.ini,Mail,,"MAPI=1"
+win.ini,Mail,,"MAPIX=1"
+win.ini,Mail,,"OLEMessaging=1"
+win.ini,Mail,,"CMC=1"
+win.ini,Mail,,"CMCDLLNAME=mapi.dll"
+win.ini,Mail,,"CMCDLLNAME32=MAPI32.DLL"
+win.ini,Mail,,"Exchange=%24%\%PROGDIR%\exchng32.exe"
+
+[MAPIUpdateIni.Remove]
+win.ini,Mail,"MAPI="
+win.ini,Mail,"MAPIX="
+win.ini,Mail,"OLEMessaging="
+win.ini,Mail,"CMC="
+win.ini,Mail,"CMCDLLNAME="
+win.ini,Mail,"CMCDLLNAME32="
+win.ini,Mail,"Exchange="
+
+[MSMailUpdateIni]
+;Create Link to scanpst
+setup.ini, progman.groups,, "group11=%SYSTOOLS_DESC%"         ;creates folder
+setup.ini, group11,, """%ScanPst_De

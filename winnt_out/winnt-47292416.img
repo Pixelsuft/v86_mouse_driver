@@ -1,0 +1,126 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Creatix Polymedia GmbH 06.07.95 MR
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+
+; Modem models
+
+[Models]
+%Modem1% = Modem1,UNIMODEMFE48ECE2		; SR 2496
+%Modem2% = Modem2,UNIMODEM43A2D11E		; SG 144
+%Modem3% = Modem3,UNIMODEMC3F107AC		; LC 144 VF
+%Modem4% = Modem4,UNIMODEM3EBBA661		; LC 144 VFI
+%Modem5% = Modem5,UNIMODEM499375AB		; PC 144 SF
+%Modem6% = Modem6,UNIMODEMC3D4C1CB		; LC 288 FC
+%Modem7% = Modem7, UNIMODEMBD6E645E		; SG 144 I
+%Modem8% = Modem8,UNIMODEMC1C36829		; LC 144
+%Modem9% = Modem9,UNIMODEM68853ECE		; LC 144 I
+%Modem10% = Modem10,UNIMODEM9DDD8F5B		; SG 2834
+%Modem11% = Modem11,UNIMODEMA6F9D2EF		; LC 144 VFI
+%Modem12% = Modem12,UNIMODEM3F959411		; SG 2834
+%Modem13% = Modem13,UNIMODEM5DAE342A		; SG 144
+%Modem14% = Modem14,UNIMODEMC001EF90		; LC 144
+%Modem15% = Modem15,UNIMODEM00EB8349		; LC 144 VF
+%Modem16% = Modem16,UNIMODEM03B0989F		; LC 144 I
+%Modem17% = Modem17,Creatix_Modem17		; BTX COM
+
+; Installation sections
+
+[Modem1]	; SR 2496
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+[Modem2]	; SG 144
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem3]	; LC 144 VF
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem4]	; LC 144 VFI
+AddReg=All, MfgAddReg, Modem3.AddReg, Internal
+
+[Modem5]	; PC 144 SF
+AddReg=All, MfgAddReg, Modem5.AddReg, Internal
+
+[Modem6]	; LC 288 FC
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem7]	; SG 144 I
+AddReg=All, MfgAddReg, Modem2.AddReg, Internal
+
+[Modem8]	; LC 144
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem9]	; LC 144 I
+AddReg=All, MfgAddReg, Modem8.AddReg, Internal
+
+[Modem10]	; SG 2834
+AddReg=All, MfgAddReg, Modem10.AddReg, External
+
+[Modem11]	; LC 144 VFI
+AddReg=All, MfgAddReg, Modem3.AddReg, Internal
+
+[Modem12]	; SG 2834
+AddReg=All, MfgAddReg, Modem10.AddReg, External
+
+[Modem13]	; SG 144
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem14]	; LC 144
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem15]	; LC 144 VF
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem16]	; LC 144 I
+AddReg=All, MfgAddReg, Modem8.AddReg, Internal
+
+[Modem17]	; BTX COM
+AddReg=All, MfgAddReg, Modem17.AddReg, External
+
+; AddReg sections
+
+[Modem1.AddReg]	; SR 2496
+HKR,, Properties, 1, 80,01,00,00, 3c,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 80,25,00,00, 80,25,00,00
+HKR,, FClass, 1, 09,00,00,00
+HKR, Init,      3,, "AT W1 \V0 &D2<cr>"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem2.AddReg]	; SG 144
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 3f,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 0b,00,00,00
+HKR, Init,      3,, "AT W0 S95=249 S25=0 S38=0<cr>"
+
+[Modem3.AddReg]	; LC 144 VF
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 3f,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 4b,00,00,00
+HKR, Init,      3,, "AT W0 S95=249 S25=0 S38=0<cr>"
+
+[Modem5.AddReg]	; PC 144 SF
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, FClass, 1, 09,00,00,00
+HKR, Init,      3,, "AT W1 \V0 &D2<cr>"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem6.AddReg]	;  LC 288 FC
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 3f,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, FClass, 1, 0b,00,00,00
+HKR, Init,      3,, "AT W0 S95=249 S25=0 S38=0<cr>"
+
+[Modem8.AddReg]	;  LC 144
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 30,03,00,00, 00,96,00,00, 40,38,00,00
+HKR,, FClass, 1, 03,00,00,00
+HKR, Init,      3,, "AT W0 S95=249 S25=0 S38=0<cr>"
+
+[Modem10.AddReg]	; SG 2834
+HKR,, Properties, 1, 80,01,00,00, 64,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 3f,03,

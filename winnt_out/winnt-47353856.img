@@ -1,0 +1,88 @@
+l 
+AddReg=All, MfgCompaq, VerboseResultCodes, Modem24.AddReg, INTERNAL
+
+[Modem27]   ; DEC 14.4 International Data FAX PCMCIA
+AddReg=All, MfgCompaq, VerboseResultCodes, Modem24.AddReg, PCMCIA
+
+[Modem28]
+AddReg=All, MfgCompaq, INTERNAL, VerboseResultCodes, Modem28.AddReg
+
+[Modem31]
+AddReg=All, MfgCompaq, PCMCIA, MfgIntel, VerboseResultCodes, Modem31.AddReg
+
+[Modem32]
+AddReg=All, MfgCompaq, PCMCIA, MfgIntel, VerboseResultCodes, Modem32.AddReg
+
+[Modem33]
+AddReg=All, MfgCompaq, INTERNAL, MfgIntel, VerboseResultCodes, Modem33.AddReg
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02     ; Include ISA and Enhanced Comm Slot
+
+[PCMCIA]
+HKR,, PortDriver,, Serial.vxd
+HKR,, Contention,, *vcd
+HKR,, DeviceType, 1, 03
+
+[CELLULAR]
+HKR, Settings, ErrorControl_Cellular,, "\N3 $M1 -K2 )M1"  ;Motorola default
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N4 $M1 W1"
+;HKR, Settings, ErrorControl_Cellular,, "\N3 $M2 -K2 )M1"   ; Nokia
+;HKR, Settings, ErrorControl_Cellular,, "\N3 $M2 -K2 )M1"   ; Technophone
+;HKR, Settings, ErrorControl_Cellular,, "\N3 $M3 -K2 )M1"   ; TBA
+;HKR, Settings, ErrorControl_Cellular,, "\N3 $M4 -K2 )M1"   ; TBA
+
+[Modem1.AddReg]  ; "SpeedPaq 144-I Data+Fax Modem (ISA)"
+HKR,  Init, 2,, "AT &F E0 V1 W1 X4 S95=47 &C1 &D2<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C1 S101=35"     ;S101 only applies to speedpaq's
+HKR, Settings, Compression_Off,, "%%C0 S101=0"
+
+[Modem2.AddReg]  ; "SpeedPaq 144-P Data+Fax Modem (PCMCIA)"
+HKR,  Init, 2,, "AT &F E0 V1 W1 X4 S95=47 &C1 &D2<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C1 S101=35"     ;S101 only applies to speedpaq's
+HKR, Settings, Compression_Off,, "%%C0 S101=0"
+
+[Modem3.AddReg]  ; "SpeedPaq 144 (Enhanced Com Slot)"
+HKR,  Init, 2,, "AT &F E0 V1 W1 X4 S95=47 &C1 &D2<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, Compression_On,, "%%C1 S101=35"     ;S101 only applies to speedpaq's
+HKR, Settings, Compression_Off,, "%%C0 S101=0"
+
+[Modem4.AddReg]  ; "Enhanced 144 Data+Fax (Enhanced Com Slot)"
+HKR,  Init, 2,, "AT &F E0 V1 W1 X4 S95=47 &C1 &D2<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem5.AddReg]  ; "Compaq PCMCIA 2400-9600"
+HKR,  Init, 2,, "AT&FE0V1X4S95=47&C1&D2&S0<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Settings, SpeedNegotiation_Off,, "%%N6"
+HKR, Settings, SpeedNegotiation_On,, "%%N0"
+
+[Modem6.AddReg]  ; "Compaq PCMCIA 144"
+HKR,  Init, 2,, "AT&FE0V1X4S95=47&C1&D2&S0<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem7.AddReg] ; "International 2400 Data"
+HKR,  Init, 2,, "AT &F E0 V1 &C1 &D2<cr>"
+HKR,, Properties, 1, 40,01,00,00, 1e,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem8.AddReg] ; "Presario 144 Data+Fax+Voice"
+HKR,  Init, 2,, "AT &F E0 V1 &C1 &D2 W1<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 76,03,00,00, 00,e1,00,00, 40,38,00,00
+;HKR, Settings, Compression_On,, "%%C3"     ; RPI Modem so don't enable
+;HKR, Settings, Compression_Off,, "%%C0"    ; RPI Modem so don't enable
+
+[Modem9.AddReg] ; "Presario 24-96 Data+Fax+Voice"
+HKR,  Init, 2,, "AT &F E0 V1 &C1 &D2<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 00,4b,00,00, 60,09,00,00
+HKR, Settings, DialSuffix,, ""
+
+[Modem12.AddReg] ; "Presario International 24-96 Data+Fax+Voice"
+HKR,  Init, 2,, "A

@@ -1,0 +1,82 @@
+rKey)
+            CloseRegKey $(NWLNKNBLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)} }
+        Shell  $(UtilityInf), AddValueList, $(NWLNKNBNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            CloseRegKey $(NWLNKNBProductKey)
+            CloseRegKey $(NWLNKNBNetRuleKey)
+            CloseRegKey $(NWLNKNBServiceKey)
+            CloseRegKey $(NWLNKNBParameterKey)
+            CloseRegKey $(NWLNKNBLinkageKey)
+            goto fatalregistry
+        endif
+        Set NewValueList = {{NbProvider,$(NoTitle),$(!REG_VT_SZ),"_ipx"},+
+                {EndPoint,$(NoTitle),$(!REG_VT_DWORD),1}}
+        Shell  $(UtilityInf), AddValueList, $(NWLNKNBParameterKey), $(NewValueList)
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error."
+            goto ShellCodeError
+        Endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            CloseRegKey $(NWLNKNBProductKey)
+            CloseRegKey $(NWLNKNBNetRuleKey)
+            CloseRegKey $(NWLNKNBServiceKey)
+            CloseRegKey $(NWLNKNBParameterKey)
+            CloseRegKey $(NWLNKNBLinkageKey)
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf) AddValueList, $(NWLNKNBParameterKey),+
+            {{"KeepaliveTimeout", $(NoTitle), $(!REG_VT_DWORD), 60} +
+             {"KeepaliveCount",   $(NoTitle), $(!REG_VT_DWORD), 8} +
+             {"ConnectionTimeout",$(NoTitle), $(!REG_VT_DWORD), 2} +
+             {"ConnectionCount",  $(NoTitle), $(!REG_VT_DWORD), 5} +
+             {"BroadcastTimeout", $(NoTitle), $(!REG_VT_DWORD), 1} +
+             {"BroadcastCount",   $(NoTitle), $(!REG_VT_DWORD), 3} +
+             {"Internet",         $(NoTitle), $(!REG_VT_DWORD), 1}}
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            CloseRegKey $(NWLNKNBProductKey)
+            CloseRegKey $(NWLNKNBNetRuleKey)
+            CloseRegKey $(NWLNKNBServiceKey)
+            CloseRegKey $(NWLNKNBParameterKey)
+            CloseRegKey $(NWLNKNBLinkageKey)
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        CreateRegKey $(NWLNKNBServiceKey) {"Performance",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyPerformance
+        ifstr(i) $(KeyPerformance) != ""
+            Set NewValueList = {+
+                {Close,$(NoTitle),$(!REG_VT_SZ),"CloseNWNBPerformanceData"},+
+                {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectNWNBPerformanceData"},+
+                {Library,$(NoTitle),$(!REG_VT_SZ),"perfctrs.dll"},+
+                {Open,$(NoTitle),$(!REG_VT_SZ),"OpenNWNBPerformanceData"},+
+                }
+            Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+            CloseRegKey $(KeyPerformance)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNXPIP.INF: ShellCode error."
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+        endif
+        CloseRe

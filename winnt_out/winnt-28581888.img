@@ -1,0 +1,117 @@
+   set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        ifstr(i) $(!NTN_InfOption) == "BROWSER"
+            set Error = $(RemoveBrowserError)
+            set from = end
+            set to = end
+            goto nonfatal
+        endif
+        set OEM_ABANDON_OPTIONS = {+
+            $(ProductWKSTAName), +
+            $(ProductNETLOGONName), +
+            $(ProductALERTERName), +
+            $(ProductBROWSERName), +
+            $(ProductMESSENGERName), +
+            $(ProductRDRName), +
+            $(ProductREPLName)}
+        set StartLabel = removeadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        ifstr(i) $(!NTN_InfOption) == "BROWSER"
+            set Error = $(UpdateBrowserError)
+            set from = end
+            set to = end
+            goto nonfatal
+        endif
+        set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        ifstr(i) $(!NTN_InfOption) == "BROWSER"
+            ifstr(i) $(!STF_PRODUCT) != "WINNT"
+                set from = "end"
+                set to = "end"
+                goto ConfigureBrowser
+            endif
+        endif
+        Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+        set from = end
+        set to = end
+        goto nonfatalinfo
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+    endif
+    set DoWKSTA         = FALSE
+    set DoNETLOGON      = FALSE
+    set DoALERTER       = FALSE
+    set DoMESSENGER     = FALSE
+    set DoRDR           = FALSE
+    set DoREPL          = FALSE
+    set DoBROWSER       = FALSE
+    Ifstr(i) $(Option) == WKSTA
+        set DoWKSTA     = TRUE
+        set DoNETLOGON  = TRUE
+        set DoALERTER   = TRUE
+        set DoMESSENGER = TRUE
+        set DoRDR       = TRUE
+        set DoBROWSER   = TRUE
+        set DoREPL      = TRUE
+    Else-ifstr(i) $(Option) == REPL
+        Set DoREPL = TRUE
+    Else-ifstr(i) $(Option) == NETLOGON
+        Set DoNETLOGON = TRUE
+    Else-ifstr(i) $(Option) == ALERTER
+        Set DoALERTER = TRUE
+    Else-ifstr(i) $(Option) == BROWSER
+        Set DoBROWSER = TRUE
+    Else-ifstr(i) $(Option) == MESSENGER
+        Set DoMESSENGER = TRUE
+    Else-ifstr(i) $(Option) == RDR
+        Set DoRDR = TRUE
+    Else
+        Debug-Output "OEMNXPTC.INF: Unrecognized option"
+    Endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf), VerExistedDlg, $(Product$(Option)Title),+
+            $(ProductVersion)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNSVWK.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    goto nextstep
+nextstep = +
+    StartWait
+    Ifstr(i) $(!NTN_InstallMode) == install
+        Ifint $(OldVersionExisted) == $(FALSE)
+            goto installproduct
+        endif
+    endif
+    goto writeparameters
+installproduct = +
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        Ifstr(i) $(DoCopy) == "YES"
+           Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+           Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Goto ShellCodeError
+           Else-Ifstr(i) $($R0) == STATUS_FAILED
+               Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+               set Error = $($

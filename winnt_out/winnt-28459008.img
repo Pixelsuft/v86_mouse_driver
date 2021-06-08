@@ -1,0 +1,88 @@
+t SrcDir = $($R1)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+            $(ProductVersion)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(TCPIPKeyName) $(MAXIMUM_ALLOWED) TCPIPKey
+    Ifstr $(TCPIPKey) == $(KeyNull)
+        set RegistryErrorIndex = TCPIP_NONEXIST_ERROR
+        goto fatalregistry
+    endif
+    CloseRegKey $(TCPIPKey)
+    StartWait
+    ifstr(i) $(OldVersionExisted) == $(FALSE)
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+        set OEM_ABANDON_ON = TRUE
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), $(ProductSoftwareName),+
+            $(ProductSoftwareName), +
+            $(STF_CONTEXTINFNAME), $(ProductSoftwareImagePath), "serviceauto", "",+
+            {"Tcpip", "EventLog"}, "", $(SNMPEXE)
+        Set SoftwareProductKey = $($R1)
+        Set SoftwareNetRuleKey = $($R2)
+        Set SoftwareServiceKey = $($R3)
+        Set SoftwareParameterKey = $($R4)
+        Set SoftLinkageKey      = $($R5)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+           Debug-Output "ShellCode error"
+           goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+           EndWait
+           Debug-Output "Registry error: add software components"
+           CloseRegKey $(SoftwareProductKey)
+           CloseRegKey $(SoftwareNetRuleKey)
+           CloseRegKey $(SoftwareServiceKey)
+           CloseRegKey $(SoftwareParameterKey)
+           CloseRegKey $(SoftLinkageKey)
+           CloseRegKey $(KeyParameters)
+           goto fatalregistry
+        endif
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareTitle)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescription)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareName)},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}, +
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell $(UtilityInf), AddValueList, $(SoftwareProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "Resgitry error: add value list."
+            CloseRegKey $(SoftwareProductKey)
+            CloseRegKey $(SoftwareNetRuleKey)
+            CloseRegKey $(SoftwareServiceKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(SoftwareParameterKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftwareNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErr

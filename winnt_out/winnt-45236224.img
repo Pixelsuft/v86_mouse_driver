@@ -1,0 +1,108 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Rockwell
+; Supports Rockwell and cirrus chipsets
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Aztech%
+
+[Manufacturer]
+%Aztech% = Aztech
+%3X% = 3X
+%Logicode% = Logicode
+%Reveal% = Reveal
+%Supra% = Supra
+%Infotel% = Infotel
+%Cirrus% = Cirrus
+
+[ControlFlags]
+ExcludeFromSelect=PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874 ; Logicode, EXP, Digicom
+ExcludeFromSelect=UNIMODEM16E3BF9F                   ; Logicode and Viva 14.4 PCMCIA
+ExcludeFromSelect=UNIMODEM858E1599                   ; Logicode, EXP, Digicom
+ExcludeFromSelect=*SUP1380
+ExcludeFromSelect=UNIMODEM0BCCA4A7
+
+[Rockwell5.PosDup]
+*PNP0500
+
+; Driver section
+
+[Aztech]
+%Aztech1%  = Rockwell1, ROCK3_Aztech1, UNIMODEME466C599   
+
+[3X]
+%3X1% = Rockwell2, UNIMODEMADDF16B2
+
+[Reveal]
+%Reveal3%  = Rockwell3, ROCK3_Reveal3, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874  ; 14.4 Data Fax PCMCIA
+%Reveal3%  = Rockwell4, ROCK3_Reveal3, UNIMODEM16E3BF9F                    ; 14.4 Data Fax PCMCIA
+
+[Logicode]
+%Logicode10% = Rockwell3, ROCK3_Logicode10, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874   ; Logicode 14.4 Data-Fax-Voice PCMCIA (cirrus chipset)
+%Logicode10% = Rockwell3, ROCK3_Logicode10, UNIMODEM858E1599                     ; Logicode 14.4 Data-Fax-Voice PCMCIA (cirrus chipset)
+%Logicode11% = Rockwell3, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874   ; Logicode 14.4 Data-Fax-Voice PCMCIA (cirrus chipset)
+%Logicode11% = Rockwell3, UNIMODEM858E1599                     ; combo for Logicode 14.4 Data-Fax-Voice PCMCIA (cirrus chipset) and clones in exp and dsi infs
+%Logicode12% = Rockwell4, UNIMODEM16E3BF9F    ; Logicode 14.4 Internal data-fax and Viva combo
+
+[Supra]
+%Supra1% = Rockwell5, *SUP1380   ; compat id=*SUP1290, hdwe id=*SUP1380,ISAPNP\SUP1380
+%Supra1% = Rockwell5, UNIMODEM989C68E0
+
+[Infotel]
+%Infotel1% = Rockwell3, ROCK3_Infotel1, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874
+%Infotel1% = Rockwell3, ROCK3_Infotel1, UNIMODEM858E1599
+
+[Cirrus]
+%Cirrus2% = Rockwell6, ROCK3_Cirrus2, UNIMODEM0BCCA4A7  
+%Cirrus3% = Rockwell7, UNIMODEM0BCCA4A7
+
+; Installation section
+
+[Rockwell1]
+AddReg=All, MfgAddReg, VoiceView_Modem, VoiceView_Socket, ROCK_VOICE_ALL, ROCK_VOICE_SERWAVE, Rockwell1.AddReg, Verbose_Responses, INTERNAL
+CopyFiles   = VV_Sys, VV_Sock_Sys, VV_App, VV_Help
+UpdateInis  = VView.Inis
+Uninstall   = VoiceView_remove
+
+[Rockwell2]
+AddReg=All, MfgAddReg, ROCK_VOICE_UNIQUE_1, Rockwell2.AddReg, Verbose_Responses, INTERNAL
+
+[Rockwell3] 
+AddReg=All, MfgAddReg, CIRRUS_VOICE_ALL, Rockwell3.AddReg, Verbose_Responses, PCMCIA
+
+[Rockwell4] 
+AddReg=All, MfgAddReg, CIRRUS_VOICE_ALL, Rockwell4.AddReg, Verbose_Responses, INTERNAL
+
+[Rockwell5]
+AddReg=All, MfgAddReg, ROCK_VOICE_UNIQUE_2, Rockwell5.AddReg, Supra_Numeric_Responses, INTERNAL
+
+[Rockwell6]
+AddReg=All, MfgAddReg, CIRRUS_VOICE_ALL, Rockwell6.AddReg, Verbose_Responses, INTERNAL
+
+[Rockwell7]
+AddReg=All, MfgAddReg, Rockwell6.AddReg, Verbose_Responses, INTERNAL
+
+; Model AddReg section
+
+[Rockwell1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Rockwell2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S95=47 S0=255<cr>"   
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q1 *H0 :E1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H0 :E1"
+
+[Rockwell3.AddReg] ; PCMCIA 14400, no cell, cirrus chipset
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V2 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Sett

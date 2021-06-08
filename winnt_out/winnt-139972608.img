@@ -1,0 +1,84 @@
+rviceDependency: error opening service "$(DependentService)"\Linkage"
+    endif
+    set KeyService = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(DependentService) $(!MAXIMUM_ALLOWED) KeyService
+    ifstr $(KeyService) != $(KeyNull)
+        set newDependList = {$(DependOn)}
+        GetRegValue    $(KeyService) "DependOnService" ServiceList
+        ifint $(RegLastError) == 0
+            Debug-Output "AddServiceDependency: old DependOnService List "*($(ServiceList), 4)
+            ForListDo *($(ServiceList),4)
+                ifstr(i) $($) != $(DependOn)
+                   set newDependList = >($(newDependList), $($))
+                endif
+            EndForListDo
+        endif
+        GetRegValue    $(KeyService) "DependOnGroup" GrpList
+        ifint $(RegLastError) == 0
+            Debug-Output "AddServiceDependency: old DependOnGroup List "*($(GrpList), 4)
+            ForListDo *($(GrpList),4)
+               set grp = "+"$($)
+               set newDependList = >($(newDependList), $(grp))
+            EndForListDo
+        endif
+        Debug-Output "OEMNSVRA.INF: AddServiceDependency: new Dependency List "$(newDependList)
+        LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $(DependentName) $(!SERVICE_NO_CHANGE), $(!SERVICE_NO_CHANGE), $(!SERVICE_NO_CHANGE), "", "", $(newDependList), "", "", ""
+        CloseRegKey $(KeyService)
+    else
+        Debug-Output "AddServiceDependency: failed to open service linkage key"$(DependentService)
+    endif
+    Debug-Output "AddServiceDependency: exit"
+    return $(Status)
+[RemoveServiceDependency]
+    Debug-Output "RemoveServiceDependency: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set DependentService = $(!NTN_ServiceBase)\$($0)
+    set DependentName = $($0)
+    set DependOn = $($1)
+    OpenRegKey $(!REG_H_LOCAL) "" $(DependentService)"\Linkage" $(!MAXIMUM_ALLOWED) ServiceKey
+    ifstr(i) $(ServiceKey) != $(KeyNull)
+        GetRegValue $(ServiceKey) "OtherDependencies" ServicesList
+        ifint $(RegLastError) != 0
+           set ServiceValues = {}
+        else
+           set ServiceValues = *($(ServicesList),4)
+        endif
+        debug-output "RemoveServiceDependency: old OtherDependencies list:"$(ServicesList)
+        set ServiceValues = *($(ServicesList),4)
+        debug-output "ServiceValues: "$(ServiceValues)
+        ifcontains(i) $(DependOn) in $(ServiceValues)
+            set NewServiceValues = {}
+            ForListDo $(ServiceValues)
+                ifstr(i) $($) != $(DependOn)
+                    set NewServiceValues = >($(NewServiceValues), $($))
+                endif
+            EndForListDo
+            debug-output "RemoveServiceDependency: new OtherDependencies list: "$(NewServiceValues)
+            SetRegValue $(ServiceKey) {OtherDependencies, 0,+
+                             $(!REG_VT_MULTI_SZ), $(NewServiceValues)}
+        else
+        endif
+        CloseRegKey $(ServiceKey)
+        set Status = STATUS_SUCCESSFUL
+    else
+        Debug-Output "RemoveServiceDependency: error opening service "$(DependentService)"\Linkage"
+    endif
+    set KeyService = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(DependentService) $(!MAXIMUM_ALLOWED) KeyService
+    ifstr $(KeyService) != $(KeyNull)
+        set newDependList = {}
+        GetRegValue    $(KeyService) "DeleteFlag" DeleteFlagValue
+        ifint $(RegLastError) != 0
+            GetRegValue    $(KeyService) "DependOnService" ServiceList
+            ifint $(RegLastError) == 0
+                Debug-Output "RemoveServiceDependency: old DependOnService List "*($(ServiceList), 4)
+                ifcontains(i) $(DependOn) in *($(ServiceList),4)
+                    ForListDo *($(ServiceList),4)
+                        ifstr(i) $($) != $(DependOn)
+                           set newDependList = >($(newDependList), $($))
+                        endif
+                    EndForListDo
+                    GetRegValue $(KeyService) "DependOnGroup" GrpList
+                    ifint $(RegLastError) == 0
+    

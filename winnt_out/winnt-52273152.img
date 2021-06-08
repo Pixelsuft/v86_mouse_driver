@@ -1,0 +1,108 @@
+ YES
+                goto system
+            endif
+        endif
+        goto system
+    else-ifstr(i) $(DLGEVENT) == "EXIT"
+        shell "subroutn.inf" QueryUserQuit $(!STF_LANGUAGE)
+        ifstr(i) $($R1) == "OK"
+            set Status = STATUS_USERQUIT
+            ui pop 1
+            StartWait
+            goto finish_system
+        else
+            set  ReInit = NO
+            goto system
+        endif
+    else
+        ui pop 1
+        StartWait
+        goto finish_system
+    endif
+install_system = +
+    StartWait
+    ForListDo $(OptionTypeList)
+        set Changed = YES
+        ifstr(i) $($($)Option) == $($($)SystemSet)
+            set Changed = NO
+        endif
+        ifstr(i) $(Changed) == "NO"
+            ifstr(i) $(!STF_INSTALL_TYPE) == "SETUPBOOTED"
+                set $($)Install = "NO"
+                goto skip_setinstall
+            endif
+        endif
+        set $($)Install = "YES"
+        ifstr(i) $($($)SpecialOption) != {}
+            ifstr(i) $($($)Option) == *($($($)SpecialOption), 1)
+                goto skip_setinstall
+            endif
+        endif
+        shell "" GetOptionFile $($($)Option) $($($)OemINFOptions)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set $($)INF = $(!STF_WINDOWSSYSPATH)"\"$($R1)
+            set $($)SrcDir = $($($)DisketteSrc)
+            goto skip_setinstall
+        endif
+        shell "" GetOptionFile $($($)Option) $($($)OurINFOptions)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set $($)INF = $($R1)
+            set $($)SrcDir = $(!STF_SRCDIR)
+            goto skip_setinstall
+        endif
+skip_setinstall = +
+    EndForListDo
+    ForListDo $(OptionTypeList)
+        ifstr(i) $($($)Install) == "YES"
+            ifstr(i)  $($($)INF) != ""
+                shell $($($)INF) InstallOption $(!STF_LANGUAGE) $($($)Option) $($($)SrcDir) "YES" "NO" "NO"
+                set ConfigureOptions = >($(ConfigureOptions), {$($), $($($)INF), $($($)Option), $($($)SrcDir)})
+            endif
+        endif
+    EndForListDo
+    ifstr(i) $(LanguageInstall) != "YES"
+        set !STF_LANGUAGE_HACK = YES
+        shell "language.inf" InstallOption $(!STF_LANGUAGE) $(LanguageOption) $(!STF_SRCDIR) "YES" "NO" "NO"
+    endif
+    set Status = STATUS_SUCCESSFUL
+finish_system = +
+    Return $(Status) $(ConfigureOptions)
+[ConfigureHardwareOptions]
+    set Status = STATUS_SUCCESSFUL
+    shell "registry.inf" MakeSetupKey
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Shell to MakeSetupKey failed"
+        set Status = STATUS_FAILED
+        goto finish_ConfigureHardware
+    endif
+    ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "MakeSetupKey failed"
+        set Status = STATUS_FAILED
+        goto finish_ConfigureHardware
+    endif
+    ForListDo $($0)
+        shell *($($), 2) InstallOption $(!STF_LANGUAGE) *($($), 3) *($($), 4) "NO" "NO" "YES"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "Shell to Configure Hardware Option Type "*($($), 3)" failed"
+            set Status = STATUS_FAILED
+        else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            Debug-Output "Configure Hardware Option Type "*($($), 3)" failed"
+            set Status = STATUS_FAILED
+        else
+            shell "registry.inf" MakeSetupOptionEntry *($($), 1) *($($), 3)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "shelling MakeSetupOptionEntry failed"
+                set Status = STATUS_FAILED
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                Debug-Output "Making setup entry for "*($($), 1)" = "*($($), 3)" failed."
+                set Status = STATUS_FAILED
+            endif
+        endif
+    EndForListDo
+    ifstr(i) $(!STF_LANGUAGE_HACK) == "YES"
+        read-syms LanguageVars
+        LibraryProcedure STATUS, $(!LIBHANDLE), SetCurrentLocale $(LanguageSystemSet) "YES"
+        ifstr(i) $(STATUS) != "SUCCESS"
+            set Status = STATUS_FAILED
+            Debug-Output "REGISTRY.

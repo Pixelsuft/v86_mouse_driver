@@ -1,0 +1,56 @@
+forms you that some of the files in the SNMP service have been updated in SP6 and that you have a version mismatch. Reinstalling SP6 fixes the problem by copying the newer versions of the files onto your computer.</p>
+<p>
+<b>Note:</b> SNMP security provides the ability to set a permission level on the SNMP agent computer. The permission level determines how the SNMP agent computer processes requests from an SNMP community.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="3.3">3.3</a> Internet Information Server&nbsp;4.0, Secure Sockets Layer and Root Certifying Authority Certificates, and the IISCA.exe Tool</b></p>
+<p>
+If you use Internet Information Server&nbsp;4.0 (IIS) with Secure Sockets Layer (SSL) and you have installed a root certifying authority certificate (other than those issued by well-known third parties, such as Verisign, Thawte Consulting, or Microsoft), you may need to reinstall the affected root certifying authority certificates after you install SP6. You need to do this if you're using Microsoft Certificate Server&nbsp;1.0, which shipped with the Windows&nbsp;NT&nbsp;4.0 Option Pack.</p>
+<p><blockquote>
+<b>To reinstall the root certifying authority certificate</b></p>
+<ol>
+<li>Start Internet Explorer&nbsp;5.</li>
+<li>On the <b>Tools</b> menu, click <b>Internet Options</b>.</li>
+
+<li>On the <b>Content</b> tab, click <b>Certificates</b>.
+<li>Click <b>Import</b> to start the Certificate Manager Import Wizard and follow the instructions that appear.
+</ol></blockquote>
+<p><b>Note:</b> You no longer need to use the IISCA.exe tool.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="3.4"><h2>3.4 Message Queue Notes</h2></a></p>
+<p>The following sections cover issues and fixes for the MSMQ service.</p>
+<p><a name="3.4.1"><b>3.4.1 Message Queue Notes</b></a></p>
+<p>
+A new MSMQ registry entry helps you configure the MSMQ Service to prevent contacting the MSMQ Information Store (MQIS) at startup, such as by not starting auto-dialing.</p>
+<p><b>Important:</b> Incorrectly editing the registry may severely damage your system. Before making changes to the registry, you should back up any valued data on the computer.</p>
+<p><blockquote>
+<b>To activate the MSMQ Service</b></p>
+<ol>
+<li>Click <b>Start</b>, and then click <b>Run</b>.</li>
+<li> Type <b>regedt32</b>, and then click <b>OK</b>.</li>
+<li>In the Registry Editor, open HKEY_LOCAL_MACHINE\Software\Microsoft\MSMQ\Parameters.</li>
+<li>On the <b>Edit</b> menu, click <b>Add Key</b>.</li>
+<li>In <b>Key Name</b>, type <b>DeferredInit</b>.</li>
+<li>In <b>Class</b>, type <b>DWORD</b> with a value of 0x1.</li>
+<li>Click <b>OK</b>. </li>
+<li>Close the Registry Editor.</li>
+</ol></blockquote>
+<p>Add this only if the initial MQIS access causes unwanted dial-up because this setting can delay programs calling MQOpenQueue in offline situations.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<a name="3.4.2"><b>3.4.2 MSMQ Protected Storage Service</b></a></p>
+<p>Protected Storage Service (PSS) must be started before starting MSMQ. Some services, such as SQL&nbsp;7.0, can cause a delay in PSS starting up, which results in MSMQ failing to start due to timing out. Applying SP6 prevents this problem automatically by making MSMQ dependent on PSS.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<a name="3.4.3"><b>3.4.3 Disabling the Nagling option</b></a></p>
+<p>By default, MSMQ uses TCP sockets with Nagling enabled. The sending machine might wait before sending a small packet to see if another packet is sent which can be merged. In applications where the delay is undesirable or unacceptable, the Nagling option can be disabled in the registry.</P>
+<p><b>Important:</b> Incorrectly editing the registry may severely damage your system. Before making changes to the registry, you should back up any 

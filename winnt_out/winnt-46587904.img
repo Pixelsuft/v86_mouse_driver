@@ -1,0 +1,50 @@
+R, Responses, "24<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00 ; DELAYED
+HKR, Responses, "32<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00 ; BLACKLISTED
+HKR, Responses, "34<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00 ; +FCERROR
+HKR, Responses, "42<cr>", 1, 01, 00, 58, 02, 00, 00, 00,00,00,00 ; CARRIER 600 - Carrier at 600 bps
+HKR, Responses, "81<cr>", 1, 01, 0a, 00, 00, 00, 00, 00,00,00,00 ; PROTOCOL: ALT-CELLULAR - Alternative protocol MNP10 error-control negotiated
+
+[M4400Reg] ; Ven-Tel PCM9600
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Responses, "13<cr>", 1, 02, 00, 20, 1C, 00, 00, 00,00,00,00 ; CONNECT 7200 - Connection at 7200 bps
+HKR, Responses, "14<cr>", 1, 02, 00, E0, 2E, 00, 00, 00,00,00,00 ; CONNECT 12000 - Connection at 12000 bps
+HKR, Responses, "15<cr>", 1, 02, 00, 40, 38, 00, 00, 00,00,00,00 ; CONNECT 14400 - Connection at 14400 bps
+HKR, Responses, "16<cr>", 1, 02, 00, 00, 4B, 00, 00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps
+HKR, Responses, "17<cr>", 1, 02, 00, 00, 96, 00, 00, 00,00,00,00 ; CONNECT 38400 - Connection at 38400 bps
+
+[M4401Reg] ; Ven-Tel PCM14400
+HKR, Init, 2,, "AT&FE0V0W1&C1&D2S95=47<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Responses, "13<cr>", 1, 02, 00, 20, 1C, 00, 00, 00,00,00,00 ; CONNECT 7200 - Connection at 7200 bps
+HKR, Responses, "14<cr>", 1, 02, 00, E0, 2E, 00, 00, 00,00,00,00 ; CONNECT 12000 - Connection at 12000 bps
+HKR, Responses, "15<cr>", 1, 02, 00, 40, 38, 00, 00, 00,00,00,00 ; CONNECT 14400 - Connection at 14400 bps
+HKR, Responses, "16<cr>", 1, 02, 00, 00, 4B, 00, 00, 00,00,00,00 ; CONNECT 19200 - Connection at 19200 bps
+HKR, Responses, "17<cr>", 1, 02, 00, 00, 96, 00, 00, 00,00,00,00 ; CONNECT 38400 - Connection at 38400 bps
+
+[M4402Reg] ; Ven-Tel 9600 Plus and 9600 Plus II
+HKR, Init, 2,, "AT&F%%F2\N3\Q3E0V0&C1&D2S0=0<cr>"
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>" ; seconds
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_On,, "\N3*Y0"
+HKR, Settings, ErrorControl_Forced,, "\N2*Y0"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Responses, "9<cr>",  1, 02, 00, B0, 04, 00, 00, 00,00,00,00 ; CONNECT V.22 - Connection at 1200 bps with V.22
+HKR, Responses, "11<cr>", 1, 02, 02, B0, 04, 00, 00, 00,00,00,00 ; CONNECT V.22/REL - Connection at 1200 bps with V.22 and MNP2-4
+HKR, Responses, "13<cr>", 1, 02, 00, 2C, 01, 00, 00, 00,00,00,00 ; CONNECT V.21 - Connection at 300 bps with V.21
+HKR, Responses, "15<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00 ; ABORTED - A call in progress has been aborted
+HKR, Responses, "17<cr>", 1, 03, 00, 00, 00, 00, 00, 00,00,00,00 ; V.42 DISCONNECTED
+HKR, Responses, "21<cr>", 1, 02, 02, 00, 00, 00, 00, 00,00,00,00 ; CONNECT/REL
+HKR, Responses, "22<cr>", 1, 02, 02, B0, 04, 00, 00, 00,00,00,00 ; CONNECT 1200/REL - Connection at 1200 bps with MNP2-4
+HKR, Responses, "23<cr>", 1, 02, 02, 60, 09, 00, 00, 00,00,00,00 ; CONNECT 2400/REL - Connection at 2400 bps with MNP2-4
+HKR, Responses, "24<cr>", 1, 02, 00, C0, 12, 00, 00, 00,00,00,00 ; CONNECT 4800 - Connection at 4800 bps
+HKR, Responses, "25<cr>", 1, 02, 00, C0, 12, 00, 00, 00,00,00,00 ; CONNECT 4800 - Connection at 4800 bps with MNP2-4
+HKR, Responses, "26<cr>", 1, 02, 00, B0, 04, 00, 00, 00,00,00,00 ; CONNECT V.23 - Connection at 1200/75 bps
+HKR, Responses, "27<cr>", 1, 02, 02, 80, 25, 00, 00, 00,00,00,00 ; CONNECT 9600/REL - Connection at 9600 bps with MNP2-4
+HKR, Responses, "28<cr>", 1, 02, 00, 80, 25, 00, 00, 00,00,00,00 ; CONNECT 9600 TRELLIS - Connection at 9600 bps
+HKR, Responses, "29<cr>", 1, 02, 02, 80, 25, 00, 00, 00,00,00,00 ; C

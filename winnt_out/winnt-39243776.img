@@ -1,0 +1,161 @@
+d>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS MNP5<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+;----------------------------------------
+[ViVa 144 Fax]
+ALIAS=Hayes Optima 14400
+
+;----------------------------------------
+[Western Datacom Worldcom]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=WESTERN DATACOM WORLDCOM
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=AT V1 W1 X4 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: MNP REL<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V42<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: MNP REL<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V42<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf><cr><lf>
+
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+;Not supported as a server modem.
+COMMAND_LISTEN=ATS0=1<cr>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: MNP REL<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V42<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: MNP REL<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V42<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: V42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf><cr><lf>
+
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+;----------------------------------------
+[Xircom Ethernet+Modem PCMCIA]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=136
+<compression_on>=S46=2
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=CreditCard Ethernet+Modem
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Zoom AFX]
+ALIAS=Hayes Compatible 2400
+
+;----------------------------------------
+[Zoom FX 9624V]
+<speaker_on>=M1
+<speaker_o

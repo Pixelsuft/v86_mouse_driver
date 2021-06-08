@@ -1,0 +1,101 @@
+lue $(KeyProduct),"DeleteFlag", DeleteFlagInfo
+        set DeleteFlag = *($(DeleteFlagInfo), 4)
+        ifint $(DeleteFlag) != 1
+            set WkstaConfigured = TRUE
+        endif
+        CloseRegKey $(KeyProduct)
+    endif
+    Debug-Output "IsNetworkConfigured SrvrKeyName "$(SrvrKeyName)
+    set KeyProduct = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(SrvrKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        GetRegValue $(KeyProduct),"DeleteFlag", DeleteFlagInfo
+        set DeleteFlag = *($(DeleteFlagInfo), 4)
+        ifint $(DeleteFlag) != 1
+            set SrvrConfigured = TRUE
+        endif
+        CloseRegKey $(KeyProduct)
+    endif
+    set status = STATUS_SUCCESSFUL
+    Debug-Output "IsNetworkConfigured exit"
+    Return $(status) $(WkstaConfigured) $(SrvrConfigured)
+[QueryInstalledProtocols]
+    Debug-Output "QueryInstalledProtocols entry "
+    set NbfKeyName        = $(!NTN_ServiceBase)"\Nbf"
+    set TcpIpKeyName      = $(!NTN_ServiceBase)"\TcpIp"
+    set IpxKeyName        = $(!NTN_ServiceBase)"\NWLNKIPX"
+    set AppleTalkKeyName  = $(!NTN_ServiceBase)"\AppleTalk"
+    Set KeyNull        =    ""
+    Set status = STATUS_FAILED
+    Set NbfInstalled     = FALSE
+    Set TcpIpInstalled   = FALSE
+    Set IpxInstalled     = FALSE
+    Set AppleTalkInstalled = FALSE
+    set KeyService = $(KeyNull)
+    set DeleteFlag = 0
+    set DeleteFlagInfo = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(NbfKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        GetRegValue $(KeyService),"DeleteFlag", DeleteFlagInfo
+        set DeleteFlag = *($(DeleteFlagInfo), 4)
+        ifint $(DeleteFlag) != 1
+            set NbfInstalled = TRUE
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    set KeyService = $(KeyNull)
+    set DeleteFlag = 0
+    set DeleteFlagInfo = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(TcpIpKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        GetRegValue $(KeyService),"DeleteFlag", DeleteFlagInfo
+        set DeleteFlag = *($(DeleteFlagInfo), 4)
+        ifint $(DeleteFlag) != 1
+            set TcpIpInstalled = TRUE
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    set KeyService = $(KeyNull)
+    set DeleteFlag = 0
+    set DeleteFlagInfo = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(IpxKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        GetRegValue $(KeyService),"DeleteFlag", DeleteFlagInfo
+        set DeleteFlag = *($(DeleteFlagInfo), 4)
+        ifint $(DeleteFlag) != 1
+            set IpxInstalled = TRUE
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    set KeyService = $(KeyNull)
+    set DeleteFlag = 0
+    set DeleteFlagInfo = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(AppleTalkKeyName) $(!MAXIMUM_ALLOWED) KeyService
+    Ifstr(i) $(KeyService) != $(KeyNull)
+        GetRegValue $(KeyService),"DeleteFlag", DeleteFlagInfo
+        set DeleteFlag = *($(DeleteFlagInfo), 4)
+        ifint $(DeleteFlag) != 1
+            set AppleTalkInstalled = TRUE
+        endif
+        CloseRegKey $(KeyService)
+    endif
+    set status = STATUS_SUCCESSFUL
+    Debug-Output "QueryInstalledProtocols exit"
+    Return $(status) $(NbfInstalled) $(TcpIpInstalled) $(IpxInstalled) +
+                     $(AppleTalkInstalled)
+[ProtocolInfo]
+    NETBEUI               = "OEMNXPNB.INF", "NBF", 1
+    TCPIP                 = "OEMNXPTC.INF", "TC", 2
+    IPX                   = "OEMNXPIP.INF", "NWLNKIPX", 3
+[InstallProtocol]
+    Set Status                = STATUS_FAILED
+    Set KeyNull               = ""
+    set Protocol              = $($0)
+    Debug-Output "OEMNSVRA.INF: Label: InstallProtocol"
+    Set ThisInfName = #(ProtocolInfo, $(Protocol), 1)
+    Set InfOption = #(ProtocolInfo, $(Protocol), 2)
+    Set BbIndex = #(ProtocolInfo, $(Protocol), 3)
+    Debug-Output "OEMNSVRA.INF: Installing "$(ThisInfName)
+    Ifint $(BbIndex) != 0
+        read-syms Billboard$(BbIndex)$(!STF_LANGUAGE)
+        Shell "subroutn

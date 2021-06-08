@@ -1,0 +1,79 @@
+FCAB_CREATE_FOLDER
+3 Changing the name of a file or folder =WINDOWS_FCAB_RENAME_FILE
+2 Print
+3 Setting up a printer =WINDOWS_PRINT_SETUP_PRINTER
+3 Printing a document=WINDOWS_PRINT_PRINT_DOC@common.hlp>proc4
+3 Viewing documents waiting to be printed =WINDOWS_PRINT_VIEW_PRINT_QUEUE
+3 Changing printer settings=WINDOWS_PRINT_CHANGING_SETTINGS
+3 Using a shared printer=HOW_CONNECT_NET_PRINTER@network.hlp>proc4
+3 Sharing your printer=WINDOWS_PRINT_SHARING
+3 Troubleshooting printing problems =PTS_WHAT_WRONG
+2 Use a Network
+3 Finding a computer=WIN_TRAY_FIND_NETRES@network.HLP>proc4
+3 Connecting to a computer=net_connect_lan@network.hlp>proc4
+3 Browsing your workgroup=WINDOWS_NETWORK_BROWSEWORKGROUP@network.hlp>proc4
+3 Opening a shared folder on another computer=NET_OPEN_NET_FOLDER@NETWORK.HLP>proc4
+3 Sharing a folder or printer=WINDOWS_FCAB_SHARING_FOLDER@server.hlp>proc4
+3 Backing up files over a network=APP_BACKUP_AGENT@network.hlp>proc4
+2 Communicate with Others
+3 Exchanging mail messages =APP_MAIL
+3 Dialing the telephone from your computer by using Phone Dialer=APP_DIALER
+3 Setting up a modem =WIN_MODEM_SET_UP
+2 Safeguard Your Work
+3 Backing up your files =APP_BACKUP
+3 Setting up a screen saver =WIN_DESKPR_SCRSAVERSETUP
+3 Assigning a screen-saver password =WIN_DESKPR_SCRSAVERPASSWORD
+3 Shutting down your computer =WIN_TRAY_SHUTDOWN
+3 Controlling access to a folder or printer=SECUR_CONTROL_ACCESS@server.hlp>proc4
+2 Change Windows NT Settings
+3 Change How Windows NT Looks
+4 Changing the background of the desktop =WIN_DESKPR_CHANGEBACKGRND
+4 Changing the way items on the desktop look=WIN_DESKPR_COLORS
+4 Changing how much you can fit on your screen =WIN_DESKPR_MONITORRES
+4 Changing the size of the fonts your computer displays =WIN_DESKPR_FONTSIZE
+4 Setting up a screen saver =WIN_DESKPR_SCRSAVERSETUP
+4 Adjusting the rate at which your cursor blinks=WIN_KBD_CURSOR_BLINK_RATE
+3 Customize My Computer or Windows NT Explorer
+4 Changing the appearance of items in a folder=WINDOWS_FCAB_APPEARANCE_FILES
+4 Seeing all files and filename extensions=WIN_FCAB_SHOW_FILE_EXTENSIONS
+3 Change Taskbar Settings
+4 Customizing the Start menu =WIN_TRAY_PROGMENU
+4 Moving the taskbar=WIN_TRAY_MOVEBAR
+4 Hiding or displaying the taskbar=WIN_TRAY_PROPERTIES
+3 Add or Remove Fonts
+4 Adding a font to your computer=WINDOWS_FONTS_ADDNEW
+4 Deleting a font from your computer=WINDOWS_FONTS_DELETE
+4 Viewing a font on your computer=WINDOWS_FONTS_VIEW
+4 Printing a font sample=WINDOWS_FONTS_PRINT
+4 Finding a similar font=WINDOWS_FONTS_SIMILAR
+3 Change Keyboard Settings
+4 Changing the way your keyboard responds =WIN_KBD_REPEAT_RATE
+:include keyboard.cnt
+4 Changing the keyboard layout for an installed language=WIN_KBD_CHANGE_KEYB_LAYOUT
+:include mouse.cnt
+3 Change Multimedia Settings
+4 Assigning sounds to program events =WINDOWS_MMCPL_ASSIGNEVENT
+4 Adjusting the volume for multimedia devices=WINDOWS_MMCPL_SETPLAYRECORD
+4 Adding multimedia device drivers=WINDOWS_MMCPL_ADDNDDEV
+4 Configuring multimedia devices=WINDOWS_MMCPL_CONFIGSNDDEV
+4 Setting up a MIDI instrument=WIN_MMCPL_SETUP_MIDI_INST
+3 Set Up Windows NT for Multiple Users
+4 Logging off of your computer so others can use it=WIN_TRAY_LOGOFF
+:include idevice.cnt
+2 Set Up Hardware
+3 Setting up a printer =WINDOWS_PRINT_SETUP_PRINTER
+3 Setting up a modem =WIN_MODEM_SET_UP
+2 Maintain Your Computer
+3 Backing up your hard disk =APP_BACKUP
+3 Compressing disks to create more free space=APP_DRIVESPACE
+3 Detecting and repairing disk errors=IDH_DISK_LOGICAL
+3 Formatting disks =WIN_FORMAT
+3 Changing your computer's date=WINDOWS_DATE_CHANGE_DATE
+3 Changing your computer's time=WINDOWS_DATE_CHANGE_TIME
+3 Emptying the Recycle Bin=WINDOWS_WASTE_EMPTY_BSKT
+2 Use a Portable Computer with Windows NT
+3 Keeping files synchronized using a floppy disk=BFC_FLOPPY
+3 Separating My Briefcase files from the originals=BFC_SPLIT_FILE
+3 Checking the status of a file or folder in My Briefcase=BFC_UPDATE_STATUS
+2 Set Up Windows Accessibility Features
+3 Installing Accessi

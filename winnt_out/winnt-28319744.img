@@ -1,0 +1,111 @@
+[Identification]
+    OptionType = NetAdapter
+[PlatformsSupported]
+    EISA
+    "Jazz-Internal Bus"
+[Options]
+    CPQTOK
+    BONSAI
+    RODAN
+    NETFLX
+    DURANGO
+    MAPLE
+[FileConstants]
+    UtilityInf      = "UTILITY.INF"
+    subroutineinf   = "SUBROUTN.INF"
+    SoftwareType    = "driver"
+    Exit_Code       = 0
+    NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+    IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+    NETFLX_1BYTE    = 6361358
+    DURANGO_1BYTE   = 6295822
+    MAPLE_1BYTE     = 6295822
+    BONSAI_1BYTE    = 6426894
+    RODAN_1BYTE     = 6492430
+    BonsaiString    = "BONSAI"
+    RodanString     = "RODAN"
+    Manufacturer    = "Microsoft"
+    ProductMajorVersion     = "4"
+    ProductMinorVersion     = "0"
+    ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+    ProductSoftwareName     = "NETFLX"
+    ProductSoftwareImagePath = "\SystemRoot\system32\drivers\netflx.sys"
+    NetRuleSoftwareType     = "netflxSys ndisDriver netflxDriver"
+    NetRuleSoftwareUse      = $(SoftwareType)
+    NetRuleSoftwareBindForm = """NetflxSys"" yes no container"
+    NetRuleSoftwareClass    = {"netflxDriver basic"}
+    NetRuleSoftwareBindable = {"netflxDriver netflxAdapter non exclusive 100"}
+    ProductHardwareName     = "NETFLX"
+    NetRuleHardwareType     = "netflx netflxAdapter"
+    NetRuleHardwareBindForm = " yes yes container"
+    NetRuleHardwareClass    = {"netflxAdapter basic"}
+    ProductOpSupport     = 134 
+    ProductOtherOpSupport     = 132 
+    ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+    ParamKeyName    = $(!NTN_ServiceBase)"\"$(ProductHardwareName)"\Parameters"
+    NetCardKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\Windows NT\CurrentVersion\NetworkCards"
+[GeneralConstants]
+    from      = ""
+    to        = ""
+    ExitCodeOk     = 0
+    ExitCodeCancel = 1
+    ExitCodeFatal  = 2
+    KeyNull         = ""
+    MAXIMUM_ALLOWED   = 33554432
+    RegistryErrorIndex = NO_ERROR
+    KeyProduct      = ""
+    KeyParameters   = ""
+    TRUE            = 1
+    FALSE           = 0
+    NoTitle            = 0
+    ExitState   = "Active"
+    OldVersionExisted = $(FALSE)
+    DriverPath      = $(!STF_NTPATH)\drivers
+    AdpList = {}
+    DualNicList = {}
+    AddAdpCount = 0
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        ifstr(i) $($1) == ""
+           goto returnoptions
+        endif
+        set PlatformList = ^(PlatformsSupported, 1)
+        Ifcontains(i) $($1) in $(PlatformList)
+           goto returnoptions
+        else
+           set Status = STATUS_NOTSUPPORTED
+           goto finish_ReturnOptions
+        endif
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set TempOptionList     = ^(Options, 1)
+    set TempOptionTextList = ^(OptionsText$($0), 1)
+    Debug-Output "OEMNADNF.INF: TempOptioList is: "$(TempOptionList)
+    Debug-Output "OEMNADNF.INF: TempOptionTextList is: "$(TempOptionTextList)
+    set OptionList = {}
+    set OptionTextList = {}
+    ForListDo $(TempOptionList)
+        ifstr(i) $($) != "CPQTOK"
+            Debug-Output "OEMNADNF.INF: added option: "$($)" to option list"
+            Debug-Output "OEMNADNF.INF: added option test: "*( $(TempOptionTextList), $(#) )
+            set OptionList = >( $(OptionList), $($) )
+            set OptionTextList = >( $(OptionTextList), *( $(TempOptionTextList), $(#) ) )
+        endif
+    EndForListDo
+    Debug-Output "OEMNADNF.INF: TempOptioList is: "$(OptionList)
+    Debug-Output "OEMNADNF.INF: Te

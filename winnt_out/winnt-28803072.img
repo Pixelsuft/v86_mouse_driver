@@ -1,0 +1,99 @@
+
+       OpenRegKey $(!REG_H_LOCAL) "" $(!EventLogKey) $(!ACCESS) EvntKey
+       ifstr(i) $(EvntKey) != $(!KeyNull)
+           CreateRegKey $(EvntKey) {$(Service),0,GenericClass} +
+                                    ""  $(!ACCESS) "" EvntLogKey
+           ifstr $(EvntLogKey) == $(!KeyNull)
+               Debug-Output "Error creating eventlog key"
+                   Set RegistryErrorIndex = $($R0)
+               CloseRegKey $(EvntKey)
+               return $(Status) $(RegistryErrorIndex)
+           endif
+       endif
+       CloseRegKey $(EvntKey)
+   endif
+   Set NewValueList = +
+            {{EventMessageFile,0,$(!REG_VT_EXPAND_SZ),$(PerfDll)}, +
+            {TypeSupported,0,$(!REG_VT_DWORD),7}}
+   Shell utility.inf, AddValueList, $(EvntLogKey), $(NewValueList)
+   set RegistryErrorIndex = $($R0)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        set RegistryErrorIndex = ERROR
+   endif
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+         CloseRegKey $(EvntLogKey)
+         Debug-Output "Error adding values to eventlog key"
+         return $(Status) $(RegistryErrorIndex)
+   EndIf
+   CloseRegKey $(EvntLogKey)
+   set Status = STATUS_SUCCESSFUL
+   Debug-Output "OEMNXPSM.INF: created the eventlog key"
+   return $(Status) $(RegistryErrorIndex)
+[RemoveAllServiceDependencies]
+    Debug-Output "RemoveAllServiceDependencies: entry"
+    set Status   = STATUS_SUCCESSFUL
+    Set KeyNull  = ""
+    set DependentService = $(!NTN_ServiceBase)\$($0)
+    set DependentName = $($0)
+    set KeyService = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(DependentService) $(!ACCESS) KeyService
+    ifstr $(KeyService) != $(KeyNull)
+        set newDependList = {}
+        GetRegValue    $(KeyService) "DeleteFlag" DeleteFlagValue
+        ifint $(RegLastError) != 0
+            GetRegValue    $(KeyService) "DependOnService" ServiceList
+            ifint $(RegLastError) == 0
+                Debug-Output "RemoveAllServiceDependencies: old DependOnService List "*($(ServiceList), 4)
+                GetRegValue $(KeyService) "DependOnGroup" GrpList
+                ifint $(RegLastError) == 0
+                    ForListDo *($(GrpList),4)
+                       set grp = "+"$($)
+                       set newDependList = >($(newDependList), $(grp))
+                    EndForListDo
+                endif
+                Debug-Output "RemoveAllServiceDependencies: new DependOnService List "$(newDependList)
+                LibraryProcedure Result, $(!LIBHANDLE), +
+                   SetupChangeServiceConfig, $(DependentName)  +
+                   $(!SERVICE_NO_CHANGE), $(!SERVICE_NO_CHANGE), +
+                   $(!SERVICE_NO_CHANGE), "", "",  +
+                   $(newDependList), "", "", ""
+            endif
+        endif
+        CloseRegKey $(KeyService)
+    else
+        Debug-Output "RemoveAllServiceDependencies: failed to open service key "$(DependentService)
+    endif
+    Debug-Output "RemoveAllServiceDependencies: exit"
+    return $(Status)
+[Files-RemoveList]
+AFPSVCAPI       = $(!STF_WINDOWSSYSPATH)\sfmapi.dll
+AFPSVCMGR       = $(!STF_WINDOWSSYSPATH)\sfmmgr.dll
+SFMHELP			= $(!STF_WINDOWSSYSPATH)\sfmmgr.hlp
+ATCONFIG		= $(!STF_WINDOWSSYSPATH)\sfmatcfg.dll
+ATMSG			= $(!STF_WINDOWSSYSPATH)\sfmatmsg.dll
+ATWSOCK			= $(!STF_WINDOWSSYSPATH)\sfmwhsat.dll
+ATDRIVER		= $(!STF_WINDOWSSYSPATH)\drivers\sfmatalk.sys
+ATKCTRSDLL      = $(!STF_WINDOWSSYSPATH)\atlkctrs.dll
+ATKCTRNMH       = $(!STF_WINDOWSSYSPATH)\atlkctrnm.h
+ATKCTRSINI      = $(!STF_WINDOWSSYSPATH)\atlkctrs.ini
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-ADMTOOLS]
+1,SFMAPI.DLL , SIZE=999
+1,SFMMGR.CNT , SIZE=914
+1,SFMMGR.CPL , SIZE=999
+1,SFMMGR.HLP , SIZE=64891
+[Files-ATALK]
+1,ATKCTRS.DLL , SIZE=999
+1,SFMATCFG.DLL , SIZE=999
+1,SFMATMSG.DLL , SI

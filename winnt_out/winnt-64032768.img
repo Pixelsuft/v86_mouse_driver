@@ -1,0 +1,127 @@
+
+setup.ini, GroupAccess,, """%CharMap_DESC%"""
+
+
+[ClipBook]
+OptionDesc              = %ClipBook_DESC%
+Tip                     = %ClipBook_TIP%
+IconIndex               = 40 ;clipboard mini-icon for dialogs
+Parent                  = AccessTop
+InstallType             = 14 ;Typical, Portable, Custom
+CopyFiles               = ClipBookCopyFilesSys, ClipBookCopyFilesHelp
+AddReg                  = ClipBookAddReg
+UpdateInis              = ClipBookInis
+Uninstall               = ClipBookUninstall
+Upgrade                 = ClipBookUpgrade
+Detect                  = %11%\clipbrd.exe
+
+
+[ClipBookUninstall]
+DelFiles                = ClipBookCopyFilesSys, ClipBookCopyFilesHelp
+AddReg                  = ClipBookUninstallAddReg
+UpdateInis              = ClipBookUninstallInis
+
+
+[ClipBookUpgrade]
+CopyFiles               = ClipBookCopyFilesSys, ClipBookCopyFilesHelp
+AddReg                  = ClipBookAddReg
+
+
+[ClipBookInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%ClipBook_DESC%"",""""""%11%\clipbrd.exe"""""",,,,""%11%"""
+
+
+[ClipBookUninstallInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%ClipBook_DESC%"""
+
+
+[Clock]
+OptionDesc              = %Clock_DESC%
+Tip                     = %Clock_TIP%
+IconIndex               = 66 ;Windows mini-icon for dialogs
+Parent                  = AccessTop
+InstallType             = 14 ;Typical, Portable, Custom
+CopyFiles               = ClockCopyFilesSys
+AddReg                  = ClockAddReg
+UpdateInis              = ClockInis
+Uninstall               = ClockUninstall
+Upgrade                 = ClockUpgrade
+Detect                  = %11%\clock.exe
+
+
+[ClockUninstall]
+DelFiles                = ClockCopyFilesSys
+AddReg                  = ClockUninstallAddReg
+UpdateInis              = ClockUninstallInis
+
+
+[ClockUpgrade]
+CopyFiles               = ClockCopyFilesSys
+AddReg                  = ClockAddReg
+
+
+[ClockInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Clock_DESC%"",""""""%11%\clock.exe"""""",,,,""%11%"""
+
+
+[ClockUninstallInis]
+setup.ini, progman.groups,, "GroupAccess=%Access_GROUP%"
+setup.ini, GroupAccess,, """%Clock_DESC%"""
+
+
+[Deskpaper]
+OptionDesc              = %Deskpaper_DESC%
+Tip                     = %Deskpaper_TIP%
+IconIndex               = 43 ;Windows mini-icon for dialogs
+Parent                  = AccessTop
+InstallType             = 0 ;Manual only
+DelFiles                = DeskpaperOldCopyFilesSys
+CopyFiles               = DeskpaperCopyFilesSys
+AddReg                  = DeskpaperAddReg
+Uninstall               = DeskpaperUninstall
+Upgrade                 = DeskpaperUpgrade
+Detect                  = %10%\zapotec.bmp
+
+
+[DeskpaperUninstall]
+DelFiles                = DeskpaperOldCopyFilesSys,DeskpaperCopyFilesSys
+AddReg                  = DeskpaperUninstallAddReg
+
+
+[DeskpaperUpgrade]
+DelFiles                = DeskpaperOldCopyFilesSys
+CopyFiles               = DeskpaperCopyFilesSys
+AddReg                  = DeskpaperAddReg
+
+
+[MousePoint]
+OptionDesc              = %MousePoint_DESC%
+Tip                     = %MousePoint_TIP%
+IconIndex               = 45 ;Windows mini-icon for dialogs
+Parent                  = AccessTop
+InstallType             = 0 ;Manual only
+CopyFiles               = MousePointCopyFilesSys
+AddReg                  = MousePointAddReg, MousePointSchemes
+Uninstall               = MousePointUninstall
+Upgrade                 = MousePointUpgrade
+Detect                  = %11%\appstart.ani
+
+
+[MousePointUninstall]
+DelFiles                = MousePointCopyFilesSys,MousePointDelOldFiles
+AddReg                  = MousePointUninstallAddReg
+DelReg                  = MousePointSchemes
+
+
+[MousePointUpgrade]
+CopyFiles               = MousePointCopyFilesSys
+AddReg                  = MousePointAddReg, MousePointSchemes
+
+
+[ObjectPkg]
+OptionDesc              = %ObjectPkg_DESC%
+Tip                     = %ObjectPkg_TIP%
+IconIndex               = 36 ;Windows mini-icon 

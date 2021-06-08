@@ -1,0 +1,92 @@
+Control_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H1"
+HKR, Settings, Compression_On,, "%%C3"    
+
+[Rockwell42.AddReg] ; Cardinal 19.2 internal, MVP192I
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 00,4b,00,00
+HKR, Init, 2,, "AT&FE0V1&D2&C1\V1W2S95=47S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Modulation_CCITT,, "B0B15"
+HKR, Settings, Modulation_Bell,, "B1B16"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+
+[Rockwell44.AddReg] ; Reveal 14.4 Modem Soundcard
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00 
+HKR, Settings, Compression_On,, "%%C3"
+
+[Rockwell45.AddReg] ; Apex 14.4 data fax cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W2 S95=47 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N7 -K1 )M1 -Q1 *H1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6 -K1 )M1 -Q1 *H1"
+HKR, Settings, Compression_On,, "%%C3"    
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+; Strings
+
+[Strings]
+
+Zoom = "Zoom Telephonics, Inc."
+Zoom1       = "Zoom Fax Modem V.34X Model 470"
+Zoom1PNP    = "Zoom Fax Modem V.34X Model 470 Plug & Play"
+
+
+Reveal      = "Reveal"
+Reveal1     = "Reveal 28.8, V.34, Data Fax PM700"
+Reveal2     = "Reveal 14.4, Data Fax PM500"
+Reveal4     = "Reveal Decathlon XL 14.4 Modem+Sound Card" 
+Reveal5     = "14.4 Data Fax Voice Modem+Soundcard"
+
+Winbook     = "Winbook"
+Winbook1    = "Winbook (Dynalink) 14.4 Data Fax"
+Winbook2    = "Winbook (Cirrus) 14.4 Data Fax"
+
+Mitsubishi  = "Mitsubishi"
+Mitsubishi1 = "Mitsubishi 14.4 PCMCIA"
+
+Piiceon  = "Piiceon"
+Piiceon2 = "Piiceon Dispatcher 14.4 PCMCIA"
+Piiceon3 = "Piiceon Dispatcher V.34 for LTE and Contura"
+Piiceon4 = "Piiceon Dispatcher 14.4 for LTE and Contura"
+Piiceon5 = "Piiceon Dispatcher Modem"
+Piiceon6 = "Piiceon Dispatcher 14.4 for Toshiba"    
+Piiceon7 = "Piiceon Dispatcher 28.8, V.34 PCMCIA"    
+Piiceon8 = "Piiceon Dispatcher PCMCIA"    
+
+Macronix  = "Macronix"
+Macronix1 = "Macronix 14.4 Data Fax PCMCIA"
+Macronix2 = "Macronix 1200 bps Modem"
+
+Premax  = "Premax"
+Premax1 = "Premax 28.8, V.34 PCMCIA"
+Premax2 = "Premax 28.8, VFC PCMCIA"
+Premax3 = "28.8, V.34 PCMCIA Modem"     ; combo, premax and Smart Modular
+
+Logicode  = "Logicode"
+Logicode1 = "Logicode 28.8, V.34 External"             ; Logicode 28.8 V.34 External with cell
+Logicode2 = "Logicode 28.8, V.34 Internal"             ; Logicode 28.8 V.34 Internal with cell
+Logicode3 = "Logicode 14.4 Data-Fax-Voice Internal"    ; Logicode 14.4 Internal data-fax-voice with cell
+Logicode4 = "Logicode 14.4 Data-Fax-Voice External"    ; Logicode 14.4 External data-fax-voice with cell
+Logicode5 = "14.4 Data-Fax Modem"                      ; Logicode and Microcom combo
+Logicode6 = "Logicode 14.4 Data-Fax External"          ; Logicode 14.4 Data-Fax External (No voice!)
+Logicode7 = "Logicode 14.4 Data-Fax Internal 1414HV"   ; Logicode 14.4 Data-Fax External (No voice!)
+Logicode8 = "Logicode 9624 Data-Fax Internal"          ; Logicode 9624 Data-Fax Internal
+Logicode9 = "Logicode 9624 Data-Fax External"          ; Logicode 9624 Data-Fax External
+Logicode13= "Logicode 14.4 Data Fax (RPI)"
+
+Rockwell  ="Rockwell"
+Rockwell1 ="14400 bps Data-Fax Modem"
+Rockwell2 ="14400 bps Internal Data-Fax Modem"
+Rockwell3 ="14400 bps Internal Data-Fax Modem"
+
+Cardinal  ="Cardinal"
+Cardinal1 ="Cardinal 14.4 Kbps Internal Fax Modem"
+Cardinal2 ="Cardinal MVP288XF 28.8 Kbps V.34 Fax Modem"
+Cardinal2PNP ="Cardinal MVP288XF 28.8 Kbps V.34 Fax Modem PNP"
+Cardinal3 ="28.8, V.34-VFC Data Fax Modem"    ; Cardinal, CPI (Viva)
+Cardinal4 ="Cardinal MVP144XF 14.4 Kbps Fax Modem"   

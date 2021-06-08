@@ -1,0 +1,133 @@
+/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+
+
+
+;******************************* Modems ARN *************************
+[ARN DX - FRN]
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0\\G1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI5<cr>
+DETECT_RESPONSE=ARNDX
+
+
+COMMAND_INIT=AT&FL3W0X4S0=2S95=40<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: ALT - CELLULAR<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: ALT - CELLULAR<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: ALT - CELLULAR<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+
+CONNECT_EC=<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+CONNECT_EC=<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: ALT - CELLULAR<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: ALT - CELLULAR<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+[ARN Generique - FRN]
+;[ARN G‚n‚rique - FRN]
+; setup doesn't process extended chars in modem names - ram
+;Recommand‚ pour le serveur.
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C3
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0\\G1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI5<cr>
+DETECT_RESPONSE=ARNDX
+
+COMMAND_INIT=AT&FL3W0X0S0=2S95=40<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP5<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP4<cr><lf>
+
+
+;******************************************** Modems P

@@ -1,0 +1,238 @@
+.CP775.Ini
+
+[Font.CP775.120]
+CopyFiles = Font.CP775.Files,Font.CP775.Files.120
+DelReg = Font.CP1257.Reg.96
+AddReg = Font.CP1257.Reg.120
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP775.Reg.120
+UpdateInis=Font.CP775.Ini
+
+;
+; CP 850/1252
+;
+[Font.CP850.Files]
+app850.fon
+cga40850.fon
+cga80850.fon
+ega40850.fon
+ega80850.fon
+
+[Font.CP850.Files.96]
+vga850.fon
+vgafix.fon
+vgasys.fon
+coure.fon
+serife.fon
+smalle.fon
+sserife.fon
+
+[Font.CP850.Files.120]
+8514oem.fon
+8514fix.fon
+8514sys.fon
+courf.fon
+seriff.fon
+smallf.fon
+sseriff.fon
+
+[Font.CP850.96]
+CopyFiles = Font.CP850.Files,Font.CP850.Files.96
+DelReg = Font.CP1252.Reg.120
+AddReg = Font.CP1252.Reg.96
+AddReg = Font.CP850.Reg.96
+UpdateInis=Font.CP850.Ini
+
+[Font.CP850.120]
+CopyFiles = Font.CP850.Files,Font.CP850.Files.120
+DelReg = Font.CP1252.Reg.96
+AddReg = Font.CP1252.Reg.120
+AddReg = Font.CP850.Reg.120
+UpdateInis=Font.CP850.Ini
+
+;
+; CP 852/1250
+;
+[Font.CP852.Files]
+app852.fon
+cga40852.fon
+cga80852.fon
+ega40852.fon
+ega80852.fon
+
+[Font.CP852.Files.96]
+vga852.fon
+vgafixe.fon
+vgasyse.fon
+couree.fon
+serifee.fon
+smallee.fon
+sserifee.fon
+
+[Font.CP852.Files.120]
+8514oeme.fon
+8514fixe.fon
+8514syse.fon
+courfe.fon
+seriffe.fon
+smallfe.fon
+sseriffe.fon
+
+[Font.CP852.96]
+CopyFiles = Font.CP852.Files,Font.CP852.Files.96
+DelReg = Font.CP1250.Reg.120
+AddReg = Font.CP1250.Reg.96
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP852.Reg.96
+UpdateInis=Font.CP852.Ini
+
+[Font.CP852.120]
+CopyFiles = Font.CP852.Files,Font.CP852.Files.120
+DelReg = Font.CP1250.Reg.96
+AddReg = Font.CP1250.Reg.120
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP852.Reg.120
+UpdateInis=Font.CP852.Ini
+
+;
+; CP 855/1251
+;
+[Font.CP855.Files]
+app866.fon
+cga40866.fon
+cga80866.fon
+ega40866.fon
+ega80866.fon
+
+[Font.CP855.Files.96]
+vga866.fon
+vgafixr.fon
+vgasysr.fon
+courer.fon
+serifer.fon
+smaller.fon
+sserifer.fon
+
+[Font.CP855.Files.120]
+8514oemr.fon
+8514fixr.fon
+8514sysr.fon
+courfr.fon
+seriffr.fon
+smallfr.fon
+sseriffr.fon
+
+[Font.CP855.96]
+CopyFiles = Font.CP855.Files,Font.CP855.Files.96
+DelReg = Font.CP1251.Reg.120
+AddReg = Font.CP1251.Reg.96
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP855.Reg.96
+UpdateInis=Font.CP866.Ini
+
+[Font.CP855.120]
+CopyFiles = Font.CP855.Files,Font.CP855.Files.120
+DelReg = Font.CP1251.Reg.96
+AddReg = Font.CP1251.Reg.120
+AddReg = Font.NonCP1252.Substitutes
+AddReg = Font.CP855.Reg.120
+UpdateInis=Font.CP866.Ini
+
+;
+; CP 857/1254
+;
+[Font.CP857.Files]
+app857.fon
+cga40857.fon
+cga80857.fon
+ega40857.fon
+ega80857.fon
+
+[Font.CP857.Files.96]
+vga857.fon
+vgafixt.fon
+vgasyst.fon
+couret.fon
+serifet.fon
+smallet.fon
+sserifet.fon
+
+[Font.CP857.Files.120]
+8514oemt.fon
+8514fixt.fon
+8514syst.fon
+courft.fon
+serifft.fon
+smallft.fon
+sserifft.fon
+
+[Font.CP857.96]
+CopyFiles = Font.CP857.Files,Font.CP857.Files.96
+DelReg = Font.CP1254.Reg.120
+AddReg = Font.CP1254.Reg.96
+AddReg = Font.CP857.Reg.96
+UpdateInis=Font.CP857.Ini
+
+[Font.CP857.120]
+CopyFiles = Font.CP857.Files,Font.CP857.Files.120
+DelReg = Font.CP1254.Reg.96
+AddReg = Font.CP1254.Reg.120
+AddReg = Font.CP857.Reg.120
+UpdateInis=Font.CP857.Ini
+
+;
+; CP 860/1252
+;
+[Font.CP860.Files]
+app850.fon
+cga40850.fon
+cga80850.fon
+ega40850.fon
+ega80850.fon
+
+[Font.CP860.Files.96]
+vga860.fon
+vgafix.fon
+vgasys.fon
+coure.fon
+serife.fon
+smalle.fon
+sserife.fon
+
+[Font.CP860.Files.120]
+8514oem.fon
+8514fix.fon
+8514sys.fon
+courf.fon
+seriff.fon
+smallf.fon
+sseriff.fon
+
+[Font.CP860.96]
+CopyFiles = Font.CP860.Files,Font.CP860.Files.96
+DelReg = Font.CP1252.Reg.120
+AddReg = Font.CP1252.Reg.96
+AddReg = Font.CP860.Reg.96
+UpdateInis=Font.CP850.Ini
+
+[Font.CP860.120]
+CopyFiles = Font.CP860.Files,Font.CP860.Files.120
+DelReg = Font.CP1252.Reg.96
+AddReg = Font.CP1252.Reg.120
+AddReg = Font.CP860.Reg.120
+UpdateInis=Font.CP850.Ini
+
+;
+; CP 861/1252
+;
+[Font.CP861.Files]
+app850.fon
+cga40850.fon
+cga80850.fon
+ega40850.fon
+ega80850.fon
+
+[Font.CP861.Files.96]
+vga861.fon
+vgafix.fon
+vgas

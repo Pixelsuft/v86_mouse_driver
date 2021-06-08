@@ -1,0 +1,80 @@
+Key)
+        CloseRegKey $(SoftLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "Registry error: add value list."
+            goto fatalregistry
+        endif
+        goto addHdwDriverComponent
+addHdwDriverComponent = +
+    Debug-Output "******************Entering addHdwDriverComponent******************"
+    set DigiSpecificString = $(AdapterHardwareName)
+    Ifint $(HdwDriverComponentExists) == $(TRUE)
+        goto addAdapterComponent
+    Endif
+    Debug-Output "OEMNADDS.INF: Adding HdwDriverComponent"
+        set TypeofService = "kernelautostart"
+        set ServiceOrderGroup = "Extended base"
+        set Dependencies = {}
+        set ObjectName = ""
+        set TypeSupported = "7"
+        set EventLogLocation = "System"
+        set ErrorControlValue = 1
+        Shell $(UtilityInf), AddSoftwareComponent, +
+                                    $(Manufacturer), +
+                                    $(ProductSoftwareNameHdwDriver), +
+                                    $(ProductSoftwareNameHdwDriver), +
+                                    $(ProductSoftwareTitleHdwDriver), +
+                                    $(STF_CONTEXTINFNAME), +
+                                    $(ProductSoftwareImagePathHdwDriver), +
+                                    $(TypeofService), +
+                                    $(ServiceOrderGroup), +
+                                    $(Dependencies), +
+                                    $(ObjectName), +
+                                    $(IoLogMsgDLL)";"$(ProductSoftwareImagePathHdwDriver), +
+                                    $(TypeSupported), +
+                                    $(EventLogLocation), +
+                                    $(ErrorControlValue)
+        Set OEM_ABANDON_SOFTWARE = TRUE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error: AddSoftwareComponent FAILED! -- "$(ProductSoftwareNameHdwDriver)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey      = $($R1)
+        Set SoftNetRuleKey      = $($R2)
+        Set SoftServiceKey      = $($R3)
+        Set SoftParameterKey    = $($R4)
+        Set SoftLinkageKey      = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersionHdwDriver)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersionHdwDriver)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareTitleHdwDriver)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescriptionHdwDriver)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareNameHdwDriver)},+
+                           {hidden,$(NoTitle),$(!REG_VT_DWORD),$(NetRuleSoftwareHiddenHdwDriver)}, +
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error: AddValueList FAILED!  -- "$(SoftProductKey)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "Resgitry error: add value list."
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(SoftParameterKey)
+            CloseRegKey $(SoftLinkage

@@ -1,0 +1,81 @@
+istryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            CloseRegKey $(NWLNKSPXProductKey)
+            CloseRegKey $(NWLNKSPXNetRuleKey)
+            CloseRegKey $(NWLNKSPXServiceKey)
+            CloseRegKey $(NWLNKSPXParameterKey)
+            CloseRegKey $(NWLNKSPXLinkageKey)
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf) AddValueList, $(NWLNKSPXParameterKey),+
+            {{"ConnectionCount", $(NoTitle), $(!REG_VT_DWORD), 5} +
+             {"ConnectionTimeout",   $(NoTitle), $(!REG_VT_DWORD), 2} +
+             {"InitPackets",$(NoTitle), $(!REG_VT_DWORD), 5} +
+             {"MaxPackets",  $(NoTitle), $(!REG_VT_DWORD), 48} +
+             {"InitialRetransmissionTime", $(NoTitle), $(!REG_VT_DWORD), 500} +
+             {"KeepAliveCount",   $(NoTitle), $(!REG_VT_DWORD), 8} +
+             {"WindowSize",   $(NoTitle), $(!REG_VT_DWORD), 4} +
+             {"SpxSocketRangeStart",   $(NoTitle), $(!REG_VT_DWORD), 24576} +
+             {"SpxSocketRangeEnd",   $(NoTitle), $(!REG_VT_DWORD), 32767} +
+             {"SpxSocketUniqueness",   $(NoTitle), $(!REG_VT_DWORD), 1} +
+             {"MaxPacketSize",   $(NoTitle), $(!REG_VT_DWORD), 4096} +
+             {"RetransmissionCount",   $(NoTitle), $(!REG_VT_DWORD), 8} +
+             {"KeepAliveTimeout",         $(NoTitle), $(!REG_VT_DWORD), 12}}
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            CloseRegKey $(NWLNKSPXProductKey)
+            CloseRegKey $(NWLNKSPXNetRuleKey)
+            CloseRegKey $(NWLNKSPXServiceKey)
+            CloseRegKey $(NWLNKSPXParameterKey)
+            CloseRegKey $(NWLNKSPXLinkageKey)
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        CreateRegKey $(NWLNKSPXServiceKey) {"Performance",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyPerformance
+        ifstr(i) $(KeyPerformance) != ""
+            Set NewValueList = {+
+                {Close,$(NoTitle),$(!REG_VT_SZ),"CloseSPXPerformanceData"},+
+                {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectSPXPerformanceData"},+
+                {Library,$(NoTitle),$(!REG_VT_SZ),"perfctrs.dll"},+
+                {Open,$(NoTitle),$(!REG_VT_SZ),"OpenSPXPerformanceData"},+
+                }
+            Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+            CloseRegKey $(KeyPerformance)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "OEMNXPIP.INF: ShellCode error."
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+        endif
+        CloseRegKey $(NWLNKSPXProductKey)
+        CloseRegKey $(NWLNKSPXNetRuleKey)
+        CloseRegKey $(NWLNKSPXServiceKey)
+        CloseRegKey $(NWLNKSPXParameterKey)
+        CloseRegKey $(NWLNKSPXLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf), AddWinsockInfo, +
+             $(Product$(ThisOption)Name), +
+             $(ProductNWLNKIPXWshDllPath), +
+             16,14
+    Shell $(UtilityInf), AddNameSpaceProvider, +
+            $(ProductNWLNKIPXDisplayName), +
+            $(ProviderImagePath), +
+            $(ProviderNameSpaces), +
+            TRUE, +
+            $(ProviderGUID)
+	Shell $(UtilityInf), AddServiceProvider, $(ProductNWLNKIPXName), +
+	    $(ProviderImagePath), $(ProductNWLNKIPXDisplayName), 8
+        Shell $(UtilityInf) AddClientRpcProtocol "ncadg_ipx" "RpcLtCcm.Dll"
+        Shell $(UtilityInf) AddClientRpcProtocol "ncacn_spx" "RpcLtCcm.Dll"
+        Shell $(UtilityInf) AddServe

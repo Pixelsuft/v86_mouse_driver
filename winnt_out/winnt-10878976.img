@@ -1,0 +1,96 @@
+      CloseRegKey $(CS_KeyLinkage)
+       goto C_S_Return
+    endif
+    CloseRegKey $(CS_KeyDisabled)
+    ifstr(i) $(CS_EventFile) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\EventLog\"$(CS_EventLogLocation) $(MAXIMUM_ALLOWED) CS_KeyEventLog
+        Ifstr $(CS_KeyEventLog) == $(KeyNull)
+           debug-output "Cannot open eventlog key"
+           set RegistryErrorIndex = UNABLE_OPEN_EVENTLOG_SUBKEY
+           CloseRegKey $(CS_KeyTempSvc)
+           CloseRegKey $(CS_KeyParameters)
+           CloseRegKey $(CS_KeyLinkage)
+           goto C_S_Return
+        else
+           CreateRegKey $(CS_KeyEventLog) {$(CS_EventSourceName),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CS_KeyService
+           ifstr(i) $(CS_KeyService) == ""
+               OpenRegKey $(CS_KeyEventLog) "" $(CS_EventSourceName) $(MAXIMUM_ALLOWED) CS_KeyService
+           endif
+           Ifstr $(CS_KeyService) != $(KeyNull)
+               SetRegValue $(CS_KeyService) {EventMessageFile,$(NoTitle),$(!REG_VT_EXPAND_SZ),$(CS_EventFile)}
+               SetRegValue $(CS_KeyService) {TypesSupported,$(NoTitle),$(!REG_VT_DWORD),$(CS_TypeSupported)}
+               ifstr(i) $(CS_ParameterMessageFile) != ""
+                   SetRegValue $(CS_KeyService) {ParameterMessageFile,$(NoTitle),$(!REG_VT_EXPAND_SZ),$(CS_ParameterMessageFile)}
+               endif
+               CloseRegKey $(CS_KeyService)
+           endif
+        Endif
+    endif
+C_S_Return = +
+    Ifstr $(CS_KeyServicesOpened) != $(KeyNull)
+        CloseRegKey $(CS_KeyServices)
+    endif
+    return $(RegistryErrorIndex), $(CS_KeyTempSvc), $(CS_KeyParameters), $(CS_KeyLinkage)
+[AssignAdapterNumber]
+    read-syms InitBaseVars
+    set AA_KeyNetcards = $($0)
+    ifstr $($1) == ""
+        set AA_AdapterNumber = 1
+    else
+        set AA_AdapterNumber = $($1)
+    endif
+    set AA_KeyNetcards = ""
+    set AA_KeyTemp = ""
+    set RegistryErrorIndex = NO_ERROR
+    Debug-Output "[AssignAdapterNumber] starting with "$(AA_AdapterNumber)
+    Ifstr(i) $(AA_KeyNetcards) == $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(MAXIMUM_ALLOWED) AA_KeyNetcards
+        set AA_KeyNetcardsOpened = $(AA_KeyNetcards)
+    endif
+    Ifstr $(AA_KeyNetcards) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+       goto A_A_Return
+    endif
+A_A_TryAgain = +
+    ifint $(AA_AdapterNumber) < 10
+        set Tmp_Zero_AdapterNumber = "0"$(AA_AdapterNumber)
+        OpenRegKey $(AA_KeyNetcards) "" $(Tmp_Zero_AdapterNumber) $(MAXIMUM_ALLOWED) AA_Zero_KeyTemp
+        ifstr(i) $(AA_Zero_KeyTemp) != ""
+            CloseRegKey $(AA_Zero_KeyTemp)
+            goto Next_Number
+        endif
+    endif
+    set Tmp_AA_AdapterNumber = $(AA_AdapterNumber)
+    OpenRegKey $(AA_KeyNetcards) "" $(Tmp_AA_AdapterNumber) $(MAXIMUM_ALLOWED) AA_KeyTemp
+    Ifstr $(AA_KeyTemp) == $(KeyNull)
+        Goto A_A_Found
+    Endif
+    CloseRegKey $(AA_KeyTemp)
+Next_Number = +
+    Set AA_KeyTemp = $(KeyNull)
+    Set-add AA_AdapterNumber = $(AA_AdapterNumber),1
+    Goto A_A_TryAgain
+A_A_Found =+
+    CloseRegKey $(AA_KeyNetcardsOpened)
+A_A_Return = +
+    return $(RegistryErrorIndex) $(AA_AdapterNumber)
+[InstallNetcard]
+   read-syms InitBaseVars
+   set IN_Infname     = $($0)
+   set IN_KeyNetcardsArea = $($1)
+   set IN_CardNumber  = $($2)
+   set IN_KeyNetcard  = ""
+   set IN_KeyNetRules = ""
+    Shell "" AssignAdapterNumber $(IN_KeyNetcardsArea) $(IN_CardNumber)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        goto I_N_Return
+    endif
+    set IN_CardNumber = $($R1)
+    CreateRegKey $(!REG_H_LOCAL) {$(NetworkCardKeyName)\$(IN_CardNumber),$(NoTitle),GenericClass} +
+                  "" $(MAXIMUM_ALLOWED) "" IN_KeyNetcard
+    Ifstr $(IN_KeyNetcard) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_CREATE_NETCARD_CONFIGURATION
+       goto I_N_Return
+    endif
+    CreateRegKey $(IN_KeyNetcard) {NetRules,$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" IN_KeyNet

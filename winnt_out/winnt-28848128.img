@@ -1,0 +1,92 @@
+ueList)
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    Debug-Output "utility.INF: ShellCode error. Cannot add NWLNKRIP netrule value"
+                    goto ShellCodeError
+                endif
+                set RegistryErrorIndex = $($R0)
+                Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                    EndWait
+                    Debug-Output "OEMNSVRR.INF: Registry error: Add netrule"
+                    set Status = STATUS_FAILED
+                endif
+                Shell $(UtilityInf), LinkToService, $(KeyVersion), "NWLNKRIP", service
+                set RegistryErrorIndex = $($R0)
+                Ifstr(i) $(RegistryErrorIndex) == NO_ERROR
+                    GetRegValue $(KeyVersion),"RefCount", RefCountInfo
+                    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                        SetRegValue $(KeyVersion) {RefCount,$(NoTitle),$(!REG_VT_DWORD),0}
+                    endif
+                    Shell "" AddNWLNKRIPUsed "RAS"
+                endif
+                ifstr $(KeyVersion) != $(KeyNull)
+                    CloseRegKey $(KeyVersion)
+                endif
+                ifstr $(KeyRules) != $(KeyNull)
+                    CloseRegKey $(KeyRules)
+                endif
+            endif
+        endif
+    Else
+        GetRegValue $(KeySoftware) "MajorVersion" VersionInfo
+        set VersionMajor = *($(VersionInfo), 4)
+        GetRegValue $(KeySoftware) "MinorVersion" VersionInfo
+        set VersionMinor = *($(VersionInfo), 4)
+        set InstalledVersion = $(VersionMajor)"."$(VersionMinor)
+        ifstr(i) $(InstallFrom) == "NWLNKRIP"
+            read-syms VerExists$(!STF_LANGUAGE)
+            set Text = $(Product$(Option)Title)$(Ver)$(ProductVersion)+
+                       $(Text1)
+            Shell $(subroutineinf), SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Text)
+            Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_FAILED
+                Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                Goto end
+            Endif
+        else
+            Shell "" AddNWLNKRIPUsed $(InstallFrom)
+        endif
+        goto end
+    EndIf
+    Ifstr(i) $(KeySoftware) != $(KeyNull)
+        CloseRegKey $(KeySoftware)
+    endif
+    Shell "" AddNWLNKRIPUsed $(InstallFrom)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductSAPKeyName) $(MAXIMUM_ALLOWED) SAPKeyProduct
+    ifstr(i) $(SAPKeyProduct) == ""
+        set !STF_SRCDIR_OVERRIDE = $(SrcDir)
+        Shell "oemnsvsa.inf" InstallOption $(!STF_LANGUAGE) "SAP"  +
+          $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig) "NWLNKRIP"
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\NwLnkIpx\Parameters" $(MAXIMUM_ALLOWED) KeyIpx
+    IfStr(i) $(KeyIpx) != ""
+        GetRegValue $(KeyIpx), "RipTableSize", RipTableInfo
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+           SetRegValue $(KeyIpx) {RipTableSize, $(NoTitle), $(!REG_VT_DWORD), 255}
+        endif
+        CloseRegKey $(KeyIpx)
+    EndIf
+    EndWait
+    goto configureadapter
+configureadapter = +
+    ifstr(i) $(!NTN_InstallMode) == configure
+        set CommonStatus = STATUS_NO_EFFECT
+    endif
+    Debug-Output "OEMNSVRR.INF: !STF_UNATTENDED = "$(!STF_UNATTENDED)
+    set Unattended = NO
+    ifstr(i) $(!STF_UNATTENDED) == "YES"
+        set Unattended = "YES"
+    else-ifstr(i) $(!STF_UNATTENDED) != ""
+        set Unattended = "YES"
+    else-ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        set Unattended = "YES"
+    endif
+    ifstr(i) $(Unattended) == NO
+        set NetbiosRouting = 0
+        set ServiceName = $(!NTN_ServiceBase)"\NWLNKRIP\Parameters"
+        OpenRegKey $(!REG_H_LOCAL) "" $(ServiceName) $(MAXIMUM_ALLOWED) KeyParam
+        Ifstr(i) $(KeyParam) != $(KeyNull)
+            GetRegValue $(KeyParam),"NetbiosRouting", NetbiosRoutingInfo
+            Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+               set NetbiosRouting = *($(NetbiosRoutingInf

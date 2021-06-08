@@ -1,0 +1,77 @@
+tryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            CloseRegKey $(NWLNKVersKeyHandle)
+            CloseRegKey $(NWLNKRulesKeyHandle)
+            CloseRegKey $(NWLNKSvcKeyHandle)
+            CloseRegKey $(NWLNKParmKeyHandle)
+            CloseRegkey $(NWLNKLinkageHandle)
+            goto fatalregistry
+        Endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)Bindable)},+
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)Class)},+
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)} }
+        Shell  $(UtilityInf), AddValueList, $(NWLNKRulesKeyHandle), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(NWLNKVersKeyHandle)
+            CloseRegKey $(NWLNKRulesKeyHandle)
+            CloseRegKey $(NWLNKParmKeyHandle)
+            CloseRegKey $(NWLNKLinkageHandle)
+            CloseRegKey $(NWLNKSvcKeyHandle)
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        ifstr(i) $(!STF_PRODUCT) != "WINNT"
+            set RipRoute = 1
+        else
+            set RipRoute = 0
+        endif
+        Shell $(UtilityInf) AddValueList, $(NWLNKParmKeyHandle),+
+            {{"DedicatedRouter", $(NoTitle), $(!REG_VT_DWORD), 0} +
+             {"InitDatagrams", $(NoTitle), $(!REG_VT_DWORD), 10} +
+             {"MaxDatagrams", $(NoTitle), $(!REG_VT_DWORD), 50} +
+             {"RipUsageTime", $(NoTitle), $(!REG_VT_DWORD), 15} +
+             {"SourceRouteUsageTime", $(NoTitle), $(!REG_VT_DWORD), 15} +
+             {"SocketUniqueness",   $(NoTitle), $(!REG_VT_DWORD), 8} +
+             {"SocketStart",   $(NoTitle), $(!REG_VT_DWORD), 16384} +
+             {"SocketEnd",   $(NoTitle), $(!REG_VT_DWORD), 24575} +
+             {"VirtualNetworkNumber",$(NoTitle), $(!REG_VT_DWORD), 0} +
+             {"RipRoute",       $(NoTitle), $(!REG_VT_DWORD), $(RipRoute)} +
+             {"RipTimeout",       $(NoTitle), $(!REG_VT_DWORD), 1} +
+             {"EnableWANRouter",  $(NoTitle), $(!REG_VT_DWORD), 0} +
+             {"ReplaceConfigDialog",  $(NoTitle), $(!REG_VT_DWORD), 0} +
+             {"RipCount",         $(NoTitle), $(!REG_VT_DWORD), 5}}
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(NWLNKVersKeyHandle)
+        CloseRegKey $(NWLNKRulesKeyHandle)
+        CloseRegKey $(NWLNKParmKeyHandle)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(NWLNKLinkageHandle)
+            CloseRegKey $(NWLNKSvcKeyHandle)
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        CreateRegKey $(NWLNKSvcKeyHandle) {"Performance",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyPerformance
+        ifstr(i) $(KeyPerformance) != ""
+            Set NewValueList = {+
+                {Close,$(NoTitle),$(!REG_VT_SZ),"CloseIPXPerformanceData"},+
+                {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectIPXPerformanceData"},+
+                {Library,$(NoTitle),$(!REG_VT_SZ),"perfctrs.dll"},+
+                {Open,$(NoTitle),$(!REG_VT_SZ),"OpenIPXPerformanceData"},+
+                }
+            Shell  $(UtilityInf), 

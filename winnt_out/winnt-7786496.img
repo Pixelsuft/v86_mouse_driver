@@ -1,0 +1,116 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1998 Microsoft Corporation \\MS-IRL\\
+; Manufacturer:   CPV - Stollmann Datensysteme
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+
+%Modem1% = Modem1, CPV_Modem1						   ; CPV Stollman TA-D-DD
+%Modem2% = Modem1, CPV_Modem2		                                   ; CPV PICO TA Mini
+%Modem3% = Modem3, PCMCIA\COM1_SA-MC218_CARD-BD1C 		           ; CPV Sirius V.34 PCMCIA
+%Modem3% = Modem3, UNIMODEMB05AE811
+%Modem4% = Modem4, UNIMODEM22CF0AB8		        		   ; CPV Pico T 14.4 Fax extern
+%Modem5% = Modem5, CPV_Modem5, PCMCIA\E-TECH-C1414AX-0839		   ; CPV Sirius II PCMCIA ; Also in mdmmart.inf
+%Modem5% = Modem5, CPV_Modem5, UNIMODEM89BDB09D                            ; CPV Sirius II PCMCIA
+%Modem6% = Modem6, CPV_Modem6, PCMCIA\AT&T_Paradyne-KeepInTouch_Card-40E9  ; CPV Sirius I PCMCIA
+%Modem6% = Modem6, UNIMODEM7B177FCF
+
+; Installation sections
+
+[Modem1]	;CPV Stollman TA-D-DD, CPV PICO TA Mini 
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+[Modem3]	; CPV Sirius V.34 PCMCIA
+AddReg=All, MfgAddReg, Modem3.AddReg, PCMCIA
+
+[Modem4]	; CPV Pico T 14.4 Fax extern
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem5]	; CPV Sirius II
+AddReg=All, MfgAddReg, Modem5.AddReg, PCMCIA
+
+[Modem6]	; CPV Sirius I
+AddReg=All, MfgAddReg, Modem6.AddReg, PCMCIA
+
+; AddReg sections
+
+[Modem1.AddReg]	; CPV Stollman TA-D-DD, CPV PICO TA Mini
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 07,00,00,00, 03,00,00,00, 00,FA,00,00, 00,C2,01,00
+HKR, init,2,,"ATZ<cr>"
+HKR, init,3,,"AT&FE0&D2&C1S0=0<cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, Pulse,, ""
+HKR, Settings, Tone,, ""
+HKR, Settings, CallSetupFailTimer,, ""
+HKR, Settings, InactivityTimeout,, ""
+
+[Modem3.AddReg]	; CPV Sirius V.34 PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, init ,3,,"AT W1 &FE0&D2&C1S0=0<cr>"
+HKR,, InactivityScale,1, 01,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem4.AddReg]	; CPV Pico T 14.4 Fax extern
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, 00,00,00,00, 07,00,00,00, 0F,00,00,00, 37,03,00,00, 00,E1,00,00, 40,38,00,00
+HKR,, InactivityScale,1, 01,00,00,00
+HKR, init ,3,,"ATE0&D2&C1S0=0<cr>"
+HKR, Settings, FlowControl_Off,, "&K"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, Compression_On,, "%%C3"
+
+[Modem5.AddReg]	; CPV Sirius II
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, 5A,00,00,00, 07,00,00,00, 0F,00,00,00, 37,03,00,00, 00,E1,00,00, 40,38,00,00
+HKR, Init,      3,, "AT E0 $E3 $F5 &C1 &D2  S0=0<cr>"
+HKR, Settings, FlowControl_Hard,, "$F5"
+HKR, Settings, FlowControl_Soft,, "$F"
+HKR, Settings, ErrorControl_On,, "$E3"
+HKR, Settings, ErrorControl_Off,, "$E"
+HKR, Settings, ErrorControl_Forced,, "$E4"
+HKR, Settings, Compression_Off,, "$C0"
+HKR, Settings, Compression_On,, "$C1"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem6.AddReg]	; CPV Sirius I
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, 5A,00,00,00, 07,00,00,00, 0F,00,00,00, 37,03,00,00, 00,E1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 &C1 &D2 S0=0 <cr>"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N5"
+
+; User visible strings
+
+[Strings]
+
+Mfg = "CPV - Stollmann Datensysteme"
+
+; Model strings
+
+Modem1="CPV Stollmann TA-D-DD"
+Modem2="CPV PICO TA"
+Modem3="CPV Sirius V.34, COM1 28.8 PCMCIA"
+Modem4="CPV Pico T 14.4 Fax extern"
+Modem5="CPV Sirius II PCMCIA"
+Modem6="CPV Sirius I PCMCIA"
+
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1

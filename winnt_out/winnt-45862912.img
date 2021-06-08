@@ -1,0 +1,95 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Dr. Neuhaus Telekommunikation GmbH 
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Neuhaus%
+
+[Manufacturer]
+%Neuhaus% = Neuhaus
+
+; Modem models
+
+[Neuhaus]
+%Modem1%  = Modem1,UNIMODEM6242CBF5               ; rank1: SMARTY 19.2 TI
+%Modem2%  = Modem2,UNIMODEMDA6F71DD                              ; SMARTY 14.4 TI
+%Modem3%  = Modem3,UNIMODEMCC42604C                              ; SMARTY 24 TI, 24 PC
+%Modem4%  = Modem4,UNIMODEM2F413E8A                              ; FURY 19.2 TI
+%Modem5%  = Modem5, PCMCIA\Dr._Neuhaus-FURY_CARD_14K4-6FCD       ; FURY CARD 14.4 PCMCIA 
+%Modem5%  = Modem5,UNIMODEMB9E02C81                              ; FURY CARD 14.4 PCMCIA 
+%Modem6%  = Modem6, PCMCIA\Dr._Neuhaus-FURY_CARD_19K2-6927       ; FURY CARD 19.2 PCMCIA 
+%Modem6%  = Modem6,UNIMODEM19DA8A8E                              ; FURY CARD 19.2 PCMCIA 
+%Modem7%  = Modem7, PCMCIA\Dr._Neuhaus-GIPSY_CARD-A52A           ; GIPSY CARD 9.6 PCMCIA 
+%Modem8%  = Modem8,UNIMODEMAAA1725E                              ; SMARTY 28.8 TI V.34
+
+; Installation sections
+
+[Modem1]        ; SMARTY 19.2 TI, 19.2 TI
+AddReg=All, MfgNeuhaus, External, VerboseResultCodes, Modem1.AddReg
+
+[Modem2]        ; SMARTY 14.4 TI
+AddReg=All, MfgNeuhaus, External, VerboseResultCodes, Modem2.AddReg
+
+[Modem3]        ; SMARTY 24 TI, 24 PC
+AddReg=All, MfgNeuhaus, External, VerboseResultCodes, Modem3.AddReg
+
+[Modem4]        ;  FURY 19.2 TI
+AddReg=All, MfgNeuhaus, External, VerboseResultCodes, Modem4.AddReg
+
+[Modem5]        ;  FURY CARD 14.4 PCMCIA 
+AddReg=All, MfgNeuhaus, PCMCIA, VerboseResultCodes, Modem5.AddReg
+
+[Modem6]        ;  FURY CARD 19.2 PCMCIA
+AddReg=All, MfgNeuhaus, PCMCIA, VerboseResultCodes, Modem6.AddReg
+
+[Modem7]        ; GIPSY CARD 9.6 PCMCIA 
+AddReg=All, MfgNeuhaus, PCMCIA, VerboseResultCodes, Modem7.AddReg
+
+[Modem8]        ; SMARTY 28.8 TI V.34
+AddReg=All, MfgNeuhaus, External, VerboseResultCodes, Modem8.AddReg
+
+; AddReg sections
+
+[Modem1.AddReg] ; SMARTY 19.2 TI V.32ter DATA+FAX
+HKR,, Properties, 1, 00,01,00,00, 5a,00,00,00, 5a,00,00,00, 00,00,00,00, 0f,00,00,00, 77,07,00,00, 00,c2,01,00, 00,4b,00,00
+HKR,, FClass, 1, 09,00,00,00
+
+[Modem2.AddReg] ; SMARTY 14.4 TI V.32bis DATA+FAX
+HKR,, Properties, 1, 00,01,00,00, 5a,00,00,00, ff,00,00,00, 00,00,00,00, 0f,00,00,00, 77,07,00,00, 00,c2,01,00, 40,38,00,00
+HKR,, FClass, 1, 09,00,00,00
+
+[Modem3.AddReg] ; SMARTY 24 TI, 24 PC
+HKR,, Properties, 1, 00,01,00,00, 64,00,00,00, 5a,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 80,25,00,00, 60,09,00,00
+HKR,, FClass, 1, 09,00,00,00
+HKR, INIT,3,,"AT&F W1<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+
+[Modem4.AddReg] ; FURY 19.2 TI V.32ter DATA+FAX
+HKR,, Properties, 1, 00,01,00,00, 5a,00,00,00, 5a,00,00,00, 00,00,00,00, 0f,00,00,00, 77,07,00,00, 00,c2,01,00, 00,4b,00,00
+HKR,, FClass, 1, 09,00,00,00
+
+[Modem5.AddReg] ; FURY CARD 14.4 PCMCIA v.32bis DATA+FAX
+HKR,, Properties, 1, 00,01,00,00, 5a,00,00,00, 5a,00,00,00, 00,00,00,00, 0f,00,00,00, 77,07,00,00, 00,c2,01,00, 40,38,00,00
+HKR,, FClass, 1, 09,00,00,00
+
+[Modem6.AddReg] ; FURY CARD 19.2 PCMCIA V.32ter DATA+FAX
+HKR,, Properties, 1, 00,01,00,00, 5a,00,00,00, 5a,00,00,00, 00,00,00,00, 0f,00,00,00, 77,07,00,00, 00,c2,01,00, 00,4b,00,00
+HKR,, FClass, 1, 09,00,00,00
+
+[Modem7.AddReg] ; GIPSY CARD 9.6 PCMCIA V.32bis FAX+DATA only GSM
+HKR,, Properties, 1, 00,00,00,00, 5a,00,00,00, 5a,00,00,00, 00,00,00,00, 00,00,00,00, 37,02,00,00, 00,c2,01,00, 80,25,00,00
+HKR,, FClass, 1, 09,00,00,00
+HKR, Init,      2,, "AT&FE0V1&D2&C1Q0S0=0<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+
+[Modem8.AddReg]	; SMARTY 28.8 TI V.34 FAX(1,2)+DATA
+HKR,, Properties, 1, 00,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,07,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, FClass, 1, 0B,00,00,00
+
+; User visibl

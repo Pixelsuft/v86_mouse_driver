@@ -1,0 +1,78 @@
+         = "Windows NT Remote Access Connection Manager"
+    ProductRASMANTitle                   = "Remote Access Connection Manager"
+    ProductRASMANDisplayName             = "Remote Access Connection Manager"
+    !ProductRASAUTODIALDescription       = "Windows NT Remote Access Autodial Manager"
+    !ProductRASAUTODIALDisplayName       = "Remote Access Autodial Manager"
+    !ProductRASAUTODIALTitle             = "Remote Access Autodial Manager"
+    !ProductNDISWANDescription           = "Windows NT Remote Access WAN Wrapper"
+    !ProductNDISWANTitle                 = "Remote Access WAN Wrapper"
+    !ProductNDISWANDisplayName           = "Remote Access WAN Wrapper"
+    ProductRASASYMACDescription          = "Windows NT Remote Access AsyMac Adapter Driver"
+    ProductRASASYMACTitle                = "Remote Access Mac"
+    ProductRASASYMACDisplayName          = "Remote Access Mac"
+    ProductRASSVRDescription             = "Windows NT Remote Access NetBios Gateway"
+    ProductRASSVRTitle                   = "Remote Access Server Service"
+    ProductRASSVRDisplayName             = "Remote Access Server"
+    !ProductRASISNRIPTitle               = "Remote Access NWLNKRIP Service"
+    !ProductRASISNRIPDisplayName         = "Remote Access NWLNKRIP Service"
+    !ProductRASISNSAPTitle               = "Remote Access NWLNKSAP Service"
+    !ProductRASISNSAPDisplayName         = "Remote Access NWLNKSAP Service"
+    !ProductRASARPTitle                  = "Remote Access ARP Service"
+    !ProductRASARPDisplayName            = "Remote Access ARP Service"
+    !ProductRASACDDisplayName            = "Remote Access Auto Connection Driver"
+    !ProductNDISTAPIDisplayName          = "Microsoft NDIS TAPI driver"
+[DialogConstantsENG]
+    Help        = "&Help"
+    Exit        = "E&xit"
+    OK          = "OK"
+    HelpContext = ""
+    Continue    = "C&ontinue"
+    Cancel      = "C&ancel"
+[ExitWarningDlgENG]
+    DlgType      = "MessageBox"
+    STF_MB_TITLE = "Remote Access Service Setup"
+    STF_MB_TYPE  = 3
+    STF_MB_ICON  = 5
+    STF_MB_DEF   = 2
+[SetupAbortDlgENG]
+    DlgType     = "Info"
+    DlgTemplate = "RESTART"
+    Caption     = "Remote Access Service Setup"
+    DlgText     = "Setup for Remote Access Service failed."$(!LF)$(!LF)+
+                  "Please choose Exit to exit back to the Windows NT System."
+    Windows     = "E&xit to &Windows NT"
+[AbortMessageENG]
+  AbortText  =  "Aborting Remote Access Setup. Please restart the system "+
+                "to fix the problem."
+[ShellCodeErrorMsgENG]
+    DlgType      = "MessageBox"
+    STF_MB_TITLE = "Error: "$(FunctionTitle)
+    STF_MB_TEXT  = "An error occured running the shell command. "+
+                   "Please restart the system to fix the problem."
+    STF_MB_TYPE  = 1
+    STF_MB_ICON  = 3
+    STF_MB_DEF   = 1
+[SuccessfulInstallENG]
+  Success  = "Remote Access Service has been successfully installed. "$(!LF)$(!LF)+
+             "Use Remote Access Admin or User Manager in the Administrative "+
+             "Tools Folder to assign Remote Access permissions to users."
+[MsgDlgENG]
+    DlgType      = "MessageBox"
+    STF_MB_TYPE  = 1
+    STF_MB_ICON  = 2
+    STF_MB_DEF   = 2
+[StatusUpdatingRegistryENG]
+    CreatingRas             = "Please wait while Remote Access is installed..."
+    WritingRasParams        = "Writing Remote Access parameters..."
+    WritingRasParamsAdd     = "Writing Remote Access parameters...Adding RAS binding "
+    WritingRasParamsRemove  = "Writing Remote Access parameters...Removing RAS binding "
+    RemovingRas             = "Removing Remote Access Service..."
+    RemovingAdapters        = "Remote Access Setup: Removing RAS binding "
+    RemovingResources       = "Removing Remote Access resource files..."
+    UpdatingRas             = "Please wait while Remote Access is updated..."
+[StatusDeterminingConfigENG]
+    ReadingConfig      = "Determining current configuration ..."
+[StatusCopyingResENG]
+    Status = "Copying DLLs and INF files to disk ..."
+[NonFatalError1ENG]
+    NonFatal  = "S

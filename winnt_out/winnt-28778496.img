@@ -1,0 +1,113 @@
+udeList), $($))
+   EndForListDo
+   OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\AppleTalk\Adapters" $(!ACCESS) AdapterKey
+   Ifstr(i) $(AdapterKey) == $(!KeyNull)
+	  Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+	  Goto fatalregistry
+   Endif
+   set AdapterList = ""
+   EnumRegKey $(AdapterKey) AdapterList
+   Set AtalkAdapterList = {}
+   ForListDo $(AdapterList)
+	  Set AtalkAdapterList = >($(AtalkAdapterList), *($($),1))
+   EndForListDo
+   QueryListSize AdapterCount $(AtalkAdapterList)
+   Set fAddingFirstAdapter = FALSE
+   ifint $(AdapterCount) == 0
+   	  Set fAddingFirstAdapter = TRUE
+   EndIf
+   Set NewBindings = ""
+   Set TobeUsedBindList = {}
+   Set TobeUsedExportList = {}
+   Set TobeUsedRouteList = {}
+   ForListDo $(NewBindList)
+	  IfContains(i) $($) not-in $(AtalkAdapterList)
+		 Set NewBindings = TRUE
+         Set TobeUsedBindList = >($(TobeUsedBindList),"\Device\"$($))
+         Set TobeUsedExportList = >($(TobeUsedExportList),*($(NewExportList),$(#)))
+         Set TobeUsedRouteList = >($(TobeUsedRouteList),*($(NewRouteList),$(#)))
+         Shell "" CreateAtalkConfig $($) $(AdapterKey)
+         Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+			CloseRegKey $(AdapterKey)
+            Set RegistryErrorIndex = $($R1)
+            goto fatalregistry
+         EndIf
+	  Else
+		 Set TobeUsedBindList = >($(TobeUsedBindList),"\Device\"$($))
+		 Set TobeUsedExportList = >($(TobeUsedExportList),*($(NewExportList),$(#)))
+         Set TobeUsedRouteList = >($(TobeUsedRouteList),*($(NewRouteList),$(#)))
+     Endif
+   EndForListDo
+   set NewValueList = {{Bind,0,$(!REG_VT_MULTI_SZ),$(TobeUsedBindList)}, +
+                      {Export,0,$(!REG_VT_MULTI_SZ),$(TobeUsedExportList)}, +
+                      {Route,0,$(!REG_VT_MULTI_SZ),$(TobeUsedRouteList)}}
+   Ifstr(i) $(NewBindings) == TRUE
+	  Shell  $(UtilInf), AddValueList, $(LinkageKey), $(NewValueList)
+	  set RegistryErrorIndex = $($R0)
+      CloseRegKey $(LinkageKey)
+	  Ifstr(i) $(RegistryErrorIndex) !=  NO_ERROR
+		 goto fatalregistry
+      EndIf
+   EndIf
+   Set DefaultPort = {}
+   Set MediaTypeList = {}
+   GetRegValue $(BindParmKey) "DefaultPort" DefaultPort
+   Ifstr(i) $(DefaultPort) != {}
+	  goto removeadapters
+   EndIf
+finddefaultport = +
+   ForListDo $(TobeUsedBindList)
+	  Split-String $($) "\" PortName
+	  Shell "" FindMediaType *($(PortName),4)
+	  Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+		 Set MediaTypeList = >($(MediaTypeList), $($R1))
+	  EndIf
+   EndForListDo
+   Ifcontains(i) "1" in $(MediaTypeList)
+	  ForListDo $(MediaTypeList)
+		 Ifint $($) == 1
+			Set DefaultPort = *($(TobeUsedBindList),$(#))
+            goto defportdone
+		 EndIf
+	  EndForListDo
+   else-ifcontains(i) "2" in $(MediaTypeList)
+	  ForListDo $(MediaTypeList)
+		 Ifint $($) == 2
+			Set DefaultPort = *($(TobeUsedBindList),$(#))
+			goto defportdone
+		 EndIf
+	  EndForListDo
+   else-ifcontains(i) "3" in $(MediaTypeList)
+          ForListDo $(MediaTypeList)
+                 Ifint $($) == 3
+                    Set DefaultPort = *($(TobeUsedBindList),$(#))
+                    goto defportdone
+                 EndIf
+          EndForListDo
+   else-ifcontains(i) "4" in $(MediaTypeList)
+	  ForListDo $(MediaTypeList)
+		 Ifint $($) == 4
+			Set DefaultPort = *($(TobeUsedBindList),$(#))
+			goto defportdone
+		 EndIf
+	  EndForListDo
+   else-ifcontains(i) "5" in $(MediaTypeList)
+	  Set DefaultPort = *($(TobeUsedBindList),1)
+   else
+	  read-syms NoAdaptersFound$(!STF_LANGUAGE)
+	  Shell $(SubInf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(ErrorString)
+      goto endbinding
+   Endif
+defportdone = +
+   Set NewValueList = {{DefaultPort,0,$(!REG_VT_SZ),$(DefaultPort)}}
+   Shell  $(UtilInf), AddValueList, $(BindParmKey), $(NewValueList)
+   set RegistryErrorIndex = $($R0)
+   Ifstr(i) $(RegistryErrorIndex) !=  NO_ERROR
+	  goto fatalregistry
+   EndIf
+   goto startconfig
+removeadapters = +
+   Split-String *($(DefaultPort),4) "\" PortName
+   ForListDo $(AtalkAdapterList)
+	  Ifcontains(i) $($) not-in $(NewBindList)
+		 DeleteRegKey

@@ -1,0 +1,84 @@
+$(PrevNumDialinoutIPX)
+    endif
+    set NumAddTotal = 0
+    set NumRemoveTotal = 0
+    set-add NumAddTotal = $(NumAddDialinNBF), $(NumAddDialoutNBF)
+    set-add NumAddTotal = $(NumAddTotal), $(NumAddDialinIP)
+    set-add NumAddTotal = $(NumAddTotal), $(NumAddDialoutIP)
+    set-add NumAddTotal = $(NumAddTotal), $(NumAddDialinoutIPX)
+    set-add NumRemoveTotal = $(NumRemoveDialinNBF), $(NumRemoveDialoutNBF)
+    set-add NumRemoveTotal = $(NumRemoveTotal), $(NumRemoveDialinIP)
+    set-add NumRemoveTotal = $(NumRemoveTotal), $(NumRemoveDialoutIP)
+    set-add NumRemoveTotal = $(NumRemoveTotal), $(NumRemoveDialinoutIPX)
+    Debug-Output "NumAddDialinNBF = "$(NumAddDialinNBF)
+    Debug-Output "NumAddDialoutNBF = "$(NumAddDialoutNBF)
+    Debug-Output "NumAddDialinIP = "$(NumAddDialinIP)
+    Debug-Output "NumAddDialoutIP = "$(NumAddDialoutIP)
+    Debug-Output "NumAddDialinoutIPX = "$(NumAddDialinoutIPX)
+    Debug-Output "NumAddTotal = "$(NumAddTotal)
+    Debug-Output "NumRemoveDialinNBF = "$(NumRemoveDialinNBF)
+    Debug-Output "NumRemoveDialinIP = "$(NumRemoveDialinIP)
+    Debug-Output "NumRemoveDialinoutIPX = "$(NumRemoveDialinoutIPX)
+    Debug-Output "NumRemoveTotal = "$(NumRemoveTotal)
+    Shell "utility.inf" BaseServiceKey
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) == NO_ERROR
+        Debug-Output "OEMNSVRA.INF: Opened the services base key"
+        set ServicesBaseKey = $($R1)
+    else
+        set ServicesBaseKey = $(KeyNull)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) $(MAXIMUM_ALLOWED) KeyNetcards
+    Ifstr(i) $(RegistryErrorIndex) == NO_ERROR
+        Debug-Output "OEMNSVRA.INF: Opened the networkcardkey "
+    endif
+    set RasAdapterNumber = 1
+AddNdisWanNetCard = +
+     IfInt $(NumAddTotal) == 0
+	  goto RemoveNdisWanNetCard
+     else
+          Debug-Output "In the Add if loop. NumAddTotal = "$(NumAddTotal)
+          shell $(subroutninf) PushBillBoard NETSTATUSDLG +
+                                      $(WritingRasParamsAdd)" "$(NumAddTotal)
+          set-sub NumAddTotal = $(NumAddTotal),1
+          Shell $(!UtilityInf), AddHardwareComponent, +
+               $(!Product$(ThisOption)Name),$(!RasInfName),+
+               $(!Product$(ThisOption)KeyName), +
+               $(ServicesBaseKey), $(KeyNetcards), $(RasAdapterNumber)
+          ifint $($R4) != -1
+             Set !NETCARD_LIST = >($(!NETCARD_LIST), +
+                                  {$(!Product$(ThisOption)Name),+
+                                  $(!NetworkCardKeyName)"\"$($R4)})
+             set RasAdapterNumber = $($R4)
+          endif
+          ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "Cannot add hardware component"
+             goto ShellCodeError
+          endif
+          set RegistryErrorIndex = $($R0)
+          Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+              Debug-Output "Registry error: add hardware component"
+              CloseRegKey $($R1)
+              CloseRegKey $($R2)
+              CloseRegKey $($R3)
+              goto fatalregistry
+          endif
+        set KeyNetcard    = $($R1)
+        set KeyParameters = $($R3)
+        set KeyAdapterRules = $($R2)
+        set AdapterNumber = $($R4)
+        set NetcardInfoList = +
+            {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(!Manufacturer)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),+
+              "["$($R4)"] "$(!Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(!Product$(ThisOption)Description)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(!CurrentDate),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(!HideComponent)}}
+        Shell $(!UtilityInf), GetBusTypeNum
+        set BusTypeNum = $($R1)
+        ifint $(NumAddDialinNBF) > 0
+            set-sub NumAddDialinNBF = $(NumAddDialinNBF), 1
+            set NetcardInfoList = >($(NetcardInfoList), +
+                                   {ProductName,$(NoTit

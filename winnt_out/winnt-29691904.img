@@ -1,0 +1,101 @@
+(i) $(!NTN_InstallMode) == bind
+      set StartLabel = bindingadapter
+   else-Ifstr(i) $(!NTN_InstallMode) == configure
+          set StartLabel = configureadapter
+      Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+                 Debug-Output "Cannot configure the localtalk driver software."
+         Shell $(UtilInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+         ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                        goto ShellCodeError
+         endif
+         set Error = $($R0)
+                 Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Error)
+                 goto usercancel
+      endif
+   else
+          set StartLabel = installadapter
+          set REMOVE_SOFTWARE = TRUE
+      set REMOVE_HARDWARE = {}
+          Set RemoveOnError = TRUE
+   endif
+   goto $(StartLabel)
+installadapter = +
+   OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+   Ifstr $(KeyProduct) != $(KeyNull)
+          GetRegValue $(KeyProduct) $(MajorVersion) VersionInfo
+          set VersionMajor = *($(VersionInfo), 4)
+          GetRegValue $(KeyProduct) $(MinorVersion) VersionInfo
+          set VersionMinor = *($(VersionInfo), 4)
+          set InstalledVersion = $(VersionMajor)"."$(VersionMinor)
+          ifstr(i) $(ProductVersion) == $(InstalledVersion)
+                 read-syms MiscErrorString1$(!STF_LANGUAGE)
+         Set Text = $(Version)$(ProductVersion)
+         Shell $(SubInf), SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Text)$(ErrorString)
+         goto end
+          EndIf
+   EndIf
+   ifstr(i) $(!NTN_InstallMode) == "install"
+          Ifstr(i) $(!DoCopy) == "YES"
+                 Shell $(UtilInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+                 Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                        Goto ShellCodeError
+                 Else-Ifstr(i) $($R0) == STATUS_FAILED
+                        Shell $(UtilInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                           goto ShellCodeError
+                        endif
+                        set Error = $($R0)
+                        Goto end
+                 Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                        Goto usercancel
+                 Endif
+                 Set SrcDir  = $($R1)
+          Endif
+   Endif
+   install "Install-Initial"
+   ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+          Set CommonStatus = STATUS_USERCANCEL
+          goto end
+   Endif
+adapteroptions = +
+   set IOBaseAddrValue = *($(IOBaseAddrList), 8)
+   read-syms FileDependentDlg$(!STF_LANGUAGE)
+   ui start "InputDlg"
+   ifstr(i) $(DLGEVENT) == "CONTINUE"
+          set IOBaseAddrIndex = $(Combo1Out)
+      ui pop 1
+   else-ifstr(i) $(DLGEVENT) == "EXIT"
+          set CommonStatus = STATUS_USERCANCEL
+      ui pop 1
+      goto usercancel
+   else
+          set CommonStatus = STATUS_USERCANCEL
+          ui pop 1
+          goto usercancel
+   endif
+installproduct = +
+   Set FLibraryErrCtl = 1
+   Shell $(UtilInf), AddSoftwareComponent, +
+                                         $(Manufacturer),+
+                                         $(ProductSoftwareName), +
+                                         $(ProductSoftwareName), +
+                                         $(ProductSoftwareName), +
+                                         $(ProductInfName), +
+                                         $(ProductSoftwareImagePath),+
+                                         "kernel", "NDIS", {}, "", $(ProductEventDll)
+   ifint $($ShellCode) != 0
+          goto ShellCodeError
+   endif
+   set RegistryErrorIndex = $($R0)
+   set KeyProduct      = $($R1)
+   Set SoftNetRulesKey = $($R2)
+   CloseRegKey $($R3)
+   CloseRegKey $($R4)
+   CloseRegKey $($R5)
+   Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+          CloseRegKey $(KeyProduct)
+          CloseRegKey $(SoftNetRulesKey)
+          goto fatalregistry
+   endif
+   set NewValueList = +
+                        {{SoftwareType,

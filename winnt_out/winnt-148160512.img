@@ -1,0 +1,54 @@
+Nagling Option</a><br>
+<a href="#3.4.4">3.4.4 Receiving Messages using MSMQ COM API</a><br>
+<a href="#3.4.5">3.4.5 Backing up and Restoring MSMQ Messages</a><br>
+<a href="#3.4.6">3.4.6 Using DIRECT Format Name for Reading from a Remote Queue</a><br>
+<a href="#3.4.7">3.4.7 Using the MSMQ MQIS Update/Restore Wizard</a><br>
+<a href="#3.5">3.5 Obtaining Microsoft Data Access Components (MDAC)</a><br>
+<a href="#3.6">3.6 Compaq Support Guidelines for Alpha-Based Systems</a></p>
+<p>
+<a href="#4.0"><b>4.0 Additional Fixes and Workarounds</b></a><br>
+<a href="#4.1">4.1 Dual-Booting Between Versions of Windows&nbsp;NT&nbsp;4.0 and Windows&nbsp;2000</a><br>
+<a href="#4.2">4.2 NTFS for Windows&nbsp;NT&nbsp;4.0 Version 4 and NTFS for Windows&nbsp;2000 Support</a><br>
+<a href="#4.3">4.3 Internet Information Server 4.0</a><br>
+<a href="#4.3.1">4.3.1 Username/Password Length</a><br>
+<a href="#4.3.2">4.3.2 Using Global.asa</a><br>
+<a href="#4.4">4.4 Security Configuration Manager</a><br>
+<a href="#4.4.1">4.4.1 Error Messages Received When You Log On to a Secure Desktop</a><br>
+<a href="#4.5">4.5 Microsoft Proxy Server</a><br>
+<a href="#4.5.1">4.5.1 Web Administration Tool</a><br>
+<a href="#4.5.2">4.5.2 Microsoft Proxy Server&nbsp;1.0 Client</a><br>
+<a href="#4.6">4.6 MDAC&nbsp;2.0 Service Pack&nbsp;1</a><br>
+<a href="#4.7">4.7 Installing Internet Explorer&nbsp;5 as a Non-Default Browser</a><br>
+<a href="#4.8">4.8 Exchange Server Reindexing</a><br>
+<a href="#4.9">4.9 Regset.exe and Tandqic.sys Backup Issues</a> </p>
+<p>
+<a href="#5.0"><b>5.0 Application Notes</b></a><br>
+<a href="#5.1">5.1 CheckIt Diagnostic Kit&nbsp;4.0 by Touchstone</a><br>
+<a href="#5.2">5.2 Terminal Server</a><br>
+<a href="#5.3">5.3 Message Queue (MSMQ) for Windows&nbsp;95 Client</a><br>
+<a href="#5.4">5.4 Windows&nbsp;NT&nbsp;4.0 Option Pack Fixes</a><br>
+<a href="#5.5">5.5 Security Configuration Manager</a><br>
+<a href="#5.6">5.6 Certificate Server&nbsp;1.0 Known Problems and Limitations</a><br>
+<a href="#5.7">5.7 Enabling Activity Accessibility Support</a> </p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p>
+Information in this document, including URL and other Internet Web site references, is subject to change without notice and is provided for informational purposes only. The entire risk of the use or results of the use of this document remains with the user, and Microsoft Corporation makes no warranties, either express or implied. The example companies, organizations, products, people, and events depicted herein are fictitious. No association with any real company, organization, product, person, or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in, or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.</p>
+<p>
+Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.</p>
+<p>
+&#169; 1999 Microsoft Corporation. All rights reserved.</p>
+<p>
+Microsoft, MS-DOS, Windows, Windows&nbsp;NT, and NetMeeting are either registered trademarks or trademarks of Microsoft Corporation in the U.S.A. and/or other countries.
+</p>
+<p>
+The names of actual companies and products mentioned herein may be the trademarks of their respective owners.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<h2><a name="HOW">How to Use This Document</a></h2>
+<p>
+This document provides information a

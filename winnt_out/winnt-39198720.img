@@ -1,0 +1,190 @@
+CT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> RELIABLE COMPRESSED<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> LAPM COMPRESSED<cr><lf>
+
+;----------------------------------------
+[NEC 9635E Plus]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=N9635E/PLUS
+
+COMMAND_INIT=AT&F&C1&D2 \\V3 V1 S0=0 S2=128 S7=55 <cr>
+COMMAND_INIT=AT<compression><hwflowcontrol><protocol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;---------------------------
+[NEC 14.4 Data/Fax PCMCIA]
+ALIAS=AT&T Dataport
+
+;----------------------------------------
+[New Media 144 PCMCIA]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=CL-MD1414AT
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[NoteWorthy 14400 PCMCIA]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=144
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[Null Modem 4800]
+
+CALLBACK_TIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=4800
+MAXCONNECTBPS=4800
+
+COMMAND_INIT=
+NoResponse
+
+COMMAND_LISTEN=
+CONNECT=CLIENT
+CONNECT=<h00>CLIENT
+COMMAND_LISTEN=CLIENTSERVER
+NoResponse
+
+COMMAND_DIAL=CLIENT
+CONNECT=SERVER
+
+;----------------------------------------
+[Null Modem 9600]
+
+CALLBACK_TIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+COMMAND_INIT=
+NoResponse
+
+COMMAND_LISTEN=
+CONNECT=CLIENT
+CONNECT=<h00>CLIENT
+COMMAND_LISTEN=CLIENTSERVER
+NoResponse
+
+COMMAND_DIAL=CLIENT
+CONNECT=SERVER
+
+;----------------------------------------
+[Null Modem 19200]
+
+CALLBACK_TIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=19200
+
+COMMAND_INIT=
+NoResponse
+
+COMMAND_LISTEN=
+CONNECT=CLIENT
+CONNECT=<h00>CLIENT
+COMMAND_LISTEN=CLIENTSERVER
+NoResponse
+
+COMMAND_DIAL=CLIENT
+CONNECT=SERVER
+
+;----------------------------------------
+[Null Modem 38400]
+
+CALLBACK_TIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=38400
+MAXCONNECTBPS=38400
+
+COMMAND_INIT=
+NoResponse
+
+COMMAND_LISTEN=
+CONNECT=CLIENT
+CONNECT=<h00>CLIENT
+COMMAND_LISTEN=CLIENTSERVER
+NoResponse
+
+COMMAND_DIAL=CLIENT
+CONNECT=SERVER
+
+;----------------------------------------
+[Octocom 8324]
+;Hardware flow control and error correction are set ON for stability.
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<protocol_off>=&E0
+<protocol_on>=&E1
+<compression_off>=*E0
+<compression_on>=*E1
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=9600
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=317
+
+COMMAND_INIT=AT&F &C3 &D2 &I2 V1 E1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAP-M ACTIVE<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/LAP-M ACTIVE<cr><lf>
+
+
+;----------------------------------------
+[Octocom 8396]
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<protocol_off>=&E0
+<protocol_on>=&E1
+<compression_off>=*E0
+<compression_on>=*E1
+<speaker_off>=M0
+<speaker_on>=M1
+<

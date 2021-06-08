@@ -1,0 +1,135 @@
+88
+CC10BT
+PCMCIA
+COMBO
+GOCARD
+GOCARDMF
+CPQNDIS
+CENDIS3
+CE2XPS
+CM2NDIS3
+CEM28XPS
+CTNDNT
+ACCTONEN2216
+DLINKDE650
+LINKSYSEC2T
+NSCNE4100
+OTCJODNT
+Diehl_DIVAPCM
+[PCMCIAFilename]
+drvlib.nic\mhzc9x\OEMSETUP.INF
+drvlib.nic\mhzc9x\OEMSETUP.INF
+drvlib.nic\OCTK16\OEMSETUP.INF
+drvlib.nic\OCTK16\OEMSETUP.INF
+drvlib.nic\OCE2XM\OEMSETUP.INF
+drvlib.nic\OCE2XM\OEMSETUP.INF
+drvlib.nic\Xircom\CPQ\OEMSETUP.INF
+drvlib.nic\Xircom\CEA\OEMSETUP.INF
+drvlib.nic\Xircom\CE2\OEMSETUP.INF
+drvlib.nic\Xircom\CM2\OEMSETUP.INF
+drvlib.nic\Xircom\CEM28\OEMSETUP.INF
+drvlib.nic\Xircom\CT2\OEMSETUP.INF
+drvlib.nic\NE2K.PCM\OEMSETUP.INF
+drvlib.nic\NE2K.PCM\OEMSETUP.INF
+drvlib.nic\NE2K.PCM\OEMSETUP.INF
+drvlib.nic\NE2K.PCM\OEMSETUP.INF
+drvlib.nic\OTCJODNT\OEMSETUP.INF
+drvlib\netcard\x86\wan\DIWAN\OEMSETUP.INF
+[PCMCIAOptionsTextENG]
+XJEM3288     = "Megahertz XJEM3288 Ethernet+Modem PCMCIA Adapter"
+CC10BT       = "Megahertz CC10BT/2 Ethernet PCMCIA Adapter"
+PCMCIA       = "Olicom GoCard TR 16/4"
+COMBO        = "Olicom GoCard TR/Modem 144"
+GOCARD       = "Olicom Ethernet GoCard"
+GOCARDMF     = "Olicom GoCard ET/Modem 288"
+CPQNDIS      = "Compaq Ethernet LAN Card"
+CENDIS3      = "Xircom CreditCard Ethernet"
+CE2XPS       = "Xircom CreditCard Ethernet IIps"
+CM2NDIS3     = "Xircom CreditCard Ethernet+Modem II"
+CEM28XPS     = "Xircom CreditCard Ethernet+Modem 28.8"
+CTNDNT       = "Xircom CreditCard Token Ring"
+ACCTONEN2216 = "Accton EN2216 Ethernet PCMCIA Adapter"
+DLINKDE650   = "D-Link DE-650 Ethernet PCMCIA Adapter"
+LINKSYSEC2T  = "LinkSys EthernetCard PCMCIA"
+NSCNE4100    = "National Semiconductor InfoMover NE4100"
+OTCJODNT     = "Ositech Jack of Diamonds Trumpcard"
+Diehl_DIVAPCM = "Eicon DIVA PCMCIA ISDN Adapter"
+[Identification]
+    OptionType = NetAdapter
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+	ifstr(i) $($1) == ""
+	   goto returnoptions
+	endif
+    else
+	set Status = STATUS_NOLANGUAGE
+	goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^($($1)Options, 1)
+    set OptionTextList = ^($($1)OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+ParamInf        = "NCPARAM.INF"
+subroutineinf   = "SUBROUTN.INF"
+SoftwareType    = "driver"
+Exit_Code       = 0
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = "YES"
+    set DoCopy   = "YES"
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+	Return STATUS_NOLANGUAGE
+    endif
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    ForListDo $(!STF_BUSTYPELIST)
+	set OptionList = ^($($)Options,1)
+	set FileNameList = ^($($)Filename,1)
+	ifint ~($(OptionList),$(Option)) != 0
+	    goto FoundBus
+	endif
+    EndForListDo
+FoundBus = +
+    debug-output *($(FileNameList), ~($(OptionList), $(Option)))
+    Shell "ntlanman.inf" RemoveOldInfFile $(Option), "NetAdapter", "oemnad", "oemnadzz.inf"
+    set Num = 0
+nextinf = +
+    ifint $(Num) < 99
+	set OemFileName = "oemnad"$(Num)".inf"
+	set FileToCheck = $(!STF_WINDOWSSYSPATH)"\"$(OemFileName)
+	install Install-SeeIfFileIsPre

@@ -1,0 +1,104 @@
+oto fatalregistry
+    endif
+WriteProtocolInfo =+
+    Shell "" SaveSelectedProtocols $(fNetbeuiSelected) $(fTcpIpSelected) +
+                                   $(fIpxSelected) $(fNetbeuiAllowed) +
+                                   $(fTcpIpAllowed) $(fIpxAllowed)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "Error shelling SaveSelectedProtocols"
+         goto ShellCodeError
+    endif
+    ifstr(i) $($R0) != STATUS_SUCCESSFUL
+         Debug-Output "Error Saving selected protocols"
+         goto end
+    endif
+    Shell "" WritePPPParameters
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "Error shelling WritePPPParameters"
+         goto ShellCodeError
+    endif
+    ifstr(i) $($R0) != STATUS_SUCCESSFUL
+         Debug-Output "Error from WritePPPParameters"
+         goto end
+    endif
+    ifstr(i) $(fNetbeuiChosen) == TRUE
+        ifstr(i) $(fNetbeuiInstalled) == FALSE
+            Shell "" InstallProtocol "NETBEUI"
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 Debug-Output "Error shelling InstallProtocol NETBEUI"
+                 goto ShellCodeError
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                 Debug-Output "Error installing NETBEUI"
+                 goto end
+            endif
+        endif
+    endif
+    ifstr(i) $(fTcpIpChosen) == TRUE
+        ifstr(i) $(fTcpIpInstalled) == FALSE
+            Shell "" InstallProtocol "TCPIP"
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 Debug-Output "Error shelling InstallProtocol TCPIP"
+                 goto ShellCodeError
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                 Debug-Output "Error installing TCPIP"
+                 goto end
+            endif
+        endif
+        Shell "" InstallRasArpService
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "Error shelling InstallRasArpService"
+             goto ShellCodeError
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+             Debug-Output "Error from InstallRasArpService"
+             goto end
+        endif
+        set CommonStatus = STATUS_SUCCESSFUL
+        Shell "" UpdateIPRouterInfo $(EnableIpRouter)
+        Shell "" SaveTcpipInfo $(fTcpIpAllowed)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "Error shelling SaveTcpipInfo"
+             goto ShellCodeError
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+             Debug-Output "Error saving Tcpip info"
+             goto end
+        endif
+    else
+        Shell "" RemoveRasArpService
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "Error shelling RemoveRasArpService"
+             goto ShellCodeError
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+             Debug-Output "Error from RemoveRasArpService"
+             goto end
+        endif
+        Shell "" SaveTcpipInfo $(fTcpIpAllowed)
+        set CommonStatus = STATUS_SUCCESSFUL
+    endif
+    ifstr(i) $(fIpxChosen) == TRUE
+        ifstr(i) $(fIpxInstalled) == FALSE
+            Shell "" InstallProtocol "IPX"
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 Debug-Output "Error shelling InstallProtocol IPX"
+                 goto ShellCodeError
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                 Debug-Output "Error installing IPX"
+                 goto end
+            endif
+        endif
+        OpenRegKey $(!REG_H_LOCAL) ""  +
+                   $(!NTN_ServiceBase)"\NWLNKIPX\Parameters"  +
+                   $(!MAXIMUM_ALLOWED) KeyIpxParameters
+        ifstr $(KeyIpxParameters) != $(KeyNull)
+           GetRegValue $(KeyIpxParameters), "SingleNetworkActive"  +
+                       SingleNetworkActive
+           ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+               SetRegValue $(KeyIpxParameters) +
+                           {SingleNetworkActive, 0, $(!REG_VT_DWORD), 1}
+           endif
+           GetReg

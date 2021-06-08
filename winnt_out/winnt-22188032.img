@@ -1,0 +1,75 @@
+the desktop in My Computer or on the Start menu under Programs/Accesories.
+
+
+Internet Mail & MIME Handling
+This version of Windows NT does not support MIME mappings to filename extensions if Internet Explorer is not installed. Messages (containing attachments) sent in MIME format will be sent as application/octet-stream rather than specific MIME types. A filename will be included on outbound messages.
+
+
+Printers Folder
+Printers are now set up and accessed from the new Printers folder.
+
+To view the Printers folder 
+Click Start, point to Settings, then click Printers. 
+
+To add a new printer
+In the Printers folder, click the Add Printer wizard.
+
+
+Finding Files
+With Windows NT version 4.0, you have easy access to programs and files:
+
+· To find files on your computer, open the My Computer icon on your desktop.
+· To find a specific file, click the Start menu, point to Find, then click Files or Folders.
+· On the Start menu, point to Programs, then click Windows NT Explorer.
+
+
+3D Pinball
+3D Pinball for Windows NT, a high-tech version of the classic arcade game, provides state-of-the-art graphics and sound. For information about how to use this game, click the Help menu in 3D Pinball. 3D Pinball is automatically installed by Windows NT Setup. To run it, click the Start menu, point to Programs, point to Accessories, point to Games, and then click 3D Pinball.
+
+To play MIDI music and display the 3D Pinball Help file
+1. Right-click Start, and then click Open.
+2. Open the Programs folder.
+3. Open the Accessories folder.
+4. Open the Games folder.
+5. Right-click the Pinball shortcut, and then click Properties.
+6. Click the Shortcut tab.
+7. In the Start In box, type drive letter:\Program Files\Windows NT\Pinball.
+
+AutoRun
+AutoRun allows music and computer compact discs to start automatically after they are inserted in the drive.  
+
+For this release, AutoRun is enabled by default. To disable AutoRun, set the following key in the registry:
+
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\CdRom\Autorun, REG_DWORD == 0x0
+
+When the CD Player accessory is running, other files on the compact disc cannot be accessed. CD Player will return the message Device Busy. 
+
+Note
+If you disabled AutoRun under Windows NT version 4.0 Beta 1 or Beta 2 and upgrade to the final version of Windows NT version 4.0, it will remain disabled.
+
+Windows NT version 4.0 NTFS Compatibility with Windows NT version 3.51 NTFS
+The Windows NT File System (NTFS) file system supports clusters up to 64K. However, the file record size is always 1K regardless of the cluster size. 
+ The File Allocation Table (FAT) file system supports clusters up to 256K.
+
+Due to the cluster size change, formatting a volume with 2K or larger clusters with NTFS can generate a volume that is not usable by Windows NT version 3.51. File record sizes that are smaller than the cluster size is not supported by Windows NT version 3.51. However, you can ensure backwards compatibility by running format from the command line and specifying the /a parameter. This parameter is used to override the default disk allocation unit size.
+
+Default settings are strongly recommended for general use.
+NTFS supports 512 bytes, 1K, 2K, 4K, 8K, 16K, 32K, 64K.
+FAT supports 8K, 16K, 32K, 64K, 128K, 256K.
+NTFS compression is not supported for allocation unit sizes above 4K.
+
+
+486 Emulator
+The 486 emulator allows RISC-based systems to run Windows-based and MS-DOS® applications that require 386 enhanced mode support or look for a 486 processor. For example, the 486 Emulator allows you to now use Visual Basic 4.0 on RISC-based hardware platforms, such as the Digital Alpha.
+
+Hardware Profiles
+Before you can work with a hardware profile, you must set it up and activate it.
+
+Setting Up a Hardware Profile
+There are two ways to access the Hardware Profiles icon. You can use either My Computer or the Control Panel.
+
+Using My Computer
+Using the right mouse button, click My Computer, then select Properties.
+
+Using Control Panel
+1. On the Start menu, point to Se

@@ -1,0 +1,98 @@
+yNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasManParamName) +
+                                      $(!MAXIMUM_ALLOWED) KeyRasman
+        ifstr $(KeyRasman) != $(KeyNull)
+           GetRegValue $(KeyRasman), "Medias", MediaList
+           ifint $(RegLastError) == 0
+               set Medias = *($(MediaList), 4)
+           else
+               Debug-Output "UpgradeIsdnInfo: error reading Medias value "
+           endif
+           set NewMedias = {}
+           forlistdo $(Medias)
+               ifstr(i) $($) != "ISDN"
+                  set NewMedias = >($(NewMedias), $($))
+               endif
+           endforlistdo
+           set NewMedias = >($(NewMedias), "rastapi")
+           Debug-Output "UpgradeIsdnInfo: NewMedias "$(NewMedias)
+           SetRegValue $(KeyRasman) {"Medias", 0, +
+				                   $(!REG_VT_MULTI_SZ),$(NewMedias)}
+           CloseRegKey $(KeyRasman)
+        else
+          Debug-Output "UpgradeIsdnInfo: error opening Services\Rasman\Parameters key"
+          goto UpgradeIsdnInfoEnd
+        endif
+        set Status = STATUS_SUCCESSFUL
+    else
+        set Status = STATUS_SUCCESSFUL
+    endif
+UpgradeIsdnInfoEnd = +
+    Debug-Output "UpgradeIsdnInfo exit."
+    return $(Status)
+[UpdateNetCardInfo]
+    Debug-Output "UpdateNetCardInfo: entry"
+    set Status   = STATUS_FAILED
+    Set KeyNull  = ""
+    set fNetbeuiChosen = $($0)
+    set fTcpIpChosen   = $($1)
+    set fIpxChosen     = $($2)
+    set RasAsyMacParamKeyName = $(!NTN_ServiceBase)"\AsyncMac\Parameters"
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) $(!MAXIMUM_ALLOWED) KeyNetcards
+    ifstr $(KeyNetcards) == $(KeyNull)
+         Debug-Output "UpdateNetCardInfo: could not open Netcards key"
+         goto UpdateNetCardInfoEnd
+    endif
+    EnumRegKey $(KeyNetcards) NetcardsList
+    set RemoveList  = {}
+    ForListDo $(NetcardsList)
+       set KeyName = *($($),1)
+       OpenRegKey $(KeyNetcards) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+       ifstr $(Card) == $(KeyNull)
+           Debug-Output "OEMNSVRA.INF: could not open netcard key"
+           CloseRegKey $(KeyNetcards)
+           goto UpdateNetCardInfoEnd
+       endif
+       GetRegValue $(Card), "ProductName" ProductNameInfo
+       set CardProductName = *($(ProductNameInfo), 4)
+       ifstr(i) $(fNetbeuiChosen) == FALSE
+	   ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINName)
+              set RemoveList = >($(RemoveList), +
+				 {$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+	   else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALOUTName)
+              set RemoveList = >($(RemoveList), +
+				 {$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+           endif
+       endif
+       ifstr(i) $(fTcpIpChosen) == FALSE
+	   ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINIPName)
+              set RemoveList = >($(RemoveList), +
+				 {$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+	   else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALOUTIPName)
+              set RemoveList = >($(RemoveList), +
+				 {$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+           endif
+       endif
+       ifstr(i) $(fIpxChosen) == FALSE
+	   ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINOUTIPXName)
+              set RemoveList = >($(RemoveList), +
+				 {$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+           endif
+       endif
+       CloseRegKey $(Card)
+    EndForListDo
+    CloseRegKey $(KeyNetcards)
+    QueryListSize NetCards $(RemoveList)
+    ifint $(NetCards) != 0
+        ForListDo  $(RemoveList)
+            debug-output "Removing hardware component: "$($)
+            Shell "utility.inf", RemoveHardwareComponent, +
+                                 $(!Manufacturer), *($($),1), *($($),2)
+        EndForListDo
+    endif
+    OpenRegKey $(!REG_H_LOCAL)

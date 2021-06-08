@@ -1,0 +1,80 @@
+ersion)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+           CloseRegKey $(SoftNetRuleKey)
+           goto FatalRegistry
+        endif
+        set NewValueList = +
+            {{class, $(NoTitle), $(!REG_VT_SZ), $(NetRuleRASPPTPClass)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleRASPPTPType)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleRASPPTPUse)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(InfName)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            goto FatalRegistry
+        endif
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+            $(ProductSoftwareName), +
+            $(ProductSoftwareName), +
+            $(ProductSoftwareTitle), $(STF_CONTEXTINFNAME), +
+            $(ProductSoftwareImagePath), "kernelautostart", "NDIS", {}, "",+
+            $(RASPPTPMsgDLL)
+        Set OEM_ABANDON_SOFTWARE = TRUE
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error"
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        Set KeyProduct      = $($R1)
+        Set SoftNetRulesKey = $($R2)
+        CloseRegKey $($R3)
+        CloseRegKey $($R4)
+        CloseRegKey $($R5)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output $(InfName)": Registry error: add software components"
+            CloseRegKey $(KeyProduct)
+            CloseRegKey $(SoftNetRulesKey)
+            GoTo FatalRegistry
+        EndIf
+        Set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareTitle)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareDescription)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(ProductSoftwareName)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(KeyProduct), $(NewValueList)
+        IfInt $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output $(InfName)": ShellCode error."
+            GoTo ShellCodeError
+        EndIf
+        Set RegistryErrorIndex = $($R0)
+        IfStr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output $(InfName)": Registry error: add value list."
+            CloseRegKey $(KeyProduct)
+            CloseRegKey $(SoftNetRulesKey)
+            GoTo FatalRegistry
+        EndIf
+        Set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareType)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareUse)}, +
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRuleSoftwareBindForm)}, +
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRuleSoftwareClass)}, +
+                            {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),$(Bindable$(Option)Txt)}, +
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(Option)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRulesKey), $(NewValueList)

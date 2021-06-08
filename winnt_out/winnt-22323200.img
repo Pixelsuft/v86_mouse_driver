@@ -1,0 +1,46 @@
+s NT. Choose the ignore button and the installation will proceed normally.
+
+Lotus SmartSuite 96
+Do not choose to install Freelance Graphics. A problem in the Freelance Graphics portion of Setup will cause installation of the entire suite to fail under Windows NT version 4.0.
+
+The following error message appears when you install SmartSuite96 under Windows NT version 4.0:
+
+Windows NT Install Detected  --  Note:  SmartCenter 96 and SuiteStart 96 will not run under Windows NT 3.51 or earlier.  Newer versions including the New Shell for Windows NT were not available for testing at the time of this release.  Contact Lotus for updated information.  Do you want to install their program files anyway?
+
+SmartCenter96 and SuiteStart96 (desktop toolbars from which you run component applications) do not function correctly under Windows NT 4.0. The rest of SmartSuite (applications, documentation, etc.) will install and function correctly regardless of how you respond to the above error message. Microsoft recommends you select No. For more information, contact Lotus support.
+
+Lotus WordPro '96 for Windows 3.1
+During the installation of this application, an error dialog box appears stating the application may function incorrectly.  Clicking Ignore results in a successful installation.
+
+Macromedia Freehand
+If font smoothing is enabled, you cannot rotate text. To disable font smoothing, from Display in Control Panel, click the Plus! tab and clear font smoothing.
+
+Mathcad
+Printing from versions 6.0 and 6.0+ will cause an Access Violation if the printer name exceeds 20 characters. Patch files are available from Mathsoft at http://www.mathsoft.com.
+
+Maxis SimAnt 
+Maxis SimAnt can fail when the mouse is moved if sound is enabled. To prevent this, disable the sound. You can either edit SIMANT.CFG and change the setting for Sound Mode to 0, or install the application and change the setting for Sound Driver to None.
+
+Mc Affee Anti Virus
+When uninstalling Mc Affee Anti Virus by using the Add/Remove Programs from Control Panel, the entry in the list box of removable programs remains, although the program is uninstalled. 
+
+Micrografx Designer 6.0
+Designer (part of the ABC Graphics Suite) may display an error dialog box that refers to SMapLS_IP_EBP_12 in KERNEL32.dll when printing to PostScript printers. The dialog box appears because Designer misinterprets the operating system version information and tries to call a procedure found only in the Windows 95 version of the .dll file. Clicking OK will allow printing to continue as expected. 
+
+The printer setup property page has a different appearance under Windows NT version 4.0 than it does under Windows 95.
+
+Micrografx Designer substitutes a monospace font such as Courier for TrueType fonts.
+
+Contact Micrografx at (214) 234-2694 or online at http://www.micrografx.com for upgrade information.
+
+Micrografx Picture Publisher
+Picture Publisher (part of the ABC Graphics Suite) may display black rectangles instead of text labels in dialogs or on toolbars. Picture Publisher occasionally misinterprets the brush handles it receives from Windows NT and uses a black brush instead of a gray brush to paint the label backgrounds. Closing and restarting Picture Publisher will often cause the affected labels to display normally, although other labels in other dialogs may then appear as black rectangles. Contact Micrografx at (214) 234-2694 or online at http://www.micrografx.com for upgrade information.
+
+Micrografx Windows Draw 3.0
+Version 3.0 (720K) release disks may fail during installation. You cannot copy or cut elements from Micrografx Draw.
+
+Micrografx Windows Draw 4.0
+Whenever attempting to select a 'New Color', the COLOR dialog may appear black or half black due to the access methods employed by the application.
+
+Microsoft Access for Windows 95 
+Under Windows NT version 4.0, Microsoft Access for Windows 95 may generate errors that it can’t resolve, particularly when using the Form wizard. This problem will be fixed in a later version of Access 95. Contact Microsoft Ac

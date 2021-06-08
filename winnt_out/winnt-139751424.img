@@ -1,0 +1,79 @@
+REG_VT_SZ),$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMinorVersion)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(!CurrentDate),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(!HideComponent)}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "DoRasSvr:product: AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "DoRasSvr: Registry Error "$(RegistryErrorIndex)
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(SoftParamsKey)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+            {{class, $(NoTitle), $(!REG_VT_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {bindform,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)BindForm)}, +
+             {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              $(NetRule$(ThisOption)Bindable)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "DoRasSvr:netrules: AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $(SoftServiceKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(SoftParamsKey)
+            Debug-Output "DoRasSvr: Registry Error "$(RegistryErrorIndex)
+            goto fatalregistry
+        endif
+        set RasDependencies = {"LanmanServer","RasMan"}
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\NetBios" $(!MAXIMUM_ALLOWED) KeyNetBios
+        ifstr $(KeyNetBios) != $(KeyNull)
+            set RasDependencies = >($(RasDependencies),"NetBios")
+        endif
+        Debug-Output "DoRasSvr: Adding RasDependencies "$(RasDependencies)
+        set NewValueList = +
+            {{OtherDependencies, $(NoTitle), $(!REG_VT_MULTI_SZ),+
+              $(RasDependencies)}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftLinkageKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "DoRasSvr:Linkage: AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $(SoftServiceKey)
+            Debug-Output "DoRasSvr: Registry Error "$(RegistryErrorIndex)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+            {{AuthenticateRetries, $(NoTitle), $(!REG_VT_DWORD), 2},+
+            {AuthenticateTime, $(NoTitle), $(!REG_VT_DWORD), 120},+
+            {Autodisconnect, $(NoTitle), $(!REG_VT_DWORD), 20},+
+            {EnableAudit, $(NoTitle), $(!REG_VT_DWORD), 1},+
+            {CallbackTime, $(NoTitle), $(!REG_VT_DWORD), 2}}
+        Shell  $(!UtilityInf), AddValueList, $(SoftParamsKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "AddValueList bombed out"
+             goto ShellCodeEr

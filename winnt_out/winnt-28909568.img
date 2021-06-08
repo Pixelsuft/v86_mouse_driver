@@ -1,0 +1,120 @@
+[Identification]
+    OptionType = NetService
+[Options]
+    RPCLOCATE
+    RPCBANYAN
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+subroutineinf   = "SUBROUTN.INF"
+SoftwareType    = "service"
+Exit_Code       = 0
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductOpSupportRPC     = 134 
+ProductOpSupportRPCBANYAN     = 132 
+RpcBanyanSoftKeyName    = "SOFTWARE\Microsoft\RpcBanyan"
+RpcSoftKeyName    = "SOFTWARE\Microsoft\Rpc"
+RpcSrvKeyName     = "Software\Microsoft\RPCLOCATOR"
+RpcSecurityKeyName = "Software\Microsoft\Rpc\SecurityService"
+RpcSrvNameRpcss   = "RPCSS"
+RpcSrvNameLocator = "RPCLOCATOR"
+RpcSrvNameBanyan  = "RpcBanyan"
+RpcSrvNameSSP     = "NtLmSsp"
+RpcSrvExeRpcss    = "%SystemRoot%\System32\RPCSS.EXE"
+RpcSrvExeLocator  = "%SystemRoot%\System32\LOCATOR.EXE"
+RpcSrvExeSSP      = "%SystemRoot%\System32\SERVICES.EXE"
+ProductKeyName    = $(RpcSrvKeyName)"\CurrentVersion"
+ServerProto       = "\ServerProtocols"
+ClientProto       = "\ClientProtocols"
+RpcSrvDepend= {"LanmanWorkstation","Rdr" }
+MSSecurityDLL     = "security.dll"
+LocatorChoiceList   = ^(LocatorData,1)
+LocatorEndPointList = ^(LocatorData,2)
+LocatorProtocolList = ^(LocatorData,3)
+NameServiceKeyName  = "Software\Microsoft\Rpc\NameService"
+SecurityKeyName = "Software\Microsoft\Rpc\SecurityService"
+SecurityChoiceList = ^(SecurityData,1)
+SecurityDllList = ^(SecurityData,2)
+[LocatorData]
+LD_1 = "LocatorWINNT","\pipe\locator","ncacn_np"
+LD_2 = "LocatorDCE","","ncacn_ip_tcp"
+[SecurityData]
+SD_1 = "SecurityWINNT","security.dll"
+SD_2 = "SecurityDCE","dcesec.dll"
+[UpgradeMapConstants]
+DLLClientList = { "rpcltc3.dll", "rpcltc6.dll", "rpcltc5.dll", "rpcltc7.dll", "rpcdgc3.dll" }
+DLLServerList = { "rpclts3.dll", "rpclts6.dll", "rpclts5.dll", "rpclts7.dll", "rpcdgs3.dll" }
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    set-subst LF = "\n"
+    Debug-Output "OEMNSVRP.INF: active"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms UpgradeMapConstants
+    detect date
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    read-syms $(Option)Constants$(!STF_LANGUAGE)
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        set StartLabel = removeadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == update
+        set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set St

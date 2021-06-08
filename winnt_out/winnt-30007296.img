@@ -1,0 +1,68 @@
+            set CardInfo = {}
+               ifstr(i) $($R1) != {}
+                  set CardInfo = $($R1)
+                  Debug-Output "MCA controller found!"
+                  Debug-Output "CardInfo = "$(CardInfo)
+                  ForListDo $(CardInfo)
+                     Debug-Output "Current CardInfo Entry = "$($)
+                     set TmpBusNumber = *($($), 1)
+                     set SlotNumber = *($($), 2)
+                     set MCAPosId = *($($), 3)
+                     Debug-Output "Calling DoesControllerExist:"
+                     Debug-Output "    AdapterHardwareName = "$(AdapterHardwareName)
+                     Debug-Output "    BusNumber = "$(TmpBusNumber)
+                     Debug-Output "    Slot # = "$(SlotNumber)
+                     Debug-Output "    MCAPosId = "$(MCAPosId)
+                     Debug-Output " DGCONFIG_HANDLE = "$(DGCONFIG_HANDLE)
+                     LibraryProcedure Result, $(DGCONFIG_HANDLE), +
+                        DoesControllerExist, $(AdapterHardwareName), +
+                                             $(TmpBusNumber),        +
+                                             $(SlotNumber)
+                     Debug-Output "DoesControllerExist return: "$(Result)
+                     ifstr(i) $(Result) == "FALSE"
+                        Debug-Output "Before resetting IORangeList for MCA: "$(IORangeList)
+                        set IORangeList = {Slot$(SlotNumber)}
+                        set IODefault = 0
+                        Debug-Output "After resetting IORangeList for MCA: "$(IORangeList)
+                        Debug-Output "Before resetting MemoryRangeList for MCA: "$(MemoryRangeList)
+                        set MemoryDefault = 0
+                        set MemoryRangeList = {Slot$(SlotNumber)}
+                        Debug-Output "After resetting MemoryRangeList for MCA: "$(MemoryRangeList)
+                        set BusTypeNum = 3
+                        goto getAdapterSettingsExit
+                     endif
+                  EndForListDo
+               endif
+            EndForListDo
+            Debug-Output "No new MCA cards found!" 
+        else
+            ForListDo $(AdapterHardwareAdapterID)
+              ifint $($) != 0
+                  Debug-Output "Calling EISAFindBus, "$($)
+                  Shell $(UtilityInf), EISAFindBus, $($)
+                  set CardInfo = {}
+                  ifstr(i) $($R1) != {}
+                     set CardInfo = $($R1)
+                     Debug-Output "EISA controller found!"
+                     Debug-Output "CardInfo = "$(CardInfo)
+                      ForListDo $(CardInfo)
+                         Debug-Output "Current CardInfo Entry = "$($)
+                         set TmpBusNumber = *($($), 1)
+                         set SlotNumber = *($($), 2)
+                         set-mul NewIOBaseAddress = $(SlotNumber), 4096
+                         set-add NewIOBaseAddress = $(NewIOBaseAddress), 5
+                         set-dectohex NewIOBaseAddress = $(NewIOBaseAddress)
+                         Debug-Output "Calling DoesControllerExist:"
+                         Debug-Output "    AdapterHardwareName = "$(AdapterHardwareName)
+                         Debug-Output "    BusNumber = "$(TmpBusNumber)
+                         Debug-Output "    NewIOBaseAddress = "$(NewIOBaseAddress)
+                         Debug-Output " DGCONFIG_HANDLE = "$(DGCONFIG_HANDLE)
+                         LibraryProcedure Result, $(DGCONFIG_HANDLE), +
+                            DoesControllerExist, $(AdapterHardwareName), +
+                                                 $(TmpBusNumber),        +
+                                                 $(NewIOBaseAddress)
+                         Debug-Output "DoesControllerExist return: "$(Result)
+                         ifstr(i) $(Result) == "FALSE"
+                            Debug-Output "Before resetting IORangeList for EISA: "$(IORangeList)
+                            set IORangeList = {$(NewIOBaseAddress)}
+                         

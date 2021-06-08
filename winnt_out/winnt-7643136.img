@@ -1,0 +1,119 @@
+
+[Version]
+Signature = $Chicago$
+ClassGUID = {00000000-0000-0000-0000-000000000000}
+LayoutFile = layout.inf
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; HOW TO USE THIS FILE
+;
+; To change locales,
+;
+; 1) Invoke the section whose name is the LCID of the locale to change to.
+; 2) Look in the [Locales] section to determine the matching OEM codepage.
+; 3) Invoke the section whose name is [Font.CP<oemcp>.Files.<fontsize>
+;    where <fontsize> is 96 for small fonts or 120 for large ones.
+;
+; Your code must also perform any non-registry manipulations that may be
+; necessary, such as SetLocaleInfo() calls, etc. They are not done here.
+;
+; To just change to large or small fonts, do step 3 only.
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;
+; List of locales.
+; <LCID> = <Description>,<OEMCP>
+;
+[Locales]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+00000436 = %Afrikaans%                   ,850
+0000041c = %Albanian%                   ,852
+0000042d = %Basque%                     ,850
+00000423 = %Belarusian%                 ,866
+00000402 = %Bulgarian%                  ,866
+00000403 = %Catalan%                    ,850
+0000041a = %Croatian%                   ,852
+00000405 = %Czech%                      ,852
+00000406 = %Danish%                     ,850
+00000413 = %Dutch_Standard%             ,850
+00000813 = %Dutch_Belgian%              ,850
+00000409 = %English_United_States%      ,437
+00000809 = %English_United_Kingdom%     ,850
+00001009 = %English_Canadian%           ,850
+00001409 = %English_New Zealand%        ,850
+00000c09 = %English_Australian%         ,850
+00001c09 = %English_South_Africa%       ,850
+00002009 = %English_Jamaica%            ,850
+00002409 = %English_Caribbean%          ,850
+00002809 = %English_Belize%             ,850
+00002c09 = %English_Trinidad%           ,850
+00000425 = %Estonian%                   ,775
+00000438 = %Faeroese%                   ,850
+0000040b = %Finnish%                    ,850
+0000040c = %French_Standard%            ,850
+0000080c = %French_Belgian%             ,850
+0000100c = %French_Swiss%               ,850
+00000c0c = %French_Canadian%            ,850
+0000140c = %French_Luxembourg%          ,850
+00000407 = %German_Standard%            ,850
+00000807 = %German_Swiss%               ,850
+00000c07 = %German_Austrian%            ,850
+00001007 = %German_Luxembourg%          ,850
+00001407 = %German_Liechtenstein%       ,850
+00000408 = %Greek%                      ,737
+
+
+
+0000040e = %Hungarian%                  ,852
+0000040f = %Icelandic%                  ,850
+00001809 = %English_Irish%              ,850
+00000421 = %Indonesian%                 ,850
+00000410 = %Italian_Standard%           ,850
+00000810 = %Italian_Swiss%              ,850
+00000426 = %Latvian%                    ,775
+00000427 = %Lithuanian%                 ,775
+00000414 = %Norwegian_Bokmal%           ,850
+00000814 = %Norwegian_Nynorsk%          ,850
+00000415 = %Polish%                     ,852
+00000816 = %Portuguese_Standard%        ,850
+00000416 = %Portuguese_Brazilian%       ,850
+00000418 = %Romanian%                   ,852
+00000419 = %Russian%                    ,866
+00000c1a = %Serbian_Cyrillic%           ,866
+0000081a = %Serbian_Latin%              ,852
+0000041b = %Slovak%                     ,852
+00000424 = %Slovenian%                  ,852
+0000080a = %Spanish_Mexican%            ,850
+0000040a = %Spanish_Traditional_Sort%   ,850
+00000c0a = %Spanish_Modern Sort%        ,850
+0000100a = %Spanish_Guatemala%          ,850
+0000140a = %Spanish_Costa_Rica%         ,850
+0000180a = %Spanish_Panama%             ,850
+00001c0a = %Spanish_Dominican_Republic% ,850
+0000200a = %Spanish_Venezuela%          ,850
+0000240a = %Spanish_Colombia%           ,850
+0000280a = %Spanish_Peru%               ,850
+00002c0a = %Spanish_Argentina%          ,850
+0000300a = %Spanish_Ecuador%            ,850
+0000340a = %Spanish_Chile%              ,850
+0000380a = %Spanish_Uruguay%            ,850
+00003c0a = %Spanis

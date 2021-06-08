@@ -1,0 +1,73 @@
+Client\Mac File Types","FOXX:F+LB",,".lbx"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOXX:FPJX",,".pjx"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","FOXX:FMNX",,".mnx"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","L123:LWKS",,".wk1"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","L123:LWK3",,".wk3"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","PPT3:SLD3",,".ppt"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPT ",,".mpt"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWK:AWWP",,".WPS"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWK:AWSS",,".WKS"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWK:AWDB",,".WDB"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWK:RLRB",,".WPS"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWK:sWWP",,".WPS"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWK:sWSS",,".WKS"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","MSWK:sWRB",,".WPS"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLS5",,".XLS"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:sLS5",,".XLT"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLB5",,".XLB"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLA5",,".XLA"
+HKLM,"Software\Microsoft\Exchange\Client\Mac File Types","XCEL:XLW5",,".XLW"
+
+; mdisp32.reg
+HKCR,MAPI.Session,,,"MAPI 1.0 Session"
+HKCR,MAPI.Session\CLSID,,,{3FA7DEB3-6438-101B-ACC1-00AA00423326}
+HKCR,MAPI.Session\CurVer,,,MAPI.Session.1
+HKCR,MAPI.Session.1,,,"MAPI 1.0 Session (v1.0)"
+HKCR,MAPI.Session.1\CLSID,,,{3FA7DEB3-6438-101B-ACC1-00AA00423326}
+HKCR,CLSID\{3FA7DEB3-6438-101B-ACC1-00AA00423326},,,"MAPI 1.0 Session (v1.0)"
+HKCR,CLSID\{3FA7DEB3-6438-101B-ACC1-00AA00423326}\LocalServer32,,,"MDISP32.EXE /Automation"
+HKCR,CLSID\{3FA7DEB3-6438-101B-ACC1-00AA00423326}\ProgID,,,MAPI.Session
+
+;; MAPI.Message ---------------------------------------------------------------
+
+HKCR,MAPI.Message,,,"MAPI 1.0 Message"
+HKCR,MAPI.Message\CLSID,,,{3FA7DEB4-6438-101B-ACC1-00AA00423326}
+HKCR,MAPI.Message\CurVer,,,MAPI.Message.1
+HKCR,MAPI.Message.1,,,"MAPI 1.0 Message (v1.0)"
+HKCR,MAPI.Message.1\CLSID,,,{3FA7DEB4-6438-101B-ACC1-00AA00423326}
+HKCR,CLSID\{3FA7DEB4-6438-101B-ACC1-00AA00423326},,,"MAPI 1.0 Message (v1.0)"
+HKCR,CLSID\{3FA7DEB4-6438-101B-ACC1-00AA00423326}\LocalServer32,,,"MDISP32.EXE /Automation"
+HKCR,CLSID\{3FA7DEB4-6438-101B-ACC1-00AA00423326}\ProgID,,,MAPI.Message
+
+;; MAPI.Folder ----------------------------------------------------------------
+
+HKCR,MAPI.Folder,,,"MAPI 1.0 Folder "
+HKCR,MAPI.Folder\CLSID,,,{3FA7DEB5-6438-101B-ACC1-00AA00423326}
+HKCR,MAPI.Folder\CurVer,,,MAPI.Folder.1
+HKCR,MAPI.Folder.1,,,"MAPI 1.0 Folder (v1.0)"
+HKCR,MAPI.Folder.1\CLSID,,,{3FA7DEB5-6438-101B-ACC1-00AA00423326}
+HKCR,CLSID\{3FA7DEB5-6438-101B-ACC1-00AA00423326},,,"MAPI 1.0 Folder (v1.0)"
+HKCR,CLSID\{3FA7DEB5-6438-101B-ACC1-00AA00423326}\LocalServer32,,,"MDISP32.EXE /Automation"
+HKCR,CLSID\{3FA7DEB5-6438-101B-ACC1-00AA00423326}\ProgID,,,MAPI.Folder
+
+
+[MSMailDelReg.Remove]
+; Remove the ol desktop icon
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{00020D75-0000-0000-C000-000000000046}"
+HKCR,"CLSID\{00020D75-0000-0000-C000-000000000046}"
+
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","MAPI"
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","MAPIX"
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","OLEMessaging"
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","CMC"
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","CMCDLLNAME"
+HKLM,"Software\Microsoft\Windows Messaging Subsystem","CMCDLLNAME32"
+
+HKLM,SOFTWARE\Microsoft,Exchange
+HKLM,"SOFTWARE\Microsoft\Schedule+\Application",MailPath
+
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Options","ImportMailData"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Options","ExcludeCustomDlls"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Options","ExcludeCustomKeys"
+
+; blow 

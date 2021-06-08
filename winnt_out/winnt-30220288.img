@@ -1,0 +1,99 @@
+l = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set CommonStatus = STATUS_REBOOT
+        Set ActivateDetection = TRUE
+        set StartLabel = configureadapter
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the DEC driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+        Set ActivateDetection = TRUE
+    endif
+    Debug-Output "OEMNADD2.INF: =================================================="
+    Debug-Output "OEMNADD2.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNADD2.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    Debug-Output "OEMNADD2.INF: Option is: "$(Option)
+    Debug-Output "OEMNADD2.INF: !STF_NCDETECT  is: "$(!STF_NCDETECT)
+    Debug-Output "OEMNADD2.INF: !STF_NCOPTION  is: "$(!STF_NCOPTION)
+    Debug-Output "OEMNADD2.INF: !STF_NCDETCARD is: "$(!STF_NCDETCARD)
+    Debug-Output "OEMNADD2.INF: !STF_NCDETINFO is: "$(!STF_NCDETINFO)
+    Debug-Output "OEMNADD2.INF: =================================================="
+    Set DetectedCard = FALSE
+    Ifstr(i) $(ActivateDetection) != TRUE
+        Goto skipdetection
+    Endif
+    Set TypeList = {{IRQ,IRQ_List,IRQLevel},+
+                    {IOADDR, IOADDR_Addr_List, IOBaseAddress},+
+                    {MEMADDR, MemBaseAddrDecList MemBaseAddrDec},+
+                    {MEMADDRLENGTH, MemLengthList, NONE}}
+    Debug-Output "OEMNADD2.INF: Calling Param_BuildTypeLists"
+    Shell $(ParamInf) Param_BuildTypeLists $(Option) $(TypeList)
+    Set Status = $($R0)
+    ifstr(i) $(Status) != STATUS_SUCCESSFUL
+        Goto fataldetect
+    Endif
+    Debug-Output "OEMNADD2.INF: Calling Param_SetDefaults"
+    Shell $(ParamInf) Param_SetDefaults {}
+    Set IOADDR_Base_List = {1,2}
+    Shell $(ParamInf) HexListFromDecList $(MemBaseAddrDecList)
+    Set MemBaseAddrHexList = $($R0)
+    Ifstr(i) $(!STF_NCDETECT) == YES
+        Ifstr(i) $(!STF_NCOPTION) == $(Option)
+           Set DetectedCard = TRUE
+           Debug-Output "OEMNADD2.INF: Setting DetectedCard to TRUE"
+        Endif
+    Endif
+skipdetection =+
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    Ifstr(i) $(DetectedCard) != TRUE
+        Goto adaptersetup
+    Endif
+    StartWait
+    Shell $(ParamInf) Param_QueryCard $(!STF_NCDETCARD)
+    EndWait
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Goto adaptersetup
+    Endif
+    Set DetectedParams = $($R1)
+    Debug-Output "OEMNADD2.INF: Calling Param_SetDefaults to merge detected params"
+    Shell $(ParamInf) Param_SetDefaults $(D

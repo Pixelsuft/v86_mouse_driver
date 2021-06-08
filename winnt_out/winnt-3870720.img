@@ -1,0 +1,93 @@
+set CommonStatus = STATUS_REBOOT
+        Set ActivateDetection = TRUE
+        set StartLabel = configureadapter
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the elink 16 driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+    else
+        Set ActivateDetection = TRUE
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+    endif
+    Debug-Output "OEMNADE1.INF: =================================================="
+    Debug-Output "OEMNADE1.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNADE1.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    Debug-Output "OEMNADE1.INF: Option is: "$(Option)
+    Debug-Output "OEMNADE1.INF: !STF_NCDETECT  is: "$(!STF_NCDETECT)
+    Debug-Output "OEMNADE1.INF: !STF_NCOPTION  is: "$(!STF_NCOPTION)
+    Debug-Output "OEMNADE1.INF: !STF_NCDETCARD is: "$(!STF_NCDETCARD)
+    Debug-Output "OEMNADE1.INF: !STF_NCDETINFO is: "$(!STF_NCDETINFO)
+    Debug-Output "OEMNADE1.INF: =================================================="
+    Set DetectedCard = FALSE
+    Ifstr(i) $(ActivateDetection) != TRUE
+        Goto $(StartLabel)
+    Endif
+    Set TypeList = {{IRQ, IRQ_List, IRQ_Level},+
+                    {IOADDR, IOADDR_Addr_List, IOBaseAddrValue},+
+                    {MEMADDR, MemAddrDecList, MemAddrDec},+
+                    {MEMADDRLENGTH, MemAddrLengthList, MemAddrLength},+
+                    {TRANSCEIVER, TranceiverValueList, TransceiverValue},+
+                    {ZEROWAITSTATE, WaitStateValueList, WaitStateValue}}
+    Debug-Output "OEMNADE1.INF: Calling Param_BuildTypeLists"
+    Shell $(ParamInf) Param_BuildTypeLists $(Option) $(TypeList)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNADE1.INF: Error shelling to NCPARAM.INF!Param_BuildTypeLists: "$($ShellCode)
+        Goto ShellCodeError
+    Endif
+    Set Status = $($R0)
+    ifstr(i) $(Status) != STATUS_SUCCESSFUL
+        Debug-Output "OEMNADE1.INF: Param_BuildTypeLists returned: "$(Status)
+        Goto fataldetect
+    Endif
+    Debug-Output "OEMNADE1.INF: Calling Param_SetDefaults"
+    Shell $(ParamInf) Param_SetDefaults {}
+    Shell $(ParamInf) HexListFromDecList $(IOADDR_Addr_List)
+    Set IOADDR_Hex_List = $($R0)
+    Shell $(ParamInf) HexListFromDecList $(MemAddrDecList)
+    Set MemAddrHexList = $($R0)
+    Ifstr(i) $(!STF_NCDETECT) == YES
+        Ifstr(i) $(!STF_NCOPTION) == $(Option)
+           Set DetectedCard = TRUE
+           Debug-Output "OEMNADE1.INF: Setting DetectedCard to TRUE"
+        Endif
+    Endif
+    QueryListSize ListSize $(WaitStateValueList)
+    Debug-Output "OEMNADE1.INF: WaitStateValueList size = "$(ListSize)
+    Ifint $(ListSize) < 2
+        Set WaitStateValueList = {1,0}
+        Set WaitStateValue = 0
+    Endif
+    Ifint $(WaitStateValue) == 0
+        Set CheckItemsIn = {"OFF"}
+    Else
+        Set CheckItemsIn = {"ON"}
+    Endif
+    Shell "" DebugConfiguration "After parameter querying"
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(Utilit

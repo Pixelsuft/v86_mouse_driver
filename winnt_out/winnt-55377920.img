@@ -1,0 +1,194 @@
+y]
+vga.dll
+vga256.dll
+
+[v7vram.Display]
+vga.dll
+vga256.dll
+
+[vga.Display]
+vga.dll
+
+[wd90c24a.Display]
+
+[wdvga.Display]
+vga.dll
+vga256.dll
+vga64k.dll
+
+[weitekp9.Display]
+weitekp9.dll
+
+[xga.Display]
+xga.dll
+vga256.dll
+
+
+;
+; Miniport driver list
+;
+; This must match the section in txtsetup.inx
+;
+
+[detect.Miniport]
+ati.sys
+cirrus.sys
+dell_dgx.sys
+et4000.sys
+mga.sys
+mga_mil.sys
+ncr77c22.sys
+qv.sys
+s3.sys
+v7vram.sys
+wdvga.sys
+weitekp9.sys
+xga.sys
+
+
+
+[8514a.Miniport]
+8514a.sys
+
+[ati.Miniport]
+ati.sys
+
+[cirrus.Miniport]
+cirrus.sys
+
+[dell_dgx.Miniport]
+dell_dgx.sys
+
+[et4000.Miniport]
+et4000.sys
+
+[jazzg300.Miniport]
+
+[jazzg364.Miniport]
+
+[jzvxl484.Miniport]
+
+[mga.Miniport]
+mga.sys
+
+[mga_mil.Miniport]
+mga_mil.sys
+
+[ncr77c22.Miniport]
+ncr77c22.sys
+
+[psidisp.Miniport]
+
+[qv.Miniport]
+qv.sys
+
+[s3.Miniport]
+s3.sys
+
+[tga.Miniport]
+
+[trident.Miniport]
+trident.sys
+
+[v7vram.Miniport]
+v7vram.sys
+
+[vga.Miniport]
+vga.sys
+
+[wd90c24a.Miniport]
+
+[wdvga.Miniport]
+wdvga.sys
+
+[weitekp9.Miniport]
+weitekp9.sys
+
+[xga.Miniport]
+xga.sys
+
+
+
+
+;
+; Display driver registry entries
+;
+
+[8514a_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, 8514a
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[ati_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, ati, 8514a
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[cirrus_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga, cirrus, vga256, vga64k
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+[dell_dgx_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, framebuf
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[et4000_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga, w32, vga256, vga64k
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+[jazzg300_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, framebuf
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[jazzg364_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, framebuf
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[jzvxl484_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, jzvxl484
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[mga_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, mga
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[mga_mil_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, mga
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[ncr77c22_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga, vga256
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+[psidisp_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, psidisp
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[qv_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga, qv
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+[s3_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, s3
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[tga_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, tga
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[trident_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga, vga256
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+[v7vram_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga, vga256
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+[vga_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, vga
+HKR,, VgaCompatible,               %REG_DWORD%,    1
+
+[wd90c24a_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, wd90c24a
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[wdvga_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDriver

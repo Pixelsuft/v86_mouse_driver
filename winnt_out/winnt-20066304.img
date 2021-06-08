@@ -1,0 +1,140 @@
+   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\fd8xx.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;****************************************************
+;(Standard mass storage controllers) Manufacturer device list
+[StdMfg]
+%atapi.DeviceDesc%       = atapi_Inst, ATAPI_SCSI     ; Fake ID used during migration
+%PCI\CC_0101.DeviceDesc% = atapi_Inst, PCI\CC_0101    ; Device IDs for generic Dual PCI IDE
+%*PNP0600.DeviceDesc%    = atapi_Inst, *PNP0600       ; generic IDE (for matching on PnP ISA devices)
+
+[atapi_Inst]
+CopyFiles = @atapi.sys
+Reboot
+
+[atapi_Inst.Services]
+AddService = atapi, %SPSVCINST_ASSOCSERVICE%, atapi_Service_Inst, Miniport_EventLog_Inst
+
+[atapi_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\atapi.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;******************************
+;Mylex Manufacturer device list
+[MYLEX]
+%dac960nt.DeviceDesc% = dac960nt_Inst           ; BUGBUG--What is this ID???
+
+[dac960nt_Inst]
+CopyFiles = @dac960nt.sys
+Reboot
+
+[dac960nt_Inst.Services]
+AddService = dac960nt, %SPSVCINST_ASSOCSERVICE%, dac960nt_Service_Inst, Miniport_EventLog_Inst
+
+[dac960nt_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\dac960nt.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;****************************
+;NCR Manufacturer device list
+[NCR]
+%ncr53c9x.DeviceDesc%              = ncr53c9x_Inst, NCR53C9X_SCSI
+%NCR_C9X.DeviceDesc%               = ncr53c9x_Inst, mca_7f4c, mca_7f4d, mca_7f4f
+%ncrc700.DeviceDesc%               = ncrc700_Inst,  mca_004e
+%ncrc710.DeviceDesc%               = ncrc710_Inst,  NCRC710_SCSI
+%mca_01ba.DeviceDesc%              = ncrc710_Inst,  mca_01ba, mca_01bb
+
+;
+; (Also include Zenith ID for NCR53C94 part.)
+;
+[ZENITH]
+%MF\EISA_ZDS2000_DEV2.DeviceDesc% = ncr53c9x_Inst, MF\EISA_ZDS2000_DEV2
+
+[symc810_Inst]
+CopyFiles = @symc810.sys
+Reboot
+
+[symc810_Inst.Services]
+AddService = symc810, %SPSVCINST_ASSOCSERVICE%, symc810_Service_Inst, Miniport_EventLog_Inst
+
+[symc810_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\symc810.sys
+LoadOrderGroup = SCSI Miniport
+
+[ncr53c9x_Inst]
+CopyFiles = @ncr53c9x.sys
+Reboot
+
+[ncr53c9x_Inst.Services]
+AddService = ncr53c9x, %SPSVCINST_ASSOCSERVICE%, ncr53c9x_Service_Inst, Miniport_EventLog_Inst
+
+[ncr53c9x_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ncr53c9x.sys
+LoadOrderGroup = SCSI Miniport
+
+[ncrc700_Inst]
+CopyFiles = @ncrc700.sys
+Reboot
+
+[ncrc700_Inst.Services]
+AddService = ncrc700, %SPSVCINST_ASSOCSERVICE%, ncrc700_Service_Inst, Miniport_EventLog_Inst
+
+[ncrc700_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ncrc700.sys
+LoadOrderGroup = SCSI Miniport
+
+[ncrc710_Inst]
+CopyFiles = @ncrc710.sys
+Reboot
+
+[ncrc710_Inst.Services]
+AddService = ncrc710, %SPSVCINST_ASSOCSERVICE%, ncrc710_Service_Inst, Miniport_EventLog_Inst
+
+[ncrc710_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ncrc710.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;*******************************
+;QLogic Manufacturer device list
+[QLOGIC]
+%ql10wnt.DeviceDesc% = ql10wnt_Inst
+
+[ql10wnt_Inst]
+CopyFiles = @ql10wnt.sys
+Reboot
+
+[ql10wnt_Inst.Services]
+AddService = ql10wnt, %SPSVCINST_ASSOCSERVICE%, ql10wnt_Service_Inst, Miniport_EventLog_Inst
+
+[ql10wnt_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ql10wnt.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;******************************

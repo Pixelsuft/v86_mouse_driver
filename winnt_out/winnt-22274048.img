@@ -1,0 +1,75 @@
+er
+·  Copy Scsizip.exe to the RAM drive
+·  Self-extract Scsizip.exe.
+·  Start Scsi.exe
+·  Log adapters and devices data into a log file called Scsi.txt
+
+Video Notes
+
+Cirrus Logic
+Some computers with the Cirrus 543x video chipset may experience problems when attempting to restart. When restart is selected, the system may freeze when attempting to reset the Cirrus video. This is not detrimental to the system. Simply restart the computer using the reset button or power off the computer.
+
+Direct Draw
+The version of Direct Draw provided with this release of Windows NT is fully compatible with the version released on Windows 95 in the DirectX 2 release.  The only difference between these two versions is that the Windows NT version does not support ModeX low resolution modes.
+
+Low resolution modes
+The Tseng ET6000 supports display modes which are lower resolution than 640x480.  No other driver currently supports low resolution modes and this version of Direct Draw does not support ModeX modes.  Applications that require low resolution modes will not run on non-ET6000 systems.
+
+DXSetup
+The dxsetup program used by DirectX 1 games to install the DirectX components on Windows 95 does not work properly on Windows NT.  Applications that use this setup program will not install correctly on Windows NT. The dxsetup program supplied with the DirectX 2 SDK will work correctly on Windows NT.
+
+Video cards with hardware acceleration
+The following video cards have drivers which contain DirectDraw support in this release.  Systems with video cards other than the ones on this list are still able to run DirectDraw applications but no hardware acceleration is provided.
+	x86
+	ATI Mach64, Mach32 
+	S3 Trio64V+, Trio64V2
+	S3 868, 968
+	Matrox Millennium 
+	Tseng ET6000 
+
+	Mips
+	S3 868, 968, Trio64V+ (some Mips machines either does not support these cards, or will not DirectDraw accelerated)
+
+	PPC
+	S3 868, 968, Trio64V+
+	Matrox Millennium (the Millennium doesn't work in some IBM PPC machines)
+
+	Alpha
+	Matrox Millennium
+
+
+S3
+Some computers using the S3 chipsets will not display 1152x864 resolutions. These machines do not support the S3 1152 BIOS Standard.  Set the resolution to another mode.  
+
+Due to differences in BIOS mode tables, some S3 cards will not correctly set the proper refresh rate.  Contact your video card manufacturer for an updated driver.
+
+
+S15
+The S15 video card does not display colors correctly on the IBM P70, the IBM 21P, and the Iiyama monitors. There are two models of the P70.
+The P70 which displays colors incorrectly has a switch on the back labeled "normal" and "adjust". The switch is typically in the "normal"
+position.  Switching it to the "adjust" position will resolve the color problem.
+The color problem does not appear in the model of the P70 that does not have the normal/adjust switch.
+
+ There is no known workaround for the IBM 21P and Iiyama monitors.
+
+
+Matrox
+Video cards with the Matrox Atlas chipset may show text corruption during interlaced modes.
+
+Compaq Q-Vision 2000 and Matrox Impression Lite Rev E boards are affected. Set the refresh rate in Control Panel, Display to a non-interlaced setting.
+Some systems with a Matrox Impression Plus 4MB video card in high resolution modes may show a cursor 'ghost' (a copy of the mouse pointer an inch away from the usual pointer).
+
+The Matrox driver conflicts with some Token ring cards in Compaq computers.  The conflict causes the network card to fail at startup. Contact Compaq for an updated driver.
+
+
+VDM (Virtual DOS Machine)
+Some CGA (color graphics adapter) and EGA (enhanced graphics adapter) MS-DOS applications may experience palette corruption after several successive screen switches.
+
+Weitek
+Video cards with the Weitek P9100 video chipset may display offset or changing colors. These color palette changes occur when the video color depth is set to 256 colors (8 bit). To resolve this, set color depth higher than 256 colors (16, 24 or 32 bit).
+
+
+Multimedia Hardware Notes
+
+Installing Joystick Drivers
+This rel

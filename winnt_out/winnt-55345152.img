@@ -1,0 +1,97 @@
+             = ati
+ %Ati% GRAPHICS WONDER ISA                     = ati
+ %Ati% GRAPHICS WONDER VLB                     = ati
+ %Ati% GRAPHICS XPRESSION ISA                  = ati
+ %Ati% GRAPHICS XPRESSION PCI                  = ati
+ %Ati% GRAPHICS XPRESSION VLB                  = ati
+ %Ati% mach 8 %CompatAdap%                     = ati
+ %Ati% mach 32 %CompatAdap%                    = ati
+ %Ati% mach 64 CT,CX,VT,GX %CompatAdap%        = ati
+ %Ati% VIDEO XPRESSION PCI                     = ati
+ %Ati% Win Turbo PCI                           = ati
+ %Ati% Win Turbo VLB                           = ati
+ %Ati% Win Turbo ISA                           = ati
+
+ %Ati% mach 64 CT,CX,VT,GX %CompatAdap%        = ati
+
+ %Ati% mach 64 CT,CX,VT,GX %CompatAdap%        = ati
+
+
+
+[Cardex.Mfg]
+ %Cardex% GW143 VLB                            = cirrus
+ %Cardex% GW143A VLB                           = cirrus
+
+
+
+[Cirrus.Mfg]
+ %Cirrus% %CompatAdap%                         = cirrus, CIRRUS_COMPAT
+ %Cirrus% 542x %CompatAdap%                    = cirrus
+ %Cirrus% 543x %CompatAdap%                    = cirrus
+ %Cirrus% 544x %CompatAdap%                    = cirrus
+ %Cirrus% 754x %CompatAdap%                    = cirrus
+
+
+
+[Compaq.Mfg]
+ %Compaq% QVision %CompatAdap%                 = qv, QV_COMPAT
+ %Compaq% QVision 1024/E                       = qv
+ %Compaq% QVision 1024/E Enhanced              = qv
+ %Compaq% QVision 1024/I                       = qv
+ %Compaq% QVision 1024/I Enhanced              = qv
+ %Compaq% QVision 1280/E                       = qv
+ %Compaq% QVision 1280/I                       = qv
+ %Compaq% QVision 1280/P                       = qv
+ %Compaq% QVision 2000 PCI                     = mga
+ %Compaq% QVision 2000+ PCI                    = mga
+
+
+
+
+
+[Dell.Mfg]
+ %Dell% DGX                                    = dell_dgx, DELL_DGX_COMPAT
+
+
+
+[Diamond.Mfg]
+ %Diamond% Speedstar                           = et4000
+ %Diamond% Speedstar 24x                       = wdvga
+ %Diamond% SPEEDSTAR 64 ISA                    = cirrus
+ %Diamond% SPEEDSTAR 64 PCI                    = cirrus
+ %Diamond% SPEEDSTAR PRO                       = cirrus
+ %Diamond% SPEEDSTAR PRO VLB                   = cirrus
+ %Diamond% SPEEDSTAR PRO 1100                  = cirrus
+ %Diamond% SPEEDSTAR PRO 1100 VLB              = cirrus
+ %Diamond% SPEEDSTAR PRO SE PCI                = cirrus
+ %Diamond% SPEEDSTAR PRO SE VLB                = cirrus
+ %Diamond% SPEEDSTAR64 GRAPHICS 2120           = cirrus
+ %Diamond% SPEEDSTAR64 GRAPHICS 2120XL         = cirrus
+ %Diamond% SPEEDSTAR64 GRAPHICS 2200           = cirrus
+ %Diamond% SPEEDSTAR64 GRAPHICS 2200XL         = cirrus
+ %Diamond% STEALTH 24                          = s3
+ %Diamond% STEALTH 24 VLB                      = s3
+ %Diamond% STEALTH 32 PCI                      = et4000
+ %Diamond% STEALTH 32 VLB                      = et4000
+ %Diamond% STEALTH 64 DRAM PCI                 = s3
+ %Diamond% STEALTH 64 DRAM VLB                 = s3
+ %Diamond% STEALTH 64 VRAM PCI                 = s3
+ %Diamond% STEALTH 64 VRAM VLB                 = s3
+ %Diamond% STEALTH PRO                         = s3
+ %Diamond% STEALTH PRO VLB                     = s3
+ %Diamond% STEALTH SE VLB                      = s3
+ %Diamond% STEALTH SE PCI                      = s3
+ %Diamond% STEALTH VIDEO 64 DRAM PCI           = s3
+ %Diamond% STEALTH VIDEO 64 DRAM VLB           = s3
+ %Diamond% STEALTH VIDEO 64 VRAM PCI           = s3
+ %Diamond% STEALTH VIDEO 64 VRAM VLB           = s3
+ %Diamond% STEALTH VRAM                        = s3
+ %Diamond% STEALTH64 GRAPHICS 2120XL PCI       = s3
+ %Diamond% STEALTH64 GRAPHICS 2120XL VLB       = s3
+ %Diamond% STEALTH64 GRAPHICS 2200XL PCI       = s3
+ %Diamond% STEALTH64 GRAPHICS 2200XL VLB       = s3
+ %Diamond% STEALTH64 VIDEO 2120XL PCI          = s3
+ %Diamond% STEALTH64 VIDEO 2120XL VLB          = s3
+ %Diamond% STEALTH64 VIDEO 2121XL PCI          = s3
+ %Diamond% STEALTH64 VIDEO 2121XLe PCI         = s3
+ %Diamond% STEALTH64 VIDEO 2200XL PCI          = s

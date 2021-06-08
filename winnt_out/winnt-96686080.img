@@ -1,0 +1,142 @@
+ File dialog.
+
+
+Dim temp As String 'image name and path
+
+On Error Resume Next 'handle errors ourselves incase of cancel
+oleImgAdmin1.Flags = 0 'clear Flags
+If oleImgEdit1.ImageModified = True Then
+    If MsgBox(ImageChanged, vbYesNo) = vbYes Then
+        mnuSave_Click
+        If Err = ErrCancel Then '32755 = Cancel pressed
+            Exit Sub
+        End If
+    End If
+End If
+oleImgAdmin1.Filter = "All Image Files|*.tif;*.bmp;*.jpg;*.pcx;*.dcx|TIFF files (*.tif)|*.tif|BMP files (*.bmp)|*.bmp|PCX/DCX Document (*.pcx, *.dcx)|*.pcx;*.dcx|JPG File (*.jpg)|*.jpg|All Files (*.*)|*.*|"
+oleImgAdmin1.ShowFileDialog 0, frmSample.hWnd
+If Err = ErrCancel Then '32755 = Cancel pressed
+    Exit Sub
+End If
+If oleImgAdmin1.StatusCode <> 0 Then
+    MsgBox Err.Description + " Code = " + Hex(oleImgAdmin1.StatusCode), 16
+    Exit Sub
+End If
+temp = oleImgAdmin1.Image
+oleImgEdit1.Image = temp
+oleImgThumbnail1.Image = oleImgEdit1.Image
+If numbits > 8 Then 'video driver supports hicolor or truecolor
+    oleImgEdit1.ImagePalette = 3 'Set for 24 bit RGB.
+End If
+oleImgEdit1.page = 1
+oleImgEdit1.Display
+TotalPages = oleImgEdit1.PageCount
+oleImgThumbnail1.ThumbSelected(1) = True
+
+'Now that we have an image, enable the needed menus.
+mnuSaveAs.Enabled = True
+mnuSave.Enabled = True
+mnuPrint.Enabled = True
+mnuEdit.Enabled = True
+mnuView.Enabled = True
+mnuPage.Enabled = True
+mnuZoom.Enabled = True
+mnuAnnotation.Enabled = True
+If oleImgEdit1.PageCount > 1 Then
+    mnuBack.Enabled = True
+    mnuFirst.Enabled = True
+    mnuGoTo.Enabled = True
+    mnuLast.Enabled = True
+    mnuNext.Enabled = True
+    mnuPrevious.Enabled = True
+Else
+    mnuBack.Enabled = False
+    mnuFirst.Enabled = False
+    mnuGoTo.Enabled = False
+    mnuLast.Enabled = False
+    mnuNext.Enabled = False
+    mnuPrevious.Enabled = False
+End If
+
+End Sub
+
+Private Sub mnuOptions_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuPageThumbnail_Click()
+'Show the thumbnails accross the top third of the
+'app window, and the current image in the bottom two
+'thirds of the window.
+
+oleImgEdit1.Visible = True
+oleImgThumbnail1.Visible = True
+
+oleImgEdit1.Left = frmSample.ScaleLeft
+oleImgEdit1.Top = frmSample.ScaleHeight / 3
+oleImgEdit1.Width = frmSample.ScaleWidth
+oleImgEdit1.Height = (frmSample.ScaleHeight * 2 / 3)
+
+oleImgThumbnail1.Left = frmSample.ScaleLeft
+oleImgThumbnail1.Top = frmSample.ScaleTop
+oleImgThumbnail1.Width = frmSample.ScaleWidth
+oleImgThumbnail1.Height = frmSample.ScaleHeight / 3
+
+mnuThumbnail.Checked = False
+mnuOnePage.Checked = False
+mnuPageThumbnail.Checked = True
+
+End Sub
+
+Private Sub mnuPaste_Click()
+'Paste from the clipboard
+If oleImgEdit1.IsClipboardDataAvailable = True Then
+    oleImgEdit1.ClipboardPaste
+    Selection = False
+End If
+
+End Sub
+
+Private Sub mnuPrevious_Click()
+'Save current page if modified, then store the current
+'page number and display the previous page
+Dim page As Long 'Page number place holder
+
+If oleImgEdit1.ImageModified = True Then
+    If MsgBox(ImageChanged, vbYesNo) = vbYes Then
+        mnuSave_Click
+    End If
+End If
+LastPage = oleImgEdit1.page
+page = oleImgEdit1.page
+If page = 1 Then
+    MsgBox "First Page"
+    Exit Sub
+End If
+page = page - 1
+oleImgEdit1.page = page
+oleImgEdit1.Display
+
+'Update the selected page thumbnail
+oleImgThumbnail1.DeselectAllThumbs
+oleImgThumbnail1.ThumbSelected(oleImgEdit1.page) = True
+
+End Sub
+
+Private Sub mnuPrint_Click()
+'Open ImgAdmin's Print dialog and call ImgEdit's
+'Print function with the user selected options.
+Dim format As Integer
+Dim Annotations As Boolean
+
+On Error Resume Next 'handle errors ourselves in case of cancel
+If oleImgEdit1.ImageModified = True Then
+    If MsgBox("The Image must be saved first if changes are to be printed.  Do you want to save the image?", vbYesNo) = vbYes Then
+        mnuSave_Click
+    End If
+End If
+oleImgAdmin1.Flags = 0 'clear Flags so print dialog box will display
+oleImgAdmin1.ShowPrintDialog frmSampl

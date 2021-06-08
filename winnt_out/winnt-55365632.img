@@ -1,0 +1,170 @@
+_mil Driver Section
+
+
+[mga_mil]
+CopyFiles=mga_mil.Miniport, mga_mil.Display
+
+; Software Installation
+
+[mga_mil.SoftwareSettings]
+AddReg = mga_mil_SoftwareDeviceSettings
+
+; Service Installation
+
+[mga_mil.Services]
+AddService = mga_mil, 0x00000002, mga_mil_Generic_Service_Inst, mga_mil_EventLog_Inst
+
+[mga_mil_EventLog_Inst]
+AddReg = mga_mil_EventLog_AddReg
+
+[mga_mil_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\mga_mil.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[mga_mil_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\mga_mil.sys
+
+
+
+
+; ncr77c22 Driver Section
+
+
+[ncr77c22]
+CopyFiles=ncr77c22.Miniport, ncr77c22.Display
+
+; Software Installation
+
+[ncr77c22.SoftwareSettings]
+AddReg = ncr77c22_SoftwareDeviceSettings
+
+; Service Installation
+
+[ncr77c22.Services]
+AddService = ncr77c22, 0x00000002, ncr77c22_Generic_Service_Inst, ncr77c22_EventLog_Inst
+
+[ncr77c22_EventLog_Inst]
+AddReg = ncr77c22_EventLog_AddReg
+
+[ncr77c22_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\ncr77c22.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[ncr77c22_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\ncr77c22.sys
+
+
+
+
+; psidisp Driver Section
+
+
+[psidisp]
+CopyFiles=psidisp.Miniport, psidisp.Display
+
+; Software Installation
+
+[psidisp.SoftwareSettings]
+AddReg = psidisp_SoftwareDeviceSettings
+
+; Service Installation
+
+[psidisp.Services]
+AddService = psidisp, 0x00000002, psidisp_Generic_Service_Inst, psidisp_EventLog_Inst
+
+[psidisp_EventLog_Inst]
+AddReg = psidisp_EventLog_AddReg
+
+[psidisp_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\psidisp.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[psidisp_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\psidisp.sys
+
+
+
+
+; qv Driver Section
+
+
+[qv]
+CopyFiles=qv.Miniport, qv.Display
+
+; Software Installation
+
+[qv.SoftwareSettings]
+AddReg = qv_SoftwareDeviceSettings
+
+; Service Installation
+
+[qv.Services]
+AddService = qv, 0x00000002, qv_Generic_Service_Inst, qv_EventLog_Inst
+
+[qv_EventLog_Inst]
+AddReg = qv_EventLog_AddReg
+
+[qv_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\qv.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[qv_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\qv.sys
+
+
+
+
+; s3 Driver Section
+
+
+[s3]
+CopyFiles=s3.Miniport, s3.Display
+
+; Software Installation
+
+[s3.SoftwareSettings]
+AddReg = s3_SoftwareDeviceSettings
+
+; Service Installation
+
+[s3.Services]
+AddService = s3, 0x00000002, s3_Generic_Service_Inst, s3_EventLog_Inst
+
+[s3_EventLog_Inst]
+AddReg = s3_EventLog_AddReg
+
+[s3_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\s3.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[s3_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\s3.sys
+
+
+
+
+; tga Driver Section
+
+
+[tga]
+CopyFiles=tga.Miniport

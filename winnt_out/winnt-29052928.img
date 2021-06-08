@@ -1,0 +1,81 @@
+$(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(NBTProductKey)
+            CloseRegKey $(NBTNetRuleKey)
+            CloseRegKey $(NBTServiceKey)
+            CloseRegKey $(NBTParameterKey)
+            CloseRegKey $(NBTLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{OtherDependencies,$(NoTitle),$(!REG_VT_MULTI_SZ),{"Tcpip"}}}
+        Shell  $(UtilityInf), AddValueList, $(NBTLinkageKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(NBTProductKey)
+            CloseRegKey $(NBTNetRuleKey)
+            CloseRegKey $(NBTServiceKey)
+            CloseRegKey $(NBTParameterKey)
+            CloseRegKey $(NBTLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)Class)},+
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}}
+        Shell  $(UtilityInf), AddValueList, $(NBTNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(NBTProductKey)
+            CloseRegKey $(NBTNetRuleKey)
+            CloseRegKey $(NBTServiceKey)
+            CloseRegKey $(NBTParameterKey)
+            CloseRegKey $(NBTLinkageKey)
+            goto fatalregistry
+        endif
+        Set NewValueList = {{NbProvider,$(NoTitle),$(!REG_VT_SZ),"_tcp"},+
+                {NameServerPort,$(NoTitle),$(!REG_VT_DWORD),137},+
+                {EnableLMHOSTS,$(NoTitle),$(!REG_VT_DWORD),1},+
+                {EnableProxy,$(NoTitle),$(!REG_VT_DWORD),0},+
+                {EnableDNS,$(NoTitle),$(!REG_VT_DWORD),0},+
+                {CacheTimeout,$(NoTitle),$(!REG_VT_DWORD),600000},+
+                {BcastNameQueryCount,$(NoTitle),$(!REG_VT_DWORD),3},+
+                {BcastQueryTimeout,$(NoTitle),$(!REG_VT_DWORD),750},+
+                {NameSrvQueryCount,$(NoTitle),$(!REG_VT_DWORD),3},+
+                {NameSrvQueryTimeout,$(NoTitle),$(!REG_VT_DWORD),1500},+
+                {Size/Small/Medium/Large,$(NoTitle),$(!REG_VT_DWORD),1},+
+                {SessionKeepAlive,$(NoTitle),$(!REG_VT_DWORD),3600000},+
+                {ScopeID,$(NoTitle),$(!REG_VT_SZ),""},+
+                {TransportBindName,$(NoTitle),$(!REG_VT_SZ),"\Device\"},+
+                }
+        Shell  $(UtilityInf), AddValueList, $(NBTParameterKey), $(NewValueList)
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        Endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(NBTProductKey)
+            CloseRegKey $(NBTNetRuleKey)
+            CloseRegKey $(NBTServiceKey)
+            CloseRegKey $(NBTParameterKey)
+            CloseRegKey $(NBTLinkageKey)
+            goto fatalregistry
+        endif
+        CreateRegKey $(NBTServiceKey) {"Adapters",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" AdaptersKey
+      

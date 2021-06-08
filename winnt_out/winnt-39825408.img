@@ -1,0 +1,103 @@
+
+[utopia.reg]
+HKLM,%KEY_OPTIONAL%\Utopia,Installed,,"1"
+
+HKCU,AppEvents\Schemes\Names\Utopia0,,,"%V_UTOPIA%"
+HKCU,AppEvents\Schemes\Apps\Explorer,,,"%V_EXPLORER%"
+HKCU,AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\Utopia0,,,%25%\media\%UTOPIA_RECYCLE%.wav
+HKCU,%KEY_DEFSCH%\.Default\Utopia0,,,"%25%\media\%UTOPIA_DEFAULT%.wav"
+HKCU,%KEY_DEFSCH%\SystemStart\Utopia0,,,"%25%\media\%UTOPIA_WINDOWSSTART%.wav"
+HKCU,%KEY_DEFSCH%\SystemExit\Utopia0,,,"%25%\media\%UTOPIA_WINDOWSEXIT%.wav"
+HKCU,%KEY_DEFSCH%\SystemHand\Utopia0,,,"%25%\media\%UTOPIA_CRITICALSTOP%.wav"
+HKCU,%KEY_DEFSCH%\SystemQuestion\Utopia0,,,"%25%\media\%UTOPIA_QUESTION%.wav"
+HKCU,%KEY_DEFSCH%\SystemExclamation\Utopia0,,,"%25%\media\%UTOPIA_EXCLAMATION%.wav"
+HKCU,%KEY_DEFSCH%\SystemAsterisk\Utopia0,,,"%25%\media\%UTOPIA_ASTERISK%.wav"
+HKCU,%KEY_DEFSCH%\Open\Utopia0,,,
+HKCU,%KEY_DEFSCH%\Close\Utopia0,,,
+HKCU,%KEY_DEFSCH%\Maximize\Utopia0,,,"%25%\media\%UTOPIA_MAXIMIZE%.wav"
+HKCU,%KEY_DEFSCH%\Minimize\Utopia0,,,"%25%\media\%UTOPIA_MINIMIZE%.wav"
+HKCU,%KEY_DEFSCH%\RestoreDown\Utopia0,,,"%25%\media\%UTOPIA_RESTOREDOWN%.wav"
+HKCU,%KEY_DEFSCH%\RestoreUp\Utopia0,,,"%25%\media\%UTOPIA_RESTOREUP%.wav"
+HKCU,%KEY_DEFSCH%\AppGPFault\Utopia0,,,"%25%\media\%UTOPIA_ERROR%.wav"
+HKCU,%KEY_DEFSCH%\MenuCommand\Utopia0,,,"%25%\media\%UTOPIA_MENUCOMMAND%.wav"
+HKCU,%KEY_DEFSCH%\MenuPopup\Utopia0,,,"%25%\media\%UTOPIA_MENUPOPUP%.wav"
+
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,MMCheckForOFN,,"Rundll32.exe mmsys.cpl,mmseRunOnce CHECK_OFN"
+HKCU,AppEvents\Schemes\NewSchemes\Utopia,,,
+
+[utopia.remove.reg]
+HKLM,%KEY_OPTIONAL%\Utopia,Installed,,"0"
+
+[utopia.remove.DelReg]
+HKCU,AppEvents\Schemes\Names\Utopia0
+HKCU,AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\Utopia0
+HKCU,%KEY_DEFSCH%\.Default\Utopia0
+HKCU,%KEY_DEFSCH%\SystemStart\Utopia0
+HKCU,%KEY_DEFSCH%\SystemExit\Utopia0
+HKCU,%KEY_DEFSCH%\SystemHand\Utopia0
+HKCU,%KEY_DEFSCH%\SystemQuestion\Utopia0
+HKCU,%KEY_DEFSCH%\SystemExclamation\Utopia0
+HKCU,%KEY_DEFSCH%\SystemAsterisk\Utopia0
+HKCU,%KEY_DEFSCH%\Open\Utopia0
+HKCU,%KEY_DEFSCH%\Close\Utopia0
+HKCU,%KEY_DEFSCH%\Maximize\Utopia0
+HKCU,%KEY_DEFSCH%\Minimize\Utopia0
+HKCU,%KEY_DEFSCH%\RestoreDown\Utopia0
+HKCU,%KEY_DEFSCH%\RestoreUp\Utopia0
+HKCU,%KEY_DEFSCH%\AppGPFault\Utopia0
+HKCU,%KEY_DEFSCH%\MenuCommand\Utopia0
+HKCU,%KEY_DEFSCH%\MenuPopup\Utopia0
+;--------------------------------------------------
+
+[Strings]
+;Non-Localizable strings:
+KEY_OPTIONAL   = "SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents"
+KEY_DEFSCH     = "AppEvents\Schemes\Apps\.Default"
+KEY_APPS       = "AppEvents\Schemes\Apps"
+KEY_MEDIA      = "SYSTEM\CurrentControlSet\Control\MediaResources"
+
+;Localizable strings:
+
+
+mediaclipdesc="Sample Sounds"
+mediacliptip="Sample sounds for playback on your machine"
+
+mediamusdesc="Musica Sound Scheme"
+mediamustip="Musica Sound Scheme files"
+
+medianatdesc="Jungle Sound Scheme"
+medianattip="Jungle Sound Scheme files"
+
+mediarobdesc="Robotz Sound Scheme"
+mediarobtip="Robotz Sound Scheme files"
+
+mediautodesc="Utopia Sound Scheme"
+mediautotip="Utopia Sound Scheme files"
+
+V_EXPLORER="Windows Explorer"
+V_MUSICA = "Musica Sound Scheme"
+V_JUNGLE = "Jungle Sound Scheme"
+V_ROBOTZ = "Robotz Sound Scheme"
+V_UTOPIA = "Utopia Sound Scheme"
+
+MUSICA_RECYCLE = "Musica Recycle"
+MUSICA_DEFAULT = "Musica Default"
+MUSICA_WINDOWSSTART = "Musica Windows Start"
+MUSICA_WINDOWSEXIT = "Musica Windows Exit"
+MUSICA_CRITICALSTOP = "Musica Critical Stop"
+MUSICA_QUESTION = "Musica Question"
+MUSICA_EXCLAMATION = "Musica Exclamation"
+MUSICA_ASTERISK = "Musica Asterisk"
+MUSICA_OPEN = "Musica Open"
+MUSICA_CLOSE = "Musica Close"
+MUSICA_MAXIMIZE = "Musica Maximize"
+MUSICA_MINIMIZE = "Musica Minimize"
+MUSICA_RESTOREDOWN = "Musica Restore Down"
+MUSICA_RESTOREUP = "Musica Restore Up"
+MUSICA_ERROR = "Musica Error"
+MUSICA_MENUCOMMAND = "Musica Menu Command"
+MUSICA_MENUPOPUP = "Musica Menu Popup"
+
+JUNGLE_RECYCLE = "Jungle Recycle"
+JUNGLE_DEFAULT = "Jungle Default"
+JUNGLE_WINDOWSSTART = "Jungle Windows Sta

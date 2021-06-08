@@ -1,0 +1,83 @@
+fstr(i) $(!UpgradeEnableDhcp) == ""
+            LibraryProcedure ResultList $(!TCPCFG_HANDLE), UpgradeTcpip, $(!STF_HWND) "NO" "YES" 
+        else
+            LibraryProcedure ResultList $(!TCPCFG_HANDLE), UpgradeTcpip, $(!STF_HWND) "YES" $(!UpgradeEnableDhcp) 
+        endif
+        set FLibraryErrCtl = 0
+        set UserWantsDHCP = *($(ResultList),2)
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\Tcpip\Parameters" $(MAXIMUM_ALLOWED) TcpipParamKey
+        ifstr(i) $(TcpipParamKey) != ""
+            GetRegValue $(TcpipParamKey) "DNSLookupOrder" LookupInfo
+            debug-output "LookupOrder:"$(LookupInfo)
+            GetRegValue $(TcpipParamKey) "Domain" DomainInfo
+            debug-output "Domain:"$(DomainInfo)
+            GetRegValue $(TcpipParamKey) "Hostname" HostnameInfo
+            debug-output "Hostname:"$(HostnameInfo)
+            GetRegValue $(TcpipParamKey) "NameServer" NameServerInfo
+            debug-output "NameServer:"$(NameServerInfo)
+            GetRegValue $(TcpipParamKey) "SearchList" SearchListInfo
+            debug-output "SearchListInfo:"$(SearchListInfo)
+            CloseRegKey $(TcpipParamKey)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\Nbt\Parameters" $(MAXIMUM_ALLOWED) NbtParamKey
+        ifstr(i) $(NbtParamKey) != ""
+            GetRegValue $(NbtParamKey) "ScopeID" ScopeIDInfo
+            debug-output "ScopeID:"$(ScopeID)
+            CloseRegKey $(NbtParamKey)
+        endif
+        set OEM_ABANDON_OPTIONS = {+
+            "TcpipSys",+
+            "NbtSys",+
+            "Telnet",+
+            "LMHOSTS",+
+            "Telnetsys",+
+            "Loop"}
+        set OEM_ABANDON_SOFTWARE = {+
+            "Tcpip",+
+            "Nbt",+
+            "Streams"}
+        Shell $(UtilityInf) RemoveRpcProtocol "ncacn_ip_tcp"
+        Ifstr(i) $($0) != NO_ERROR
+            Debug-Output "OEMNXPTC.INF: ERROR deleting RPC protocol data"
+        Endif
+        Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_tcp"
+        Ifstr(i) $($0) != NO_ERROR
+            Debug-Output "OEMNXPTC.INF: ERROR deleting RPC protocol data (2)"
+        Endif
+        ForListDo  $(OEM_ABANDON_SOFTWARE)
+            debug-output "Remove component: "$($)
+            ifstr(i) $($) == "Streams"
+                Shell $(UtilityInf), RemoveStreams
+            else
+                Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $($)
+            endif
+            ifstr(i) $($) == "Tcpip"
+                Shell $(UtilityInf), RemoveWinsockInfo, $($)
+                set RegistryErrorIndex = $($R0)
+                Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                    Debug-Output "OEMNXPTC.INF: Registry error: remove Winsock Info."
+                Endif
+            endif
+        EndForListDo
+        ForListDo  $(OEM_ABANDON_OPTIONS)
+            debug-output "Remove component: "$($)
+            Ifstr(i) $($) == "loop"
+                Set UseSvcctrl = "NO"
+            Else
+                Set UseSvcctrl = "YES"
+            Endif
+            ifstr(i) $($) == "lmhosts"
+                debug-output "Remove "$($)"'s LMHOSTS dependency"
+                ForListDo {"Browser","NetLogon"}
+                    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$($) $(MAXIMUM_ALLOWED) ServicesKey
+                    ifstr(i) $(ServicesKey) != ""
+                        GetRegValue $(ServicesKey) "DependOnService" ServicesList
+                        debug-output "DependOnService List:"$(ServicesList)
+                        set ServiceValues = *($(ServicesList),4)
+                        debug-output "ServiceValues: "$(ServiceValues)
+                        ifcontains(i) "LMHOSTS" in $(ServiceValues)
+                            set NewServiceValues = {}
+                            ForListDo $(ServiceValues)
+                                ifstr(i) $($) != "LmHosts"
+                                    set NewServiceValues = >($(NewServiceValues), $($))
+                              

@@ -1,0 +1,114 @@
+ setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[GetFilesSize]
+    set FileSizeList = ^(Files-TCPPRINT,3)
+    set TotalSize = 0
+    ForListDo $(FileSizeList)
+        Split-String $($) "=" SplitString
+        set Size = *($(SplitString),3)
+        set-add TotalSize = $(TotalSize) $(Size)
+    EndForListDo
+    set-div SizeInK = $(TotalSize) 1024
+    return $(SizeInK)
+[Install-Option]
+    set STF_VITAL = NO
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-IPRIP $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = NO
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-IPRIP $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   Exit
+[AddIPRIPUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set KeyName = $($0)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            SetRegValue $(KeyUseRef) {$(KeyName),$(NoTitle),$(!REG_VT_SZ),"1"}
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return
+[RemoveIPRIPUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set KeyName = $($0)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            DeleteRegValue $(KeyUseRef) $(KeyName)
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return
+[NumOfUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            EnumRegValue $(KeyUseRef) UsageList
+            set Num = 0
+            ForListDo $(UsageList)
+                set-add Num = $(Num), 1
+            EndForListDo
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return $(Num)
+[FindUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set KeyName = $($0)
+    set Find = FALSE
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            GetRegValue $(KeyUseRef),$(KeyName), KeyInfo
+            ifstr(i) $(RegLastE

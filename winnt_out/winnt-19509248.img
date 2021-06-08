@@ -1,0 +1,119 @@
+[setup]
+    help = setup.hlp
+
+;   Place any programs here that should be run at the end of setup.
+;   These apps will be run in order of their appearance here.
+[run]
+
+[dialog]
+    caption   = "Windows Setup"
+    exit      = "Exit Windows Setup"
+    title     = "Installing Windows 3.1"
+    options   = "In addition to installing Windows 3.1, you can:"
+    printwait = "Please wait while Setup configures your printer(s)..."
+    copywait = "Welcome to Microsoft Windows 3.1!\n\n   - If you're new to Windows, see 'A Brief Tour of\n     Microsoft Windows' in the Getting Started book.\n\n   - If you've used Windows before, see 'New\n     in This Version' in the Getting Started book."
+
+   copywait4="Make sure you register your copy of Microsoft Windows 3.1.\nWhen you register, Microsoft will:\n\n   - Notify you of product updates and new product releases.\n\n   - Send you a FREE Windows newsletter."
+
+   copywait5 = "\n\nThis would be a great time to remove the serial number label\n from the inside back cover of the Getting Started with Windows\nbook and place it on your computer for future reference."
+
+[data]
+; Disk space required
+; <type of setup>= <Full install space>, <Min install space>
+
+    upd2x386full = 10000000,6144000 ; 10.0 Mb, 6.144 Mb
+    upd2x286full = 9000000,6144000  ;  9.0 Mb, 6.144 Mb
+    upd3x386full = 5500000,5000000  ;  5.5 Mb, 5.0 Mb
+    upd3x286full = 5500000,5000000  ;  5.5 Mb, 5.0 Mb
+									
+    new386full   = 10000000,6144000 ; 10.0 Mb, 6.144 Mb
+    new286full   = 9000000,6144000  ;  9.0 Mb, 6.144 Mb
+
+    netadmin     = 16000000         ; 16.0 Mb
+    netadminupd  = 16000000         ; 16.0 Mb
+    upd2x386net  = 300000           ;   .3 Mb
+    upd3x386net  = 300000           ;   .3 Mb
+    upd2x286net  = 300000           ;   .3 Mb
+    upd3x286net  = 300000           ;   .3 Mb
+    new386net    = 300000,300000    ;  .3 Mb,  .3 Mb
+    new286net    = 300000,300000    ;  .3 Mb,  .3 Mb
+									
+
+
+; Defaults used in setting up and names of a few files
+    startup   = WIN.COM
+    defdir    = C:\WINDOWS
+    shortname = Windows
+    welcome   = "Windows 3.1"
+    deflang   = enu
+    defxlat   = 437
+    defkeydll = usadll
+    register  = "regedit /s /u setup.reg"
+    tutor     = "wintutor.exe "
+    NetSetup  = FALSE
+    MouseDrv  = TRUE
+    Version   = "3.1.040"
+
+; This is data needed by the MS-DOS half of setup so that it can copy the
+; proper kernel and start Windows for the GUI portion of setup.
+;
+; ** MS-DOS documentation says that first byte of command line for 4a call
+; ** should be space. ==> in execcmd RHS leave first space as it is now
+[winexec]
+    execstd   = "dosx.exe "
+    execcmd   = " krnl286.exe /b /q:"
+    exechimem = "xmsmmgr.exe"
+    himemcmd  = ""
+    Krnl386   = 2:krnl386.exe
+    Krnl286   = 2:krnl286.exe
+    dosx      = 2:dosx.exe
+
+; Names of the disks Setup can prompt for.
+[disks]
+    1 =. ,"Microsoft Windows 3.1 Disk #1",disk1
+    2 =. ,"Microsoft Windows 3.1 Disk #2",disk2
+    3 =. ,"Microsoft Windows 3.1 Disk #3",disk3
+    4 =. ,"Microsoft Windows 3.1 Disk #4",disk4
+    5 =. ,"Microsoft Windows 3.1 Disk #5",disk5
+    6 =. ,"Microsoft Windows 3.1 Disk #6",disk6
+    7 =. ,"Microsoft Windows 3.1 Disk #7",disk7
+
+[oemdisks]
+    Z =. ,"HP DeskJet Series v2.0 disk (from printer box or contact HP)",diskz
+
+[user]
+    3:setup.ini, noupdate
+
+[windows]
+    1:setup.hlp
+    1:setup.txt
+    1:win.src,    Net
+    2:system.src, Net
+    1:winhelp.exe
+    3:control.hlp
+
+[windows.system]
+    1:gdi.exe
+    3:user.exe
+    2:win.cnf
+    1:lzexpand.dll
+    2:ver.dll
+
+[windows.system.386]
+    1:cpwin386.cpl
+
+[386max]
+    2:386max.vxd
+    3:windows.lod
+
+[bluemax]
+    2:bluemax.vxd
+    3:windows.lod
+
+[shell]
+    progman.exe,  "Program Manager"
+
+; !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+: !!! The description strings should not be changed.
+; !!! Changing description strings can result in old drivers not being
+; !!! upgraded since Setup uses the description string to determin

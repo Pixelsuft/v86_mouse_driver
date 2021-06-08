@@ -1,0 +1,141 @@
+6]
+; copy this section for full setup on 386 machines
+   #net,       0:
+   #win.shell, 0:
+   #pwin386,   0:system
+   #win.other, 0:system
+
+[net]
+   6:CONTROL.SRC,    "Windows User Files"
+   5:WINVER
+
+[win.devices]
+; These devices will be copied on all machines
+   4:HIMEM.SYS,      "XMS Memory Manager"
+   5:SMARTDRV.EXE,   "Disk Caching Program"
+   5:RAMDRIVE.SYS,   "RAM Drive Program"
+
+[win.devices.win386]
+; These devices will be copied on 386 machines only
+   4:HIMEM.SYS,      "XMS Memory Manager"
+   4:EMM386.EXE,     "LIM Expanded Memory Manager"
+   5:SMARTDRV.EXE,   "Disk Caching Program"
+   5:RAMDRIVE.SYS,   "RAM Drive Program"
+
+[win.other]
+   5:WINOLDAP.MOD,   "Windows Drivers"
+   4:WIN87EM.DLL
+   5:SYSEDIT.EXE
+   4:COMMDLG.DLL
+   5:DDEML.DLL
+   4:OLECLI.DLL
+   5:OLESVR.DLL
+   5:DSWAP.EXE
+   5:WSWAP.EXE
+   6:SETUP.REG
+   5:SHELL.DLL
+   5:MAIN.CPL
+   4:MIDIMAP.DRV
+   6:MIDIMAP.CFG
+   6:SND.CPL
+   5:DRIVERS.CPL
+   5:MMSYSTEM.DLL
+   6:MMTASK.TSK
+   3:TIMER.DRV
+   5:MCISEQ.DRV
+   6:MCIWAVE.DRV
+   6:CONTROL.INF
+   6:APPS.INF
+   5:TOOLHELP.DLL
+
+[win.shell]
+   4:PROGMAN.EXE,    "Program Manager"
+   6:TASKMAN.EXE,    "Task Manager"
+   4:WINFILE.EXE,    "File Manager"
+   4:CLIPBRD.EXE,    "Clipboard Viewer"
+   4:CONTROL.EXE,    "Control Panel"
+   5:PIFEDIT.EXE,    "PIF Editor"
+   3:REGEDIT.EXE,    "Registration database"
+   4:PRINTMAN.EXE,   "Print Manager"
+   5:MSD.EXE,        "Microsoft Diagnostics"
+   6:msd.ini
+   3:WRITE.EXE,      "Write Word Processor"
+   4:WRITE.HLP,      "Write Word Processor Help"
+   4:moricons.dll    "Icons"
+
+[pwin386]
+   4:WINOA386.MOD,   "386 Enhanced Mode files"
+   6:WIN386.PS2
+   5:WIN386.EXE
+   3:VTDAPI.386
+
+[DelFiles]
+;Statically initialize the list of files that will be DELETED during the
+;  3.0 to 3.1 up-grade process. Add or remove items from this list at will,
+;  (Wildcards accepted in list)
+; The first files in the list are deleted from Windows system dir(local setup).
+; Nb : Note that DelFiles section always is processed before RenFiles section.
+   tmsr?.fon
+   helv?.fon
+   swapfile.exe
+   kernel.exe
+   pmspl.dll
+   netapi.dll
+   midi.cpl
+   _default.pif
+; All files in the list AFTER this point will be deleted from Windows dir.
+; WARNING: The "..\" is needed, the code depends on it!!!
+   ..\setup.inf
+   shell.dll
+   olecli.dll
+   olesvr.dll
+   commdlg.dll
+   ver.dll
+   toolhelp.dll
+   *.pcl
+   3270.txt
+   networks.txt
+   printers.txt
+   readme.txt
+   sysini?.txt
+   winini?.txt
+   DRWATSON.EXE
+; Various names for old Windows SETUP.EXE
+   SETUP.EXE
+   INSTALL.EXE
+   ASETTA.EXE
+   CONFIG.EXE
+   INSTALAR.EXE
+   KURMA.EXE
+
+[RenFiles]
+; Similar section but for file renaming to create .bak if needed
+   MIDIMAP.CFG,MIDIMAP.OLD
+   ADLIB.DRV,MSADLIB.DRV
+
+
+; The win.apps, win.games, win.scrs, win.bmps, and win.readme sections are
+; all formatted as described below.
+;
+; X:FileName,      Description,     FileSize,   Profile String
+;
+; Where profile string is used by setup.exe to "lookup" the item in the
+; appropiate progman groups section to determine if and how the item is
+; to be added to a Program manager group via DDE. The profile string is
+; also used to "lookup" and needed dependent files in the [win.dependents]
+; section.
+;
+[win.apps]
+   5:CALC.EXE,     "Calculator"                ,  43072, calc
+   4:CALENDAR.EXE, "Calendar"                  ,  59824, calendar
+   4:CARDFILE.EXE, "Cardfile"                  ,  93184, cardfile
+   4:CLOCK.EXE,    "Clock"                     ,  16416, clock
+   3:NOTEPAD.EXE,  "Notepad"                   ,  32736, notepad
+   5:PBRUSH.EXE,   "Paintbrush"                , 183168, pbrush
+   4:TERMINAL.EXE, "Terminal"                  , 148160, terminal
+   5:CALC.HLP,     "Calculator Help"           ,  18076
+   5:CALENDAR.HLP, "Calendar Help"             ,  20656
+   4:CARDFILE.HLP, "Cardfile Help"             ,  24810
+   4:NOTEPAD.HLP,  "Notepad Help"              ,  13894
+   4:PBRUSH.HLP,   "Paintbrush Help"           ,  40269
+   

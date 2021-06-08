@@ -1,0 +1,123 @@
+[Identification]
+    OptionType = NetService
+[Options]
+    NWLNKRIP
+[FileConstants]
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+SoftwareType = "service"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductOpSupport     = 134 
+ProductNWLNKRIPName  = "NwlnkRip"
+ProductNWLNKRIPImagePath  = "%SystemRoot%\system32\drivers\nwlnkrip.sys"
+ProductSAPName          = "SAP"
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\NwlnkRip\CurrentVersion"
+ProductSAPKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\NwSapAgent"
+[GeneralConstants]
+UtilityInf       = "UTILITY.INF"
+subroutineinf    = "SUBROUTN.INF"
+Exit_Code        = 0
+BillboardVisible = 0
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+SERVICE_NO_CHANGE = 4294967295
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle         = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    ifstr(i) $(!STF_PRODUCT) != WINNT
+        set OptionList     = ^(Options, 1)
+        set OptionTextList = ^(OptionsText$($0), 1)
+    endif
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set InstallFrom = $($6)
+    ifstr(i) $(InstallFrom) == ""
+        set InstallFrom = "NWLNKRIP"
+    endif
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_Origination) == "NCPA"
+        set Continue = $(OK)
+    endif
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        set StartLabel = removeadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set StartLabel = configureadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = bindingadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_SOFTWARE = {}
+        set OEM_ABANDON_OPTIONS = {}
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    set OEM_ABANDON_ON  = TRUE
+    StartWait
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeySoftware
+    Ifstr(i) $(KeySoftware) == $(KeyNull)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+            Ifstr(i) $(DoCopy) == "YES"
+                Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+                Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   Goto ShellCodeError
+                Else-Ifstr(i) $($R0) == STATUS_FAILED
+                   Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                      goto ShellCodeErro

@@ -1,0 +1,81 @@
+vrx<cr>"
+HKR, StopRecord,              1,, "None"
+HKR, StopRecord,              2,, "NoResponse"
+HKR,, TerminateRecord,,      "<h10>E<cr>at<cr>"
+HKR,, TerminatePlay,,        "<h10><h03>at<cr>"
+HKR,, AbortPlay,,            "<h10><h18>at<cr>"
+HKR, LineSetPlayFormat,       1,, "at#vls=0<cr>"
+HKR, LineSetRecordFormat,     1,, "None"
+HKR, LineSetRecordFormat,     2,, "NoResponse"
+HKR, HandsetSetRecordFormat,   1,,"at#vsr=7200<cr>"
+HKR, HandsetSetRecordFormat,   2,,"at#vbs=4<cr>"
+HKR, HandsetSetPlayFormat,     1,,"at#vsr=7200<cr>"
+HKR, HandsetSetPlayFormat,     2,,"at#vbs=4<cr>"
+HKR, OpenHandset,               1,, "at#cls=8<cr>"
+HKR, OpenHandset,               2,, "at#vls=1<cr>"
+HKR,, ForwardDelay,            1,88,13  
+HKR, CloseHandset,                   1,, "at#cls=0<cr>"
+HKR, VoiceAnswer,               1,, "at#cls=8<cr>"
+HKR, VoiceAnswer,               2,, "at#vls=0<cr>"
+HKR, VoiceAnswer,               3,, "at#vbt=1<cr>"
+HKR, VoiceAnswer,               4,, "at#vsr=7200<cr>"
+HKR, VoiceAnswer,               5,, "at#vbs=4<cr>"
+HKR, VoiceAnswer,               6,, "ats30=60<cr>"
+HKR, VoiceAnswer,               7,, "ata<cr>"
+HKR, VoiceToDataAnswer,         1,, "at#cls=0<cr>"
+HKR, VoiceToDataAnswer,         2,, "ata<cr>"
+HKR, VoiceDialNumberSetup,      1,, "at#cls=8<cr>"
+HKR, VoiceDialNumberSetup,      2,, "at#vls=0<cr>"
+HKR, VoiceDialNumberSetup,      3,, "at#vrn=0<cr>"
+HKR, VoiceDialNumberSetup,      4,, "at#vbt=1<cr>"
+HKR, VoiceDialNumberSetup,      5,, "at#vsr=7200<cr>"
+HKR, VoiceDialNumberSetup,      6,, "at#vbs=4<cr>"
+HKR, VoiceDialNumberSetup,      7,, "ats30=60<cr>"
+HKR, GenerateDigit,             1,, "at#vts=<Digit><cr>"
+HKR,, CallerIDPrivate,,P
+HKR,, CallerIDOutSide,,O
+HKR,, VariableTerminator,,<cr><lf>
+
+HKR, Responses, "<cr><lf>VCON<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATE = ", 1, 93, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "TIME = ", 1, 94, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NMBR = ", 1, 95, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NAME = ", 1, 96, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "MESG = ", 1, 97, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING1<cr><lf>",        1, 18, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING2<cr><lf>",        1, 19, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING3<cr><lf>",        1, 1a, 00, 00,00,00,00, 00,00,00,00
+
+[ROCK_VOICE_UNIQUE_2] ; Rockwell/Supra chipset voice settings. No speakerphone, no mic/spkr jacks (handset only), no Voiceview, no caller id, no distinctive ring
+HKR,,Enumerator,,serwave.vxd
+HKR,, VoiceProfile,1, 21,82,00,00  
+HKR,, VoiceMixerMid,1,02,00 
+HKR,, VoiceMixerPid,1,99,01
+HKR,, VoiceMixerLineID,1,00,00,05,00
+HKR,, HandsetCloseDelay,         1, 1e,00,00,00
+HKR, StartPlay,               1,, "at#vtx<cr>"
+HKR, StopPlay,                1,, "None"
+HKR, StopPlay,                2,, "NoResponse"
+HKR, StartRecord,             1,, "at#vrx<cr>"
+HKR, StopRecord,              1,, "None"
+HKR, StopRecord,              2,, "NoResponse"
+HKR,, TerminateRecord,,      "<h10>E<cr>at<cr>"
+HKR,, TerminatePlay,,        "<h10><h03>at<cr>"
+HKR,, AbortPlay,,            "<h10><h18>at<cr>"
+HKR, LineSetPlayFormat,       1,, "at#vls=0<cr>"
+HKR, LineSetRecordFormat,     1,, "None"
+HKR, LineSetRecordFormat,     2,, "NoResponse"
+HKR, HandsetSetRecordFormat,   1,,"at#vsr=7200<cr>"
+HKR, HandsetSetRecordFormat,   2,,"at#vbs=4<cr>"
+HKR, HandsetSetPlayFormat,     1,,"at#vsr=7200<cr>"
+HKR, HandsetSetPlayFormat,     2,,"at#vbs=4<cr>"
+HKR, OpenHandset,               1,, "at#cls=8<cr>"
+HKR, OpenHandset,               2,, "at#vls=1<cr>"
+HKR,, ForwardDelay,            1,88,13  
+HKR, CloseHandset,                   1,, "at#cls=0<cr>"
+HKR, VoiceAnswer,               1,, "at#cls=8<cr>"
+HKR, VoiceAnswer,               2,, "at#vls=0<cr>"
+HKR, VoiceAnswer,               3,, "at#vbt=1<cr>"
+HKR, VoiceAnswer,               4,, "at#vsr=7200<cr>"
+HKR, VoiceAnswer,               5,, "at#vbs=4<cr>"
+HKR, VoiceAnswer,               6,, "ats30=60<cr>"

@@ -1,0 +1,106 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Boca Research, Inc.
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[Modem12.PosDup]
+*PNP0500
+
+; Modem models
+
+[Models]
+
+%Modem14% = Modem14,  BOCA_Modem14, PCMCIA\RIPICAA-RC144ACL-845A   ; Bocamodem 14.4kbps V.32bis PCMCIA
+%Modem14% = Modem14,  UNIMODEM02561BB7   ; Bocamodem 14.4kbps V.32bis PCMCIA
+%Modem13% = Modem13,  BOCA_Modem13, UNIMODEM16E3BF9F    ; Boca SoundExpression 14.4VSp
+%Modem12% = Modem12,  BOCA_Modem12, UNIMODEM6A25C644    ; Boca Complete Office Communicator 14.4 Data, Fax, Voice, Speakerphone, Voicemail (internal)
+%Modem12% = Modem12,  ISAPNP\BRI0A49_DEV0000            ; Boca Complete Office Communicator 14.4 Data, Fax, Voice, Speakerphone, Voicemail (internal)
+%Modem11% = Modem11,  UNIMODEM135F074D    ; Boca V.34 28,800 (internal)
+%Modem10% = Modem10,  UNIMODEM87CF4B8B    ; Boca V.34 28,800 (external)
+%Modem9% = Modem9,    UNIMODEM43C368F7    ; Boca 14.4 V.32bis M1440E external
+%Modem9% = Modem9,    UNIMODEM429E4E26    ; Boca 14.4 V.32bis M1440E external
+%Modem9% = Modem9,    UNIMODEMBEAEF556    ; Boca 14.4 V.32bis M1440E external
+%Modem8% = Modem8,    UNIMODEMC87B6630    ; Boca V.34 (INT)
+%Modem7% = Modem7,    BOCA_Modem7, PCMCIA\CIRRUS_LOGIC-FAX_MODEM-F874  ; 144 data fax PCMCIA
+%Modem7% = Modem7,    BOCA_Modem7, UNIMODEM858E1599                    ; 144 data fax PCMCIA
+%Modem6% = Modem5,    UNIMODEM650B96AF    ; Boca 14.4Kbps V.32BIS M1440IW
+%Modem6% = Modem5,    UNIMODEM53F21278    ; Boca 14.4Kbps V.32BIS M1440IW
+%Modem5% = Modem5,    UNIMODEMC825EAE7    ; Boca 14.4Kbps V.32BIS M1440I
+%Modem5% = Modem5,    BOCA_Modem5, UNIMODEM959C40CA    ; Boca 14.4Kbps V.32BIS external
+%Modem4% = Modem4,    UNIMODEMA3B660A7    ; Boca 28.8 V.Fast (internal)
+%Modem3% = Modem2,    UNIMODEM52AF34A9    ; Boca 14.4Kbps V.32BIS M144IW
+%Modem3% = Modem2,    UNIMODEMBFF3D387    ; Boca 14.4Kbps V.32BIS M144IW
+%Modem2% = Modem2,    UNIMODEM36386789    ; Boca 14.4 Multimedia
+%Modem1% = Modem1,    UNIMODEM275FFD7D    ; Boca 28.8 V.Fast (ext)
+
+
+; Installation sections
+
+[Modem14]
+AddReg=All, MfgAddReg, Modem14.AddReg, PCMCIA
+
+[Modem13]
+AddReg=All, MfgAddReg, Modem13.AddReg, Internal  
+
+[Modem12]
+AddReg=All, MfgAddReg, Modem12.AddReg, Internal  
+
+[Modem11]
+AddReg=All, MfgAddReg, Modem10.AddReg, Internal  
+
+[Modem10]
+AddReg=All, MfgAddReg, Modem10.AddReg, External  
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, External
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, Internal
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, PCMCIA
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem1.AddReg, Internal
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, Internal
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+; AddReg sections
+
+[Modem14.AddReg]  ; Bocamodem 14.4kbps V.32bis PCMCIA
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W2 S95=47 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 -K1 )M1 -Q1 *H1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 -K1 )M1 -Q1 *H1"
+
+[Modem13.AddReg] ; Boca SoundExpression 14.4VSp
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V2 S0=0<cr>"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,,"\N3"          
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem12.AddReg] ; Boca Complete Office Communicator 14.4 Data, Fax

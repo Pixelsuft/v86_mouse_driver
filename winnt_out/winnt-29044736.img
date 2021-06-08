@@ -1,0 +1,70 @@
+!REG_VT_SZ),"CloseTcpIpPerformanceData"}}
+        Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(KeyPerformance)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add performance info."
+            CloseRegKey $(TcpVersKeyHandle)
+            CloseRegKey $(TcpRulesKeyHandle)
+            CloseRegKey $(TcpSvcKeyHandle)
+            CloseRegKey $(TcpParmKeyHandle)
+            CloseRegkey $(TcpLinkageHandle)
+            goto fatalregistry
+        Endif
+        CreateRegKey $(TcpSvcKeyHandle) {"ServiceProvider",$(NoTitle),GenericClass} "" +
+                $(MAXIMUM_ALLOWED) "" KeyNetworkProvider
+        set NewValueList = {{Class,$(NoTitle),$(!REG_VT_DWORD),8},+
+                           {DnsPriority,$(NoTitle),$(!REG_VT_DWORD),2000},+
+                           {HostsPriority,$(NoTitle),$(!REG_VT_DWORD),500},+
+                           {LocalPriority,$(NoTitle),$(!REG_VT_DWORD),499},+
+                           {ProviderPath,$(NoTitle),$(!REG_VT_EXPAND_SZ),$(Winsock11Provider)},+
+                           {NetbtPriority,$(NoTitle),$(!REG_VT_DWORD),2001}}
+        Shell  $(UtilityInf), AddValueList, $(KeyNetworkProvider), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(KeyNetworkProvider)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add performance info."
+            CloseRegKey $(TcpVersKeyHandle)
+            CloseRegKey $(TcpRulesKeyHandle)
+            CloseRegKey $(TcpSvcKeyHandle)
+            CloseRegKey $(TcpParmKeyHandle)
+            CloseRegkey $(TcpLinkageHandle)
+            goto fatalregistry
+        Endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)Bindable)},+
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)Class)},+
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}}
+        Shell  $(UtilityInf), AddValueList, $(TcpRulesKeyHandle), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(TcpVersKeyHandle)
+        CloseRegKey $(TcpRulesKeyHandle)
+        LibraryProcedure ResultHostname $(!TCPCFG_HANDLE), ConvertHostname $(!STF_COMPUTERNAME)
+        set NewValueList = {{EnableDHCP,$(NoTitle),$(!REG_VT_DWORD),$(EnableDHCPFlag)},+
+                            {DataBasePath,$(NoTitle),$(!REG_VT_EXPAND_SZ),"%SystemRoot%\System32\drivers\etc"},+
+                            {Domain,$(NoTitle),$(!REG_VT_SZ),""},+
+                            {Hostname,$(NoTitle),$(!REG_VT_SZ),$(ResultHostname)},+
+                            {NameServer,$(NoTitle),$(!REG_VT_SZ),""},+
+                            {ForwardBroadcasts,$(NoTitle),$(!REG_VT_DWORD),0},+
+                            {IPEnableRouter,$(NoTitle),$(!REG_VT_DWORD),0},+
+                            {SearchList,$(NoTitle),$(!REG_VT_SZ),""}}
+        Shell  $(UtilityInf), AddValueList, $(TcpParmKeyHandle), $(NewValueList)
+        CloseRegKey $(TcpParmKeyHandle)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(TcpLinkageHandle)
+            CloseRegKey $(TcpSvcKeyHandle)
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf) AddRpcProtocol "ncacn_ip_tcp" "RpcLtCcm.Dll" "RpcLtScm.Dll"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "

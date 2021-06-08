@@ -1,0 +1,98 @@
+eRegKey $(KeyProduct)
+        Goto successful
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RpcSrvKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf), VerExistedDlg, $(ProductRPCTitle),+
+            $(ProductVersion)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set CommonStatus = STATUS_USERCANCEL
+        goto end
+    endif
+    StartWait
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        Ifstr(i) $(DoCopy) == "YES"
+           Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+           Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Goto ShellCodeError
+           Else-Ifstr(i) $($R0) == STATUS_FAILED
+               Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+               set Error = $($R0)
+               Goto fatal
+           Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+               Goto successful
+           Endif
+           Set SrcDir = $($R1)
+        Endif
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+    endif
+    set OEM_ABANDON_ON = TRUE
+    Set RpcSecurityServiceKey     = $(KeyNull)
+    Set RpcKey                = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RpcSoftKeyName) $(MAXIMUM_ALLOWED) RpcKey
+    Ifstr(i) $(RpcKey) == $(KeyNull)
+      Debug-Output "OEMNSVRP.INF: Error opening RPC key"
+      Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+      Goto fatalregistry
+    Endif
+    CreateRegKey $(RpcKey) {"SecurityService",$(NoTitle),GenericClass}     "" $(MAXIMUM_ALLOWED) "" RpcSecurityServiceKey
+    Ifstr(i) $(RpcSecurityServiceKey) == $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcSecurityKeyName) $(MAXIMUM_ALLOWED) RpcSecurityServiceKey
+    Endif
+    Ifstr(i) $(RpcSecurityServiceKey) == $(KeyNull)
+        Debug-Output "OEMNSVRP.INF: Registry error creating subordinate RPC keys"
+        CloseRegKey $(RpcKey)
+        Goto fatalregistry
+    Endif
+    Set NewValueList = {{DefaultProvider,$(NoTitle),$(!REG_VT_SZ),$(MSSecurityDLL)},+
+                        {10,$(NoTitle),$(!REG_VT_SZ),$(MSSecurityDLL)},+
+                        {DefaultAuthLevel,$(NoTitle),$(!REG_VT_DWORD),0}}
+    Shell  $(UtilityInf), AddValueList, $(RpcSecurityServiceKey), $(NewValueList)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVRP.INF: ShellCode error."
+        CloseRegKey $(RpcSecurityServiceKey)
+        goto ShellCodeError
+    Endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(RpcSecurityServiceKey)
+    CloseRegKey $(RpcKey)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       EndWait
+       Debug-Output "OEMNSVRP.INF: registry error: add value list."
+       goto fatalregistry
+    Endif
+createrpcservices =+
+    Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+       Set RpcLocatorStartType = "serviceauto"
+    Else
+       Set RpcLocatorStartType = "service"
+    Endif
+    Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+        $(RpcSrvNameLocator), +
+        $(RpcSrvNameLocator), +
+        $(RpcSrvDisplayNameLocator), $(STF_CONTEXTINFNAME), +
+        $(RpcSrvExeLocator), $(RpcLocatorStartType), "", $(RpcSrvDepend), "", ""
+    set RegistryErrorIndex = $($R0)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVRP.INF: ShellCode error creating RPCLOCATOR service: "$($ShellCode)
+        Goto ShellCodeError
+    Endif
+    Set SoftProductKey  = $($R1)
+    Set SoftNetRuleKey  = $($R2)
+    CloseRegKey $($R3)
+    Set RpcLocatorParametersK

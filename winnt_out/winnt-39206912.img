@@ -1,0 +1,162 @@
+al_off>=AT X3 DT
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PM14400FX
+
+COMMAND_INIT=AT&F&C1&D2 V1 W1 S0=0 S2=128 S7=55 S95=44<cr>
+COMMAND_INIT=AT<protocol><hwflowcontrol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Practical Peripherals 14400MT]
+ALIAS=Practical Peripherals 14400FX
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PM14400FXMT
+
+;----------------------------------------
+[Practical Peripherals PC288MT]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=0
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=AT X3 DT
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PC288MT
+
+COMMAND_INIT=AT&F&C1&D2 V1 W1 S0=0 S2=128 S7=55 S95=44<cr>
+COMMAND_INIT=AT<protocol><hwflowcontrol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Practical Peripherals PM288PKT]
+ALIAS=Practical Peripherals PC288MT
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PM288PPM
+
+;----------------------------------------
+[Practical Peripherals PC288SA]
+ALIAS=Practical Peripherals PC288MT
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=28800
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PC288SA
+
+;----------------------------------------
+[Practical ProClass 144 PCMCIA]
+ALIAS=Hayes Optima 14400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PC144T2
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=PC144T2Statistics
+
+;----------------------------------------
+[Racal GSM w/ Hayes Ultra]
+
+;This entry uses the Racal GuardData Gateway Security Module with the
+;Hayes Ultra 9600 modem.
+;The macro definitions, <xxx_xx>=, and COMMAND_INIT= lines must be
+;changed in order to use other modems with the GSM.
+;Do not give callback permission to accounts used with the GSM.
+;Set GSM ports to fixed 19200 bps (not autobaud).
+
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=19200
+
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=136
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 S0=0 S2=128 S7=55 W1 S95=44<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+
+COMMAND_LISTEN=ATE0Q1S0=1<cr>
+LOOP=<h0d><ignore>
+CONNECT=<match>"DIALIN_GATEWAY"
+CONNECT=<?><?><?><?><hC0><h21><ignore>
+CONNECT=<?><?><?><hC0><h21><ignore>
+CONNECT=<?><?><hC0><h21><ignore>
+
+
+;----------------------------------------
+[Racal RMD 2412]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCONNECTBPS=9600
+MAXCARRIERBPS=2400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F2
+<hwflowcontrol_off>=*F0
+<compression_on>=*D0
+<compression_off>=*D1
+<protocol_on>=*E1
+<protocol_off>=*E0
+<autodial_on>=ATDT
+<autodial_off>=AT X3DT
+
+COMMAND_INIT=AT&F&C1&D2 X4 V1 S0=0 S2=128 S7=55 <cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+;----------------------------------------
+[Racal RMD 2422]
+ALIAS=Racal RMD 2412
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=246
+
+;----------------------------------------
+[Racal RMD 2412/2]
+Toggled MAXCONNECTBPS back to 2400
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCONNECTBPS=2400
+MAXCARRIERBPS=2400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=*F2
+<hwflowcontrol_off>=*F0
+<compression_on>=*D0
+<compression_off>=*D1
+<protocol_on>=*E1
+<protocol_off>=*E0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=247
+
+COMMAND_INIT=AT&F&C1&D2 X4 V1 S0=0 S2=128 S7=55 <cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0

@@ -1,0 +1,90 @@
+CONNECT <carrierbps>/REL/<connectbps> V.42BIS<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps>/ V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf>
+
+
+
+
+[SEMAFOR 2324C - SWE]
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=9600
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT &F &D2 +Q2 V1 S0=1 S2=128 S7=60 +C1<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps>/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps>/ V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps>/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps>/ V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf>
+
+[SEMAFOR 1496A - SWE]
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT &F &D2  +Q3 V1 S0=1 S2=128 S7=60 <cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps>/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps>/ V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<

@@ -1,0 +1,126 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Supra Corporation
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM3C59DB1C
+ExcludeFromSelect=UNIMODEMC6330559
+ExcludeFromSelect=UNIMODEM11C61667
+ExcludeFromSelect=UNIMODEM77DBA690
+ExcludeFromSelect=UNIMODEM04BE9FD4
+ExcludeFromSelect=UNIMODEM3A86BAE5
+ExcludeFromSelect=SERENUM\SUP1200
+ExcludeFromSelect=SERENUM\SUP1150
+ExcludeFromSelect=SERENUM\SUP0980
+ExcludeFromSelect=SERENUM\SUP1250
+ExcludeFromSelect=ISAPNP\SUP1290
+ExcludeFromSelect=ISAPNP\SUP1230
+
+[Modem15.PosDup]
+*PNP0500
+
+[Modem14.NoResDup]
+UNIMODEMEC095838
+
+[Modem13.NoResDup]
+UNIMODEM3637B3CC,UNIMODEMB1F47A08,UNIMODEMC4A73980,UNIMODEMC6330559,UNIMODEM3A86BAE5,UNIMODEM6114F274,UNIMODEMCD92E03A
+
+[Modem6.PosDup]
+*PNP0500
+
+[Modem5.NoResDup]   
+UNIMODEM202E83DC,UNIMODEMB8349178,UNIMODEME4BCC28A
+
+[Modem8.NoResDup] 
+UNIMODEM1AAD4030,UNIMODEM11C61667  
+
+[Modem1.NoResDup]
+UNIMODEM3637B3CC,UNIMODEMB1F47A08,UNIMODEMC4A73980,UNIMODEMC6330559,UNIMODEM3A86BAE5,UNIMODEM6114F274,UNIMODEMCD92E03A
+
+[Manufacturer]
+%Mfg% = Models
+
+[Models]
+%Modem15PNP%= Modem15, ISAPNP\SUP1230
+%Modem15%= Modem15, SUPRA_Modem15, UNIMODEM04BE9FD4
+%Modem14PNP%= Modem14, SERENUM\SUP1250
+%Modem14%= Modem14, UNIMODEMEC095838
+%Modem12%= Modem12, SUPRA_Modem12, UNIMODEM77DBA690 ; Supra Express 144i Plus
+%Modem12%= Modem12, SUPRA_Modem12, UNIMODEM04BE9FD4 ; Supra Express 144i Plus
+%Modem11%= Modem10, SUPRA_Modem11, UNIMODEM77DBA690 ; Supra Express 144i (RPI style)
+%Modem11%= Modem10, SUPRA_Modem11, UNIMODEM04BE9FD4 ; Supra Express 144i (RPI style)
+%Modem10%= Modem10, UNIMODEM77DBA690                ; Supra Express 144i, 144i Plus
+%Modem10%= Modem10, UNIMODEM04BE9FD4                ; Supra Express 144i, 144i Plus
+%Modem9% = Modem2, UNIMODEM11C61667                 ; rank 0 for modems 2 and 8
+%Modem8% = Modem8, SUPRA_Modem8, UNIMODEM11C61667   ; rank 1 for modems 2 and 8
+%Modem8PNP% = Modem8, SERENUM\SUP1150
+%Modem8% = Modem8, UNIMODEM1AAD4030  
+%Modem7% = Modem2, UNIMODEM3C59DB1C
+%Modem7% = Modem2, UNIMODEMC6330559                 ; V.32bis and 144i
+%Modem7% = Modem2, UNIMODEM3A86BAE5                 ; V.32bis and 144i
+%Modem6% = Modem6, UNIMODEM66C4E492
+%Modem6% = Modem6, UNIMODEMEABC7143
+%Modem6% = Modem6, UNIMODEM39EFF2B3
+%Modem6PNP% = Modem6, ISAPNP\SUP1290
+%Modem5% = Modem5, UNIMODEME4BCC28A                 ; 288 Vfc model
+%Modem5% = Modem5, UNIMODEMB8349178                 ; 288 model, true V.34
+%Modem5PNP% = Modem5, SERENUM\SUP1200               ; 288 model, true V.34
+%Modem5% = Modem5, UNIMODEM202E83DC                 ; 288 model, true V.34
+%Modem5% = Modem5, UNIMODEM08F26FEA
+%Modem5% = Modem5, UNIMODEM1CE09D16
+%Modem4% = Modem4, UNIMODEMF0782722
+%Modem3% = Modem3, SUPRA_Modem3, UNIMODEMC6330559
+%Modem3% = Modem3, SUPRA_Modem3, UNIMODEM3A86BAE5
+%Modem3% = Modem3, UNIMODEMC030DACB
+%Modem3% = Modem3, UNIMODEM354A33D6
+%Modem2% = Modem2, SUPRA_Modem2, UNIMODEM11C61667   ; rank 1 for modems 2 and 8
+%Modem2% = Modem2, UNIMODEM2989264D                 ; rank 0, 144LC model
+%Modem1% = Modem1, UNIMODEMB1F47A08
+%Modem1% = Modem1, UNIMODEMC4A73980
+%Modem1% = Modem1, SUPRA_Modem1, UNIMODEMC6330559
+%Modem1% = Modem1, SUPRA_Modem1, UNIMODEM3A86BAE5
+%Modem1% = Modem1, UNIMODEM6114F274
+%Modem1% = Modem1, UNIMODEMCD92E03A
+%Modem1PNP% = Modem13, SERENUM\SUP0980 
+%Modem1% = Modem13,UNIMODEM3637B3CC
+
+; Installation sections
+
+[Modem15]
+AddReg=All, Modem15.AddReg, INTERNAL
+
+[Modem14]
+AddReg=All, Modem14.AddReg, EXTERNAL
+
+[Modem13]
+AddReg=All, Modem13.AddReg, EXTERNAL
+
+[Modem12]
+AddReg=All, Modem12.AddReg, INTERNAL
+
+[Modem10]
+AddReg=All, Modem10.AddReg, INTERNAL
+
+[Modem8]
+AddReg=All, Modem8.AddReg, EXTERNAL
+
+[Modem6]
+AddReg=All, Modem5.AddReg, INTERNAL
+
+[Modem5]
+AddReg=All, Modem5.AddReg, EXTERNAL
+
+[Modem4]
+AddReg=All, Modem4.AddReg, EXTERNAL
+
+[Modem3]
+AddReg=All, Modem2.AddReg, INTERNAL
+
+[Modem2]
+AddReg=All, Modem

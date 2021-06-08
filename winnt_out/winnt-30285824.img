@@ -1,0 +1,111 @@
+IsaDlg]
+   DlgType                 = "RadioCombination"
+   Label1                  = $(InterruptLabel)
+   Label2                  = $(BaseIoLabel)
+   Label3                  = $(MemoryLabel)
+   DlgTemplate             = "UBNDIS"
+   Caption                 = $(TcnsCaption)
+   Combo1List              = $(InterruptTextList)
+   Combo1Out               = $(InterruptTextDlgDefault)
+   Combo2List              = $(IoBaseTextList)
+   Combo2Out               = $(IoBaseTextDlgDefault)
+   Combo3List              = $(MemoryBaseTextList)
+   Combo3Out               = $(MemoryBaseTextDlgDefault)
+   RadioIn                 = {}
+   ComboListItemsIn        = {Combo1List,Combo2List,Combo3List}
+   ComboListItemsOut       = {Combo1Out,Combo2Out,Combo3Out}
+   CBOptionsGreyed         = {}
+   EditTextIn              = ""
+   EditTextLim             = ""
+   NotifyFields            = {NO, NO, NO}
+   HelpContext             = $(!IDH_DB_OEMNADAR2_INS)  
+[TcnsEisaDlg]
+   DlgType                 = "RadioCombination"
+   Label1                  = $(SlotNumberLabel)
+   DlgTemplate             = "SINGLE_COMBO"
+   Caption                 = $(TcnsEISACaption)
+   Combo1List              = $(EisaSlotTextList)
+   Combo1Out               = $(EisaSlotTextDlgDefault)
+   RadioIn                 = {}
+   ComboListItemsIn        = {Combo1List}
+   ComboListItemsOut       = {Combo1Out}
+   CBOptionsGreyed         = {}
+   EditTextIn              = ""
+   EditTextLim             = ""
+   NotifyFields            = {NO}
+   HelpContext             = $(!IDH_DB_OEMNADAR3_INS)  
+[Identify]
+   set Status          = STATUS_SUCCESSFUL
+   set Identifier      = NetAdapter
+   set Media           = #("Source Media Descriptions", 1, 1)
+   Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+   set Status          = STATUS_FAILED
+   set OptionList      = {}
+   set OptionTextList  = {}
+   set LanguageList    = ^(LanguagesSupported, 1)
+   Ifcontains(i) $($0) in $(LanguageList)
+      ifstr(i) $($1) == ""
+         goto ReturnOptions_Set
+      endif
+      set PlatformList = ^(PlatformsSupported, 1)
+      Ifcontains(i) $($1) in $(PlatformList)
+         goto ReturnOptions_Set
+      else
+         set Status = STATUS_NOTSUPPORTED
+         goto ReturnOptions_Exit
+      endif
+   else
+      set Status = STATUS_NOLANGUAGE
+      goto ReturnOptions_Exit
+   endif
+ReturnOptions_Set = +
+    set OptionList      = ^(OptList$($0), 1)
+    set OptionTextList  = ^(OptList$($0), 2)
+    set Status          = STATUS_SUCCESSFUL
+ReturnOptions_Exit = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[GeneralConstants]
+   from                     = ""
+   to                       = ""
+   ExitCodeOk               = 0
+   ExitCodeCancel           = 1
+   ExitCodeFatal            = 2
+   Key_Null                 = ""
+   MAXIMUM_ALLOWED          = 33554432
+   RegistryErrorIndex       = NO_ERROR
+   Key_Product              = ""
+   Key_HardwareParameters   = ""
+   TRUE                     = 1
+   FALSE                    = 0
+   NoTitle                  = 0
+   ExitState                = "Active"
+   OldVersionExisted        = $(FALSE)
+   DriverPath               = $(!STF_NTPATH)\drivers
+[date]                     
+   Now                      = {} ? $(!LIBHANDLE) GetSystemDate
+[PlatformsSupported]
+   ISA
+   EISA
+   MCA
+[Install-Option]
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering Install-Option"
+   set STF_VITAL = ""
+   ifstr(i) $(AddCopy) == "YES"
+      set STF_VITAL = "YES"
+      AddSectionFilesToCopyList Files-Driver $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   endif
+   ifstr(i) $(DoCopy) == "YES"
+      set STF_VITAL = "YES"
+      set !STF_NCPA_FLUSH_COPYLIST = TRUE
+      CopyFilesInCopyList
+   endif
+   ifstr(i) $(DoConfig) == "YES"
+   endif
+   exit
+[Install-Update]
+   Debug-Output "$(STF_CONTEXTINFNAME): Entering Install-Update"
+   set STF_VITAL        = "YES"
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-Driver  $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   set !STF_NCPA_FLUSH_

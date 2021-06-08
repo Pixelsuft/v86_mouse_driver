@@ -1,0 +1,82 @@
+00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 W2 S95=47<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+
+[Modem26.AddReg]    ; Modem Blaster 14.4
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 &D2 &C1 V1 \V2<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3-J1"
+HKR, Settings, Compression_On,, """H3%%C1"
+HKR, Settings, Compression_Off,, """H0%%C0"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem25.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem20.AddReg]    ; Combo Digicom Scout Plus or terbo ext+int
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 0f,00,00,00, 80,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1<cr>"
+
+[Modem15.AddReg]    ; Digicom 9624E+, 9624LE+, 9624AR+, 9624LR+, 9624PC+ 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,96,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &C1 &D2 S0=0<cr>"
+HKR, Settings, SpeedNegotiation_Off,, "*G0"
+HKR, Settings, SpeedNegotiation_On,, "*G1"
+HKR, Settings, InactivityTimeout,, "S9=<#>"
+HKR, Settings, DialSuffix,, ""
+
+[Modem14.AddReg]    ; Digicom Scout 14400 PCMCIA Fax/modem
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 \V2<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3 -J1"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, """H0"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem12.AddReg]    ; Digicom Scout Plus 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 0f,00,00,00, b7,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem10.AddReg]    ; Digicom Scout 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem9.AddReg]     ; Digicom FaxModem 1442PC 
+HKR,, Properties, 1, 00,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 37,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 \V1 W1<cr>"
+
+[Modem8.AddReg]     ; Digicom Scout Classic 144 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 03,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 W1 S95=47<cr>"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+[Modem7.AddReg]     ; Digicom Scout Plus Terbo 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 01,00,00,00, 07,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+
+[Modem6.AddReg]     ; Digicom 9624E, 9624LE, 9624AR, 9624LR, 9624PC+ 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, b7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Init, 2,, "AT &F E0 V1 &C1 &D2 S0=0<cr>"
+HKR, Settings, InactivityTimeout,, "S9=<#>"
+
+[Modem5.AddReg]     ; Digicom Connection Pro 19.2 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 00,00,00,00, 01,00,00,00, 07,00,00,00, 77,03,00,00, 00,c2,01,00, 00

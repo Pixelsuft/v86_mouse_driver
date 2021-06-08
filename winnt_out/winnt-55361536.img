@@ -1,0 +1,162 @@
+t4000.Display
+
+; Software Installation
+
+[et4000.SoftwareSettings]
+AddReg = et4000_SoftwareDeviceSettings
+
+; Service Installation
+
+[et4000.Services]
+AddService = et4000, 0x00000002, et4000_Generic_Service_Inst, et4000_EventLog_Inst
+
+[et4000_EventLog_Inst]
+AddReg = et4000_EventLog_AddReg
+
+[et4000_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\et4000.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[et4000_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\et4000.sys
+
+
+
+
+; jazzg300 Driver Section
+
+
+[jazzg300]
+CopyFiles=jazzg300.Miniport, jazzg300.Display
+
+; Software Installation
+
+[jazzg300.SoftwareSettings]
+AddReg = jazzg300_SoftwareDeviceSettings
+
+; Service Installation
+
+[jazzg300.Services]
+AddService = jazzg300, 0x00000002, jazzg300_Generic_Service_Inst, jazzg300_EventLog_Inst
+
+[jazzg300_EventLog_Inst]
+AddReg = jazzg300_EventLog_AddReg
+
+[jazzg300_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\jazzg300.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[jazzg300_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\jazzg300.sys
+
+
+
+
+; jazzg364 Driver Section
+
+
+[jazzg364]
+CopyFiles=jazzg364.Miniport, jazzg364.Display
+
+; Software Installation
+
+[jazzg364.SoftwareSettings]
+AddReg = jazzg364_SoftwareDeviceSettings
+
+; Service Installation
+
+[jazzg364.Services]
+AddService = jazzg364, 0x00000002, jazzg364_Generic_Service_Inst, jazzg364_EventLog_Inst
+
+[jazzg364_EventLog_Inst]
+AddReg = jazzg364_EventLog_AddReg
+
+[jazzg364_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\jazzg364.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[jazzg364_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\jazzg364.sys
+
+
+
+
+; jzvxl484 Driver Section
+
+
+[jzvxl484]
+CopyFiles=jzvxl484.Miniport, jzvxl484.Display
+
+; Software Installation
+
+[jzvxl484.SoftwareSettings]
+AddReg = jzvxl484_SoftwareDeviceSettings
+
+; Service Installation
+
+[jzvxl484.Services]
+AddService = jzvxl484, 0x00000002, jzvxl484_Generic_Service_Inst, jzvxl484_EventLog_Inst
+
+[jzvxl484_EventLog_Inst]
+AddReg = jzvxl484_EventLog_AddReg
+
+[jzvxl484_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\jzvxl484.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[jzvxl484_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\jzvxl484.sys
+
+
+
+
+; mga Driver Section
+
+
+[mga]
+CopyFiles=mga.Miniport, mga.Display
+
+; Software Installation
+
+[mga.SoftwareSettings]
+AddReg = mga_SoftwareDeviceSettings
+
+; Service Installation
+
+[mga.Services]
+AddService = mga, 0x00000002, mga_Generic_Service_Inst, mga_EventLog_Inst
+
+[mga_EventLog_Inst]
+AddReg = mga_EventLog_AddReg
+
+[mga_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\mga.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[mga_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\mga.sys
+
+
+
+
+; mga

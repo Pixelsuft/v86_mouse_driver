@@ -1,0 +1,89 @@
+LocatorIndex))
+        Debug-Output "OEMNSVRP.INF: NOTIFY: "$(LocatorChosenName)" = "$(LocatorChosen)
+        Set ReInit = YES
+        Ifstr(i) $(LocatorChosen) == $(LocatorLastChosen)
+            Goto reinitdialog
+        Endif
+        Ifstr(i) $(LocatorChosen) == "LocatorWINNT"
+            Set NetworkAddress = ""
+            Set NetworkAddressDCE = $(EditTextOut)
+        Endif
+        Goto reinitdialog
+    Else-Ifstr(i) $(DLGEVENT) != "CONTINUE"
+        ui pop 1
+        Set CommonStatus = STATUS_USERCANCEL
+        Goto configuredone
+    Endif
+    Set NetworkAddress = $(EditTextOut)
+    Set LocatorIndex  = ~($(LocatorListboxNames),$(Combo1Out))
+    Set LocatorChosen = *($(LocatorChoiceList),$(LocatorIndex))
+    Set LocatorChosenName = *($(LocatorListboxNames),$(LocatorIndex))
+    Set SecurityProviderIndex = ~($(SecurityListboxNames),$(Combo2Out))
+    Set SecurityChosen = *($(SecurityChoiceList),$(SecurityProviderIndex))
+    Set SecurityChosenName = *($(SecurityListboxNames),$(SecurityProviderIndex))
+    Debug-Output "OEMNSVRP.INF: OK: "$(LocatorChosenName)", "$(LocatorChosen)
+    Debug-Output "OEMNSVRP.INF: OK: "$(SecurityChosenName)", "$(SecurityChosen)
+    Ifstr(i) $(LocatorChosen) == "LocatorWINNT"
+        Ifstr(i) $(NetworkAddress) != ""
+            read-syms NonFatalError2$(!STF_LANGUAGE)
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(NonFatal)
+        Endif
+        Set NetworkAddress = "\\."
+    Else-ifstr(i) $(NetworkAddress) == ""
+        read-syms NonFatalError1$(!STF_LANGUAGE)
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(NonFatal)
+        Goto configureretry
+    Endif
+    Ifstr(i) $(SecurityChosen) == "SecurityDCE"
+        Ifstr(i) $(DCEProviderDll) == ""
+            read-syms NonFatalError3$(!STF_LANGUAGE)
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(NonFatal)
+            Goto configureretry
+        Endif
+    Endif
+    Ifstr(i) $(LocatorChosen) == $(LocatorInUse)
+        Ifstr(i) $(NetworkAddress) == $(NetworkAddressInUse)
+            Ifstr(i) $(SecurityChosen) == $(SecurityProviderInUse)
+                ui pop 1
+                Set CommonStatus = STATUS_USERCANCEL
+                Goto configuredone
+            Endif
+        Endif
+    Endif
+    ui pop 1
+    Set ProtocolName = *($(LocatorProtocolList),$(LocatorIndex))
+    Set EndPointName = *($(LocatorEndPointList),$(LocatorIndex))
+    Set NewValueList = {{Protocol,$(NoTitle),$(!REG_VT_SZ),$(ProtocolName)},+
+                        {NetworkAddress,$(NoTitle),$(!REG_VT_SZ),$(NetworkAddress)},+
+                        {ServerNetworkAddress,$(NoTitle),$(!REG_VT_SZ),$(NetworkAddress)},+
+                        {Endpoint,$(NoTitle),$(!REG_VT_SZ),$(EndPointName)}}
+    Shell  $(UtilityInf), AddValueList, $(KeyNameService), $(NewValueList)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVRP.INF: ShellCode error."
+        Goto ShellCodeError
+    Endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       Debug-Output "OEMNSVRP.INF: registry error: add value list."
+       Goto fatalregistry
+    Endif
+    Set SecurityDllName = *($(SecurityDllList),$(SecurityProviderIndex))
+    Set NewValueList = {{DefaultProvider,$(NoTitle),$(!REG_VT_SZ),$(SecurityDllName)}}
+    Debug-Output "OEMNSVRP.INF: adding security provider list: "$(SecurityDllName)
+    Shell  $(UtilityInf), AddValueList, $(KeySecurity), $(NewValueList)
+    Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVRP.INF: ShellCode error."
+        Goto ShellCodeError
+    Endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       Debug-Output "OEMNSVRP.INF: registry error: add value list."
+       Goto fatalregistry
+    Endif
+configuredone = +
+    CloseRegKey $(KeyNameService)
+    CloseRegKey $(KeySecurity)
+    Goto successful
+installadapter = +
+    ifstr(i) $(Option) == "RPCBANYAN"
+        OpenRegKey $(!REG_H_LOCAL) "" $(RpcBanyanSoftKey

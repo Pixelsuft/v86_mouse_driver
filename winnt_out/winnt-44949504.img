@@ -1,0 +1,133 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Standard Radio Telecom AB
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM5E9F162C
+
+[Models]
+%Modem10% = Modem3, UNIMODEM5E9F162C            ; Generic Viper 1414 Lite/SA/PC
+%Modem9% = Modem9, SRT_Modem9, UNIMODEM855CBE23 ; SRT Viper 1414 PCMCIA
+%Modem8% = Modem8, SRT_Modem8, UNIMODEM5E9F162C ; SRT Viper 1414 Lite
+%Modem7% = Modem7, UNIMODEMD020B67D             ; SRT SwiftLine V.32bis & Fax
+%Modem6% = Modem6, SRT_Modem6, UNIMODEMC9720A17 ; SRT Viper 1414 Voice
+%Modem5% = Modem5, UNIMODEM9B0A09BA             ; SRT Viper 1414 PM
+%Modem4% = Modem4, SRT_Modem4, UNIMODEM5E9F162C	; SRT Viper 1414 PC
+%Modem3% = Modem3, SRT_Modem3, UNIMODEM5E9F162C	; SRT Viper 1414 SA
+%Modem2% = Modem2, UNIMODEMF031A75E		; SRT Viper 2814
+%Modem2% = Modem2, UNIMODEMAB5867A6		; SRT Viper 2814
+%Modem1% = Modem1, UNIMODEM0E68CD5B		; SRT PrimeLine V.34 & Fax
+
+
+; Installation sections
+
+[Modem9]
+AddReg=All, MfgAddReg, Modem9.AddReg, PCMCIA
+
+[Modem8]
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem7]
+AddReg=All, MfgAddReg, Modem7.AddReg, External
+
+[Modem6]
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, External
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, Internal
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+
+; AddReg sections
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, Reset,, "ATZ<cr>" 
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, Reset,, "ATZ<cr>" 
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 40,38,00,00
+HKR,, Reset,, "AT&Z<cr>" 
+HKR, Init,      3,, "AT E0 V1<cr>"
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, Reset,, "AT&Z<cr>" 
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, Reset,, "AT&Z<cr>" 
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, Reset,, "AT&Z<cr>" 
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, Reset,, "AT&Z<cr>" 
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR,, Reset,, "AT&Z<cr>" 
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init,      3,, "AT E0 V1<cr>"
+
+; Strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Standard Radio Telecom AB"
+
+; Model strings
+
+Modem10="SRT Viper 1414 SA, 1414 PC & 1414 Lite"
+Modem9="SRT Viper 1414 PCMCIA"
+Modem8="SRT Viper 1414 Lite"
+Modem7="SRT SwiftLine V.32bis & Fax"
+Modem6="SRT Viper 1414 Voice"
+Modem5="SRT Viper 1414 PM"
+Modem4="SRT Viper 1414 PC"
+Modem3="SRT Viper 1414 SA"
+Modem2="SRT Viper 2814"
+Modem1="SRT PrimeLine V.34 & Fax"
+
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init,      1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, Devic

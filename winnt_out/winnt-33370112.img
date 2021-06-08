@@ -1,0 +1,95 @@
+SUB
+
+'PlayNibbles:
+'  Main routine that controls game play
+SUB PlayNibbles (NumPlayers, speed, diff$)
+
+    'Initialize Snakes
+    DIM sammyBody(MAXSNAKELENGTH - 1, 1 TO 2) AS snakeBody
+    DIM sammy(1 TO 2) AS snaketype
+    sammy(1).lives = 5
+    sammy(1).score = 0
+    sammy(1).scolor = colorTable(1)
+    sammy(2).lives = 5
+    sammy(2).score = 0
+    sammy(2).scolor = colorTable(2)
+                 
+    Level STARTOVER, sammy()
+    startRow1 = sammy(1).row: startCol1 = sammy(1).col
+    startRow2 = sammy(2).row: startCol2 = sammy(2).col
+
+    curSpeed = speed
+
+    'play Nibbles until finished
+
+    SpacePause "     Level" + STR$(curLevel) + ",  Push Space"
+    gameOver = FALSE
+    DO
+        IF NumPlayers = 1 THEN
+            sammy(2).row = 0
+        END IF
+
+        number = 1          'Current number that snakes are trying to run into
+        nonum = TRUE        'nonum = TRUE if a number is not on the screen
+
+        playerDied = FALSE
+        PrintScore NumPlayers, sammy(1).score, sammy(2).score, sammy(1).lives, sammy(2).lives
+        PLAY "T160O1>L20CDEDCDL10ECC"
+
+        DO
+            'Print number if no number exists
+            IF nonum = TRUE THEN
+                DO
+                    numberRow = INT(RND(1) * 47 + 3)
+                    NumberCol = INT(RND(1) * 78 + 2)
+                    sisterRow = numberRow + arena(numberRow, NumberCol).sister
+                LOOP UNTIL NOT PointIsThere(numberRow, NumberCol, colorTable(4)) AND NOT PointIsThere(sisterRow, NumberCol, colorTable(4))
+                numberRow = arena(numberRow, NumberCol).realRow
+                nonum = FALSE
+                COLOR colorTable(1), colorTable(4)
+                LOCATE numberRow, NumberCol
+                PRINT RIGHT$(STR$(number), 1);
+                count = 0
+            END IF
+
+            'Delay game
+            FOR a# = 1 TO curSpeed:  NEXT a#
+
+            'Get keyboard input & Change direction accordingly
+            kbd$ = INKEY$
+            SELECT CASE kbd$
+                CASE "w", "W": IF sammy(2).direction <> 2 THEN sammy(2).direction = 1
+                CASE "s", "S": IF sammy(2).direction <> 1 THEN sammy(2).direction = 2
+                CASE "a", "A": IF sammy(2).direction <> 4 THEN sammy(2).direction = 3
+                CASE "d", "D": IF sammy(2).direction <> 3 THEN sammy(2).direction = 4
+                CASE CHR$(0) + "H": IF sammy(1).direction <> 2 THEN sammy(1).direction = 1
+                CASE CHR$(0) + "P": IF sammy(1).direction <> 1 THEN sammy(1).direction = 2
+                CASE CHR$(0) + "K": IF sammy(1).direction <> 4 THEN sammy(1).direction = 3
+                CASE CHR$(0) + "M": IF sammy(1).direction <> 3 THEN sammy(1).direction = 4
+                CASE "p", "P": SpacePause " Game Paused ... Push Space  "
+                CASE ELSE
+            END SELECT
+
+            FOR a = 1 TO NumPlayers
+                'Move Snake
+                SELECT CASE sammy(a).direction
+                    CASE 1: sammy(a).row = sammy(a).row - 1
+                    CASE 2: sammy(a).row = sammy(a).row + 1
+                    CASE 3: sammy(a).col = sammy(a).col - 1
+                    CASE 4: sammy(a).col = sammy(a).col + 1
+                END SELECT
+
+                'If snake hits number, respond accordingly
+                IF numberRow = INT((sammy(a).row + 1) / 2) AND NumberCol = sammy(a).col THEN
+                    PLAY "MBO0L16>CCCE"
+                    IF sammy(a).length < (MAXSNAKELENGTH - 30) THEN
+                        sammy(a).length = sammy(a).length + number * 4
+                    END IF
+                    sammy(a).score = sammy(a).score + number
+                    PrintScore NumPlayers, sammy(1).score, sammy(2).score, sammy(1).lives, sammy(2).lives
+                    number = number + 1
+                    IF number = 10 THEN
+                        EraseSnake sammy(), sammyBody(), 1
+                        EraseSnake sammy(), sammyBody(), 2
+                        LOCATE numberRow, NumberCol: PRINT " "
+                      

@@ -1,0 +1,148 @@
+;Copyright (c) 1993-1995, Microsoft Corporation
+
+[version]
+signature="$Windows NT$"
+ClassGUID={00000000-0000-0000-0000-000000000000}
+LayoutFile=layout.inf
+
+
+[DestinationDirs]
+mediaopt.delfiles     = 25         ; LDID_SHARED
+mediaopt.files        = 25,Media   ; LDID_SHARED\Media
+musica.files          = 25,Media   ; LDID_SHARED\Media
+jungle.files          = 25,Media   ; LDID_SHARED\Media
+robotz.files          = 25,Media   ; LDID_SHARED\Media
+utopia.files          = 25,Media   ; LDID_SHARED\Media
+
+
+[BaseWinOptions]
+Register_MMopts
+
+
+[Register_MMopts]
+AddReg = Register_MMopts.AddReg
+
+
+[Register_MMopts.AddReg]
+HKLM,%KEY_OPTIONAL%,"Clips",,"Clips"
+HKLM,%KEY_OPTIONAL%\Clips,INF,,"mmopt.inf"
+HKLM,%KEY_OPTIONAL%\Clips,Section,,"media_clips"
+HKLM,%KEY_OPTIONAL%\Clips,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Musica",,"Musica"
+HKLM,%KEY_OPTIONAL%\Musica,INF,,"mmopt.inf"
+HKLM,%KEY_OPTIONAL%\Musica,Section,,"media_musica"
+HKLM,%KEY_OPTIONAL%\Musica,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Jungle",,"Jungle"
+HKLM,%KEY_OPTIONAL%\Jungle,INF,,"mmopt.inf"
+HKLM,%KEY_OPTIONAL%\Jungle,Section,,"media_jungle"
+HKLM,%KEY_OPTIONAL%\Jungle,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Robotz",,"Robotz"
+HKLM,%KEY_OPTIONAL%\Robotz,INF,,"mmopt.inf"
+HKLM,%KEY_OPTIONAL%\Robotz,Section,,"media_robotz"
+HKLM,%KEY_OPTIONAL%\Robotz,Installed,,"0"
+
+HKLM,%KEY_OPTIONAL%,"Utopia",,"Utopia"
+HKLM,%KEY_OPTIONAL%\Utopia,INF,,"mmopt.inf"
+HKLM,%KEY_OPTIONAL%\Utopia,Section,,"media_utopia"
+HKLM,%KEY_OPTIONAL%\Utopia,Installed,,"0"
+
+
+
+[Optional Components]
+media_clips
+media_musica
+media_jungle
+media_robotz
+media_utopia
+
+
+[media_clips]
+OptionDesc      = %mediaclipdesc%
+Tip             = %mediacliptip%
+Parent          = MultiM
+CopyFiles       = mediaopt.files
+DelFiles        = mediaopt.delfiles
+Addreg          = mediaopt.reg
+InstallType     = 10                    ;Typical, Custom
+IconIndex       = 55                    ;Speaker mini-icon for dialogs
+Uninstall       = mediaopt_remove
+Upgrade         = mediaopt_upgrade
+;ValidateProc   = SETUPX.DLL,P_MEDIAOC  ;Turns Optional Component OFF if no MEDIA devs
+
+[mediaopt_remove]
+DelFiles        = mediaopt.files
+AddReg          = mediaopt.remove.reg
+
+[mediaopt_upgrade]
+CopyFiles       = mediaopt.files
+
+
+[media_musica]
+OptionDesc      = %mediamusdesc%
+Tip             = %mediamustip%
+Parent          = MultiM
+CopyFiles       = musica.files
+Addreg          = musica.reg
+InstallType     = 0                     ;Manual Only
+IconIndex       = 58                    ;Speaker mini-icon for dialogs
+Uninstall       = musica_remove
+Upgrade         = musica_upgrade
+
+[musica_remove]
+DelFiles        = musica.files
+AddReg          = musica.remove.reg
+DelReg          = musica.remove.DelReg
+
+[musica_upgrade]
+CopyFiles       = musica.files
+
+
+[media_jungle]
+OptionDesc      = %medianatdesc%
+Tip             = %medianattip%
+Parent          = MultiM
+CopyFiles       = jungle.files
+Addreg          = jungle.reg
+InstallType     = 0                     ;Manual Only
+IconIndex       = 59                    ;Speaker mini-icon for dialogs
+Uninstall       = jungle_remove
+Upgrade         = jungle_upgrade
+
+[jungle_remove]
+DelFiles        = jungle.files
+AddReg          = jungle.remove.reg
+DelReg          = jungle.remove.DelReg
+
+[jungle_upgrade]
+CopyFiles       = jungle.files
+
+
+[media_robotz]
+OptionDesc      = %mediarobdesc%
+Tip             = %mediarobtip%
+Parent          = MultiM
+CopyFiles       = robotz.files
+Addreg          = robotz.reg
+InstallType     = 0                     ;Manual Only
+IconIndex       = 6                     ;Speaker mini-icon for dialogs
+Uninstall       = robotz_remove
+Upgrade         = robotz_upgrade
+
+[robotz_remove]
+DelFiles        = robotz.files
+AddReg          = robotz.remove.reg
+DelReg          = robotz.remove.DelReg
+
+[robotz_upgrade]
+CopyFiles       = robotz.files
+
+
+[media_utopia]
+OptionDesc      = %mediautodesc%
+Tip             = %mediautotip%
+Parent          = MultiM
+CopyFiles       = utopia.files
+Addreg=utopi

@@ -1,0 +1,159 @@
+>/REL<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/LAPM<cr><lf>
+
+;----------------------------------------
+[UDS Motorola V.3400]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=AT%V<cr>
+DETECT_RESPONSE=V.3400
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C1&D2 \\V1 S0=0 S2=128 S7=30<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+[USRobotics General]
+
+; This selection can be used by almost ALL USRobotics modems.
+;
+; A MAXCONNECTBPS of 38400 allows this to be used by older modems such
+; as the HST 14400.
+;
+; Compression is off by default because of the lower DTE-DCE rate.
+;
+; ITU-T standards are on by default to ensure compatibility with
+; non-USR modems.
+;
+; X4 is set to ensure compatibility with Sportster modems. Advanced
+; dial features for Courier can be activated by placing X7 in the dial
+; string. (e.g. phone number field contains "1-708-676-1059X7")
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=38400
+<speaker_on>=m1
+<speaker_off>=m0
+<hwflowcontrol_on>=&h1&r2
+<hwflowcontrol_off>=&h0&r1
+<compression_on>=&k3
+<compression_off>=&k0
+<protocol_on>=&m4
+<protocol_off>=&m0
+<autodial_on>=ATdt
+<autodial_off>=ATd
+;removed s47=2 because most of the newer modems don't support it
+;COMMAND_INIT=AT&f&a3x4e1q0v1s0=0s7=55s2=128s47=2<cr>
+COMMAND_INIT=AT&f&a3x4e1q0v1s0=0s7=55s2=128<cr>
+COMMAND_INIT=AT&b1&c1&d2b0x4<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[US Robotics Courier Dual]
+ALIAS=US Robotics Courier V.32bis
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=USRobotics Courier 16800 HST Dual
+						
+;----------------------------------------
+[US Robotics Courier HST]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=19200
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=USRobotics Courier 14400 HST
+
+COMMAND_INIT=AT&F&C1&D2  V1 &B0 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[US Robotics Courier V.32bis]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&R2&H1
+<hwflowcontrol_off>=&R1&H0
+<compression_on>=&K1
+<compression_off>=&K0
+<protocol_on>=&M4
+<protocol_off>=&M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=USRobotics Courier V.32
+
+COMMAND_INIT=ATE1&F&C1 &D2 &A1 &B1 V1 Q0 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/ARQ<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/ARQ<cr><lf>
+
+
+;----------------------------------------
+[US Robotics Sportster 2400]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=SSi 73D2404
+;----------------------------------------
+[US Robotics Sportster 9600]
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&H1&R2
+<hwflowcontrol_off>=&H0&R1
+<compression_on>=&K1
+<compression_off>=&K0
+<protocol_on>=&M4
+<protocol_off>=&M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND

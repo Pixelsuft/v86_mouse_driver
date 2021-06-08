@@ -1,0 +1,161 @@
+_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[US Robotics Sportster 14400]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&H1&R2
+<hwflowcontrol_off>=&H0&R1
+<compression_on>=&K1
+<compression_off>=&K0
+<protocol_on>=&M4
+<protocol_off>=&M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Sportster 14,400
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker>&B1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ<cr><lf>
+
+;----------------------------------------
+[US Robotics V32bis Quad Digital]
+ALIAS=US Robotics Sportster 14400
+
+;----------------------------------------
+[US Robotics Worldport 14400]
+ALIAS=USR Worldport 14400 - UK
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=WorldPort 14,400
+
+;----------------------------------------
+[US Robotics Sportster 28800 VFC]
+ALIAS=USRobotics General
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Sportster 28,800
+
+;----------------------------------------
+[US Robotics 288 PCMCIA]
+ALIAS=USRobotics General
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Sportster 28800
+DETECT_RESPONSE=Sportster 33600
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=Sportster PCMCIA 28800
+DETECT_RESPONSE=Sportster PCMCIA 33600
+
+;----------------------------------------
+[US Robotics Sportster 28800 V34]
+ALIAS=USRobotics General
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=Sportster 28800
+DETECT_RESPONSE=Sportster 33600
+
+;----------------------------------------
+[Ven-Tel 9600 Plus II]
+;Compression forced ON.
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATX3DT
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=EC9600 Plus II
+
+COMMAND_INIT=AT&F&C1&D2<cr>
+COMMAND_INIT=AT V1 X4 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT \\Q3 \\N3 %C1 <cr>
+COMMAND_INIT=AT<speaker> <cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+CONNECT=<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+
+CONNECT=\
+<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS MNP5<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+
+CONNECT=\
+<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESSION NOT AVAILABLE<cr><lf>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>COMPRESS V.42bis<cr><lf><append>\
+<cr><lf>CONNECT <carrierbps> TRELLIS/LAPM<cr><lf>
+
+CONNECT_EC=

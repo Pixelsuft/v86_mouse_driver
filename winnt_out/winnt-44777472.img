@@ -1,0 +1,41 @@
+, 01, 00, 80,25,00,00, 00,00,00,00 ; CARRIER 9600 - Carrier detected at 9600 bps
+HKR, Responses, "51<cr>", 1, 01, 00, E0,2E,00,00, 00,00,00,00 ; CARRIER 12000 - Carrier detected at 12000 bps
+HKR, Responses, "52<cr>", 1, 01, 00, 40,38,00,00, 00,00,00,00 ; CARRIER 14400 - Carrier detected at 14400 bps
+HKR, Responses, "53<cr>", 1, 01, 00, A0,41,00,00, 00,00,00,00 ; CARRIER 16800 - Carrier detected at 16800 bps
+HKR, Responses, "54<cr>", 1, 01, 00, 00,4B,00,00, 00,00,00,00 ; CARRIER 19200 - Carrier detected at 19200 bps
+HKR, Responses, "55<cr>", 1, 01, 00, 80,70,00,00, 00,00,00,00 ; CARRIER 28800 - Carrier detected at 28800 bps
+HKR, Responses, "66<cr>", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: CLASS 5 - MNP5 compression negotiated
+HKR, Responses, "67<cr>", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: V.42BIS - V.42bis compression negotiated
+HKR, Responses, "68<cr>", 1, 01, 01, 00,00,00,00, 00,00,00,00 ; COMPRESSION: ADC - Hayes Adaptive Data Compression negotiated
+HKR, Responses, "69<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; COMPRESSION: NONE - No compression negotiated
+HKR, Responses, "70<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; PROTOCOL: NONE - Asynchronous mode
+HKR, Responses, "71<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ERROR-CONTROL/LAPB - LAPB error-control negotiated
+HKR, Responses, "72<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ERROR-CONTROL/LAPB/HDX - LAPB half-duplex error-control negotiated
+HKR, Responses, "73<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ERROR-CONTROL/LAPB/AFT - LAPB Asynchronous Framing Technique error-control negotiated
+HKR, Responses, "74<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: X.25/LAPB - X.25 error-control negotiated
+HKR, Responses, "75<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: X.25/LAPB/HDX - X.25 half-duplex error-control negotiated
+HKR, Responses, "76<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: X.25/LAPB/AFT - X.25 Asynchronous Framing Technique error-control negotiated
+HKR, Responses, "77<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM - V.42 LAPM error-control negotiated
+HKR, Responses, "78<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM/HDX - V.42 LAPM half-duplex error-control negotiated
+HKR, Responses, "79<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: LAPM/AFT - V.42 LAPM Asynchronous Framing Technique error-control negotiated
+HKR, Responses, "80<cr>", 1, 01, 02, 00,00,00,00, 00,00,00,00 ; PROTOCOL: ALT - Alternative protocol (MNP2-4 compatible) error-control negotiated
+HKR, Responses, "91<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; AUTOSTREAM: LEVEL 1
+HKR, Responses, "92<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; AUTOSTREAM: LEVEL 2
+HKR, Responses, "93<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00 ; AUTOSTREAM: LEVEL 3
+
+HKR, Responses, "<cr>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<lf>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",     1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "0<cr>",       1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK
+HKR, Responses, "2<cr>",       1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING
+HKR, Responses, "3<cr>",       1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER
+HKR, Responses, "4<cr>",       1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR
+HKR, Responses, "6<cr>",       1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE
+HKR, Responses, "7<cr>",       1, 06, 00, 00,00,00,00,

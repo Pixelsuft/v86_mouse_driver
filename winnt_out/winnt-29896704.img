@@ -1,0 +1,101 @@
+BOOT
+        set ActivateDetection = TRUE
+        set StartLabel = configureadapter
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the Elink II driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+    else
+        set ActivateDetection = TRUE
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+    endif
+    Debug-Output "OEMNADE2.INF: =================================================="
+    Debug-Output "OEMNADE2.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNADE2.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    Debug-Output "OEMNADE2.INF: Option is: "$(Option)
+    Debug-Output "OEMNADE2.INF: !STF_NCDETECT  is: "$(!STF_NCDETECT)
+    Debug-Output "OEMNADE2.INF: !STF_NCOPTION  is: "$(!STF_NCOPTION)
+    Debug-Output "OEMNADE2.INF: !STF_NCDETCARD is: "$(!STF_NCDETCARD)
+    Debug-Output "OEMNADE2.INF: !STF_NCDETINFO is: "$(!STF_NCDETINFO)
+    Debug-Output "OEMNADE2.INF: =================================================="
+    Set DetectedCard = FALSE
+    Ifstr(i) $(ActivateDetection) != TRUE
+        Goto $(StartLabel)
+    Endif
+    Set TypeList = {{IRQ, IRQ_List, IRQ_Level},+
+                    {IOADDR, IOADDR_Addr_List, IOBaseAddrValue},+
+                    {MEMADDR, MemBaseAddrDecList, MemBaseAddrDec},+
+                    {TRANSCEIVER, TranceiverValueList, TransceiverValue}}
+    Debug-Output "OEMNADE2.INF: Calling Param_BuildTypeLists"
+    Shell $(ParamInf) Param_BuildTypeLists $(Option) $(TypeList)
+    Set Status = $($R0)
+    ifstr(i) $(Status) != STATUS_SUCCESSFUL
+        Goto fataldetect
+    Endif
+    Debug-Output "OEMNADE2.INF: Calling Param_SetDefaults"
+    Shell $(ParamInf) Param_SetDefaults {}
+    Shell $(ParamInf) HexListFromDecList $(IOADDR_Addr_List)
+    Set IOADDR_Hex_List = $($R0)
+    Shell $(UtilityInf) SortList $(IRQ_List) TRUE FALSE
+    Set IRQ_List = $($R0)
+    Ifstr(i) $(!STF_NCDETECT) == YES
+        Ifstr(i) $(!STF_NCOPTION) == $(Option)
+           Set DetectedCard = TRUE
+           Debug-Output "OEMNADE2.INF: Setting DetectedCard to TRUE"
+        Endif
+    Endif
+    Set MappedValue = 1
+    Ifint $(MemBaseAddrDec) == 0
+       Set MappedValue = 0
+    Endif
+    Shell "" DebugConfiguration "After parameter querying"
+    Set from = $(fatal)
+    Set to = $(fatal)
+    Goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftwareTitle),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    Set CurrParamSettings = {}
+    Ifstr(i) $(DetectedCard) != TRUE
+        Goto adaptersetup
+    Endif
+    StartWait
+    Shell $(ParamInf) Param_QueryCard $(!STF_NCDETCARD)
+    EndWait
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Goto adaptersetup
+    Endif
+    Set DetectedParams = 

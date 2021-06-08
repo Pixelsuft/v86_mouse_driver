@@ -1,0 +1,47 @@
+, and the Intel Teladdin modem. 
+
+Users should consult the Hardware Compatibility List for the list of currently supported devices.
+
+Modem Features Not Used in Windows NT version 4.0
+Windows NT version 4.0 does not include built-in Group 3 FAX functionality, but support will be provided in a future release and by other software vendors.
+
+Windows NT version 4.0 does not support the common voice modem functions which are supported by Unimodem/V in Windows 95.  These may be supported in a future release.  The Unimodem/V version in Windows 95 should not be used to upgrade to voice support in Windows NT version 4.0; they are incompatible.
+
+Windows NT version 4.0 does not support VoiceView functionality or the Windows 95 file transfer application.
+
+Modem Mis-detection
+Windows NT version 4.0 attempts to recognize modems automatically. However, if it does not recognize a particular modem, the modem will be treated as a "standard modem."  As a result, some of the features of the modem may be unusable.  To work around this issue:
+
+If the modem vendor provided an updated INF file on a disk, manually remove the previous entry, and retry modem installation using the Have disk option.
+
+If there is no updated modem INF available, manually install the same modem or a similar modem by the same manufacturer.
+
+If Internet access is available, an updated INF may be available from the manufacturer, or from www.microsoft.com.  Copy the INF into the \systemroot\inf folder, and retry the installation.
+
+Removing and Reinstalling Modems
+When you remove and re-install a modem, the modem response strings are not updated. This is a problem only if you have updated or modified the Modem.inf file.
+
+Plug and Play ISA Modems
+There are modems designed to plug into a PC ISA bus, which implement the Plug and Play ISA (PnP ISA) specification. Windows NT version 4.0 does not contain complete Windows 95 Plug and Play support. For additional information about the PnP ISA support provided in Windows NT, see "Plug and Play ISA Device Installation and PNPISA.SYS" in the Readme.wri file. It contains descriptions about how to:
+Install the PNPISA Enabler software (PNPISA.SYS) if needed.
+Disable PNPISA.SYS
+Install PnP ISA devices
+Configure PnP ISA devices
+Remove PnP ISA devices
+
+The sections that follow address modem-specific PnP ISA issues.
+
+Duplicate Enumeration
+If a PnP modem has already been installed and modem control panel autodetection is run again, perhaps to install additional modems, a duplicate modem of the same or different name may appear using the same com port of the modem control panel. In most cases this is not a problem. Both modem instances will function and either modem may be deleted. This is a known issue and will be fixed in a future release.
+
+Multiple PnP ID Cards
+Multiple PnP modems can be installed assuming computer resources are available.
+
+Work Arounds and Known Issues
+In the PNPISA Enabler, the first input/output range and IRQ listed in the Resources tab of the Advanced Port Settings dialog box may not be correct. This is merely the first available resource range which is suggested by the PnP card. If necessary, clear the Use Automatic Settings option and try various configuration ranges.
+
+Complex multifunction cards which contain a modem, joystick and sound card are available in the marketplace. It may be difficult to install functionality for all devices within some of these cards. For example only the modem and joystick might be enabled, but the sound card portion left unusable due to existing resource conflicts or lack of driver support. Cancel installation for devices within these multifunction cards which cannot be used. 
+
+Some Sierra modems have two PnP IDs and will be enumerated twice by PNPISA.SYS. The first PnP detection event is usually the modem and can be installed correctly. The second PnP detection event may be for an audio dma channel which might not be needed or supported by Windows NT. This event can be dismissed or canceled to conserve computer resources.
+
+Due to the resourc

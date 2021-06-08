@@ -1,0 +1,131 @@
+
+[Version]
+Signature="$WINDOWS NT$"
+ClassGuid={4D36E96C-E325-11CE-BFC1-08002BE10318}
+Class=MEDIA
+Provider=%MSFT%
+
+
+
+LayoutFile=splayout.inf
+
+
+[DestinationDirs]
+sndblstdll.CopyList  = 11 ; DIRID_SYSTEM
+sndblstsys.CopyList  = 12 ; DIRID_DRIVERS
+sbawe32drv.CopyList  = 11 ; DIRID_SYSTEM
+sbawe32sys.CopyList  = 12 ; DIRID_DRIVERS
+joyportdll.CopyList  = 11 ; DIRID_SYSTEM
+joyportsys.CopyList  = 12 ; DIRID_DRIVERS
+cs32ba11dll.CopyList = 11 ; DIRID_SYSTEM
+cs32ba11sys.CopyList = 12 ; DIRID_DRIVERS
+mpu401dll.CopyList   = 11 ; DIRID_SYSTEM
+mpu401sys.CopyList   = 12 ; DIRID_DRIVERS
+csbasedll.CopyList   = 11 ; DIRID_SYSTEM
+csbasesys.CopyList   = 12 ; DIRID_DRIVERS
+
+[Manufacturer]
+%CLMfgName%=CreativeLabs
+%CSMfgName%=CrystalSemiconductor
+
+[CreativeLabs]
+%*CTL0001.DeviceDesc%=CTL0001_Device, *CTL0001
+%*CTL0001.DeviceDesc%=CTL0001_Device, *CTL0031
+%*CTL0001.DeviceDesc%=CTL0001_Device, *CTL0041
+%*CTL0001.DeviceDesc%=CTL0001_Device, *CTL0042
+%*CTL0001.DeviceDesc%=CTL0001_Device, *CTL0043
+%*CTL0001.DeviceDesc%=CTL0001_Device, *CTL0044
+%*CTL0021.DeviceDesc%=CTL0021_Device, *CTL0021
+%*CTL0021.DeviceDesc%=CTL0021_Device, *CTL0022
+%*CTL0021.DeviceDesc%=CTL0021_Device, *CTL0023
+%*CTL0021.DeviceDesc%=CTL0021_Device, *CTL8001
+%*CTL0051.DeviceDesc%=CTL0051_Device, *CTL0051, *PNPffff
+%*PNPB02F.DeviceDesc%=MSJSTICK,       *CTL7001
+%*PNPB02F.DeviceDesc%=MSJSTICK,       *CTL7002
+
+[CrystalSemiconductor]
+;%*CSC0000.DeviceDesc%=CSC0000_Device, *CSC0031
+;
+%*CSC0000.DeviceDesc%=CSC0000_Device, *CSC0000
+%*CSC0010.DeviceDesc%=CSC0010_Device, *CSC0010
+%*CSC0010.DeviceDesc%=CSC0010_Device, *CSC0002
+%*CSC0003.DeviceDesc%=CSC0003_Device, *CSC0003
+%*PNPB02F.DeviceDesc%=MSJSTICK,       *CSC0001
+
+[CTL0001_Device.NT]
+CopyFiles=sndblstdll.CopyList,sndblstsys.CopyList
+AddReg=CTL0001.AddReg, SB16.AddReg
+;AddReg=WAVE.AddReg, CTL0001.AddReg, SB16.AddReg
+Reboot
+
+[CTL0021_Device.NT]
+CopyFiles=sbawe32drv.CopyList,sbawe32sys.CopyList
+AddReg=CTL0021.AddReg, SBAWE32.AddReg
+;AddReg=WAVE.AddReg, CTL0001.AddReg, SB16.AddReg
+Reboot
+
+[MSJSTICK.NT]
+CopyFiles=joyportdll.CopyList,joyportsys.CopyList
+AddReg=MSJSTICK.AddReg
+Reboot
+
+[CSC0000_Device.NT]
+CopyFiles=cs32ba11dll.CopyList,cs32ba11sys.CopyList
+AddReg=CSC0000.AddReg, CS423X.AddReg
+Reboot
+
+[CSC0010_Device.NT]
+CopyFiles=csbasedll.CopyList,csbasesys.CopyList
+AddReg=CSC0010.AddReg, CSBASE.AddReg
+Reboot
+
+[CSC0003_Device.NT]
+CopyFiles=mpu401dll.CopyList,mpu401sys.CopyList
+AddReg=CSC0003.AddReg, MPU401.AddReg
+Reboot
+
+[CTL0001_Device.NT.Services]
+AddService = sndblst, 0x00000002, sndblst_Service_Inst
+
+[CTL0021_Device.NT.Services]
+AddService = sbawe32, 0x00000002, sbawe32_Service_Inst
+
+[MSJSTICK.NT.Services]
+AddService = joyport, 0x00000002, joyport_Service_Inst
+
+; This service is to be added to the front of the Extended Base services group
+[CSC0000_Device.NT.Services]
+AddService = cs32ba11, 0x00000003, cs32ba11_Service_Inst
+
+[CSC0010_Device.NT.Services]
+AddService = csbase, 0x00000002, csbase_Service_Inst
+
+[CSC0003_Device.NT.Services]
+AddService = mpu401, 0x00000002, mpu401_Service_Inst
+
+[sndblst_Service_Inst]
+DisplayName    = %sndblst.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\sndblst.sys
+LoadOrderGroup = Base
+
+[sbawe32_Service_Inst]
+DisplayName    = %sbawe32.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\sbawe32.sys
+LoadOrderGroup = Sythesizer Drivers
+
+[joyport_Service_Inst]
+DisplayName    = %joyport.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\joyport.sys
+LoadOrderGroup = Base
+
+[cs32ba11_Service_Inst]
+DisplayName    = %cs32ba

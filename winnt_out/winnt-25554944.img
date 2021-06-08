@@ -1,0 +1,107 @@
+se
+                            ifcontains(i) $($) not-in $(OptionList)
+                                set OptionList = >($(OptionList),$($))
+                                set OptionTextList = >($(OptionTextList),*($(ReturnOptionText),$(Index)))
+                            endif
+                        endif
+                    EndForListDo
+                    set  Status         = STATUS_SUCCESSFUL
+                endif
+            endforlistdo
+            ifstr(i) $(OptionList) != ""
+                Shell "" SetOptionsIntoRegistry $($1) $($2) $(OptionList) $(OptionTextList)
+            endif
+        endif
+    endif
+finish_GetNetworkOptionsFromINF = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[GetOptionsFromINF]
+    set Status         = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set FileToCheck = $($2)
+    install Install-SeeIfFileIsPresent
+    ifstr(i) $(STATUS) != "YES"
+        set Status = STATUS_INFNOTFOUND
+        goto finish_GetOptionsFromINF
+    endif
+    Shell "" GetOptionsFromRegistry $($1) $($2)
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set  OptionList     = $($R1)
+        set  OptionTextList = $($R2)
+        set  Status         = STATUS_SUCCESSFUL
+        goto finish_GetOptionsFromINF
+    endif
+    shell $($2) Identify
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        ifstr(i) $($R1) == $($1)
+            set OptionList = ""
+            shell $($2) ReturnOptions $($0) $($)
+            ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                 set  OptionList     = $($R1)
+                 set  OptionTextList = $($R2)
+                 set  Status         = STATUS_SUCCESSFUL
+            endif
+            ifstr(i) $(OptionList) != ""
+                Shell "" SetOptionsIntoRegistry $($1) $($2) $(OptionList) $(OptionTextList)
+            endif
+        endif
+    endif
+finish_GetOptionsFromINF = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[GetNewOEMOption]
+    set Status            = STATUS_FAILED
+    set Option            = $($2)
+    set OptDisketteSrc    = $($3)
+    set OptionalDlgText   = $($4)
+    set OptDiskette       = #(OptionDiskettes$($0), $($2), 1)
+    set InfName1          = "OEMSETUP.INF"
+    set InfName2          = "OEMSETNT.INF"
+    set Abb = #(Options, $(Option), 1)
+    set NewOemOptionList  = $($1)
+    set OptionChosen      = ""
+    set OptionChosenText  = ""
+ask_dodiskette = +
+    set InfName = $(InfName1)
+    shell "" DoDiskette $($0) $(OptDiskette) $(OptDisketteSrc)
+    set Status = STATUS_FAILED
+    ifstr(i) $($R0) == STATUS_USERCANCEL
+        set Status = STATUS_USERCANCEL
+        goto finish_GetOEMOption
+    else-ifstr(i) $($R0) == STATUS_FAILED
+        goto finish_GetOEMOption
+    endif
+    set OptDisketteSrc = $($R1)
+ask_inf_retry = +
+    FlushInf $(InfName)
+    LibraryProcedure FileToCheck, $(!LIBHANDLE), AppendBackSlash $(OptDisketteSrc)
+    set FileToCheck = $(FileToCheck)$(InfName)
+    install Install-SeeIfFileIsPresent
+    set OemSetupFilePath = $(FileToCheck)
+    set NfError = 1
+    ifstr(i) $(STATUS) == YES
+        set NfError = 2
+        shell $(OemSetupFilePath) Identify
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            ifstr(i) $($R1) == $(Option)
+                ForListDo $(!STF_BUSTYPELIST)
+                    shell $(OemSetupFilePath) ReturnOptions $($0) $($)
+                    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                         set OemList     = $($R1)
+                         set OemTextList = $($R2)
+                         goto asksingleselection
+                    endif
+                EndForListDo
+            endif
+        endif
+    endif
+    ifstr(i) $(InfName) == $(InfName1)
+        Set InfName = $(InfName2)
+        goto ask_inf_retry
+    endif
+    read-syms NonFatalError$(NfError)$($0)
+    shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(NonFatal)
+    goto ask_dodiskette
+asksingleselection = +
+    shell "" DoSingleOption $(OemList) $(OemTextList) $(OptDiskette) $(OptionalDlgText)
+    i

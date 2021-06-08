@@ -1,0 +1,185 @@
+h_Paraguay%           ,850
+0000400a = %Spanish_Bolivia%            ,850
+0000440a = %Spanish_El_Salvador%        ,850
+0000480a = %Spanish_Honduras%           ,850
+00004c0a = %Spanish_Nicaragua%          ,850
+0000500a = %Spanish_Puerto_Rico%        ,850
+0000041d = %Swedish%                    ,850
+0000081d = %Swedish_Finland%            ,850
+0000041e = %Thai%                       ,874
+0000041f = %Turkish%                    ,857
+00000422 = %Ukrainian%                  ,866
+0000042a = %Vietnamese%                 ,1258
+00000411 = %Japanese%                   ,932
+00000412 = %Korean%                     ,949
+00000812 = %Korean_Johab%               ,1361
+00000c04 = %Chinese_HongKong%           ,950
+00000804 = %Chinese_PRC%                ,936
+00001004 = %Chinese_Singapore%          ,936
+00000404 = %Chinese_Taiwan%             ,950
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; NLS files and locale installation stuff
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[00000413]
+;
+; Dutch
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0413
+
+[00000813]
+;
+; Belgian Dutch
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0813
+
+[00000409]
+;
+; U.S. English
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP437
+AddReg = NLS.Setlang.0409
+
+[00000809]
+;
+; U.K. English
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0809
+
+[00001409]
+;
+; New Zealand English
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.1409
+
+[00000c09]
+;
+; Australian English
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0c09
+
+[0000040b]
+;
+; Finnish
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.040b
+
+[0000040c]
+;
+; French
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.012
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.040c
+
+[0000080c]
+;
+; Belgian French
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.012
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.080c
+
+[0000100c]
+;
+; Swiss French
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.012
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.100c
+
+[00000407]
+;
+; German
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.007
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0407
+
+[00000807]
+;
+; Swiss German
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.007
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0807
+
+[00000c07]
+;
+; Austrian German
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.007
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0c07
+
+[00001809]
+;
+; Irish English
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.009
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.1809
+
+[00000410]
+;
+; Italian
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.016
+DelReg = FontSubs.Registry.Remove
+AddReg = NLS.Registry.Western,NLS.Registry.OEMCP850
+AddReg = NLS.Setlang.0410
+
+[00000810]
+;
+; Swiss Italian
+;
+CopyFiles = NLS.Western
+CopyFiles=oso001.016
+DelReg

@@ -1,0 +1,119 @@
+[Identification]
+    OptionType = NetAdapter
+[PlatformsSupported]
+    ISA
+    EISA
+    MCA
+    "Jazz-Internal Bus"
+[LanguagesSupported]
+    ENG
+[Options]
+    DATAFIREU
+    DATAFIREST
+    DATAFIRE4ST
+    PCIMACISA
+    PCIMAC4
+[OptionsMCA]
+    PCIMACMC
+[AdapterInfoMCA]
+    PCIMACMC        =  {32670},         {158},      {127}
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+ParamInf        = "NCPARAM.INF"
+subroutineinf   = "SUBROUTN.INF"
+InfFileName     = "OEMNADDI.INF"
+SoftwareType    = "driver"
+Exit_Code       = 0
+DIGIHANDLE = 0
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+Manufacturer    = "DigiBoard"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductSoftwareName     = "Pcimac"
+ProductSoftwareTitle    = "Digi ISDN Adapter Driver"
+ProductSoftwareImagePath = "\SystemRoot\System32\drivers\pcimac.sys"
+NetRuleSoftwareType     = "pcimacSys ndisDriver pcimacDriver"
+NetRuleSoftwareUse      = $(SoftwareType)
+NetRuleSoftwareBindForm = """PcimacSys"" yes no container"
+NetRuleSoftwareClass    = {"pcimacDriver basic"}
+NetRuleSoftwareBindable = {"pcimacDriver pcimacAdapter non exclusive 100"}
+ProductHardwareName     = "Pcimac"
+ProductHardwareTitle    = "Digi ISDN Adapter"
+NetRuleHardwareType     = "pcimac pcimacAdapter"
+NetRuleHardwareBindForm = " yes yes container"
+NetRuleHardwareClass    = {"pcimacAdapter basic"}
+ProductOpSupport     = 134 
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)"\"$(ProductHardwareName)"\Parameters"
+AdapterList = ^(AdapterInfo$(BusType),0)
+AdapterHardwareAdapterIDList = ^(AdapterInfo$(BusType), 1)
+AdapterIDByte1List = ^(AdapterInfo$(BusType), 2)
+AdapterIDByte2List = ^(AdapterInfo$(BusType), 3)
+AdapterHardwareAdapterID = *($(AdapterHardwareAdapterIDList), ~($(AdapterList), $(Option)))
+AdapterIDByte1 = *($(AdapterIDByte1List), ~($(AdapterList), $(Option)))
+AdapterIDByte2 = *($(AdapterIDByte2List), ~($(AdapterList), $(Option)))
+AdapterHardwareName = pcimac
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+!MAXIMUM_ALLOWED   = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+CopyFirmwareOnly = $(TRUE)
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    read-syms GeneralConstants
+    Debug-Output "****    OEMNADDI: Entering ReturnOptions   ****"
+    Debug-Output "NTN_InstallMode = "$(!NTN_InstallMode)
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+	ifstr(i) $($1) == ""
+	    goto returnoptions
+	endif
+	set PlatformList = ^(PlatformsSupported, 1)
+	Ifcontains(i) $($1) in $(PlatformList)
+	    goto returnoptions
+	else
+	    set Status = STATUS_NOTSUPPORTED
+	    goto finish_ReturnOptions
+	endif
+    else
+	set Status = STATUS_NOLANGUAGE
+	goto finish_ReturnOptions
+    endif
+returnoptions = +
+    ifstr(i) $($1) == "MCA"
+	set OptionList     = ^(OptionsMCA, 1)
+	set OptionTextList = ^(OptionsTextMCA$($0), 1)
+	set Status         = STATUS_SUCCESSFUL
+	Debug-Output "returning: OptionList = "$(OptionList)
+	Debug-Output "           OptionTextList = "$(OptionTextList)
+    else
+	set OptionList     = ^(Options, 1)
+	set OptionTextList = ^(OptionsText$($0), 1)
+	set Status         = STATUS_SUCCESSFUL
+	Debug-Output "returning: OptionList = "$(OptionList)
+	Debug-Outpu

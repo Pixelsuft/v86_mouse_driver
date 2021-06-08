@@ -1,0 +1,132 @@
+cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps>/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps>/ V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf>
+;----------------------------------------
+
+;----------------------------------------
+;   AUSTRALIAN MODEMS
+;----------------------------------------
+
+;----------------------------------------
+[Avtek CD900 - AUS]
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F+C61B0X1&C1&D2 S0=0 S7=60<speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+
+COMMAND_LISTEN=ATS0=2<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V42BIS<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ARP<cr><lf>
+
+
+
+;--------------------------------------
+; This modem does not support callback
+;--------------------------------------
+[Avtek CD930 - AUS]
+
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C3
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATX1D
+
+CALLBACKTIME=30
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+COMMAND_INIT=AT&F&C1&D2 X1 W2 S0=0 S2=128 S7=60<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+LOOP=<cr><lf>RINGING<cr><lf>
+COMMAND_LISTEN=ATS0=2<cr>
+LOOP=<cr><lf>RINGING<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>\
+<cr><lf>COMPRESSION: MNP5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: MNP5<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>\
+<cr><lf>COMPRESSION: MNP4<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: MNP4<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps>/ARQ<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf><append>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+
+;-

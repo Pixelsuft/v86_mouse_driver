@@ -1,0 +1,91 @@
+ter = +
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\WOW" $(MAXIMUM_ALLOWED) WowKey
+    ifstr(i) $(WowKey) != ""
+        GetRegValue $(WowKey),"KnownDLLS", KnownDLLsInfo
+        Split-String *($(KnownDLLsInfo),4), " ", KnownDLLsList
+        set KnownDLLs = ""
+        Ifcontains(i) "netware.drv" in $(KnownDLLsList)
+            ForListDo $(KnownDLLsList)
+                ifstr(i) $($) != " "
+                    ifstr(i) $($) != "netware.drv"
+                        ifstr(i) $(KnownDLLs) == ""
+                            set KnownDLLs = $($)
+                        else
+                            set KnownDLLs = $(KnownDLLs)" "$($)
+                        endif
+                    endif
+                endif
+            EndForListDo
+        else
+            set KnownDLLs = *($(KnownDLLsInfo),4)
+        endif
+        SetRegValue $(WowKey) {"KnownDLLS",$(NoTitle),$(!REG_VT_SZ),$(KnownDLLs)}
+        CloseRegKey $(WowKey)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\LanmanServer\Parameters" $(MAXIMUM_ALLOWED) ServerParmKey
+    ifstr(i) $(ServerParmKey) != ""
+        SetRegValue $(ServerParmKey) {"EnableSharedNetDrives",$(NoTitle),$(!REG_VT_DWORD),0}
+        CloseRegKey $(ServerParmKey)
+    endif
+    LoadLibrary "nw" $(!STF_CWDDIR)\nwcfg.dll !NWCFG_HANDLE
+    Set FLibraryErrCtl = 1
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\Print\Providers" $(MAXIMUM_ALLOWED) PrintProviderKey
+    ifstr(i) $(PrintProviderKey) != ""
+        GetRegValue $(PrintProviderKey) "Order" OrderInfo
+        ifcontains(i) $(OldPrintProviderName) in *($(OrderInfo),4)
+            LibraryProcedure Result $(!NWCFG_HANDLE), DeleteNetwarePrinterProvidor $(OldPrintProviderName)
+        endif
+        ifcontains(i) $(OldPrintProviderName2) in *($(OrderInfo),4)
+            LibraryProcedure Result $(!NWCFG_HANDLE), DeleteNetwarePrinterProvidor $(OldPrintProviderName2)
+        endif
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "Software\Microsoft\NwSapAgent" $(MAXIMUM_ALLOWED) SapAgentKey
+    ifstr(i) $(SapAgentKey) == ""
+    else
+        CloseRegKey $(SapAgentKey)
+    endif
+    LibraryProcedure Result $(!NWCFG_HANDLE), DeleteNetwarePrinterProvidor
+    Set FLibraryErrCtl = 0
+    LibraryProcedure Result $(!NWCFG_HANDLE), GetKernelVersion
+    ifint *($(Result),3) < 529
+        Set FLibraryErrCtl = 1
+        LibraryProcedure STATUS $(!NWCFG_HANDLE), unlodctr nwrdr
+        Set FLibraryErrCtl = 0
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(LSAKeyName) $(MAXIMUM_ALLOWED) LSAKey
+    Ifstr $(LSAKey) != $(KeyNull)
+        GetRegValue $(LSAKey),"Authentication Packages", PackagesInfo
+        set Packages = *($(PackagesInfo), 4)
+        ifcontains(i) "nwprovau" not-in $(Packages)
+            debug-output "Authentication Packages does not exist.."
+        else
+            set NewPackages = {}
+            ForListDo $(Packages)
+                ifstr(i) $($) != "nwprovau"
+                    ifstr(i) $(NewPackages) == {}
+                        set NewPackages = {$($)}
+                    else
+                        set NewPackages = >($(NewPackages),$($))
+                    endif
+                endif
+            EndForListDo
+            SetRegValue $(LSAKey) {"Authentication Packages",$(NoTitle),$(!REG_VT_MULTI_SZ),$(NewPackages)}
+        endif
+        CloseRegKey $(LSAKey)
+    endif
+    ifcontains(i) $(ProductNWWKSTAName) in $(OEM_ABANDON_OPTIONS)
+        Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+           $(ProductNWWKSTAName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+           Debug-Output "OEMNSVNW.INF: ShellCode error"
+           goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+           goto fatalregistry
+        endif
+    endif
+    ForListDo  {$(ProductNWRDRName)}
+        ifcontains(i) $($) in $(OEM_ABANDON_OPTIONS)
+           Shell $(UtilityInf), RemoveService, $($), "YES"
+           ifint $($She

@@ -1,0 +1,50 @@
+entials. Follow the steps below for explanation.
+
+What's Happening:
+1.  You logon locally to your computer at home. Your computer name is home, your user name is greg, and your password is password. (ex. \\HOME\greg password)
+2.  Using RAS, you dial into your corporate network. An authentication dialog box appears and you supply your RAS logon credentials. Your domain name is corp, your user name on the domain is greg, and your password is password. (ex. \\CORP\greg password)
+3.  The connection succeeds and you then try to connect to a computer in the domain, for example, your office computer \\GREG. This is where you get an Access Denied message.
+
+Why:
+The reason is that in step two above, your RAS logon does not log you onto the network. It only verifies that you are allowed physical access to the network. Therefore, here is the situation:
+You are logged on locally as \\HOME\greg password. These credentials are cached and used for all resource access locally and on the network. When you dialed into the network using RAS, your cached creditials did not change. Therefore, when you try to connect to a resource on the network, you give it:
+\\HOME\greg password and it is expecting \\CORP\greg password. 
+
+Two Possible Solutions:
+1.  In step three above, when you are tying to connect to a computer on the network, provide your network creditials to override your local creditials. For example, at a DOS prompt, you would type
+NET USE * \\GREG\PUBLIC /U:CORP\GREG. Or, in File Manager, in the Network Connect Drive dialog box, you would type CORP\GREG in the Connect As box. 
+
+2.  You can join the domain from home. This causes your domain creditials to be cached on your home computer. To do this, have an Administrator add the name of your computer at home, \\HOME, to the domain and change your workgroup or domain name to corp. Then, follow the steps described in the online Help topic "Joining a Domain."
+
+---------------------------------------------------
+QUESTION:
+When I run NetDDE on my Windows NT Server version 3.5, I cannot chat with anyone
+who logs into my server via RAS or see their computer even if they have connected to a drive
+on my computer. 
+
+ANSWER:
+Have the person you are trying to talk to start CHAT on their computer, then connect to them, or refer to the section above "Using Winchat with RAS". 
+
+---------------------------------------------------
+QUESTION:
+When I connect to my local Internet host I use a script file to logon. But, when the script is finished I still have to manually press the Done button at the bottom of the window.
+How can I automate this? It would be nice if some command in the script file could signal
+"DONE", that way I could easily run a batch file via the AT service that would start a RAS 
+connection and get my mail and news in the middle of the night, etc.
+
+ANSWER:
+There is no way to do this with terminal.  You can however, write a script that bypasses terminal and automates your logon. Once you have that working, you can use RASDIAL.EXE with the AT command. For more information about scripting, see the online Help topics about writing scripts.
+
+---------------------------------------------------
+QUESTION:
+RAS gives the possibility to manage modem pooling connections, but I also need a dial-out service for Windows NT Server, like in NetWare Connect. Can you suggest a way?
+
+ANSWER:
+There is a Third-party modem pooling solution available for Windows NT, called Spartacom SAPS. You can reach Spartacom at Tel: (404) 455-0701 or Fax: (404) 457-9500.
+
+---------------------------------------------------
+QUESTION:
+My RAS server presently uses DHCP to provide IP addresses to remote clients. If I understand 
+the protocol correctly, this means that a large number of RAS sessions could exhaust the DHCP pool space, as the lease period is three days, and 'used' IP addresses do not get returned to the pool until after the three days are up.
+For example if I had two RAS ports, eight DHCP addresses in the pool, and nine different
+users accessed the server via RAS d

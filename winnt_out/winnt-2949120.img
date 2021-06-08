@@ -1,0 +1,109 @@
+ or a parameter was not specified.
+EThe system encountered an error while accessing
+file %1.
+EXCOPY cannot be performed.
+IANSI extended screen and
+keyboard control is on.
+IANSI extended screen and
+keyboard control is off.
+EA version of DOS earlier than DOS 3.20 was detected.
+IYou requested to start %1 from drive %2.
+IThe system cannot load the startup file system. The
+information for the startup file system is not correct. Reinstall
+your system.
+IThe system cannot initialize the startup file system.
+Reinstall your system.
+EThe Dual Boot feature file %1 cannot be found.
+EThe specified operating system is already on the
+current drive.
+EThe operating system did not start %1 as
+requested.
+WWarning! Make sure all your programs have completed
+or data will be lost when the system is restarted.
+EFile %1 did not copy to %2.
+WWarning! You should now restart your system by
+pressing Ctrl+Alt+Del.
+IThe next system reset will start %1 from drive %2.
+EThe system cannot find the file "%3" specified
+in the %2 command on line %1 of the CONFIG.SYS file.
+Line %1 is ignored.
+EThe file "%3" specified in the %2 command
+on line %1 of the CONFIG.SYS file does not contain a
+valid device driver or file system driver.  Line %1 is ignored.
+IThe information needed to IPL the system is not
+acceptable.
+I
+Microsoft (R) Operating System/2 Version 1.3
+(C) Copyright Microsoft Corp. 1981-1991. All rights reserved.
+
+U.S. Patent No. 4779187; 4825358
+IThe system cannot load the dynamic link library %1
+which is needed to start the system.
+
+Install the dynamic link library in the root directory of
+the startup drive or in the directory specified in the
+LIBPATH command in the CONFIG.SYS file.
+IThe system cannot find the entry point %2 in
+dynamic link library %1 which is needed to start the system.
+
+Install the correct dynamic link library in the root
+directory of the startup drive or in the directory
+specified in the LIBPATH command in the CONFIG.SYS file.
+IThe system cannot open the CON: file, which is
+needed to start the system.
+IThe handle for the CON: file is not zero.
+P
+Press Enter to continue.
+EThe system does not have enough storage for the
+DISKCACHE buffers.
+EThe value specified for the DISKCACHE statement in the
+CONFIG.SYS file is too small.
+EThe code page "%1" is not acceptable for the
+display.
+EThe code page combination "%1" is not acceptable
+for the keyboard, or the DEVINFO command is not correct.
+EThe BOOT command was not able to restart the system.
+IThe fixed disk preparation is complete.
+EThe country information file "%1" is incorrect.
+IThe fixed disk is being prepared. Please wait...
+IThe system has assumed code page %1.
+EThe DOS.SYS device driver cannot be found.
+ICode page switching is not available.
+EThe system has detected an error when starting.
+PYour system will be reset. Do you want to continue (Y/N)? ?
+EThe KEYB command cannot find the translation
+table file for the keyboard in the path specified by
+the DEVINFO= statement of the CONFIG.SYS file.
+EThe KEYB command has detected an error reading
+the translation table file for the keyboard.
+?
+EA system error has occurred.
+PCode page %1 is not available for the requested country keyboard.
+Do you want to load the translation table for the default code page (Y/N)?
+EThe Default Translate Table for the specified country code
+could not be found.
+IThe system cannot reload the default table
+because it is already loaded.
+EThe system cannot open the keyboard.
+?
+EThe system cannot accept the keyboard
+type specified.
+EThe system has detected an error while
+loading the translate table.
+IThe translation table for code page %1 has been loaded.
+ICurrent keyboard layout: %1    Subcountry code: %2
+ICurrent keyboard translation table is based on code page: %1
+IAlternate keyboard code page table: %1
+IThis keyboard has a custom translate table.
+?
+?
+?
+?
+EThe system cannot accept the parameter %1
+EThe system is unable to get or
+change the code page for this process.
+?
+?
+?
+IActive code page: %1
+Prepared system c

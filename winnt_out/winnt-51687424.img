@@ -1,0 +1,124 @@
+dem3a% = Modem3a,  USRSP_Modem3a, UNIMODEMD21C6D4A  ;Sportster 14400 FAX PC
+%Modem2%  = Modem2,   UNIMODEM1F3959B0   ;Sportster 14400 FAX
+%Modem2%  = Modem2,   UNIMODEM7D0826A0   ;Sportster 14400 FAX
+%Modem2%  = Modem2,   UNIMODEM95E330DC   ;Sportster 14400 FAX
+%Modem2%  = Modem2,   UNIMODEM669F6622   ;Sportster 14400 FAX
+%Modem2%  = Modem2,   USRSP_Modem2, UNIMODEM7E803A35   ;Sportster 14400 FAX
+%Modem2%  = Modem2,   UNIMODEMB3543CE1   ;Sportster 14400 FAX, Swedish
+%Modem1%  = Modem1,   USRSP_Modem1       ;Sportster 9600 V.42bis PC
+
+; Installation sections
+
+[Modem28]
+AddReg=All, USRSP, Fast, Modem28.AddReg, Verbose, Internal
+
+[Modem26]
+AddReg=All, USRSP, Fast, Modem28.AddReg, Verbose, External
+
+[Modem24] 
+AddReg=All, USRSP, Modem3a.AddReg, Verbose, External
+
+[Modem19]
+AddReg=All, USRSP, Fast, Modem16.AddReg, Verbose, Internal
+
+[Modem18]
+AddReg=All, USRSP, Modem2.AddReg, Verbose, PCMCIA
+
+[Modem17]
+AddReg=All, USRSP, Fast, Modem16.AddReg, Verbose, PCMCIA
+
+[Modem16]
+AddReg=All, USRSP, Fast, Modem16.AddReg, Verbose, External
+
+[Modem15]
+AddReg=All, USRSP, Modem15.AddReg, Verbose, External
+
+[Modem14]
+AddReg=All, USRSP, Modem14.AddReg, Verbose, External
+
+[Modem12]
+AddReg=All, USRSP, Modem12.AddReg, Verbose, External
+
+[Modem11]
+AddReg=All, USRSP, Modem11.AddReg, Verbose, Internal
+
+[Modem10]
+AddReg=All, USRSP, Modem10.AddReg, Verbose, External
+
+[Modem9]
+AddReg=All, USRSP, Modem9.AddReg, Verbose, Internal
+
+[Modem8]
+AddReg=All, USRSP, Modem8.AddReg, Verbose, Internal
+
+[Modem7]
+AddReg=All, USRSP, Modem7.AddReg, Verbose, External
+
+[Modem6]
+AddReg=All, USRSP, Modem6.AddReg, Verbose, External
+
+[Modem5]
+AddReg=All, USRSP, Modem5.AddReg, Verbose, Internal
+
+[Modem4]
+AddReg=All, USRSP, Modem4.AddReg, Verbose, External
+
+[Modem3]
+AddReg=All, USRSP, Modem3.AddReg, Verbose, Internal
+
+[Modem3a]
+AddReg=All, USRSP, Modem3a.AddReg, Verbose, Internal
+
+[Modem2]
+AddReg=All, USRSP, Modem2.AddReg, Verbose, External
+
+[Modem1]
+AddReg=All, USRSP, Modem1.AddReg, Verbose, Internal
+
+; AddReg sections
+
+[Modem28.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 40,83,00,00
+HKR, Settings, DialSuffix,, ""
+HKR,, CompatibilityFlags, 1, 01,00,00,00
+
+
+[Modem16.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Settings, DialSuffix,, ""
+
+[Modem15.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, b0,04,00,00, b0,04,00,00
+
+[Modem14.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem12.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 80,25,00,00
+
+[Modem11.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,4b,00,00, 60,09,00,00
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 60,09,00,00, 60,09,00,00
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Modem3.AddReg]
+HKR,, Propert

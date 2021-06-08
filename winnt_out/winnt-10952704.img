@@ -1,0 +1,107 @@
+(BusInfo),3)
+        set DlgReturn = *($(BusInfo),4)
+    else
+        set ReturnValue = ERROR
+    endif
+    Return $(ReturnValue), $(BusInterfaceType), $(BusNumber), $(DlgReturn)
+[SetMasterComponent]
+    Read-syms InitBaseVars
+    Set Vendor         = $($0)
+    Set Product        = $($1)
+    Set InfName        = $($2)
+    Set InfOption      = $($3)
+    Set Adding         = 1
+    Ifstr(i) $($4) == REMOVE
+       Set Adding = 0
+    Endif
+    Set Status         = STATUS_FAILED
+    Set Error          = ""
+    Set InfNamesList   = {}
+    Set InfOptionsList = {}
+    Set InfIndex       = 0
+    Set NameListSize   = 0
+    Set OptionListSize = 0
+    Set UpdateRequired = 0
+    Set MasterKey      = ""
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\"$(Vendor)"\"$(Product)"\CurrentVersion" +
+              $(MAXIMUM_ALLOWED) MasterKey
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Set Error = CANNOT_FIND_COMPONENT_SERVICE
+        Debug-Output "UTILITY.INF: Cant open master component key: "$(Product)
+        Goto SMC_Return
+    Endif
+    GetRegValue $(MasterKey) DependentInfNames InfNamesValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set InfNamesList = *($(InfNamesValue),4)
+        Set InfIndex = ~($(InfNamesList),$(InfName))
+        QueryListSize NameListSize $(InfNamesList)
+    Endif
+    GetRegValue $(MasterKey) DependentInfOptions InfOptionsValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set InfOptionsList = *($(InfOptionsValue),4)
+        QueryListSize OptionListSize $(InfOptionsList)
+    Endif
+    Ifint $(NameListSize) != $(OptionListSize)
+        Set Error = UNABLE_INSTALL
+        Debug-Output "UTILITY.INF: Dependent INF list degenerate: "$(Product)
+        Goto SMC_Return
+    Endif
+    Ifint $(Adding) == 1
+        Ifint $(InfIndex) == 0
+            Set UpdateRequired = 1
+            Set InfNamesList = >($(InfNamesList),$(InfName))
+            Set InfOptionsList = >($(InfOptionsList),$(InfOption))
+        Endif
+    Else
+        Ifint $(InfIndex) != 0
+            Set UpdateRequired = 1
+            Set TlistNames = {}
+            Set TlistOptions = {}
+            Set Tindex = 0
+            ForListDo $(InfNamesList)
+                Set-add Tindex = $(Tindex), 1
+                Ifstr(i) $($) != $(InfName)
+                    Set TlistNames = >($(TlistNames),$($))
+                    Set TlistOptions = >($(TlistOptions),*($(InfOptionsList),$(Tindex)))
+                Endif
+            EndForListDo
+            Set InfNamesList = TlistNames
+            Set InfOptionsList = TlistOptions
+        Endif
+    Endif
+    Set Status = STATUS_SUCCESSFUL
+    Ifint $(UpdateRequired) == 0
+        Goto SMC_Return
+    Endif
+    SetRegValue $(MasterKey) {DependentInfNames,$(NoTitle),$(!REG_VT_MULTI_SZ),$(InfNamesList)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "UTILITY.INF: master component value update failed (1)"
+        Set Status = UNABLE_WRITE_REGISTRY
+    Endif
+    SetRegValue $(MasterKey) {DependentInfOptions,$(NoTitle),$(!REG_VT_MULTI_SZ),$(InfOptionsList)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "UTILITY.INF: master component value update failed (2)"
+        Set Status = UNABLE_WRITE_REGISTRY
+    Endif
+SMC_Return =+
+    Ifstr(i) $(MasterKey) != $(KeyNull)
+       CloseRegKey $(MasterKey)
+    Endif
+    Return $(Status) $(Error)
+[RemoveDependentComponents]
+    Read-syms InitBaseVars
+    Set Vendor         = $($0)
+    Set Product        = $($1)
+    Set Status         = STATUS_FAILED
+    Set Error          = ""
+    Set InfNamesList   = {}
+    Set InfOptionsList = {}
+    Set InfIndex       = 0
+    Set NameListSize   = 0
+    Set OptionListSize = 0
+    Set UpdateRequired = 0
+    Set MasterKey      = ""
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_SoftwareBase)"\"$(Vendor)"\"$(Product)"\CurrentVersion" +
+              $(MAXIMUM_ALLOWED) MasterKey
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Debug-Output "UTILITY.INF: Cant op

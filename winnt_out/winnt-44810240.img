@@ -1,0 +1,109 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Telebit
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[Models]
+%Modem11%= Modem11,UNIMODEM7563093E ; Telebit Espresso 8396A
+%Modem10%= Modem10,UNIMODEMDFBBEF35 ; Telebit Fastblazer 8840
+%Modem9% = Modem9, Telebit_Modem9, UNIMODEMA3EEEF33 ; Telebit V.34 28800
+%Modem8% = Modem8, UNIMODEM78620DB5 ; Telebit QBlazer
+%Modem7% = Modem7, UNIMODEMA7A407A4 ; Telebit QBlazer Plus
+%Modem6% = Modem6, UNIMODEM8DD48B79 ; Telebit Worldblazer
+%Modem6% = Modem6, UNIMODEM839F724A ; Telebit WorldBlazer
+%Modem5% = Modem5, UNIMODEMAFB48C74 ; Telebit TrailBlazer Plus
+%Modem5% = Modem5, UNIMODEM2104110C ; Telebit TrailBlazer Plus
+%Modem4% = Modem4, UNIMODEM0D1645DD ; Telebit T1600
+%Modem4% = Modem4, UNIMODEM6A464A05 ; Telebit T1600
+%Modem3% = Modem3, UNIMODEM5D333D59 ; Telebit T2500
+%Modem3% = Modem3, UNIMODEM894DFD84 ; Telebit T2500
+%Modem3% = Modem3, UNIMODEM97905B10 ; Telebit T2500
+%Modem3% = Modem3, UNIMODEMEF4928B4 ; Telebit T2500
+%Modem2% = Modem2, UNIMODEM59B13E1B ; Telebit T3000
+%Modem2% = Modem2, UNIMODEM98FCC1A2 ; Telebit T3000
+%Modem2% = Modem2, UNIMODEMA99E6972 ; Telebit T3000
+%Modem1% = Modem1, Telebit_Modem1   ; Telebit Trailblazer Plus 2400
+
+; Installation sections
+
+[Modem11]   ; Telebit Espresso 8396A
+AddReg=All, MfgAddReg, Modem11.AddReg, External
+
+[Modem10]   ; Telebit Fastblazer 8840
+AddReg=All, MfgAddReg, Modem10.AddReg, External
+
+[Modem9]    ; Telebit V.34
+AddReg=All, MfgAddReg, Modem9.AddReg, External
+
+[Modem8]    ; Telebit QBlazer
+AddReg=All, MfgAddReg, Modem8.AddReg, External
+
+[Modem7]    ; Telebit QBlazer Plus
+AddReg=All, MfgAddReg, Modem7.AddReg, External
+
+[Modem6]    ; Telebit WorldBlazer
+AddReg=All, MfgAddReg, Modem6.AddReg, External
+
+[Modem5]    ; Telebit TrailBlazer Plus
+AddReg=All, MfgAddReg, Modem5.AddReg, External
+
+[Modem4]    ; Telebit T1600
+AddReg=All, MfgAddReg, Modem4.AddReg, External
+
+[Modem3]    ; Telebit T2500
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem2]    ; Telebit T3000
+AddReg=All, MfgAddReg, Modem2.AddReg, External
+
+[Modem1]    ; Telebit Trailblazer Plus 2400
+AddReg=All, MfgAddReg, Modem1.AddReg, Internal
+
+; AddReg sections
+
+[Modem11.AddReg] ; Telebit Espresso 8396A
+HKR,, Properties, 1, 80,01,00,00, 3c,00,00,00, 3c,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 40,38,00,00
+HKR, Init, 3,, "AT &F &C1 &D2 E0 V1<cr>"
+HKR, Settings, InactivityTimeout,, "S37=<#>"
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "&E1"
+HKR, Settings, ErrorControl_Off,, "&E0"
+HKR, Settings, ErrorControl_Forced,, "&E3"
+HKR, Settings, Compression_Off,, "*E0"
+HKR, Settings, Compression_On,, "*E1"
+HKR, Settings, SpeedNegotiation_Off,, "%%F0"
+HKR, Settings, SpeedNegotiation_On,, "%%F4%%R1"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+
+[Modem10.AddReg] ; Telebit Fastblazer 8840
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 3c,00,00,00, 07,00,00,00, 0f,00,00,00, 36,03,00,00, 00,c2,01,00, 00,4b,00,00
+HKR, Init, 2,, "AT &F E0 V1 &I1<cr>"
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_On,, "&E1"
+HKR, Settings, ErrorControl_Off,, "&E0"
+HKR, Settings, ErrorControl_Forced,, "&E3"
+HKR, Settings, InactivityTimeout,, "S37=<#>"
+
+[Modem9.AddReg] ; Telebit V.34
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 S95=47 W1 S0=0<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K1"
+HKR, Settings, ErrorControl_On,, 

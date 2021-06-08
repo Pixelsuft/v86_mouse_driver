@@ -1,0 +1,97 @@
+
+        set StartLabel = bindingadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set CommonStatus = STATUS_REBOOT
+        set ActivateDetection = TRUE
+        set StartLabel = configureadapter
+        Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+            Debug-Output "Cannot configure the DEC 100 driver software."
+            Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error: cannot get an error string."
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            set from = end
+            set to = end
+            goto nonfatalinfo
+        endif
+    else
+        Debug-Output "AMD: PrepareDetection start"
+        Shell "" PrepareDetectionDll "AMDNCDET.DLL"
+        Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+            ifstr(i) $(DoCopy) == "YES"
+                Install Install-Detection-Dll
+            endif
+            Shell "NCPARAM.INF" Param_ControlDetection DTEND
+            Shell "NCPARAM.INF" Param_ControlDetection DTSTART
+        Endif
+        Debug-Output "AMD: PrepareDetection end"
+        set StartLabel = installadapter
+        set OEM_ABANDON_OPTIONS = {}
+        set OEM_ABANDON_SOFTWARE = FALSE
+        set OEM_ABANDON_ON = TRUE
+        set ActivateDetection = TRUE
+    endif
+    Debug-Output "OEMNADWD.INF: =================================================="
+    Debug-Output "OEMNADWD.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNADWD.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    Debug-Output "OEMNADWD.INF: Option is: "$(Option)
+    Debug-Output "OEMNADWD.INF: !STF_NCDETECT  is: "$(!STF_NCDETECT)
+    Debug-Output "OEMNADWD.INF: !STF_NCOPTION  is: "$(!STF_NCOPTION)
+    Debug-Output "OEMNADWD.INF: !STF_NCDETCARD is: "$(!STF_NCDETCARD)
+    Debug-Output "OEMNADWD.INF: !STF_NCDETINFO is: "$(!STF_NCDETINFO)
+    Debug-Output "OEMNADWD.INF: =================================================="
+    Set DetectedCard = FALSE
+    Ifstr(i) $(ActivateDetection) != TRUE
+        Goto skipdetection
+    Endif
+    Set TypeList = {{IRQ,IRQ_List,IRQLevel},+
+                    {IOADDR, IOBaseAddressDecList, IOBaseValue},+
+                    {DMACHANNEL, DMAChannelList, DMAChannel}}
+    Debug-Output "OEMNADWD.INF: Calling Param_BuildTypeLists"
+    Shell $(ParamInf) Param_BuildTypeLists AM1500T $(TypeList)
+    Set Status = $($R0)
+    ifstr(i) $(Status) != STATUS_SUCCESSFUL
+        Goto fataldetect
+    Endif
+    Debug-Output "OEMNADWD.INF: Calling Param_SetDefaults"
+    Shell $(ParamInf) Param_SetDefaults {}
+    Shell $(ParamInf) HexListFromDecList $(IOBaseAddressDecList)
+    Set IOBaseAddressHexList = $($R0)
+    Ifstr(i) $(!STF_NCDETECT) == YES
+        Ifstr(i) $(!STF_NCOPTION) == $(Option)
+           Set DetectedCard = TRUE
+           Debug-Output "OEMNADWD.INF: Setting DetectedCard to TRUE"
+        Endif
+    Endif
+skipdetection =+
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        ifstr(i) !(NTN_RegBase) == $(ProductKeyName)
+           Shell $(UtilityInf), VerExistedDlg, $(ProductSoftware$(Option)Title),+
+               $(ProductVersion)
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           goto end
+        else
+           Shell $(UtilityInf), CardExistedDlg
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "ShellCode error: cannot get an error string."
+               goto ShellCodeError
+           endif
+           ifstr(i) $($R1) != "OK"
+               Set CommonStatus = STATUS_USERCANCEL
+               goto end
+           endif
+           set OldVersionExisted = $(TRUE)
+        endif
+    endif
+    Ifstr(i

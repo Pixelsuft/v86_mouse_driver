@@ -1,0 +1,163 @@
+ECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<compression_on>=%C3
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+COMMAND_INIT=AT&F&C1&D2 X3 W2 \\J0 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=MicroLink 14.4MC
+
+;----------------------------------------
+[ELSA ZIFF 144 - GER]
+ALIAS=ELSA MicroLink 14.4MC - GER
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=ZIFF 144
+
+;----------------------------------------
+[ELSA MicroLink ISDN/TL - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N6
+<autodial_on>=ATD
+<autodial_off>=ATD
+
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=64000
+MAXCONNECTBPS=57600
+
+COMMAND_INIT=AT&FX3 S0=0 S2=128 \\V1<cr>
+COMMAND_INIT=AT<protocol><hwflowcontrol><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_DETECT=ATI6<cr>
+COMMAND_RESPONSE=MicroLink ISDN/TL
+
+;-------------------------
+; ICO Innovative - Modems
+;-------------------------
+
+[Telejet 14400 - GER]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K
+<protocol_on>=\\N5
+<protocol_off>=\\N0
+<compression_on>=%C3
+<compression_off>=%C0
+<autodial_on>=ATDP
+<autodial_off>=ATD
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=TELEJET High Speed FaxModem 14400
+COMMAND_INIT=AT&F&D2X1Q0N1<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps><cr><lf>
+
+
+;---------------------------------
+;  KE Kommunikations-Elektronik
+;---------------------------------
+
+;----------------------------------------
+[LOGEM 914 - GER]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q2
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N2
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=Version 3.
+DETECT_RESPONSE=Version 2.03
+
+COMMAND_INIT=AT&F<cr>
+COMMAND_INIT=AT&C2&D2Q0V1E1X1&I1%C1\\Q2S0=0S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><compression><hwflowcontrol><protocol><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+;CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+;CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+;CONNECT_EC=<cr><lf>CONNECT <carrierbps>/COMP<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+;CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+;CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+;CONNECT_EC=<cr><lf>CONNECT <carrierbps>/COMP<cr><lf>
+
+;------------------------------------
+[LOGEM 928 - GER]
+ALIAS=LOGEM 914 - GER
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+;------------------------------------
+[ke WorldBlazer - GER]
+ALIAS=Telebit WorldBlazer
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=T3SA-WB-DEU
+
+
+;----------------------------------------
+[Hayes Optima 9600 - GER]
+ALIAS=Hayes Optima 9600
+
+;----------------------------------------
+[Hayes Optima 14400 - GER]
+ALIAS=Hayes Optima 14400
+
+;----------------------------------------
+[Hayes Ultra 9600 - GER]
+ALIAS=Hayes Optima 9600
+
+;----------------------------------------
+[Hay

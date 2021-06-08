@@ -1,0 +1,100 @@
+, $(KeyBus), "Configuration Data", $(BusNum)
+                            Debug-Output $(RealBusNum)
+                            set BusNum = *($(RealBusNum),1)
+                            Debug-Output $(SlotNum)
+                            set-mul mcaid = $($1), 256
+                            set-add mcaid = $(mcaid), $($0)
+                            set InfoList = >($(InfoList),{$(BusNum),$(SlotNum),$(mcaid)})
+                        endif
+                    endif
+                    set-add Position = $(Position), 6
+                    set-add SlotNum = $(SlotNum), 1
+                    goto Loop1
+                endif
+            endif
+            CloseRegKey $(KeyBus)
+        endif
+    EndForListDo
+    CloseRegKey $(KeyMultiAdapter)
+MCAFindBus_return = +
+    return $(RegistryErrorIndex) $(InfoList)
+[EISAFindBus]
+    read-syms InitBaseVars
+    set MaskNum = $($1)
+    ifstr(i) $($1) == ""
+        set MaskNum = 16777215  
+    endif
+    set RegistryErrorIndex = NO_ERROR
+    set EISAAdapter = "HARDWARE\Description\System\EISAAdapter"
+    set InfoList = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(EISAAdapter) $(MAXIMUM_ALLOWED) KeyEISAAdapter
+    Ifstr $(KeyEISAAdapter) == $(KeyNull)
+        goto EISAFindBus_return
+    endif
+    EnumRegKey $(KeyEISAAdapter) BusList
+    Debug-Output "Buslist"
+    Debug-Output $(BusList)
+    ForListDo $(BusList)
+        set BusNum = *($($),1)
+        OpenRegKey $(!REG_H_LOCAL) "" $(EISAAdapter)"\"$(BusNum) $(MAXIMUM_ALLOWED) KeyEISAAdapterBus
+        LibraryProcedure SlotList, $(!LIBHANDLE), GetEisaSlotInformation, $(KeyEISAAdapterBus), "Configuration Data", $($0), $(MaskNum)
+        ifstr(i) $(SlotList) != {}
+            ForListDo $(SlotList)
+                set SlotNum = $($)
+                ifstr(i) $(SlotNum) != "ERROR"
+                    Debug-Output $(BusNum)
+                    Debug-Output $(SlotNum)
+                    set InfoList = >($(InfoList),{$(BusNum),$(SlotNum),$($0)})
+                endif
+            EndForListDo
+        endif
+    EndForListDo
+    CloseRegKey $(KeyEISAAdapter)
+EISAFindBus_return = +
+    return $(RegistryErrorIndex) $(InfoList)
+[GetPCIInformation]
+    read-syms InitBaseVars
+    set VendorID = $($0)
+    set DeviceID = $($1)
+    set MultiAdapter = "HARDWARE\Description\System\MultifunctionAdapter"
+    set InfoList = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(MultiAdapter) $(MAXIMUM_ALLOWED) KeyMultiAdapter
+    Ifstr $(KeyMultiAdapter) == $(KeyNull)
+        goto GetPCIInformation_return
+    endif
+    EnumRegKey $(KeyMultiAdapter) BusList
+    Debug-Output "Buslist"
+    Debug-Output $(BusList)
+    set BusNum = 0
+    set index = 0
+    ForListDo $(BusList)
+        OpenRegKey $(!REG_H_LOCAL) "" $(MultiAdapter)"\"$(index) $(MAXIMUM_ALLOWED) KeyMultiAdapterBus
+        GetRegValue $(KeyMultiAdapterBus) "Identifier" IdentifierInfo
+        ifstr(i) *($(IdentifierInfo),4) == "PCI"
+            set device = 0
+next_device = +
+            ifint $(device) < 32
+                set function = 0
+next_function = +
+                ifint $(function) < 8
+                    LibraryProcedure Result, $(!LIBHANDLE), GetPciInformation, $(BusNum), $(device), $(function)
+                    debug-output $(BusNum)".."$(device)".."$(function)".."$(Result)
+                    ifint *($(Result),1) == 65535
+                        Set-add device = $(device),1
+                        goto next_device
+                    endif
+                    ifint *($(Result),1) == $(VendorID)
+                        ifint *($(Result),2) == $(DeviceID)
+                            set InfoList = >($(InfoList),{$(BusNum),$(device),$(function)})
+                        endif
+                    endif
+                    set-add function = $(function), 1
+                    goto next_function                       
+                endif
+                Set-add device = $(device),1
+                goto next_device
+            endif
+finish_bus = +
+            set-add BusNum = $(BusNum),1
+        endif
+        set-add ind

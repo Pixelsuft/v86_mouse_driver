@@ -1,0 +1,159 @@
+es Ultra 14400 - GER]
+ALIAS=Hayes Optima 14400
+
+;----------------------------------------
+;----------------------------------------
+; Streetware Modems
+;----------------------------------------
+[Holmes 14.4 all models - GER]
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATX3D
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_LISTEN=ATS0=2<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[Telelink IMS08 - GER]
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<autodial_on>=ATX3D
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=\
+Copyright 1993, Telelink Communications Inc.<cr><lf>\
+IMS-08 FAXLINE REV <?>.<?><?> (D)
+
+CALLBACKTIME=10
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=57600
+COMMAND_INIT=AT&F2&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_LISTEN=ATS0=2<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;==============================
+; ZyXEL Modems (international)
+;==============================
+
+[ZyXEL U-1496 Plus]
+;Cannot toggle EC and DC entirely independently in ZyXel.
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&H3
+<hwflowcontrol_off>=&H0
+<protocol_on>=&K3
+<protocol_off>=&K0
+<compression_on>=&K4
+<compression_off>=
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=U1496S  V<?><?><?><?><?><?><?>P
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496S  V<?><?><?><?><?><?><?>P
+
+
+COMMAND_INIT=AT &F X5 S41.4=1<cr>
+COMMAND_INIT=AT S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><protocol><compression><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[ZyXEL U-1496E]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=U1496E  V<?><?><?><?><?><?><?>M
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496E  V<?><?><?><?><?><?><?>M
+
+;----------------------------------------
+[ZyXEL U-1496E Plus]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=U1496E  V<?><?><?><?><?><?><?>P
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496E  V<?><?><?><?><?><?><?>P
+
+;----------------------------------------
+[ZyXEL U-1496B]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=U1496B  V<?><?><?><?><?><?><?>M
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496B  V<?><?><?><?><?><?><?>M
+
+;----------------------------------------
+[ZyXEL U-1496B Plus]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=U1496B  V<?><?><?><?><?><?><?>P
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496B  V<?><?><?><?><?><?><?>P
+
+;----------------------------------------
+[ZyXEL U-1496P]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496C  V<?><?><?><?><?><?><?>M
+
+;----------------------------------------
+[ZyXEL U-1496R]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496R  V<?><?><?><?><?><?><?>M
+
+;----------------------------------------
+[ZyXEL U-1496R Plus]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496R  V<?><?><?><?><?><?><?>P
+
+;----------------------------------------
+[ZyXEL U-1496RN]
+ALIAS=ZyXEL U-1496 Plus
+MAXCARRIERBPS=16800
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496RN V<?><?><?><?><?><?><?>M
+
+;----------------------------------------
+[ZyXEL U-1496RN plus]
+ALIAS=ZyXEL U-1496 Plus
+DETECT_STRING=ATI1<cr>
+DETECT_RESPONSE=U1496RN V<?><?><?><?><?><?><?>P
+
+;------------------

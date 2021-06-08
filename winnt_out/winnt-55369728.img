@@ -1,0 +1,167 @@
+, tga.Display
+
+; Software Installation
+
+[tga.SoftwareSettings]
+AddReg = tga_SoftwareDeviceSettings
+
+; Service Installation
+
+[tga.Services]
+AddService = tga, 0x00000002, tga_Generic_Service_Inst, tga_EventLog_Inst
+
+[tga_EventLog_Inst]
+AddReg = tga_EventLog_AddReg
+
+[tga_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\tga.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[tga_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\tga.sys
+
+
+
+
+; trident Driver Section
+
+
+[trident]
+CopyFiles=trident.Miniport, trident.Display
+
+; Software Installation
+
+[trident.SoftwareSettings]
+AddReg = trident_SoftwareDeviceSettings
+
+; Service Installation
+
+[trident.Services]
+AddService = trident, 0x00000002, trident_Generic_Service_Inst, trident_EventLog_Inst
+
+[trident_EventLog_Inst]
+AddReg = trident_EventLog_AddReg
+
+[trident_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\trident.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[trident_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\trident.sys
+
+
+
+; v7vram Driver Section
+
+
+[v7vram]
+CopyFiles=v7vram.Miniport, v7vram.Display
+
+; Software Installation
+
+[v7vram.SoftwareSettings]
+AddReg = v7vram_SoftwareDeviceSettings
+
+; Service Installation
+
+[v7vram.Services]
+AddService = v7vram, 0x00000002, v7vram_Generic_Service_Inst, v7vram_EventLog_Inst
+
+[v7vram_EventLog_Inst]
+AddReg = v7vram_EventLog_AddReg
+
+[v7vram_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\v7vram.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[v7vram_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\v7vram.sys
+
+
+
+
+; vga Driver section
+
+
+[vga]
+CopyFiles=vga.Miniport, vga.Display
+
+; Software Installation
+
+[vga.SoftwareSettings]
+AddReg = vga_SoftwareDeviceSettings
+
+; Service Installation
+
+[vga.Services]
+AddService = vga, 0x00000002, vga_Generic_Service_Inst, vga_EventLog_Inst
+
+[vga_EventLog_Inst]
+AddReg = vga_EventLog_AddReg
+
+[vga_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\vga.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[vga_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\vga.sys
+
+
+
+
+; wd90c24a Driver Section
+
+
+[wd90c24a]
+CopyFiles=wd90c24a.Miniport, wd90c24a.Display
+
+; Software Installation
+
+[wd90c24a.SoftwareSettings]
+AddReg = wd90c24a_SoftwareDeviceSettings
+
+; Service Installation
+
+[wd90c24a.Services]
+AddService = wd90c24a, 0x00000002, wd90c24a_Generic_Service_Inst, wd90c24a_EventLog_Inst
+
+[wd90c24a_EventLog_Inst]
+AddReg = wd90c24a_EventLog_AddReg
+
+[wd90c24a_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\wd90c24a.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[wd90c24a_Generic_Service_Inst]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\wd90c24a.sys
+
+
+
+
+; wdvga Driver Section
+
+
+[wdvga]
+CopyFiles=wdvga.Miniport, wdvga.Display
+
+; S

@@ -1,0 +1,117 @@
+[Identification]
+    OptionType = NetAdapter
+[PlatformsSupported]
+    MCA
+[Options]
+    WD8003EA
+    WD8003WA
+    WD8013WPA
+    WD8013EPA
+[CardInfo]
+    WD8003EA = 192, 111, wd8003ea, 28608
+    WD8003WA = 194, 111, wd8003wa, 28610
+    WD8013WPA = 201, 97, wd8013wpa, 25033
+    WD8013EPA = 200, 97, wd8013epa, 25032
+[FileConstants]
+UtilityInf      = "UTILITY.INF"
+subroutineinf   = "SUBROUTN.INF"
+SoftwareType    = "driver"
+Exit_Code       = 0
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+CardList = ^(CardInfo,0)
+Card1ByteList = ^(CardInfo, 1)
+Card2ByteList = ^(CardInfo, 2)
+CardRuleList = ^(CardInfo, 3)
+CardIDList = ^(CardInfo, 4 )
+Card1Byte = *($(Card1ByteList), ~($(CardList), $(Option)))
+Card2Byte = *($(Card2ByteList), ~($(CardList), $(Option)))
+NETCARD_ID = *($(CardIDList), ~($(CardList), $(Option)))
+CardRule = *($(CardRuleList), ~($(CardList), $(Option)))
+EthernetCards  = { WD8003EA, WD8003SA, WD8003WA, WD8013EA, WD8013WA, +
+                  WD8013WPA, WD8013EPA, +
+                  BISTOR003EA, BISTOR013EA, BISTOR013WA }
+TokenRingCards = { WD8115TRA }
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "4"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+ProductSoftwareName     = "SMC8000N"
+ProductSoftwareImagePath = "\SystemRoot\System32\drivers\smcisa.sys"
+NetRuleSoftwareType     = "smc8000nSys ndisDriver smc8000nDriver"
+NetRuleSoftwareUse      = $(SoftwareType)
+NetRuleSoftwareBindForm = """Smc8000nDriver"" yes no container"
+NetRuleSoftwareClass    = {"smc8000nDriver basic"}
+ProductHardwareName     = $(Option)
+NetRuleHardwareType     = $(CardRule)" "$(CardRule)"Adapter"
+NetRuleHardwareBindForm = " yes yes container"
+NetRuleHardwareClass    = {""$(CardRule)"Adapter basic"}
+ProductOpSupport     = 132 
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)"\"$(ProductHardwareName)"\Parameters"
+[GeneralConstants]
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+SERVICE_NO_CHANGE = 4294967295
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle            = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        ifstr(i) $($1) == ""
+           goto returnoptions
+        endif
+        set PlatformList = ^(PlatformsSupported, 1)
+        Ifcontains(i) $($1) in $(PlatformList)
+           goto returnoptions
+        else
+           set Status = STATUS_NOTSUPPORTED
+           goto finish_ReturnOptions
+        endif
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    Debug-Output "OEMNADWM.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNADWM.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    set-subst LF = "\n"
+    read-syms Gen

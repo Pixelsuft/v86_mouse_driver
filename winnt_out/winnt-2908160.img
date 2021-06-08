@@ -1,0 +1,150 @@
+rrected an allocation error for an access control list.
+ICHKDSK removed an access control list containing a bad block.
+ICHKDSK removed a corrupted access control list.
+ECHKDSK found data in a temporary replacement sector
+but could not relocate it to its correct place.
+IYou are attempting to use an incorrect version of UHPFS.DLL.
+ECHKDSK found data in a temporary relocation sector.
+ICHKDSK corrected bad status information in the temporary
+allocation pool.
+ICHKDSK corrected bad status information for the required
+extended attributes.
+E%1 is not a valid parameter with the RECOVER command.
+ERECOVER cannot find the specified file.
+EThe system detected error %1. The specified
+file cannot be recovered.
+ENot enough memory is available to run RECOVER.
+ERECOVER cannot write the recovered data to the
+specified disk.
+ERECOVER cannot create a temporary file.
+WWarning: RECOVER cannot read extended attributes.
+One or more attributes may have been deleted.
+I%1 bytes of the file were recovered.
+I%1 bytes of the file were defective but were recovered.
+I%1 bytes of the file could not be recovered.
+ENo information about bad blocks was written to the
+specified disk.
+ERECOVER cannot delete the original file %1.
+The contents of the original file were recovered in %2.
+ERECOVER cannot create a new file named %1.
+The contents of the original file were recovered in %2.
+EAn unexpected operating system error occurred.
+E%1 is not a valid parameter with the SYS command.
+EThe HPFS (High Performance File System) cannot be
+installed on the current drive by the SYS command.
+EOnly drives formatted for HPFS (High Performance
+File System) can run HPFS SYS.
+EThe file %1 cannot be created by the SYS command.
+I2048k bytes is the maximum HPFS cache size that can be
+specified in the IFS= statement of the CONFIG.SYS file.
+EThe system detected a syntax error in the IFS= statement
+of the CONFIG.SYS file.
+ENot enough memory is available for the cache to start.
+I%1 is being used for the cache size. The total
+requested amount is not available.
+IDosFsCtl get returned %1
+IDosFsCtl set returned %1
+IDosFsCtl both returned %1
+IDosFsCtl stop returned %1
+IDosSetPrty returned %1
+IDosAllocSeg returned %1
+I
+          DiskIdle: %1 milliseconds
+            MaxAge: %2 milliseconds
+        BufferIdle: %3 milliseconds
+I
+Correct Usage:
+    %1 [OPTIONS:n]
+  OPTIONS:
+    [/DiskIdle:n]  set DiskIdle time before write to n milliseconds
+      [/MaxAge:n]  set MaxAge of cache buffer to n milliseconds
+  [/BufferIdle:n]  set BufferIdle to n milliseconds
+      -- or ---
+   [/Lazy:on|off]  turn lazy writing on or off
+IA positive numeric value is expected.
+IThe value is too large.
+ILAZY is not valid when used with other parameters.
+EThe system detected a disk error on the HPFS
+(High Performance File System) volume in drive %1.
+E
+Drive %1 was improperly stopped. From the OS/2 command prompt,
+run CHKDSK with the /F parameter on the specified drive.
+IA defective sector on drive %1 has been replaced.
+No data was lost. You should run CHKDSK soon to restore
+full performance and to replenish the spare sector area of
+the volume.
+E%1 is not a valid parameter to use with the
+FORMAT command when formatting a fixed disk.
+EThe High Performance File System (HPFS) format
+could not modify the CONFIG.SYS file.
+PPress Enter to begin recovery of the file.
+I%1 kilobytes are reserved for system use.
+I%1 kilobytes are in extended attributes.
+I
+          WriteCache: %4 bytes
+            DirtyMax: %5 buffers
+               Cache: %6 buffers
+I
+
+Format completed successfully.
+
+EAn incorrect volume label was entered for
+this drive.
+EThe FORMAT command cannot be executed at this time.
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+WThe system could not read an HPFS (High Performance
+File System) structure from drive %1. To prevent possible
+system instability or loss of data, backup critical files from
+the drive and run

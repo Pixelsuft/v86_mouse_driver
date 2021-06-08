@@ -1,0 +1,55 @@
+ttings, and then click Control Panel.
+2. Double-click the System icon.
+3. Click the Hardware Profiles tab.
+4. The Available Hardware Profiles box displays existing hardware profiles. 
+One hardware profile is listed. This profile was created automatically when you installed Windows NT. 
+
+To create a new profile
+· Click Copy and type a new hardware profile name.
+
+The order of your hardware profiles in the listbox is important because it determines a default order at startup. You can use the up and down arrow buttons to place the hardware profile that you would like as a default at the top of the list.
+
+Activating a Hardware Profile
+Select a configuration from a list that appears at startup. Startup will not continue until you have selected a hardware profile.
+
+You can have your computer activate one hardware profile by default when you start your computer. From the Hardware Profiles box, enter 0 as the timeout value. If you decide later to select a different hardware profile, press the spacebar at startup and choose a hardware profile from your list.
+
+You can specify an amount of time that you would like your computer to wait before defaulting to the first selection on your highest-order preference. During the waiting period, you can use the cursor keys to select an alternate profile.
+
+Hardware Profiles and Boot Devices
+When using hardware profiles, be careful not to disable one of your boot devices. If you disable a required boot device, Windows NT might not start. Microsoft recommends that you make a copy of your default profile and then make changes to the new profile so you can restore the default profile if something unexpected occurs.
+
+NDS-Aware Client/Gateway Services for NetWare
+The Windows NT version 4.0 includes an NDS-aware version of the Microsoft Windows NT Client/Gateway Services for NetWare (CSNW/GSNW).
+
+This version enables users running the Windows NT platform to access Novell® NetWare® 4.x servers running NetWare Directory Services (NDS). With NDS, shared objects on participating NetWare servers are organized into a hierarchical tree.
+
+This updated version of Client/Gateway Services for NetWare includes all the functionality of previous versions, in addition to NDS compatibility.
+
+Creating Print Gateways to Print Queues on NDS Servers
+
+When you create a print gateway to a print queue on an NDS-authenticated server, you must also create a file gateway from the gateway server to a file share on the same NDS-authenticated server for the print gateway to work.
+
+Using the Dir Command on NDS Trees
+
+To use the dir command to see the directory contents of a remote NDS directory, put the directory path in quote marks.  For example, the following command works successfully:
+
+dir "\\nds-tree\cn=volume.ou=unit.o=group"
+
+Creating a Gateway to an NDS Volume
+
+To create a gateway to an NDS volume, type the complete NDS volume name (such as cn=volume.ou=unit.o=group) in Network Path in the New Share dialog box after clicking the Gateway button. For this to work, the NTGATEWAY group must exist in the organizational unit (ou) where the volume is created, and the gateway account must be a member of the NTGATEWAY group on that ou.
+
+
+Client Licenses
+Occasionally, client licenses are held after a user logs off.  The problem can appear on the client workstation from one of the following areas that may cause this problem on the client workstation:
+
+· Print event logging.  The license can be held between print messages that are logged in Event Viewer. To resolve this problem, disable logging on the client workstation. 
+	To disable print event logging
+	1.  Click Start, point to Settings, and then click Printers.
+	2. On the File menu, click Server Properties.
+	3. Click  the Advanced tab and then clear the Log spooler error events, Log spooler
+	    warning events, and Log spooler information events check boxes.
+	4. Shutdown and restart your computer.
+
+· RAS Service.  The license may be held by the RAS service when no one is logged in.  As soon as someone (either the same or differ

@@ -1,0 +1,88 @@
+bug-Output "OEMNSVRA.INF: could not open netcard key"
+           goto RemoveSoftware
+       endif
+       GetRegValue $(Card), "ProductName" ProductNameInfo
+       set CardProductName = *($(ProductNameInfo), 4)
+       ifstr(i) $(CardProductName) == $(!ProductNDISWANName)
+          set !NETCARD_LIST = >($(!NETCARD_LIST), +
+				{$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINName)
+          set !NETCARD_LIST = >($(!NETCARD_LIST), +
+				{$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALOUTName)
+          set !NETCARD_LIST = >($(!NETCARD_LIST), +
+				{$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINIPName)
+          set !NETCARD_LIST = >($(!NETCARD_LIST), +
+				{$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALOUTIPName)
+          set !NETCARD_LIST = >($(!NETCARD_LIST), +
+				{$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+       else-ifstr(i) $(CardProductName) == $(!ProductNDISWANDIALINOUTIPXName)
+          set !NETCARD_LIST = >($(!NETCARD_LIST), +
+				{$(!ProductNDISWANName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+       else-ifstr(i) $(CardProductName) == $(ProductRASASYMACName)
+          set !NETCARD_LIST = >($(!NETCARD_LIST),+
+                                {$(ProductRASASYMACName),+
+                                 $(!NetworkCardKeyName)"\"$(KeyName)})
+       endif
+       CloseRegKey $(Card)
+    EndForListDo
+    CloseRegKey $(KeyNetcards)
+    read-syms StatusUpdatingRegistry$(!STF_LANGUAGE)
+    QueryListSize NumRemove $(!NETCARD_LIST)
+    ForListDo  $(!NETCARD_LIST)
+        shell $(subroutninf) PushBillBoard NETSTATUSDLG +
+                              $(RemovingAdapters)" "$(NumRemove)
+        Set BillboardVisible = 1
+        debug-output "Removing hardware component: "$($)
+        Shell $(!UtilityInf), RemoveHardwareComponent, $(!Manufacturer),+
+              *($($),1), *($($),2)
+        set-sub NumRemove = $(NumRemove), 1
+    EndForListDo
+    ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+RemoveSoftware = +
+    Shell "" RemoveRasArpService
+    Shell "" RemoveNdisTapiService
+    Shell "" RemoveRasAcdService
+    set RasTapiDevicesKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasTapiDevicesKeyName) $(!MAXIMUM_ALLOWED) RasTapiDevicesKey
+    ifstr $(RasTapiDevicesKey) != $(KeyNull)
+       set TapiProviderList = {}
+       EnumRegKey $(RasTapiDevicesKey) TapiProviderList
+       ForListDo $(TapiProviderList)
+           set ProviderName = *($($),1)
+           Debug-Output "OEMNSVRA.INF: Removing "$(ProviderName)" dependency on NdisTapi."
+           Shell "" RemoveServiceDependency $(ProviderName) "NdisTapi"
+       EndForListDo
+    EndIf
+    set fIpxAllowed = FALSE
+    Shell "" QuerySelectedProtocols
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set fIpxAllowed = $($R6)
+    else
+        Debug-Output "RemoveRas: error QuerySelectedProtocols"
+    endif
+    ifstr(i) $(fIpxAllowed) == TRUE
+        Shell "" RemoveNwlnkRipService
+        Shell "" RemoveIsnSapService
+    endif
+    Debug-Output "Remove Software List "$(REMOVE_SOFTWARE)
+    ForListDo  $(REMOVE_SOFTWARE)
+        Debug-Output "Removing software component: "$($)
+        ifstr(i) $($) == RAS
+             OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyBase) +
+                        $(!MAXIMUM_ALLOWED) ProductKey
+             Ifstr $(ProductKey) == $(KeyNull)
+                Debug-Output "OEMNSVRA.INF: could not open Software product key"
+                 goto RemoveFiles
+             endif

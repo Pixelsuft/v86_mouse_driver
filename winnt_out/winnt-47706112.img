@@ -1,0 +1,108 @@
+V1<cr>"
+HKR, Settings, DialSuffix,, ""
+
+[Modem6.AddReg] ; AT&T Keep in Touch PC Card - cell
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 7f,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N7 &F6 S0=0 &D2 E0 V1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6 &F6 S0=0 &D2 E0 V1"
+
+[Modem5.AddReg] ; AT&T Keep in Touch Express PCMCIA card
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 00,00,00,00, 07,00,00,00, 7f,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N7 &F6 S0=0 &D2 E0 V1"
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N6 &F6 S0=0 &D2 E0 V1"
+
+[Modem4.AddReg] ; AT&T Comsphere 3810
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 37,03,00,00, 00,e1,00,00, 00,4b,00,00
+HKR, Settings, ErrorControl_On,, "\N5"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+
+[Modem2.AddReg] ; DataPort 14.4/FAX external and internal
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, DialSuffix,, ""
+
+[Modem1.AddReg] ; DataPort 2001
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 07,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+[Strings]
+ATT = "AT&T"
+NEC = "NEC"
+Nokia = "Nokia Mobile Phones"
+
+; Model strings
+
+Modem20="AT&T Comsphere 3825 Plus"
+Modem19="14.4 Data Fax Modem"
+Modem18="AT&T DataPort PCX 14.4 Data Fax"
+Modem17="AT&T KeepInTouch 28.8 V.34 PCMCIA"
+Modem16="AT&T KeepInTouch Cellular 28.8 V.34 PCMCIA"
+Modem15="AT&T KeepInTouch 28.8 V.34 PCMCIA"
+Modem14="AT&T DataPort Express V.34 (28.8)"
+Modem13="AT&T Comsphere 3810 Plus"
+Modem12="AT&T Comsphere 3820 Plus"
+Modem11="Nokia 14.4 PCMCIA"
+Modem10="14.4 PCMCIA Modem"   
+Modem9 ="AT&T DataPort Express Internal"
+Modem8 ="AT&T DataPort Express External"
+Modem7 ="AT&T Modem"
+Modem6b="NEC 14.4 Kbps Data-Fax Card"
+Modem6a="AT&T KeepInTouch Card"
+Modem6 ="14,400 bps Data-Fax PCMCIA Modem"
+Modem5 ="AT&T KeepInTouch Express Card"
+Modem5a ="14.4 Data Fax PCMCIA Modem"   ; combo, rank 0 for KeepIntouch and KeepInTouch express
+Modem4 ="AT&T Comsphere 3800 Series"
+Modem3 ="AT&T DataPort 14.4-Fax Internal"
+Modem2 ="AT&T DataPort 14.4-Fax External" 
+Modem1 ="AT&T DataPort 2001"
+
+[All]
+HKR,,FriendlyDriver,,unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init, 1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "0<cr>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "2<cr>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "4<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[INTERNAL]
+HKR,, DeviceType, 1, 02
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[MfgAddReg]
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Init, 2,, "AT &F S0=0 &D2 E0 V1<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+HKR,, Reset,, "AT&F<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""            ; disabled
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+HKR, Settings, SpeakerMode_Off,, "M0"
+HKR, Settings, SpeakerMode_Dial,, "M1"
+HKR, Settings, SpeakerMode_On,, "M2"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, Compression_Off,, "%%C0

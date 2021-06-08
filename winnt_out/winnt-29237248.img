@@ -1,0 +1,114 @@
+ {$(ProductPrintProviderName)}
+            ForListDo  $(OrderList)
+                ifstr(i) $($) != $(oldname)
+                    ifstr(i) $($) != $(ProductPrintProviderName)
+                        set NewOrderList = >($(NewOrderList),$($))
+                    endif
+                endif
+            EndForListDo
+            SetRegValue $(PrintProviderKey) {"Order",$(NoTitle),$(!REG_VT_MULTI_SZ),$(NewOrderList)}
+            CloseRegKey $(PrintProviderKey)
+        endif
+nochangePrintProvider = +
+    endif
+    Set FLibraryErrCtl = 0
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(ProviderName)"\networkprovider" $(MAXIMUM_ALLOWED) ProviderKey
+    ifstr(i) $(ProviderKey) != ""
+        set NewValueList = {{Class,$(NoTitle),$(!REG_VT_DWORD),11},+
+                            {NWCompatibleAuthentication,$(NoTitle),$(!REG_VT_DWORD),1}}
+        Shell $(UtilityInf) AddValueList $(ProviderKey) $(NewValueList)
+        CloseRegKey $(ProviderKey)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Control\Print\Providers\"$(ProductPrintProviderName) $(MAXIMUM_ALLOWED) PrintProviderKey
+    ifstr(i) $(PrintProviderKey) != $(KeyNull)
+        SetRegValue $(PrintProviderKey) {"DisplayName",$(NoTitle),$(!REG_VT_SZ),$(ProductPrintProviderName)}
+        CloseRegKey $(PrintProviderKey)
+    endif
+    Shell "" AddShortName
+    Shell $(UtilityInf) AddServerRpcProtocol "ncadg_ipx" "RpcLtScm.Dll"
+    Shell $(UtilityInf) AddServerRpcProtocol "ncacn_spx" "RpcLtScm.Dll"
+    FreeLibrary $(!NWCFG_HANDLE)
+    goto end
+successful = +
+    goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto end
+    endif
+nonfatalinfo = +
+    Set CommonStatus = STATUS_USERCANCEL
+    Set Severity = STATUS
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = "Error: "$(FunctionTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[RestoreFiles]                                                              
+    AddSectionFilesToCopyList Restore-Oldexe $(!STF_WINDOWSSYSPATH) $(!STF_WINDOWSSYSPATH)         
+    AddSectionFilesToCopyList Restore-Oldsys $(!STF_WINDOWSSYSPATH)\drivers $(!STF_WINDOWSSYSPATH)\drivers 
+    set !S

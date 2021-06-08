@@ -1,0 +1,62 @@
+KR, Responses, "PROTOCOL: LAP-M",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP2",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP3",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP4",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300/V42<cr><lf>",     1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/V42<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/V42<cr><lf>",    1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/V42<cr><lf>",    1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/V42<cr><lf>",    1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/V42<cr><lf>",    1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/V42<cr><lf>",   1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/V42<cr><lf>",   1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/V42<cr><lf>",   1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/V42<cr><lf>",   1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/V42<cr><lf>",   1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000/V42<cr><lf>",   1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/V42<cr><lf>",   1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/V42<cr><lf>",   1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/V42<cr><lf>",   1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/V42<cr><lf>",   1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/V42<cr><lf>",  1, 02, 02, 00,C2,01,00, 00,00,00,00
+
+[ES]
+HKR, Init, 2,, "AT&F<cr>"
+HKR, Init, 3,, "AT&C1&D2E0V0W1S95=47<cr>"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, Compression_On,, "S46=138"
+HKR, Settings, Compression_Off,, "S46=136"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, ErrorControl_Cellular,, "\N5)M1:E0@M18*H1"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+HKR, Responses, "5<cr>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "10<cr>", 1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "11<cr>", 1, 02, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "13<cr>", 1, 02, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "14<cr>", 1, 02, 00, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "15<cr>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "16<cr>", 1, 02, 00, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "17<cr>", 1, 02, 00, 00,96,00,00, 00,00,00,00
+HKR, Responses, "18<cr>", 1, 02, 00, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "19<cr>", 1, 02, 00, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "40<cr>", 1, 01, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "46<cr>", 1, 01, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "47<cr>", 1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "48<cr>", 1, 01, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "49<cr>", 1, 01, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "50<cr>", 1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "51<cr>", 1, 01, 00, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "52<cr>", 1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "53<cr>", 1, 01, 00, a0,41,00,00, 00,00,00,00
+HKR, Responses, "54<cr>", 1, 01, 00, 00,4b,00,00, 00,00,00,00
+HKR, Responses, "55<cr>", 1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "56<cr>", 1, 01, 00, c0,5d,00,00, 00,00,00,00
+HKR, Responses, "57<cr>", 1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "58<cr>", 1, 01, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "59<cr>", 1, 02, 00, a0,41,00,0

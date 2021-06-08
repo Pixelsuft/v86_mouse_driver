@@ -1,0 +1,129 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   Discovery
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEMDE1E49B3, UNIMODEM1DF1EB88, UNIMODEM49A19B4C, UNIMODEM935D30A1, UNIMODEM44CA0C8A, UNIMODEM51DB330E, UNIMODEM322437AF
+
+[Models]
+%Modem1% = Modem1, Disco_Modem1, UNIMODEMDE1E49B3 		; 1414CX
+%Modem2% = Modem2, Disco_Modem2, UNIMODEMDE1E49B3 		; 1414HX
+%Modem5% = Modem5, Disco_Modem3, UNIMODEM44CA0C8A		; 1442 AM / 1414 AX
+%Modem7% = Modem7, Disco_Modem4, UNIMODEM44CA0C8A		; 1942 AM / 1914 AX
+%Modem8% = Modem8, Disco_Modem8, UNIMODEM51DB330E		; 2400 A, 2nd Rev
+%Modem9% = Modem9, UNIMODEMD29BEDF5					; 2400 C
+%Modem10% = Modem10, Disco_Modem10, UNIMODEM51DB330E		; 2400 C SOF
+%Modem12% = Modem12, Disco_Modem12					; 2400 HM
+%Modem13% = Modem13, Disco_Modem13					; 2400 H
+%Modem14% = Modem14, UNIMODEM69E0B87D				; 2400 H SOF
+%Modem16% = Modem16, Disco_Modem16					; 2400 PM
+%Modem17% = Modem17, UNIMODEM306C1087				; 2400 P
+%Modem18% = Modem18, UNIMODEMC91B4DB6				; 2400 P SOF
+%Modem19% = Modem19, Disco_Modem19, UNIMODEM1DF1EB88		; 2400 VM
+%Modem20% = Modem20, Disco_Modem20, UNIMODEM1DF1EB88		; 2400 V, 2nd rev
+%Modem23% = Modem23, UNIMODEM4E7288FD				; 2496 CX
+%Modem24% = Modem24, UNIMODEM0A75EEDD				; 2496 HX
+%Modem25% = Modem25, UNIMODEME47FF7AD				; 2496 PX
+%Modem26% = Modem26, Disco_Modem26, UNIMODEM49A19B4C		; 2400 AM MNP & V.42(bis)
+%Modem27% = Modem27, Disco_Modem27, UNIMODEM49A19B4C		; 2400 CM, QM MNP & V.42(bis)
+%Modem28% = Modem28, UNIMODEMD6BCD4BA				; Generic 2400 CM, QM MNP
+%Modem29% = Modem29, UNIMODEM322437AF 				; Generic 2814CX & HX + Victory 28800E & I
+%Modem30% = Modem30, Disco_Modem30, UNIMODEM935D30A1		; 9632 AM & AX V32bis
+%Modem31% = Modem31, Disco_Modem31, UNIMODEM935D30A1		; 9632 AM & AX V32
+%Modem32% = Modem32, UNIMODEMDE1E49B3 				; Generic 1414HX & CX + Victory 14400E & I
+%Modem33% = Modem19, UNIMODEM1DF1EB88 				; Generic 2400V & 2400VM
+%Modem34% = Modem26, UNIMODEM49A19B4C 				; Generic 2400 AM,CM or QM
+%Modem35% = Modem30, UNIMODEM935D30A1 				; Generic 9632 AM or AX
+%Modem36% = Modem36, UNIMODEM44CA0C8A 				; Generic 1414/1442/1914/1942 AM/AX
+%Modem37% = Modem37, UNIMODEM51DB330E 				; Generic 2400A / 2400C
+%Modem39% = Modem39, Disco_Modem39, UNIMODEM322437AF 		; Discovery 2814CX
+%Modem40% = Modem40, Disco_Modem40, UNIMODEM322437AF 		; Discovery 2814HX
+
+; Installation sections
+
+[Modem1]
+AddReg=All, Common, Modem1.AddReg, External
+
+[Modem2]
+AddReg=All, Common, Modem2.AddReg, Internal
+
+[Modem5]
+AddReg=All, Common, Modem5.AddReg, External
+
+[Modem7]
+AddReg=All, Common, Modem7.AddReg, External
+
+[Modem8]
+AddReg=All, Common, Modem8.AddReg, External
+
+[Modem9]
+AddReg=All, Common, Modem9.AddReg, External
+
+[Modem10]
+AddReg=All, Common, Modem10.AddReg, External
+
+[Modem12]
+AddReg=All, Common, Modem12.AddReg, Internal
+
+[Modem13]
+AddReg=All, Common, Modem13.AddReg, Internal
+
+[Modem14]
+AddReg=All, Common, Modem14.AddReg, Internal
+
+[Modem16]
+AddReg=All, Common, Modem16.AddReg, External
+
+[Modem17]
+AddReg=All, Common, Modem17.AddReg, External
+
+[Modem18]
+AddReg=All, Common, Modem18.AddReg, External
+
+[Modem19]
+AddReg=All, Common, Modem19.AddReg, Internal
+
+[Modem20]
+AddReg=All, Common, Modem20.AddReg, Internal
+
+[Modem23]
+AddReg=All, Common, Modem23.AddReg, External
+
+[Modem24]
+AddReg=All, Common, Modem24.AddReg, Internal
+
+[Modem25]
+AddReg=All, Common, Modem25.AddReg, External
+
+[Modem26]
+AddReg=All, Common, Modem26.AddReg, External
+
+[Modem27]
+AddReg=All, Common, Modem27.AddReg, External
+
+[Modem28]
+AddReg=All, Common, Modem28.AddReg, External
+
+[Modem29]
+AddReg=All, Common, Modem29.AddReg, External
+
+[Modem30]
+AddReg=All, Common, Modem30.AddReg, External
+
+[Modem31]
+AddReg=All, Common, Modem31.AddReg, External
+
+[Modem32]
+AddReg=All, Common, Modem32.AddReg, External
+
+[Modem36]
+AddReg=All, Common, Modem36.AddReg, External

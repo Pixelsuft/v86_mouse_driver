@@ -1,0 +1,39 @@
+rce that is incompatible with rolling upgrades, consider taking the incompatible resource offline, performing a rolling upgrade, and then installing the new version of the resource.</p>
+<p>
+If most of your cluster resources are incompatible with a rolling upgrade, you should consider performing a clean install of Microsoft Cluster Server. If you do this, you must reconfigure your cluster after the installation.</p>
+<p><blockquote>
+<b>To perform a clean install of Microsoft Cluster Server</b></p>
+
+<ol>
+<li>In <b>Cluster Administrator</b>, stop the cluster service on Node 1. On Node 1, uninstall Microsoft Cluster Server.</li>
+<li>Stop the Cluster Service on Node 2. On Node 2, uninstall Cluster Server. At this point, the cluster that was running on Node 1 and Node 2 no longer exists.</li>
+<li>Reinstall Cluster Server on Node 1 using the Windows&nbsp;NT&nbsp;4.0 Enterprise Edition Components CD, and then form a new cluster using the name of the original cluster.</li>
+<li>Reinstall SP6 and perform validation tests on Node 1. SP6 upgrades the original SP3 clustering product to SP6.</li>
+<li>Reinstall the Cluster Server on Node 2 using the Windows&nbsp;NT&nbsp;4.0 Enterprise Edition Components CD, and then join the newly formed cluster.</li>
+<li>Reinstall Cluster Server, and then perform validation tests on Node 2.</li>
+<li>Using <b>Cluster Administrator</b>, add cluster resources to your new cluster.</li>
+</ol></blockquote>
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+
+<p>
+<a name="3.0"><h2>3.0 User Notes</h2></a></p>
+<p>
+This section covers information that is specific to Service Pack&nbsp;6.</p>
+<p>
+<a name="3.1"><b>3.1 Emergency Repair Disk</b></a></p>
+<p>
+If you use the Windows&nbsp;NT&nbsp;4.0 Emergency Repair Disk to repair your Windows&nbsp;NT&nbsp;4.0 computer, Windows&nbsp;NT&nbsp;4.0 requires that you supply the original Windows&nbsp;NT&nbsp;4.0 media at some time after you install SP6. This means you need to reinstall SP6 after the repair is completed because the Emergency Repair Disk repairs your computer by restoring your original Windows&nbsp;NT&nbsp;4.0 system files. After the repair is complete, to reinstall SP6, follow the <a href="#2.0">Installation Instructions</a> in Section 2.0. For more information about using the Windows&nbsp;NT&nbsp;4.0 Emergency Repair Disk utility, visit the Microsoft Personal Online Support Center Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=SUPPORT">http://support.microsoft.com/support/</a></p>
+<p>
+<b>Note:</b> To use the Emergency Repair Disk utility, you must have the updated version of Setupdd.sys that comes with SP6. To update your version of Setupdd.sys, copy Setupdd.sys from the Service Pack to your Windows&nbsp;NT&nbsp;4.0 Setup Disk 2 from the original product media. This replaces the earlier version of Setupdd.sys with the updated version. For more information, see the Microsoft Personal Online Support Center Web site at:<br>
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=NTSERVER&ar=SUPPORT"> http://support.microsoft.com/support/</a></p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<b><a name="3.2">3.2</a> Adding New Components</b></p>
+<p>
+If you change or add new software or hardware components to your computer after you install SP6, you'll need to install SP6 again. This is because the files included on the original Windows&nbsp;NT&nbsp;4.0 media may not be the same as the files on the Service Pack CD. You can't install new components, such as a new keyboard or printer driver, directly from the Service Pack media. You must install new components from the original product media and then reinstall the Service Pack.</p>
+<p>
+For example, if you install the Simple Network Management Protocol (SNMP) service after installing SP6, you'll need to reinstall the Service Pack. Otherwise, you'll receive the message "Entrypoint SnmpSvcGetEnterpriseOID could not be located in Snmpapi.dll." This in

@@ -1,0 +1,91 @@
+N,2:EGA40850.FON
+2:EGA80WOA.FON,2:EGA80850.FON
+
+[keyboard.drivers]
+kbd   = 2:keyboard.drv
+kbdhp = 1:kbdhp.drv
+
+[keyboard.types]
+t3s0alat  = "All AT type keyboards (84 - 86 keys)"             ,nodll
+t1s2at&t  = "AT&T '301' keyboard"                              ,nodll
+t1s4at&t  = "AT&T '302' keyboard"                              ,nodll
+t4s0enha  = "Enhanced 101 or 102 key US and Non US keyboards"  ,nodll
+t3s0hp1   = "Hewlett-Packard Vectra keyboard (DIN)"            ,nodll
+t4s40oliv = "Olivetti 101/102 A keyboard"                      ,nodll
+t1s0oliv  = "Olivetti 83 key keyboard"                         ,nodll
+t3s10oliv = "Olivetti 86 Key keyboard"                         ,nodll
+t2s1oliv  = "Olivetti M24 102 key keyboard"                    ,usadll
+t1s42oliv = "PC-XT 83 key keyboard"                            ,nodll
+t1s0pcxt  = "PC/XT - Type keyboard (84 keys)"                  ,nodll
+
+[keyboard.tables]
+beldll = 2:kbdbe.dll , "Belgian"
+bridll = 2:kbduk.dll , "British"
+cafdll = 2:kbdfc.dll , "Canadian Multilingual"
+dandll = 2:kbdda.dll , "Danish"
+dutdll = 2:kbdne.dll , "Dutch"
+findll = 2:kbdfi.dll , "Finnish"
+fredll = 2:kbdfr.dll , "French"
+candll = 2:kbdca.dll , "French Canadian"
+gerdll = 2:kbdgr.dll , "German"
+icedll = 2:kbdic.dll , "Icelandic"
+itadll = 2:kbdit.dll , "Italian"
+latdll = 2:kbdla.dll , "Latin American"
+nordll = 2:kbdno.dll , "Norwegian"
+pordll = 2:kbdpo.dll , "Portuguese"
+spadll = 3:kbdsp.dll , "Spanish"
+swedll = 3:kbdsw.dll , "Swedish"
+swfdll = 2:kbdsf.dll , "Swiss French"
+swgdll = 2:kbdsg.dll , "Swiss German"
+nodll  =             , "US"
+usadll = 3:kbdus.dll , "US"
+usddll = 3:kbddv.dll , "US-Dvorak"
+usxdll = 2:kbdusx.dll, "US-International"
+
+[codepages]
+;       Xlat Table     OEM Font      WOA Font     Description
+863 = 1:xlat863.bin, 3:vga863.fon, 1:app850.fon, "Canadian-French (863)"
+861 = 2:xlat861.bin, 2:vga861.fon, 1:app850.fon, "Icelandic (861)"
+865 = 3:xlat865.bin, 3:vga865.fon, 1:app850.fon, "Nordic (865)"
+850 = 1:xlat850.bin, 2:vga850.fon, 1:app850.fon, "Multi-Lingual (850)"
+860 = 2:xlat860.bin, 2:vga860.fon, 1:app850.fon, "Portuguese (860)"
+437 =              ,             , 3:dosapp.fon, "English (437)"
+
+[pointing.device]
+;
+; Note: the VMD field may contain multiple VXD's in the form "x:*vmd,2:1vmd.386".
+;       Please note, however, that if multiple VXD's are specified in the VMD field
+;       they must be surrounded by double quotes (").
+;
+;profile =  mouse driver,   Mouse description,                 VMD,     Optional work section
+;
+hpmouse  = 2:hpmouse.drv, "HP Mouse (HP-HIL)",                 x:*vmd
+lmouse   = 2:lmouse.drv,  "Logitech",                          2:lvmd.386, lmouse
+ps2mouse = 2:mouse.drv,   "Microsoft, or IBM PS/2",            x:*vmd
+genius1  = 2:mscmouse.drv,"Genius serial mouse on COM1"      , 2:mscvmd.386
+genius2  = 3:msc3bc2.drv, "Genius serial mouse on COM2"      , 2:mscvmd.386
+msmouse2 = 2:mscmouse.drv,"Mouse Systems serial or bus mouse", 2:mscvmd.386
+msmouse1 = 3:msc3bc2.drv, "Mouse Systems serial mouse on COM2",2:mscvmd.386
+nomouse  = 2:nomouse.drv, "No mouse or other pointing device", x:*vmd
+kbdmouse = 3:kbdmouse.drv,"Olivetti/AT&T Keyboard Mouse",      x:*vmd
+
+[lmouse]
+2:lmouse.com,0:,,,,
+
+[dos.mouse.drivers]
+mouse.sys   = 5:mouse.SYS,     "MS Dos Mouse driver .SYS ver 7.XX"
+mouse.com   = 4:mouse.com,     "MS Dos Mouse driver .COM ver 7.XX"
+mousehp.sys = 5:mousehp.SYS,   "HP Dos Mouse driver .SYS ver 7.XX"
+mousehp.com = 4:mousehp.com,   "HP Dos Mouse driver .COM ver 7.XX"
+
+[network]
+;Prof     = Driver, Description, HelpFile,OptFile,Optional section
+nonet     = ,"No Network Installed"                                ,,,nonet_stuff
+3open     = ,"3Com 3+Open"
+3share    = ,"3Com 3+Share"                                        ,,,msnet_stuff
+lantastic = ,"Artisoft LANtastic"
+banyan    = ,"Banyan Vines"
+dlr       = ,"IBM OS/2 LAN Server"
+pclp      = ,"IBM PC LAN Program"
+lanman    = ,"Microsoft LAN Manager"
+msnet     = ,"Microsoft Network (or 100% compatible)",             ,,,msnet_

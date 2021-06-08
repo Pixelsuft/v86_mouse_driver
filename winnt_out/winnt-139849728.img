@@ -1,0 +1,107 @@
+emoveRas = FALSE
+        set from = setfailed
+        set to   = end
+        goto RemoveRas
+    endif
+    goto end
+filecopycancel =+
+    set CommonStatus = STATUS_USERCANCEL
+    ifstr(i) $(fRemoveRas) == TRUE
+        set fRemoveRas = FALSE
+        set from = setfailed
+        set to   = end
+        goto RemoveRas
+    endif
+end = +
+    ifstr(i) $(PORTSDLGHANDLE) != $(HandleNull)
+        Debug-Output "Unloading RASCFG.DLL"
+        FreeLibrary $(PORTSDLGHANDLE)
+    endif
+    Debug-Output "ending at last!!"
+    goto term
+term = +
+    Debug-Output "OEMNSVRA.INF:term: CommonStatus "$(CommonStatus)
+    Return $(CommonStatus)
+[BindingsReview]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set Language = $(!STF_LANGUAGE)
+    set SaveInstallMode = $(!NTN_InstallMode)
+    set !NTN_InstallMode = bind
+    Shell "" InstallOption $(Language) $(Option) $(SrcDir) $(AddCopy) $(DoCopy) $(DoConfig)
+    set !NTN_InstallMode = $(SaveInstallMode)
+    set Status = $($R0)
+    Return $(Status)
+[SetRestoreConnectionTo1]
+   Debug-Output "SetRestoreConnectionTo1 entry.."
+   set KeyNull = ""
+   set RestoreKeyName = "SYSTEM\CurrentControlSet\Control\networkprovider"
+   OpenRegKey $(!REG_H_LOCAL) "" $(RestoreKeyName) $(!MAXIMUM_ALLOWED) KeyRestore
+   Ifstr(i) $(KeyRestore) != $(KeyNull)
+       SetRegValue $(KeyRestore) {RestoreConnection, 0, $(!REG_VT_DWORD), 1}
+       CloseRegKey $(KeyRestore)
+   else
+       Debug-Output "SetRestoreConnectionTo1 error opening key. "$(RestoreKeyName)
+   endif
+   Debug-Output "SetRestoreConnectionTo1 exit."
+   return
+[InstallSoftwareAndService]
+   set Status = STATUS_SUCCESSFUL
+   set ThisOption = $($0)
+   Debug-Output "InstallSoftwareAndService for "$(ThisOption)
+   Shell $(!UtilityInf), AddSoftwareComponent, $(!Manufacturer), +
+         $(!Product$(ThisOption)Name), $(!Product$(ThisOption)Name), +
+         $(!Product$(ThisOption)DisplayName), +
+         $(!RasInfName), $(!Product$(ThisOption)ImagePath), "autoserviceshare",+
+         "", {}, "", $(!RasMsgDll), $(!RasEventTypeSupported)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "InstallSoftware: AddSoftware bombed out for "$(ThisOption)
+       goto InstallSoftwareError
+   endif
+   set RegistryErrorIndex = $($R0)
+   Ifstr(i) $(RegistryErrorIndex) == SERVICE_ALREADY_EXISTS
+       return $(Status)
+   EndIf
+   Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+       CloseRegKey $($R1)
+       CloseRegKey $($R2)
+       CloseRegKey $($R3)
+       CloseRegKey $($R4)
+       CloseRegKey $($R5)
+       goto InstallSoftwareError
+   endif
+   Set SoftProductKey    = $($R1)
+   CloseRegKey $($R2)
+   CloseRegKey $($R3)
+   CloseRegKey $($R4)
+   CloseRegKey $($R5)
+   set NewValueList = +
+       {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(!RasInfName)},+
+        {ServiceName,$(NoTitle),$(!REG_VT_SZ),+
+         $(!Product$(ThisOption)Name)},+
+        {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+         $(!Product$(ThisOption)SvcType)},+
+        {Title,$(NoTitle),$(!REG_VT_SZ),$(!Product$(ThisOption)Title)},+
+        {Description,$(NoTitle),$(!REG_VT_SZ),+
+         $(!Product$(ThisOption)Description)},+
+        {PathName,$(NoTitle),$(!REG_VT_SZ),+
+         $(!Product$(ThisOption)ImagePath)},+
+        {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMajorVersion)},+
+        {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(!ProductMinorVersion)},+
+        {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(!CurrentDate),1)},+
+        {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(!HideComponent)}}
+   Shell  $(!UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+   ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "InstallSoftware: AddValueList bombed out for "$(ThisOption)
+       goto InstallSoftwareError
+   endif
+   set RegistryErrorIndex = $($R0)
+   CloseRegKey $(SoftProductKey)
+   Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+       goto InstallSoftwareError
+   endif
+   goto InstallSoftwareEnd
+Inst

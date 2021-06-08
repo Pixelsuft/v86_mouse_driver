@@ -1,0 +1,72 @@
+away all the old profiles
+HKCU,"Software\Microsoft\Windows Messaging Subsystem\Profiles"
+
+; Remove exchng32.exe as server for .msg files
+HKCR,.msg
+HKCR,msgfile
+
+; Remove mapif.reg stuff
+HKCR,CLSID\{00020D30-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D31-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D32-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D33-0000-0000-C000-000000000046}
+HKCR,CLSID\{00020D34-0000-0000-C000-000000000046}
+
+HKCR,MailFileAtt\CLSID
+HKCR,CLSID\{00020D05-0000-0000-C000-000000000046}
+HKCR,MailMsgAtt\CLSID
+HKCR,CLSID\{00020D09-0000-0000-C000-000000000046}
+
+HKLM,"SOFTWARE\Microsoft\Exchange\Forms Registry","Provider"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","MMFMig"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Extensions","wmsfr"
+
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Support",ChooseFolder
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Support",Details
+
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types",":TEXT"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types",":APPL"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types",":DEXE"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types",":TIF "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types",":EPSF"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWD:WDBN"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWD:TEXT"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:TEXT"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLC "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLM "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLW "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLC3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLS3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLM3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLW3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLA "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:sLS "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:sLC "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:sLM "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:LWKS"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:LWK3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:F+DB"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","XCEL:XLA4"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPP "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPX "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPC "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPV "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSPJ:MPW "
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","ALD2:PUBF"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","ALD3:ALB3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","ALD3:ALT3"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","ALD3:TIFF"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MORE:TEXT"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOX+:F+DB"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","ARTZ:EPSF"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","SIT!:SIT!"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","WPC2:WPD1"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","MSWD:W6BN"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOXX:FAPP"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOXX:FFXP"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOXX:F+PR"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOXX:F+FR"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOXX:FQPR"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOXX:F+RP"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File Types","FOXX:F+LB"
+HKLM,"SOFTWARE\Microsoft\Exchange\Client\Mac File 

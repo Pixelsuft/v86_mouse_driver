@@ -1,0 +1,86 @@
+;
+; This is the Setup information file to install MSMail & MAPI
+;
+; Copyright (c) 1996 Microsoft Corporation
+;
+; Notes:
+;
+; When Setup is installing or upgrading, it will run sections listed
+; in the [BaseWinOptions] section of optional component INFs --
+; unless the INF is listed as already having been BaseWin'ed, in
+; HKLM\Software\Microsoft\Windows\CurrentVersion\Setup\BaseWinOptions.
+;
+; In that case, Setup will examine all components listed in [Optional Componets]
+; and for each, will look for a BaseWinOptions= line in the component's section.
+; If such a line is found AND IF the component does not already have a key in
+; HKLM\Software\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents,
+; Setup will run the section named on that line.
+;
+; When the user installs the full Exchange client (EMS), EMS installation
+; partially configures the optional components stuff -- a MAPI key is created
+; in Setup\OptionalComponents, with an Installed=1 value. There may also be
+; a similar thing for the MSFS component if the user is using EMS to access
+; a Microsoft Mail post office. If EMS is installed on NT3.51 one thing we
+; know WON'T be there is anything having to do with the Internet Mail client
+; because though that ships with NT as part of WMS it is not part of EMS.
+;
+; We make use of this to properly upgrade an NT3.51 system regardless of
+; whether it had EMS on it or not. If msmail.inf has already been BaseWin'ed
+; and the IMAIL stuff isn't there, then we assume EMS is there and we fill
+; in only enough stuff in the registry so the user will be able to
+; select the internet mail client for installation on top of EMS's basic MAPI.
+; In particular we don't whack the inbox shell/OLE linkages, or smash the
+; Installed= value back to 0 for the MAPI or MSFS components.
+;
+
+[version]
+signature="$CHICAGO$"
+ClassGUID={00000000-0000-0000-0000-000000000000}
+LayoutFile=layout.inf
+
+;Destination Directories for CopyFiles Sections
+[DestinationDirs]
+BaseDelFilesSys                 = 11            ;LDID_SYSTEM
+BaseCopyProgramFiles            = 24,%PROGDIR%  ;LDID_APPS\Program Files\Windows NT\Windows Messaging
+MAPIDelFilesEforms              = 10,FORMS      ;LDID_WIN\FORMS
+MAPIDelFilesWin                 = 25            ;LDID_SHARED
+MAPIDelFilesSys                 = 11            ;LDID_SYSTEM
+MAPICopyCfgIcoFiles             = 10,FORMS\CONFIGS ;LDID_WIN\FORMS\CONFIGS
+MAPICopyFilesSys                = 11            ;LDID_SYSTEM
+MAPICopyFilesSysNoRemove        = 11            ;LDID_SYSTEM
+MAPICopyFilesHelp               = 18            ;LDID_HELP
+MAPICopyProgramFiles            = 24,%PROGDIR%  ;LDID_APPS\Program Files\Windows NT\Windows Messaging
+MSFSCopyFilesSys                = 11            ;LDID_SYSTEM
+IMAILCopyFilesSys               = 11            ;LDID_SYSTEM
+IMAILCopyFilesHelp              = 18            ;LDID_HELP
+
+[BaseWinOptions]
+EMAILBaseWinOptions
+
+[Optional Components]
+EMAIL       ;Top Level Option
+MSMAIL      ;Warning: do not change this name--there are code dependencies on it
+MSFS        ;Microsoft Mail Services
+IMAIL       ;Internet Mail Services
+
+[EMAILBaseWinOptions]
+CopyFiles               = BaseCopyProgramFiles
+;; WINNT: DelFiles removed until we understand what they do exactly
+;DelFiles                = BaseDelFilesSys
+AddReg                  = BaseAddReg,SpecialBaseAddReg
+UpdateInis              = BaseUpdateIni
+
+[EMAIL]
+; Top Level option
+OptionDesc              = %EMAILTop_DESC%
+Tip                     = %EMAILTop_TIP%
+IconIndex               = 24    ;Windows mini-icon for dialogs
+
+[MSMAIL]
+OptionDesc              = %MAPI_Desc%
+Tip                     = %MAPI_Tip%
+Parent                  = EMAIL
+CopyFiles               = MAPICopyProgramFiles, MAPICopyCfgIcoFiles, MAPICopyFilesSys, MAPICopyFilesHelp, MAPICopyFilesSysNoRemove
+;; WINNT: DelFiles removed until we understand what they do exactly
+;DelFiles                = MAPIDelFilesWin, MAPIDelFilesSys, MAPIDelFilesEforms
+UpdateInis              = MAPIUpdateIni, MSMailUpdateIni, MSM

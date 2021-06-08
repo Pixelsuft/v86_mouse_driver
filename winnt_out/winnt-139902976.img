@@ -1,0 +1,93 @@
+       SetRegValue $(KeyNdisWan) {LLInterface, 0,+
+                                          $(!REG_VT_SZ), $(LLInterface)}
+		        SetRegValue $(KeyNdisWan) {EnableDHCP, 0, +
+                                          $(!REG_VT_DWORD), 0}
+		        SetRegValue $(KeyNdisWan) {UseZeroBroadcast, 0, +
+                                          $(!REG_VT_DWORD), 0}
+           else
+		       Debug-Output "OEMNSVRA.INF:UpdateLLInterface: couldn't create NdisWan params-tcpip key"
+               goto UpdateLLInterfaceEnd
+           endif
+        endif
+	    CloseRegKey $(KeyNdisWan)
+        EndForListDo
+    endif
+    set Status = STATUS_SUCCESSFUL
+UpdateLLInterfaceEnd =+
+    Debug-Output "UpdateLLInterface: exit"
+    return $(Status)
+[SetRasArpBindValueFromTcpIP]
+    Debug-Output "SetRasArpBindValueFromTcpIP: entry"
+    set Status = STATUS_FAILED
+    set KeyNull = ""
+    set IPLinkageKeyName = $(!NTN_ServiceBase)"\TCPIP\Linkage"
+    OpenRegKey $(!REG_H_LOCAL) "" $(IPLinkageKeyName) $(!MAXIMUM_ALLOWED) KeyIpLinkage
+    ifstr $(KeyIpLinkage) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF:SetRasArpBindValueFromTcpIP: couldn't open IP Linkage key"
+       goto SetRasArpBindValueFromTcpIPEnd
+    endif
+    set NdisWanList = {}
+    GetRegValue $(KeyIpLinkage) "Bind" TmpList
+    ForListDo *($(TmpList),4)
+        Split-String $($), "\", BindList
+        QueryListSize ListSize $(BindList)
+        set ServiceName = *($(BindList), $(ListSize))
+        LibraryProcedure Result $(!LIBHANDLE) SetupStrncmp $(ServiceName) "NdisWan" 7
+        ifint $(Result) == 0
+            set NdisWanList = >($(NdisWanList), $($))
+        endif
+    EndForListDo
+    set RasArpLinkageKeyName = $(!NTN_ServiceBase)"\RASARP\Linkage"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasArpLinkageKeyName) $(!MAXIMUM_ALLOWED) KeyRasArpLinkage
+    ifstr $(KeyRasArpLinkage) != $(KeyNull)
+        SetRegValue $(KeyRasArpLinkage) {Bind, 0, $(!REG_VT_MULTI_SZ), $(NdisWanList)}
+        CloseRegKey $(KeyRasArpLinkage)
+    endif
+    CloseRegKey $(KeyIpLinkage)
+    set Status = STATUS_SUCCESSFUL
+SetRasArpBindValueFromTcpIPEnd=+
+    Debug-Output "SetRasArpBindValueFromTcpIP: entry"
+    return $(Status)
+[UpdateNetGroupDependency]
+    Set  Status = STATUS_SUCCESSFUL
+    set  KeyNull = ""
+    set  fNetbeuiInstalled  = $($0)
+    set  fTcpIpInstalled    = $($1)
+    set  fIpxInstalled      = $($2)
+    Debug-Output "UpdateNetGroupDependency entry"
+    set ServiceList =  {}
+    ifstr(i) $(fNetbeuiInstalled) == TRUE
+        set ServiceList = >($(ServiceList), "nbf")
+    endif
+    ifstr(i) $(fTcpIpInstalled) == TRUE
+        set ServiceList = >($(ServiceList), "tcpip")
+    endif
+    ifstr(i) $(fIpxInstalled) == TRUE
+        set ServiceList = >($(ServiceList), "nwlnkipx")
+    endif
+    ForListDo $(ServiceList)
+        set Service = $($)
+        Debug-Output "OEMNSVRA.INF: Changing group dependency of "$(Service)
+        OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(Service) +
+                   $(!MAXIMUM_ALLOWED) KeyService
+        ifstr $(KeyService) != $(KeyNull)
+            set newGroupList = {"+NDIS", "+NDISWAN"}
+            GetRegValue    $(KeyService) "DependOnGroup" GrpList
+            ifint $(RegLastError) == 0
+                Debug-Output "UpdateNetGroupDependency: old group List "*($(GrpList), 4)
+                ForListDo *($(GrpList),4)
+                    ifstr(i) $($) != "NDIS"
+                        ifstr(i) $($) != "NDISWAN"
+                            set newGroup = "+"$($)
+                            set newGroupList = >($(newGroupList), $(newGroup))
+                        endif
+                    endif
+                EndForListDo
+            endif
+            GetRegValue $(KeyService) "DependOnService" ServiceList
+            ifint $(RegLastError) == 0
+                Debug-Output "UpdateNetGroupDependency: old service List "*($(ServiceList), 4)
+                ForListDo *($(ServiceList),4)
+                    set newGroupList = >($(newGroupList), $($))
+                EndForListDo
+     

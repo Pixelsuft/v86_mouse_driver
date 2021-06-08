@@ -1,0 +1,121 @@
+    14,    3,     15,     0,     7,      0
+DATA 7,    12,   15,  4,     14,    0,     15,     15,    1,      0
+
+'The following data is actually a machine language program to
+'scroll the screen up or down very fast using a BIOS call.
+DATA &HB8,&H01,&H06,&HB9,&H01,&H04,&HBA,&H4E,&H16,&HB7,&H00,&HCD,&H10,&HCB
+DATA &HB8,&H01,&H07,&HB9,&H01,&H04,&HBA,&H4E,&H16,&HB7,&H00,&HCD,&H10,&HCB
+
+'Box:
+'  Draw a box on the screen between the given coordinates.
+SUB Box (Row1, Col1, Row2, Col2) STATIC
+
+    BoxWidth = Col2 - Col1 + 1
+
+    LOCATE Row1, Col1
+    PRINT "Ú"; STRING$(BoxWidth - 2, "Ä"); "¿";
+
+    FOR a = Row1 + 1 TO Row2 - 1
+        LOCATE a, Col1
+        PRINT "³"; SPACE$(BoxWidth - 2); "³";
+    NEXT a
+
+    LOCATE Row2, Col1
+    PRINT "À"; STRING$(BoxWidth - 2, "Ä"); "Ù";
+
+END SUB
+
+'Center:
+'  Center text on the given row.
+SUB Center (row, text$)
+    LOCATE row, 41 - LEN(text$) / 2
+    PRINT text$;
+END SUB
+
+'Cvdt$:
+'  Convert a double precision number to a string WITHOUT a leading space.
+FUNCTION Cvdt$ (X#)
+
+    Cvdt$ = RIGHT$(STR$(X#), LEN(STR$(X#)) - 1)
+
+END FUNCTION
+
+'Cvit$:
+'  Convert an integer to a string WITHOUT a leading space.
+FUNCTION Cvit$ (X)
+    Cvit$ = RIGHT$(STR$(X), LEN(STR$(X)) - 1)
+END FUNCTION
+
+'Cvst$:
+'  Convert a single precision number to a string WITHOUT a leading space
+FUNCTION Cvst$ (X!)
+    Cvst$ = RIGHT$(STR$(X!), LEN(STR$(X!)) - 1)
+END FUNCTION
+
+'EditAccounts:
+'  This is the full-screen editor which allows you to change your account
+'  titles and descriptions
+SUB EditAccounts
+
+    'Information about each column
+    REDIM help$(4), col(4), Vis(4), Max(4), edit$(19, 3)
+
+    'Draw the screen
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+    Box 2, 1, 24, 80
+
+    COLOR colors(5, ColorPref), colors(4, ColorPref)
+    LOCATE 1, 1: PRINT SPACE$(80)
+    LOCATE 1, 4: PRINT "Account Editor";
+    COLOR colors(7, ColorPref), colors(4, ColorPref)
+
+    LOCATE 3, 2: PRINT "No³ Account Title      ³ Description                                      ³A/L"
+    LOCATE 4, 2: PRINT "ÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄ"
+                  u$ = "##³\                  \³\                                                \³ ! "
+    FOR a = 5 TO 23
+        LOCATE a, 2
+        X = a - 4
+        PRINT USING u$; X; account(X).Title; account(X).Desc; account(X).AType;
+    NEXT a
+
+    'Initialize variables
+    help$(1) = "  Account name                             | <F2=Save and Exit> <Escape=Abort>"
+    help$(2) = "  Account description                      | <F2=Save and Exit> <Escape=Abort>"
+    help$(3) = "  Account type (A = Asset, L = Liability)  | <F2=Save and Exit> <Escape=Abort>"
+                        
+    col(1) = 5: col(2) = 26: col(3) = 78
+    Vis(1) = 20: Vis(2) = 50: Vis(3) = 1
+    Max(1) = 20: Max(2) = 50: Max(3) = 1
+
+    FOR a = 1 TO 19
+        edit$(a, 1) = account(a).Title
+        edit$(a, 2) = account(a).Desc
+        edit$(a, 3) = account(a).AType
+    NEXT a
+
+    finished = FALSE
+
+    CurrRow = 1
+    CurrCol = 1
+    PrintHelpLine help$(CurrCol)
+
+    'Loop until F2 or <ESC> is pressed
+    DO
+        GOSUB EditAccountsShowCursor            'Show Cursor
+        DO                                      'Wait for key
+            Kbd$ = INKEY$
+        LOOP UNTIL Kbd$ <> ""
+
+        IF Kbd$ >= " " AND Kbd$ < "~" THEN      'If legal, edit item
+            GOSUB EditAccountsEditItem
+        END IF
+        GOSUB EditAccountsHideCursor            'Hide Cursor so it can move
+                                                'If it needs to
+        SELECT CASE Kbd$
+            CASE CHR$(0) + "H"                              'Up Arrow
+                CurrRow = (CurrRow + 17) MOD 19 + 1
+            CASE CHR$(0) + "P"                              'Down Arrow
+                CurrRow = (CurrRow) MOD 19 + 1
+            CASE CHR$(0) + "K", CHR$(0) + CHR$(15)          'Left or Shift+Tab
+                CurrCol = (CurrCol + 1) MOD 3 + 1
+                PrintHelpLine help$(

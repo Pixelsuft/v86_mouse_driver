@@ -1,0 +1,88 @@
+hellCode) != $(!SHELL_CODE_OK)
+	        Debug-Output "ShellCode error."
+	        goto ShellCodeError
+        endif
+        debug-output "before write registry"
+        set DMAChannelValue = *($(DMAChannelValues), ~($(DMAChannelList),$(DMAChannelValue)))
+        set IRQValue = *($(IRQValues), ~($(IRQList),$(IRQValueValue)))
+        set IOBaseAddrValue = *($(IOBaseAddrValues), ~($(IOBaseAddrList),$(IOBaseAddrValue)))
+        set LED0Value = *($(LEDValues), ~($(LEDList),$(LED0Value)))
+        set LED1Value = *($(LEDValues), ~($(LEDList),$(LED1Value)))
+        set LED2Value = *($(LEDValues), ~($(LEDList),$(LED2Value)))
+        set LED3Value = *($(LEDValues), ~($(LEDList),$(LED3Value)))
+        set FullDuplexValue = *($(FullDuplexValues), ~($(FullDuplexList),$(FullDuplexValue)))
+        set BusTimerValue = *($(BusTimerValues), ~($(BusTimerList),$(BusTimerValue)))
+        ifint $(IsISA) == 0
+            set NewValueList = {{BusType,$(NoTitle),$(!REG_VT_DWORD),5},+
+			    {MediaType,$(NoTitle),$(!REG_VT_DWORD),1},+
+			    {LED0,  $(NoTitle),$(!REG_VT_DWORD),$(LED0Value)},+
+			    {LED1,  $(NoTitle),$(!REG_VT_DWORD),$(LED1Value)},+
+			    {LED2,  $(NoTitle),$(!REG_VT_DWORD),$(LED2Value)},+
+			    {LED3,  $(NoTitle),$(!REG_VT_DWORD),$(LED3Value)},+
+			    {FDUP,  $(NoTitle),$(!REG_VT_DWORD),$(FullDuplexValue)},+
+			    {BUSTIMER,  $(NoTitle),$(!REG_VT_DWORD),$(BusTimerValue)},+
+			    {TP,    $(NoTitle),$(!REG_VT_DWORD),$(TPValue)},+
+                            {AdapterCFID,$(NoTitle),$(!REG_VT_DWORD),536875042},+
+			    {SlotNumber, $(NoTitle),$(!REG_VT_DWORD),$(DeviceNum)},+
+			    {BusNumber,  $(NoTitle),$(!REG_VT_DWORD),$(BusNumber)}}
+            Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+        else
+            set NewValueList = {{BUS_TO_SCAN,$(NoTitle),$(!REG_VT_SZ),$(BusScanValue)},+
+			    {BusType,$(NoTitle),$(!REG_VT_DWORD),1},+
+			    {MediaType,$(NoTitle),$(!REG_VT_DWORD),1},+
+			    {LED0,  $(NoTitle),$(!REG_VT_DWORD),$(LED0Value)},+
+			    {LED1,  $(NoTitle),$(!REG_VT_DWORD),$(LED1Value)},+
+			    {LED2,  $(NoTitle),$(!REG_VT_DWORD),$(LED2Value)},+
+			    {LED3,  $(NoTitle),$(!REG_VT_DWORD),$(LED3Value)},+
+			    {FDUP,  $(NoTitle),$(!REG_VT_DWORD),$(FullDuplexValue)},+
+			    {BUSTIMER,  $(NoTitle),$(!REG_VT_DWORD),$(BusTimerValue)},+
+			    {TP,    $(NoTitle),$(!REG_VT_DWORD),$(TPValue)},+
+			    {IOBaseAddress,  $(NoTitle),$(!REG_VT_DWORD),$(IOBaseAddrValue)},+
+			    {InterruptNumber,  $(NoTitle),$(!REG_VT_DWORD),$(IRQValue)},+
+			    {DMAChannel, $(NoTitle),$(!REG_VT_DWORD),$(DMAChannelValue)},+
+			    {BusNumber,  $(NoTitle),$(!REG_VT_DWORD),$(BusNumber)}}
+            Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+        endif
+        CloseRegKey $(KeyParameters)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	        Debug-Output "ShellCode error."
+	        goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	        Debug-Output "Registry error: Add value list"
+	        goto fatalregistry
+    endif
+    EndForListDo
+    EndWait
+    goto successful
+bindingadapter =+
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    Ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+	Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+	    $(ProductSoftwareName)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    Debug-Output "ShellCode error"
+	    goto ShellCodeError
+	endif
+	set RegistryErrorIndex = $($R0)
+	Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	    goto fatalregistry
+	endif
+    else
+	Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+	    $(ProductSoftwareName), $(!NTN_RegBase)
+	ifint $($ShellCode) != $(!SHELL_CODE_OK)
+	    Debug-Output "ShellCode error"
+	    goto ShellCodeError
+	endif
+	set RegistryErrorIndex = $($R0)
+	Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+	    goto fatalregistry
+	endif
+    endif
+    goto end
+UpgradeSoftware = +
+    LoadLibrary "x

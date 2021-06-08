@@ -1,0 +1,114 @@
+ <connectbps>/ZyX  <carrierbps>/MNP5/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/MNP4/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/MNP3/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/V42/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/MNP5/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/MNP4/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/MNP3/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/V42/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/ZyX  <carrierbps>/V42B/SREJ<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V32b <carrierbps>/NONE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/MNP5/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/MNP4/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/MNP3/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/V42/SREJ<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V.32 <carrierbps>T/NONE<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/MNP5/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/MNP4/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/MNP3/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/V42b/SREJ<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/V42/SREJ<cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps>/V.22b <carrierbps>/NONE<cr><lf>
+
+;NEC modems
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>CONNECT <connectbps>/V.42bis<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>CONNECT <connectbps>/V.42<cr><lf>
+
+CONNECT=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>CONNECT <connectbps>/REC<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+;Supra
+
+CONNECT=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>OK<cr><lf>\
+<cr><lf>OK<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+;Texas Instruments Internal
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL MNP
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL V.42
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/V.42
+
+;Rockwell
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps><cr><lf>
+
+;----------------------------------------
+; Additional Responses for German Modems
+;----------------------------------------
+
+;Creatix LCxxx
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: LAP-M<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>COMPRESSION: V.42BIS<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>COMPRESSION: CLASS5<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: ALT<cr><lf>\
+<cr><lf>COMPRESSION: NONE<cr><lf>\
+<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+CONNECT_EC=\
+<cr><lf>CARRIER <carrierbps><cr><lf>\
+<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>\
+<cr>

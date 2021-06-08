@@ -1,0 +1,96 @@
+$(AS_KeyService) != $(KeyNull)
+          Debug-Output "UTILITY.INF: DeleteRegTree Service Key"
+       endif
+       set AS_KeyVersion = ""
+       set AS_KeyNetRules = ""
+       set AS_KeyService = ""
+       set AS_KeyParameters = ""
+       set AS_KeyLinkage = ""
+    endif
+    return $(RegistryErrorIndex), $(AS_KeyVersion), $(AS_KeyNetRules), $(AS_KeyService),+
+           $(AS_KeyParameters), $(AS_KeyLinkage)
+[AddHardwareComponent]
+    read-syms InitBaseVars
+    set AH_SvcName       = $($0)
+    set AH_Infname       = $($1)
+    set AH_SoftwareName  = $($2)
+    set AH_KeyServicesArea = $($3)
+    set AH_KeyNetcardsArea = $($4)
+    set AH_AdapNum       = $($5)
+    set AH_KeyNetcard    = ""
+    set AH_KeyNetRules   = ""
+    set AH_KeyService    = ""
+    set AH_KeyParameters = ""
+    Shell "", InstallNetcard, $(AH_Infname) $(AH_KeyNetcardsArea) $(AH_AdapNum)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "UTILITY.INF: [AddHardwareComponent] InstallNetcard returned: "$(RegistryErrorIndex)
+        goto A_H_Return
+    endif
+    set AH_KeyNetcard  = $($R1)
+    set AH_AdapNum     = $($R2)
+    set AH_SvcName     = $(AH_SvcName)$(AH_AdapNum)
+    set AH_KeyNetRules = $($R3)
+    Shell "", CreateService, $(AH_SvcName), "", "", "adapter","",{},"","","","","","","", $(AH_KeyServicesArea)
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "UTILITY.INF: CreateService returned "$(RegistryErrorIndex)
+        goto A_H_Return
+    endif
+    CloseRegKey $($R1)
+    set AH_KeyParameters = $($R2)
+    CloseRegKey $($R3)
+    Shell "", LinkToService, $(AH_KeyNetcard), $(AH_SvcName)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "UTILITY.INF: [AddHardwareComponent] LinkToService returned "$(RegistryErrorIndex)
+        goto A_H_Return
+    endif
+    Shell "", IncrementRefCount, $(AH_SoftwareName)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "UTILITY.INF: [AddHardwareComponent] IncrementRefCount returned "$(RegistryErrorIndex)
+        goto A_H_Return
+    endif
+A_H_Return = +
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "UTILITY.INF: [AddHardwareComponent] returning error: "$(RegistryErrorIndex)
+        Ifstr(i) $(AH_KeyNetRules) != $(KeyNull)
+           CloseRegKey $(AH_KeyNetRules)
+        Endif
+        Ifstr(i) $(AH_KeyNetcard) != $(KeyNull)
+        Endif
+        set AH_KeyNetRules = ""
+        set AH_KeyNetcard = ""
+    endif
+    return $(RegistryErrorIndex), $(AH_KeyNetcard), $(AH_KeyNetRules), $(AH_KeyParameters),+
+           $(AH_AdapNum), $(AH_SvcName)
+[MCAFindBus]
+    read-syms InitBaseVars
+    set RegistryErrorIndex = NO_ERROR
+    set MultifunctionAdapter = "HARDWARE\Description\System\MultifunctionAdapter"
+    set InfoList = {}
+    OpenRegKey $(!REG_H_LOCAL) "" $(MultifunctionAdapter) $(MAXIMUM_ALLOWED) KeyMultiAdapter
+    Ifstr $(KeyMultiAdapter) == $(KeyNull)
+        goto MCAFindBus_return
+    endif
+    EnumRegKey $(KeyMultiAdapter) BusList
+    Debug-Output "Buslist"
+    Debug-Output $(BusList)
+    ForListDo $(BusList)
+        set BusNum = *($($),1)
+        set RegName = $(MultifunctionAdapter)"\"$(BusNum)
+        Debug-Output "BusNum"
+        Debug-Output $(BusNum)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RegName) $(MAXIMUM_ALLOWED) KeyBus
+        ifstr $(KeyBus) != $(KeyNull)
+            GetRegValue $(KeyBus),"Configuration Data",ConfigData
+            ifstr $(ConfigData) != $(KeyNull)
+                set CardInfo = *($(ConfigData), 4 )
+                set Position = 33
+                set SlotNum = 1
+                QueryListSize ListSize $(CardInfo)
+Loop1 =+
+                ifint $(Position) < $(ListSize)
+                    set-add NextByte = $(Position), 1
+                    ifint *($(CardInfo), $(Position)) == $($0)
+                        ifint *($(CardInfo), $(NextByte)) == $($1)
+                            LibraryProcedure RealBusNum, $(!LIBHANDLE), GetMCABusInformation

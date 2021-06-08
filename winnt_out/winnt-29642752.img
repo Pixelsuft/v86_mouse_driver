@@ -1,0 +1,117 @@
+BusNumber)
+        else
+            set BusNumber = 0
+        endif
+        goto adapterverify
+    endif
+    set RadioIn = {$(IOBaseAddress)}
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    ui start "InputDlg"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set IOBaseAddress = *($(RadioOut),1)
+        set NetworkAddress = *($(EditTextOut),1)
+        ui pop 1
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        set CommonStatus = STATUS_USERCANCEL
+        Debug-Output "Action: exit. Bye."
+        ui pop 1
+        goto end
+    else
+        ui pop 1
+        Debug-Output "Action: unknown. Bye."
+        goto end
+    endif
+    ifstr(i) $(!STF_NCDETINFO) == {}
+        Shell $(UtilityInf),GetBusTypeDialog,$(ProductHardwareDescription) $(BusInterfaceType) $(BusNumber)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set BusInterfaceType = $($R1)
+        set BusNumber = $($R2)
+    else
+        set BusInterfaceType = *($(!STF_NCDETINFO),5)
+        set BusNumber = *($(!STF_NCDETINFO),6)
+    endif
+    set Pcmcia = 0
+    ifstr(i) $(BusInterfaceType) == 8
+	    set Pcmcia = 1
+	    set Token1MMIOSize = 8192
+	    set Token1RAMSize  = 16384
+        read-syms SecondDlg$(!STF_LANGUAGE)
+        ifstr(i) $(Token1IRQVal) == ""
+            set Token1IRQVal = *($(IRQList), 1)
+        endif
+        ifstr(i) $(Token1MMIO) == ""
+            set Token1MMIO = *($(MMIOList), 1)
+        endif
+        ifstr(i) $(Token1Speed) == ""
+            set Token1Speed = *($(SpeedList), 1)
+        endif
+        set Token1MMIO = *($(MMIOList), ~($(MMIODecList),+
+            $(Token1MMIOVal)))
+        set Combo1Out = $(Token1Speed)
+        set Combo2Out = $(Token1IRQVal)
+        set Combo3Out = $(Token1MMIO)
+        ui start "Config"
+        ifstr(i) $(DLGEVENT) == "CONTINUE"
+            set Token1Speed = $(Combo1Out)
+            set Token1IRQVal = $(Combo2Out)
+            set Token1MMIO = $(Combo3Out)
+            ui pop 1
+    	else-ifstr(i) $(DLGEVENT) == "BACK"
+            set CommonStatus = STATUS_USERCANCEL
+            Debug-Output "Action: exit. Bye."
+            ui pop 1
+            goto end
+        else
+            ui pop 1
+            Debug-Output "Action: unknown. Bye."
+            goto end
+        endif
+        set Token1MMIOVal = *($(MMIODecList), ~($(MMIOList),+
+            $(Token1MMIO)))
+	    Set-add Token1RAM = $(Token1MMIOVal),8192
+        ifstr(i) $(IOBaseAddress) == 1
+            set IOBaseAddress = 2592
+        else-ifstr(i) $(IOBaseAddress) == 2
+            set IOBaseAddress = 2596
+        else-ifstr(i) $(IOBaseAddress) == ""
+            set IOBaseAddress = 2592
+        endif
+    endif
+adapterverify =+
+    Ifstr(i) $(DetectedCard) != TRUE
+        Goto skipoptions
+    Endif
+    Debug-Output "OEMNADTK.INF: Calling Param_VerifyCard"
+    Shell $(ParamInf) Param_VerifyCard $(!STF_NCDETCARD)
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Debug-Output "OEMNADTK.INF: Param_VerifyCard succeeded"
+        Goto skipoptions
+    Endif
+    Set from = adapteroptions
+    Set to = skipoptions
+    Shell $(UtilityInf),RegistryErrorString,VERIFY_WARNING
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error: cannot get an error string."
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    Goto Warning
+skipoptions =+
+    ifint $(OldVersionExisted) == $(TRUE)
+        ifstr(i) $(!NTN_InstallMode) == configure
+            goto writeparameters
+        endif
+    endif
+    StartWait
+    ifint $(OldVersionExisted) == $(FALSE)
+        ifstr(i) $(!NTN_InstallMode) == "install"
+           Ifstr(i) $(DoCopy) == "YES"
+              Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+              Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  Goto ShellCodeError
+              Else-Ifstr(i) $($R0) == STATUS_FAILED
+                  Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+                  ifi

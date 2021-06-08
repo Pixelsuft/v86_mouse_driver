@@ -1,0 +1,133 @@
+[Version]
+signature="$Windows NT$"
+ClassGUID={00000000-0000-0000-0000-000000000000}
+layoutfile=LAYOUT.INF
+
+;
+;   The following section lists all the groups and items that must be deleted
+;   on upgrade. The format of the items in this section is:
+;
+;   [StartMenu.ObjectsToDelete]
+;   <object type>,<description>,<path>,<common_group>
+;
+;   where:
+;
+;       <object type> is a number:  0 indicates a menu group
+;                                   1 indicates a menu item
+;       <description> is the name of the group or item to be deleted;
+;       <path> is the path to the group or item to be deleted (it does not
+;              include the gropu or item name;
+;       <common_group> is a number: 0 indicates private group
+;                                   1 indicates common group
+;
+;
+[StartMenu.ObjectsToDelete]
+1,%intro%,%main%,0
+1,%pifedit%,%main%,0
+1,%control%,%main%,0
+1,%winfile%,%main%,0
+1,%cmd%,%main%,0
+1,%setup%,%main%,0
+1,%readme%,%main%,0
+1,%ntbooks%,%main%,0
+1,%cmdref%,%main%,0
+1,%printman%,%main%,0
+1,%clipbrd%,%main%,0
+; 1,%msmail32%,%main%,0
+; 1,%schdpl32%,%main%,0
+1,%terminal%,%accessories%,0
+1,%mplayer%,%accessories%,0
+1,%sndrec32%,%accessories%,0
+1,%sndvol32%,%accessories%,0
+1,%cdplayer%,%accessories%,0
+1,%pbrush%,%accessories%,0
+1,%printman%,%accessories%,0
+1,%write%,%accessories%,0
+1,%sol%,%games%,0
+1,%winmine%,%games%,0
+1,%freecell%,%games%,0
+1,%dcomcnfg%,%admintools%,1
+1,%ntbooks%,,0
+
+;
+; Items moved from personal Administrative Tools group to
+; Administrative Tools (Common) group
+;
+1,%windisk%,%admintools%,0
+1,%perfmon%,%admintools%,0
+1,%ntbackup%,%admintools%,0
+1,%eventvwr%,%admintools%,0
+1,%winmsd%,%admintools%,0
+1,%rasadmin%,%admintools%,0
+1,%musrmgr%,%admintools%,0
+1,%dcomcnfg%,%admintools%,0
+;
+;   Items moved from Network Administration (Common) group to
+;   Administrative Tools (Common)
+;
+
+
+;
+;   The following section lists all the items under 'Start Menu\Programs' that should
+;   be created on a clean install and upgrade. The format of the items in this section
+;   is:
+;
+; [StartMenuItems]
+; <description> = <binary>,<commandline>,<iconfile>,<iconnum>,<upgrade>
+;
+; Binary is the file whose presence in \system32 means that we need
+; to create the program item. Commandline is the actual command line
+; passed to progman for the item. Iconfile is optional and overrides
+; the default icon that progman gives the item.
+;
+; If <upgrade> is non-0, then this item gets upgraded during upgrade.
+;
+[StartMenuItems]
+%cmd% = cmd.exe,cmd.exe,progman.exe,10
+%explorer% = explorer.exe,explorer.exe,explorer.exe,1
+
+;
+;   The following section lists all the groups under 'Start Menu\Programs' that should
+;   be created on a clean install and upgrade. The format of the items in this section
+;   is:
+;
+;   [StartMenuGroups]
+;   <group_name_id> = <description>,<common_group>
+;
+;   where:
+;
+;       <description> is the name of the group to be created;
+;       <common_group> is a number: 0 indicates private group
+;                                   1 indicates common group
+;
+;
+[StartMenuGroups]
+Accessories = %accessories%,0
+Startup = %startup%,0
+AdminTools = %admintools%,1
+
+;
+; Sections that follow are for program group items that are
+; always added, and are in the following format:
+;
+; [<group_name_id>]
+; <description> = <binary>,<commandline>,<iconfile>,<iconnum>,<upgrade>
+;
+; Binary is the file whose presence in \system32 means that we need
+; to create the program item. Commandline is the actual command line
+; passed to progman for the item. Iconfile is optional and overrides
+; the default icon that progman gives the item.
+;
+; If <upgrade> is non-0, then this item gets upgraded during upgrade.
+;
+[AdminTools]
+%windisk% = windisk.exe,windisk.exe,,0
+%perfmon% = perfmon.exe,perfmon.exe,,0
+%ntbackup% = ntbackup.exe,ntbackup.exe,,0
+%eventvwr% = eventvwr.exe,eventvwr.exe,,0
+%winmsd% = winmsd.exe,winmsd.exe,,0
+%rasadmin% = rasadmin.exe,rasadmin.exe,,0
+%musrmgr% = musrmgr.exe,musrmgr.exe,,0
+
+[Accessories]
+%

@@ -1,0 +1,65 @@
+TK240172.PPD
+"Tektronix Phaser 240 with 39 fonts"                   = TK240392.PPD
+"Tektronix Phaser 240J"                                = TKP240J1.PPD
+"Tektronix Phaser 300i"                                = TKP300I1.PPD
+"Tektronix Phaser 300J"                                = TKP300J1.PPD
+"Tektronix Phaser 340"                                 = TK340171.PPD
+"Tektronix Phaser 340 600 dpi"                         = TK340691.PPD
+"Tektronix Phaser 440"                                 = TKPH4401.PPD
+"Tektronix Phaser 480"                                 = TKPH4801.PPD
+"Tektronix Phaser 480J"                                = TKP480J1.PPD
+"Tektronix Phaser 540"                                 = TKPH5401.PPD
+"Tektronix Phaser 550"                                 = TK550172.PPD
+"Tektronix Phaser 550J"                                = TKP550J1.PPD
+"Tektronix Phaser 550 1200 dpi"                        = TK550392.PPD
+"Tektronix Phaser 550J 1200 dpi"                       = TK550PJ1.PPD
+"Tektronix Phaser II PX"                               = PHIIPX.PPD
+"Tektronix Phaser II PXe v2010.128 with 17 fonts"      = TKPXE171.PPD
+"Tektronix Phaser II PXe v2010.128 with 39 fonts"      = TKPXE391.PPD
+"Tektronix Phaser II PXi v2010.116"                    = TKPHZR21.PPD
+"Tektronix Phaser II PXi v2011.108"                    = TKPHZR22.PPD
+"Tektronix Phaser II PXiJ v2011.108"                   = TKPHZ2J1.PPD
+"Tektronix Phaser III PXi v2010.116"                   = TKPHZR31.PPD
+"Tektronix Phaser III PXi v2011.108"                   = TKPHZR32.PPD
+"Tektronix Phaser III PXiJ v2011.108"                  = TKPHZ3J1.PPD
+"Tektronix Phaser IISD v2011.108"                      = TKPH2SD1.PPD
+"Tektronix Phaser IISDJ"                               = TKP2SDJ1.PPD
+"Tektronix Phaser IISDX"                               = TKP2SDX1.PPD
+"Tektronix Phaser PX"                                  = PX.PPD
+"Tektronix Phaser PXi"                                 = TKPHPXI1.PPD
+
+[Texas Instruments]
+"TI 2115 13 fonts v47.0"                               = T1513470.PPD
+"TI 2115 35 fonts v47.0"                               = T1535470.PPD
+"TI 850/855"                                           = TI850.DLL
+"TI microMarc Advanced Mono"                           = JP350.DLL
+"TI microMarc Color"                                   = JP350.DLL
+"TI microLaser PS17 v.52.1"                            = TIM17521.PPD
+"TI microLaser PS35 v.52.1"                            = TIM35521.PPD
+"TI microLaser XL PS17 v.52.1"                         = TIX17521.PPD
+"TI microLaser XL PS35 v.52.1"                         = TIX35521.PPD
+"TI microLaser6 Turbo v2010.119"                       = TITRBO61.PPD
+"TI microLaser9 Turbo v2010.119"                       = TITRBO91.PPD
+"TI microLaser16 Turbo v2010.119"                      = TITRB161.PPD
+"TI microLaser 600"                                    = PCL5MS.DLL
+"TI microLaser 600 2014.107 PS23"                      = TIML6231.PPD
+"TI microLaser Pro 2014.107 23"                        = TIMLP233.PPD
+"TI microLaser Pro E 2014.107 23"                      = TIMPE231.PPD
+"TI microLaser Pro 300 2014 PS23"                      = TIMP3231.PPD
+"TI microLaser Pro 600 2013 PS23"                      = TIMLP231.PPD
+"TI microLaser Pro 600 2014 PS23"                      = TIMLP232.PPD
+"TI microLaser Pro 600 2013 PS65"                      = TIMLP651.PPD
+"TI microLaser Pro 600 2014 PS65"                      = TIMLP652.PPD
+"TI microLaser Pro/8 2015"                             = TIML8641.PPD
+"TI microLaser PowerPro 2014 67"                       = TIMLP671.PPD
+"TI microLaser PowerPro 2014.107"                      = TIMLP672.PPD
+"TI microLaser PowerPro/12 2015"                       = TIM12641.PPD
+"TI OmniLaser 2108 v45.0"                              = TI08_450.PPD
+"TI Omnilaser 2115 v47.0"                              = TI15_470.PPD
+
+[Toshiba]
+"Toshiba GX-400"                                       = PCL5MS.DLL
+"Toshiba PageLaser12"                                  = HPPCL.DLL
+
+[UNISYS]
+"UNISYS AP9

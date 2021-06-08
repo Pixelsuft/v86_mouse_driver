@@ -1,0 +1,153 @@
+e.hWnd
+If oleImgAdmin1.StatusCode = 0 Then 'OK button selected
+    format = oleImgAdmin1.PrintOutputFormat
+    Annotations = oleImgAdmin1.PrintAnnotations
+        X = oleImgEdit1.PrintImage(oleImgAdmin1.PrintStartPage, oleImgAdmin1.PrintEndPage, format, Annotations)
+Else
+    If Err = ErrCancel Then '32755 = Cancel pressed
+        Exit Sub
+    Else
+        MsgBox Err.Description + " Code = " + Hex(oleImgAdmin1.StatusCode), 16
+    End If
+End If
+If oleImgEdit1.StatusCode <> 0 Then
+    MsgBox Err.Description + " Code = " + Hex(oleImgEdit1.StatusCode), 16
+End If
+
+End Sub
+
+Private Sub mnuPrintPage_Click()
+'Print the current page.
+
+On Error Resume Next 'handle errors ourselves
+X = oleImgEdit1.PrintImage(oleImgEdit1.page, oleImgEdit1.page)
+If oleImgEdit1.StatusCode <> 0 Then
+    MsgBox Err.Description + " Code = " + Hex(oleImgEdit1.StatusCode), 16
+End If
+
+End Sub
+
+
+Private Sub mnuRescan_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuRight_Click()
+'Rotate image 90 degrees to the right
+oleImgEdit1.RotateRight
+
+End Sub
+
+Private Sub mnuSave_Click()
+'Save the current document
+On Error Resume Next 'handle errors ourselves
+If oleImgEdit1.Image = "" Then
+    mnuSaveAs_Click
+Else
+    oleImgEdit1.Save (False)
+    If oleImgEdit1.StatusCode <> 0 Then
+        MsgBox Err.Description + " Code = " + Hex(oleImgEdit1.StatusCode), 16
+    End If
+End If
+
+End Sub
+
+Private Sub mnuSaveAs_Click()
+'Open ImgAdmin's SaveAs dialog
+Dim FileType As Integer
+
+On Error Resume Next 'handle errors ourselves
+
+'we can write tiff, bmp, and awd files, so set the admin file filter
+'to show only these types.
+oleImgAdmin1.Filter = "TIFF files (*.tif)|*.tif|BMP files (*.bmp)|*.bmp|"
+oleImgAdmin1.ShowFileDialog 1, frmSample.hWnd
+If Err = ErrCancel Then '32755 = Cancel pressed
+    Exit Sub
+End If
+
+If oleImgAdmin1.Image = oleImgEdit1.Image Then 'Save as current name
+    oleImgEdit1.Save False
+Else 'Save as newly selected name and change image name to selected name
+    'determine from the filter index which file type was selected
+    If oleImgAdmin1.FilterIndex = 1 Then
+        FileType = TiffImage
+    ElseIf oleImgAdmin1.FilterIndex = 2 Then
+        FileType = BmpImage
+    End If
+    oleImgEdit1.SaveAs oleImgAdmin1.Image, FileType
+    oleImgEdit1.Image = oleImgAdmin1.Image
+    oleImgAdmin1.Image = oleImgEdit1.Image 'this forces a refresh of the properties in the Admin control
+    
+End If
+oleImgAdmin1.FilterIndex = 0
+oleImgAdmin1.Filter = ""
+If oleImgEdit1.StatusCode <> 0 Then
+    MsgBox Err.Description + " Code = " + Hex(oleImgEdit1.StatusCode), 16
+    Exit Sub
+End If
+
+End Sub
+
+Private Sub mnuScaleToGray_Click()
+'toggle image in 4 bit grayscale
+If mnuScaleToGray.Checked = True Then
+    oleImgEdit1.DisplayScaleAlgorithm = 0
+    oleImgEdit1.Refresh
+    mnuScaleToGray.Checked = False
+Else
+    oleImgEdit1.DisplayScaleAlgorithm = 2
+    oleImgEdit1.Refresh
+    mnuScaleToGray.Checked = True
+End If
+End Sub
+
+
+
+Private Sub mnuSelect_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+
+Private Sub mnuSelectPointer_Click()
+'see documentation for the list of annotation types
+oleImgEdit1.SelectTool AnnoSelection
+
+
+'Check the current annotation tool and uncheck all
+'the others
+mnuNoTool.Checked = False
+mnuSelectPointer.Checked = True
+mnuAttachNote.Checked = False
+mnuFillRect.Checked = False
+mnuFreeHand.Checked = False
+mnuHiLight.Checked = False
+mnuHollowRect.Checked = False
+mnuStamp.Checked = False
+mnuStraightLine.Checked = False
+mnuTextFromFile.Checked = False
+mnuTypedText.Checked = False
+
+End Sub
+
+
+Private Sub mnuSend_Click()
+'Add your code here.
+MsgBox "Function to be implemented by user."
+
+End Sub
+
+Private Sub mnuShowTools_Click()
+'If the tool palette is visible, close it.  If it's
+'not visible, open it.
+If Annot8Visible = True Then
+    oleImgEdit1.HideAnnotationToolPalette
+    Annot8Visible = False
+    mnuShowTools.Checked = False
+Else
+    oleImgEdit1.

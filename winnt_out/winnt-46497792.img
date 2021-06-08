@@ -1,0 +1,107 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Infotel and Creatix
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%MS%
+
+[Manufacturer]
+%Infotel% = Infotel
+%Creatix% = Creatix
+
+[Creatix]
+%Modem13% = Modem13, UNIMODEME19AC0D8               ; Creatix 14.4 PCMCIA
+%Modem13% = Modem13, INFOT_Modem13, PCMCIA\INTEL-DATAFAX_14.4-7462 ; Creatix 14.4 PCMCIA - rank0 in mdmcpq
+%Modem12% = Modem12, UNIMODEME4C76F90               ; Creatix 14.4 Internal
+
+[Infotel]
+%Modem14% = Modem14, INFOT_Modem14, UNIMODEM16E3BF9F
+%Modem11% = Modem11, INFOT_Modem11, UNIMODEMF0C04D74      ; Infotel Modem 1414VQE (same as Digicom Scout Classic 144 external)
+%Modem10% = Modem10, UNIMODEM0F3E5258      ; Infotel Modem 2400 SM-24-NS
+%Modem9%  = Modem9,  UNIMODEM848FC3E5      ; Infotel 2400P
+%Modem8%  = Modem8,  UNIMODEM1BC27B10      ; Infotel 2400 SF
+%Modem7%  = Modem7,  UNIMODEM580306EA      ; Infotel 1414Vqh
+%Modem6%  = Modem6,  UNIMODEM56F75F64      ; Infotel 9624P
+%Modem5%  = Modem5,  UNIMODEM31A3765D      ; Infotel 9624H-S
+%Modem4%  = Modem4,  INFOT_Modem4, UNIMODEM959C40CA      ; Infotel 144I (Rockwell clone)
+%Modem3%  = Modem3,  UNIMODEM8976FCA7      ; Infotel 1414VQP
+%Modem2%  = Modem2,  UNIMODEM29A037D6      ; Infotel 1428VQE
+%Modem1%  = Modem1,  UNIMODEMB6C628AC      ; Infotel 1428VQH-R 
+
+
+[Modem14] 
+AddReg=All, MfgAddReg, CIRRUS_VOICE_ALL, Modem14.AddReg, INTERNAL
+
+[Modem13]   ; Creatix 14.4 PCMCIA
+AddReg=All, MfgAddReg, Modem13.AddReg, PCMCIA
+
+[Modem12]   ; Creatix 14.4 Internal modem
+AddReg=All, MfgAddReg, Modem12.AddReg, INTERNAL
+
+[Modem11]   ; Infotel 1414VQE
+AddReg=All, MfgAddReg, Modem11.AddReg, EXTERNAL
+
+[Modem10]   ; Infotel Modem 2400 SM-24-NS
+AddReg=All, MfgAddReg, Modem10.AddReg, EXTERNAL
+
+[Modem9]    ; Infotel 2400P
+AddReg=All, MfgAddReg, Modem9.AddReg, EXTERNAL
+
+[Modem8]    ; Infotel 2400 SF
+AddReg=All, MfgAddReg, Modem8.AddReg, INTERNAL
+
+[Modem7]    ; Infotel 1414Vqh
+AddReg=All, MfgAddReg, Modem7.AddReg, INTERNAL
+
+[Modem6]    ; Infotel 9624P
+AddReg=All, MfgAddReg, Modem6.AddReg, EXTERNAL
+
+[Modem5]    ; Infotel 9624H-S
+AddReg=All, MfgAddReg, Modem5.AddReg, INTERNAL
+
+[Modem4]    ; Infotel 144I
+AddReg=All, MfgAddReg, Modem4.AddReg, INTERNAL
+
+[Modem3]    ; Infotel 1414VQP
+AddReg=All, MfgAddReg, Modem3.AddReg, EXTERNAL
+
+[Modem2]    ; Infotel 1428VQE
+AddReg=All, MfgAddReg, Modem2.AddReg, EXTERNAL
+
+[Modem1]    ; Infotel 1428VQH-R 
+AddReg=All, MfgAddReg, Modem1.AddReg, INTERNAL
+
+
+[Modem14.AddReg] 
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f3,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init, 2,, "AT &F E0 V1 &D2 &C1 \V2 S0=0<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, Compression_On,, "%%C1""H3"
+HKR, Settings, Compression_Off,, "%%C0""H0"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,,"\N3"          
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, InactivityTimeout,, "\T<#>"
+
+[Modem13.AddReg]    ; Creatix 14.4 PCMCIA  - with cellular
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, ff,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT&FE0W2V1X4S95=47&C1&D2&S0<cr>"
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Settings, ErrorControl_Cellular,, "\N3 )M1 *H1 -K1 -Q1 @M0 :E1" 
+HKR, Settings, ErrorControl_Cellular_Forced,, "\N2 )M1 *H1 -K1 -Q1 @M0 :E1"
+ 
+[Modem12.AddReg]    ; Creatix 14.4 Internal modem 
+HKR,, Properties, 1, 80,01,00,00, 3c,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,c2,01,00, 40,38,00,00
+HKR, Init, 2,, "AT &F S0=0 E0 V1 &D2 &C1 W2 \V1<cr>"
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR, Settings, InactivityTimeout,, "\T<#>"
+HKR, Settings, ErrorControl_On,, "\N6"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+
+[Modem11.AddReg]    ; Infotel 1414VQE
+HKR,, Properties, 1, 80,01,00,00, ff,00,00,00, ff,00,00,00, 07,00,00,0

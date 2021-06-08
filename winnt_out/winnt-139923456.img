@@ -1,0 +1,95 @@
+lKey), "Multilink", MultiLinkList
+        ifint $(RegLastError) != 0
+           Debug-Output "Upgradeselectedprotocols: defaulting Multilink to 0"
+           SetRegValue $(RasProtocolKey) {Multilink, 0, $(!REG_VT_DWORD), 0}
+        endif
+        set NetbeuiSelected = 0
+        set NetbeuiAllowed  = 0
+        set TcpIpSelected = 0
+        set TcpIpAllowed = 0
+        set IpxSelected = 0
+        set IpxAllowed = 0
+        ifint $(DialoutNBF) != 0
+            set NetbeuiSelected = 1
+        endif
+        ifint $(GtwyEnabled) == 1
+          ifint $(DialinNBF) != 0
+            set NetbeuiAllowed = 1
+          endif
+        else
+          ifint $(DialoutNBF) != 0
+            set NetbeuiAllowed = 1
+          endif
+        endif
+        ifstr(i) $(fDownLevel) != TRUE
+          ifint $(DialoutIP) != 0
+            set TcpIpSelected = 1
+          endif
+          ifint $(DialinIP) != 0
+            set TcpIpAllowed = 1
+          endif
+          ifint $(DialinoutIPX) != 0
+            set IpxSelected = 1
+            set IpxAllowed  = 1
+          endif
+        endif
+        set ItemList = {}
+        GetRegValue $(RasProtocolKey), "fNetbeuiSelected", ItemList
+        ifint $(RegLastError) != 0
+           SetRegValue $(RasProtocolKey) {fNetbeuiSelected, 0,+
+                                          $(!REG_VT_DWORD),$(NetbeuiSelected)}
+        endif
+        GetRegValue $(RasProtocolKey), "fTcpIpSelected", ItemList
+        ifint $(RegLastError) != 0
+           SetRegValue $(RasProtocolKey) {fTcpIpSelected, 0,+
+                                          $(!REG_VT_DWORD),$(TcpIpSelected)}
+        endif
+        GetRegValue $(RasProtocolKey), "fIpxSelected", ItemList
+        ifint $(RegLastError) != 0
+           SetRegValue $(RasProtocolKey) {fIpxSelected, 0,+
+                                          $(!REG_VT_DWORD),$(IpxSelected)}
+        endif
+        GetRegValue $(RasProtocolKey), "fNetbeuiAllowed", ItemList
+        ifint $(RegLastError) != 0
+           SetRegValue $(RasProtocolKey) {fNetbeuiAllowed, 0,+
+                                          $(!REG_VT_DWORD),$(NetbeuiAllowed)}
+        endif
+        GetRegValue $(RasProtocolKey), "fTcpIpAllowed", ItemList
+        ifint $(RegLastError) != 0
+           SetRegValue $(RasProtocolKey) {fTcpIpAllowed, 0,+
+                                          $(!REG_VT_DWORD),$(TcpIpAllowed)}
+        endif
+        GetRegValue $(RasProtocolKey), "fIpxAllowed", ItemList
+        ifint $(RegLastError) != 0
+           SetRegValue $(RasProtocolKey) {fIpxAllowed, 0,+
+                                          $(!REG_VT_DWORD),$(IpxAllowed)}
+        endif
+        OpenRegKey $(RasProtocolKey) "" "NBF" $(!MAXIMUM_ALLOWED) NbfKey
+        ifstr $(NbfKey) == $(KeyNull)
+            CreateRegKey $(RasProtocolKey) {"NBF",0,GenericClass} "" $(!MAXIMUM_ALLOWED) "" NbfKey
+            SetRegValue $(NbfKey) {NetBiosGatewayEnabled, 0,+
+                                       $(!REG_VT_DWORD),$(GtwyEnabled)}
+            CloseRegKey $(NbfKey)
+        endif
+        ifstr(i) $(fDownLevel) != TRUE
+            OpenRegKey $(RasProtocolKey) "" "IP" $(!MAXIMUM_ALLOWED) IpKey
+            ifstr $(IpKey) != $(KeyNull)
+                GetRegValue $(IpKey), "AllowNetworkAccess", ItemList
+                ifint $(RegLastError) != 0
+                   SetRegValue $(IpKey) {AllowNetworkAccess, 0,+
+                                              $(!REG_VT_DWORD),$(GtwyEnabled)}
+                endif
+                CloseRegKey $(IpKey)
+            endif
+            OpenRegKey $(RasProtocolKey) "" "IPX" $(!MAXIMUM_ALLOWED) IpxKey
+            ifstr $(IpxKey) != $(KeyNull)
+                GetRegValue $(IpxKey), "AllowNetworkAccess", ItemList
+                ifint $(RegLastError) != 0
+                SetRegValue $(IpxKey) {AllowNetworkAccess, 0,+
+                                           $(!REG_VT_DWORD),$(GtwyEnabled)}
+                endif
+                CloseRegKey $(IpxKey)
+            endif
+        endif
+        set ForceEncryptedPassword = 2
+        set 

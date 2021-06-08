@@ -1,0 +1,102 @@
+ARP_Protocol = $($0)
+    Set ARP_ServerDll = $($1)
+    read-syms InitBaseVars
+    Set ARP_KeyRpc = $(KeyNull)
+    Set ARP_KeyRpcServer = $(KeyNull)
+    Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+    OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft\Rpc" $(MAXIMUM_ALLOWED) ARP_KeyRpc
+    Ifstr(i) $(ARP_KeyRpc) == $(KeyNull)
+       Goto ARP_Return
+    Endif
+    OpenRegKey $(ARP_KeyRpc) "" "ServerProtocols" $(MAXIMUM_ALLOWED) ARP_KeyServer
+    Ifstr(i) $(ARP_KeyServer) == $(KeyNull)
+       Goto ARP_Return
+    Endif
+    SetRegValue $(ARP_KeyServer) {$(ARP_Protocol),$(NoTitle),$(!REG_VT_SZ),$(ARP_ServerDll)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Goto ARP_Return
+    Endif
+    Set RegistryErrorIndex = NO_ERROR
+ARP_Return = +
+    Ifstr(i) $(ARP_KeyServer) != $(KeyNull)
+        CloseRegKey $(ARP_KeyServer)
+    Endif
+    Ifstr(i) $(ARP_KeyRpc) != $(KeyNull)
+        CloseRegKey $(ARP_KeyRpc)
+    Endif
+    Return  $(RegistryErrorIndex)
+[UpgradeRPCMapConstants]
+DLLClientList = { "rpcltc3.dll", "rpcltc6.dll", "rpcltc5.dll", "rpcltc7.dll", "rpcdgc3.dll" }
+DLLServerList = { "rpclts3.dll", "rpclts6.dll", "rpclts5.dll", "rpclts7.dll", "rpcdgs3.dll" }
+[AddMixRpcProtocol]
+    set ServiceA = $($0)
+    set ServiceB = $($1)
+    Set ARP_Protocol = $($2)
+    Set ARP_ClientDll = $($3)
+    Set ARP_ServerDll = $($4)
+    read-syms InitBaseVars
+    read-syms UpgradeRPCMapConstants
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$(ServiceA) $(MAXIMUM_ALLOWED) KeyServiceA
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$(ServiceB) $(MAXIMUM_ALLOWED) KeyServiceB
+    ifstr(i) $(KeyServiceA) != $(KeyNull)
+        ifstr(i) $(KeyServiceB) != $(KeyNull)
+            Ifcontains(i) $(ARP_ClientDll) in $(DLLClientList)
+                Debug-Output "UTILITY.INF: AddMixRpcProtocol tried to add old "$(ARP_ClientDll)", changed to RpcLtCCM.DLL!"
+                set ARP_ClientDll = "rpcltccm.dll"
+            Endif
+            Ifcontains(i) $(ARP_ServerDll) in $(DLLServerList)
+                Debug-Output "UTILITY.INF: AddMixRpcProtocol tried to add old "$(ARP_ServerDll)", changed to RpcLtSCM.DLL!"
+                set ARP_ServerDll = "rpcltscm.dll"
+            Endif
+            Shell "" AddRpcProtocol $(ARP_Protocol) $(ARP_ClientDll) $(ARP_ServerDll)
+            set ReturnCode = $($R0)
+        endif
+    endif
+    set ReturnCode = NO_ERROR
+return_AddMixRpcProtocl = +
+    return $(ReturnCode)
+[RemoveRpcProtocol]
+    Set RRP_Protocol = $($0)
+    read-syms InitBaseVars
+    Set RRP_KeyRpc = $(KeyNull)
+    Set RRP_KeyRpcServer = $(KeyNull)
+    Set RRP_KeyRpcClient = $(KeyNull)
+    Set RegistryErrorIndex = UNABLE_ACCESS_SOFTWARE_REG
+    OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft\Rpc" $(MAXIMUM_ALLOWED) RRP_KeyRpc
+    Ifstr(i) $(RRP_KeyRpc) == $(KeyNull)
+       Goto RRP_Return
+    Endif
+    OpenRegKey $(RRP_KeyRpc) "" "ClientProtocols" $(MAXIMUM_ALLOWED) RRP_KeyClient
+    Ifstr(i) $(RRP_KeyClient) == $(KeyNull)
+       Goto RRP_Return
+    Endif
+    OpenRegKey $(RRP_KeyRpc) "" "ServerProtocols" $(MAXIMUM_ALLOWED) RRP_KeyServer
+    Ifstr(i) $(RRP_KeyServer) == $(KeyNull)
+       Goto RRP_Return
+    Endif
+    DeleteRegValue $(RRP_KeyClient) $(RRP_Protocol)
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Goto RRP_Return
+    Endif
+    DeleteRegValue $(RRP_KeyServer) $(RRP_Protocol)
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Goto RRP_Return
+    Endif
+    Set RegistryErrorIndex = NO_ERROR
+RRP_Return = +
+    Ifstr(i) $(RRP_KeyServer) != $(KeyNull)
+        CloseRegKey $(RRP_KeyServer)
+    Endif
+    Ifstr(i) $(RRP_KeyClient) != $(KeyNull)
+        CloseRegKey $(RRP_KeyClient)
+    Endif
+    Ifstr(i) $(RRP_KeyRpc) != $(KeyNull)
+        CloseRegKey $(RRP_KeyRpc)
+    Endif
+    Return  $(RegistryErrorIndex)
+[RemoveClientRpcProtocol]
+    Set RRP_Protocol = $($0)
+    read-syms InitBaseVars
+    Set RRP_KeyRpc = $(KeyNull)
+    Set RRP_KeyRpcClient = $(KeyNull)
+    Set RegistryErrorIndex = UNAB

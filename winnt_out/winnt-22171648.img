@@ -1,0 +1,51 @@
+s, and then click Control Panel.
+
+Microsoft Internet Explorer version 2.0
+This release of Windows NT Workstation and Windows NT Server includes Microsoft Internet Explorer, which is installed by default when you install Windows NT.
+
+Note 
+You must have TCP/IP installed and establish a connection to the Internet (directly or through RAS).
+
+Advanced Users
+
+To setup the proxy 
+1. Right-click the Internet icon on your desktop, and then click Properties.
+2. Click Use Proxy Server, and enter the name of your proxy server.
+
+You may place a list of URLs to bypass the proxy on in Bypass proxy on. Type  <local> to bypass the proxy server for intranet access.
+
+HTML-Based Internet Service Manager
+If Internet Explorer 2.0 is running on your desktop, you will be unable to activate the HTML-based Internet Service Manager.  Close all sessions of Internet Explorer 2.0 and rerun HTML Internet Service Manager. 
+
+Using Internet Explorer 2.0 for MSN Authentication
+To access a site that requires MSN authentication, an administrator on the local machine must have connected to any Web site using IE 2.0 at least once previously. Otherwise, the error "Internet Explorer:  This page cannot be opened without authentication.  Internet Explorer is not set up to use the required method of authentication." will be displayed.  If you receive this error, contact your network administrator to do one of the following:
+· Obtain administrative rights to your local machine. Log on as an administrator and then use IE 2.0 to access any Web site.
+-Or-
+· Ask the administrator of the local machine to run IE 2.0 once to connect to a Web site.
+
+
+Microsoft Peer Web Services
+
+Installing Peer Web Services on Windows NT Workstation Version 4.0
+Microsoft Peer Web services is a personal Web server that has been optimized to run on Windows NT Workstation version 4.0. With Peer Web Services, you can create a personal Internet server, which is ideal for development, testing, and peer-to-peer publishing. As with Internet Information Server, Peer Web Services supports all ISAPI extensions and filters.  For more information about Internet Information Server, see "Microsoft Internet Information Server" later in this document.
+
+After you have you installed Windows NT Workstation, you can install Peer Web Services using the Network icon in Control Panel. If you already have the necessary Internet or intranet connection, you can accept all of the default settings during Setup and then add your Hypertext Markup Language (HTML) content files to the \Wwwroot directory. Your files will be immediately available to users. The default Setup configurations are suitable for many publishing scenarios without further modifications.
+
+To install Peer Web Services
+1. Insert the Windows NT Workstation version 4.0 compact disc into the CD-ROM drive.
+2. Click Start, point to Settings, and then click Control Panel.
+3. Double-click the Network icon and then click the Services tab.
+4. Click Add.
+5. From the list of services, select Microsoft Peer Web Services, and then click OK.
+6. Type the drive letter for the compact disc.
+7. Follow the instructions on the screen.
+For help with any Setup dialog box, click the Help button.
+
+For more information about installation, see the Start Here book provided with Windows NT Workstation version 4.0. 
+
+Where Is the Product Documentation?
+Documentation for Microsoft Peer Web Services is installed with the product and is available online. After installing the product, you can open its Installation and Administration Guide by clicking the Product Documentation icon in the Microsoft Internet Server program group, or by running Internet Service Manager and clicking Topics on the Help menu. You can also review the product documentation before you install Peer Web Services by using a Web browser (such as Microsoft Internet Explorer) to open the files directly from the Windows NT Workstation compact disc. 
+
+To read the documentation, open the following file on the compact disc:
+\Platform\Inetsrv\Htmldocs\Inetdocs.htm
+where 

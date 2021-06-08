@@ -1,0 +1,80 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Rockwell
+; Supports Rockwell & some Cirrus chipset modems, encompassing many mfgs & models
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Rockwell%
+
+[ControlFlags]
+ExcludeFromSelect=UNIMODEM733C4E29                   ; Zoom, Best Data, 28.8 internal combo
+ExcludeFromSelect=UNIMODEMA3EEEF33                   ; Zoom, Best Data, 28.8 external combo
+ExcludeFromSelect=UNIMODEM24FFB24B                   ; CPI, Best Data 9648Fx External
+ExcludeFromSelect=UNIMODEM1058B7F8                   ; V.34 Apex, Toshiba
+ExcludeFromSelect=UNIMODEMCFA485CD,UNIMODEM2C9A8C70  ; 14000 bps Data-Fax internal
+ExcludeFromSelect=UNIMODEMC9720A17                   ; Logicode, Microcom
+ExcludeFromSelect=UNIMODEMAF48CC9F                   ; Premax, Smart Modular 
+ExcludeFromSelect=UNIMODEM526F22F6                   ; Piiceon PCMCIA 14.4 and 14.4 for Contura+LTE (ISA)
+ExcludeFromSelect=UNIMODEMCC96FDC7                   ; Cardinal v.34 and CPI (Viva)
+ExcludeFromSelect=UNIMODEM1C445CDD                   ; Cardinal v.34 and CPI (Viva)
+ExcludeFromSelect=UNIMODEMAAC52F50                   ; Cardinal MVP144IF, MVP144E, and Logicode
+ExcludeFromSelect=PCMCIA\PIICEON-DISPATCHER-80D0     ; Piiceon Dispatcher V.34, 14.4
+ExcludeFromSelect=UNIMODEME466C599                   ; Reveal, Packard Bell
+ExcludeFromSelect=SERENUM\CRD1000                    ; cardinal 28.8 ext
+ExcludeFromSelect=SERENUM\ZTI4120                    ; zoom 28.8 ext
+
+[Rockwell19.NoResDup]
+UNIMODEM01C369CD,UNIMODEMA6B66087
+
+[Manufacturer]
+%Rockwell%   = Rockwell
+%Cardinal%   = Cardinal
+%Digitan%    = Digitan
+%BestData%   = BestData   
+%SMART%      = SMART   
+%Apex%       = Apex
+%ComOne%     = ComOne
+%Logicode%   = Logicode
+%Premax%     = Premax
+%Macronix%   = Macronix
+%Piiceon%    = Piiceon
+%Mitsubishi% = Mitsubishi
+%Winbook%    = Winbook
+%Reveal%     = Reveal
+%Zoom%       = Zoom
+%Supra% = Supra
+
+
+[Reveal]
+%Reveal1%  = Rockwell20, UNIMODEM8CF33BE4   ; Reveal V.34, 28.8, internal
+%Reveal2%  = Rockwell10, ROCK_Reveal2, UNIMODEM535147EF   ; Reveal 14.4, Data FAX, internal
+%Reveal4%  = Rockwell44, ROCK_Reveal4, UNIMODEME466C599   ; Reveal 14.4 Modem Soundcard
+%Reveal5%  = Rockwell44, UNIMODEME466C599   ; Reveal, Packard Bell
+
+[Winbook]
+%Winbook1% = Rockwell31, ROCK_Winbook1, UNIMODEM0BCCA4A7    ; WinbookXP 14.4 internal modem
+%Winbook2% = Rockwell43, ROCK_Winbook2, UNIMODEM858E1599    ; WinbookXP cirrus chipset
+
+[Mitsubishi]
+%Mitsubishi1% = Rockwell14, PCMCIA\MITSUBISHI_ELECTRIC_CORPORATION-MF0B-004____________-2B0E ; Mitsubishi 14.4 PCMCIA
+%Mitsubishi1% = Rockwell14, UNIMODEM0715F8AD                                                 ; Mitsubishi 14.4 PCMCIA
+
+[Piiceon]
+%Piiceon2% = Rockwell29, PCMCIA\PIICEON-DISPATCHER-3CDB  ; Piiceon Dispatcher 14.4 PCMCIA
+%Piiceon2% = Rockwell29, PCMCIA\PIICEON-DISPATCHER-3A96  ; Piiceon Dispatcher 14.4 PCMCIA
+%Piiceon2% = Rockwell29, ROCK_Piiceon2, UNIMODEM526F22F6                ; Piiceon Dispatcher 14.4 PCMCIA
+%Piiceon2% = Rockwell29, ROCK_Piiceon2, PCMCIA\PIICEON-DISPATCHER-80D0  ; Piiceon Dispatcher 14.4 PCMCIA
+%Piiceon3% = Rockwell30, UNIMODEMA4A014C2                ; Piiceon Dispatcher V.34 
+%Piiceon4% = Rockwell33, ROCK_Piiceon4, UNIMODEM526F22F6                ; Piiceon Dispatcher 14.4 for LTE and Contura
+%Piiceon5% = Rockwell33, UNIMODEM526F22F6                ; combo, Piiceon PCMCIA 14.4 and 14.4 for Contura+LTE (ISA)
+%Piiceon6% = Rockwell34, UNIMODEME8277FDB                ; Piiceon Dispatcher 14.4 for Toshiba
+%Piiceon7% = Rockwell40, ROCK_Piiceon7, PCMCIA\PIICEON-DISPATCHER-80D0  ; Piiceon Dispatcher V.34 PCMCIA
+%Piiceon7% = Rockwell40, ROCK_Piiceon7, UNIMODEMAF48CC9F                ; Piiceon Dispatcher V.34 PCMCIA
+%Piiceon8% = Rockwell29, PCMCIA\PIICEON-DISPATCHER-80D0  ; Piiceon Dispatcher V.34, 14.4 PCMCIA
+
+[Macronix]
+%Macronix1% = Rockwell14, PCMCIA\MACRONIX-FAX/MODEM-B6E7   ; Macronix 14.4 PCMCIA
+%Macronix1% = Rockwell14, UNI

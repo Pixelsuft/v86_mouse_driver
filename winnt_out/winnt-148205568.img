@@ -1,0 +1,52 @@
+Windows&nbsp;2000, each installation or instance of Windows must have a unique computer name.</p>
+<p>
+<b>Note:</b> These unique names are required only if the dual-boot computer is on the same Windows domain.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="4.2"><b>4.2 NTFS for Windows&nbsp;NT&nbsp;4.0 Version&nbsp;4 and NTFS for Windows&nbsp;2000 Support</b></a></p>
+<p>
+There are two recent versions of Windows&nbsp;NT File System (NTFS):</p>
+<ul>
+<li>One supported by both Windows&nbsp;NT&nbsp;3.51 and Windows&nbsp;NT&nbsp;4.0</li>
+<li>One supported by Windows&nbsp;2000</li>
+</ul>
+<p>This Service Pack contains an updated version of NTFS.sys that can also read NTFS Version&nbsp;5 volumes created in NTFS for&nbsp;Windows&nbsp;2000.</p>
+<p>
+<b>Note:</b> The following scenarios don't support dual-booting:</p>
+<ul>
+<li>Pre-Windows&nbsp;NT&nbsp;4.0 SP3 installations</li>
+<li>Windows&nbsp;NT&nbsp;3.51 or earlier installations</li>
+</ul>
+<p>
+You cannot gain access to the following features of Windows&nbsp;2000-supported NTFS from SP6, even with the updated NTFS.sys:</p>
+<ul>
+<li>Release points (also called mount points or junction points)</li>
+<li>Encrypting File System (EFS)</li>
+<li>Disk Quotas</li>
+</ul>
+<p>
+Attempts by Windows&nbsp;NT&nbsp;4.0 SP6 users or programs to gain access to release points created on NTFS for Windows&nbsp;2000 drives with a Windows&nbsp;2000 installation fail, usually with an "access denied" message.</p>
+<p>
+Antivirus programs may report to the user (by log file, dialog box, or both) when a file can't be accessed. These programs may report their failure to access NSS files with extensions that the programs are set to scan. Archiving programs can't add NSS files to an archive, and the archiving might be reported as an error. Backup programs won't back up NSS files or release points as expected. The programs may log the failures as either "file in use" or "file not available." Some backup programs fail when they try to verify folders that contain NSS files during the backup process.</p>
+<p>
+When you mount a Windows&nbsp;2000-supported NTFS volume under Windows&nbsp;NT&nbsp;4.0 SP6, NTFS for Windows&nbsp;2000 features are unavailable, and Chkdsk can't be performed against the volume. However, most read/write operations function normally if they don't make use of any NTFS for Windows&nbsp;2000 features. Also, since files can be read and written on Windows&nbsp;2000-supported volumes under Windows&nbsp;NT&nbsp;4.0, Windows&nbsp;2000 may need to perform "clean-up" operations by running Chkdsk on the volume after it's mounted on Windows&nbsp;NT&nbsp;4.0. These clean-up operations ensure that the NTFS for Windows&nbsp;2000 data structures are consistent after a Windows&nbsp;NT&nbsp;4.0 mount operation.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<p>
+<a name="4.3"><b>4.3 Internet Information Server&nbsp;4.0</b></a></p>
+<p>
+<a name="4.3.1"><b>4.3.1 Username/Password Length</b></a></p>
+<p>
+The length limitation for Username/Password combinations when you use Internet Information Server&nbsp;4.0 has been fixed in SP6. This length limitation previously caused errors during basic authentication on IIS&nbsp;4.0.</p>
+
+<p align="right"><a href="#TOP">Back to Top</a><br>
+<a href="#contents">Back to Contents</a></p>
+<br>
+<a name="4.3.2"><b>4.3.2 Using Global.asa</b></a></p>
+<p>
+To use the Global.asa file after applying SP6, ensure that the file is in a program root folder. This is a change from the implementation in the Windows&nbsp;NT&nbsp;4.0 Option Pack in which Global.asa was mistakenly processed from within a virtual directory.</p>
+<p>
+The Global.asa file specifies event scripts and declares objects that have session or program scope. In the Windows&nbsp;NT&nbsp;4.0 Option Pack, the file Asp.dll processed Global.asa from the lowest defined virtual directory. This has been changed in SP6. After SP6 is installed, customers who are using Global.

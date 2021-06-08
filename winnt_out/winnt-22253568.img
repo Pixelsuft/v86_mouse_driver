@@ -1,0 +1,47 @@
+ollowing example:
+
+· 1024 cylinders x 15 heads x 53 spt x 512 bytes per sector = 398 MB formatted capacity 
+– Or –
+· 1024 cylinders x 15 heads x 63 spt x 512 bytes per sector = 472 MB formatted capacity
+
+Using 63 spt yields 74 MB more space. Windows NT is perfectly compatible with either geometry and, depending on the drive or controller, can access the cylinders beyond 1024. This space can be partitioned and formatted—but not accessed—by MS-DOS. However, some controllers can successfully remap the remaining cylinders beyond 1024 so that either MS-DOS or Windows NT can use the entire capacity. For example:
+
+1632 cylinders x 15 heads x 53 spt x 512 bytes per sector = 634 MB formatted capacity 
+
+External Cache Option
+If you have a system without any external cache on the system board but the option is turned on in CMOS, Windows NT may not restart when you click Start, click Shutdown, click Restart the computer, and then click Yes. If this problem occurs, turn off the external cache option in your CMOS configuration program.
+
+IDE Devices in Control Panel SCSI Devices
+On PCI bus computers and computers with ATAPI (IDE) CD-ROM, tape, or removable disk drives, you see either some or all of the IDE devices on your computer in the SCSI Devices option in Control Panel.
+
+Intel EtherExpress 16 LAN Adapter
+In some cases, selecting early in the I/O Channel Ready box prevents the network adapter card from functioning correctly. The card must then be reconfigured with the Intel SoftSet tool. If you are unsure whether your system can take advantage of this network setting, consult your hardware vendor.
+
+Interrupt Conflicts
+A common problem in a computer with several supported devices is conflicting interrupts, I/O ports, or memory usage. Where possible, such cases are identified in this document. However, if one of the supported devices does not seem to work, it might be due to the particular hardware configuration. For more specific information, see your hardware manual or contact your system manufacturer.
+
+Installing Mwave Drivers for the IBM Thinkpad
+The Microsoft Windows NT version 4.0 compact disc contains Mwave audio and FAX modem drivers for Mwave-based IBM Thinkpad systems. However, the Windows NT version 4.0 Setup program does not install the drivers by default.  To install the Mwave drivers on your Mwave-based Thinkpad system, see the procedures that follow.
+
+This version of the Mwave driver supports audio playback.  There are known problems with recording audio data.  Recording controls are not functional using Volume Control (accessed by clicking Start, pointing to Programs, Accessories, and then Multimedia) and recording using either the built-in or external microphone does not operate properly. 
+
+Note      
+Please consult the release notes (README.TXT) for Mwave audio and FAX modem drivers before installation. This file is located on the Windows NT version 4.0 compact disc in the \DRVLIB\MWAVE\THINKPAD\DISK1 directory. It is important that you print and read this information before you install the Mwave drivers. 
+
+To install Mwave driver for audio and FAX modem
+1. Insert the Windows NT compact disc in the CD-ROM drive.
+2. Click Start and then click Run.
+3. Type <compact disc drive letter>:\DRVLIB\MWAVE\THINKPAD\DISK1\SETUP and then click OK.
+4. Follow the on-screen instructions.
+5. When prompted, click Restart Now to reboot your computer.
+
+After restarting Windows NT, install the MIDI wave-table data to enable Mwave to play MIDI files.
+1. Click Start and then click Run.
+2. Type <compact disc drive letter>:\DRVLIB\MWAVE\MIDISAMP\SETUP and then click OK.
+3. Follow the on-screen instructions.
+4. When prompted, click Restart Now to reboot your computer.
+5. After restarting Windows NT, follow the instructions in the README.TXT file to configure your Mwave modem. If you do not configure your modem using these instructions, it is likely the modem will not function properly under Windows NT.
+
+
+Installing IBM Thinkpad Utilities for Windows NT
+In addition to the Windows NT 4.0 compact di

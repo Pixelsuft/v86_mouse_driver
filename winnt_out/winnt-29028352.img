@@ -1,0 +1,109 @@
+   endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set InstallFromRas = $($6)
+    set EnableDHCPFlag = $($7)
+    set InstallList = $($8)
+    ifstr(i) $(EnableDHCPFlag) == ""
+        set EnableDHCPFlag = 0
+    endif
+    ifstr(i) $(InstallList) == ""
+        set InstallList = {"1","1","0","0","0","0","0","0"}
+    endif
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    Debug-Output "OEMNXPTC.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNXPTC.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    LoadLibrary "x" $(!STF_CWDDIR)\tcpcfg.dll !TCPCFG_HANDLE
+    ifstr(i) $(!NTN_Origination) == "NCPA"
+        set Continue = $(OK)
+    endif
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        set StartLabel = removeadapter
+        set OEM_ABANDON_OPTIONS = {+
+            $(ProductDHCPName),+
+            $(ProductLMHOSTSName)}
+        set OEM_ABANDON_SOFTWARE = {+
+            $(ProductTCName),+
+            $(ProductNETBTName)}
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set IPAddressList  = {}
+        set SubnetMaskList = {}
+        set StartLabel = configureadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = bindingadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_SOFTWARE = {}
+        set OEM_ABANDON_OPTIONS = {}
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Debug-Output "OEMNXPTC.INF: Back from opening key for the product"
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf), VerExistedDlg, $(Product$(Option)Title),+
+            $(ProductVersion)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set CommonStatus = STATUS_USERCANCEL
+        goto end
+    endif
+    Shell "" GetFilesSize
+    set SizeList = $($R0)
+    set OptionFileList = { "oemnsvcu.inf"}
+    set TcpOptionList  = { "TCPIPCU"}
+    ForListDo $(OptionFileList)
+        Shell $($) GetFilesSize
+        ifstr(i) $($R0) == ""
+            set Size = "0"
+        else
+            set Size = $($R0)
+        endif
+        set SizeList = $(SizeList)"@"$(Size)
+    EndForListDo
+    set ErrorCode = "0"
+    set fCancel = 1
+    set AllInstalledFlag = "0"
+    set InstallList = "1"
+    Ifstr(i) $(!STF_GUI_UNATTENDED) == YES
+        OpenRegKey $(!REG_H_LOCAL) "" "System\Setup" $(MAXIMUM_ALLOWED) KeySetup
+        ifstr(i) $(KeySetup) != "" 
+            DeleteRegTree $(KeySetup) "Tcpip"
+            CreateRegKey $(KeySetup) {"Tcpip",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTcpip
+            ifstr(i) $(KeyTcpip) != ""
+                SetRegValue $(KeyTcpip) {"GuiUnattended",$(NoTitle),$(!REG_VT_SZ),$(!STF_GUI_UNATTENDED)}
+                SetRegValue $(KeyTcpip) {"Unattended",$(NoTitle),$(!REG_VT_SZ),$(!STF_UNATTENDED)}
+                SetRegValue $(KeyTcpip) {"UnattendedSection",$(NoTitle),$(!REG_VT_SZ),$(!STF_UNATTENDED_SECTION)}
+                CloseRegKey $(KeyTcpi

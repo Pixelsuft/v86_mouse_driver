@@ -1,0 +1,61 @@
+MODEM8EA167E0                 ; Macronix 14.4 PCMCIA
+%Macronix2% = Rockwell28, UNIMODEM22C3B64D                 ; Macronix 1200 ISA
+
+[Premax]
+%Premax1% = Rockwell13, PCMCIA\PREMAX-FM288_-92E2     ; Premax 28.8, V.34 PCMCIA
+%Premax1% = Rockwell13, ROCK_Premax1, UNIMODEMAF48CC9F              ; Premax 28.8, V.34 PCMCIA
+%Premax2% = Rockwell13, PCMCIA\PREMAX-FM288I-DC97     ; Premax 28.8, VFC PCMCIA
+%Premax2% = Rockwell13, UNIMODEM90FBBB54              ; Premax 28.8, VFC PCMCIA
+%Premax3% = Rockwell41, UNIMODEMAF48CC9F              ; combo, premax, Smart Modular, Piiceon
+
+[Logicode]
+%Logicode1% = Rockwell19, UNIMODEM5F5D689E      ; Logicode 28.8 V.34 External with cell
+%Logicode2% = Rockwell20, ROCK_Logicode2, UNIMODEM1C445CDD      ; Logicode 28.8 V.34 Internal with cell
+%Logicode3% = Rockwell21, ROCK_Logicode3, UNIMODEMCFA485CD      ; Logicode 14.4 Internal data-fax-voice with cell
+%Logicode4% = Rockwell22, ROCK_Logicode4, UNIMODEMC9720A17      ; Logicode 14.4 External data-fax-voice with cell
+%Logicode5% = Rockwell23, UNIMODEMC9720A17      ; Logicode and Microcom combo
+%Logicode6% = Rockwell22, UNIMODEMF48FCB61      ; Logicode 14.4 External data-fax 
+%Logicode7% = Rockwell24, ROCK_Logicode7, UNIMODEM16E3BF9F      ; Logicode 14.4 Internal data-fax
+
+%Logicode7% = Rockwell24, ROCK_Logicode7, UNIMODEMAAC52F50      ; Logicode 14.4 Internal data-fax
+
+%Logicode8% = Rockwell25, UNIMODEM9A52F7F4      ; Logicode 9624 Internal data-fax
+%Logicode9% = Rockwell26, UNIMODEM6C57C7DE      ; Logicode 9624 External data-fax
+%Logicode13% = Rockwell10, ROCK_Logicode13, UNIMODEM535147EF    ; Logicode 14.4 RPI style
+
+[Rockwell]
+%Rockwell1% = Rockwell1, UNIMODEM959C40CA       ; 14000 bps Data-Fax internal
+%Rockwell2% = Rockwell2, UNIMODEMCFA485CD       ; 14000 bps Data-Fax internal
+%Rockwell3% = Rockwell18,UNIMODEM2C9A8C70       ; 14000 bps Data-Fax internal
+
+[Zoom]
+%Zoom1%     = Rockwell19,  UNIMODEMA6B66087     ; Zoom v34 model 470 external
+%Zoom1PNP%  = Rockwell19,  SERENUM\ZTI4120      ; Zoom v34 model 470 external
+
+[Cardinal]
+%Cardinal1% = Rockwell1,   ROCK_Cardinal1, UNIMODEM959C40CA      ; Shipped by Zeos
+%Cardinal2PNP% = Rockwell19,  SERENUM\CRD1000                       ; Cardinal 28.8, V.34 external
+%Cardinal2% = Rockwell19,  ROCK_Cardinal2, UNIMODEM01C369CD      ; Cardinal 28.8, V.34 external
+%Cardinal2% = Rockwell19,  ROCK_Cardinal2, UNIMODEMCC96FDC7      ; Cardinal 28.8, V.34 external
+%Cardinal3% = Rockwell35,  UNIMODEMCC96FDC7      ; Cardinal 28.8, V.34 external, CPI (Viva)
+%Cardinal4% = Rockwell36,  UNIMODEMCE29838A      ; Cardinal 14.4 mvp144xf
+%Cardinal5% = Rockwell37,  ROCK_Cardinal5, UNIMODEMAAC52F50      ; Cardinal 14.4 mvp144e
+%Cardinal6% = Rockwell12,  ROCK_Cardinal6, UNIMODEM24FFB24B      ; Cardinal 14.4 mvp24xf
+%Cardinal7% = Rockwell14,  PCMCIA\CARDINAL-MVP144PCMCIA-5538     ; Cardinal 14.4 PCMCIA, MVP144PCMCIA
+%Cardinal7% = Rockwell14,  ROCK_Cardinal7, UNIMODEMD3A140D7      ; Cardinal 14.4 PCMCIA, MVP144PCMCIA
+%Cardinal8% = Rockwell20,  ROCK_Cardinal8, UNIMODEM1C445CDD      ; Cardinal 28.8, V.34, internal MVP288I
+%Cardinal9% = Rockwell38,  UNIMODEM1C445CDD      ; Cardinal 28.8, V.34, internal MVP288I
+%Cardinal10% = Rockwell39, ROCK_Cardinal10, UNIMODEMAAC52F50     ; Cardinal 14.4 Data FAX MVP144IF
+%Cardinal11% = Rockwell37, UNIMODEMAAC52F50      ; Cardinal 14.4 Data FAX MVP144IF
+%Cardinal12% = Rockwell10, ROCK_Cardinal12, UNIMODEM16A162D5     ; Cardinal 14.4 Data FAX MVP144I
+%Cardinal13% = Rockwell11, ROCK_Cardinal13, UNIMODEM9F2BBC58     ; Cardinal 2400 Data FAX MB2650SR
+%Cardinal14% = Rockwell42, UNIMODEMFFB2F7FF      ; Cardinal 19.2 data fax MVP192I
+
+[Digitan]
+%Digitan2%  = Rockwell2,  ROCK_Digitan2, UNIMODEMCFA485CD      ; Shipped by Dell
+%Digitan3%  = Rockwell20, ROCK_Digitan3, UNIMODEMEAF8FBCB      ; Digitan V.34 with voice
+%Digitan4%  = Rockwell20, ROCK_Digitan4, UNIMODEM733C4E29      ; Digitan V.34
+
+[BestData]
+%BestData1%  = Rockwell3, UNIMODEM4643BBB7      ; Best Data 1442FX External 
+%BestData2%  = Rockwell4, UNIMODEM96F16EB5      ; Best Data 1442F Intern

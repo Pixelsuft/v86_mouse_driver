@@ -1,0 +1,113 @@
+; MSMOUSE.INF
+; - Installs core mouse support files, etc.
+; - Includes drivers for detected & PnP devices
+
+; Copyright (c) 1993,1996 Microsoft Corporation
+
+[Version]
+Signature="$Windows NT$"
+Class=Mouse
+ClassGUID={4D36E96F-E325-11CE-BFC1-08002BE10318}
+Provider=%Provider%
+LayoutFile=layout.inf
+
+[DestinationDirs]
+DefaultDestDir = 12 ; DIRID_DRIVERS
+
+[ControlFlags]
+; Exclude all bus mice and InPort mice for RISC platforms.
+ExcludeFromSelect.NTAlpha = *PNP0F0D,*PNP0F11,*PNP0F00,*PNP0F02,*PNP0F15
+ExcludeFromSelect.NTMIPS  = *PNP0F0D,*PNP0F11,*PNP0F00,*PNP0F02,*PNP0F15
+ExcludeFromSelect.NTPPC   = *PNP0F0D,*PNP0F11,*PNP0F00,*PNP0F02,*PNP0F15
+
+; Hide this entry always.
+ExcludeFromSelect=UNKNOWN_MOUSE
+
+UnknownLegacyDriverId=UNKNOWN_MOUSE
+
+;
+; Mark any install sections for drivers that also control the i8042 keyboard port,
+; so that we can warn the user that they may also be affecting their keyboard with
+; a mouse driver change.
+;
+SharedDriver=PS2_Inst,%PS2_Inst.SharedDriverMsg%
+
+
+; Manufacturer Sections
+; ---------------------------------------------------------
+[Manufacturer]
+%StdMfg%  =StdMfg               ; (Standard types)
+%MSMfg%   =MSMfg                ; Microsoft
+%LogiMfg% =LogiMfg              ; Logitech
+
+[StdMfg]
+%*pnp0f0c.DeviceDesc%      = Ser_Inst,*PNP0F0C                 ; Std serial mouse
+%*pnp0f0d.DeviceDesc%      = Inp_Inst,*PNP0F0D                 ; Std InPort mouse
+%*pnp0f0e.DeviceDesc%      = PS2_Inst,*PNP0F0E                 ; Std PS/2 mouse
+%*pnp0f11.DeviceDesc%      = Bus_Inst,*PNP0F11                 ; Std bus mouse
+%UNKNOWN_MOUSE.DeviceDesc% = UNKNOWN_MOUSE_Inst,UNKNOWN_MOUSE  ; unknown mouse (hidden)
+
+[MSMfg]
+%*pnp0f00.DeviceDesc%=Bus_Inst,*PNP0F00          ; MS bus mouse
+%*pnp0f01.DeviceDesc%=Ser_Inst,*PNP0F01          ; MS serial mouse
+%*pnp0f02.DeviceDesc%=Inp_Inst,*PNP0F02          ; MS InPort mouse
+%*pnp0f03.DeviceDesc%=PS2_Inst,*PNP0F03          ; MS PS/2 mouse
+%*pnp0f09.DeviceDesc%=Ser_Inst,*PNP0F09          ; MS serial BallPoint
+%*pnp0f0b.DeviceDesc%=PS2_Inst,*PNP0F0B          ; MS PS/2 mouse
+%*pnp0f0f.DeviceDesc%=Ser_Inst,*PNP0F0F          ; MS serial BallPoint
+%*pnp0f1e.DeviceDesc%=Ser_Inst,,*PNP0F1E         ; MS serial EasyBall
+
+[LogiMfg]
+%*pnp0f08.DeviceDesc%=Ser_Inst,*PNP0F08          ; Logi serial mouse
+%*pnp0f12.DeviceDesc%=PS2_Inst,*PNP0F12          ; Logi PS/2 mouse
+%*pnp0f15.DeviceDesc%=Bus_Inst,*PNP0F15,*PNP0F11 ; Logi bus mouse
+
+
+; Install Sections
+; ---------------------------------------------------------
+
+; -------------- Mouse Class Driver install sections
+[mouclass_CopyFiles]
+mouclass.sys
+
+[mouclass_Service_Inst]
+DisplayName    = %mouclass.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\mouclass.sys
+LoadOrderGroup = Pointer Class
+
+[mouclass_EventLog_Inst]
+AddReg = mouclass_EventLog_AddReg
+
+[mouclass_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\mouclass.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+; -------------- Serial Mouse
+[Ser_Inst]
+CopyFiles = Ser_CopyFiles, mouclass_CopyFiles
+
+[Ser_Inst.Services]
+AddService = sermouse, 0x00000002, sermouse_Service_Inst, sermouse_EventLog_Inst ; Port Driver
+AddService = mouclass,, mouclass_Service_Inst, mouclass_EventLog_Inst            ; Class Driver
+
+[Ser_CopyFiles]
+sermouse.sys
+
+[sermouse_Service_Inst]
+DisplayName    = %sermouse.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\sermouse.sys
+LoadOrderGroup = Pointer Port
+
+[sermouse_EventLog_Inst]
+AddReg = sermouse_EventLog_AddReg
+
+[sermouse_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\sermouse.sys"
+HKR,,TypesSupported,0x0001

@@ -1,0 +1,133 @@
+control_on>=&R2&H1
+<hwflowcontrol_off>=&R1&H0
+<compression_on>=&K1
+<compression_off>=&K0
+<protocol_on>=&M4
+<protocol_off>=&M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1 &D2 &A3 &B1 V1 Q0 S0=0 S2=128 S7=60<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/NONE<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/V32/NONE<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/LAPM<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/LAPM/V42BIS<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/LAPM<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/LAPM/V42BIS<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/MNP<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/MNP/MNP5<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/MNP<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/MNP/MNP5<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+
+CONNECT=\
+<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/NONE<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/V32/NONE<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/LAPM<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/LAPM/V42BIS<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/LAPM<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/LAPM/V42BIS<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/MNP<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/MNP/MNP5<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/MNP<cr><lf>
+CONNECT_EC=\
+<cr><lf>CONNECT <carrierbps>/ARQ/V32/MNP/MNP5<cr><lf>
+
+
+;----------------------------------------
+[DYNALINK - SWE]
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT&F&C1&D2 L3 V1 W1 S0=0 S2=43 S7=55 S95=5<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+COMMAND_LISTEN=ATS0=1<cr>
+
+
+[SBN 2314C - SWE]
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=14400
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1
+<compression_off>=%C0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+COMMAND_INIT=AT &F &D2  +Q3 V1 S0=1 S2=128 S7=60 <cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps>/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> V.42BIS/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps>/ V.42BIS/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps> LAPM/TCM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf><h11>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL/<connectbps><cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <carrierbps>/<connectbps>/TCM<cr><lf>
+CONNECT_EC=<cr><lf>

@@ -1,0 +1,111 @@
+F: Cannot find component service"
+        goto fatalregistry
+    endif
+    set OldVersionExisted = $(TRUE )
+    set ValueName = ""
+    set ValueData = ""
+    set ValueStr  = ""
+    set ValueList = {}
+    EnumRegValue $(KeyParameters) ValueList
+    ForListDo $(ValueList)
+        set ValueItem = $($)
+        set ValueName = *($(ValueItem),1)
+        set ValueData = *($(ValueItem),4)
+        Ifstr(i) $(ValueName) == "InterruptNumber"
+            set IRQValueIndex = $(ValueData)
+        else-ifstr(i) $(ValueName) == "IoBaseAddress"
+            set IOBaseAddrIndex = $(ValueData)
+        else-ifstr(i) $(ValueName) == "MemoryMappedBaseAddress"
+            set MemMappedWndAddrIndex = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusType"
+            set BusInterfaceType = $(ValueData)
+        else-ifstr(i) $(ValueName) == "BusNumber"
+            set BusNumber = $(ValueData)
+        endif
+    EndForListDo
+    set IRQValue = *($(IRQList), ~($(IRQValues),$(IRQValueIndex)))
+    ifstr(i) $(IRQValue) == ""
+        set IRQValue = *($(IRQList), 4)
+    endif
+    set IOBaseAddrValue = *($(IOBaseAddrList), +
+         ~($(IOBaseAddrValues),$(IOBaseAddrIndex)))
+    ifstr(i) $(IOBaseAddrValue) == ""
+        set IOBaseAddrValue = *($(IOBaseAddrList), 1)
+    endif
+    set MemMappedWndAddrValue = *($(MemMappedWndAddrList), +
+         ~($(MemMappedWndAddrValues),$(MemMappedWndAddrIndex)))
+    ifstr(i) $(MemMappedWndAddrValue) == ""
+        set MemMappedWndAddrValue = *($(MemMappedWndAddrList),~($(MemMappedWndAddrValue),884736))
+    endif
+adapteroptions = +
+    set from = adapteroptions
+    ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+        ifstr(i) $(!AutoNetInterfaceType) != ""
+            set BusInterfaceType = $(!AutoNetInterfaceType)
+        else
+            set BusInterfaceType = 1    
+        endif
+        ifstr(i) $(!AutoNetBusNumber) != ""
+            set BusNumber = $(!AutoNetBusNumber)
+        else
+            set BusNumber = 0
+        endif
+        goto nextstep
+    endif
+    read-syms FileDependentDlg$(!STF_LANGUAGE)
+    ui start "InputDlg"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set IRQValueIndex = $(Combo1Out)
+        set IOBaseAddrIndex = $(Combo2Out)
+        set MemMappedWndAddrIndex = $(Combo3Out)
+        ui pop 1
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        set CommonStatus = STATUS_USERCANCEL
+        Debug-Output "OEMNADUB.INF: Action: exit. Bye."
+        ui pop 1
+        goto end
+    else
+        ui pop 1
+        Debug-Output "OEMNADUB.INF: Action: unknown. Bye."
+        goto end
+    endif
+    ifstr(i) $(!STF_NCDETINFO) == {}
+        Shell $(UtilityInf),GetBusTypeDialog,$(ProductHardware$(Option)Description) $(BusInterfaceType) $(BusNumber)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set BusInterfaceType = $($R1)
+        set BusNumber = $($R2)
+    else
+        set BusInterfaceType = *($(!STF_NCDETINFO),5)
+        set BusNumber = *($(!STF_NCDETINFO),6)
+    endif
+nextstep = +
+    ifint $(OldVersionExisted) == $(TRUE)
+        ifstr(i) $(!NTN_InstallMode) == configure
+            goto writeparameters
+        endif
+    endif
+    StartWait
+    Ifint $(OldVersionExisted) != $(FALSE)
+        Goto installhardware
+    Endif
+    ifstr(i) $(!NTN_InstallMode) == "install"
+       Ifstr(i) $(DoCopy) == "YES"
+          Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+          Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+              Goto ShellCodeError
+          Else-Ifstr(i) $($R0) == STATUS_FAILED
+              Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+              ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  goto ShellCodeError
+              endif
+              set Error = $($R0)
+              Goto fatal
+          Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+              Goto successful
+          Endif
+          Set SrcDir = $($R1)
+       Endif
+       install "Install-Option"

@@ -1,0 +1,153 @@
+_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Macronix VOMAX 2000]
+ALIAS=Hayes Compatible 2400
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=VOMAX 2.1
+
+;----------------------------------------
+[Megahertz P2144 AA Batteries]
+ALIAS=Megahertz T3144 for Toshiba
+
+;----------------------------------------
+[Megahertz P296FMV AA Batteries]
+ALIAS=Megahertz T396FM for Toshiba
+
+;----------------------------------------
+[Megahertz P2144 Pkt Faxmodem]
+;strings for rockwell chip modem
+DEVICETYPE=modem
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&Q5
+<hwflowcontrol_off>=&Q0
+<protocol_on>=\\N5
+<protocol_off>=\\N0
+<compression_on>=%C1
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=144DPL+FAX
+
+COMMAND_INIT=AT&F&C1&D2 W2\\G0\\J0 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+;----------------------------------------
+[Megahertz T3144 for Toshiba]
+DEVICETYPE=modem
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<compression_on>=%C1
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+COMMAND_INIT=AT&F&C1&D2 W2\\G0\\J0\\V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+;----------------------------------------
+[Megahertz T396FM for Toshiba]
+DEVICETYPE=modem
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<protocol_on>=\\N7
+<protocol_off>=\\N0
+<compression_on>=%C1
+<compression_off>=%C0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+COMMAND_INIT=AT&F&C1&D2 W2\\G0\\J0\\V1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+
+;----------------------------------------
+[Megahertz C596FM for CompaqLTE]
+ALIAS=Megahertz T396FM for Toshiba
+
+;----------------------------------------
+[Megahertz Z396FM for Zenith]
+ALIAS=Megahertz T396FM for Toshiba
+
+;----------------------------------------
+[Megahertz Z3144 for Zenith]
+ALIAS=Megahertz T3144 for Toshiba
+
+DETECT_STRING=AT%V<cr>
+DETECT_RESPONSE=AT&T V.32bis/V.42bis/FAX 14400
+
+;----------------------------------------
+[Megahertz C5144 for Compaq LTE]
+ALIAS=Megahertz T3144 for Toshiba
+
+DETECT_STRING=AT%V<cr>
+DETECT_RESPONSE=AT&T V.32bis/V.42bis/FAX 14400
+
+;----------------------------------------
+[Megahertz Alternative]
+; use this section if you get Error 651 when
+; using [Megahertz P2144] section above.
+ALIAS=Hayes Optima 14400
+
+;----------------------------------------
+[Megahertz XJack PCMCIA 144]
+DEVICETYPE=modem
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=19200
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<compression_on>=%C3
+<compression_off>=%C

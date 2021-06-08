@@ -1,0 +1,99 @@
+Value $(KeyIpxParameters), "DisableDialoutSap"  +
+                       DisableDialoutSap
+           ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+               SetRegValue $(KeyIpxParameters) +
+                           {DisableDialoutSap, 0, $(!REG_VT_DWORD), 1}
+           endif
+           GetRegValue $(KeyIpxParameters), "DisableDialinNetbios"  +
+                       DisableDialinNetbios
+           ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+               SetRegValue $(KeyIpxParameters) +
+                           {DisableDialinNetbios, 0, $(!REG_VT_DWORD), 1}
+           endif
+           CloseRegKey $(KeyIpxParameters)
+        Endif
+        else
+            Debug-Output "OEMNSVRA.INF: error opening NWLNKIPX\Parameters key"
+        endif
+        Shell "" SaveIpxInfo $(EnableIpxRouter) $(fIpxAllowed)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "Error shelling SaveIpxInfo"
+             goto ShellCodeError
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+             Debug-Output "Error saving Ipx info"
+             goto end
+        endif
+        ifint $(EnableIpxRouter) == 1
+            Shell "" InstallNwlnkRipService
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 Debug-Output "Error shelling InstallNwlnkRipService"
+                 goto ShellCodeError
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                 Debug-Output "Error from InstallNwlnkRipService"
+                 goto end
+            endif
+            set CommonStatus = STATUS_SUCCESSFUL
+            Shell "" InstallIsnSapService
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                 Debug-Output "Error shelling InstallIsnSapService"
+                 goto ShellCodeError
+            endif
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                 Debug-Output "Error from InstallIsnSapService"
+                 goto end
+            endif
+            set CommonStatus = STATUS_SUCCESSFUL
+        else
+            Shell "" RemoveNwlnkRipService
+            Shell "" RemoveIsnSapService
+        endif
+        Shell "" UpdateIPXRouterInfo $(EnableWanRouter)
+        Ifstr(i) $(!NTN_InstallPhase) != primary
+            shell $(subroutninf) PopBillBoard
+            Set BillboardVisible = 0
+        Endif
+    else
+        Shell "" SaveIpxInfo $(EnableIpxRouter) $(fIpxAllowed)
+    endif
+WriteParametersOver = +
+    EndWait
+    goto successful
+RemoveRas = +
+    StartWait
+    set REMOVE_SOFTWARE = {}
+    shell "" QueryComponentsInstalled
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Set InstalledComps = $($R1)
+        Set InstalledFlags = $($R2)
+        Set DoServer      = *($(InstalledFlags),1)
+        Set DoClient      = *($(InstalledFlags),2)
+        Set DoAdmin       = *($(InstalledFlags),3)
+        Set DoServerOnly  = *($(InstalledFlags),4)
+        Set DoClientOnly  = *($(InstalledFlags),5)
+        Set DoAdminOnly   = *($(InstalledFlags),6)
+    Endif
+    Debug-Output "Installed List is "$(InstalledComps)
+    Debug-Output "Installed Flags is "$(InstalledFlags)
+    ifstr(i) $(DoAdminOnly) == TRUE
+         set REMOVE_SOFTWARE = {$(ProductRASName)}
+         goto RemoveSoftware
+    endif
+    set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(ProductRASName))
+    ifstr(i) $(DoServer) == TRUE
+         set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(ProductRASSVRName))
+    endif
+    set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(ProductRASMANName))
+    set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(!ProductRASAUTODIALName))
+    OpenRegKey $(!REG_H_LOCAL) "" $(!NetworkCardKeyName) $(!MAXIMUM_ALLOWED) KeyNetcards
+    ifstr $(KeyNetcards) == $(KeyNull)
+         Debug-Output "OEMNSVRA.INF: could not open Netcards key"
+         goto RemoveSoftware
+    endif
+    EnumRegKey $(KeyNetcards) NetcardsList
+    ForListDo $(NetcardsList)
+       set KeyName = *($($),1)
+       OpenRegKey $(KeyNetcards) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+       ifstr $(Card) == $(KeyNull)
+           De

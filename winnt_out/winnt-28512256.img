@@ -1,0 +1,87 @@
+ilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            goto fatal
+        endif
+    endif
+    Debug-Output "OEMNXPIP.INF: Put up box that we are installing"
+    set OEM_ABANDON_ON  = TRUE
+    read-syms Billboard1$(!STF_LANGUAGE)
+    Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+    Set BillboardVisible = 1
+    Set DoNWLNKIPX   = FALSE
+    Set DoNWLNKNB    = FALSE
+    Set DoNWLNKSPX   = FALSE
+    Ifstr(i) $(Option) == NWLNKIPX
+        Set DoNWLNKIPX   = TRUE
+        Set DoNWLNKNB    = TRUE
+        Set DoNWLNKSPX   = TRUE
+    Else
+        Debug-Output "OEMNXPIP.INF: Unrecognized option"
+    Endif
+    Debug-Output "OEMNXPIP.INF: Start the install"
+    StartWait
+    ifstr(i) $(DoNWLNKIPX) == TRUE
+        Set ThisOption = NWLNKIPX
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPIP.INF: installing NWLNKIPX."
+        Shell $(UtilityInf), AddSoftwareComponent,+
+            $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType),+
+            "PNP_TDI",+
+            {},"",+
+            $(NWLNKIPXEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error, add software component"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPIP.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set NWLNKVersKeyHandle  = $($R1)
+        Set NWLNKRulesKeyHandle = $($R2)
+        Set NWLNKSvcKeyHandle   = $($R3)
+        Set NWLNKParmKeyHandle  = $($R4)
+        Set NWLNKLinkageHandle  = $($R5)
+        set UnattendInstallMode = 0
+        Ifstr(i) $(!STF_UNATTENDED) == "YES"
+           set UnattendInstallMode = 1
+           Debug-Output "IPX: UnattendInstallMode(1) = "$(UnattendInstallMode)
+        endif
+        Ifstr(i) $(!STF_GUI_UNATTENDED) == "YES"
+           set UnattendInstallMode = 1
+           Debug-Output "IPX: UnattendInstallMode(2) = "$(UnattendInstallMode)
+        endif
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(Product$(ThisOption)OpSupport)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {Review,$(NoTitle),$(!REG_VT_DWORD),1},+
+                           {STF_GUI_UNATTENDED,$(NoTitle),$(!REG_VT_SZ),$(!STF_GUI_UNATTENDED)},+
+                           {Unattend,$(NoTitle),$(!REG_VT_SZ),$(UnattendInstallMode)},+
+                           {AUTONETIPXFRAMETYPE,$(NoTitle),$(!REG_VT_DWORD),$(!AUTONETIPXFRAMETYPE)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(NWLNKVersKeyHandle), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error, add value list"
+            goto ShellCodeError
+        endif
+        set Regis

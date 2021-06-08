@@ -1,0 +1,115 @@
+0,00, 0d,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      3,, "AT S0=2<cr>"
+
+[Modem14.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 00,00,00,00, 07,00,00,00, 0d,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      3,, "AT <cr>"
+
+[Modem13.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      3,, "AT <cr>"
+
+[Modem12.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 3c,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      3,, "AT <cr>"
+
+[Modem11.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 40,03,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR, Init,      3,, "AT S0=2 V1<cr>"
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      3,, "AT <cr>"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      3,, "AT <cr>"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 80,25,00,00, 60,09,00,00
+HKR, Init,      3,, "AT <cr>"
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem7.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 80,25,00,00
+HKR, Settings, FlowControl_Hard,, "\Q3"
+
+[Modem6.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,96,00,00, 80,25,00,00
+HKR, Settings, FlowControl_Hard,, "\Q3"
+
+[Modem5.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, FlowControl_Hard,, "\Q3"
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, FlowControl_Hard,, "\Q3"
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, FlowControl_Hard,, "\Q3"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Settings, FlowControl_Hard,, "\Q3"
+
+[Modem1.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 5a,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, 77,03,00,00, 00,e1,00,00, 40,38,00,00
+
+
+; Strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "Hidem Technology"
+
+; Model strings
+
+Modem24="Hidem 2400P & 2400H"
+Modem23="Hidem 1200 & 1200BS"
+Modem22="2442FAX modem"
+Modem21="2400DLX & 2400SNI Modem"
+Modem20="Vida 2400SNI"
+Modem19="Vida 2442FAX"
+Modem18="Hidem 2400M"
+Modem17="Hidem 1200BS"
+Modem16="Hidem 1200"
+Modem15="Hidem 2400"
+Modem14="Hidem 2400CD"
+Modem13="Hidem 2400H"
+Modem12="Hidem 2400P"
+Modem11="Hidem 2400DLX"
+Modem10="Hidem 2442P FAX"
+Modem9 ="Hidem 2442I FAX"
+Modem8 ="Hidem 2442FAX"
+Modem7 ="Hidem 9600I DLX"
+Modem6 ="Hidem 9600DLX"
+Modem5 ="Hidem 14400I DLX"
+Modem4 ="Hidem 14400DLX"
+Modem3 ="Hidem 14400P FAX"
+Modem2 ="Hidem 14400I FAX"
+Modem1 ="Hidem 14400FAX"
+
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumProp

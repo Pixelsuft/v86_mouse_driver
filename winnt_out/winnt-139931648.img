@@ -1,0 +1,105 @@
+lowed  = {}
+    set TcpIpAllowed    = {}
+    set IpxAllowed      = {}
+    set RasKeyName =  $(!NTN_SoftwareBase)"\Microsoft\Ras\Protocols"
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasKeyName) $(!MAXIMUM_ALLOWED) RasKey
+    ifstr $(RasKey) != $(KeyNull)
+        GetRegValue $(RasKey), "fNetbeuiSelected", NetbeuiSelected
+        ifint *($(NetbeuiSelected), 4) == 1
+            set fNetbeuiSelected = TRUE
+        else
+            set fNetbeuiSelected = FALSE
+        endif
+        GetRegValue $(RasKey), "fTcpIpSelected", TcpIpSelected
+        ifint *($(TcpIpSelected), 4) == 1
+            set fTcpIpSelected = TRUE
+        else
+            set fTcpIpSelected = FALSE
+        endif
+        GetRegValue $(RasKey), "fIpxSelected", IpxSelected
+        ifint *($(IpxSelected), 4) == 1
+            set fIpxSelected = TRUE
+        else
+            set fIpxSelected = FALSE
+        endif
+        GetRegValue $(RasKey), "fNetbeuiAllowed", NetbeuiAllowed
+        ifint *($(NetbeuiAllowed), 4) == 1
+            set fNetbeuiAllowed = TRUE
+        else
+            set fNetbeuiAllowed = FALSE
+        endif
+        GetRegValue $(RasKey), "fTcpIpAllowed", TcpIpAllowed
+        ifint *($(TcpIpAllowed), 4) == 1
+            set fTcpIpAllowed = TRUE
+        else
+            set fTcpIpAllowed = FALSE
+        endif
+        GetRegValue $(RasKey), "fIpxAllowed", IpxAllowed
+        ifint *($(IpxAllowed), 4) == 1
+            set fIpxAllowed = TRUE
+        else
+            set fIpxAllowed = FALSE
+        endif
+        CloseRegKey $(RasKey)
+        set Status = STATUS_SUCCESSFUL
+    else
+        Debug-Output "error opening Ras\protocols key"
+    endif
+    Debug-Output "QuerySelectedProtocols: exit"
+    return $(Status) $(fNetbeuiSelected) $(fTcpIpSelected) $(fIpxSelected) +
+                     $(fNetbeuiAllowed) $(fTcpIpAllowed) $(fIpxAllowed)
+[UpdateSelectedProtocols]
+    Debug-Output "UpdateSelectedProtocols: entry"
+    set Status   = STATUS_FAILED
+    Shell "" QuerySelectedProtocols
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "error shelling QuerySelectedProtocols."
+        goto UpdateSelectedProtocolsEnd
+    endif
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "error returned by QuerySelectedProtocols."
+        goto UpdateSelectedProtocolsEnd
+    endif
+    set fNetbeuiSelected = $($R1)
+    set fTcpIpSelected   = $($R2)
+    set fIpxSelected     = $($R3)
+    set fNetbeuiAllowed = $($R4)
+    set fTcpIpAllowed   = $($R5)
+    set fIpxAllowed     = $($R6)
+    Debug-Output "UpdateSelectedProtocols: Selected protocols NBF IP IPX "$(fNetbeuiSelected)" "$(fTcpIpSelected)" "$(fIpxSelected)
+    shell "" QueryInstalledProtocols
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "error shelling QueryInstalledProtocols."
+        goto UpdateSelectedProtocolsEnd
+    endif
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "error returned by QueryInstalledProtocols."
+        goto UpdateSelectedProtocolsEnd
+    endif
+    set fNetbeuiInstalled = $($R1)
+    set fTcpIpInstalled   = $($R2)
+    set fIpxInstalled     = $($R3)
+    Debug-Output "UpdateSelectedProtocols: Installed Protocols NBF IP IPX "$(fNetbeuiInstalled)" "$(fTcpIpInstalled)" "$(fIpxInstalled)
+    set fNetbeuiSelectedNew = $(fNetbeuiSelected)
+    set fTcpIpSelectedNew   = $(fTcpIpSelected)
+    set fIpxSelectedNew     = $(fIpxSelected)
+    set fNetbeuiAllowedNew = $(fNetbeuiAllowed)
+    set fTcpIpAllowedNew   = $(fTcpIpAllowed)
+    set fIpxAllowedNew     = $(fIpxAllowed)
+    ifstr(i) $(fNetbeuiSelectedNew) == TRUE
+        set fNetbeuiChosen = TRUE
+    else
+        set fNetbeuiChosen = $(fNetbeuiAllowedNew)
+    endif
+    ifstr(i) $(fTcpIpSelectedNew) == TRUE
+        set fTcpIpChosen = TRUE
+    else
+        set fTcpIpChosen = $(fTcpIpAllowedNew)
+    endif
+    ifstr(i) $(fIpxSelectedNew) == TRUE
+        set fIpxChosen = TRUE
+    else
+        set fIpxChosen = $(fIpxAllowedNew)
+    endif
+    ifstr(i) $(fNetbeuiInstalled) == FALSE
+        set fNetbeuiSelectedNew = FA

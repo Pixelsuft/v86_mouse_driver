@@ -1,0 +1,188 @@
+11.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\cs32ba11.sys
+LoadOrderGroup = Extended Base
+
+[csbase_Service_Inst]
+DisplayName    = %csbase.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\csbase.sys
+LoadOrderGroup = Base
+
+[mpu401_Service_Inst]
+DisplayName    = %mpu401.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\mpu401.sys
+LoadOrderGroup = Extended Base
+
+[sndblstdll.CopyList]
+
+
+
+sndblst.dll, _sndblst.dll
+
+
+[sndblstsys.CopyList]
+
+
+
+sndblst.sys, _sndblst.sys
+
+
+[sbawe32drv.CopyList]
+
+
+
+
+
+
+sbawe32.drv, _sbawe32.drv
+synthgm.sbk, _synthgm.sbk
+synthgs.sbk, _synthgs.sbk
+synthmt.sbk, _synthmt.sbk
+
+
+[sbawe32sys.CopyList]
+
+
+
+sbawe32.sys, _sbawe32.sys
+
+
+[joyportdll.CopyList]
+
+
+
+joyport.dll, _joyport.dll
+
+
+[joyportsys.CopyList]
+
+
+
+joyport.sys, _joyport.sys
+
+
+[cs32ba11dll.CopyList]
+
+
+
+
+cs32ba11.dll, _cs32ba1.dll
+cwaudio.bin,  _cwaudio.bin
+
+
+[cs32ba11sys.CopyList]
+
+
+
+cs32ba11.sys, _cs32ba1.sys
+
+
+[csbasedll.CopyList]
+
+
+
+csbase.dll, _csbase.dll
+
+
+[csbasesys.CopyList]
+
+
+
+csbase.sys, _csbase.sys
+
+
+[mpu401dll.CopyList]
+
+
+
+mpu401.dll, _mpu401.dll
+
+
+[mpu401sys.CopyList]
+
+
+
+mpu401.sys, _mpu401.sys
+
+
+[CTL0001.AddReg]
+HKR,Drivers\wave\sndblst.dll,Description,,%*CTL0001.DeviceDesc%
+HKR,Drivers\midi\sndblst.dll,Description,,%V_INTERNAL%
+HKR,Drivers\mixer\sndblst.dll,Description,,%*CTL0001.DeviceDesc%
+HKR,Drivers\aux\sndblst.dll,Description,,%*CTL0001.DeviceDesc%
+
+[SB16.AddReg]
+HKR,Drivers\wave\sndblst.dll,Driver,,sndblst.dll
+HKR,Drivers\midi\sndblst.dll,Driver,,sndblst.dll
+HKR,Drivers\mixer\sndblst.dll,Driver,,sndblst.dll
+HKR,Drivers\aux\sndblst.dll,Driver,,sndblst.dll
+HKR,Drivers,SubClasses,,"wave,midi,aux,mixer"
+
+[CTL0021.AddReg]
+HKR,Drivers\midi\sbawe32.drv,Description,,%*CTL0021.DeviceDesc%
+
+[SBAWE32.AddReg]
+HKR,Drivers\midi\sbawe32.drv,Driver,,sbawe32.drv
+HKR,Drivers,SubClasses,,"midi"
+
+[MSJSTICK.AddReg]
+HKR,Drivers\jport\joyport.dll,Description,,%*PNPB02F.DeviceDesc%
+HKR,Drivers\jport\joyport.dll,Driver,,joyport.dll
+HKR,Drivers,SubClasses,,"jport"
+
+[CSC0000.AddReg]
+HKR,Drivers\wave\cs32ba11.dll,Description,,%*CSC0000.DeviceDesc%
+HKR,Drivers\midi\cs32ba11.dll,Description,,%V_INTERNAL%
+HKR,Drivers\mixer\cs32ba11.dll,Description,,%*CSC0000.DeviceDesc%
+HKR,Drivers\aux\cs32ba11.dll,Description,,%*CSC0000.DeviceDesc%
+
+[CS423X.AddReg]
+HKR,Drivers\wave\cs32ba11.dll,Driver,,cs32ba11.dll
+HKR,Drivers\midi\cs32ba11.dll,Driver,,cs32ba11.dll
+HKR,Drivers\mixer\cs32ba11.dll,Driver,,cs32ba11.dll
+HKR,Drivers\aux\cs32ba11.dll,Driver,,cs32ba11.dll
+HKR,Drivers,SubClasses,,"wave,midi,aux,mixer"
+
+[CSC0010.AddReg]
+HKR,Drivers\csbase\csbase.dll,Description,,%*CSC0010.DeviceDesc%
+
+[CSBASE.AddReg]
+HKR,Drivers\csbase\csbase.dll,Driver,,csbase.dll
+HKR,Drivers,SubClasses,,"csbase"
+
+[CSC0003.AddReg]
+HKR,Drivers\midi\mpu401.dll,Description,,%*CSC0003.DeviceDesc%
+
+[MPU401.AddReg]
+HKR,Drivers\midi\mpu401.dll,Driver,,mpu401.dll
+HKR,Drivers,SubClasses,,"midi"
+
+;
+; The following sections are left empty since this INF doesn't provide support
+; the corresponding functions.  Installation for these functions will actually
+; fail, but this allows us to give the user a 'Windows NT default driver" for
+; each function on the card.
+;
+[CTL0051_Device.NT]
+
+;
+; We also have to have the corresponding service install sections for the above
+; 'dummy' install sections, or else the NT MEDIA class installer will reject the
+; driver node as Win95-only.
+;
+[CTL0051_Device.NT.Services]
+
+
+;
+; Localizable text.
+;
+[Strings]
+MSFT = "Microso

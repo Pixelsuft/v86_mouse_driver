@@ -1,0 +1,91 @@
+O_ERROR
+                Debug-Output "Error creating registry key!"
+                set KeyHandle = $($R1)
+                CloseRegKey $(LineKey)
+                goto fatal
+            Endif
+            set ChildConcKey = $($R1)
+            SetRegValue $(ChildConcKey) {ConcDisplayName,$(NoTitle),$(!REG_VT_SZ),$(ChildConcDisplayName)}
+            SetRegValue $(ChildConcKey) {LineSpeed,$(NoTitle),$(!REG_VT_DWORD),$(ChildConcSpeed)}
+            ForListDo $(ChildPortList)
+               set PortObject = $($)
+               set PortName = *($(PortObject),1)
+               set PortDosDevices = *($(PortObject),2)
+               Ifint $(TraceConfig) == 1
+                  Debug-Output "           "$(PortName)"  -> "$(PortDosDevices)
+               Endif
+               shell "" ExCreateRegKey $(ChildConcKey) $(PortName)
+               Ifstr(i) $($R0) != NO_ERROR
+                   Debug-Output "Error creating registry key!"
+                   set KeyHandle = $($R1)
+                   CloseRegKey $(LineKey)
+                   goto fatal
+               Endif
+               set PortKey = $($R1)
+               SetRegValue $(PortKey) {DosDevices,$(NoTitle),$(!REG_VT_SZ),$(PortDosDevices)}
+            EndForListDo
+         EndForListDo
+         ForListDo $(PortList)
+            set PortObject = $($)
+            set PortName = *($(PortObject),1)
+            set PortDosDevices = *($(PortObject),2)
+            Ifint $(TraceConfig) == 1
+               Debug-Output "      "$(PortName)"  -> "$(PortDosDevices)
+            Endif
+            shell "" ExCreateRegKey $(ConcKey) $(PortName)
+            Ifstr(i) $($R0) != NO_ERROR
+                Debug-Output "Error creating registry key!"
+                set KeyHandle = $($R1)
+                CloseRegKey $(LineKey)
+                goto fatal
+            Endif
+            set PortKey = $($R1)
+            SetRegValue $(PortKey) {DosDevices,$(NoTitle),$(!REG_VT_SZ),$(PortDosDevices)}
+         EndForListDo
+      EndForListDo
+    EndForListDo
+    EndWait
+    goto successful
+bindingadapter = +
+    Debug-Output "******************Entering bindingadapter******************"
+    LoadLibrary "x" $(!STF_CWDDIR)dgconfig.dll DGCONFIG_HANDLE
+    set Error = "Binding: Sorry, not yet implemented."
+    goto fatal
+removeadapter = +
+    read-syms DebugOptions
+    Debug-Output "******************Entering removeadapter******************"
+    Debug-Output "OEMNADDS.INF: removeadapter"
+    Debug-Output "OEMNADDS.INF: Removing Hardware Components"
+    Debug-Output "OEMNADDS.INF: ProductKeyName = "$(ProductKeyName)
+    Debug-Output "OEMNADDS.INF: ProductSoftwareName = "$(ProductSoftwareName)
+    Debug-Output "OEMNADDS.INF: ProductSoftwareNameHdwDriver = "$(ProductSoftwareNameHdwDriver)
+    Debug-Output "OEMNADDS.INF: NTN_RegBase = "$(!NTN_RegBase)
+    ifstr(i) $(fRemoveDigi) == FALSE
+      install RemoveFiles
+      goto removeadapterExit
+    endif
+    LoadLibrary "x" $(!STF_CWDDIR)dgconfig.dll DGCONFIG_HANDLE
+    Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer), +
+        $(ProductSoftwareNameHdwDriver), $(!NTN_RegBase)
+    Debug-Output "OEMNADDS.INF: RemoveHardwareComponent return value = "$($R0)
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "OEMNADDS.INF: RemoveHardwareComponent != NO_ERROR"
+    Endif
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "ShellCode error"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "fatal registry error"
+        goto fatalregistry
+    endif
+    shell $(UtilityInf), DecrementRefCount, $(ProductKeyName)
+    Debug-Output "OEMNADDS.INF: DecrementRefCount return value = "$($R0)
+    Ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "OEMNADDS.INF: DecrementRefCount != NO_ERROR"
+    Endif
+    Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), +
+        $(ProductSoftwareName), TRUE
+    Debug-Output "RemoveSoftwareComponent return value = "$($R0)
+    ifint $($ShellCode) 

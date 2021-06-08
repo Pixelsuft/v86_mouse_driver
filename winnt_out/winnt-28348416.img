@@ -1,0 +1,107 @@
+ALSE
+        goto abandon
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[GetSecondAdapter]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    Split-String $($0), "\", CardList
+    set GS_NetCardNum   = *($(CardList),11)
+    set GS_HardKeyName = $(!NTN_ServiceBase)"\"$(ProductHardwareName)$(GS_NetCardNum)"\Parameters"
+    set RegistryErrorIndex      = NO_ERROR
+    OpenRegKey $(!REG_H_LOCAL) "" $(GS_HardKeyName) $(MAXIMUM_ALLOWED) GS_ParametersKey
+    Ifstr $(GS_ParametersKey) == $(KeyNull)
+       set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+       goto GS_Return
+    endif
+    GetRegValue $(GS_ParametersKey), "PairNumber", GS_AdpNumberInfo
+    set GS_AdpNumber = *($(GS_AdpNumberInfo),4)
+    set TempNum = $(GS_AdpNumber)
+    set ReturnPath = $(NetCardKeyName)"\"$(TempNum)
+GS_Return = +
+    return $(RegistryErrorIndex) $(ReturnPath)
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+        AddSectionFilesToCopyList Files-DLL $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   AddSectionFilesToCopyList Files-DLL $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   exit
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-BONSAI]
+1,NETFLX.BIN , SIZE=999
+1,NETFLX.SYS , SIZE=999
+[Files-CPQTOK]
+1,NETFLX.BIN , SIZE=999
+1,NETFLX.SYS , SIZE=999
+[Files-DLL]
+1,NETFLX.DLL , SIZE=999
+[Files-DURANGO]
+1,NETFLX.BIN , SIZE=999
+1,NETFLX.SYS , SIZE=999
+[Files-MAPLE]
+1,NETFLX.BIN , SIZE=999
+1,NETFLX.SYS , SIZE=999
+[Files-NETFLX]
+1,NETFLX.BIN , SIZE=999
+1,NETFLX.SYS , SIZE=999
+[Files-RODAN]
+1,NETFLX.BIN , SIZE=999
+1,NETFLX.SYS , SIZE=999
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    CPQTOK     = "<this option is no longer supported for install>"
+    BONSAI     = "COMPAQ NetFlex-2 DualPort ENET Controller"
+    RODAN      = "COMPAQ NetFlex-2 DualPort TR Controller"
+    NETFLX     = "COMPAQ NetFlex/NetFlex-2 ENET-TR Controller"
+    DURANGO    = "COMPAQ NetFlex-2 TR Controller"
+    MAPLE      = "COMPAQ 32-Bit DualSpeed Token-Ring Controller"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cance&l"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+FunctionTitle   = "COMPAQ NetFlex Adapter Card Setup"
+ProductSoftwareDescription        = "COMPAQ ENET-TR EISA Driver"
+ProductHardwareBONSAIDescription  = "COMPAQ NetFlex-2 DualPort ENET Controller"
+ProductHardwareRODANDescription   = "COMPAQ NetFlex-2 DualPort TR Controller"
+ProductHardwareNETFLXDescription  = "COMPAQ NetFlex/NetFlex-2 ENET-TR Controller"
+ProductHardwareDURANGODescription = "COMPAQ Token-Ring Controllers"
+ProductHardwareCPQTOKDescription        = "COMPAQ 32-Bit DualSpeed Token-Ring Controller (ns)"
+ProductHardwareMAPLEDescription        = "COMPAQ 32-Bit DualSpeed Token-Ring Controller"
+CANNOT_FIND_ANY_CARD            = "Network card is not present in the system"
+ProductSoftwareTitle            = "COMPAQ ENET-TR Driver"
+ProductHardwareBONSAITitle      = "COMPAQ NetFlex-2 DualPort ENET Controller"
+ProductHardwareRODANTitle       = "COMPAQ NetFlex-2 DualPort TR Controller"
+ProductHardwareNETFLXTitle      = "COMPAQ NetFlex/NetFlex-2 ENET-TR Controller

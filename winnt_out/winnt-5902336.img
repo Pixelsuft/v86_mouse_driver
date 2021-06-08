@@ -1,0 +1,98 @@
+AILUpdateMapiSvcInf
+AddReg                  = MSMailAddReg, MAPIAddReg
+DelReg                  = MAPIDelReg
+InstallType             = 0      ;Don't install by default in any mode.
+IconIndex               = 24     ;Windows mini-icon for dialog (see MICONS.TXT for list)
+Uninstall               = MSMAIL.Remove
+Upgrade                 = MSMAIL.Upgrade
+Detect                  = %24%\%PROGDIR%\wmsset32.exe
+
+[MSMAIL.Remove]
+DelFiles                = MAPICopyProgramFiles, MAPICopyCfgIcoFiles, MAPICopyFilesSys, MAPICopyFilesHelp, MAPIDelFilesEforms
+AddReg                  = MAPIAddReg.Remove
+DelReg                  = MSMailDelReg.Remove
+UpdateInis              = MAPIUpdateIni.Remove, MSMailUpdateIni.Remove, MSMAILUpdateMapiSvcInf.Remove
+Reboot=1
+
+[MSMAIL.Upgrade]
+CopyFiles               = BaseCopyProgramFiles
+CopyFiles               = MAPICopyProgramFiles, MAPICopyFilesSys, MAPICopyFilesHelp, MAPICopyFilesSysNoRemove
+
+[MSFS]
+OptionDesc              = %MSFS_Desc%
+Tip                     = %MSFS_Tip%
+Needs                   = MSMAIL
+Parent                  = EMAIL
+CopyFiles               = MSFSCopyFilesSys
+AddReg                  = MSFSAddReg
+UpdateInis              = MSFSUpdateMapiSvcInf
+InstallType             = 0
+IconIndex               = 24
+Uninstall               = MSFS.Remove
+Upgrade                 = MSFS.Upgrade
+
+[MSFS.Remove]
+DelFiles                = MSFSCopyFilesSys
+AddReg                  = MSFSAddReg.Remove
+DelReg                  = MSFSDelReg
+UpdateInis              = MSFSUpdateMapiSvcInf.Remove
+
+[MSFS.Upgrade]
+CopyFiles               = MSFSCopyFilesSys
+
+[IMAIL]
+OptionDesc              = %IMAIL_Desc%
+Tip                     = %IMAIL_Tip%
+Needs                   = MSMAIL
+Parent                  = EMAIL
+CopyFiles               = IMAILCopyFilesSys, IMAILCopyFilesHelp
+AddReg                  = IMAILAddReg
+InstallType             = 0
+IconIndex               = 24
+UpdateInis              = IMAILUpdateMapiSvcInf
+Uninstall               = IMAIL.Remove
+Upgrade                 = IMAIL.Upgrade
+BaseWinOptions          = IMAILBaseWinOptions
+
+[IMAILBaseWinOptions]
+AddReg                  = SpecialBaseAddReg
+
+[IMAIL.Remove]
+DelFiles                = IMAILCopyFilesSys, IMAILCopyFilesHelp
+AddReg                  = IMAILAddReg.Remove
+DelReg                  = IMAILDelReg
+UpdateInis              = IMAILUpdateMapiSvcInf.Remove
+
+[IMAIL.Upgrade]
+CopyFiles               = IMAILCopyFilesSys, IMAILCopyFilesHelp
+%11%\mapisvc.inf,INETAB,"PR_PROVIDER_DLL_NAME=INETAB.DLL"
+
+[BaseUpdateIni]
+; remove mlcfg32 to the control panel
+control.ini,MMCPL,"mlcfg="
+
+; remove old mmf mig tool from systools folder
+setup.ini, progman.groups,, "group11=%SYSTOOLS_DESC%"        ; creates systools folder
+setup.ini, group11,, """%MMFMig_Desc%"""                     ; deletes link
+
+; remove 'Inbox.lnk' from desktop
+setup.ini, progman.groups,, "desktop=""..\..\%desktop_DESC%"""    ;creates folder
+setup.ini, desktop,,"""%Exchange_Desc%"""
+
+; remove english non-localized 'Inbox.lnk' from desktop
+setup.ini, progman.groups,, "desktop=""..\..\%desktop_DESC%"""    ;creates folder
+setup.ini, desktop,,Inbox
+
+;Deletes Old Links in the Programs Folder (Not in a sub-folder)
+setup.ini, progman.groups,, "group0="            ;creates "null" folder
+setup.ini, group0,, """%SendNewMessage%"""
+setup.ini, group0,, """%OpenMailbox%"""
+
+[BaseAddReg]
+; Add the inbox wizard reg entries
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{00020D76-0000-0000-C000-000000000046}",,,"%Exchange_Desc%"
+HKLM,"Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{00020D76-0000-0000-C000-000000000046}","Removal Message",,"%WizRemoveMsg%"
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}",,,"%Exchange_Desc%"
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}\DefaultIcon",,,"%24%\%PROGDIR%\mlset32.exe"
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}\Shell\Open\Command",,,"""%24%\%PROGDIR%\mlset32.exe"""
+HKCR,"CLSID\{00020D76-0000-0000-C000-000000000046}\Shell\Explore

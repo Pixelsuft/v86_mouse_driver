@@ -1,0 +1,121 @@
+_LOCAL) "" "SYSTEM\CurrentControlSet\Services\EventLog\Application"$(CS_EventLogLocation) $(MAXIMUM_ALLOWED) CS_KeyEventLog
+        Ifstr $(CS_KeyEventLog) == $(KeyNull)
+           debug-output "Cannot open eventlog key"
+        else
+	   DeleteRegTree $(CS_KeyEventLog) $(MonitorName)
+           OpenRegKey $(CS_KeyEventLog) "" "LPR Print Monitor" $(MAXIMUM_ALLOWED) CS_KeyService
+           ifstr(i) $(CS_KeyService) == ""
+               CreateRegKey $(CS_KeyEventLog) {"LPR Print Monitor",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" CS_KeyService
+               Ifstr $(CS_KeyService) != $(KeyNull)
+                   SetRegValue $(CS_KeyService) {EventMessageFile,$(NoTitle),$(!REG_VT_EXPAND_SZ),"%SystemRoot%\System32\lprmon.dll"}
+                   SetRegValue $(CS_KeyService) {TypesSupported,$(NoTitle),$(!REG_VT_DWORD),7}
+                   CloseRegKey $(CS_KeyService)
+               endif
+           endif
+           CloseRegKey $(CS_KeyService)
+        Endif
+        LoadLibrary "x" $(!STF_CWDDIR)\tcpcfg.dll !TCPCFG_HANDLE
+        LibraryProcedure Result, $(!TCPCFG_HANDLE), CPlDeleteMonitor, "LPRMonitor"
+        LibraryProcedure Result, $(!TCPCFG_HANDLE), CPlAddMonitor, $(MonitorName), "lprmon.dll"
+        freeLibrary $(!TCPCFG_HANDLE)
+        CloseRegKey $(KeyProduct)
+    else
+        goto fatalregistry
+    endif
+    goto end
+successful = +
+    goto end
+infomsg =+
+   read-syms InfoDlg
+   ui start "Warning"
+   set CommonStatus = STATUS_USERCANCEL
+   goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatalinfo = +
+    Set CommonStatus = STATUS_USERCANCEL
+    Set Severity = STATUS
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+   goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[GetFilesSize]
+    set FileSizeList = ^(Files-TCPPRINT,3)
+    set TotalSize = 0
+    ForListDo $(FileSizeList)
+        Split-String $($) "=" SplitString
+        set Size = *($(SplitString),3)
+        set-add TotalSize = $(TotalSize) $(Size)
+    EndForL

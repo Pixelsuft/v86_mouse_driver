@@ -1,0 +1,149 @@
+[Identification]
+    OptionType = NetAdapter
+[PlatformsSupported]
+    MCA
+    ISA
+    EISA
+    PCI
+    PCMCIA
+    "Jazz-Internal Bus"
+[Options]
+    MSMDGMPISA
+    MSMDGMPATP
+    MSMDGMPISAC
+    MSMDGMPISACP
+    MSMDGMPPC
+    MSMDGMPSM16
+    MSMDGMPPNP
+    MSMDGMPMCA
+    MSMDGMPMC32
+    MSMDGMPEISA
+    MSMDGMPPCI
+    MSMDGMPPCIBM
+    MSMDGMPPCMCIA
+[OptionsISA]
+    MSMDGMPISA
+    MSMDGMPATP
+    MSMDGMPISAC
+    MSMDGMPISACP
+    MSMDGMPPC
+    MSMDGMPSM16
+    MSMDGMPPNP
+[OptionsMCA]
+    MSMDGMPMCA
+    MSMDGMPMC32
+[OptionsEISA]
+    MSMDGMPEISA
+    MSMDGMPISA
+    MSMDGMPATP
+    MSMDGMPISAC
+    MSMDGMPISACP
+    MSMDGMPPC
+    MSMDGMPSM16
+    MSMDGMPPNP
+[OptionsPCI]
+    MSMDGMPPCI
+    MSMDGMPPCIBM
+[OptionsPCMCIA]
+    MSMDGMPPCMCIA
+[SlotNumberOnlyOptions]
+    MSMDGMPEISA
+    MSMDGMPMCA
+    MSMDGMPMC32
+    MSMDGMPPCI
+    MSMDGMPPCIBM
+[MmioOptions]
+    MSMDGMPPCI
+[FileConstants]
+DialogDllName = "MDGMPDLG.DLL"
+SoftwareType  = "driver"
+Exit_Code     = 0
+Manufacturer        = "Madge"
+ProductMajorVersion = "4"
+ProductMinorVersion = "0"
+ProductRevision     = ".00"
+ProductVersion      = $(ProductMajorVersion)"."$(ProductMinorVersion)$(ProductRevision)
+ProductSoftwareName     = "MadgeMPort"
+ProductSoftwareImagePath = "%SystemRoot%\system32\drivers\MdgMPort.sys"
+NetRuleSoftwareType     = "mdgtrSys ndisDriver mdgtrDriver"
+NetRuleSoftwareUse      = $(SoftwareType)
+NetRuleSoftwareBindForm = """mdgtrSys"" yes no container"
+NetRuleSoftwareClass    = {"mdgtrDriver basic"}
+NetRuleSoftwareBindable = {"mdgtrDriver mdgtrAdapter non exclusive 100"}
+ProductHardwareName         = "MadgeMPort"
+NetRuleHardwareType         = "mdgtr mdgtrAdapter"
+NetRuleHardwareBindForm     = " yes yes container"
+NetRuleHardwareClass        = {"mdgtrAdapter basic"}
+ProductOpSupport     = 134 
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductSoftwareName)"\CurrentVersion"
+ParamKeyName    = $(!NTN_ServiceBase)"\"$(ProductHardwareName)"\Parameters"
+MadgeEventLogFile = $(ProductSoftwareImagePath)
+[GeneralConstants]
+UtilityInf    = "UTILITY.INF"
+SubroutineInf = "SUBROUTN.INF"
+ParamInf      = "NCPARAM.INF"
+From      = ""
+To        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+MAXIMUM_ALLOWED    = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyNull            = ""
+KeyProduct         = ""
+KeyParameters      = ""
+TRUE    = 1
+FALSE   = 0
+NoTitle = 0
+ExitState         = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+VALUE_UNKNOWN   = 65535
+GENERAL_PIO     = 0
+GENERAL_DMA     = 500
+GENERAL_MMIO    = 501
+TRANSFER_UNKNOWN = 65535
+TRANSFER_PIO     = 0
+TRANSFER_DMA     = 1
+TRANSFER_MMIO    = 2
+IoUserList    = ^(IoLocationChoices, 1)
+IoRawList     = ^(IoLocationChoices, 2)
+SlotUserList  = ^(SlotNumberChoices, 1)
+SlotRawList   = ^(SlotNumberChoices, 2)
+DmaUserList   = ^(DmaChannelChoices, 1)
+DmaRawList    = ^(DmaChannelChoices, 2)
+IrqUserList   = ^(IrqNumberChoices, 1)
+IrqRawList    = ^(IrqNumberChoices, 2)
+RxTxUserList  = ^(RxTxSlotsChoices,1)
+RxTxRawList   = ^(RxTxSlotsChoices,2)
+StatsUserList = ^(StatsChoices,1)
+StatsRawList  = ^(StatsChoices,2)
+MpUserList    = ^(MpChoices,1)
+MpRawList     = ^(MpChoices,2)
+MadgeAdapterOptions  = ^(Options,1)
+SlotNumberAdapters   = ^(SlotNumberOnlyOptions,1)
+MmioAdapters         = ^(MmioOptions,1)
+MadgeHelpIdMin         = 6000
+MadgeHelpIdMax         = 6003
+MadgeHelpIdMDGMPISA    = 6001
+MadgeHelpIdMDGMPATP    = 6001
+MadgeHelpIdMDGMPISAC   = 6001
+MadgeHelpIdMDGMPISACP  = 6001
+MadgeHelpIdMDGMPPC     = 6001
+MadgeHelpIdMDGMPSM16   = 6001
+MadgeHelpIdMDGMPPNP    = 6001
+MadgeHelpIdMDGMPPCMCIA = 6001
+MadgeHelpIdMDGMPEISA   = 6002
+MadgeHelpIdMDGMPMCA    = 6002
+MadgeHelpIdMDGMPMC32   = 6002
+MadgeHelpIdMDGMPPCI    = 6003
+MadgeHelpIdMDGMPPCIBM  = 6003
+IDMSMDGMPPCI =   135350
+IDVMSMDGMPPCI = AdapterCFID
+IDMSMDGMPPCIBM =   266422 
+IDVMSMDGMPPCIBM = AdapterCFID
+IDMSMDGMPEISA =   34612
+IDVMSMDGMPEISA = EisaCompressedId
+IDMSMDGMPMCA =   45
+IDVMSMDGMPMCA = McaPosId
+IDMS

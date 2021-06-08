@@ -1,0 +1,71 @@
+RD),*($(Now),1)}}
+            Shell  $(UtilityInf), AddValueList, $(ProductKey), $(NewValueList)
+            CloseRegKey $(ProductKey)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "utility.INF: ShellCode error. Cannot add NWLNKRIP router service"
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "OEMNSVRR.INF:  error: create service"
+                set Status = STATUS_FAILED
+            endif
+            set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),"NWLNKRIP"}}
+            Shell  $(UtilityInf), AddValueList, $(RuleKey), $(NewValueList)
+            CloseRegKey $(RuleKey)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "utility.INF: ShellCode error. Cannot add NWLNKRIP service"
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "OEMNSVRR.INF: Registry error: create service"
+                set Status = STATUS_FAILED
+            endif
+            SetRegValue $(ParamKey) {NetbiosRouting, $(NoTitle), $(!REG_VT_DWORD), 0}
+            SetRegValue $(ParamKey) {EnableLanRouting, $(NoTitle), $(!REG_VT_DWORD), 1}
+            CloseRegKey $(ParamKey)
+        else
+            OpenRegKey $(KeyService) "" "Parameters\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+            Ifstr(i) $(KeyUseRef) != $(KeyNull)
+                 SetRegValue $(KeyUseRef) {$(InstallFrom) , 0, $(!REG_VT_SZ), "1"}
+                 CloseRegKey $(KeyUseRef)
+            Endif
+            OpenRegKey $(KeyService) "" "Parameters" $(MAXIMUM_ALLOWED) KeyParam
+            Ifstr(i) $(KeyParam) != $(KeyNull)
+                GetRegValue $(KeyParam),"NetbiosRouting", NetbiosRoutingInfo
+                Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                   SetRegValue $(KeyParam) {NetbiosRouting, $(NoTitle), $(!REG_VT_DWORD), 0}
+                endif
+                GetRegValue $(KeyParam),"EnableLanRouting", EnableLanRoutingInfo
+                Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                   SetRegValue $(ParamKey) {EnableLanRouting, $(NoTitle), $(!REG_VT_DWORD), 1}
+                endif
+                CloseRegKey $(KeyParam)
+            endif
+            CloseRegKey $(KeyService)
+            Shell $(UtilityInf), InstallSoftwareProduct, $(Manufacturer), $(ProductNWLNKRIPName), $(STF_CONTEXTINFNAME)
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) == NO_ERROR
+                set KeyVersion  = $($R1)
+                set KeyRules    = $($R2)
+                set NewValueList = {{MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                                   {Title,$(NoTitle),$(!REG_VT_SZ),$(ProductNWLNKRIPTitle)},+
+                                   {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductNWLNKRIPDescription)},+
+                                   {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                                   {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+                Shell  $(UtilityInf), AddValueList, $(KeyVersion), $(NewValueList)
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    Debug-Output "utility.INF: ShellCode error. Cannot add NWLNKRIP router service"
+                    goto ShellCodeError
+                endif
+                set RegistryErrorIndex = $($R0)
+                Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                    EndWait
+                    Debug-Output "OEMNSVRR.INF:  error: Add values to version key"
+                    set Status = STATUS_FAILED
+                endif
+                set NewValueList = {{InfOption,$(NoTitle),$(!REG_VT_SZ),"NWLNKRIP"}}
+                Shell  $(UtilityInf), AddValueList, $(KeyRules), $(NewVal

@@ -1,0 +1,165 @@
+=ATDT
+<autodial_off>=AT X3 D
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=19200
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=960
+
+;Reset modem
+COMMAND_INIT=AT&/3<cr>
+OK=<ignore>
+COMMAND_INIT=AT&\\3<cr>
+OK=<ignore>
+COMMAND_INIT=AT&F&W<cr>
+
+COMMAND_INIT=AT&F&C1&D2 X4 V1 W1 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><protocol><compression><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[IBM 14400 PCMCIA]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=PCMCIA
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RCV144DPL
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[Infotel 1414VQE External]
+ALIAS=Hayes Optima 14400
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=14400
+
+;----------------------------------------
+[Intel SatisFaxtion 100]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=AF-C
+
+;----------------------------------------
+[Intel SatisFaxtion 400e]
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1"H3
+<compression_off>=%C0"H0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=AT X3 D
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=U20
+DETECT_RESPONSE=U21
+
+COMMAND_INIT=AT&F&C1&D2 V1 \\V3 S0=0 S2=128 S7=55<cr>
+COMMAND_INIT=AT<speaker><hwflowcontrol><compression><protocol><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+
+;----------------------------------------
+[Intel 9600EX]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+<compression_on>=%C1"H3
+<compression_off=%C0"H0
+<protocol_on>=\\N3
+<protocol_off>=\\N0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=969
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=U21
+
+COMMAND_INIT=AT&F&C1&D2V1S0=0 X4 \\V2 S2=128 S7=55<cr>
+COMMAND_INIT=AT<hwflowcontrol><compression><protocol><speaker><cr>
+
+COMMAND_DIAL=<autodial><phonenumber><cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL-LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL-MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL-LAPM-COMP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL-MNP-COMP<cr><lf>
+
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <carrierbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL-LAPM<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL-MNP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL-LAPM-COMP<cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <carrierbps>/REL-MNP-COMP<cr><lf>
+
+;----------------------------------------
+[Intel 14400EX]
+ALIAS=Intel SatisFaxtion 400e
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=U20
+DETECT_RESPONSE=U21
+
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=INTEL 14400E
+
+;----------------------------------------
+[Intel 14400 PCMCIA]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=144
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[Kingston DataRex PCMCIA 144]
+ALIAS=Megahertz XJack PCMCIA 144
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=PCMCIA
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[Macronix Maxlite Fax 9696]
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+<speaker_on>=M1
+<speaker_off>=M0
+<hwflowcontrol_on>=&K3
+<hwflowcontrol_off>=&K0
+<compression_on>=%C1%M3
+<compression_off>=%C0
+<protocol_on>=&Q5
+<protocol_off>=&Q0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=MAXFAX MAXLITE
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<cr>
+COMMAND

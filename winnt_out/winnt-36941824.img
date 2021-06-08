@@ -1,0 +1,167 @@
+; This is the Setup information file to install optional components
+; Copyright (c) 1996 Microsoft Corporation
+
+
+[version]
+signature="$CHICAGO$"
+ClassGUID={00000000-0000-0000-0000-000000000000}
+LayoutFile=layout.inf
+
+
+[DestinationDirs]
+CDPlayerCopyFilesSys		= 11	;LDID_SYSTEM
+CDPlayerCopyFilesHelp		= 11	;LDID_SYSTEM
+MPlayCopyFilesSys		= 11	;LDID_SYSTEM
+MPlayCopyFilesHelp		= 11	;LDID_SYSTEM
+RecCopyFilesSys			= 11	;LDID_SYSTEM
+VolCopyFilesSys			= 11	;LDID_SYSTEM
+VolCopyFilesHelp		= 11	;LDID_SYSTEM
+
+
+[BaseWinOptions]
+BaseSection
+
+
+[Optional Components]
+MultiM	;Top level option
+CDPlayer
+MPlay
+Rec
+Vol
+
+
+[BaseSection]
+AddReg			= BaseAddReg
+
+
+[MultiM]
+OptionDesc		= %MultiM_DESC%
+Tip			= %MultiM_TIP%
+IconIndex		= 27 ;Speaker mini-icon for dialogs
+
+
+[CDPlayer]
+OptionDesc		= %CDPlayer_DESC%
+Tip			= %CDPlayer_TIP%
+IconIndex		= 52 ;Speaker mini-icon for dialogs
+Parent			= MultiM
+InstallType		= 14 ; custom, typical, laptop
+CopyFiles		= CDPlayerCopyFilesSys, CDPlayerCopyFilesHelp
+AddReg			= CDPlayerAddReg
+UpdateInis		= CDPlayerInis
+;ValidateProc		= SETUPX.DLL, P_CDROMOC ;Turns off if no CDROM present
+Uninstall		= CDPlayerUninstall
+Upgrade			= CDPlayerUpgrade
+Detect			= %11%\cdplayer.exe
+
+
+[CDPlayerUninstall]
+DelFiles		= CDPlayerCopyFilesSys, CDPlayerCopyFilesHelp
+AddReg			= CDPlayerUninstallAddReg
+DelReg			= CDPlayerUninstallDelReg
+UpdateInis		= CDPlayerUninstallInis
+
+
+[CDPlayerUpgrade]
+CopyFiles		= CDPlayerCopyFilesSys, CDPlayerCopyFilesHelp
+AddReg			= CDPlayerAddReg
+
+
+[CDPlayerInis]
+setup.ini, progman.groups,, "GroupMultimed=%Multimed_GROUP%"
+setup.ini, GroupMultimed,, """%CDPlayer_DESC%"",""""""%11%\cdplayer.exe"""""",,,,""%11%"""
+
+
+[CDPlayerUninstallInis]
+setup.ini, progman.groups,, "GroupMultimed=%Multimed_GROUP%"
+setup.ini, GroupMultimed,, """%CDPlayer_DESC%"""
+
+
+[MPlay]
+OptionDesc		= %MPlay_DESC%
+Tip			= %MPlay_TIP%
+IconIndex		= 53 ;Speaker mini-icon for dialogs
+Parent			= MultiM
+InstallType		= 14 ; custom, typical, laptop
+CopyFiles		= MPLayCopyFilesSys, MPlayCopyFilesHelp
+AddReg			= MPlayAddReg
+UpdateInis		= MPlayInis
+Uninstall		= MPlayUninstall
+Upgrade			= MPlayUpgrade
+Detect			= %11%\mplay32.exe
+
+
+[MPlayUninstall]
+DelFiles		= MPlayCopyFilesSys, MPlayCopyFilesHelp
+AddReg			= MPlayUninstallAddReg
+UpdateInis		= MPlayUninstallInis
+
+
+[MPlayUpgrade]
+CopyFiles		= MPlayCopyFilesSys, MPlayCopyFilesHelp
+AddReg			= MPlayAddReg
+
+
+[MPlayInis]
+setup.ini, progman.groups,, "GroupMultimed=%Multimed_GROUP%"
+setup.ini, GroupMultimed,, """%MPlay_DESC%"",""""""%11%\mplay32.exe"""""",,,,""%11%"""
+
+
+[MPlayUninstallInis]
+setup.ini, progman.groups,, "GroupMultimed=%Multimed_GROUP%"
+setup.ini, GroupMultimed,, """%MPlay_DESC%"""
+
+
+[Rec]
+OptionDesc		= %Rec_DESC%
+Tip			= %Rec_TIP%
+IconIndex		= 8  ;Speaker mini-icon for dialogs
+Parent			= MultiM
+InstallType		= 14 ; custom, typical, laptop
+CopyFiles		= RecCopyFilesSys
+AddReg			= RecAddReg
+UpdateInis		= RecInis
+;ValidateProc		= SETUPX.DLL, P_MEDIAOC ;Turns off if no MEDIA devs
+Uninstall		= RecUninstall
+Upgrade			= RecUpgrade
+Detect			= %11%\sndrec32.exe
+
+
+[RecUninstall]
+DelFiles		= RecCopyFilesSys
+AddReg			= RecUninstallAddReg
+UpdateInis		= RecUninstallInis
+
+
+[RecUpgrade]
+CopyFiles		= RecCopyFilesSys
+AddReg			= RecAddReg
+
+
+[RecInis]
+setup.ini, progman.groups,, "GroupMultimed=%Multimed_GROUP%"
+setup.ini, GroupMultimed,, """%Rec_DESC%"",""""""%11%\sndrec32.exe"""""",,,,""%11%"""
+
+
+[RecUninstallInis]
+setup.ini, progman.groups,, "GroupMultimed=%Multimed_GROUP%"
+setup.ini, GroupMultimed,, """%Rec_DESC%"""
+
+
+[Vol]
+OptionDesc		= %Vol_DESC%
+Tip			= %Vol_TIP%
+IconIndex		= 57 ;Speaker mini-icon for dialogs
+Parent			= MultiM
+InstallType		= 14 ; custom, typical, laptop
+CopyFiles		= VolCopyFilesSys, VolCopyFilesHelp
+AddReg			= VolAddReg
+UpdateInis		= VolInis
+;ValidateProc		= SETUPX.DLL, P_MEDIAOC ;Turns off if no MEDIA devs
+Uninstall		= VolUninstall
+Upgrade			= VolUpgrade
+Detect			= %11%\sndvol32.exe
+
+
+[VolUninstall]
+DelFiles		= VolCopyFilesSys, VolCopyFile

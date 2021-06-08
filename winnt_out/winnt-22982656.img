@@ -1,0 +1,82 @@
+:Base rasphone.hlp
+:Title Dial-Up Networking (RAS) Help
+:Index Dial-Up Networking (RAS) Help=rasphone.hlp
+:Index Remote Access Administrator's Help=rasadmin.hlp
+:Link rasadmin.hlp
+1 Using Dial-Up Networking (RAS)
+2 Overview of Dial-Up Networking
+3 Dial-Up Networking Overview=ras_overview
+3 Dial-Up Networking Clients=ras_clients
+3 RAS Servers=ras_servers
+3 LAN Protocols=ras_lan_protocols
+3 Remote Access Protocols=ras_ras_protocols
+3 WAN Options=ras_wan_options
+3 Security Features=ras_security_options
+2 Installing and Configuring Dial-Up Networking (RAS)
+3 Installing Dial-Up Networking (RAS)=ras_Install
+3 Hardware Requirements=ras_hardware
+3 Configuring RAS to Use LAN Protocols=ras_config_lan
+3 Configuring a RAS Server to Use NetBEUII=ras_config_netbeui
+3 Configuring a RAS Server to Use TCP/IP=ras_config_tcpip
+3 Configuring a RAS Server to Use IPX=ras_config_ipx
+3 Configuring Name Resolution for RAS Clients=ras_config_tcpip_name_resolution
+3 Choosing a Protocol for a RAS Entry=ras_config_tcpip_clients
+3 Configuring Stand-alone Remote Servers to Appear to Local Network Browsers=ras_config_remote_servers
+3 Configuring Other Vendors’ Dial-Up Servers for NetBIOS IP and IPX=ras_netbios_broadcasts
+3 Configuring Callback =ras_security_callback
+3 Granting Remote Access Permission=ras_permissions
+3 Installing ISDN=ras_Installing_isdn
+3 Installing Security Hosts=ras_security_Installing_hosts
+2 Using Dial-Up Networking
+3 Overview=HID_DU_BM_Wizard
+3 Getting Started=Starting_Up@rasphone.hlp
+3 Connecting to the Network=HC_CONNECT@rasphone.hlp
+3 Setting Up Your Modem=Overview_of_Modems
+3 Connecting Through Switches and Security Hosts=ras_security_connecting_through
+3 Using Prefixes and Suffixes=HC_phonenumber@rasphone.hlp
+3 Allowing Access to Your Workstation=Allowing_Access@rasphone.hlp
+3 Configuring for an X.25 Network=X.25_Overvw
+3 Configuring for ISDN=ISDN_Overvw
+3 Special Dialing Options=Dial_Connect@rasphone.hlp
+3 Reconfiguring Dial-Up Networking=RAS_Config
+2 Logging on to Remote Computers using RAS Terminal and Scripts
+3 Connecting to Remote Servers=ras_how_ctrs
+3 Using RAS Terminal for Remote Logons=ras_how_urtfrl
+3 Automating Remote Logons Using SWITCH.INF Scripts=ras_how_arluss
+3 Creating Scripts for RAS=ras_how_csfr
+3 Stepping Through an Example Script=ras_how_stes
+3 Getting Through Large Blocks of Text and Two Second Gaps=ras_how_gtlb
+3 Commands and Carriage Returns=ras_how_cacr
+3 Activating SWITCH.INF Scripts=ras_how_ass
+3 Troubleshooting Scripts Using DEVICE.LOG=ras_how_tsud
+3 Incomplete Example SWITCH.INF Script=ras_how_iess
+3 Sample DEVICE.LOG=ras_how_sd
+3 Using Other Device Command Files (.INF)=i_ppp_inf
+3 Using Scripts with Other Microsoft RAS Clients=ras_how_usomrc
+2 Remote Access and the Internet
+3 Using Dial-Up Networking to Access the Internet
+4 Example Internet Session=i_example_session
+4 Using Windows NT as an Internet Client=i_client
+4 Installing Windows NT Software for Internet Access=i_installing
+4 Installing Internet Tools=i_tools
+4 Configuring Remote Access Entries for Internet Use=i_configure_ras
+4 Connecting to MSN=i_connect_msn
+3 Providing Access to the Internet with a RAS Server
+4 Using Windows NT Server to Provide Internet Access=i_server
+4 Installing a Simple Dial-Up Router=rtradmin_mpr_simplerouter@rtradmin.hlp
+4 Installing and Configuring Windows NT Software to Provide Internet Access=i_server_install
+4 PPP and Remote Access=i_ppp_ras
+4 PPP Operation and Protocols=i_ppp_protocols
+4 PPP RFCs Supported=i_ppp_rfc
+4 Using PPP for Internet Connections=i_ppp_internet
+4 Troubleshooting PPP Connections=i_ppp_troubleshooting
+1 Reference
+2 Modems
+3 Overview of Modems=Modem_Overview@rasphone.hlp
+3 Overview of Modem Setup=Overview_of_Modems@rasphone.hlp
+3 Compression Recommendations=Compress_Rec@rasphone.hlp
+3 Understanding Industry Standards=Mod_Standards@rasphone.hlp
+3 Error Control and Data Compression=Err_Cont_Data_Compress@rasphone.hlp
+3 Modem Idiosyncrasies=Mod_Idios@rasphone.hlp
+3 Cabling Requirements=Cabling@rasphone.hlp
+3 Mo

@@ -1,0 +1,76 @@
+bility components=ACCESSIBILITY_OPTIONS_INSTALLS
+3 Change Keyboard Settings
+4 Changing the way your keyboard responds=WIN_KBD_REPEAT_RATE
+:include keyboard.cnt
+4 Turning on MouseKeys=IDH_ACCESS_MOUSE_KEYS@access.hlp>proc4
+4 Turning on StickyKeys=IDH_ACCESS_STICKY_KEYS@access.hlp>proc4
+4 Turning on FilterKeys=IDH_ACCESS_FILTER_KEYS@access.hlp>proc4
+4 Turning on ToggleKeys=ACCESS_TOGGLEKEYS_TURNON@access.hlp>proc4
+:include mouse.cnt
+3 Change How Windows NT Looks
+4 Making text more readable=WIN_DESKPR_FONTSIZE
+4 Changing the screen colors =WIN_DESKPR_COLORS
+4 Changing how much you can fit on your screen =WIN_DESKPR_MONITORRES
+4 Changing the appearance of items on the desktop =WIN_DESKPR_COLORS
+4 Adjusting the rate at which your cursor blinks =WIN_KBD_CURSOR_BLINK_RATE
+4 Displaying high-contrast colors and fonts for easy reading=ACCESS_HIGHCONTRAST_TURNON@access.hlp>proc4
+3 Use Sound
+4 Assigning sounds to program events =WINDOWS_MMCPL_ASSIGNEVENT
+4 Turning on SoundSentry=ACCESS_SOUNDSENTRY_TURNON@access.hlp>proc4
+4 Turning on ShowSounds=ACCESS_SHOWSOUNDS_ON@access.hlp>proc4
+3 Set Up Windows for Multiple Users
+4 Turning accessibility features off after a specified time=ACCESS_TIMEOUT@access.hlp>proc4
+2 Use Help
+3 Finding a topic in Help=WINHELP_FINDING_TOPICS@winhlp32.hlp>proc4
+3 Getting information on a dialog box setting=WINHELP_POPUP_HELP@winhlp32.hlp>proc4
+3 Copying information from a Help topic=WINHELP_COPY@winhlp32.hlp>proc4
+3 Printing a Help topic=WINHELP_PRINT@winhlp32.hlp>proc4
+3 Changing the font or color in a Help topic=WINHELP_FONTS@winhlp32.hlp>proc4
+3 Displaying Help for an MS-DOS command=WINDOWS_DOS_GET_HELP
+1 Tips and Tricks
+2 For Setting Up the Desktop Efficiently
+3 Customizing the Start menu=WIN_TRAY_PROGMENU>proc4
+3 Grouping programs so they are easier to find=TRAY_GROUP_PROGRAMS>proc4
+3 Putting shortcuts on the desktop=WINDOWS_FCAB_LINK>proc4
+3 Minimizing all open windows=WIN_TRAY_MINWINDOWS>proc4
+3 Viewing all open windows=WIN_TRAY_ARRANGEWIN>proc4
+3 Customizing the taskbar=WIN_TRAY_PROPERTIES>proc4
+2 For Maintaining Your Computer
+3 Backing up your hard disk regularly=APP_BACKUP>proc4
+3 Deleting old files to free up disk space=IDH_WASTE_FREEING_DISK_SPACE>proc4
+3 Checking your hard disk for errors=IDH_DISK_LOGICAL>proc4
+2 For Running Programs
+3 Customizing the Start menu=WIN_TRAY_PROGMENU>proc4
+3 Grouping programs so they are easier to find=TRAY_GROUP_PROGRAMS>proc4
+3 Putting shortcuts on the desktop=WINDOWS_FCAB_LINK>proc4
+3 Using the Run command to start programs=WIN_TRAY_RUNCOMMAND>proc4
+3 Having a program start when you start Windows NT=WIN_TRAY_START_PROG_AUTO
+2 For Working with Files and Folders
+3 Dragging icons instead of using menus=OPT_DRAG
+3 Using shortcut menus=OPT_RIGHT
+3 Putting shortcuts on the desktop=WINDOWS_FCAB_LINK
+3 Putting part of a document on the desktop=WIN_FCAB_SCRAPS
+3 Creating a shortcut in a folder=WIN_FCAB_CREATE_NEW_SHORTCUT
+3 Using the Run command to open files and folders=WIN_TRAY_RUNCOMMAND
+3 Quickly sending files to another place=WIN_FCAB_SENDTO
+3 Selecting more than one file or folder=WINDOWS_FCAB_SELECT_FILES
+3 Previewing a document=IDH_FILEVIEWER_PREVIEW
+3 Changing which program starts when you open a document=WIN_FCAB_EDIT_FILE_TYPE
+3 Having Windows Explorer start when you start Windows=WIN_TRAY_START_PROG_AUTO
+2 For Printing
+3 Putting a shortcut to a printer on the desktop=WINDOWS_FCAB_LINK>proc4
+2 For Networking
+3 Customizing your Network Neighborhood=NET_CUSTOMIZE_HOOD@network.hlp>proc4
+3 Opening a shared folder on another computer=NET_OPEN_NET_FOLDER@network.hlp>proc4
+2 Tips of the Day
+3 Using Help=TIPS_WELCOME_HELP>proc4
+3 Getting your work done=TIPS_WELCOME_WORK>proc4
+3 Personalizing Windows=TIPS_WELCOME_PERSONALIZE>proc4
+3 Printing=TIPS_WELCOME_PRINTING>proc4
+3 Exploring and maintaining your computer=TIPS_WELCOME_COMPUTER>proc4
+3 Becoming an expert=TIPS_WELCOME_EXPERT>proc4
+3 Viewing the Welcome screen=TIPS_WELCOME_WELCOME>proc4
+:include oem.cnt
+:include pws.cnt
+:include iis.cnt
+1 Troubl

@@ -1,0 +1,104 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer:   TELINDUS DISTRIBUTION
+
+[Version]
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+; Modem models
+
+[Models]
+%Modem1% = Modem1, UNIMODEM076A08B5
+%Modem2% = Modem2, UNIMODEMC9431C5B
+%Modem3% = Modem3, UNIMODEM7F00E06E
+%Modem4% = Modem4, UNIMODEM458EBF5A
+%Modem5% = Modem5, Telindus_Modem5
+
+; Installation sections
+
+[Modem1]
+AddReg=All, MfgAddReg, Modem1.AddReg, External
+
+[Modem2]
+AddReg=All, MfgAddReg, Modem2.AddReg, Internal
+
+[Modem3]
+AddReg=All, MfgAddReg, Modem3.AddReg, External
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, Internal
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, External
+
+
+; AddReg sections
+
+[Modem1.AddReg]
+HKR,, Properties, 1, c0,01,00,00, 4f,00,00,00, ff,00,00,00, 01,00,00,00, 0d,00,00,00, f7,03,00,00, 00,c2,01,00, 80,70,00,00
+HKR, Init, 2,, "AT&Q0&C1&D1Q0V1W1E0S95=47<cr>"
+HKR,, Reset,, "AT&F&Q0<cr>"
+HKR, Settings, ErrorControl_On,, "\N5"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, "%%C2\N7"
+HKR, Settings, Compression_Off,, "%%C0\N6"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_On,, "F0"
+HKR, Responses, "1<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "5<cr>", 1, 02, 00, b0,04,00,00, b0,04,00,00
+HKR, Responses, "9<cr>", 1, 02, 00, 00,00,00,00, 58,02,00,00
+HKR, Responses, "10<cr>", 1, 02, 00, 60,09,00,00, 60,09,00,00
+HKR, Responses, "11<cr>", 1, 02, 00, c0,12,00,00, c0,12,00,00
+HKR, Responses, "12<cr>", 1, 02, 00, 80,25,00,00, 80,25,00,00
+HKR, Responses, "14<cr>", 1, 02, 00, 00,4b,00,00, 00,4b,00,00
+HKR, Responses, "15<cr>", 1, 02, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "16<cr>", 1, 02, 00, e0,2e,00,00, 00,00,00,00
+HKR, Responses, "17<cr>", 1, 02, 00, 00,00,00,00, 00,96,00,00
+HKR, Responses, "18<cr>", 1, 02, 00, 00,00,00,00, 00,96,00,00
+HKR, Responses, "19<cr>", 1, 02, 00, 00,00,00,00, 00,e1,00,00
+HKR, Responses, "21<cr>", 1, 02, 00, 00,00,00,00, 00,c2,01,00
+
+[Modem2.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 50,00,00,00, ff,00,00,00, 01,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 F0 V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "9<cr>", 1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "11<cr>", 1, 02, 00, 00,00,00,00, c0,12,00,00
+HKR, Responses, "12<cr>", 1, 02, 00, 00,00,00,00, 80,25,00,00
+HKR, Responses, "13<cr>", 1, 02, 00, 00,00,00,00, 20,1c,00,00
+HKR, Responses, "14<cr>", 1, 02, 00, 00,00,00,00, e0,2e,00,00
+HKR, Responses, "15<cr>", 1, 02, 00, 00,00,00,00, 40,38,00,00
+HKR, Responses, "16<cr>", 1, 02, 00, 00,00,00,00, 00,4b,00,00
+HKR, Responses, "17<cr>", 1, 02, 00, 00,00,00,00, 00,96,00,00
+HKR, Responses, "18<cr>", 1, 02, 00, 00,00,00,00, 00,e1,00,00
+
+[Modem3.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 50,00,00,00, ff,00,00,00, 01,00,00,00, 0f,00,00,00, f7,03,00,00, 00,e1,00,00, 40,38,00,00
+HKR, Init,      2,, "AT &F E0 F0 V1 S95=47<cr>"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "9<cr>", 1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "11<cr>", 1, 02, 00, 00,00,00,00, c0,12,00,00
+HKR, Responses, "12<cr>", 1, 02, 00, 00,00,00,00, 80,25,00,00

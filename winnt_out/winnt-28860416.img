@@ -1,0 +1,113 @@
+F_WINDOWSSYSPATH)\drivers
+   Exit
+[AddNWLNKRIPUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set KeyName = $($0)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            SetRegValue $(KeyUseRef) {$(KeyName),$(NoTitle),$(!REG_VT_SZ),"1"}
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return
+[RemoveNWLNKRIPUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set KeyName = $($0)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            DeleteRegValue $(KeyUseRef) $(KeyName)
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return
+[NumOfUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            EnumRegValue $(KeyUseRef) UsageList
+            set Num = 0
+            ForListDo $(UsageList)
+                set-add Num = $(Num), 1
+            EndForListDo
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return $(Num)
+[FindUsed]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms FileConstants$(!STF_LANGUAGE)
+    set KeyName = $($0)
+    set Find = FALSE
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyService
+    ifstr(i) $(KeyService) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName)"\UseRef" $(MAXIMUM_ALLOWED) KeyUseRef
+        ifstr(i) $(KeyUseRef) == ""
+            CreateRegKey $(KeyService) {"UseRef",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyUseRef
+        endif
+        ifstr(i) $(KeyUseRef) != ""
+            GetRegValue $(KeyUseRef),$(KeyName), KeyInfo
+            ifstr(i) $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                set Find = TRUE
+            endif
+            CloseRegKey $(KeyUseRef)
+        endif
+        CloseRegKey $(KeyService)
+    else
+    endif
+    return $(Find)
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-NWLNKRIP]
+1,NWLNKRIP.SYS , SIZE=999
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    NWLNKRIP = "RIP for NwLink IPX/SPX compatible transport"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+ProductNWLNKRIPTitle       = "RIP for NWLink IPX"
+ProductNWL

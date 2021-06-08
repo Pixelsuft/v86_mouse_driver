@@ -1,0 +1,102 @@
+,      3,, "ATB17S119.4=0S80.6=1<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,C2,01,00, 00,4b,00,00
+HKR,, FClass,     1, 01,00,00,00
+
+[V.110.38]
+HKR, Init,      3,, "ATB18S119.4=1S80.6=1<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,C2,01,00, 00,96,00,00
+HKR,, FClass,     1, 01,00,00,00
+
+[V.110.57]
+HKR, Init,      3,, "ATB19S80.6=1<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,C2,01,00, 00,e1,00,00
+HKR,, FClass,     1, 01,00,00,00
+
+[V.120]
+HKR, Init,      3,, "ATB20S80.6=1<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 03,01,00,00, 00,C2,01,00, 00,F4,01,00
+HKR,, FClass,     1, 01,00,00,00
+
+[X.75]
+HKR, Init,      3,, "ATB00S80.6=1<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 03,01,00,00, 00,C2,01,00, 00,F4,01,00
+HKR,, FClass,     1, 01,00,00,00
+
+[DTXJ]
+HKR, Init,      3,, "ATB04CL125<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,C2,01,00, 00,F4,01,00
+HKR,, FClass,     1, 01,00,00,00
+
+[PPP]
+HKR, Init,      3,, "ATB40<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,C2,01,00, 00,F4,01,00
+HKR,, FClass,     1, 01,00,00,00
+
+[SLIP]
+HKR, Init,      3,, "ATB41<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,C2,01,00, 00,F4,01,00
+HKR,, FClass,     1, 01,00,00,00
+
+[MLP]
+HKR, Init,      6,, "AT&J3S100=0<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 03,01,00,00, 00,C2,01,00, 00,F4,01,00
+HKR,, FClass,     1, 01,00,00,00
+
+[CCB]
+HKR, Init,      6,, "AT&J3S100=1<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 00,00,00,00, 00,00,00,00, 03,01,00,00, 00,C2,01,00, 00,F4,01,00
+HKR,, FClass,     1, 01,00,00,00
+
+[AB.v2]
+HKR, Init,      3,, "AT<cr>"
+HKR, Init,      6,, "AT&L0S118.5=1S111.0=1S118.6=0<cr>"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 07,00,00,00, 0f,00,00,00, 00,01,00,00, 00,C2,01,00, 40,83,00,00
+HKR,, FClass,     1, 01,00,00,00
+
+[POTS.Fax.DRAM]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,01,00,00, 00,C2,01,00, 40,83,00,00
+HKR,, FClass,     1, 08,00,00,00
+HKR, Fax, ResetCommand,, "AT&FE0+FCLASS=Z+FZF=5"
+HKR, Fax, SetupCommand,, "ATS0=4&W0&FE0+FCLASS=2"
+HKR, Fax, ExitCommand,,  "AT&FE0"
+HKR, Fax, FixModemClass,,"2"
+HKR, Fax, PreAnswerCommand,, ""
+HKR, Fax, PreDialCommand,, ""
+HKR, Fax, AnswerMode,, "1"
+HKR, Fax, ModemFaxClasses,, "4"
+HKR, Monitor, 1,, "ATZ<cr>"
+HKR, Init,    3,, "AT<cr>"
+
+[ISDN.Fax.DRAM]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,01,00,00, 00,C2,01,00, 40,83,00,00
+HKR,, FClass,     1, 08,00,00,00
+HKR, Fax, ResetCommand,, "AT&FE0&O0&L1+FCLASS=Z+FZF=5"
+HKR, Fax, SetupCommand,, "ATS0=4&W0&FE0&O0&L1+FCLASS=2"
+HKR, Fax, ExitCommand,,  "AT&FE0&O0&L1"
+HKR, Fax, FixModemClass,,"2"
+HKR, Fax, PreAnswerCommand,, ""
+HKR, Fax, PreDialCommand,, ""
+HKR, Fax, AnswerMode,, "1"
+HKR, Fax, ModemFaxClasses,, "4"
+HKR, Fax, ExitCommand,, "ATZ"
+HKR, Monitor, 1,, "ATZ<cr>"
+HKR, Init,    3,, "AT<cr>"
+
+[ISDN.Fax.DJ500]
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, ff,00,00,00, 07,00,00,00, 0f,00,00,00, 7f,01,00,00, 00,C2,01,00, 40,83,00,00
+HKR,, FClass,     1, 08,00,00,00
+HKR, Fax, ResetCommand,, "AT&FE0&O0&L1+FCLASS=Z+FZF=1"
+HKR, Fax, SetupCommand,, "ATS0=4S72=0S73.3=1S73.5=1S73.6=1&W0&FE0&O0&L1+FCLASS=1"
+HKR, Fax, ExitCommand,,  "AT&FE0&O0&L1"
+HKR, Fax, FixModemClass,,"1"
+HKR, Fax, PreAnswerCommand,, ""
+HKR, Fax, PreDialCommand,, ""
+HKR, Fax, AnswerMode,, "1"
+HKR, Fax, ModemFaxClasses,, "4"
+HKR, Fax, ExitCommand,, "ATZ"
+HKR, Monitor, 1,, "ATZ<cr>"
+HKR, Init,    3,, "AT<cr>"
+
+[All]
+HKR,, DeviceType, 1, 01
+HKR,,FriendlyDriver,,unimod

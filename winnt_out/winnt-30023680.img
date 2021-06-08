@@ -1,0 +1,87 @@
+arametersKey) {BusType,$(NoTitle),$(!REG_VT_DWORD),$(BusTypeNum)}
+    SetRegValue $(ParametersKey) {FEPImagePath,$(NoTitle),$(!REG_VT_SZ),$(AdapterFepImage)}
+    SetRegValue $(ParametersKey) {BiosImagePath,$(NoTitle),$(!REG_VT_SZ),$(AdapterBiosImage)}
+    ifstr(i) $(BusType) == "MCA"
+      Debug-Output "MCAPosId = "$(MCAPosId)
+      Debug-Output "SlotNumber = "$(SlotNumber)
+      SetRegValue $(ParametersKey) {MCAPosId,$(NoTitle),$(!REG_VT_DWORD),$(MCAPosId)}
+      SetRegValue $(ParametersKey) {SlotNumber,$(NoTitle),$(!REG_VT_DWORD),$(SlotNumber)}
+    endif
+    set LineList = *($(AdapterParameters),4)
+    Ifint $(TraceConfig) == 1
+      Debug-Output "LineList = "
+      LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(LineList)
+    Endif
+    ForListDo $(LineList)
+      set LineObject = $($)
+      Ifint $(TraceConfig) == 1
+         Debug-Output "LineObject = "
+         LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(LineObject)
+      Endif
+      set LineName = *($(LineObject),1)
+      Ifint $(TraceConfig) == 1
+         Debug-Output "LineName = "
+         LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(LineName)
+      Endif
+      DeleteRegTree $(ParametersKey) $(LineName)
+      set LineSpeed = *($(LineObject),2)
+      Ifint $(TraceConfig) == 1
+      Debug-Output "LineSpeed = "$(LineSpeed)
+      Endif
+      set ConcList = *($(LineObject),3)
+      Ifint $(TraceConfig) == 1
+         Debug-Output "ConcList = "
+         LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(ConcList)
+      Endif
+      Ifstr $(ConcList) != "{}"
+         shell "" ExCreateRegKey $(ParametersKey) $(LineName)
+         Ifstr(i) $($R0) != NO_ERROR
+             Debug-Output "Error creating registry key!"
+             set KeyHandle = $($R1)
+             CloseRegKey $(BaseKey)
+             goto fatal
+         Endif
+         set LineKey = $($R1)
+         SetRegValue $(LineKey) {LineSpeed,$(NoTitle),$(!REG_VT_DWORD),$(LineSpeed)}
+      Endif
+      ForListDo $(ConcList)
+         set ConcObject = $($)
+         set ConcName = *($(ConcObject),1)
+         set ConcDisplayName = *($(ConcObject),2)
+         set ConcSpeed = *($(ConcObject),3)
+         set ChildConcList = *($(ConcObject),4)
+         set PortList = *($(ConcObject),5)
+         Ifint $(TraceConfig) == 1
+            Debug-Output "   "$(ConcName)
+            Debug-Output "   "$(PortList)
+         Endif
+         shell "" ExCreateRegKey $(LineKey) $(ConcName)
+         Ifstr(i) $($R0) != NO_ERROR
+             Debug-Output "Error creating registry key!"
+             set KeyHandle = $($R1)
+             CloseRegKey $(LineKey)
+             goto fatal
+         Endif
+         set ConcKey = $($R1)
+         SetRegValue $(ConcKey) {ConcDisplayName,$(NoTitle),$(!REG_VT_SZ),$(ConcDisplayName)}
+         SetRegValue $(ConcKey) {LineSpeed,$(NoTitle),$(!REG_VT_DWORD),$(ConcSpeed)}
+         ForListDo $(ChildConcList)
+            set ChildConcObject = $($)
+            set ChildConcName = *($(ChildConcObject),1)
+            set ChildConcDisplayName = *($(ChildConcObject),2)
+            set ChildConcSpeed = *($(ChildConcObject),3)
+            set JunkConcList = *($(ChildConcObject),4)
+            set ChildPortList = *($(ChildConcObject),5)
+            Ifint $(TraceConfig) == 1
+               Debug-Output "      ChildConcObject = "
+               LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(ChildConcObject)
+               Debug-Output "      ChildConcName = "$(ChildConcName)
+               Debug-Output "      ChildConcDisplayName = "$(ChildConcDisplayName)
+               Debug-Output "      ChildConcSpeed = "$(ChildConcSpeed)
+               Debug-Output "      JunkConcList = "
+               LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(JunkConcList)
+               Debug-Output "ChildPortList = "
+               LibraryProcedure Result, $(DGCONFIG_HANDLE), DumpList, $(ChildPortList)
+            Endif
+            shell "" ExCreateRegKey $(ConcKey) $(ChildConcName)
+            Ifstr(i) $($R0) != N

@@ -1,0 +1,109 @@
+bkey), +
+                {{$(Pos), $(NoTitle), $(!REG_VT_SZ), "SOFTWARE\Microsoft\"$(AAgentName)"\CurrentVersion"}}
+            CloseRegKey $(KeyTypesSubkey)
+        endif
+    endif
+    return
+[RemoveMicrosoftAgent]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    set AAgentName   = $($0)
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\SNMP" $(MAXIMUM_ALLOWED) SNMPKey
+    ifstr(i) $(SNMPKey) != ""
+        CloseRegKey $(SNMPKey)
+        OpenRegKey $(!REG_H_LOCAL) "" "SOFTWARE\Microsoft" $(MAXIMUM_ALLOWED) MicrosoftKey
+        DeleteRegTree $(MicrosoftKey) $(AAgentName)
+        CloseRegKey $(MicorosoftKey)
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\SNMP\Parameters" $(MAXIMUM_ALLOWED) SNMPParmKey
+        DeleteRegKey $(SNMPParmKey) $(AAgentName)
+        OpenRegKey $(SNMPParmKey) "" "ExtensionAgents" $(MAXIMUM_ALLOWED) AgentKey
+        EnumRegValue $(AgentKey) AgentsList
+        ForListDo $(AgentsList)
+            Split-String *($($),4), "\", AgentInfo
+            ifContains(i) $(AAgentName) in $(AgentInfo)
+                DeleteRegValue $(AgentKey) *($($),1)
+            endif
+        EndForListDo
+        CloseRegKey $(AgentKey)
+        CloseRegKey $(SNMPParmKey)
+    endif
+    return
+[AddSnmpTrapService]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    Set TrapServiceName        = "SNMPTRAP"
+    Set TrapServiceDisplayName = "SNMP Trap Service"
+    Set TrapServiceImagePath   = $(SNMPTRAPEXE)
+    Debug-Output "OEMNSVSN.INF: Before CreateService"
+    Shell $(UtilityInf), CreateService, +
+        $(TrapServiceName), +
+        $(TrapServiceDisplayName), +
+        $(TrapServiceImagePath), +
+        "service", +
+        "",+
+        {"Tcpip", "EventLog"}, +
+        "", +
+        $(SNMPTRAPEXE)
+    Debug-Output "OEMNSVSN.INF: After CreateService"
+    Debug-Output "OEMNSVSN.INF: R0 from CreateService "$($R0) 
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVSN.INF: ShellCode error"
+        goto ShellCodeError
+    endif
+    Set RegistryErrorIndex   = $($R0)
+    Set SoftwareServiceKey   = $($R1)
+    Set SoftwareParameterKey = $($R2)
+    Set SoftwareLinkageKey   = $($R3)
+    ifstr(i) $(RegistryErrorIndex) == NO_ERROR
+        CloseRegKey $(SoftwareServiceKey)
+        CloseRegKey $(SoftwareParameterKey)
+        CloseRegKey $(SoftwareLinkageKey)
+    endif
+    Ifstr(i) $(RegistryErrorIndex) == SERVICE_ALREADY_EXISTS
+        Set RegistryErrorIndex = NO_ERROR
+    Endif
+    Return $(RegistryErrorIndex)
+[RemoveSnmpTrapService]
+    read-syms GeneralConstants
+    read-syms FileConstants
+    Set TrapServiceName = "SNMPTRAP"
+    Shell $(UtilityInf), RemoveService, $(TrapServiceName), "YES"
+    Set RegistryErrorIndex = $($R0)
+    Return $(RegistryErrorIndex)
+[Source Media Descriptions]
+    1 = "Windows NT Workstation CD-ROM" , TAGFILE = cdrom_w.40
+[Signature]
+    FileType = MICROSOFT_FILE
+[GetSignature]
+    read-syms Signature
+    return $(FileType)
+[ProductType]
+STF_PRODUCT  = Winnt
+STF_PLATFORM = I386
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-SNMP]
+1, MIB.BIN, SIZE=999
+1, SNMP.EXE, SIZE=999
+1, SNMPAPI.DLL, SIZE=999
+1,LMMIB2.DLL , SIZE=999
+1,MGMTAPI.DLL , SIZE=999
+1,SNMPTRAP.EXE , SIZE=999
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    SNMP     = "SNMP Service"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+FunctionTitle   = "SNMP Setup"
+ProductSoftwareDescription      = "Simple Network Management Protocol service that enables a Windows NT computer to be administered remotely with an SNMP management tool."
+ProductSoftwareDisplayName      = "SNMP Service"
+ProductSoftwareTitle    = "SNMP Service"
+ShellCodeErrorTitle     = "Error: "$(FunctionTitle)
+ShellCodeErrorText 

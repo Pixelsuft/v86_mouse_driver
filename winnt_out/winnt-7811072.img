@@ -1,0 +1,45 @@
+esponses, "<cr><lf>CONNECT 19200/V42BIS<cr><lf>", 1, 02, 01, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/V42BIS<cr><lf>", 1, 02, 01, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000/V42BIS<cr><lf>", 1, 02, 01, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/V42BIS<cr><lf>", 1, 02, 01, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/V42BIS<cr><lf>", 1, 02, 01, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/MNP<cr><lf>", 1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/MNP<cr><lf>", 1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/MNP<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/MNP<cr><lf>", 1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/MNP<cr><lf>", 1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/MNP<cr><lf>", 1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/MNP<cr><lf>", 1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/MNP<cr><lf>", 1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/MNP<cr><lf>", 1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/MNP<cr><lf>", 1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/MNP<cr><lf>", 1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/MNP<cr><lf>", 1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/MNP<cr><lf>", 1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/MNP<cr><lf>", 1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/MNP<cr><lf>", 1, 02, 02, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 300/MNP COMPRESSED<cr><lf>", 1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/MNP COMPRESSED<cr><lf>", 1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/MNP COMPRESSED<cr><lf>", 1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/MNP COMPRESSED<cr><lf>", 1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/MNP COMPRESSED<cr><lf>", 1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/MNP COMPRESSED<cr><lf>", 1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/MNP COMPRESSED<cr><lf>", 1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/MNP COMPRESSED<cr><lf>", 1, 02, 03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/MNP COMPRESSED<cr><lf>", 1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/MNP COMPRESSED<cr><lf>", 1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/MNP COMPRESSED<cr><lf>", 1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/MNP COMPRESSED<cr><lf>", 1, 02, 03, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/MNP COMPRESSED<cr><lf>", 1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/MNP COMPRESSED<cr><lf>", 1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/MNP COMPRESSED<cr><lf>", 1, 02, 03, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/MNP COMPRESSED<cr><lf>",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/MNP COMPRESSED<cr><lf>",    1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/MNP COMPRESSED<cr><lf>",    1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/MNP COMPRESSED<cr><lf>",       1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/MNP COMPRESSED<cr><lf>",     1, 02, 03, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/MNP COMPRESSED<cr><lf>",    1, 02, 03, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/MNP COMPRESSED<cr><lf>",    1, 02, 03, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/MNP CO

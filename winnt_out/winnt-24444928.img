@@ -1,0 +1,55 @@
+5 compact disc
+1. At the command prompt of the computer running Windows NT, type md c:\win95. flat
+    Flat indicates that the files in the directory are not compressed.
+2. Insert the Windows 95 compact disc in the CD-ROM drive on the computer running Windows NT.
+3.  From the command prompt, switch to the CD-ROM drive. 
+4. Type cd \win95.
+5. Type extract /a /e win95_02.cab /L c:\win95.flat.
+6. Then type extract /a /e precopy1.cab /L c:\win95.flat
+
+
+Upgrading Printer Drivers for Non-Native Processors
+Non-native printer drivers (for example, x86-based printer drivers on a Digital Alpha computer) are not always upgraded during Setup. In some cases, new printer drivers must be installed using the Printers folder.
+
+Non-native printer drivers are upgraded only if you upgrade a previous version of Windows NT from a compact disc, and you start Setup by booting your computer from a Windows NT 4.0 installation floppy disk or the Windows NT compact disc. If you install Windows NT version 4.0 using Winnt.exe or Winnt32.exe, the non-native printer drivers are not updated.
+
+Remote Printer Administration
+To provide quick access to the printer folder for several servers, drag and drop the remote printer folders to your local printer folder.
+
+To add remote printer folders to the local printer folder
+1. Click Start and then click Run.
+2. Type the name of the print server preceded by two backslashes (\\).
+3. Drag the printer folder to your local printer folder. If necessary, follow the on-screen instructions to install the printer driver.
+
+
+PriorityClass Registry Entry No Longer Supported
+Windows NT Workstation and Windows NT Server no longer support the \HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\PriorityClass registry entry. You do not need to remove it; it is simply ignored. 
+
+You can now use SpoolerPriority instead of PriorityClass. SpoolerPriority can be set to IDLE_PRIORITY_CLASS, NORMAL_PRIORITY_CLASS, or HIGH_PRIORITY_CLASS. If it is set to anything else, Windows NT defaults to NORMAL_PRIORITY_CLASS. The registry value type for SpoolerPriority is REG_DWORD.
+
+By default, there is no SpoolerPriority entry in the Registry and the process priority is NORMAL_PRIORITY_CLASS.
+
+Long Printer Names
+Several Windows version 3.x applications cannot print to a printer if the printer name contains more than a specified number of characters. Some applications will generate a General Protection Fault if this is attempted. Other applications may not print to any printer, even printers with short names, if the default printer has a "long" name. To resolve these problems, rename the printers used with the applications to shorter names and make one of those printers the default printer. See "General Printing Issues" later in this document.
+
+Configuring Your Printer's DIP Switch Settings
+The following printer models require certain DIP switch settings in order to work properly in Windows NT. Make sure you configure your printer's DIP switch settings before you install the printer. 
+
+Canon Bubble-Jet BJ-10e, BJ-10ex, and BJ-130e
+All DIP switches should be set to the factory-default position. For the BJ-10e and BJ-130e models, this is the OFF position.
+
+Digital 9-Pin and 24-Pin Printers Supported by Windows NT
+These printers should be set to Emulation (IBM ProPrinter) mode. See your printer manual for details on how to set the emulation.
+
+Digital DECWriter 95
+
+To use a Digital DECWriter 95 printer with Windows NT version 4.0
+1. Upgrade your system with Windows NT version 4.0. 
+2. Remove the printer model Digital DECWriter 95 from the Printers folder and reinstall the printer again by using the Add Printer wizard.
+3. Set the DIP switches for ESCP2MS emulation mode.
+
+Digital Laser Printers Supported by Windows NT
+Printers listed that say (LJ) after the model name must have an HP LaserJet emulation cartridge installed. The printer must be set to LaserJet mode. See your printer manual for details on how to set the emulation.
+
+Epson 9-Pin and 24-Pin Printers Supported by Windows NT
+The followi

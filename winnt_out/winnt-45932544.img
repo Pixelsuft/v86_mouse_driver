@@ -1,0 +1,117 @@
+, Settings, InactivityTimeout,, "\T=<#>"
+
+[Modem8.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 78,00,00,00, 00,00,00,00, 07,00,00,00, 0d,00,00,00, 50,01,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00 
+HKR, Init,      2,, "AT Z <cr>"
+HKR, Init,      3,, "AT X1 <cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, SpeakerVolume_Med,, "L1"
+HKR, Settings, SpeakerVolume_High,, "L2"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem9.AddReg]
+HKR,, Properties, 1, 00,01,00,00, 78,00,00,00, 00,00,00,00, 01,00,00,00, 0d,00,00,00, 50,01,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00 
+HKR, Init,      2,, "AT Z <cr>"
+HKR, Init,      3,, "AT X1 <cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, SpeakerVolume_Low,, "L1"
+HKR, Settings, SpeakerVolume_Med,, "L1"
+HKR, Settings, SpeakerVolume_High,, "L1"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Modem10.AddReg]
+HKR,, Properties, 1, 00,01,00,00, 78,00,00,00, 00,00,00,00, 07,00,00,00, 0d,00,00,00, 50,01,00,00, 60,09,00,00, 60,09,00,00
+HKR,, InactivityScale, 1, 01,00,00,00 
+HKR, Init,      2,, "AT Z <cr>"
+HKR, Init,      3,, "AT X1 <cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, SpeakerVolume_Med,, "L1"
+HKR, Settings, SpeakerVolume_High,, "L2"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "10<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+
+[Modem11.AddReg]
+HKR,, Properties, 1, 00,01,00,00, 78,00,00,00, 5a,00,00,00, 07,00,00,00, 0f,00,00,00, f7,01,00,00, 00,e1,00,00, 40,38,00,00
+HKR,, InactivityScale, 1, 01,00,00,00 
+HKR, Init,      2,, "AT &F X1<cr>"
+HKR,, Reset,, "AT&FX1<cr>"
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q2"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, ""
+HKR, Settings, Compression_Off,, ""
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "-R1"
+HKR, Settings, SpeedNegotiation_On,, "-R0"
+HKR, Settings, InactivityTimeout,, "\T=<#>"
+
+; CopyFiles sections
+
+
+; Strings
+
+[Strings]
+ClassName = "Modem"
+Mfg = "MTD Systems"
+
+; Model strings
+
+Modem1="MTD 9624 D & MTD 9624 P"
+Modem2="MTD 9624 PC"
+Modem3="MTD Dolphin 14400 PC"
+Modem4="MTD Dolphin 14400 Desktop"
+Modem5="MTD Dolphin 19200 PC"
+Modem6="MTD Dolphin 19200 Desktop"
+Modem7="MTD Lightspeed 14.400"
+Modem8="MTD MT2400 D"
+Modem9="MTD MT2400 Pocket"
+Modem10="MTD MT2400 PC"
+Modem11="MTD MT3242"
+
+; Plug and Play device names
+
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,, InactivityScale, 1, 01,00,00,00
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR, Init,      1,, "AT<cr>"
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+
+[ExtAddReg]
+HKR, Settings, FlowControl_Off,, "\Q0"
+HKR, Settings, FlowControl_Hard,, "\Q2"
+HKR, Settings, FlowControl_Soft,, "\Q1"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_Forced,, "\N4"
+HKR, Settings, Compression_On,, """H3"
+HKR, Settings, Compression_Off,, """H0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "&A1"
+HKR, Settings, SpeedNegotiation_On,, "&A0"
+HKR, Settings, Blind_Off,, "X1"
+
+[Extra]
+HKR, Responses, "2<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "12<cr>", 1, 02, 00, 20,1c,00,00, 00,00,00,00
+HKR, Responses, "13<cr>", 1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "14<cr>", 1, 02, 00, e0,2e,00,00, 00,00,00

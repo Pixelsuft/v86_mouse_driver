@@ -1,0 +1,74 @@
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\Tcpip\ServiceProvider" $(MAXIMUM_ALLOWED) ProviderKey
+        ifstr(i) $(ProviderKey) == ""
+            Shell $(UtilityInf), AddServiceProvider, $(ProviderName), +
+                $(Winsock11Provider), 8
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                EndWait
+                Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+                goto fatalregistry
+            endif
+            OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\Tcpip" $(MAXIMUM_ALLOWED) TcpSvcKeyHandle
+            ifstr(i) $(TcpSvcKeyHandle) != ""
+                OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\Tcpip\ServiceProvider" $(MAXIMUM_ALLOWED) KeyNetworkProvider
+                ifstr(i) $(KeyNetworkProvider) == ""
+                   CreateRegKey $(TcpSvcKeyHandle) {"ServiceProvider",$(NoTitle),GenericClass} "" +
+                        $(MAXIMUM_ALLOWED) "" KeyNetworkProvider
+                endif
+                set NewValueList = {{DnsPriority,$(NoTitle),$(!REG_VT_DWORD),2000},+
+                           {Name,$(NoTitle),$(!REG_SZ),$(ProviderDisplayName)},+
+                           {HostsPriority,$(NoTitle),$(!REG_VT_DWORD),500},+
+                           {LocalPriority,$(NoTitle),$(!REG_VT_DWORD),499},+
+                           {ProviderPath,$(NoTitle),$(!REG_VT_EXPAND_SZ),$(Winsock11Provider)},+
+                           {NetbtPriority,$(NoTitle),$(!REG_VT_DWORD),2001}}
+                Shell  $(UtilityInf), AddValueList, $(KeyNetworkProvider), $(NewValueList)
+                CloseRegKey $(KeyNetworkProvider)
+                CloseRegKey $(TcpSvcKeyHandle)
+            endif
+        else
+            CloseRegKey $(ProviderKey)
+        endif
+        OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\Tcpip\Parameters" $(MAXIMUM_ALLOWED) TcpParmKeyHandle
+        ifstr(i) $(TcpParmKeyHandle) != ""
+            CreateRegKey $(TcpParmKeyHandle) {"PersistentRoutes",$(NoTitle),GenericClass} "" +
+                    $(MAXIMUM_ALLOWED) "" KeyPersistentRoutes
+            CloseRegKey $(KeyPersistentRoutes)
+            CloseRegKey $(TcpParmKeyHandle)
+        endif
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\Tcpip" $(MAXIMUM_ALLOWED) TcpSvcKeyHandle
+    ifstr(i) $(TcpSvcKeyHandle) != $(KeyNull)
+        SetRegValue $(TcpSvcKeyHandle) {Group,$(NoTitle),$(!REG_VT_SZ),"PNP_TDI"}
+        CloseRegKey $(TcpSvcKeyHandle)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\NetBT" $(MAXIMUM_ALLOWED) NetBTSvcKeyHandle
+    ifstr(i) $(NetBTSvcKeyHandle) != $(KeyNull)
+        SetRegValue $(NetBTSvcKeyHandle) {Group,$(NoTitle),$(!REG_VT_SZ),"PNP_TDI"}
+        CloseRegKey $(NetBTSvcKeyHandle)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(TCNetRuleKeyName) $(MAXIMUM_ALLOWED) TCKeyNetRules
+    Ifstr $(TCKeyNetRules) != $(KeyNull)
+        SetRegValue $(TCKeyNetRules) {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleTCUse)}
+        CloseRegKey $(TCKeyNetRules)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(NetBTNetRuleKeyName) $(MAXIMUM_ALLOWED) NetBTKeyNetRules
+    Ifstr $(NetBTKeyNetRules) != $(KeyNull)
+        SetRegValue $(NetBTKeyNetRules) {use,$(NoTitle),$(!REG_VT_SZ),$(NetRuleNETBTUse)}
+        CloseRegKey $(NetBTKeyNetRules)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductTCKeyName) $(MAXIMUM_ALLOWED) TCKeyCurrentVersion
+    Ifstr $(TCKeyCurrentVersion) != $(KeyNull)
+        SetRegValue $(TCKeyCurrentVersion) {Description,$(NoTitle),$(!REG_VT_SZ),$(ProductTCDescription)}
+        SetRegValue $(TCKeyCurrentVersion) {OperationsSupport,$(NoTitle),$(!REG_VT_DWORD),$(ProductOpSupport)}
+        CloseRegKey $(TCKeyCurrentVersion)
+    endif
+    goto end
+successful = +
+    goto end
+infomsg =+
+   read-syms InfoDlg
+   ui start "Warning"
+   set CommonStatus = STATUS_USERCANCEL
+   goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, 

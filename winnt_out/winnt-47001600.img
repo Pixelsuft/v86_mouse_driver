@@ -1,0 +1,130 @@
+; Windows Modem Setup File
+; Copyright (c) 1993-1996 Microsoft Corporation
+; Manufacturer: Ericsson
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Modem
+ClassGUID={4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider=%Mfg%
+
+[Manufacturer]
+%Mfg% = Models
+
+[ControlFlags]
+ExcludeFromSelect= UNIMODEM02EAE31D, UNIMODEM28C2DB7F
+ExcludeFromSelect= UNIMODEME958F8F7
+
+[Models]
+%Modem1% = Modem1, PCMCIA\INTELLIGENT-ERICSSON_AS-B8E8                    ; V34CC
+%Modem2% = Modem2, Eric_V34CC                                             ; V34CC Cellular
+%Modem3% = Modem3, PCMCIA\INTELLIGENT-ERICSSON_14.4CC_FAX/MODEM-7ECF      ; 144CC 
+%Modem4% = Modem4, UNIMODEMFC8C167B                                       ; V34DT  
+%Modem5% = Modem5, UNIMODEMA2A1A049
+%Modem5% = Modem5, UNIMODEM02EAE31D
+%Modem5% = Modem5, UNIMODEM28C2DB7F
+%Modem5% = Modem5, UNIMODEME958F8F7
+%Modem6% = Modem6, Eric_V34CC                                             ; V34TZ
+%Modem7% = Modem7, Eric_V34CC                                             ; V34TZ
+
+[Strings]
+ClassName = "Modem"
+Mfg ="Ericsson"
+Modem1 ="Ericsson V.34CC PCMCIA"
+Modem2 ="Ericsson V.34CC PCMCIA Analogue Cellular "     ; V34CC
+Modem3 ="Ericsson 14.4CC PCMCIA"
+Modem4 ="Ericsson V.34DT"
+Modem5 ="Ericsson SBN and ZAT models"
+Modem6 ="Ericsson V.34TZ Pocket Modem"                  ; V34TZ
+Modem7 ="Ericsson V.34TZ Pocket Modem Analogue Cellular"; V34TZ
+
+[Modem1]
+AddReg=All, MfgAddReg, ModemCC.Addreg, Modem1.AddReg, PCMCIA
+
+[Modem2]
+AddReg=All, MfgAddReg, ModemCC.Addreg, Modem2.AddReg, PCMCIA
+
+[Modem3]
+AddReg=All, MfgAddReg, ModemCC.Addreg, Modem3.AddReg, PCMCIA
+
+[Modem4]
+AddReg=All, MfgAddReg, Modem4.AddReg, EXTERNAL
+
+[Modem5]
+AddReg=All, MfgAddReg, Modem5.AddReg, EXTERNAL
+
+[Modem6]
+AddReg=All, MfgAddReg, ModemCC.Addreg, Modem1.AddReg, EXTERNAL
+
+[Modem7]
+AddReg=All, MfgAddReg, ModemCC.Addreg, Modem2.AddReg, EXTERNAL
+
+[All]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*vcomm
+HKR,,PortSubClass,1,02
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+
+[PCMCIA]
+HKR,,PortDriver,,Serial.vxd
+HKR,,Contention,,*vcd
+HKR,, DeviceType, 1, 03
+
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[Modem1.AddReg] 
+HKR, Init, 2,, "AT &F <cr>"
+
+[Modem2.AddReg] 
+HKR, Init, 2,, "AT &F5 <cr>"
+HKR,, Reset,, "AT&F5<cr>"
+
+
+[Modem3.AddReg] 
+HKR,, Properties, 1, 80,01,00,00, FF,00,00,00, FF,00,00,00, 00,00,00,00, 0F,00,00,00, 77,02,00,00, 00,C2,01,00, 40,38,00,00
+HKR, Init, 1,, "AT<cr>"
+HKR, Init, 2,, "AT &F <cr>"
+HKR, Init, 3,, "AT E0 V1 C1 &D2 S0=0<cr>"
+HKR, Init, 4,, "AT W1 S7=50 X4<cr>"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Compression_On,, "%%C1"
+HKR, Settings, ErrorControl_Forced,, "\N6"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_On,, "\N7"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, InactivityTimeout,, "S40=<#>"
+HKR, Settings, Modulation_Bell,, "B1 "
+HKR, Settings, Modulation_CCITT,, "B0 "
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, Tone,, "T"
+HKR,, InactivityScale, 1, 3C,00,00,00
+
+
+
+[Modem4.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 2D,00,00,00, FF,00,00,00, 00,00,00,00, 0F,00,00,00, 77,07,00,00, 00,C2,01,00, 80,70,00,00
+HKR, Init, 1,, "AT<cr>"
+HKR, Init, 2,, "AT &F <cr>"
+HKR, Init, 3,, "AT E0 S0=0 S25=20<cr>"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, Compression_Off,, "&E14"
+HKR, Settings, Compression_On,, "&E15"
+HKR, Settings, ErrorControl_Forced,, "&E2"
+HKR, Settings, ErrorControl_Off,, "&E0"
+HKR, Settings, ErrorControl_On,, "&E1"
+HKR, Settings, FlowControl_Hard,, "&E4"
+HKR, Settings, FlowControl_Off,, "&E3"
+HKR, Settings, FlowControl_Soft,, "&E5"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+HKR, Settings

@@ -1,0 +1,177 @@
+T=ATQ0V1E1S0=0S2=128 S7=55<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Hayes Compatible 2400]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=2400
+MAXCONNECTBPS=2400
+
+;DETECT_STRING=ATI<cr>
+;DETECT_RESPONSE=249
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Hayes Compatible 9600]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55<speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Hayes Compatible 14400]
+ALIAS=Hayes Optima 14400
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=14400
+
+;----------------------------------------
+[Hayes Pocket Modem 2400]
+ALIAS=Hayes Compatible 2400
+
+;DETECT_STRING=ATI0<cr>
+;DETECT_RESPONSE=249
+
+;----------------------------------------
+[Hayes Smartmodem 2400]
+ALIAS=Hayes Compatible 2400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=249
+DETECT_STRING=ATI3<cr>
+DETECT_RESPONSE=04-000
+
+;----------------------------------------
+[Hayes Smartmodem 9600]
+ALIAS=Hayes Compatible 9600
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=960
+
+;----------------------------------------
+[Hayes Optima 9600]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=136
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATX3D
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=960
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 S0=0 S2=128 S7=55 W1 S95=44<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Hayes Optima 14400]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=136
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=10
+DEFAULTOFF=compression
+MAXCARRIERBPS=14400
+MAXCONNECTBPS=38400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=14400
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 S0=0 S2=128 S7=55 W1 S95=44<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Hayes Optima PCMCIA 14400]
+ALIAS=Hayes Optima 14400
+DETECT_STRING=ATI4<cr>
+DETECT_RESPONSE=PCMCIA
+DETECT_STRING=ATI6<cr>
+DETECT_RESPONSE=RC144DPL
+
+;----------------------------------------
+[Hayes Optima 28800]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=136
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>=ATDT
+<autodial_off>=ATD
+
+CALLBACKTIME=15
+DEFAULTOFF=compression
+MAXCARRIERBPS=28800
+MAXCONNECTBPS=57600
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=28800
+
+COMMAND_INIT=AT&F&C1&D2 V1 X4 S0=0 S2=128 S7=55 W0 S95=44<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+;----------------------------------------
+[Hayes Ultra 9600]
+ALIAS=Hayes Optima 9600
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=960
+
+;----------------------------------------
+[Hayes Ultra 14400]
+ALIAS=Hayes Optima 14400
+
+DETECT_STRING=ATI0<cr>
+DETECT_RESPONSE=14400
+
+;----------------------------------------
+[Hayes V Series Smartmodem 9600]
+<hwflowcontrol_off>=&K0
+<hwflowcontrol_on>=&K3
+<protocol_off>=&Q0
+<protocol_on>=&Q5
+<compression_off>=S46=0
+<compression_on>=S46=2
+<speaker_off>=M0
+<speaker_on>=M1
+<autodial_on>

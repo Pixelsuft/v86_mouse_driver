@@ -1,0 +1,165 @@
+off>=\\N0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=38400
+MAXCONNECTBPS=38400
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55 W0<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+;----------------------------------------
+[Dr Neuhaus Fury 19200 TI - GER]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+<compression_on>=
+<compression_off>=
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=57600
+MAXCONNECTBPS=57600
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55 W0<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+;----------------------------------------
+[Dr Neuhaus Smarty 144 TI - GER]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+<compression_on>=
+<compression_off>=
+<protocol_on>=\\N6
+<protocol_off>=\\N0
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=38400
+MAXCONNECTBPS=38400
+
+COMMAND_INIT=AT&F&C1&D2 V1 S0=0 S2=128 S7=55 W0<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+;----------------------------------------
+[Dr Neuhaus Smarty 24 TI - GER]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+<compression_on>=
+<compression_off>=
+<protocol_on>=
+<protocol_off>=
+<hwflowcontrol_on>=
+<hwflowcontrol_off>=
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+; Bevorzugte Einstellung: V42-Betrieb
+COMMAND_INIT=AT&F3 V1 S0=0 S2=128 S7=55 W0<cr>
+; Auch m”glich: MNP5-Betrieb
+; COMMAND_INIT=AT&F2 V1 S0=0 S2=128 S7=55 W0<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT_EC=<cr><lf>CONNECT <connectbps>/REL<cr><lf>
+
+
+
+[Dr Neuhaus Fury Card 24 - GER]
+alias=Dr Neuhaus Smarty 24 TI - GER
+[Dr Neuhaus Fury Card 144 - GER]
+alias=Dr Neuhaus Smarty 144 TI - GER
+[Dr Neuhaus SMARTY 19200 - GER]
+alias=Dr Neuhaus FURY 19200 TI - GER
+
+;----------------------------------------
+[Dr Neuhaus Niccy 3000 TI - GER]
+; obwohl dieses Modem eigentlich in die Gruppe ISDN geh”ren
+; k”nnte, wird es genau wie ein Modem angesprochen:
+
+<speaker_on>=
+<speaker_off>=
+<autodial_on>=ATDT
+<autodial_off>=ATD
+<compression_on>=
+<compression_off>=
+<protocol_on>=
+<protocol_off>=
+<hwflowcontrol_on>=
+<hwflowcontrol_off>=
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=38400
+MAXCONNECTBPS=38400
+
+COMMAND_INIT=AT<cr>
+COMMAND_INIT=AT&C1&D2\\Q3<cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+CONNECT_EC=<cr><lf>CONNECT <connectbps><cr><lf>
+CONNECT=<cr><lf>CONNECT <connectbps><cr><lf>
+
+;----------------------------------------
+[Dr Neuhaus Fury 2403 TI - GER]
+<speaker_on>=M1
+<speaker_off>=M0
+<autodial_on>=ATDT
+<autodial_off>=ATD
+<compression_on>=&Q5
+<compression_off>=&Q0
+<protocol_on>=
+<protocol_off>=
+<hwflowcontrol_on>=\\Q3
+<hwflowcontrol_off>=\\Q0
+CALLBACKTIME=30
+DEFAULTOFF=
+MAXCARRIERBPS=9600
+MAXCONNECTBPS=9600
+
+COMMAND_INIT=AT&F0&C1&D2 V1 S0=0 S2=128 S7=55 W1<cr>
+COMMAND_INIT=AT<protocol><compression><hwflowcontrol><speaker><cr>
+COMMAND_DIAL=<autodial><phonenumber><cr>
+COMMAND_LISTEN=ATS0=1<cr>
+
+
+;--------------
+; EEH - Modems
+;--------------
+
+[EEH Elink 32 - GER]
+<hwflowcontrol_off>=\\Q0
+<hwflowcontrol_on>=\\Q3
+<protocol_off>=\\N0
+<protocol_on>=\\N3
+<compression_off>=%C0
+<compression_on>=%C1
+<speaker_off>=M0
+<speaker_on>=M1
+
+DETECT_STRING=ATI<cr>
+DETECT_RESPONSE=Elink 32
+
+CALLBACKTIME=30
+DEFAULTOFF=comp

@@ -1,0 +1,147 @@
+SUB
+
+'
+' GetToken$:
+'  Extracts tokens from a string. A token is a word that is surrounded
+'  by separators, such as spaces or commas. Tokens are extracted and
+'  analyzed when parsing sentences or commands. To use the GetToken$
+'  function, pass the string to be parsed on the first call, then pass
+'  a null string on subsequent calls until the function returns a null
+'  to indicate that the entire string has been parsed.
+' Input:
+'  Search$ = string to search
+'  Delim$  = String of separators
+' Output:
+'  GetToken$ = next token
+'
+FUNCTION GetToken$ (Search$, Delim$) STATIC
+
+   ' Note that SaveStr$ and BegPos must be static from call to call
+   ' (other variables are only static for efficiency).
+   ' If first call, make a copy of the string
+   IF (Search$ <> "") THEN
+      BegPos = 1
+      SaveStr$ = Search$
+   END IF
+  
+   ' Find the start of the next token
+   NewPos = StrSpn(MID$(SaveStr$, BegPos, LEN(SaveStr$)), Delim$)
+   IF NewPos THEN
+      ' Set position to start of token
+      BegPos = NewPos + BegPos - 1
+   ELSE
+      ' If no new token, quit and return null
+      GetToken$ = ""
+      EXIT FUNCTION
+   END IF
+
+   ' Find end of token
+   NewPos = StrBrk(MID$(SaveStr$, BegPos, LEN(SaveStr$)), Delim$)
+   IF NewPos THEN
+      ' Set position to end of token
+      NewPos = BegPos + NewPos - 1
+   ELSE
+      ' If no end of token, return set to end a value
+      NewPos = LEN(SaveStr$) + 1
+   END IF
+   ' Cut token out of search string
+   GetToken$ = MID$(SaveStr$, BegPos, NewPos - BegPos)
+   ' Set new starting position
+   BegPos = NewPos
+
+END FUNCTION
+
+'
+' InitKeyTable:
+'  Initializes a keyword table. Keywords must be recognized so that
+'  line numbers can be distinguished from numeric constants.
+' Input:
+'  Uses KeyData
+' Output:
+'  Modifies global array KeyWordTable$
+'
+SUB InitKeyTable STATIC
+
+   RESTORE KeyData
+   FOR Count = 1 TO KeyWordCount
+      READ KeyWord$
+      KeyWordTable$(Count) = KeyWord$
+   NEXT
+
+END SUB
+
+'
+' IsDigit:
+'  Returns true if character passed is a decimal digit. Since any
+'  Basic token starting with a digit is a number, the function only
+'  needs to check the first digit. Doesn't check for negative numbers,
+'  but that's not needed here.
+' Input:
+'  Char$ - initial character of string to check
+' Output:
+'  IsDigit - true if within 0 - 9
+'
+FUNCTION IsDigit (Char$) STATIC
+
+   IF (Char$ = "") THEN
+      IsDigit = false
+   ELSE
+      CharAsc = ASC(Char$)
+      IsDigit = (CharAsc >= ASC("0")) AND (CharAsc <= ASC("9"))
+   END IF
+
+END FUNCTION
+
+'
+' StrBrk:
+'  Searches InString$ to find the first character from among those in
+'  Separator$. Returns the index of that character. This function can
+'  be used to find the end of a token.
+' Input:
+'  InString$ = string to search
+'  Separator$ = characters to search for
+' Output:
+'  StrBrk = index to first match in InString$ or 0 if none match
+'
+FUNCTION StrBrk (InString$, Separator$) STATIC
+
+   Ln = LEN(InString$)
+   BegPos = 1
+   ' Look for end of token (first character that is a delimiter).
+   DO WHILE INSTR(Separator$, MID$(InString$, BegPos, 1)) = 0
+      IF BegPos > Ln THEN
+         StrBrk = 0
+         EXIT FUNCTION
+      ELSE
+         BegPos = BegPos + 1
+      END IF
+   LOOP
+   StrBrk = BegPos
+  
+END FUNCTION
+
+'
+' StrSpn:
+'  Searches InString$ to find the first character that is not one of
+'  those in Separator$. Returns the index of that character. This
+'  function can be used to find the start of a token.
+' Input:
+'  InString$ = string to search
+'  Separator$ = characters to search for
+' Output:
+'  StrSpn = index to first nonmatch in InString$ or 0 if all match
+'
+FUNCTION StrSpn% (InString$, Separator$) STATIC
+
+   Ln = LEN(InString$)
+   BegPos = 1
+   ' Look for start of a token (character that isn't a delimiter).
+   DO WHILE INSTR(Separator$, MID$(InString$, BegPos, 1))
+      IF BegPos > Ln THEN
+         StrSpn = 0
+         EXIT FUNCTION
+      ELSE
+         BegPos = BegPos + 1
+      END IF
+   LOOP
+   StrSpn = 

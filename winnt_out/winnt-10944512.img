@@ -1,0 +1,104 @@
+ $(ErrorTotal),1
+    Endif
+    GetRegValue $(KeyFrom),"Route",TempValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set FromRouteList = *($(TempValue),4)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    GetRegValue $(KeyTo),"Bind",TempValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set ToBindList = *($(TempValue),4)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    GetRegValue $(KeyTo),"Export",TempValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set ToExportList = *($(TempValue),4)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    GetRegValue $(KeyTo),"Route",TempValue
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Set ToRouteList = *($(TempValue),4)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    Ifint $(ErrorTotal) != 6
+        Debug-Output "UTILITY.INF: ToggleBinding; Bind list retreival error, "$(ErrorTotal)
+    Endif
+    Debug-Output "UTILITY.INF: ToggleBinding; sanity check results"
+    QueryListSize sz1 $(FromBindList)
+    QueryListSize sz2 $(FromExportList)
+    QueryListSize sz3 $(FromRouteList)
+    Ifint $(sz1) != $(sz2)
+        Goto TB_Return
+    Endif
+    Ifint $(sz1) != $(sz3)
+        Goto TB_Return
+    Endif
+    QueryListSize sz2 $(ToBindList)
+    QueryListSize sz3 $(ToExportList)
+    QueryListSize sz4 $(ToRouteList)
+    Ifint $(sz2) != $(sz3)
+        Goto TB_Return
+    Endif
+    Ifint $(sz2) != $(sz4)
+        Goto TB_Return
+    Endif
+    Debug-Output "UTILITY.INF: ToggleBinding; prepare to move binding"
+    Ifint $(BindNumber) > $(sz1)
+        Debug-Output "UTILITY.INF: ToggleBinding; binding to move was invalid"
+        Set Status = INVALID_DATA_PASSED
+    Endif
+    Set FromBindItem   = *($(FromBindList),$(BindNumber))
+    Set FromRouteItem  = *($(FromRouteList),$(BindNumber))
+    Set FromExportItem = *($(FromExportList),$(BindNumber))
+    Set ToBindList   = >($(ToBindList),$(FromBindItem))
+    Set ToRouteList  = >($(ToRouteList),$(FromRouteItem))
+    Set ToExportList = >($(ToExportList),$(FromExportItem))
+    Set NewBind   = {}
+    Set NewExport = {}
+    Set NewRoute  = {}
+    Set Index = 0
+    ForListDo $(FromBindList)
+        Set-add Index = $(Index),1
+        Ifint $(Index) != $(BindNumber)
+            Set NewBind   = >($(NewBind),$($))
+            Set NewExport = >($(NewExport),*($(FromExportList),$(Index)))
+            Set NewRoute  = >($(NewRoute),*($(FromRouteList),$(Index)))
+        Endif
+    EndForListDo
+    Set FromBindList   = $(NewBind)
+    Set FromExportList = $(NewExport)
+    Set FromRouteList  = $(NewRoute)
+    Set ErrorTotal = 0
+    SetRegValue $(KeyFrom) {Bind,$(NoTitle),$(!REG_VT_MULTI_SZ),$(FromBindList)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    SetRegValue $(KeyFrom) {Export,$(NoTitle),$(!REG_VT_MULTI_SZ),$(FromExportList)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    SetRegValue $(KeyFrom) {Route,$(NoTitle),$(!REG_VT_MULTI_SZ),$(FromRouteList)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    SetRegValue $(KeyTo) {Bind,$(NoTitle),$(!REG_VT_MULTI_SZ),$(ToBindList)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    SetRegValue $(KeyTo) {Export,$(NoTitle),$(!REG_VT_MULTI_SZ),$(ToExportList)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    SetRegValue $(KeyTo) {Route,$(NoTitle),$(!REG_VT_MULTI_SZ),$(ToRouteList)}
+    Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+        Set-add ErrorTotal = $(ErrorTotal),1
+    Endif
+    Debug-Output "UTILITY.INF: ToggleBinding; Registry update error total = "$(ErrorTotal)
+    Ifint $(ErrorTotal) != 0
+       Set Status = UNABLE_WRITE_REGISTRY
+    Else
+       Set Status = NO_ERROR
+    Endif
+TB_Return = +
+    Ifstr(i) $(KeyFrom) != $(KeyNull)
+    

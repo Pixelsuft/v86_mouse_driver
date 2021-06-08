@@ -1,0 +1,91 @@
+InstallStatus = $($R0)
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NETBOND.INF: INF "$(ThisInfName)" SHELL ERROR!"
+            Set NetInstallStatus = $($ShellCode)
+        Endif
+        set lInfStatus = >($(lInfStatus), $(NetInstallStatus) )
+        Ifstr(i) $(NetInstallStatus) == STATUS_SUCCESSFUL
+            Set fRunCopy = TRUE
+        Endif
+        Ifstr(i) $(NetInstallStatus) == STATUS_REBIND
+            Set fRunCopy = TRUE
+        Endif
+        Ifstr(i) $(NetInstallStatus) == STATUS_NO_EFFECT
+            Set fRunCopy = TRUE
+        Endif
+        Ifstr(i) $(NetInstallStatus) == STATUS_REBOOT
+            Set fRunCopy = TRUE
+        Endif
+skipthisinf = +
+   EndForListDo
+   ifstr(i) $(fRunCopy) == TRUE
+       Install InstallNetFiles
+       ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell "" SetStatusInReg NO "COPY:"$(STF_INSTALL_OUTCOME)":"$(lInfStatus)
+           goto netcopyescape
+       endif
+   endif
+netruninfescape = +
+   Ifint $(BillboardVisible) != 0
+       Shell "subroutn.inf" PopBillboard
+       Set BillboardVisible = 0
+   Endif
+   Shell "" SetStatusInReg NO "INSTALL:STATUS_SUCCESSFUL:"$(lInfStatus)
+netcopyescape = +
+   ifstr(i) $(!NTN_InstallMode) == "Update"
+       set !NTN_InstallMode = $(OldInstallMode)
+   endif
+   return STATUS_SUCCESSFUL
+[RemoveNetComponents]
+    set UtilityInf = "Utility.inf"
+    set NcParamInf = "NCPARAM.INF"
+    set !STF_NETCANCELOVERIDE = "YES"
+    set !STF_NETDELETEOVERIDE = "YES"
+    Debug-Output "The Glue That Keeps Us Installing"
+    Debug-Output "NetBond.INF: INFs to be run: "$(!NTN_InfsToBeRun)
+    Debug-Output "NetBond.INF: Options to install: "$(!NTN_OptionsToBeRun)
+    Debug-Output "NetBond.INF: Billboards to be shown: "$(!NTN_TextToBeShown)
+    Debug-Output "NetBond.INF: RegBases to pass: "$(!NTN_RegBases)
+    Shell "" SetStatusInReg YES ""
+    Set lInfStatus = {}
+    read-syms MessageText$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_NOTIFY_HWND) != ""
+        read-syms NotifySyms    
+        QueryListSize cInfsToBeRun $(!NTN_InfsToBeRun)
+        LibraryProcedure STATUS, $(!NCPA_HANDLE), SendProgressMessage, $(!PWM_SETPROGRESSSIZE), $(!NTN_NOTIFY_HWND), "D", $(!PGI_REMOVE), "D", $(cInfsToBeRun)
+        LibraryProcedure STATUS, $(!NCPA_HANDLE), SendProgressMessage, $(!PWM_SETPROGRESSTEXT), $(!NTN_NOTIFY_HWND), "D", $(!PGI_REMOVE), "D", "-1"
+    endif    
+    set !NTN_InstallMode = deinstall
+    ForListDo $(!NTN_InfsToBeRun)
+        Set ThisInfName = $($)
+        Debug-Output "NETBOND.INF: Removing "$(ThisInfName)
+        ifstr(i) $(!NTN_NOTIFY_HWND) == ""
+            Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(MPreRemove1)*($(!NTN_TextToBeShown),$(#))$(MPreRemove2)
+            Set BillboardVisible = 1
+        else
+            LibraryProcedure STATUS, $(!NCPA_HANDLE), SendProgressMessage, $(!PWM_SETPROGRESSTEXT), $(!NTN_NOTIFY_HWND), "D", $(!PGI_REMOVE), "A", *($(!NTN_TextToBeShown),$(#))
+        endif
+        Set InfOption = *($(!NTN_OptionsToBeRun),$(#))
+        Set OemPath = $(!STF_SRCDIR)
+        Set !NTN_RegBase = *($(!NTN_RegBases),$(#))
+        Shell $(ThisInfName) InstallOption $(!STF_LANGUAGE) $(InfOption) $(OemPath) "YES" "NO" "NO"
+        ifstr(i) $(!NTN_NOTIFY_HWND) == ""
+            Set-title *($(!NTN_TextToBeShown),$(#))$(MPostRemove)
+        else
+            LibraryProcedure STATUS, $(!NCPA_HANDLE), SendProgressMessage, $(!PWM_SETPROGRESSPOS), $(!NTN_NOTIFY_HWND), "D", $(!PGI_REMOVE), "D", $(#)
+        endif
+        Set NetInstallStatus = $($R0)
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NETBOND.INF: INF "$(ThisInfName)" SHELL ERROR!"
+            Set NetInstallStatus = $($ShellCode)
+        Endif
+        set lInfStatus = >($(lInfStatus), $(NetInstallStatus) )
+   EndForListDo
+netruninfescape = +
+   Ifint $(BillboardVisible) != 0
+       Shell "subroutn.inf" PopBillboard
+       Set BillboardVisible = 0
+   Endif
+   Shell "" SetStatusInReg NO "REMOVE:STATUS_SUCCESSFUL:"$(lInfStatus)
+netcopyescape = +
+   r

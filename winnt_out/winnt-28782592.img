@@ -1,0 +1,99 @@
+ $(AdapterKey) $($)
+		 Ifstr(i) $($) == *($(PortName),4)
+			read-syms RemoveDefaultPort$(!STF_LANGUAGE)
+            Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(ErrorString)
+			Set DefaultPortRemoved = TRUE
+            goto finddefaultport
+        Endif
+	  EndIf
+   EndForListDo
+startconfig = +
+   Set DoConfig = 0
+   GetRegValue $(BindParmKey) "InitialInstall" DoConfig
+   Set IsInitialInstall = *($(DoConfig),4)
+   Set DoUnattended = 0
+   GetRegValue $(BindParmKey) "Unattended" DoUnattended
+   Set SFMUnattended = *($(DoUnattended),4)
+   Debug-Output "ATSETUP: SFMUnattended(start config)"$(SFMUnattended)
+   Debug-Output "Config State = "$(DoConfig)
+   Debug-Output "Unattend State = "$(DoUnattended)
+   ifint $(IsInitialInstall) == 1
+   	  goto startsvc
+   EndIf
+   ifstr(i) $(DefaultPortRemoved) == TRUE
+   	  goto startsvc
+   endif
+   ifstr(i) $(fAddingFirstAdapter) == TRUE
+   	  goto startsvc
+   endif
+   goto endbinding
+startsvc = +
+   Set FLibraryErrCtl = 1
+   read-syms StatusStartingAppleTalk$(!STF_LANGUAGE)
+   Shell $(SubInf) PushBillBoard NETSTATUSDLG $(Status)
+   StartWait
+   Set WaitStarted = 1
+   LibraryProcedure START_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), STARTSVC, AppleTalk
+   Shell $(SubInf) PopBillBoard
+   Set START_STATUS = *($(START_RESULT),1)
+   Debug-Output "OEMNXPSM.INF: Start AppleTalk; result was: "$(START_STATUS)
+   Ifint $(START_STATUS) != 0
+	  EndWait
+	  Set WaitStarted = 0
+	  LibraryProcedure START_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), ERRORMSG, $(START_STATUS)
+	  Set ATALK_ERROR_MESSAGE = *($(START_RESULT),2)
+	  read-syms CannotStartAtalk$(!STF_LANGUAGE)
+	  Set ErrorString  = $(ATALK_ERROR_MESSAGE)$(ErrorSuffix)
+	  Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(ErrorString)
+   Else
+	  LibraryProcedure START_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), STARTSVC, Afd
+	  Set START_STATUS = *($(START_RESULT),1)
+	  Debug-Output "OEMNXPSM.INF: Start Afd result was: "$(START_STATUS)
+	  Ifint $(START_STATUS) != 0
+		 EndWait
+		 Set WaitStarted = 0
+		 LibraryProcedure START_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), ERRORMSG, $(START_STATUS)
+		 Set ATALK_ERROR_MESSAGE = *($(START_RESULT),2)
+		 read-syms CannotStartAfd$(!STF_LANGUAGE)
+		 Set ErrorString  = $(ATALK_ERROR_MESSAGE)$(ErrorSuffix)
+		 Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(ErrorString)
+		 goto endbinding
+	  EndIf
+	  LibraryProcedure START_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), STARTSVC, +NDIS
+	  Set START_STATUS = *($(START_RESULT),1)
+	  Debug-Output "OEMNXPSM.INF: Start +NDIS result was: "$(START_STATUS)
+	  Ifint $(START_STATUS) != 0
+		 EndWait
+		 Set WaitStarted = 0
+		 LibraryProcedure START_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), ERRORMSG, $(START_STATUS)
+		 Set ATALK_ERROR_MESSAGE = *($(START_RESULT),2)
+		 read-syms CannotStartAtalk$(!STF_LANGUAGE)
+		 Set ErrorString  = $(ATALK_ERROR_MESSAGE)$(ErrorSuffix)
+		 Shell $(SubInf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(ErrorString)
+		 goto endbinding
+	  EndIf
+	  LoadLibrary "x" $(!STF_CWDDIR)sfmatcfg.dll ATHANDLE
+	  Set FLibraryErrCtl = 1
+	  Set atcfgresult = ""
+      Debug-Output "ATSETUP: SFMUnattended(1)"$(SFMUnattended)
+      LibraryProcedure atcfgresult, $(ATHANDLE),EnterAtalkConfigDLL $(!STF_HWND) $(IsInitialInstall) $(SFMUnattended)
+	  FreeLibrary $(ATHANDLE)
+	  SetRegValue $(BindParmKey) {InitialInstall,0,$(!REG_VT_DWORD),0}
+      SetRegValue $(BindParmKey) {Unattended,0,$(!REG_VT_DWORD),0}
+	  EndWait
+   EndIf
+endbinding = +
+   CloseRegKey $(BindParmKey)
+   goto end
+ConfigureAdmin = +
+   Ifstr(i) $(Option) == "SFMADM"
+	  read-syms CantConfigureADM$(!STF_LANGUAGE)
+	  Shell $(SubInf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL",$(ErrorString)
+   	  goto successful
+   EndIf
+   OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\AppleTalk\Linkage" $(!ACCESS) LinkageKey
+   ifstr(i) $(LinkageKey) != $(!KeyNull)
+	  GetRegValue $(LinkageKey) "Bind" BindList
+      ifstr(i) $(BindList) == ""
+		 read-syms AtalkString3$(!STF_LANGUAGE)
+    

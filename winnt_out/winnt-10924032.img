@@ -1,0 +1,102 @@
+me), $(KeyWinsock)
+    Set FLibraryErrCtl = 0
+    Set AW_MapError = *($(MW_MapResult),1)
+    Ifint $(AW_MapError) != 0
+        Debug-Output "UTILITY.INF: [UpdateWinsockMappings] WINSOCKMAP returned "$(AW_MapError)
+        Set RegistryErrorIndex = UNABLE_ACCESS_WINSOCK_MAP_INFO
+        Goto M_W_Return
+    Endif
+M_W_Return = +
+    Ifstr $(KeyWinsock) != $(KeyNull)
+        CloseRegKey $(KeyWinsock)
+    Endif
+    Return $(RegistryErrorIndex)
+[AddWinsockInfo]
+    read-syms InitBaseVars
+    Set AW_NameOfService = $($0)
+    Set AW_DLLName       = $($1)
+    Set AW_MaxAddrLgt    = $($2)
+    Set AW_MinAddrLgt    = $($3)
+    Set AW_KeyServices   = $(KeyNull)
+    Set AW_KeyParameters = $(KeyNull)
+    Set AW_KeySockets    = $(KeyNull)
+    Shell "", AddAFD
+    Set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) == NO_ERROR
+        Shell "", BaseServiceKey
+        Set RegistryErrorIndex = $($R0)
+    Endif
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       Goto A_W_Return
+    endif
+    Set AW_KeyServices = $($R1)
+    OpenRegKey $(AW_KeyServices) "" $(AW_NameOfService)"\Parameters" $(MAXIMUM_ALLOWED) AW_KeyParameters
+    Ifstr(i) $(AW_KeyParameters) == $(KeyNull)
+       Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       Goto A_W_Return
+    Endif
+    OpenRegKey $(AW_KeyParameters) "" "Winsock" $(MAXIMUM_ALLOWED) AW_KeySockets
+    Ifstr(i) $(AW_KeySockets) == $(KeyNull)
+        CreateRegKey $(AW_KeyParameters) {Winsock,$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" AW_KeySockets
+    Endif
+    Ifstr(i) $(AW_KeySockets) == $(KeyNull)
+       Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       Goto A_W_Return
+    Endif
+    Set AW_ValueList = {{HelperDllName    ,$(NoTitle),$(!REG_VT_EXPAND_SZ),$(AW_DLLName)},+
+                        {MaxSockAddrLength,$(NoTitle),$(!REG_VT_DWORD),$(AW_MaxAddrLgt)},+
+                        {MinSockAddrLength,$(NoTitle),$(!REG_VT_DWORD),$(AW_MinAddrLgt)}}
+    Shell "", AddValueList, $(AW_KeySockets), $(AW_ValueList)
+    Set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+        Debug-Output "UTILITY.INF: [AddWinsockInfo] Registry error: Add value list"
+    Endif
+    Set FLibraryErrCtl = 1
+    LibraryProcedure AW_MapResult $(!NCPA_HANDLE), CPlSetup, $(!STF_HWND), WINSOCKMAP, $(AW_DLLName), $(AW_KeySockets)
+    Set FLibraryErrCtl = 0
+    Set AW_MapError = *($(AW_MapResult),1)
+    Ifint $(AW_MapError) != 0
+        Debug-Output "UTILITY.INF: [AddWinsockInfo] WINSOCKMAP returned "$(AW_MapError)
+        Set RegistryErrorIndex = UNABLE_ACCESS_WINSOCK_MAP_INFO
+        Goto A_W_Return
+    Endif
+    Shell "" UpdateWinsockService $(AW_NameOfService) TRUE
+    Set RegistryErrorIndex = $($R0)
+A_W_Return = +
+    Ifstr $(AW_KeySockets) != $(KeyNull)
+        CloseRegKey $(AW_KeySockets)
+    Endif
+    Ifstr $(AW_KeyParameters) != $(KeyNull)
+        CloseRegKey $(AW_KeyParameters)
+    Endif
+    Ifstr $(AW_KeyServices) != $(KeyNull)
+        CloseRegKey $(AW_KeyServices)
+    Endif
+    Return $(RegistryErrorIndex)
+[RemoveWinsockInfo]
+    read-syms InitBaseVars
+    Set RW_NameOfService = $($0)
+    Set RW_KeyServices   = $(KeyNull)
+    Set RW_KeySockets    = $(KeyNull)
+    Shell "", BaseServiceKey
+    Set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+       Set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+       Goto R_W_Return
+    endif
+    Set RW_KeyServices = $($R1)
+    OpenRegKey $(RW_KeyServices) "" $(RW_NameOfService)"\Parameters" $(MAXIMUM_ALLOWED) RW_KeySockets
+    Ifstr(i) $(RW_KeySockets) == $(KeyNull)
+       Set RegistryErrorIndex = NO_ERROR
+    else
+       DeleteRegTree $(RW_KeySockets) "Winsock"
+    Endif
+    Shell "" UpdateWinsockService $(RW_NameOfService) FALSE
+    Set RegistryErrorIndex = $($R0)
+R_W_Return = +
+    Ifstr $(RW_KeySockets) != $(KeyNull)
+        CloseRegKey $(RW_KeySockets)
+    Endif
+    Ifstr $(RW_KeyServices) != $(KeyNull)
+        Cl

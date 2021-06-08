@@ -1,0 +1,150 @@
+
+; Display.inf (for SUR)
+;
+; List of supported displays, manufacturers
+;
+
+[Version]
+Signature="$CHICAGO$"
+Provider=%MS%
+LayoutFile=layout.inf
+ClassGUID={4D36E968-E325-11CE-BFC1-08002BE10318}
+Class=Display
+
+[DestinationDirs]
+DefaultDestDir       = 11                     system32
+;%67890%.Miniport         = 12
+;%67890%.Display          = 11
+
+detect.Miniport      = 12
+detect.Display       = 11
+
+8514a.Miniport       = 12
+8514a.Display        = 11
+ati.Miniport         = 12
+ati.Display          = 11
+cirrus.Miniport      = 12
+cirrus.Display       = 11
+dell_dgx.Miniport    = 12
+dell_dgx.Display     = 11
+et4000.Miniport      = 12
+et4000.Display       = 11
+jazzg300.Miniport    = 12
+jazzg300.Display     = 11
+jazzg364.Miniport    = 12
+jazzg364.Display     = 11
+jzvxl484.Miniport    = 12
+jzvxl484.Display     = 11
+mga.Miniport         = 12
+mga.Display          = 11
+mga_mil.Miniport     = 12
+mga_mil.Display      = 11
+ncr77c22.Miniport    = 12
+ncr77c22.Display     = 11
+psidisp.Miniport     = 12
+psidisp.Display      = 11
+qv.Miniport          = 12
+qv.Display           = 11
+s3.Miniport          = 12
+s3.Display           = 11
+tga.Miniport         = 12
+tga.Display          = 11
+trident.Miniport     = 12
+trident.Display      = 11
+v7vram.Miniport      = 12
+v7vram.Display       = 11
+vga.Miniport         = 12
+vga.Display          = 11
+wd90c24a.Miniport    = 12
+wd90c24a.Display     = 11
+wdvga.Miniport       = 12
+wdvga.Display        = 11
+weitekp9.Miniport    = 12
+weitekp9.Display     = 11
+xga.Miniport         = 12
+xga.Display          = 11
+
+
+;
+; The Manufacturer section lists all of the manufacturers that we will
+; display in the Dialog box
+;
+
+[Manufacturer]
+%Std%         = Std.Mfg
+%Actix%       = Actix.Mfg
+%Ati%         = Ati.Mfg
+%Cardex%      = Cardex.Mfg
+%Cirrus%      = Cirrus.Mfg
+%Compaq%      = Compaq.Mfg
+%Dell%        = Dell.Mfg
+%Diamond%     = Diamond.Mfg
+%Digital%     = Digital.Mfg
+%Elsa%        = Elsa.Mfg
+%FirePower%   = FirePower.Mfg
+%Genoa%       = Genoa.Mfg
+%Hercules%    = Hercules.Mfg
+%IBM%         = IBM.Mfg
+%LeadTek%     = LeadTek.Mfg
+%Matrox%      = Matrox.Mfg
+%MediaVision% = MediaVision.Mfg
+%Metheus%     = Metheus.Mfg
+%Micronics%   = Micronics.Mfg
+%Mips%        = Mips.Mfg
+%Miro%        = Miro.Mfg
+%Motorola%    = Motorola.Mfg
+%NCR%         = NCR.Mfg
+%NEC%         = NEC.Mfg
+%#9%          = #9.Mfg
+%Orchid%      = Orchid.Mfg
+%Paradise%    = Paradise.Mfg
+%ProLink%     = ProLink.Mfg
+%S3%          = S3.Mfg
+%Siemens%     = Siemens.Mfg
+%SixGraph%    = SixGraph.Mfg
+%STB%         = STB.Mfg
+%Trident%     = Trident.Mfg
+%Tseng%       = Tseng.Mfg
+%V7%          = V7.Mfg
+%WD%          = WD.Mfg
+%Weitek%      = Weitek.Mfg
+
+;
+; Model sections. Each section here corresponds with an entry listed in the
+; [Manufacturer] section, above. The models will be displayed in the order
+; that they appear in the INF file.
+;
+; Each model lists a variation of its own name as a compatible ID. This
+; is done primarily as an optimization during upgrade.
+;
+
+
+[Std.Mfg]
+ %vgacompat%                                   = vga
+
+[Actix.Mfg]
+ %Actix% Graphics Engine                       = s3
+ %Actix% Graphics Engine 32 plus               = s3
+ %Actix% Graphics Engine 32 VLB                = s3
+
+
+
+
+
+[Ati.Mfg]
+
+
+ %Ati% %CompatAdap%                            = ati, ATI_COMPAT
+ %Ati% 8514 ULTRA                              = ati
+ %Ati% GRAPHICS PRO TURBO ISA                  = ati
+ %Ati% GRAPHICS PRO TURBO PCI                  = ati
+ %Ati% GRAPHICS PRO TURBO VLB                  = ati
+ %Ati% GRAPHICS PRO TURBO 1600 PCI             = ati
+ %Ati% GRAPHICS ULTRA                          = ati
+ %Ati% GRAPHICS ULTRA PLUS                     = ati
+ %Ati% GRAPHICS ULTRA PRO ISA                  = ati
+ %Ati% GRAPHICS ULTRA PRO EISA                 = ati
+ %Ati% GRAPHICS ULTRA PRO MCA                  = ati
+ %Ati% GRAPHICS ULTRA PRO PCI                  = ati
+ %Ati% GRAPHICS ULTRA PRO VLB                  = ati
+ %Ati% GRAPHICS VANTAGE           

@@ -1,0 +1,112 @@
+fstr(i) $($R0) == STATUS_FAILED
+        set Status = STATUS_FAILED
+        goto finish_GetOEMOption
+    else-ifstr(i) $($R0) == STATUS_USERCANCEL
+        set Status = STATUS_USERCANCEL
+        goto finish_GetOEMOption
+    endif
+    set OptionChosen     = $($R1)
+    set OptionChosenText = $($R2)
+    set Duplicate = FALSE
+    ForListDo $($1)
+        ifstr(i) *($($), 2) == $(OemList)
+            set OemFileName = *($($), 1)
+            set Duplicate = TRUE
+            FlushInf $(OemFileName)
+            goto copyinf
+        endif
+    EndForListDo
+    set Num = 0
+nextinf = +
+    ifint $(Num) < 99
+        set OemFileName = "oem"$(Abb)$(Num)".inf"
+        set FileToCheck = $(!STF_WINDOWSSYSPATH)"\"$(OemFileName)
+        install Install-SeeIfFileIsPresent
+        ifstr(i) $(STATUS) == "YES"
+            set-add Num = $(Num) 1
+            goto nextinf
+        else
+            goto copyinf
+        endif
+    endif
+    goto finish_GetOEMOption
+copyinf = +
+    set OemSrc = $(OemSetupFilePath)
+    set OemDst = $(!STF_WINDOWSSYSPATH)"\"$(OemFileName)
+    install Install-OemINF
+    ifstr(i) $(Duplicate) == TRUE
+    else
+        set NewOemOptionList = >($(NewOemOptionList), {$(OemFileName), $(OemList), $(OemTextList)})
+    endif
+    set Status = STATUS_SUCCESSFUL
+finish_GetOEMOption = +
+    FlushInf $(InfName)
+    Return $(Status) $(NewOemOptionList) $(OptionChosen) $(OptionChosenText) $(OptDisketteSrc)
+[GetNewOEMMultiOption]
+    Debug-Output $(STF_CONTEXTINFNAME)": GetNewOEMMultiOption called"
+    set Status            = STATUS_FAILED
+    set OptionType        = ""
+    set OptionTypeList    = $($2)
+    set OptDisketteSrc    = $($3)
+    set OptionalDlgText   = $($4)
+    set InfName1          = "OEMSETUP.INF"
+    set InfName2          = "OEMSETNT.INF"
+    read-syms OptionDisketteMulti$($0)
+    Set TypeNames = ^(Options,0)
+    Set TypeAbbs  = ^(Options,1)
+    set NewOemOptionList  = $($1)
+    set OptionChosen      = ""
+    set OptionChosenText  = ""
+m_ask_dodiskette = +
+    Debug-Output $(STF_CONTEXTINFNAME)": GetNewOEMMultiOption shelling DoDiskette"
+    set InfName = $(InfName1)
+    shell "" DoDiskette $($0) $(OptDiskette) $(OptDisketteSrc)
+    set Status = STATUS_FAILED
+    ifstr(i) $($R0) == STATUS_USERCANCEL
+        set Status = STATUS_USERCANCEL
+        goto m_finish_GetOEMOption
+    else-ifstr(i) $($R0) == STATUS_FAILED
+        goto m_finish_GetOEMOption
+    endif
+    set OptDisketteSrc = $($R1)
+m_ask_inf_retry = +
+    FlushInf $(InfName)
+    LibraryProcedure FileToCheck, $(!LIBHANDLE), AppendBackSlash $(OptDisketteSrc)
+    set FileToCheck = $(FileToCheck)$(InfName)
+    install Install-SeeIfFileIsPresent
+    set OemSetupFilePath = $(FileToCheck)
+    set NfError = 1
+    ifstr(i) $(STATUS) == YES
+        set NfError = 2
+        shell $(OemSetupFilePath) Identify
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            ifcontains(i) $($R1) in $(OptionTypeList)
+                Set OptionType = $($R1)
+                ForListDo $(!STF_BUSTYPELIST)
+                    shell $(OemSetupFilePath) ReturnOptions $($0) $($)
+                    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                         set OemList     = $($R1)
+                         set OemTextList = $($R2)
+                         goto m_asksingleselection
+                    endif
+                EndForListDo
+            endif
+        endif
+    endif
+    ifstr(i) $(InfName) == $(InfName1)
+        Set InfName = $(InfName2)
+        goto m_ask_inf_retry
+    endif
+    read-syms NonFatalError$(NfError)$($0)
+    shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(NonFatal)
+    goto m_ask_dodiskette
+m_asksingleselection = +
+    shell "" DoSingleOption $(OemList) $(OemTextList) $(OptDiskette) $(OptionalDlgText)
+    ifstr(i) $($R0) == STATUS_FAILED
+        set Status = STATUS_FAILED
+        goto m_finish_GetOEMOption
+    else-ifstr(i) $($R0) == STATUS_USERCANCEL
+        set Status = STATUS_USERCANCEL
+        goto m_finish_GetOEMOption
+    endif
+    set OptionChosen     

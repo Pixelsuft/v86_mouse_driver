@@ -1,0 +1,103 @@
+ErrorIndex = $($R1)
+      Set RetStatus = $($R0)
+      goto return
+   EndIf
+   set PortName            = $($0)"@"$(!STF_COMPUTERNAME)
+   set ZoneList            = {""}
+   set AarpRetries         = 10
+   set DefaultZone         = ""
+   set NewValueList = +
+			{{"AarpRetries",0,$(!REG_VT_DWORD),$(AarpRetries)}, +
+            {"DefaultZone", 0,$(!REG_VT_SZ),$(DefaultZone)},+
+            {"NetworkRangeUpperEnd",0,$(!REG_VT_DWORD),0 },+
+            {"NetworkRangeLowerEnd",0,$(!REG_VT_DWORD),0 },+
+            {"ZoneList",0,$(!REG_VT_MULTI_SZ),$(ZoneList)},+
+            {"SeedingNetwork", 0,$(!REG_VT_DWORD),0},+
+            {"DdpCheckSums", 0,$(!REG_VT_DWORD),0},+
+            {"PortName",0,$(!REG_VT_SZ),$(PortName)}}
+   Shell  $(UtilInf),AddValueList, $(TempKeyAdapters), $(NewValueList)
+   set RegistryErrorIndex = $($R0)
+   Ifstr $(RegistryErrorIndex) != NO_ERROR
+	  CloseRegKey $(TmpKeyAdapters)
+      Set RetStatus = STATUS_FAILED
+   EndIf
+return = +
+   Return $(RetStatus) $(RegistryErrorIndex)
+[RemoveAdminFiles]
+   Set Status = STATUS_SUCCESSFUL
+   Set RemoveList = {}
+   Set DelOnRebootList = {}
+   Set Mode = $($0)
+   ifstr(i) $(Option) == "SFMADM"
+	  Set RemoveList = >($(RemoveList), #(Files-RemoveList, AFPSVCAPI, 1))
+	  Set RemoveList = >($(RemoveList), #(Files-RemoveList, AFPSVCMGR, 1))
+	  Set RemoveList = >($(RemoveList), #(Files-RemoveList, SFMHELP, 1))
+   EndIf
+   ifstr(i) $(Option) == "ATALK"
+	  Set RemoveList = >($(RemoveList), #(Files-RemoveList, ATCONFIG, 1))
+	  Set RemoveList = >($(RemoveList), #(Files-RemoveList, ATMSG, 1))
+	  Set RemoveList = >($(RemoveList), #(Files-RemoveList, ATWSOCK, 1))
+	  Set RemoveList = >($(RemoveList), #(Files-RemoveList, ATDRIVER, 1))
+      Set RemoveList = >($(RemoveList), #(Files-RemoveList, ATKCTRSDLL, 1))
+      Set RemoveList = >($(RemoveList), #(Files-RemoveList, ATKCTRNMH, 1))
+      Set RemoveList = >($(RemoveList), #(Files-RemoveList, ATKCTRSINI, 1))
+   EndIf
+   ForListDo $(RemoveList)
+	  Set DelStatus = ""
+      Debug-Output "Deleting File "$($)
+      Set FLibraryErrCtl = 1
+      Ifstr(i) $(Mode) == "REMOVE"
+		 LibraryProcedure DelStatus $(!UTILHANDLE), DelFile $($)
+         ifstr(i) $(DelStatus) == "FAILED"
+			Set DelOnRebootList = >($(DelOnRebootList), $($))
+         EndIf
+	  else
+		 LibraryProcedure DelStatus $(!LIBHANDLE), DelFile $($)
+      EndIf
+      Set FLibraryErrCtl = 0
+   EndForListDo
+   ForListDo $(DelOnRebootList)
+	  Ifstr(i) $(Mode) == "REMOVE"
+		 Debug-Output "File to remove on reboot = "$($)
+         AddFileToDeleteList $($)
+	  else
+		 Set FLibraryErrCtl  = 1
+         LibraryProcedure DelStatus $(!LIBHANDLE), DelFile $($)
+         Set FLibraryErrCtl  = 0
+	  EndIf
+   EndForListDo
+   Return $(Status)
+[Install-Update]
+   set STF_VITAL = ""
+   AddSectionFilesToCopyList Files-MISC $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   Ifstr(i) $(Option) == "ATALK"
+	  AddSectionFilesToCopyList Files-ATALK $(SrcDir) $(!STF_WINDOWSSYSPATH)
+	  AddSectionFilesToCopyList Files-ATALKDRIVER $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   EndIf
+   Ifstr(i) $(Option) == "SFMADM"
+	  AddSectionFilesToCopyList Files-ADMTOOLS $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   EndIf
+   CopyFilesInCopyList
+   Exit
+[Install-Initial]
+   set STF_VITAL = ""
+   AddSectionFilesToCopyList Files-MISC $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   Ifstr(i) $(Option) == "ATALK"
+	  AddSectionFilesToCopyList Files-ATALK $(SrcDir) $(!STF_WINDOWSSYSPATH)
+	  AddSectionFilesToCopyList Files-ATALKDRIVER $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   EndIf
+   Ifstr(i) $(Option) == "SFMADM"
+	  AddSectionFilesToCopyList Files-ADMTOOLS $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   EndIf
+   CopyFilesInCopyList
+   Exit
+[AddPrintMonitor]
+      Set Mode = $($0)
+      Set AddMonStatus = ""
+      Set FLibraryErrCtl = 1
+      LibraryProcedure AddMonStatus $(!UTILHANDLE) SfmAddPrintMonitor $(!AtalkMonName)
+      Set FLibraryErrCtl = 0
+      ifstr(i) $(AddMonStatus) == "FAILED"
+         ifstr(i) $(Mode) == install
+             read-syms AtalkString4$(!STF_LANGUAGE)
+         
