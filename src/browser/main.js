@@ -329,7 +329,7 @@ var index_path = -1;
 
             "boot_order": settings.boot_order || parseInt($("boot_order").value, 16) || 0,
 
-            "network_relay_url": ON_LOCALHOST ? "ws://localhost:8080/" : networking_proxy,
+            "network_relay_url": "wss://relay.widgetry.org/",
 
             "bios": bios,
             "vga_bios": vga_bios,
